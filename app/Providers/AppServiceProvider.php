@@ -31,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
         ImageManagerStatic::configure(['driver' => 'imagick']);
         
         if (config('app.env') == 'local') {
-            Mail::alwaysTo('alinsky.dmitry@gmail.com');
+            Mail::alwaysTo('admin@local.host');
         }
 
         $basePath = base_path();

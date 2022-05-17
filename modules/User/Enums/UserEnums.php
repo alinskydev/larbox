@@ -10,8 +10,8 @@ class UserEnums
             'admin' => [
                 'label' => __('enums.user.role.admin'),
             ],
-            'agent' => [
-                'label' => __('enums.user.role.agent'),
+            'registered' => [
+                'label' => __('enums.user.role.registered'),
             ],
         ];
     }

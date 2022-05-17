@@ -13,7 +13,7 @@ class ExportTestsForPostman extends Command
      *
      * @var string
      */
-    protected $signature = 'sr:export_tests_for_postman';
+    protected $signature = 'larbox:export_tests_for_postman';
 
     /**
      * The console command description.
@@ -31,7 +31,7 @@ class ExportTestsForPostman extends Command
     {
         //  Checking folder existance
 
-        $path = base_path('sr/tests');
+        $path = base_path('storage/larbox/tests');
 
         if (!is_dir($path)) {
             return $this->error("'$path' doesn't exists");

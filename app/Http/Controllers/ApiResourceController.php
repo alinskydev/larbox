@@ -55,8 +55,7 @@ class ApiResourceController extends Controller
     protected function save(ActiveFormRequest $request, int $status)
     {
         $request->model->fill($request->validated())->save();
-        $request->model->refresh();
-
+        
         $data = $this->resourceClass::make($request->model->withoutRelations());
 
         return response()->json($data, $status);

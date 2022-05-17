@@ -7,18 +7,18 @@ use Illuminate\Support\Arr;
 
 $headers = getallheaders();
 
-switch (Arr::get($headers, 'API-Type')) {
-    case 'admin':
-        $databaseName = 'bm_electronics_admin';
-        break;
-    case 'public':
-        $databaseName = 'bm_electronics_public';
-        break;
-    default:
-        die('API-Type not set or has wrong value');
-}
+//switch (Arr::get($headers, 'API-Type')) {
+//    case 'admin':
+//        $databaseName = 'larbox_admin';
+//        break;
+//    case 'public':
+//        $databaseName = 'larbox_public';
+//        break;
+//    default:
+//        die('API-Type not set or has wrong value');
+//}
 
-// $databaseName = 'bm_electronics';
+$databaseName = 'larbox';
 
 return [
 
@@ -87,8 +87,8 @@ return [
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '5432'),
             'database' => env('DB_DATABASE', $databaseName),
-            'username' => env('DB_USERNAME', 'bm_electronics'),
-            'password' => env('DB_PASSWORD', 'dD3mJ1tL6diR3h'),
+            'username' => env('DB_USERNAME', 'larbox'),
+            'password' => env('DB_PASSWORD', ''),
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,

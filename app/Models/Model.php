@@ -13,6 +13,25 @@ class Model extends BaseModel
     const RELATION_TYPE_MANY_MANY = 'relationTypeManyMany';
 
     public array $fillableRelations = [];
+    
+    public function __construct(array $attributes = [])
+    {
+        //    Common guarded fields
+        
+        $commonGuardedFields = [
+            'id',
+            'created_at',
+            'updated_at',
+            'deleted_at',
+        ];
+        
+        $guarded = array_merge($commonGuardedFields, $this->getGuarded());
+        $guarded = array_unique($guarded);
+        
+        $this->guard($guarded);
+        
+        return parent::__construct($attributes);
+    }
 
     protected static function boot()
     {
@@ -24,6 +43,19 @@ class Model extends BaseModel
             foreach ($model->fillableRelations as $relationType => $relations) {
                 foreach ($relations as $relation => $value) {
                     switch ($relationType) {
+                        case self::RELATION_TYPE_ONE_ONE:
+                            if ($relatedModel = $model->$relation) {
+                                $relatedModel->fill($value)->save();
+                            } else {
+                                $related = $model->$relation()->getRelated();
+                                $primaryKey = $related->getKeyName();
+                                
+                                $related->$primaryKey = $model->id;
+                                $related->fill($value)->save();
+                            }
+                            
+                            break;
+                            
                         case self::RELATION_TYPE_ONE_MANY:
                             $value = array_values((array)$value);
                             $ids = Arr::pluck($value, 'id');

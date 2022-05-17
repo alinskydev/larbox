@@ -13,7 +13,7 @@ class ParseAndroidLocalizationMessages extends Command
      *
      * @var string
      */
-    protected $signature = 'sr:parse_android_localization_messages';
+    protected $signature = 'larbox:parse_android_localization_messages';
 
     /**
      * The console command description.
@@ -31,7 +31,7 @@ class ParseAndroidLocalizationMessages extends Command
     {
         //  Checking folder existance
 
-        $path = base_path('sr/localization');
+        $path = base_path('storage/larbox/localization');
 
         if (!is_dir($path)) {
             return $this->error("'$path' doesn't exists");

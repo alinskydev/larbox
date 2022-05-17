@@ -36,6 +36,11 @@ class ActiveFormRequest extends FormRequest
         $this->model = $this->route($routeName) ?: $this->model;
 
         $attributes = $this->model->attributesToArray();
+        
+        foreach ($this->model->getRelations() as $relationName => $relationModel) {
+            $attributes[$relationName] = $relationModel->attributesToArray();
+        }
+        
         Arr::forget($attributes, $this->ignoredModelFields);
 
         $this->mergeIfMissing($attributes);

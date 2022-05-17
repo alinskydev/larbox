@@ -8,10 +8,11 @@ use Illuminate\Support\Arr;
 class SystemLanguage extends Model
 {
     protected $table = 'system_language';
-
-    protected $fillable = [
-        'name',
-        'image',
+    
+    protected $guarded = [
+        'code',
+        'is_active',
+        'is_main',
     ];
 
     protected static function boot()

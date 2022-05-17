@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'BM electronics'),
+    'name' => env('APP_NAME', 'Larbox'),
 
     /*
     |--------------------------------------------------------------------------
@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://bm-electronics.loc'),
+    'url' => env('APP_URL', 'http://larbox.loc'),
 
     'asset_url' => env('ASSET_URL'),
 

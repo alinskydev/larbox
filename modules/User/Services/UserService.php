@@ -5,24 +5,11 @@ namespace Modules\User\Services;
 use App\Services\ActiveService;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
-use Modules\User\Mail\UserResetPasswordMail;
 use Illuminate\Support\Facades\Hash;
-use Modules\Region\Models\RegionCity;
+use Modules\User\Mail\UserResetPasswordMail;
 
 class UserService extends ActiveService
 {
-    public function availableCities()
-    {
-        $cities = $this->model->cities->pluck('id')->toArray();
-
-        if (!$cities) {
-            $regions = $this->model->regions->pluck('id')->toArray();
-            $cities = RegionCity::query()->whereIn('region_id', $regions)->get()->pluck('id')->toArray();
-        }
-
-        return $cities;
-    }
-
     public function sendResetPasswordCode()
     {
         $reset_password_code = Str::random(8);

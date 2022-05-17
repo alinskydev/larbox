@@ -8,11 +8,15 @@ use Modules\User\Enums\UserEnums;
 
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
-use App\Rules\ExistsSoftDeleteRule;
 use App\Helpers\FormRequestHelper;
+use App\Helpers\FileHelper;
 
 class UserRequest extends ActiveFormRequest
 {
+    protected array $ignoredModelFields = [
+        'profile.image',
+    ];
+    
     public function __construct()
     {
         return parent::__construct(
@@ -35,40 +39,21 @@ class UserRequest extends ActiveFormRequest
                 'max:100',
                 Rule::unique($this->model->getTable())->ignore($this->model->id),
             ],
+            'role' => [
+                'required',
+                Rule::in(array_keys(UserEnums::roles())),
+                Rule::prohibitedIf($this->model->id == 1 && $this->role != 'admin'),
+            ],
             'new_password' => [
                 Rule::requiredIf(!$this->model->exists),
                 'string',
                 'min:8',
                 'max:100',
             ],
-            'full_name' => 'required|string|max:100',
-            'phone' => 'nullable|string|max:100',
-            'role' => [
-                'required',
-                Rule::in(array_keys(UserEnums::roles())),
-                Rule::prohibitedIf($this->model->id == 1 && $this->role != 'admin'),
-            ],
-
-            'regions' => [
-                'array',
-                new ExistsSoftDeleteRule($this->model, 'region'),
-            ],
-            'cities' => [
-                'array',
-                new ExistsSoftDeleteRule($this->model, 'region_city'),
-            ],
-        ];
-    }
-
-    protected  function passedValidation()
-    {
-        parent::passedValidation();
-
-        $this->model->fillableRelations = [
-            $this->model::RELATION_TYPE_MANY_MANY => [
-                'regions' => $this->regions,
-                'cities' => $this->cities,
-            ],
+            
+            'profile.full_name' => 'required|string|max:100',
+            'profile.phone' => 'nullable|string|max:100',
+            'profile.image' => 'nullable|file|max:1024|mimes:jpg,png,webp',
         ];
     }
 
@@ -77,15 +62,23 @@ class UserRequest extends ActiveFormRequest
         $data = parent::validated($key, $default);
 
         if ($this->new_password) $data['password'] = Hash::make($this->new_password);
+            echo '<pre>';
+            print_r($this->files);
+            echo '</pre>';
+            die;
+
+        if ($profileFiles = $this->files->get('profile')) {
+            if (isset($profileFiles['image'])) {
+                $data['profile']['image'] = FileHelper::upload($profileFiles['image'], 'images');
+            }
+        }
+
+        $this->model->fillableRelations = [
+            $this->model::RELATION_TYPE_ONE_ONE => [
+                'profile' => $data['profile'],
+            ],
+        ];
 
         return $data;
-    }
-
-    public function attributes()
-    {
-        $attributes = parent::attributes();
-        $attributes['full_name'] = __('fields.user.full_name');
-
-        return $attributes;
     }
 }

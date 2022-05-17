@@ -22,7 +22,7 @@ return new class extends Seeder
             ],
             [
                 'name' => 'project_name',
-                'value' => 'BM Electronics',
+                'value' => 'Larbox',
             ],
         ]);
     }

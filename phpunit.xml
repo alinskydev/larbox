@@ -3,11 +3,12 @@
          xsi:noNamespaceSchemaLocation="./vendor/phpunit/phpunit/phpunit.xsd"
          bootstrap="vendor/autoload.php"
          colors="true"
+         stopOnFailure="true"
 >
     <testsuites>
         <testsuite name="Feature">
-            <directory suffix="Test.php">./tests/Feature/*</directory>
-            <!-- <directory suffix="Test.php">./tests/Feature/Public/Task/*</directory> -->
+<!--            <directory suffix="Test.php">./tests/Feature/*</directory>-->
+             <directory suffix="Test.php">./tests/Feature/Tests/Admin/User/*</directory> 
         </testsuite>
     </testsuites>
     <coverage processUncoveredFiles="true">

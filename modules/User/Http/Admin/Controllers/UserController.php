@@ -8,24 +8,15 @@ use Modules\User\Search\UserSearch;
 use Modules\User\Resources\UserResource;
 use Modules\User\Http\Admin\Requests\UserRequest;
 
-use Illuminate\Support\Arr;
-
 class UserController extends ApiResourceController
 {
     public function __construct()
     {
-        parent::__construct(
+        return parent::__construct(
             model: new User(),
             search: new UserSearch(),
             resourceClass: UserResource::class
         );
-
-        $showQuery = (array)request()->get('show');
-        $showQuery = Arr::flatten($showQuery);
-
-        if (in_array('messages_count', $showQuery)) {
-            $this->search->queryBuilder->withCount('messages');
-        }
     }
 
     public function store(UserRequest $request)

@@ -13,7 +13,7 @@ class ParseFormRequestFields extends Command
      *
      * @var string
      */
-    protected $signature = 'sr:parse_form_request_fields';
+    protected $signature = 'larbox:parse_form_request_fields';
 
     /**
      * The console command description.
@@ -31,7 +31,7 @@ class ParseFormRequestFields extends Command
     {
         //  Checking folder existance
 
-        $path = base_path('sr/localization');
+        $path = base_path('storage/larbox/localization');
 
         if (!is_dir($path)) {
             return $this->error("'$path' doesn't exists");

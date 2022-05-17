@@ -11,38 +11,10 @@ use App\Observers\CreatorIdFieldObserver;
 use App\Observers\IsActiveFieldObserver;
 
 use Modules\Product\Models\Product;
-use Modules\Product\Models\ProductBrand;
-use Modules\Report\Models\Report;
-use Modules\Shop\Models\Shop;
-use Modules\Shop\Models\ShopContact;
-use Modules\Shop\Models\ShopSupplier;
 
 class EventServiceProvider extends ServiceProvider
 {
-    protected $observers = [
-        Product::class => [
-            CreatorIdFieldObserver::class,
-            IsActiveFieldObserver::class,
-        ],
-        ProductBrand::class => [
-            CreatorIdFieldObserver::class,
-            IsActiveFieldObserver::class,
-        ],
-        Report::class => [
-            CreatorIdFieldObserver::class,
-        ],
-        Shop::class => [
-            IsActiveFieldObserver::class,
-        ],
-        ShopContact::class => [
-            CreatorIdFieldObserver::class,
-            IsActiveFieldObserver::class,
-        ],
-        ShopSupplier::class => [
-            CreatorIdFieldObserver::class,
-            IsActiveFieldObserver::class,
-        ],
-    ];
+    protected $observers = [];
 
     /**
      * Register any events for your application.

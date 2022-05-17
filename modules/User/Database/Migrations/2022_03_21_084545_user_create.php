@@ -23,8 +23,6 @@ return new class extends Migration
             $table->string('password', 100);
             $table->rememberToken();
             $table->string('reset_password_code', 100)->nullable();
-            $table->string('full_name', 100);
-            $table->string('phone', 100)->nullable();
             $table->enum('role', array_keys(UserEnums::roles()));
             $table->timestamp('created_at');
             $table->timestamp('updated_at');
