@@ -19,15 +19,10 @@ class UpdateTest extends _TestCase
         $this->requestBody = [
             'username' => 'admin',
             'email' => 'admin@local.host',
-            
+
             'profile' => [
                 'full_name' => 'Administrator',
                 'phone' => 'Phone 1',
-            ],
-        ];
-
-        $this->requestFiles = [
-            'profile' => [
                 'image' => UploadedFile::fake()->create('image.jpg', 100, 'image/jpeg'),
             ],
         ];

@@ -62,10 +62,6 @@ class UserRequest extends ActiveFormRequest
         $data = parent::validated($key, $default);
 
         if ($this->new_password) $data['password'] = Hash::make($this->new_password);
-            echo '<pre>';
-            print_r($this->files);
-            echo '</pre>';
-            die;
 
         if ($profileFiles = $this->files->get('profile')) {
             if (isset($profileFiles['image'])) {

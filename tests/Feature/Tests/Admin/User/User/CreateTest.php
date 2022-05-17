@@ -15,15 +15,10 @@ class CreateTest extends _TestCase
             'email' => 'registered_2@local.host',
             'role' => 'registered',
             'new_password' => 'test1234',
-            
+
             'profile' => [
                 'full_name' => 'Registered 2',
                 'phone' => 'Phone 2',
-            ],
-        ];
-
-        $this->requestFiles = [
-            'profile' => [
                 'image' => UploadedFile::fake()->create('image.jpg', 100, 'image/jpeg'),
             ],
         ];

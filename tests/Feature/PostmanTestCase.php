@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Testing\TestResponse;
 use Illuminate\Support\Arr;
+use Illuminate\Http\Testing\File;
 
 use Tests\CreatesApplication;
 
@@ -31,7 +32,7 @@ abstract class PostmanTestCase extends BaseTestCase
     private string $requestQueryAsString;
 
     protected array $requestBody = [];
-    protected array $requestFiles = [];
+    private array $requestFiles = [];
     protected array $requestHeaders = [];
     protected array $authHeaders = [];
 
@@ -47,7 +48,6 @@ abstract class PostmanTestCase extends BaseTestCase
             method: $this->requestMethod,
             uri: "$this->baseUrl/$this->requestUrl?$this->requestQueryAsString",
             parameters: $this->requestBody,
-            files: $this->requestFiles,
             server: $this->transformHeadersToServerVars($headers),
         );
     }
@@ -67,18 +67,22 @@ abstract class PostmanTestCase extends BaseTestCase
 
         $items['host'] = url($this->baseUrl);
 
-        if ($this->requestQuery) {
-            $this->requestQuery = $this->convertDataToSingleDimensionalArray($this->requestQuery);
+        $this->requestBody = Arr::dot($this->requestBody);
+
+        foreach ($this->requestBody as $key => &$value) {
+            if ($value instanceof File) {
+                $this->requestFiles[$key] = $value->name;
+                unset($this->requestBody[$key]);
+            }
         }
 
-        if ($this->requestFiles) {
-            array_walk_recursive($this->requestFiles, function (&$value) {
-                $value = $value->name;
-            });
+        $this->requestQuery = $this->convertDataToSingleDimensionalArray($this->requestQuery);
 
-            $this->requestFiles = $this->convertDataToSingleDimensionalArray($this->requestFiles);
-            $this->requestBody = $this->convertDataToSingleDimensionalArray($this->requestBody);
-        }
+        $this->requestBody = Arr::undot($this->requestBody);
+        $this->requestBody = $this->convertDataToSingleDimensionalArray($this->requestBody);
+
+        $this->requestFiles = Arr::undot($this->requestFiles);
+        $this->requestFiles = $this->convertDataToSingleDimensionalArray($this->requestFiles);
 
         $items[$target] = [
             'is_request' => true,
@@ -106,7 +110,7 @@ abstract class PostmanTestCase extends BaseTestCase
         $items = array_merge($oldItems, $items);
         $items = json_encode($items, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
 
-//        file_put_contents($fileName, $items);
+        // file_put_contents($fileName, $items);
 
         parent::callBeforeApplicationDestroyedCallbacks();
     }
@@ -117,6 +121,7 @@ abstract class PostmanTestCase extends BaseTestCase
         $data = explode('&', $data);
         $data = array_map(fn ($value) => explode('=', $value), $data);
         $data = Arr::pluck($data, 1, 0);
+        $data = array_filter($data);
 
         return $data;
     }

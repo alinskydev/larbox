@@ -12,7 +12,7 @@ class FilesUploadTest extends _TestCase
     {
         $this->requestUrl .= '/file/upload';
 
-        $this->requestFiles = [
+        $this->requestBody = [
             'file' => UploadedFile::fake()->create('image.jpg', 100, 'image/jpeg'),
         ];
 
@@ -24,7 +24,7 @@ class FilesUploadTest extends _TestCase
     {
         $this->requestUrl .= '/file/upload';
 
-        $this->requestFiles = [
+        $this->requestBody = [
             'files_list' => [
                 UploadedFile::fake()->create('image_1.jpg', 100, 'image/jpeg'),
                 UploadedFile::fake()->create('image_2.jpg', 200, 'image/jpeg'),
@@ -39,7 +39,7 @@ class FilesUploadTest extends _TestCase
     {
         $this->requestUrl .= '/file/upload';
 
-        $this->requestFiles = [
+        $this->requestBody = [
             'file' => UploadedFile::fake()->create('image.jpg', 100, 'image/jpeg'),
             'files_list' => [
                 UploadedFile::fake()->create('image_1.jpg', 100, 'image/jpeg'),

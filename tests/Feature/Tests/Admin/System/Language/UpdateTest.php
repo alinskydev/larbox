@@ -18,9 +18,6 @@ class UpdateTest extends _TestCase
 
         $this->requestBody = [
             'name' => 'Русский',
-        ];
-
-        $this->requestFiles = [
             'image' => UploadedFile::fake()->create('image.jpg', 100, 'image/jpeg'),
         ];
 
