@@ -2,24 +2,23 @@
 
 namespace App\Rules;
 
-use Illuminate\Validation\Rule as ValidationRule;
 use Illuminate\Support\Facades\Validator;
 
-use App\Models\Model;
-
-class SlugRule extends Rule
+class FileRule extends Rule
 {
     public function __construct(
-        public Model $model
+        public string $mimes,
+        public ?int $max = null
     ) {
+        $this->max = $this->max ?? config('larbox.form_request.file.max.default');
     }
 
     public function passes($attribute, $value)
     {
         $validator = Validator::make([$attribute => $value], [$attribute => [
-            'string',
-            'max:100',
-            ValidationRule::unique($this->model->getTable())->ignore($this->model->id),
+            'file',
+            "mimes:$this->mimes",
+            "max:$this->max",
         ]]);
 
         $this->errorMessage = $validator->errors()->first($attribute);

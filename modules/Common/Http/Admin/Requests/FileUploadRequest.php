@@ -3,7 +3,9 @@
 namespace Modules\Common\Http\Admin\Requests;
 
 use App\Http\Requests\FormRequest;
+
 use App\Helpers\FileHelper;
+use App\Rules\FileRule;
 
 class FileUploadRequest extends FormRequest
 {
@@ -12,9 +14,14 @@ class FileUploadRequest extends FormRequest
     public function rules()
     {
         return [
-            'file' => 'required_without:files_list|file|max:102400|mimes:jpg,png,webp,doc,docx,xls,pdf',
-            'files_list' => 'array',
-            'files_list.*' => 'required_without:file|file|max:102400|mimes:jpg,png,webp,doc,docx,xls,pdf',
+            'file' => [
+                'required_without:files_list',
+                new FileRule(mimes: config('larbox.form_request.file.mimes.all'), max: 102400),
+            ],
+            'files_list' => 'required_without:file|array',
+            'files_list.*' => [
+                new FileRule(mimes: config('larbox.form_request.file.mimes.all'), max: 102400),
+            ],
         ];
     }
 

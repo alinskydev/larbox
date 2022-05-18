@@ -17,7 +17,7 @@ class Rule implements BaseRule
      */
     public function passes($attribute, $value)
     {
-        return true;
+        return false;
     }
 
     /**

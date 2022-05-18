@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('user_profile', function (Blueprint $table) {
             $table->bigInteger('user_id')->primary();
-            $table->string('full_name', 100);
-            $table->string('phone', 100)->nullable();
-            $table->string('image', 100)->nullable();
+            $table->string('full_name');
+            $table->string('phone')->nullable();
+            $table->string('image')->nullable();
 
             $table->foreign('user_id')->references('id')->on('user')->onUpdate('cascade')->onDelete('restrict');
         });

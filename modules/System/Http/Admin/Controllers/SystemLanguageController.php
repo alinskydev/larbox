@@ -2,21 +2,19 @@
 
 namespace Modules\System\Http\Admin\Controllers;
 
-use App\Http\Controllers\ApiResourceController;
+use App\Http\Controllers\ActiveController;
 
 use Modules\System\Models\SystemLanguage;
 use Modules\System\Search\SystemLanguageSearch;
-use Modules\System\Resources\SystemLanguageResource;
 use Modules\System\Http\Admin\Requests\SystemLanguageRequest;
 
-class SystemLanguageController extends ApiResourceController
+class SystemLanguageController extends ActiveController
 {
     public function __construct()
     {
         return parent::__construct(
             model: new SystemLanguage(),
             search: new SystemLanguageSearch(),
-            resourceClass: SystemLanguageResource::class
         );
     }
 

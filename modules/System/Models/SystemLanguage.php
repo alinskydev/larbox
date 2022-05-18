@@ -3,16 +3,21 @@
 namespace Modules\System\Models;
 
 use App\Models\Model;
+use App\Casts\CastAsImage;
 use Illuminate\Support\Arr;
 
 class SystemLanguage extends Model
 {
     protected $table = 'system_language';
-    
+
     protected $guarded = [
         'code',
         'is_active',
         'is_main',
+    ];
+
+    protected $casts = [
+        'image' => CastAsImage::class . ':100|500',
     ];
 
     protected static function boot()

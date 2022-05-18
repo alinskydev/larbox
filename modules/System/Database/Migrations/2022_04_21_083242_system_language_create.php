@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('system_language', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 100);
+            $table->string('name');
             $table->string('code', 10)->unique();
-            $table->string('image', 100);
+            $table->string('image');
             $table->boolean('is_active')->default(1);
             $table->boolean('is_main')->default(0);
             $table->timestamp('created_at');

@@ -1,0 +1,51 @@
+use Mews\Purifier\Facades\Purifier;
+
+-----------------------------------------------------------------------------------
+
+$div = '<div title="Йцу" id="qwez" style="font-weight: bold;" class="text-gray-700">Text</div>';
+print_r(Purifier::clean($div));
+echo "\n";
+
+$text = '<h2 title="QWeR" style="font-size: 20px;" class="text-gray-700">Text</h2>';
+print_r(Purifier::clean($text));
+echo "\n";
+
+$link = '<a href="/qwe" target="_blank" class="text-gray-700">Link</a>';
+print_r(Purifier::clean($link));
+echo "\n";
+
+$image = '<img src="/qwe.jpg">';
+print_r(Purifier::clean($image));
+echo "\n";
+
+$section = '<section style="font-size:3px;">Header</section>';
+print_r(Purifier::clean($section));
+echo "\n";
+
+$table = '<table style="font-size:3px;"><tbody><tr><td class="asd">Table</td></tr></tbody></table>';
+print_r(Purifier::clean($table));
+echo "\n";
+
+$audio = '<audio controls autoplay><source src="horse.mp3" type="audio/mpeg">Audio</audio>';
+print_r(Purifier::clean($audio));
+echo "\n";
+
+$video = '<video controls autoplay><source src="horse.mp3" type="video/mpeg">Video</video>';
+print_r(Purifier::clean($video));
+echo "\n";
+
+$iframe = '<iframe width="560" height="315" src="https://www.youtube.com/embed/krujesKwb5s" title="YouTube video playerframeborder="0"allowfullscreen></iframe>';
+print_r(Purifier::clean($iframe));
+echo "\n";
+
+$meta = '<meta charset="UTF-8"><meta name="description" content="Free Web tutorials">';
+print_r(Purifier::clean($meta));
+echo "\n";
+
+$lines = '<br><hr>';
+print_r(Purifier::clean($lines));
+echo "\n";
+
+$script = '<script>alert("XSS");</script>';
+print_r(Purifier::clean($script));
+die;

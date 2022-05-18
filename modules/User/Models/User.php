@@ -18,18 +18,18 @@ class User extends UserModel
     protected $guarded = [
         'email_verified_at',
         'remember_token',
-        'reset_password_key',
+        'reset_password_code',
     ];
 
     protected $hidden = [
         'email_verified_at',
         'password',
         'remember_token',
-        'reset_password_key',
+        'reset_password_code',
     ];
 
     protected $casts = [
-        'email_verified_at' => 'datetime:d.m.Y H:i:s',
+        'email_verified_at' => 'datetime',
     ];
 
     public function profile()

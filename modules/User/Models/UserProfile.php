@@ -3,6 +3,7 @@
 namespace Modules\User\Models;
 
 use App\Models\Model;
+use App\Casts\CastAsImage;
 
 class UserProfile extends Model
 {
@@ -18,5 +19,9 @@ class UserProfile extends Model
 
     protected $hidden = [
         'user_id',
+    ];
+
+    protected $casts = [
+        'image' => CastAsImage::class . ':100|500',
     ];
 }

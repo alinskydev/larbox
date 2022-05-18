@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Model as BaseModel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Arr;
@@ -13,24 +14,41 @@ class Model extends BaseModel
     const RELATION_TYPE_MANY_MANY = 'relationTypeManyMany';
 
     public array $fillableRelations = [];
-    
+
     public function __construct(array $attributes = [])
     {
         //    Common guarded fields
-        
+
         $commonGuardedFields = [
             'id',
             'created_at',
             'updated_at',
             'deleted_at',
         ];
-        
+
         $guarded = array_merge($commonGuardedFields, $this->getGuarded());
         $guarded = array_unique($guarded);
-        
+
         $this->guard($guarded);
         
+        //    Common hidden fields
+
+        $commonHiddenFields = [
+            'deleted_at',
+        ];
+
+        $hidden = array_merge($commonHiddenFields, $this->getHidden());
+        $hidden = array_unique($hidden);
+
+        $this->setHidden($hidden);
+
         return parent::__construct($attributes);
+    }
+
+    protected function serializeDate(DateTimeInterface $date)
+    {
+        $format = $this->dateFormat ?? config('larbox.date_format.datetime');
+        return $date->format($format);
     }
 
     protected static function boot()
@@ -49,13 +67,13 @@ class Model extends BaseModel
                             } else {
                                 $related = $model->$relation()->getRelated();
                                 $primaryKey = $related->getKeyName();
-                                
+
                                 $related->$primaryKey = $model->id;
                                 $related->fill($value)->save();
                             }
-                            
+
                             break;
-                            
+
                         case self::RELATION_TYPE_ONE_MANY:
                             $value = array_values((array)$value);
                             $ids = Arr::pluck($value, 'id');

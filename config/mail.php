@@ -42,7 +42,7 @@ return [
             'username' => env('MAIL_USERNAME', 'noreply@local.host'),
             'password' => env('MAIL_PASSWORD', ''),
             'timeout' => null,
-            
+
             // 'verify_peer' => false,
         ],
 
@@ -95,7 +95,7 @@ return [
     'from' => [
         'address' => env('MAIL_FROM_ADDRESS', 'no-reply@local.host'),
         'name' => env('MAIL_FROM_NAME', config('app.name')),
-    ], 
+    ],
 
     /*
     |--------------------------------------------------------------------------

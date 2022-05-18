@@ -3,7 +3,9 @@
 namespace Modules\System\Http\Admin\Requests;
 
 use App\Http\Requests\FormRequest;
+
 use App\Helpers\FileHelper;
+use App\Rules\FileRule;
 
 class SystemSettingsRequest extends FormRequest
 {
@@ -11,8 +13,16 @@ class SystemSettingsRequest extends FormRequest
     {
         return [
             'admin_email' => 'sometimes|required|email',
-            'favicon' => 'sometimes|file|max:1024|mimes:jpg,png,webp',
-            'logo' => 'sometimes|file|max:1024|mimes:jpg,png,webp',
+            'favicon' => [
+                'sometimes',
+                'required',
+                new FileRule(mimes: config('larbox.form_request.file.mimes.image')),
+            ],
+            'logo' => [
+                'sometimes',
+                'required',
+                new FileRule(mimes: config('larbox.form_request.file.mimes.image')),
+            ],
             'project_name' => 'sometimes|required|string|max:100',
         ];
     }

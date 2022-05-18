@@ -9,13 +9,15 @@ class FormRequest extends BaseFormRequest
 {
     protected array $fileFields = [];
     protected array $unpurifiedFields = [];
+    
+    protected string $fieldCleanType = 'purify';
 
     public function attributes()
     {
         $rulesKeys = array_keys($this->rules());
 
         $attributes = array_combine($rulesKeys, $rulesKeys);
-        $attributes = array_map(fn($value) => __("fields.$value"), $attributes);
+        $attributes = array_map(fn ($value) => __("fields.$value"), $attributes);
 
         return $attributes;
     }
@@ -24,7 +26,12 @@ class FormRequest extends BaseFormRequest
     {
         parent::prepareForValidation();
 
-        $purifiedData = HtmlHelper::removeTags($this->validationData(), $this->unpurifiedFields);
+        $purifiedData = HtmlHelper::clean(
+            data: $this->validationData(),
+            ignoredFields: $this->unpurifiedFields,
+            type: $this->fieldCleanType,
+        );
+
         $this->merge($purifiedData);
     }
 }

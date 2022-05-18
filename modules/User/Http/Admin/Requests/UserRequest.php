@@ -8,15 +8,15 @@ use Modules\User\Enums\UserEnums;
 
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
-use App\Helpers\FormRequestHelper;
 use App\Helpers\FileHelper;
+use App\Rules\FileRule;
 
 class UserRequest extends ActiveFormRequest
 {
     protected array $ignoredModelFields = [
         'profile.image',
     ];
-    
+
     public function __construct()
     {
         return parent::__construct(
@@ -50,10 +50,14 @@ class UserRequest extends ActiveFormRequest
                 'min:8',
                 'max:100',
             ],
-            
+
             'profile.full_name' => 'required|string|max:100',
             'profile.phone' => 'nullable|string|max:100',
-            'profile.image' => 'nullable|file|max:1024|mimes:jpg,png,webp',
+            'profile.image' => [
+                'sometimes',
+                'required',
+                new FileRule(mimes: config('larbox.form_request.file.mimes.image')),
+            ],
         ];
     }
 

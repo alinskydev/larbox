@@ -4,18 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Models\Model;
 use App\Search\Search;
+use App\Resources\JsonResource;
 use App\Http\Requests\ActiveFormRequest;
 
-class ApiResourceController extends Controller
+class ActiveController extends Controller
 {
     protected int $pageSize;
 
     public function __construct(
         public Model $model,
         protected Search $search,
-        protected string $resourceClass,
-        protected int $maxPageSize = 30
+        protected ?string $resourceClass = null,
+        protected int $maxPageSize = 30,
     ) {
+        // Setting default values
+
+        $this->resourceClass = $this->resourceClass ?? JsonResource::class;
+
         // Searching
 
         $request = request();

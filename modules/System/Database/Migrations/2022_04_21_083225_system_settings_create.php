@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('system_settings', function (Blueprint $table) {
-            $table->string('name', 100)->primary();
-            $table->string('value', 100);
+            $table->string('name')->primary();
+            $table->string('value');
         });
     }
 
