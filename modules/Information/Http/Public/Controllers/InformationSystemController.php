@@ -3,9 +3,9 @@
 namespace Modules\Information\Http\Public\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Resources\JsonResource;
 use Modules\System\Models\SystemSettings;
 use Modules\System\Resources\SystemSettingsResource;
-use Modules\System\Resources\SystemLanguageResource;
 use App\Services\LocalizationService;
 
 class InformationSystemController extends Controller
@@ -23,8 +23,8 @@ class InformationSystemController extends Controller
         $localizationService = LocalizationService::getInstance();
 
         $responce = [
-            'all' => SystemLanguageResource::collection($localizationService->allLanguages),
-            'active' => SystemLanguageResource::collection($localizationService->activeLanguages),
+            'all' => JsonResource::collection($localizationService->allLanguages),
+            'active' => JsonResource::collection($localizationService->activeLanguages),
         ];
 
         return response()->json($responce, 200);

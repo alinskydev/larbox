@@ -14,13 +14,9 @@ class ActiveController extends Controller
     public function __construct(
         public Model $model,
         protected Search $search,
-        protected ?string $resourceClass = null,
+        protected string $resourceClass = JsonResource::class,
         protected int $maxPageSize = 30,
     ) {
-        // Setting default values
-
-        $this->resourceClass = $this->resourceClass ?? JsonResource::class;
-
         // Searching
 
         $request = request();
@@ -60,8 +56,8 @@ class ActiveController extends Controller
     protected function save(ActiveFormRequest $request, int $status)
     {
         $request->model->fill($request->validated())->save();
-        
-        $data = $this->resourceClass::make($request->model->withoutRelations());
+
+        $data = $this->resourceClass::make($request->model);
 
         return response()->json($data, $status);
     }

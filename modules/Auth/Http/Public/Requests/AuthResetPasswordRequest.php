@@ -6,7 +6,7 @@ use App\Http\Requests\FormRequest;
 use Modules\User\Models\User;
 use Illuminate\Validation\Rule;
 
-class ResetPasswordRequest extends FormRequest
+class AuthResetPasswordRequest extends FormRequest
 {
     public User $user;
 

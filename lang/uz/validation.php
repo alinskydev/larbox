@@ -12,8 +12,6 @@
 */
 
 return [
-    '_common.not_exists'   => 'Выбранное значение для :attribute некорректно.',
-
     'accepted'             => ':attribute ni qabul qilishingiz kerak.',
     'accepted_if'          => 'The :attribute must be accepted when :other is :value.',
     'active_url'           => ':attribute ga noto‘g‘ri URL kiritildi.',

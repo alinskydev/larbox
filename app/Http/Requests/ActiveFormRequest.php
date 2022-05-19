@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Helpers\FileHelper;
 use App\Models\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\File;
@@ -9,16 +10,31 @@ use Illuminate\Support\Facades\File;
 class ActiveFormRequest extends FormRequest
 {
     protected array $ignoredModelFields = [];
-    
+
     public function __construct(
         public Model $model
     ) {
+        $this->ignoredModelFields = array_merge($this->ignoredModelFields, array_keys($this->fileFields));
+        return parent::__construct();
     }
-    
+
     protected function prepareForValidation()
     {
         parent::prepareForValidation();
-        $this->assignModel();
+
+        $data = $this->validationData();
+
+        $routeName = strstr($this->route()->getName(), '.', true);
+        $this->model = $this->route($routeName) ?: $this->model;
+
+        $relationsAttributes = array_map(fn ($value) => $value->attributesToArray(), $this->model->getRelations());
+        $attributes = array_merge($this->model->attributesToArray(), $relationsAttributes);
+
+        Arr::forget($attributes, $this->ignoredModelFields);
+
+        $data = array_replace_recursive($attributes, $data);
+
+        $this->merge($data);
     }
 
     public function validated($key = null, $default = null)
@@ -29,52 +45,34 @@ class ActiveFormRequest extends FormRequest
         return $data;
     }
 
-    private function assignModel()
-    {
-        $routeName = strstr($this->route()->getName(), '.', true);
-
-        $this->model = $this->route($routeName) ?: $this->model;
-
-        $attributes = $this->model->attributesToArray();
-        
-        foreach ($this->model->getRelations() as $relationName => $relationModel) {
-            $attributes[$relationName] = $relationModel->attributesToArray();
-        }
-        
-        Arr::forget($attributes, $this->ignoredModelFields);
-
-        $this->mergeIfMissing($attributes);
-    }
-
     private function saveFiles(array $data)
     {
+        $files = $this->files->all();
+
         foreach ($this->fileFields as $field => $path) {
-            $file = $this->files->get($field);
+            $file = Arr::get($files, $field);
 
             if (!$file) continue;
 
-            $path = "storage/uploads/$path/" . date('Y-m-d');
+            $fieldArr = explode('.', $field);
+            $oldValue = clone ($this->model);
+
+            foreach ($fieldArr as $fieldName) {
+                $oldValue = $oldValue ? $oldValue->$fieldName : $oldValue;
+            }
 
             if (is_array($file)) {
-                $data[$field] = $this->model->$field;
+                $file = array_values($file);
 
-                foreach ($file as $f) {
-                    $name = md5(uniqid());
-                    $extension = $f->getClientOriginalExtension();
+                Arr::set($data, $field, $oldValue);
 
-                    $f->move($path, "$name.$extension");
-
-                    $data[$field][] = "/$path/$name.$extension";
+                foreach ($file as $k => $f) {
+                    Arr::set($data, "$field.$k", FileHelper::upload($f, $path));
                 }
             } else {
-                File::delete(public_path($this->model->$field));
+                File::delete(public_path($oldValue));
 
-                $name = md5(uniqid());
-                $extension = $file->getClientOriginalExtension();
-
-                $file->move($path, "$name.$extension");
-
-                $data[$field] = "/$path/$name.$extension";
+                Arr::set($data, $field, FileHelper::upload($file, $path));
             }
         }
 

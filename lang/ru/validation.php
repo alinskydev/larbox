@@ -12,8 +12,6 @@
 */
 
 return [
-    '_common.not_exists'   => 'Выбранное значение для :attribute некорректно.',
-
     'accepted'             => 'Вы должны принять :attribute.',
     'accepted_if'          => 'Вы должны принять :attribute, когда :other соответствует :value.',
     'active_url'           => 'Значение поля :attribute не является действительным URL.',

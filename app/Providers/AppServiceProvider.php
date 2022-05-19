@@ -34,9 +34,7 @@ class AppServiceProvider extends ServiceProvider
             Mail::alwaysTo('admin@local.host');
         }
 
-        $basePath = base_path();
-        $migrationsPath = glob("$basePath/modules/*/Database/Migrations");
-
+        $migrationsPath = glob(base_path('modules/*/Database/Migrations'));
         $this->loadMigrationsFrom($migrationsPath);
     }
 }

@@ -3,21 +3,27 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest as BaseFormRequest;
-use App\Helpers\HtmlHelper;
+use App\Helpers\HtmlCleanHelper;
 
 class FormRequest extends BaseFormRequest
 {
+    protected array $uncleanedFields = [];
     protected array $fileFields = [];
-    protected array $unpurifiedFields = [];
-    
+
     protected string $fieldCleanType = 'purify';
+
+    public function __construct()
+    {
+        $this->uncleanedFields = array_merge($this->uncleanedFields, array_keys($this->fileFields));
+        return parent::__construct();
+    }
 
     public function attributes()
     {
         $rulesKeys = array_keys($this->rules());
 
         $attributes = array_combine($rulesKeys, $rulesKeys);
-        $attributes = array_map(fn ($value) => __("fields.$value"), $attributes);
+        $attributes = array_map(fn ($value) => __("field.$value"), $attributes);
 
         return $attributes;
     }
@@ -26,12 +32,16 @@ class FormRequest extends BaseFormRequest
     {
         parent::prepareForValidation();
 
-        $purifiedData = HtmlHelper::clean(
-            data: $this->validationData(),
-            ignoredFields: $this->unpurifiedFields,
-            type: $this->fieldCleanType,
-        );
+        $data = parent::validationData();
 
-        $this->merge($purifiedData);
+        if ($this->fieldCleanType != HtmlCleanHelper::TYPE_NONE) {
+            $data = HtmlCleanHelper::process(
+                data: $data,
+                type: $this->fieldCleanType,
+                uncleanedFields: $this->uncleanedFields,
+            );
+        }
+
+        $this->merge($data);
     }
 }

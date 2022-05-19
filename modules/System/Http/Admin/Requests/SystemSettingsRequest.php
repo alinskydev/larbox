@@ -6,9 +6,15 @@ use App\Http\Requests\FormRequest;
 
 use App\Helpers\FileHelper;
 use App\Rules\FileRule;
+use Illuminate\Support\Arr;
 
 class SystemSettingsRequest extends FormRequest
 {
+    protected array $fileFields = [
+        'favicon' => 'images',
+        'logo' => 'images',
+    ];
+
     public function rules()
     {
         return [
@@ -31,12 +37,14 @@ class SystemSettingsRequest extends FormRequest
     {
         $data = parent::validated($key, $default);
 
-        if ($file = $this->files->get('logo')) {
-            $data['logo'] = FileHelper::upload($file, 'images');
-        }
+        $files = $this->files->all();
 
-        if ($file = $this->files->get('favicon')) {
-            $data['favicon'] = FileHelper::upload($file, 'images');
+        foreach ($this->fileFields as $field => $path) {
+            $file = Arr::get($files, $field);
+
+            if (!$file) continue;
+
+            $data[$field] = FileHelper::upload($file, $path);
         }
 
         return $data;

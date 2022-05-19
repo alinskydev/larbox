@@ -43,7 +43,7 @@ class User extends UserModel
 
         static::deleting(function ($model) {
             if ($model->id == 1) {
-                abort(403, __('errors.user.undeleteable'));
+                abort(403, __('model.user.undeleteable'));
             }
         });
     }

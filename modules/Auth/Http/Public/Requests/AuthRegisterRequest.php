@@ -1,16 +1,15 @@
 <?php
 
-namespace Modules\User\Http\Admin\Requests;
+namespace Modules\Auth\Http\Public\Requests;
 
 use App\Http\Requests\ActiveFormRequest;
 use Modules\User\Models\User;
-use Modules\User\Enums\UserEnums;
 
 use Illuminate\Validation\Rule;
 use App\Rules\FileRule;
 use Illuminate\Support\Facades\Hash;
 
-class UserRequest extends ActiveFormRequest
+class AuthRegisterRequest extends ActiveFormRequest
 {
     protected array $fileFields = [
         'profile.image' => 'images',
@@ -31,25 +30,16 @@ class UserRequest extends ActiveFormRequest
                 'string',
                 'max:100',
                 'regex:/^[a-zA-Z0-9_\-]+$/',
-                Rule::unique($this->model->getTable())->ignore($this->model->id),
+                Rule::unique('user', 'username'),
             ],
             'email' => [
                 'required',
                 'email',
                 'max:100',
-                Rule::unique($this->model->getTable())->ignore($this->model->id),
+                Rule::unique('user', 'email'),
             ],
-            'role' => [
-                'required',
-                Rule::in(array_keys(UserEnums::roles())),
-                Rule::prohibitedIf($this->model->id == 1 && $this->role != 'admin'),
-            ],
-            'new_password' => [
-                Rule::requiredIf(!$this->model->exists),
-                'string',
-                'min:8',
-                'max:100',
-            ],
+            'new_password' => 'required|string|max:100',
+            'new_password_confirmation' => 'required|same:new_password',
 
             'profile.full_name' => 'required|string|max:100',
             'profile.phone' => 'nullable|string|max:100',
@@ -65,9 +55,8 @@ class UserRequest extends ActiveFormRequest
     {
         $data = parent::validated($key, $default);
 
-        if ($this->new_password) {
-            $data['password'] = Hash::make($this->new_password);
-        }
+        $data['password'] = Hash::make($this->new_password);
+        $data['role'] = 'registered';
 
         $this->model->fillableRelations = [
             $this->model::RELATION_TYPE_ONE_ONE => [

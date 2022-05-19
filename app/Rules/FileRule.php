@@ -3,6 +3,7 @@
 namespace App\Rules;
 
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Arr;
 
 class FileRule extends Rule
 {
@@ -15,7 +16,9 @@ class FileRule extends Rule
 
     public function passes($attribute, $value)
     {
-        $validator = Validator::make([$attribute => $value], [$attribute => [
+        $data = Arr::undot([$attribute => $value]);
+
+        $validator = Validator::make($data, [$attribute => [
             'file',
             "mimes:$this->mimes",
             "max:$this->max",

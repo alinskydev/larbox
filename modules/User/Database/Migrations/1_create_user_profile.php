@@ -18,8 +18,6 @@ return new class extends Migration
             $table->string('full_name');
             $table->string('phone')->nullable();
             $table->string('image')->nullable();
-
-            $table->foreign('user_id')->references('id')->on('user')->onUpdate('cascade')->onDelete('restrict');
         });
     }
 
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_message');
+        Schema::dropIfExists('user_profile');
     }
 };

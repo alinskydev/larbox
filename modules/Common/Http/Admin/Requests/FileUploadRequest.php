@@ -9,6 +9,11 @@ use App\Rules\FileRule;
 
 class FileUploadRequest extends FormRequest
 {
+    protected array $fileFields = [
+        'file' => 'files',
+        'files_list' => 'files',
+    ];
+
     public array $urls;
 
     public function rules()
@@ -29,7 +34,7 @@ class FileUploadRequest extends FormRequest
     {
         parent::passedValidation();
 
-        $files = $this->files->get('files_list');
+        $files = (array)$this->files->get('files_list');
         $files[] = $this->files->get('file');
 
         $files = array_filter($files);

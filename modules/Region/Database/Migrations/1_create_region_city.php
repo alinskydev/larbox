@@ -19,8 +19,6 @@ return new class extends Migration
             $table->json('name');
             $table->timestamp('created_at');
             $table->timestamp('updated_at');
-
-            $table->foreign('region_id')->references('id')->on('region')->onUpdate('cascade')->onDelete('restrict');
             $table->softDeletes();
         });
     }

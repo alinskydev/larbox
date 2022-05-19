@@ -38,36 +38,36 @@ class ParseFormRequestFields extends Command
         }
 
         // Parsing data
-        
+
         $fields = [];
-        
+
         $basePath = base_path();
         $files = glob("$basePath/modules/*/Http/*/Requests/*.php");
-        
+
         foreach ($files as $file) {
             $file = str_replace([$basePath, '.php'], '', $file);
             $file = str_replace('/', '\\', $file);
             $file = str_replace('modules', 'Modules', $file);
-            
+
             $formRequest = new $file();
             $attributes = array_keys($formRequest->attributes());
-            
+
             $fields = array_merge($fields, $attributes);
         }
-        
+
         $fields = array_unique($fields);
-        
+
         sort($fields);
-        
+
         $outputData = [];
         $outputData[] = '<?php';
         $outputData[] = '';
         $outputData[] = 'return [';
-        
+
         foreach ($fields as $field) {
             $outputData[] = "\t'$field' => '',";
         }
-        
+
         $outputData[] = '];';
         $outputData[] = '';
 

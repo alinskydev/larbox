@@ -6,6 +6,7 @@ use Illuminate\Validation\Rule as ValidationRule;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Arr;
 
 use App\Models\Model;
 
@@ -21,14 +22,11 @@ class ExistsSoftDeleteRule extends Rule
 
     public function passes($attribute, $value)
     {
-        $oldValue = $this->model->$attribute;
-        
-        if (strpos($attribute, '.') !== false) {
-            $attribute = explode('.', $attribute);
-            $attribute = array_pop($attribute);
-        }
+        $data = Arr::undot([$attribute => $value]);
 
-        $validator = Validator::make([$attribute => $value], [$attribute => [
+        $oldValue = $this->model->$attribute;
+
+        $validator = Validator::make($data, [$attribute => [
             ValidationRule::exists($this->foreignTable, $this->field)->where(function (Builder $query) use ($oldValue) {
                 if ($oldValue instanceof Collection) {
                     $query->where(function (Builder $subQuery) use ($oldValue) {
@@ -47,8 +45,8 @@ class ExistsSoftDeleteRule extends Rule
             }),
         ]]);
 
-        $this->errorMessage = __('validation._common.not_exists', ['attribute' => __("fields.$attribute")]);
-        
+        $this->errorMessage = __('rule.not_exists', ['attribute' => __("field.$attribute")]);
+
         return !$validator->fails();
     }
 }

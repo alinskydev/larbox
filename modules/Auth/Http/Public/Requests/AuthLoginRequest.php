@@ -31,7 +31,7 @@ class AuthLoginRequest extends FormRequest
                 $credentials = $this->only('username', 'password');
 
                 if (!Auth::attempt($credentials)) {
-                    $validator->errors()->add('password', __('errors._common.invalid', ['value' => __('fields.password')]));
+                    $validator->errors()->add('password', __('rule.invalid', ['field' => __('field.password')]));
                 }
             });
         }

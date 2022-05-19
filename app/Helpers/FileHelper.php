@@ -11,7 +11,7 @@ class FileHelper
         $path = "storage/uploads/$path/" . date('Y-m-d');
         $name = md5(uniqid());
         $extension = $file->getClientOriginalExtension();
-    
+
         $file->move($path, "$name.$extension");
 
         return "/$path/$name.$extension";

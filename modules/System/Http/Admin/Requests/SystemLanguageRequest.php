@@ -9,7 +9,6 @@ use App\Rules\FileRule;
 
 class SystemLanguageRequest extends ActiveFormRequest
 {
-    protected array $ignoredModelFields = ['image'];
     protected array $fileFields = [
         'image' => 'images',
     ];

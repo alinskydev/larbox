@@ -16,8 +16,12 @@ class SystemLanguage extends Model
         'is_main',
     ];
 
+    protected $appends = [
+        'image_urls',
+    ];
+
     protected $casts = [
-        'image' => CastAsImage::class . ':100|500',
+        'image_urls' => CastAsImage::class . ':image,100|500',
     ];
 
     protected static function boot()
@@ -27,11 +31,11 @@ class SystemLanguage extends Model
         static::saving(function ($model) {
             if (Arr::get($model->original, 'is_active') && !$model->is_active) {
                 if ($model->is_main) {
-                    abort(403, __('errors.system_language.deactivate_main'));
+                    abort(403, __('model.system_language.deactivate_main'));
                 }
 
                 if ($model->code == app()->getLocale()) {
-                    abort(403, __('errors.system_language.deactivate_current'));
+                    abort(403, __('model.system_language.deactivate_current'));
                 }
             }
 
