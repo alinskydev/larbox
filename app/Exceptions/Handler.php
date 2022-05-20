@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Support\Arr;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Illuminate\Database\QueryException;
 use Throwable;
 
@@ -74,6 +75,13 @@ class Handler extends ExceptionHandler
         }
 
         switch (get_class($e)) {
+            case NotFoundHttpException::class:
+                $response = [
+                    'status' => 404,
+                    'data' => ['message' => 'Not found'],
+                ];
+                break;
+                
             case QueryException::class:
                 $response = [
                     'status' => 422,
@@ -83,7 +91,7 @@ class Handler extends ExceptionHandler
 
             default:
                 $response = [
-                    'status' => $e->getCode(),
+                    'status' => $e->getCode() ?: 500,
                     'data' => ['message' => $e->getMessage()],
                 ];
                 break;

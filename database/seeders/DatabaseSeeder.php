@@ -14,8 +14,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $files = glob(base_path('Modules/*/Database/Seeders/*.php'));
-
         $dbCommands = [
             'mysql' => [
                 'before' => 'SET FOREIGN_KEY_CHECKS = 0',
@@ -30,9 +28,10 @@ class DatabaseSeeder extends Seeder
         $dbDriver = config('database.default');
         $dbExec = $dbCommands[$dbDriver] ?? ['before' => 'END', 'after' => 'END'];
 
-        DB::statement($dbExec['before']);
-
+        $files = glob(base_path('modules/*/Database/Seeders/*.php'));
         usort($files, fn ($a, $b) => strcmp(basename($a), basename($b)));
+
+        DB::statement($dbExec['before']);
 
         foreach ($files as $file) {
             $class = require($file);

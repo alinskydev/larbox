@@ -43,10 +43,10 @@ class RouteServiceProvider extends ServiceProvider
 
                 Route::middleware('auth.basic.once', 'role:admin', 'api')
                     ->prefix('admin')
-                    ->group(glob("$base_path/Modules/*/Http/Admin/routes.php"));
+                    ->group(glob("$base_path/modules/*/Http/Admin/routes.php"));
 
                 Route::withoutMiddleware()
-                    ->group(glob("$base_path/Modules/*/Http/Public/routes.php"));
+                    ->group(glob("$base_path/modules/*/Http/Public/routes.php"));
             });
         });
 
