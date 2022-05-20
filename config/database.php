@@ -3,11 +3,11 @@
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 
-// Checking API type and setting database name
+// Checking Api type and setting database name
 
 $headers = getallheaders();
 
-//switch (Arr::get($headers, 'API-Type')) {
+//switch (Arr::get($headers, 'Api-Type')) {
 //    case 'admin':
 //        $databaseName = 'larbox_admin';
 //        break;
@@ -15,7 +15,7 @@ $headers = getallheaders();
 //        $databaseName = 'larbox_public';
 //        break;
 //    default:
-//        die('API-Type not set or has wrong value');
+//        die('Api-Type not set or has wrong value');
 //}
 
 $databaseName = 'larbox';
