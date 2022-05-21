@@ -89,6 +89,9 @@ class Handler extends ExceptionHandler
                 ];
                 break;
 
+            case ValidationException::class:
+                return $this->invalidJson($request, $e);
+
             default:
                 $response = [
                     'status' => method_exists($e, 'getStatusCode') ? $e->getStatusCode() : 500,
