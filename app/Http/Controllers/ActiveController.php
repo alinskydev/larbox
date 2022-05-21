@@ -9,33 +9,24 @@ use App\Http\Requests\ActiveFormRequest;
 
 class ActiveController extends Controller
 {
-    protected int $pageSize;
-
     public function __construct(
         public Model $model,
         protected Search $search,
         protected string $resourceClass = JsonResource::class,
-        protected int $maxPageSize = 30,
     ) {
-        // Searching
-
         $request = request();
 
         $this->search->setQueryBuilder($this->model->query())
             ->join((array)$request->get('with'))
             ->filter((array)$request->get('filter'))
             ->sort((array)$request->get('sort', '-id'))
-            ->show((array)$request->get('show'));
-
-        // Setting page size
-
-        $this->pageSize = (int)$request->get('page-size', $this->maxPageSize);
-        $this->pageSize = ($this->pageSize > 0 && $this->pageSize <= $this->maxPageSize) ? $this->pageSize : $this->maxPageSize;
+            ->show((array)$request->get('show'))
+            ->setPageSize((int)$request->get('page-size'));
     }
 
     public function index()
     {
-        $paginator = $this->search->queryBuilder->paginate($this->pageSize);
+        $paginator = $this->search->queryBuilder->paginate($this->search->pageSize);
         return $this->resourceClass::collection($paginator)->response()->setStatusCode(206);
     }
 

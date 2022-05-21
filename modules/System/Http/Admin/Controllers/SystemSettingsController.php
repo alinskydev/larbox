@@ -12,10 +12,10 @@ class SystemSettingsController extends Controller
 {
     public function index()
     {
-        $responce = SystemSettings::query()->orderBy('name')->get()->keyBy('name');
-        $responce = SystemSettingsResource::collection($responce);
+        $response = SystemSettings::query()->orderBy('name')->get()->keyBy('name');
+        $response = SystemSettingsResource::collection($response);
 
-        return response()->json($responce, 200);
+        return response()->json($response, 200);
     }
 
     public function update(SystemSettingsRequest $request)

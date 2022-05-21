@@ -21,7 +21,9 @@ class ImageHelper
 
         $sourceFile = public_path($sourceUrl);
 
-        if (!is_file($sourceFile)) return asset($sourceUrl);
+        if (!is_file($sourceFile)) {
+            return $isAbsoluteThumbUrl ? asset($sourceUrl) : $sourceUrl;
+        }
 
         $extension = pathinfo($sourceFile, PATHINFO_EXTENSION);
         $extension = mb_strtolower($extension);
@@ -33,7 +35,7 @@ class ImageHelper
         $thumbUrl = "/$thumbPath/$thumbName";
 
         if (!is_file($thumbFile)) {
-            File::makeDirectory(public_path($thumbPath), 0777, true, true);
+            if (is_dir($thumbPath)) File::makeDirectory(public_path($thumbPath), 0777, true, true);
 
             $image = ImageManagerStatic::make($sourceFile);
             $image->{$type}(...$params);

@@ -9,10 +9,10 @@ class InformationEnumsController extends Controller
 {
     public function user()
     {
-        $responce = [
+        $response = [
             'roles' => UserEnums::roles(),
         ];
 
-        return response()->json($responce, 200);
+        return response()->json($response, 200);
     }
 }

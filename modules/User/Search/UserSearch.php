@@ -11,9 +11,8 @@ class UserSearch extends Search
         'username' => Search::FILTER_TYPE_EQUAL,
         'email' => Search::FILTER_TYPE_LIKE,
         'role' => Search::FILTER_TYPE_EQUAL,
-        
+
         'profile.full_name' => Search::FILTER_TYPE_LIKE,
-        'profile.phone' => Search::FILTER_TYPE_LIKE,
     ];
 
     protected array $sortable = [
@@ -21,8 +20,7 @@ class UserSearch extends Search
         'username' => Search::SORT_TYPE_SIMPLE,
         'email' => Search::SORT_TYPE_SIMPLE,
         'role' => Search::SORT_TYPE_SIMPLE,
-        
+
         'profile.full_name' => Search::SORT_TYPE_SIMPLE,
-        'profile.phone' => Search::SORT_TYPE_SIMPLE,
     ];
 }

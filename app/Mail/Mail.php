@@ -10,7 +10,7 @@ use Illuminate\Queue\SerializesModels;
 class Mail extends Mailable
 {
     use Queueable, SerializesModels;
-    
+
     public function subject($subject)
     {
         return parent::subject(__("mail.$subject"));

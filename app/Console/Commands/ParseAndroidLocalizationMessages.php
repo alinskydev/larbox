@@ -36,9 +36,9 @@ class ParseAndroidLocalizationMessages extends Command
         if (!is_dir($path)) {
             return $this->error("'$path' doesn't exists");
         }
-        
+
         //  Checking input file existance
-        
+
         $inputFileName = "$path/_android_messages.xml";
 
         if (!is_file($inputFileName)) {
@@ -46,30 +46,30 @@ class ParseAndroidLocalizationMessages extends Command
         }
 
         // Parsing data
-        
+
         $inputData = file_get_contents($inputFileName);
         $inputData = new \SimpleXMLElement($inputData);
-        
+
         $fields = [];
-        
+
         foreach ($inputData->xpath('/resources/string') as $string) {
             $fieldKey = $this->xmlAttribute($string, 'name');
             $fields[$fieldKey] = $string->__toString();
         }
-        
+
         $fields = array_unique($fields);
-        
+
         ksort($fields);
-        
+
         $outputData = [];
         $outputData[] = '<?php';
         $outputData[] = '';
         $outputData[] = 'return [';
-        
+
         foreach ($fields as $field => $value) {
             $outputData[] = "\t'$field' => '$value',";
         }
-        
+
         $outputData[] = '];';
         $outputData[] = '';
 
@@ -81,7 +81,7 @@ class ParseAndroidLocalizationMessages extends Command
         file_put_contents($outputFileName, $outputData);
         $this->info("Output file is store in: $outputFileName");
     }
-    
+
     public static function xmlAttribute($xml, $attribute)
     {
         return isset($xml[$attribute]) ? (string)$xml[$attribute] : null;

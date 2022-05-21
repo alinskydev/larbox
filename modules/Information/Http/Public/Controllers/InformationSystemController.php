@@ -12,21 +12,21 @@ class InformationSystemController extends Controller
 {
     public function settings()
     {
-        $responce = SystemSettings::query()->orderBy('name')->get()->keyBy('name');
-        $responce = SystemSettingsResource::collection($responce);
+        $response = SystemSettings::query()->orderBy('name')->get()->keyBy('name');
+        $response = SystemSettingsResource::collection($response);
 
-        return response()->json($responce, 200);
+        return response()->json($response, 200);
     }
 
     public function languages()
     {
         $localizationService = LocalizationService::getInstance();
 
-        $responce = [
+        $response = [
             'all' => JsonResource::collection($localizationService->allLanguages),
             'active' => JsonResource::collection($localizationService->activeLanguages),
         ];
 
-        return response()->json($responce, 200);
+        return response()->json($response, 200);
     }
 }

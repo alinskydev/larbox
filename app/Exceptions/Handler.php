@@ -81,7 +81,7 @@ class Handler extends ExceptionHandler
                     'data' => ['message' => 'Not found'],
                 ];
                 break;
-                
+
             case QueryException::class:
                 $response = [
                     'status' => 422,
@@ -91,10 +91,9 @@ class Handler extends ExceptionHandler
 
             default:
                 $response = [
-                    'status' => $e->getCode() ?: 500,
-                    'data' => ['message' => $e->getMessage()],
+                    'status' => method_exists($e, 'getStatusCode') ? $e->getStatusCode() : 500,
+                    'data' => ['message' => $e->getMessage() ?: 'An unhandled exception'],
                 ];
-                break;
         }
 
         return response()->json($response['data'], $response['status']);

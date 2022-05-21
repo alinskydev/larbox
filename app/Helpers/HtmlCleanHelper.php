@@ -2,7 +2,6 @@
 
 namespace App\Helpers;
 
-use Illuminate\Support\Arr;
 use Mews\Purifier\Facades\Purifier;
 
 class HtmlCleanHelper
@@ -11,13 +10,9 @@ class HtmlCleanHelper
     const TYPE_PURIFY = 'purify';
     const TYPE_STRIP_TAGS = 'stripTags';
 
-    public static function process(array $data, string $type, array $uncleanedFields = [])
+    public static function process(array $data, string $type)
     {
-        $fields = $data;
-
-        Arr::forget($fields, $uncleanedFields);
-
-        foreach ($fields as &$value) {
+        foreach ($data as &$value) {
             if (is_array($value)) {
                 array_walk_recursive($value, function (&$v, $k) use ($type) {
                     $v = self::processValue($v, $type);
@@ -27,7 +22,7 @@ class HtmlCleanHelper
             }
         }
 
-        return array_replace_recursive($data, $fields);
+        return $data;
     }
 
     private static function processValue(?string $value, string $type)

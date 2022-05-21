@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Arr;
+
 /*
 |--------------------------------------------------------------------------
 | Create The Application
@@ -14,6 +16,23 @@
 $app = new Illuminate\Foundation\Application(
     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
 );
+
+// Checking API type and setting database name
+
+$headers = getallheaders();
+
+switch (Arr::get($headers, 'API-Type')) {
+        // case 'admin':
+        //     $envFile = '.env.admin';
+        //     break;
+        // case 'public':
+        //     $envFile = '.env.public';
+        //     break;
+    default:
+        $envFile = '.env';
+}
+
+$app->loadEnvironmentFrom($envFile);
 
 /*
 |--------------------------------------------------------------------------

@@ -6,7 +6,7 @@ use App\Services\ActiveService;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
-use Modules\User\Mail\UserResetPasswordMail;
+use Modules\Auth\Mail\AuthResetPasswordMail;
 
 class UserService extends ActiveService
 {
@@ -17,7 +17,7 @@ class UserService extends ActiveService
         $this->model->reset_password_code = $reset_password_code;
         $this->model->saveQuietly();
 
-        Mail::to([$this->model->email])->send(new UserResetPasswordMail($reset_password_code));
+        Mail::to([$this->model->email])->send(new AuthResetPasswordMail($reset_password_code));
     }
 
     public function resetPassword(string $password)

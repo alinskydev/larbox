@@ -28,8 +28,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(100);
+
         ImageManagerStatic::configure(['driver' => 'imagick']);
-        
+
         if (config('app.env') == 'local') {
             Mail::alwaysTo('admin@local.host');
         }

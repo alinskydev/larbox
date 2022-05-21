@@ -14,24 +14,24 @@ class AuthController extends Controller
 {
     public function login(AuthLoginRequest $request)
     {
-        $responce = [
+        $response = [
             'token' => 'Basic ' . base64_encode("$request->username:$request->password"),
             'data' => JsonResource::make($request->user),
         ];
 
-        return response()->json($responce, 200);
+        return response()->json($response, 200);
     }
 
     public function register(AuthRegisterRequest $request)
     {
         $request->model->fill($request->validated())->save();
 
-        $responce = [
+        $response = [
             'token' => 'Basic ' . base64_encode("$request->username:$request->new_password"),
             'data' => JsonResource::make($request->model),
         ];
 
-        return response()->json($responce, 200);
+        return response()->json($response, 200);
     }
 
     public function resetPasswordSendEmail(AuthResetPasswordSendEmailRequest $request)
@@ -47,11 +47,11 @@ class AuthController extends Controller
         $userService = new UserService($request->user);
         $userService->resetPassword($request->new_password);
 
-        $responce = [
+        $response = [
             'token' => 'Basic ' . base64_encode("{$request->user->username}:$request->new_password"),
             'data' => JsonResource::make($request->user),
         ];
 
-        return response()->json($responce, 200);
+        return response()->json($response, 200);
     }
 }

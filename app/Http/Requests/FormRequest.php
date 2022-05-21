@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest as BaseFormRequest;
 use App\Helpers\HtmlCleanHelper;
+use Illuminate\Support\Arr;
 
 class FormRequest extends BaseFormRequest
 {
@@ -35,11 +36,16 @@ class FormRequest extends BaseFormRequest
         $data = parent::validationData();
 
         if ($this->fieldCleanType != HtmlCleanHelper::TYPE_NONE) {
-            $data = HtmlCleanHelper::process(
-                data: $data,
+            $newData = $data;
+
+            Arr::forget($newData, $this->uncleanedFields);
+
+            $newData = HtmlCleanHelper::process(
+                data: $newData,
                 type: $this->fieldCleanType,
-                uncleanedFields: $this->uncleanedFields,
             );
+
+            $data = array_replace_recursive($data, $newData);
         }
 
         $this->merge($data);

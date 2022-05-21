@@ -31,11 +31,11 @@ class RouteServiceProvider extends ServiceProvider
         $this->configureRateLimiting();
 
         $this->routes(function () {
-            if (!app()->runningInConsole()) {
+            if (app()->runningInConsole()) {
+                $locale = '';
+            } else {
                 $localization = LocalizationService::getInstance();
                 $locale = $localization->setLocaleAndGetRouteParameter();
-            } else {
-                $locale = config('app.locale');
             }
 
             Route::group(['prefix' => "api/$locale"], function () {

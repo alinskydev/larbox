@@ -30,7 +30,7 @@ class Model extends BaseModel
         $guarded = array_unique($guarded);
 
         $this->guard($guarded);
-        
+
         //    Common hidden fields
 
         $commonHiddenFields = [

@@ -39,7 +39,7 @@ class LocalizationService
         }
 
         app()->setLocale($locale);
-        
+
         return $locale;
     }
 }

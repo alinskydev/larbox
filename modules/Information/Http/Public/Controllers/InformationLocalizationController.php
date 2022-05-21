@@ -15,8 +15,8 @@ class InformationLocalizationController extends Controller
             abort(404, 'Messages file not found');
         }
 
-        $responce = require($file);
+        $response = require($file);
 
-        return response()->json($responce, 200);
+        return response()->json($response, 200);
     }
 }

@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'user_reset_password' => 'Восстановление пароля',
+    'auth_reset_password' => 'Восстановление пароля',
 ];

@@ -25,7 +25,7 @@ abstract class PostmanTestCase extends BaseTestCase
         'Accept' => 'application/json',
     ];
 
-    private string $baseUrl = '/api/ru';
+    private string $baseUrl = '/api';
     protected string $requestUrl;
     protected string $requestMethod;
     protected array $requestQuery = [];

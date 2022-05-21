@@ -36,9 +36,9 @@ class ExportTestsForPostman extends Command
         if (!is_dir($path)) {
             return $this->error("'$path' doesn't exists");
         }
-        
+
         //  Checking input file existance
-        
+
         $inputFileName = "$path/_postman.json";
 
         if (!is_file($inputFileName)) {

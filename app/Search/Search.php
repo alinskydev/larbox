@@ -21,6 +21,9 @@ class Search
     protected array $filterable = [];
     protected array $sortable = [];
 
+    protected int $maxPageSize = 30;
+    public int $pageSize = 30;
+
     public function setQueryBuilder(Builder $queryBuilder): self
     {
         $this->queryBuilder = $queryBuilder;
@@ -134,6 +137,12 @@ class Search
             }
         }
 
+        return $this;
+    }
+
+    public function setPageSize(int $pageSize): self
+    {
+        $this->pageSize = ($pageSize > 0 && $pageSize <= $this->maxPageSize) ? $pageSize : $this->maxPageSize;
         return $this;
     }
 }
