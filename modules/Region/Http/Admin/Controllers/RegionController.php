@@ -6,7 +6,6 @@ use App\Http\Controllers\ActiveController;
 
 use Modules\Region\Models\Region;
 use Modules\Region\Search\RegionSearch;
-use Modules\Region\Resources\RegionResource;
 use Modules\Region\Http\Admin\Requests\RegionRequest;
 
 class RegionController extends ActiveController
@@ -16,17 +15,7 @@ class RegionController extends ActiveController
         return parent::__construct(
             model: new Region(),
             search: new RegionSearch(),
-            resourceClass: RegionResource::class,
+            formRequestClass: RegionRequest::class,
         );
-    }
-
-    public function store(RegionRequest $request)
-    {
-        return $this->save($request, 201);
-    }
-
-    public function update(RegionRequest $request)
-    {
-        return $this->save($request, 200);
     }
 }

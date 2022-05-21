@@ -8,7 +8,7 @@ use App\Helpers\FileHelper;
 use App\Rules\FileRule;
 use Illuminate\Support\Arr;
 
-class SystemSettingsRequest extends FormRequest
+class SettingsRequest extends FormRequest
 {
     protected array $fileFields = [
         'favicon' => 'images',

@@ -1,13 +1,13 @@
 <?php
 
-namespace Modules\Auth\Http\Public\Requests;
+namespace Modules\Auth\Http\Public\Requests\Auth;
 
 use App\Http\Requests\FormRequest;
 use Modules\User\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
-class AuthLoginRequest extends FormRequest
+class LoginRequest extends FormRequest
 {
     public User $user;
 

@@ -22,19 +22,19 @@ class DeleteFileAction extends Controller
         if (!$value) abort(204);
 
         if (is_array($value)) {
-            if ($index === null) abort(404, "'index' is required");
+            if ($index === null) abort(403, "'index' is required");
 
             $file = Arr::pull($value, $index);
 
             if ($file) {
                 File::delete(public_path($file));
-                
+
                 $model->$field = array_values($value);
                 $model->saveQuietly();
             }
         } else {
             File::delete(public_path($value));
-            
+
             $model->$field = null;
             $model->saveQuietly();
         }

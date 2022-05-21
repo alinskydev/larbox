@@ -5,7 +5,7 @@ namespace Modules\User\Models;
 use App\Models\Model;
 use App\Casts\CastAsImage;
 
-class UserProfile extends Model
+class Profile extends Model
 {
     protected $table = 'user_profile';
     protected $primaryKey = 'user_id';

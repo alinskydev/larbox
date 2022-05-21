@@ -5,7 +5,7 @@ namespace App\Services;
 use App\Traits\SingletonTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
-use Modules\System\Models\SystemLanguage;
+use Modules\System\Models\Language;
 use Illuminate\Database\Eloquent\Collection;
 
 class LocalizationService
@@ -19,7 +19,7 @@ class LocalizationService
     {
         if (!self::$instance) {
             $instance = new self();
-            $instance->allLanguages = SystemLanguage::query()->get()->keyBy('code');
+            $instance->allLanguages = Language::query()->get()->keyBy('code');
             $instance->activeLanguages = $instance->allLanguages->filter(fn ($value) => $value->is_active);
 
             self::$instance = $instance;

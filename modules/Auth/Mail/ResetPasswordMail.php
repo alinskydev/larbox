@@ -4,7 +4,7 @@ namespace Modules\Auth\Mail;
 
 use App\Mail\Mail;
 
-class AuthResetPasswordMail extends Mail
+class ResetPasswordMail extends Mail
 {
     public function __construct(
         public string $code

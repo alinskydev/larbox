@@ -4,7 +4,7 @@ namespace Modules\Information\Http\Public\Controllers;
 
 use App\Http\Controllers\Controller;
 
-class InformationLocalizationController extends Controller
+class LocalizationController extends Controller
 {
     public function messages(string $type)
     {

@@ -4,7 +4,7 @@ namespace Modules\System\Search;
 
 use App\Search\Search;
 
-class SystemLanguageSearch extends Search
+class LanguageSearch extends Search
 {
     protected array $filterable = [
         'id' => Search::FILTER_TYPE_EQUAL,

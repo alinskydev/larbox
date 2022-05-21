@@ -20,7 +20,7 @@ class IndexTest extends _TestCase
                 'username' => 'admin',
                 'email' => 'admin',
                 'role' => 'admin',
-                
+
                 'profile.full_name' => 'admin',
                 'profile.phone' => 'phone',
             ],

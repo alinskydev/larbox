@@ -18,13 +18,9 @@ Route::prefix('region')
         'city' => '[0-9]+',
     ])
     ->group(function () {
-        Route::model('country', RegionCountry::class);
-        Route::model('region', Region::class);
-        Route::model('city', RegionCity::class);
-
-        Route::apiResource('country', RegionCountryController::class);
-        Route::apiResource('region', RegionController::class);
-        Route::apiResource('city', RegionCityController::class);
+        Route::apiResource('country', RegionCountryController::class)->parameter('country', 'model');
+        Route::apiResource('region', RegionController::class)->parameter('region', 'model');
+        Route::apiResource('city', RegionCityController::class)->parameter('city', 'model');
 
         Route::delete('country/{id}/restore', RestoreAction::class)->setBindingFields(['modelClass' => RegionCountry::class]);
         Route::delete('region/{id}/restore', RestoreAction::class)->setBindingFields(['modelClass' => Region::class]);

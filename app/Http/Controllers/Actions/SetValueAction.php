@@ -9,7 +9,6 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 
 use App\Models\Model;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Schema;
 
 class SetValueAction extends Controller
 {
@@ -20,11 +19,7 @@ class SetValueAction extends Controller
         $field = $request->route()->bindingFieldFor('field');
 
         if (!$field) {
-            throw new \Exception("'field' parameter must be binded in route");
-        }
-
-        if (!Schema::hasColumn($model->getTable(), $field)) {
-            throw new \Exception("Field '$field' doesn't exist");
+            throw new \Exception("'field' parameter must be binded");
         }
 
         $model->$field = $value;

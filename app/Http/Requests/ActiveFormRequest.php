@@ -9,32 +9,47 @@ use Illuminate\Support\Facades\File;
 
 class ActiveFormRequest extends FormRequest
 {
-    protected array $ignoredModelFields = [];
+    public Model $model;
 
-    public function __construct(
-        public Model $model
-    ) {
-        $this->ignoredModelFields = array_merge($this->ignoredModelFields, array_keys($this->fileFields));
+    protected array $ignoredModelUpdateFields = [];
+
+    public function __construct(Model $model)
+    {
+        $this->model = $model;
+        $this->ignoredModelUpdateFields = array_merge($this->ignoredModelUpdateFields, array_keys($this->fileFields));
+
         return parent::__construct();
     }
 
     protected function prepareForValidation()
     {
+        // Assigning model and its fields
+
+        $this->model = $this->route('model') ?: $this->model;
+
+        $relationsAttributes = array_map(fn ($value) => $value->attributesToArray(), $this->model->getRelations());
+        $attributes = array_replace_recursive($this->model->attributesToArray(), $relationsAttributes);
+
+        Arr::forget($attributes, $this->ignoredModelUpdateFields);
+
+        // Preparing
+
         parent::prepareForValidation();
 
         $data = $this->validationData();
-
-        $routeName = strstr($this->route()->getName(), '.', true);
-        $this->model = $this->route($routeName) ?: $this->model;
-
-        $relationsAttributes = array_map(fn ($value) => $value->attributesToArray(), $this->model->getRelations());
-        $attributes = array_merge($this->model->attributesToArray(), $relationsAttributes);
-
-        Arr::forget($attributes, $this->ignoredModelFields);
-
         $data = array_replace_recursive($attributes, $data);
 
         $this->merge($data);
+    }
+
+    protected function passedValidation()
+    {
+        parent::passedValidation();
+
+        $data = $this->validated();
+
+        $this->model->fill($data)->save();
+        $this->model->refresh();
     }
 
     public function validated($key = null, $default = null)

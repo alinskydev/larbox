@@ -4,16 +4,16 @@ namespace Modules\Information\Http\Public\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Resources\JsonResource;
-use Modules\System\Models\SystemSettings;
-use Modules\System\Resources\SystemSettingsResource;
+use Modules\System\Models\Settings;
+use Modules\System\Resources\SettingsResource;
 use App\Services\LocalizationService;
 
-class InformationSystemController extends Controller
+class SystemController extends Controller
 {
     public function settings()
     {
-        $response = SystemSettings::query()->orderBy('name')->get()->keyBy('name');
-        $response = SystemSettingsResource::collection($response);
+        $response = Settings::query()->orderBy('name')->get()->keyBy('name');
+        $response = SettingsResource::collection($response);
 
         return response()->json($response, 200);
     }

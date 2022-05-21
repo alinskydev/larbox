@@ -2,23 +2,24 @@
 
 use Illuminate\Support\Facades\Route;
 
-use Modules\System\Http\Admin\Controllers\SystemLanguageController;
-use Modules\System\Http\Admin\Controllers\SystemSettingsController;
+use Modules\System\Http\Admin\Controllers\LanguageController;
+use Modules\System\Http\Admin\Controllers\SettingsController;
 use App\Http\Controllers\Actions\SetValueAction;
 
-use Modules\System\Models\SystemLanguage;
+use Modules\System\Models\Language;
 
 Route::prefix('system')
     ->where([
         'language' => '[0-9]+',
     ])
     ->group(function () {
-        Route::model('language', SystemLanguage::class);
+        Route::model('language', Language::class);
 
-        Route::apiResource('language', SystemLanguageController::class)->only(['index', 'show', 'update']);
+        Route::apiResource('language', LanguageController::class)->parameter('language', 'model')
+            ->only(['index', 'show', 'update']);
 
-        Route::get('settings', [SystemSettingsController::class, 'index']);
-        Route::post('settings', [SystemSettingsController::class, 'update']);
+        Route::get('settings', [SettingsController::class, 'index']);
+        Route::post('settings', [SettingsController::class, 'update']);
 
         Route::post('language/{language}/set-active/{value}', SetValueAction::class)
             ->whereIn('value', [0, 1])

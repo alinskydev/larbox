@@ -8,6 +8,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class RestoreAction extends Controller
 {
@@ -16,13 +17,16 @@ class RestoreAction extends Controller
     public function __invoke(int $id, Request $request)
     {
         $modelClass = $request->route()->bindingFieldFor('modelClass');
-        
+
         if (!$modelClass) {
-            throw new \Exception("'modelClass' parameter must be binded in route");
+            throw new \Exception("'modelClass' parameter must be binded");
         }
 
-        $model = $modelClass::query()->onlyTrashed()->findOrFail($id);
-        $model->restore();
+        $model = new $modelClass();
+
+        if (in_array(SoftDeletes::class, class_uses_recursive($model))) {
+            $model->query()->onlyTrashed()->findOrFail($id)->restore();
+        }
 
         return response('', 204);
     }

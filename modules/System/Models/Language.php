@@ -6,7 +6,7 @@ use App\Models\Model;
 use App\Casts\CastAsImage;
 use Illuminate\Support\Arr;
 
-class SystemLanguage extends Model
+class Language extends Model
 {
     protected $table = 'system_language';
 

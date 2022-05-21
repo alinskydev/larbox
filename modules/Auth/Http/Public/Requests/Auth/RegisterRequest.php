@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Auth\Http\Public\Requests;
+namespace Modules\Auth\Http\Public\Requests\Auth;
 
 use App\Http\Requests\ActiveFormRequest;
 use Modules\User\Models\User;
@@ -9,7 +9,7 @@ use Illuminate\Validation\Rule;
 use App\Rules\FileRule;
 use Illuminate\Support\Facades\Hash;
 
-class AuthRegisterRequest extends ActiveFormRequest
+class RegisterRequest extends ActiveFormRequest
 {
     protected array $fileFields = [
         'profile.image' => 'images',

@@ -1,12 +1,12 @@
 <?php
 
-namespace Modules\Auth\Http\Public\Requests;
+namespace Modules\Auth\Http\Public\Requests\ResetPassword;
 
 use App\Http\Requests\FormRequest;
 use Modules\User\Models\User;
 use Illuminate\Validation\Rule;
 
-class AuthResetPasswordSendEmailRequest extends FormRequest
+class SetNewPasswordRequest extends FormRequest
 {
     public User $user;
 
@@ -19,6 +19,14 @@ class AuthResetPasswordSendEmailRequest extends FormRequest
                 'max:100',
                 Rule::exists('user')->where('deleted_at', null),
             ],
+            'reset_password_code' => [
+                'required',
+                'string',
+                'size:8',
+                Rule::exists('user')->where('deleted_at', null)->where('email', $this->email),
+            ],
+            'new_password' => 'required|string|min:8|max:100',
+            'new_password_confirmation' => 'required|same:new_password',
         ];
     }
 

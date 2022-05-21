@@ -7,7 +7,7 @@ use App\Http\Controllers\Actions\RestoreAction;
 use App\Http\Controllers\Actions\DeleteFileAction;
 
 use Modules\User\Models\User;
-use Modules\User\Models\UserProfile;
+use Modules\User\Models\Profile;
 
 Route::prefix('user')
     ->where([
@@ -15,10 +15,9 @@ Route::prefix('user')
         'profile' => '[0-9]+',
     ])
     ->group(function () {
-        Route::model('user', User::class);
-        Route::model('profile', UserProfile::class);
+        Route::model('profile', Profile::class);
 
-        Route::apiResource('user', UserController::class);
+        Route::apiResource('user', UserController::class)->parameter('user', 'model');
 
         Route::delete('user/{id}/restore', RestoreAction::class)->setBindingFields(['modelClass' => User::class]);
 

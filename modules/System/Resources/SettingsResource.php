@@ -4,7 +4,7 @@ namespace Modules\System\Resources;
  
 use App\Resources\JsonResource;
 
-class SystemSettingsResource extends JsonResource
+class SettingsResource extends JsonResource
 {
     public function toArray($request)
     {

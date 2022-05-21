@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Model;
 use App\Search\Search;
 use App\Resources\JsonResource;
-use App\Http\Requests\ActiveFormRequest;
+
+use Illuminate\Support\Facades\Route;
+use Illuminate\Contracts\Validation\ValidatesWhenResolved;
 
 class ActiveController extends Controller
 {
@@ -13,8 +15,25 @@ class ActiveController extends Controller
         public Model $model,
         protected Search $search,
         protected string $resourceClass = JsonResource::class,
+        protected ?string $formRequestClass = null,
     ) {
+        // Binding FormRequest class
+
         $request = request();
+
+        if (!$this->formRequestClass && in_array($request->route()->getActionMethod(), ['store', 'update'])) {
+            throw new \Exception("'formRequestClass' must be set");
+        }
+
+        if ($this->formRequestClass) {
+            app()->bind(ValidatesWhenResolved::class, $this->formRequestClass);
+        }
+
+        // Setting model for route
+
+        Route::model('model', $this->model::class);
+
+        // Searching
 
         $this->search->setQueryBuilder($this->model->query())
             ->join((array)$request->get('with'))
@@ -38,18 +57,21 @@ class ActiveController extends Controller
         return response()->json($data, 200);
     }
 
+    public function store(ValidatesWhenResolved $request)
+    {
+        $data = $this->resourceClass::make($request->model);
+        return response()->json($data, 201);
+    }
+
+    public function update(ValidatesWhenResolved $request)
+    {
+        $data = $this->resourceClass::make($request->model);
+        return response()->json($data, 200);
+    }
+
     public function destroy(Model $model)
     {
         $model->delete();
         return response('', 204);
-    }
-
-    protected function save(ActiveFormRequest $request, int $status)
-    {
-        $request->model->fill($request->validated())->save();
-
-        $data = $this->resourceClass::make($request->model);
-
-        return response()->json($data, $status);
     }
 }

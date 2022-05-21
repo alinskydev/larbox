@@ -14,16 +14,7 @@ class UserController extends ActiveController
         return parent::__construct(
             model: new User(),
             search: new UserSearch(),
+            formRequestClass: UserRequest::class,
         );
-    }
-
-    public function store(UserRequest $request)
-    {
-        return $this->save($request, 201);
-    }
-
-    public function update(UserRequest $request)
-    {
-        return $this->save($request, 200);
     }
 }

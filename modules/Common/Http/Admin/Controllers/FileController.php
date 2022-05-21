@@ -5,7 +5,7 @@ namespace Modules\Common\Http\Admin\Controllers;
 use App\Http\Controllers\Controller;
 use Modules\Common\Http\Admin\Requests\FileUploadRequest;
 
-class CommonFileController extends Controller
+class FileController extends Controller
 {
     public function upload(FileUploadRequest $request)
     {

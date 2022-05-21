@@ -3,11 +3,11 @@
 namespace Modules\System\Http\Admin\Requests;
 
 use App\Http\Requests\ActiveFormRequest;
-use Modules\System\Models\SystemLanguage;
+use Modules\System\Models\Language;
 
 use App\Rules\FileRule;
 
-class SystemLanguageRequest extends ActiveFormRequest
+class LanguageRequest extends ActiveFormRequest
 {
     protected array $fileFields = [
         'image' => 'images',
@@ -16,7 +16,7 @@ class SystemLanguageRequest extends ActiveFormRequest
     public function __construct()
     {
         return parent::__construct(
-            model: new SystemLanguage()
+            model: new Language()
         );
     }
 

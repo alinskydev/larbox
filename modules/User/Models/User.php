@@ -34,7 +34,7 @@ class User extends UserModel
 
     public function profile()
     {
-        return $this->hasOne(UserProfile::class, 'user_id');
+        return $this->hasOne(Profile::class, 'user_id');
     }
 
     protected static function boot()

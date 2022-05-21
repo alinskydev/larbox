@@ -4,7 +4,7 @@ namespace Modules\System\Models;
 
 use App\Models\Model;
 
-class SystemSettings extends Model
+class Settings extends Model
 {
     protected $table = 'system_settings';
     
