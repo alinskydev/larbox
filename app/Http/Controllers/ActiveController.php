@@ -8,6 +8,7 @@ use App\Resources\JsonResource;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Contracts\Validation\ValidatesWhenResolved;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ActiveController extends Controller
 {
@@ -25,9 +26,7 @@ class ActiveController extends Controller
             throw new \Exception("'formRequestClass' must be set");
         }
 
-        if ($this->formRequestClass) {
-            app()->bind(ValidatesWhenResolved::class, $this->formRequestClass);
-        }
+        app()->bind(ValidatesWhenResolved::class, $this->formRequestClass);
 
         // Setting model for route
 
@@ -72,6 +71,15 @@ class ActiveController extends Controller
     public function destroy(Model $model)
     {
         $model->delete();
+        return response('', 204);
+    }
+
+    public function restore(int $id)
+    {
+        if (in_array(SoftDeletes::class, class_uses_recursive($this->model))) {
+            $this->model->query()->onlyTrashed()->findOrFail($id)->restore();
+        }
+
         return response('', 204);
     }
 }

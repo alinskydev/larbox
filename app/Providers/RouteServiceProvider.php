@@ -38,15 +38,16 @@ class RouteServiceProvider extends ServiceProvider
                 $locale = $localization->setLocaleAndGetRouteParameter();
             }
 
-            Route::group(['prefix' => "api/$locale"], function () {
-                $base_path = base_path();
-
-                Route::middleware('auth.basic.once', 'role:admin', 'api')
+            Route::group(['prefix' => "$locale/api"], function () {
+                Route::middleware('api', 'auth.basic.once', 'role:admin')
                     ->prefix('admin')
-                    ->group(glob("$base_path/modules/*/Http/Admin/routes.php"));
+                    ->group(glob(base_path('http/Admin/*/routes.php')));
 
-                Route::withoutMiddleware()
-                    ->group(glob("$base_path/modules/*/Http/Public/routes.php"));
+                Route::middleware('api')
+                    ->group(glob(base_path('http/Common/*/routes.php')));
+
+                Route::middleware('api')
+                    ->group(glob(base_path('http/Public/*/routes.php')));
             });
         });
 

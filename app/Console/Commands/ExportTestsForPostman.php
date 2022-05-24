@@ -184,11 +184,6 @@ class ExportTestsForPostman extends Command
                         'method' => $request['method'],
                         'header' => $request['headers'],
                         'body' => ['mode' => 'none'],
-                        'url' => [
-                            'host' => ['{{host}}'],
-                            'raw' => '{{host}}/' . $request['url']['path'],
-                            'path' => explode('/', $request['url']['path']),
-                        ],
                     ],
                     'response' => $this->addItems($item),
                 ];

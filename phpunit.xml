@@ -7,8 +7,8 @@
 >
     <testsuites>
         <testsuite name="Feature">
-            <directory suffix="Test.php">./tests/Feature/*</directory>
-            <!-- <directory suffix="Test.php">./tests/Feature/Tests/Admin/*</directory>  -->
+            <!-- <directory suffix="Test.php">./http/*/*/Tests</directory> -->
+            <directory suffix="Test.php">./http/Admin/Box/Tests</directory>
         </testsuite>
     </testsuites>
     <coverage processUncoveredFiles="true">

@@ -1,5 +1,9 @@
 <?php
 
+use App\Routing\Router;
+use Illuminate\Routing\ResourceRegistrar as BaseResourceRegistar;
+use App\Routing\ResourceRegistrar;
+
 use Illuminate\Support\Arr;
 
 /*
@@ -21,16 +25,15 @@ $app = new Illuminate\Foundation\Application(
 
 $headers = getallheaders();
 
-switch (Arr::get($headers, 'API-Type')) {
-        // case 'admin':
-        //     $envFile = '.env.admin';
-        //     break;
-        // case 'public':
-        //     $envFile = '.env.public';
-        //     break;
-    default:
-        $envFile = '.env';
-}
+$envFile = match (Arr::get($headers, 'API-Type')) {
+        // 'admin' => '.env.admin',
+        // 'public' => '.env.public',
+    default => '.env',
+};
+
+// if (Arr::get($headers, 'Debug-Key') == 'vu8eaajiaw') {
+//     $envFile = '.env.debug';
+// }
 
 $app->loadEnvironmentFrom($envFile);
 
@@ -59,6 +62,16 @@ $app->singleton(
     Illuminate\Contracts\Debug\ExceptionHandler::class,
     App\Exceptions\Handler::class
 );
+
+//  Binding router
+
+$app->singleton('router', function ($app) {
+    return new Router($app['events'], $app);
+});
+
+$app->bind(BaseResourceRegistar::class, function ($app) {
+    return new ResourceRegistrar($app['router']);
+});
 
 /*
 |--------------------------------------------------------------------------

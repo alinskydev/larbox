@@ -35,7 +35,7 @@ class ImageHelper
         $thumbUrl = "/$thumbPath/$thumbName";
 
         if (!is_file($thumbFile)) {
-            if (is_dir($thumbPath)) File::makeDirectory(public_path($thumbPath), 0777, true, true);
+            File::makeDirectory(public_path($thumbPath), 0777, true, true);
 
             $image = ImageManagerStatic::make($sourceFile);
             $image->{$type}(...$params);

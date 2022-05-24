@@ -3,7 +3,7 @@
 namespace Modules\System\Models;
 
 use App\Models\Model;
-use App\Casts\CastAsImage;
+use App\Casts\AsImage;
 use Illuminate\Support\Arr;
 
 class Language extends Model
@@ -16,12 +16,8 @@ class Language extends Model
         'is_main',
     ];
 
-    protected $appends = [
-        'image_urls',
-    ];
-
     protected $casts = [
-        'image_urls' => CastAsImage::class . ':image,100|500',
+        'image' => AsImage::class . ':0,100|500',
     ];
 
     protected static function boot()

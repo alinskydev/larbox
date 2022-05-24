@@ -30,7 +30,7 @@ class LocalizationService
 
     public function setLocaleAndGetRouteParameter()
     {
-        $locale = app(Request::class)->segment(2);
+        $locale = app(Request::class)->segment(1);
 
         if (!isset($this->activeLanguages[$locale])) {
             $currentLanguage = Arr::pluck($this->activeLanguages, 'code', 'is_main');
