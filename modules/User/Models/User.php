@@ -41,7 +41,7 @@ class User extends UserModel
     {
         parent::boot();
 
-        static::deleting(function ($model) {
+        static::deleting(function (self $model) {
             if ($model->id == 1) {
                 abort(403, __('model.user.undeleteable'));
             }

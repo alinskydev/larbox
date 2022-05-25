@@ -10,8 +10,8 @@ use App\Rules\FileRule;
 class FileUploadRequest extends FormRequest
 {
     protected array $fileFields = [
-        'file' => 'files',
-        'files_list' => 'files',
+        'file',
+        'files_list',
     ];
 
     public array $urls;

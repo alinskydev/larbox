@@ -19,21 +19,25 @@ class DeleteFileAction extends Controller
     {
         $value = $model->$field;
 
-        if (!$value) abort(204);
+        if ($value === null) abort(204);
 
-        if (is_array($value)) {
+        $originalValue = $model->getRawOriginal($field);
+        $isArray = json_decode($originalValue) !== null;
+
+        if ($isArray) {
+            $originalValue = json_decode($originalValue);
+
             if ($index === null) abort(403, "'index' is required");
 
-            $file = Arr::pull($value, $index);
-
-            if ($file) {
+            if ($file = Arr::get($originalValue, $index)) {
                 File::delete(public_path($file));
+                Arr::forget($value, $index);
 
                 $model->$field = array_values($value);
                 $model->saveQuietly();
             }
         } else {
-            File::delete(public_path($value));
+            File::delete(public_path($originalValue));
 
             $model->$field = null;
             $model->saveQuietly();

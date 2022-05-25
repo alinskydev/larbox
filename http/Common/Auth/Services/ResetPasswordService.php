@@ -2,13 +2,13 @@
 
 namespace Http\Common\Auth\Services;
 
-use App\Services\ActiveService;
+use App\Services\ModelService;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
 use Http\Common\Auth\Mail\ResetPasswordMail;
 
-class ResetPasswordService extends ActiveService
+class ResetPasswordService extends ModelService
 {
     public function sendCode()
     {

@@ -11,13 +11,6 @@ $formRequestFileMimesAll = array_values($formRequestFileMimes);
 $formRequestFileMimes['all'] = implode(',', $formRequestFileMimesAll);
 
 return [
-    'date_format' => [
-        'date' => 'd.m.Y',
-        'datetime' => 'd.m.Y H:i',
-        'time' => 'H:i',
-        'month' => 'm.Y',
-    ],
-
     'form_request' => [
         'file' => [
             'max' => [

@@ -44,4 +44,23 @@ class ImageHelper
 
         return $isAbsoluteThumbUrl ? asset($thumbUrl) : $thumbUrl;
     }
+
+    public static function populateSizes(string $url, array $sizes)
+    {
+        $result = [
+            'original' => asset($url),
+        ];
+
+        foreach ($sizes as $size) {
+            $result["w_$size"] = ImageHelper::thumbnail($url, 'widen', [$size]);
+        }
+
+        return $result;
+    }
+
+    public static function clearSizes(array $urls)
+    {
+        $result = $urls['original'];
+        return str_replace(asset(''), '/', $result);
+    }
 }

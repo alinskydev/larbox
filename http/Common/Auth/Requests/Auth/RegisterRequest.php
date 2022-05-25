@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Hash;
 class RegisterRequest extends ActiveFormRequest
 {
     protected array $fileFields = [
-        'profile.image' => 'images',
+        'profile.image',
     ];
 
     public function __construct()
@@ -60,7 +60,7 @@ class RegisterRequest extends ActiveFormRequest
 
         $this->model->fillableRelations = [
             $this->model::RELATION_TYPE_ONE_ONE => [
-                'profile' => $data['profile'],
+                'profile' => $data['profile'] ?? [],
             ],
         ];
 

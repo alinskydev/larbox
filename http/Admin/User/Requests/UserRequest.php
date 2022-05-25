@@ -3,7 +3,6 @@
 namespace Http\Admin\User\Requests;
 
 use App\Http\Requests\ActiveFormRequest;
-use Modules\User\Models\User;
 use Modules\User\Enums\UserEnums;
 
 use Illuminate\Validation\Rule;
@@ -13,15 +12,8 @@ use Illuminate\Support\Facades\Hash;
 class UserRequest extends ActiveFormRequest
 {
     protected array $fileFields = [
-        'profile.image' => 'images',
+        'profile.image',
     ];
-
-    public function __construct()
-    {
-        return parent::__construct(
-            model: new User()
-        );
-    }
 
     public function rules()
     {
@@ -71,7 +63,7 @@ class UserRequest extends ActiveFormRequest
 
         $this->model->fillableRelations = [
             $this->model::RELATION_TYPE_ONE_ONE => [
-                'profile' => $data['profile'],
+                'profile' => $data['profile'] ?? [],
             ],
         ];
 

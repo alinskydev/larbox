@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Models\Model;
 
-class ActiveService
+class ModelService
 {
     public function __construct(
         public Model $model

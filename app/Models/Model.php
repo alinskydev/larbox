@@ -47,7 +47,7 @@ class Model extends BaseModel
 
     protected function serializeDate(DateTimeInterface $date)
     {
-        $format = $this->dateFormat ?? config('larbox.date_format.datetime');
+        $format = $this->dateFormat ?? LARBOX_FORMAT_DATETIME;
         return $date->format($format);
     }
 
@@ -57,7 +57,7 @@ class Model extends BaseModel
 
         // Saving relations
 
-        static::saved(function ($model) {
+        static::saved(function (self $model) {
             foreach ($model->fillableRelations as $relationType => $relations) {
                 foreach ($relations as $relation => $value) {
                     switch ($relationType) {

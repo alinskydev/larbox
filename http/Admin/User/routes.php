@@ -13,9 +13,9 @@ Route::prefix('user')
         'profile' => '[0-9]+',
     ])
     ->group(function () {
-        Route::model('profile', Profile::class);
-
         Route::apiResource('user', UserController::class);
+        
+        Route::model('profile', Profile::class);
 
         Route::delete('user/{profile}/delete-file/{field}/{index?}', DeleteFileAction::class)->whereIn('field', ['image']);
     });

@@ -1,0 +1,15 @@
+<?php
+
+namespace Http\Admin\Box\Requests;
+
+use App\Http\Requests\ActiveFormRequest;
+
+class TagRequest extends ActiveFormRequest
+{
+    public function rules()
+    {
+        return [
+            'name' => 'required|string|max:100',
+        ];
+    }
+}

@@ -3,7 +3,7 @@
 namespace Modules\User\Models;
 
 use App\Models\Model;
-use App\Casts\AsImage;
+use App\Casts\Storage\AsImage;
 
 class Profile extends Model
 {
@@ -23,6 +23,6 @@ class Profile extends Model
     ];
 
     protected $casts = [
-        'image' => AsImage::class . ':0,100|500',
+        'image' => AsImage::class . ':100|500',
     ];
 }

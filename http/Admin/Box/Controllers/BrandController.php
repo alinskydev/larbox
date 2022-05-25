@@ -11,11 +11,6 @@ class BrandController extends ActiveController
 {
     public function __construct()
     {
-        $model = Brand::query()->find(3);
-        $files = $model->file;
-        $model->file = $files;
-        $model->save();
-
         return parent::__construct(
             model: new Brand(),
             search: new BrandSearch(),

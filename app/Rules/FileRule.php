@@ -24,7 +24,7 @@ class FileRule extends Rule
             "max:$this->max",
         ]]);
 
-        $this->errorMessage = $validator->errors()->first($attribute);
+        $this->errorMessage = $validator->errors()->all();
 
         return !$validator->fails();
     }

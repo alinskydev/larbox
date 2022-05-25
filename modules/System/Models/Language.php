@@ -3,7 +3,7 @@
 namespace Modules\System\Models;
 
 use App\Models\Model;
-use App\Casts\AsImage;
+use App\Casts\Storage\AsImage;
 use Illuminate\Support\Arr;
 
 class Language extends Model
@@ -17,14 +17,14 @@ class Language extends Model
     ];
 
     protected $casts = [
-        'image' => AsImage::class . ':0,100|500',
+        'image' => AsImage::class . ':100|500',
     ];
 
     protected static function boot()
     {
         parent::boot();
 
-        static::saving(function ($model) {
+        static::saving(function (self $model) {
             if (Arr::get($model->original, 'is_active') && !$model->is_active) {
                 if ($model->is_main) {
                     abort(403, __('model.system_language.deactivate_main'));

@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Hash;
 class ProfileRequest extends ActiveFormRequest
 {
     protected array $fileFields = [
-        'profile.image' => 'images',
+        'profile.image',
     ];
 
     public function __construct()

@@ -27,10 +27,11 @@ class ActiveController extends Controller
         }
 
         app()->bind(ValidatesWhenResolved::class, $this->formRequestClass);
-
-        // Setting model for route
+        
+        // Binding model for FormRequest
 
         Route::model('model', $this->model::class);
+        $request->route()->setBindingFields(['new_model' => $this->model]);
 
         // Searching
 

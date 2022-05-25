@@ -2,10 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\Helpers\FileHelper;
 use App\Models\Model;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\File;
+use Illuminate\Http\UploadedFile;
 
 class ActiveFormRequest extends FormRequest
 {
@@ -13,10 +12,10 @@ class ActiveFormRequest extends FormRequest
 
     protected array $ignoredModelUpdateFields = [];
 
-    public function __construct(Model $model)
+    public function __construct($model = null)
     {
-        $this->model = $model;
-        $this->ignoredModelUpdateFields = array_merge($this->ignoredModelUpdateFields, array_keys($this->fileFields));
+        $this->model = $model ?: request()->route()->bindingFieldFor('new_model');
+        $this->ignoredModelUpdateFields = array_merge($this->ignoredModelUpdateFields, $this->fileFields);
 
         return parent::__construct();
     }
@@ -55,41 +54,35 @@ class ActiveFormRequest extends FormRequest
     public function validated($key = null, $default = null)
     {
         $data = parent::validated($key, $default);
-        $data = $this->saveFiles($data);
+        $data = $this->assignFiles($data);
 
         return $data;
     }
 
-    private function saveFiles(array $data)
+    private function assignFiles($data)
     {
-        $files = $this->files->all();
+        $data = Arr::dot($data);
 
-        foreach ($this->fileFields as $field => $path) {
-            $file = Arr::get($files, $field);
+        foreach ($data as $field => $value) {
+            if (!($value instanceof UploadedFile)) continue;
 
-            if (!$file) continue;
+            unset($data[$field]);
 
             $fieldArr = explode('.', $field);
-            $oldValue = clone ($this->model);
+            $fieldIndex = end($fieldArr);
 
-            foreach ($fieldArr as $fieldName) {
-                $oldValue = $oldValue ? $oldValue->$fieldName : $oldValue;
-            }
-
-            if (is_array($file)) {
-                $file = array_values($file);
-
-                Arr::set($data, $field, $oldValue);
-
-                foreach ($file as $k => $f) {
-                    Arr::set($data, "$field.$k", FileHelper::upload($f, $path));
-                }
+            if (is_numeric($fieldIndex)) {
+                array_pop($fieldArr);
+                $field = implode('.', $fieldArr);
+                $field .= ".new.$fieldIndex";
+                $data[$field] = $value;
             } else {
-                File::delete(public_path($oldValue));
-
-                Arr::set($data, $field, FileHelper::upload($file, $path));
+                $field .= '.new';
+                $data[$field] = $value;
             }
         }
+
+        $data = Arr::undot($data);
 
         return $data;
     }

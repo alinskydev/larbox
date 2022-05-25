@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest as BaseFormRequest;
 use App\Helpers\HtmlCleanHelper;
+use App\Services\LocalizationService;
 use Illuminate\Support\Arr;
 
 class FormRequest extends BaseFormRequest
@@ -15,7 +16,7 @@ class FormRequest extends BaseFormRequest
 
     public function __construct()
     {
-        $this->uncleanedFields = array_merge($this->uncleanedFields, array_keys($this->fileFields));
+        $this->uncleanedFields = array_merge($this->uncleanedFields, $this->fileFields);
         return parent::__construct();
     }
 
@@ -27,6 +28,31 @@ class FormRequest extends BaseFormRequest
         $attributes = array_map(fn ($value) => __("field.$value"), $attributes);
 
         return $attributes;
+    }
+
+    public function classicRules()
+    {
+        return [];
+    }
+
+    public function localizedRules()
+    {
+        return [];
+    }
+
+    public function rules()
+    {
+        $languages = LocalizationService::getInstance()->activeLanguages->toArray();
+
+        $localizedRules = $this->localizedRules();
+
+        foreach ($localizedRules as &$rule) {
+            $rule = data_set($languages, '*', $rule);
+        }
+
+        $localizedRules = Arr::dot($localizedRules);
+
+        return array_merge($this->classicRules(), $localizedRules);
     }
 
     protected function prepareForValidation()

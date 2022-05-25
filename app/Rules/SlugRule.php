@@ -25,7 +25,7 @@ class SlugRule extends Rule
             ValidationRule::unique($this->model->getTable())->ignore($this->model->id),
         ]]);
 
-        $this->errorMessage = $validator->errors()->first($attribute);
+        $this->errorMessage = $validator->errors()->all();
 
         return !$validator->fails();
     }
