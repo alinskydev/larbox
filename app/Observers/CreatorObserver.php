@@ -4,7 +4,7 @@ namespace App\Observers;
 
 use App\Models\Model;
 
-class CreatorIdFieldObserver
+class CreatorObserver
 {
     public function creating(Model $model)
     {

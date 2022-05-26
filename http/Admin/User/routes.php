@@ -9,7 +9,6 @@ use Modules\User\Models\Profile;
 
 Route::prefix('user')
     ->where([
-        'user' => '[0-9]+',
         'profile' => '[0-9]+',
     ])
     ->group(function () {

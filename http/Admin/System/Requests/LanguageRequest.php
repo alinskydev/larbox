@@ -3,12 +3,11 @@
 namespace Http\Admin\System\Requests;
 
 use App\Http\Requests\ActiveFormRequest;
-
-use App\Rules\FileRule;
+use App\Helpers\FormRequestHelper;
 
 class LanguageRequest extends ActiveFormRequest
 {
-    protected array $fileFields = [
+    protected array $ignoredModelUpdateFields = [
         'image',
     ];
 
@@ -16,11 +15,7 @@ class LanguageRequest extends ActiveFormRequest
     {
         return [
             'name' => 'required|string|max:100',
-            'image' => [
-                'sometimes',
-                'required',
-                new FileRule(mimes: config('larbox.form_request.file.mimes.image')),
-            ],
+            'image' => FormRequestHelper::imageRules(),
         ];
     }
 }

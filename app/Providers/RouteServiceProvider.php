@@ -39,20 +39,21 @@ class RouteServiceProvider extends ServiceProvider
             }
 
             Route::group(['prefix' => "$locale/api"], function () {
-                Route::middleware('api', 'auth.basic.once', 'role:admin')
+                Route::middleware('auth.basic.once', 'role:admin', 'api')
                     ->prefix('admin')
                     ->group(glob(base_path('http/Admin/*/routes.php')));
 
                 Route::middleware('api')
                     ->group(glob(base_path('http/Common/*/routes.php')));
 
-                Route::middleware('api')
+                Route::middleware('auth.basic.once', 'api')
                     ->group(glob(base_path('http/Public/*/routes.php')));
             });
         });
 
         Route::pattern('id', '[0-9]+');
         Route::pattern('index', '[0-9]+');
+        Route::pattern('model', '[0-9]+');
 
         parent::boot();
     }

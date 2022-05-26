@@ -32,6 +32,39 @@ class UpdateTest extends _TestCase
             ],
 
             'tags' => [1, 2],
+
+            'variations' => [
+                [
+                    'id' => 1,
+                    'name' => [
+                        'ru' => 'Variation 1 ru',
+                        'uz' => 'Variation 1 uz',
+                        'en' => 'Variation 1 en',
+                    ],
+                    'date' => date('d.m.Y'),
+                    'datetime' => date('d.m.Y H:i:s'),
+                    'image' => UploadedFile::fake()->create('image.jpg', 100, 'image/jpeg'),
+                    'images_list' => [
+                        UploadedFile::fake()->create('image.jpg', 100, 'image/jpeg'),
+                        UploadedFile::fake()->create('image.jpg', 100, 'image/jpeg'),
+                    ],
+                ],
+                [
+                    'id' => 2,
+                    'name' => [
+                        'ru' => 'Variation 2 ru',
+                        'uz' => 'Variation 2 uz',
+                        'en' => 'Variation 2 en',
+                    ],
+                    'date' => date('d.m.Y'),
+                    'datetime' => date('d.m.Y H:i:s'),
+                    'image' => UploadedFile::fake()->create('image.jpg', 100, 'image/jpeg'),
+                    'images_list' => [
+                        UploadedFile::fake()->create('image.jpg', 100, 'image/jpeg'),
+                        UploadedFile::fake()->create('image.jpg', 100, 'image/jpeg'),
+                    ],
+                ],
+            ],
         ];
 
         $this->response = $this->sendRequest();

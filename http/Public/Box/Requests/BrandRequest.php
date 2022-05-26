@@ -1,6 +1,6 @@
 <?php
 
-namespace Http\Admin\Box\Requests;
+namespace Http\Public\Box\Requests;
 
 use App\Http\Requests\ActiveFormRequest;
 

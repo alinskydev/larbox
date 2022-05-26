@@ -26,6 +26,37 @@ class CreateTest extends _TestCase
             ],
 
             'tags' => [1, 2],
+
+            'variations' => [
+                [
+                    'name' => [
+                        'ru' => 'Variation 3 ru',
+                        'uz' => 'Variation 3 uz',
+                        'en' => 'Variation 3 en',
+                    ],
+                    'date' => date('d.m.Y'),
+                    'datetime' => date('d.m.Y H:i:s'),
+                    'image' => UploadedFile::fake()->create('image.jpg', 100, 'image/jpeg'),
+                    'images_list' => [
+                        UploadedFile::fake()->create('image.jpg', 100, 'image/jpeg'),
+                        UploadedFile::fake()->create('image.jpg', 100, 'image/jpeg'),
+                    ],
+                ],
+                [
+                    'name' => [
+                        'ru' => 'Variation 4 ru',
+                        'uz' => 'Variation 4 uz',
+                        'en' => 'Variation 4 en',
+                    ],
+                    'date' => date('d.m.Y'),
+                    'datetime' => date('d.m.Y H:i:s'),
+                    'image' => UploadedFile::fake()->create('image.jpg', 100, 'image/jpeg'),
+                    'images_list' => [
+                        UploadedFile::fake()->create('image.jpg', 100, 'image/jpeg'),
+                        UploadedFile::fake()->create('image.jpg', 100, 'image/jpeg'),
+                    ],
+                ],
+            ],
         ];
 
         $this->response = $this->sendRequest();

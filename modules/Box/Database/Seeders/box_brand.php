@@ -9,6 +9,7 @@ return new class extends Seeder
     {
         DB::table('box_brand')->insert([
             [
+                'creator_id' => 1,
                 'name' => 'Brand 1',
                 'slug' => 'brand-1',
                 'is_active' => 1,
@@ -16,6 +17,7 @@ return new class extends Seeder
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
             [
+                'creator_id' => 2,
                 'name' => 'Brand 2',
                 'slug' => 'brand-2',
                 'is_active' => 1,

@@ -6,6 +6,7 @@ use Http\Admin\Box\Controllers\BoxController;
 use Http\Admin\Box\Controllers\BrandController;
 use Http\Admin\Box\Controllers\TagController;
 use App\Http\Controllers\Actions\DeleteFileAction;
+use App\Http\Controllers\Actions\SetValueAction;
 
 use Modules\Box\Models\Box;
 use Modules\Box\Models\Brand;
@@ -14,7 +15,6 @@ Route::prefix('box')
     ->where([
         'box' => '[0-9]+',
         'brand' => '[0-9]+',
-        'tag' => '[0-9]+',
     ])
     ->group(function () {
         Route::apiResource('box', BoxController::class);
@@ -26,4 +26,8 @@ Route::prefix('box')
 
         Route::delete('box/{box}/delete-file/{field}/{index?}', DeleteFileAction::class)->whereIn('field', ['image', 'images_list']);
         Route::delete('brand/{brand}/delete-file/{field}/{index?}', DeleteFileAction::class)->whereIn('field', ['file', 'files_list']);
+
+        Route::post('brand/{brand}/set-active/{value}', SetValueAction::class)
+            ->whereIn('value', [0, 1])
+            ->setBindingFields(['field' => 'is_active']);
     });

@@ -13,6 +13,5 @@ trait ShowTrait
         
         $this->response = $this->sendRequest();
         $this->response->assertStatus(200);
-
     }
 }

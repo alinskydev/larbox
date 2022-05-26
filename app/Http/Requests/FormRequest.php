@@ -10,15 +10,8 @@ use Illuminate\Support\Arr;
 class FormRequest extends BaseFormRequest
 {
     protected array $uncleanedFields = [];
-    protected array $fileFields = [];
 
     protected string $fieldCleanType = 'purify';
-
-    public function __construct()
-    {
-        $this->uncleanedFields = array_merge($this->uncleanedFields, $this->fileFields);
-        return parent::__construct();
-    }
 
     public function attributes()
     {
@@ -62,16 +55,20 @@ class FormRequest extends BaseFormRequest
         $data = parent::validationData();
 
         if ($this->fieldCleanType != HtmlCleanHelper::TYPE_NONE) {
-            $newData = $data;
+            $uncleanedData = [];
 
-            Arr::forget($newData, $this->uncleanedFields);
+            foreach ($this->uncleanedFields as $field) {
+                $uncleanedData[$field] = Arr::get($data, $field);
+            }
 
-            $newData = HtmlCleanHelper::process(
-                data: $newData,
+            $uncleanedData = array_filter($uncleanedData);
+
+            $data = HtmlCleanHelper::process(
+                data: $data,
                 type: $this->fieldCleanType,
             );
 
-            $data = array_replace_recursive($data, $newData);
+            $data = array_replace_recursive($data, $uncleanedData);
         }
 
         $this->merge($data);

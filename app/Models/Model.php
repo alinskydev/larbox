@@ -6,6 +6,7 @@ use DateTimeInterface;
 use Illuminate\Database\Eloquent\Model as BaseModel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Arr;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Model extends BaseModel
 {
@@ -26,10 +27,7 @@ class Model extends BaseModel
             'deleted_at',
         ];
 
-        $guarded = array_merge($commonGuardedFields, $this->getGuarded());
-        $guarded = array_unique($guarded);
-
-        $this->guard($guarded);
+        $this->mergeGuarded($commonGuardedFields);
 
         //    Common hidden fields
 
@@ -37,10 +35,13 @@ class Model extends BaseModel
             'deleted_at',
         ];
 
-        $hidden = array_merge($commonHiddenFields, $this->getHidden());
-        $hidden = array_unique($hidden);
+        $this->makeHidden($commonHiddenFields);
 
-        $this->setHidden($hidden);
+        //    Common appended fields
+
+        if (in_array(SoftDeletes::class, class_uses_recursive($this))) {
+            $this->append(['is_deleted']);
+        }
 
         return parent::__construct($attributes);
     }
@@ -49,6 +50,15 @@ class Model extends BaseModel
     {
         $format = $this->dateFormat ?? LARBOX_FORMAT_DATETIME;
         return $date->format($format);
+    }
+
+    public function getIsDeletedAttribute()
+    {
+        if (in_array(SoftDeletes::class, class_uses_recursive($this))) {
+            return (bool)$this->deleted_at;
+        } else {
+            return false;
+        }
     }
 
     protected static function boot()

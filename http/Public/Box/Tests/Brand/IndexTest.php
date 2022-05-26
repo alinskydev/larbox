@@ -1,6 +1,6 @@
 <?php
 
-namespace Http\Admin\Box\Tests\Brand;
+namespace Http\Public\Box\Tests\Brand;
 
 use App\Tests\Feature\Traits\Index\PaginationTrait;
 use App\Tests\Feature\Traits\Index\ShowDeletedTrait;

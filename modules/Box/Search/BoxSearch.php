@@ -11,18 +11,18 @@ class BoxSearch extends Search
     ];
 
     protected array $filterable = [
-        'id' => Search::FILTER_TYPE_EQUAL,
-        'brand_id' => Search::FILTER_TYPE_EQUAL,
-        'name' => Search::FILTER_TYPE_LOCALIZED,
-        'slug' => Search::FILTER_TYPE_EQUAL,
-        'date' => Search::FILTER_TYPE_EQUAL,
-        'datetime' => Search::FILTER_TYPE_EQUAL,
+        'id' => self::FILTER_TYPE_EQUAL,
+        'brand_id' => self::FILTER_TYPE_EQUAL,
+        'name' => self::FILTER_TYPE_LOCALIZED,
+        'slug' => self::FILTER_TYPE_EQUAL,
+        'date' => self::FILTER_TYPE_EQUAL,
+        'datetime' => self::FILTER_TYPE_EQUAL,
     ];
 
     protected array $sortable = [
-        'id' => Search::SORT_TYPE_SIMPLE,
-        'name' => Search::SORT_TYPE_LOCALIZED,
-        'date' => Search::SORT_TYPE_SIMPLE,
-        'datetime' => Search::SORT_TYPE_SIMPLE,
+        'id' => self::SORT_TYPE_SIMPLE,
+        'name' => self::SORT_TYPE_LOCALIZED,
+        'date' => self::SORT_TYPE_SIMPLE,
+        'datetime' => self::SORT_TYPE_SIMPLE,
     ];
 }

@@ -24,7 +24,7 @@
     },
     "autoload": {
         "files": [
-            "larbox/constants.php"
+            "larbox/bootstrap.php"
         ],
         "psr-4": {
             "App\\": "app/",

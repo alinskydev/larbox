@@ -7,10 +7,12 @@ use Modules\User\Enums\UserEnums;
 
 class EnumsController extends Controller
 {
-    public function user()
+    public function index()
     {
         $response = [
-            'roles' => UserEnums::roles(),
+            'user' => [
+                'roles' => UserEnums::roles(),
+            ],
         ];
 
         return response()->json($response, 200);

@@ -6,15 +6,11 @@ use App\Http\Requests\ActiveFormRequest;
 use Modules\User\Models\User;
 
 use Illuminate\Validation\Rule;
-use App\Rules\FileRule;
+use App\Helpers\FormRequestHelper;
 use Illuminate\Support\Facades\Hash;
 
 class RegisterRequest extends ActiveFormRequest
 {
-    protected array $fileFields = [
-        'profile.image',
-    ];
-
     public function __construct()
     {
         return parent::__construct(
@@ -43,11 +39,7 @@ class RegisterRequest extends ActiveFormRequest
 
             'profile.full_name' => 'required|string|max:100',
             'profile.phone' => 'nullable|string|max:100',
-            'profile.image' => [
-                'sometimes',
-                'required',
-                new FileRule(mimes: config('larbox.form_request.file.mimes.image')),
-            ],
+            'profile.image' => FormRequestHelper::imageRules(),
         ];
     }
 

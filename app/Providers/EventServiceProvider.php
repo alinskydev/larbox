@@ -8,8 +8,9 @@ use Illuminate\Support\Facades\Event;
 use Modules\Box\Models\Box;
 use Modules\Box\Models\Brand;
 
-use App\Observers\CreatorIdFieldObserver;
 use App\Observers\Slug\SlugNameObserver;
+use App\Observers\ActivateObserver;
+use App\Observers\CreatorObserver;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -19,6 +20,8 @@ class EventServiceProvider extends ServiceProvider
         ],
         Brand::class => [
             SlugNameObserver::class,
+            ActivateObserver::class,
+            CreatorObserver::class,
         ],
     ];
 

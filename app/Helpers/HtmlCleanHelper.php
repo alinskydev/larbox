@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use Mews\Purifier\Facades\Purifier;
+use Illuminate\Http\UploadedFile;
 
 class HtmlCleanHelper
 {
@@ -15,10 +16,14 @@ class HtmlCleanHelper
         foreach ($data as &$value) {
             if (is_array($value)) {
                 array_walk_recursive($value, function (&$v, $k) use ($type) {
-                    $v = self::processValue($v, $type);
+                    if (!($v instanceof UploadedFile)) {
+                        $v = self::processValue($v, $type);
+                    }
                 });
             } else {
-                $value = self::processValue($value, $type);
+                if (!($value instanceof UploadedFile)) {
+                    $value = self::processValue($value, $type);
+                }
             }
         }
 
@@ -27,7 +32,7 @@ class HtmlCleanHelper
 
     private static function processValue(?string $value, string $type)
     {
-        return match($type) {
+        return match ($type) {
             self::TYPE_PURIFY => Purifier::clean($value),
             self::TYPE_STRIP_TAGS => strip_tags($value),
             default => '',
