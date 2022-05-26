@@ -21,6 +21,7 @@ cd <your-project-name>.
 **Configurating:** create **.ENV** file in the root foolder and fill all configuration inside it.
 
 ***Attention:*** if you want to use MySQL, then you need to change some migrations' columns with **JSON** data type, because MySQL (at least 5.7) doesn't suppport default value for this column type.
+
 **Migrating DB:** run
 ```
 php artisan migrate:fresh --seed
