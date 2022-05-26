@@ -13,9 +13,13 @@ Larbox is a starter kit based on [Laravel framework](https://laravel.com). It is
 ```
 git clone https://github.com/alinskydev/larbox.git <your-project-name>
 ```
-and open your project folder
+open your project folder
 ```
-cd <your-project-name>.
+cd <your-project-name>
+```
+and install all required packages
+```
+composer install
 ```
 
 **Configurating:** create **.ENV** file in the root foolder and fill all configuration inside it.
