@@ -30,7 +30,7 @@ composer install
 ```
 php artisan migrate:fresh --seed
 ```
-to run all migrations with test data.
+to import all migrations and fill DB with test data.
 
 ## Folders structure
 
