@@ -41,6 +41,9 @@ Main folders you need:
 
 I don't need in any kind of financial support now. But if you want to gratitude me with any kind of donation, visit Laravel [Patreon page](https://patreon.com/taylorotwell).
 
+## Documentation
+In progress...
+
 ## Reporting
 
 Let me know (open an issue) about **bugs to fix** and **features to add**. Or contact me using "My contacts" section below.
