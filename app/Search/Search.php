@@ -11,6 +11,8 @@ class Search
     const FILTER_TYPE_EQUAL = 'filterTypeEqual';
     const FILTER_TYPE_LIKE = 'filterTypeLike';
     const FILTER_TYPE_IN = 'filterTypeIn';
+    const FILTER_TYPE_DATE = 'filterTypeDate';
+    const FILTER_TYPE_DATETIME = 'filterTypeDatetime';
     const FILTER_TYPE_LOCALIZED = 'filterTypeLocalized';
 
     const SORT_TYPE_SIMPLE = 'sortTypeSimple';
@@ -80,6 +82,12 @@ class Search
                 break;
             case self::FILTER_TYPE_IN:
                 $query->whereIn($param, (array)$value);
+                break;
+            case self::FILTER_TYPE_DATE:
+                $query->where($param, '=', date('Y-m-d', strtotime($value)));
+                break;
+            case self::FILTER_TYPE_DATETIME:
+                $query->where($param, '=', date('Y-m-d H:i:s', strtotime($value)));
                 break;
             case self::FILTER_TYPE_LOCALIZED:
                 $locale = app()->getLocale();
