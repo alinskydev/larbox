@@ -23,7 +23,7 @@ class Search
     protected array $filterable = [];
     protected array $sortable = [];
 
-    public int $pageSize = 30;
+    public int $pageSize = 50;
 
     public function setQueryBuilder(Builder $queryBuilder): self
     {
