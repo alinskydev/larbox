@@ -42,12 +42,12 @@ class ParseFormRequestFields extends Command
         $fields = [];
 
         $basePath = base_path();
-        $files = glob("$basePath/modules/*/Http/*/Requests/*.php");
+        $files = glob("$basePath/http/*/*/Requests/*.php");
 
         foreach ($files as $file) {
             $file = str_replace([$basePath, '.php'], '', $file);
             $file = str_replace('/', '\\', $file);
-            $file = str_replace('modules', 'Modules', $file);
+            $file = str_replace('http', 'Http', $file);
 
             $formRequest = new $file();
             $attributes = array_keys($formRequest->attributes());

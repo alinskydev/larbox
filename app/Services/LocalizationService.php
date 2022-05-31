@@ -30,16 +30,13 @@ class LocalizationService
 
     public function setLocaleAndGetRouteParameter()
     {
-        $locale = app(Request::class)->segment(1);
+        $locale = request()->header('Accept-Language');
 
-        if (!isset($this->activeLanguages[$locale])) {
-            $currentLanguage = Arr::pluck($this->activeLanguages, 'code', 'is_main');
-            app()->setLocale($currentLanguage[1]);
-            return '';
+        if (isset($this->activeLanguages[$locale])) {
+            app()->setLocale($locale);
+        } else {
+            $mainLanguage = Arr::pluck($this->activeLanguages, 'code', 'is_main');
+            app()->setLocale($mainLanguage[1]);
         }
-
-        app()->setLocale($locale);
-
-        return $locale;
     }
 }

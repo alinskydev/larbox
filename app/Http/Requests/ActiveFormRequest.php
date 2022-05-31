@@ -14,7 +14,12 @@ class ActiveFormRequest extends FormRequest
 
     public function __construct($model = null)
     {
-        $this->model = $model ?: request()->route()->bindingFieldFor('new_model');
+        if ($route = request()->route()) {
+            $this->model = $model ?: $route->bindingFieldFor('new_model');
+        } else {
+            $this->model = new Model();
+        }
+
         return parent::__construct();
     }
 

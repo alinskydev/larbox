@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Schema;
 use Intervention\Image\ImageManagerStatic;
 use Laravel\Sanctum\Sanctum;
 use Illuminate\Support\Facades\Mail;
+use App\Services\LocalizationService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -28,6 +29,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(100);
+
+        LocalizationService::getInstance()->setLocaleAndGetRouteParameter();
 
         ImageManagerStatic::configure(['driver' => 'imagick']);
 

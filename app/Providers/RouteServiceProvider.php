@@ -8,8 +8,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
 
-use App\Services\LocalizationService;
-
 class RouteServiceProvider extends ServiceProvider
 {
     /**
@@ -31,14 +29,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->configureRateLimiting();
 
         $this->routes(function () {
-            if (app()->runningInConsole()) {
-                $locale = '';
-            } else {
-                $localization = LocalizationService::getInstance();
-                $locale = $localization->setLocaleAndGetRouteParameter();
-            }
-
-            Route::group(['prefix' => "$locale/api"], function () {
+            Route::group(['prefix' => 'api'], function () {
                 Route::middleware('auth.basic.once', 'role:admin', 'api')
                     ->prefix('admin')
                     ->group(glob(base_path('http/Admin/*/routes.php')));
