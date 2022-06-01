@@ -12,22 +12,15 @@ class ActiveFormRequest extends FormRequest
 
     protected array $ignoredModelUpdateFields = [];
 
-    public function __construct($model = null)
+    public function __construct()
     {
-        if ($route = request()->route()) {
-            $this->model = $model ?: $route->bindingFieldFor('new_model');
-        } else {
-            $this->model = new Model();
-        }
-
+        $this->model = $this->model ?? request()->route('model') ?? request()->route()->bindingFieldFor('new_model');
         return parent::__construct();
     }
 
     protected function prepareForValidation()
     {
         // Assigning model and its fields
-
-        $this->model = $this->route('model') ?: $this->model;
 
         $relationsAttributes = array_map(fn ($value) => $value->attributesToArray(), $this->model->getRelations());
         $attributes = array_replace_recursive($this->model->attributesToArray(), $relationsAttributes);

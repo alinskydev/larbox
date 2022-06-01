@@ -17,11 +17,11 @@ class ProfileRequest extends ActiveFormRequest
 
     public function __construct()
     {
-        if ($user = auth()->user()) {
-            $this->model = $user;
-        } else {
-            return parent::__construct();
+        if ($model = auth()->user()) {
+            $this->model = $model;
         }
+
+        return parent::__construct();
     }
 
     public function rules()

@@ -25,9 +25,8 @@ $app = new Illuminate\Foundation\Application(
 
 $headers = getallheaders();
 
-$envFile = match (Arr::get($headers, 'API-Type')) {
-        // 'admin' => '.env.admin',
-        // 'public' => '.env.public',
+$envFile = match (Arr::get($headers, 'ENV')) {
+        // 'NIMyG6tVOpAir7VioWGLZLWJwnJ67CCp' => '.env.debug',
     default => '.env',
 };
 

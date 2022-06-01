@@ -7,8 +7,8 @@
 >
     <testsuites>
         <testsuite name="Feature">
-            <!-- <directory suffix="Test.php">./http/*/*/Tests</directory> -->
-            <directory suffix="Test.php">./http/Admin/Box/Tests</directory>
+            <directory suffix="Test.php">./http/*/*/Tests</directory>
+            <!-- <directory suffix="Test.php">./http/Admin/Box/Tests</directory> -->
             <!-- <directory suffix="Test.php">./http/Public/Box/Tests</directory> -->
         </testsuite>
     </testsuites>

@@ -2,9 +2,11 @@
 
 namespace App\Console\Commands;
 
+use App\Http\Requests\FormRequest;
 use Illuminate\Console\Command;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use App\Models\Model;
 
 class ParseFormRequestFields extends Command
 {
@@ -49,8 +51,7 @@ class ParseFormRequestFields extends Command
             $file = str_replace('/', '\\', $file);
             $file = str_replace('http', 'Http', $file);
 
-            $formRequest = new $file();
-            $attributes = array_keys($formRequest->attributes());
+            $attributes = $this->formAttributes($file);
 
             $fields = array_merge($fields, $attributes);
         }
@@ -78,5 +79,20 @@ class ParseFormRequestFields extends Command
 
         file_put_contents($outputFileName, $outputData);
         $this->info("Output file is store in: $outputFileName");
+    }
+
+    private function formAttributes(string $formRequestClass)
+    {
+        try {
+            $formRequestReflection = new \ReflectionClass($formRequestClass);
+            $formRequest = $formRequestReflection->newInstanceWithoutConstructor();
+            $formRequest->model = new Model();
+            $formRequest->__construct();
+
+            return $formRequest->attributes();
+        } catch (\Throwable $e) {
+            $this->error("$formRequestClass hasn't been parsed");
+            return [];
+        }
     }
 }
