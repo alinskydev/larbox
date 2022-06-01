@@ -32,7 +32,7 @@ class AppServiceProvider extends ServiceProvider
 
         LocalizationService::getInstance()->setLocaleAndGetRouteParameter();
 
-        ImageManagerStatic::configure(['driver' => 'imagick']);
+        ImageManagerStatic::configure(['driver' => 'gd']);
 
         if (config('app.env') == 'local') {
             Mail::alwaysTo('admin@local.host');
