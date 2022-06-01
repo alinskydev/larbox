@@ -8,6 +8,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Illuminate\Database\QueryException;
+use TypeError;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -82,10 +83,11 @@ class Handler extends ExceptionHandler
                 ];
                 break;
 
+            case TypeError::class:
             case QueryException::class:
                 $response = [
                     'status' => 422,
-                    'data' => ['message' => 'Invalid input data'],
+                    'data' => ['message' => 'Invalid input data type'],
                 ];
                 break;
 
