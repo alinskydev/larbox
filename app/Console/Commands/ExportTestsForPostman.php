@@ -29,6 +29,8 @@ class ExportTestsForPostman extends Command
      */
     public function handle()
     {
+        $currentLanguage = app()->getLocale();
+
         //  Checking folder existance
 
         $path = base_path('storage/larbox/tests');
@@ -65,8 +67,7 @@ class ExportTestsForPostman extends Command
                         'exec' => [
                             "var Header = require('postman-collection').Header;",
                             "pm.request.headers.add(new Header('Accept: application/json'));",
-                            "// pm.request.headers.add(new Header('API-Type: admin'));",
-                            "// pm.request.headers.add(new Header('API-Type: public'));",
+                            "pm.request.headers.add(new Header('Accept-Language: $currentLanguage'));",
                         ],
                     ],
                 ],
