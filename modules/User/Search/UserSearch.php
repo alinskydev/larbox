@@ -8,7 +8,7 @@ class UserSearch extends Search
 {
     protected array $filterable = [
         'id' => self::FILTER_TYPE_EQUAL,
-        'username' => self::FILTER_TYPE_EQUAL,
+        'username' => self::FILTER_TYPE_LIKE,
         'email' => self::FILTER_TYPE_LIKE,
         'role' => self::FILTER_TYPE_EQUAL,
 
