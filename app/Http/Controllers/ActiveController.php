@@ -27,7 +27,7 @@ class ActiveController extends Controller
         }
 
         app()->bind(ValidatesWhenResolved::class, $this->formRequestClass);
-        
+
         // Binding model for FormRequest
 
         Route::model('model', $this->model::class);
@@ -46,6 +46,8 @@ class ActiveController extends Controller
     public function index()
     {
         $paginator = $this->search->queryBuilder->paginate($this->search->pageSize);
+        $paginator->onEachSide = 0;
+
         return $this->resourceClass::collection($paginator)->response()->setStatusCode(206);
     }
 
