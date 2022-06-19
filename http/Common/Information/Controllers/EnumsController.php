@@ -11,7 +11,7 @@ class EnumsController extends Controller
     {
         $response = [
             'user' => [
-                'roles' => UserEnums::roles(),
+                'role' => UserEnums::roles(),
             ],
         ];
 

@@ -34,6 +34,10 @@ class ActiveFormRequest extends FormRequest
         $data = $this->validationData();
         $data = array_replace_recursive($attributes, $data);
 
+        array_walk_recursive($data, function (&$value, $key) {
+            if ($value === '') $value = null;
+        });
+
         $this->merge($data);
     }
 
