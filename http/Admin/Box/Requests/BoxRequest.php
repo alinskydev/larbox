@@ -6,7 +6,10 @@ use App\Helpers\FormRequestHelper;
 use App\Http\Requests\ActiveFormRequest;
 
 use Illuminate\Validation\Rule;
-use App\Rules\ExistsSoftDeleteRule;
+use App\Rules\ExistsWithOldRule;
+
+use Modules\Box\Models\Brand;
+use Modules\Box\Models\Tag;
 
 class BoxRequest extends ActiveFormRequest
 {
@@ -20,7 +23,11 @@ class BoxRequest extends ActiveFormRequest
         return [
             'brand_id' => [
                 'required',
-                new ExistsSoftDeleteRule($this->model, 'box_brand'),
+                new ExistsWithOldRule($this->model, Brand::class, 'brand_id', extraQuery: function ($query) {
+                    $query->whereHas('creator', function ($subQuery) {
+                        $subQuery->where('id', auth()->user()->id);
+                    });
+                }),
             ],
 
             'date' => 'required|date|date_format:' . LARBOX_FORMAT_DATE,
@@ -31,7 +38,7 @@ class BoxRequest extends ActiveFormRequest
 
             'tags' => [
                 'array',
-                new ExistsSoftDeleteRule($this->model, 'box_tag'),
+                new ExistsWithOldRule($this->model, Tag::class, 'tags.*.id'),
             ],
 
             'variations' => 'array',
