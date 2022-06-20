@@ -46,9 +46,7 @@ class ActiveFormRequest extends FormRequest
         parent::passedValidation();
 
         $data = $this->validated();
-
         $this->model->fill($data)->save();
-        $this->model->refresh();
     }
 
     public function validated($key = null, $default = null)

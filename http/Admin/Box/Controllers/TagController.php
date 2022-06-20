@@ -5,6 +5,7 @@ namespace Http\Admin\Box\Controllers;
 use App\Http\Controllers\ActiveController;
 use Modules\Box\Models\Tag;
 use Modules\Box\Search\TagSearch;
+use Modules\Box\Resources\TagResource;
 use Http\Admin\Box\Requests\TagRequest;
 
 class TagController extends ActiveController
@@ -14,6 +15,7 @@ class TagController extends ActiveController
         return parent::__construct(
             model: new Tag(),
             search: new TagSearch(),
+            resourceClass: TagResource::class,
             formRequestClass: TagRequest::class,
         );
     }

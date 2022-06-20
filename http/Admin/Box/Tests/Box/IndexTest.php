@@ -2,29 +2,22 @@
 
 namespace Http\Admin\Box\Tests\Box;
 
+use App\Tests\Feature\Traits\Index\AvailableSortingsTrait;
+use App\Tests\Feature\Traits\Index\AvailableRelationsTrait;
 use App\Tests\Feature\Traits\Index\PaginationTrait;
 use App\Tests\Feature\Traits\Index\ShowDeletedTrait;
+use Modules\Box\Search\BoxSearch;
 
 class IndexTest extends _TestCase
 {
+    use AvailableSortingsTrait;
+    use AvailableRelationsTrait;
     use PaginationTrait;
     use ShowDeletedTrait;
 
+    protected string $searchClass = BoxSearch::class;
+
     protected string $requestMethod = self::REQUEST_METHOD_GET;
-
-    public function test_available_relations()
-    {
-        $this->requestQuery = [
-            'with' => [
-                'brand',
-                'variations',
-                'tags',
-            ],
-        ];
-
-        $this->response = $this->sendRequest();
-        $this->response->assertStatus(206);
-    }
 
     public function test_available_filters()
     {
@@ -36,21 +29,6 @@ class IndexTest extends _TestCase
                 'slug' => 'box-1',
                 'date' => date('d.m.Y'),
                 'datetime' => date('d.m.Y H:i:s'),
-            ],
-        ];
-
-        $this->response = $this->sendRequest();
-        $this->response->assertStatus(206);
-    }
-
-    public function test_available_sortings()
-    {
-        $this->requestQuery = [
-            'sort' => [
-                'id',
-                'name',
-                'date',
-                'datetime',
             ],
         ];
 

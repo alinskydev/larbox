@@ -61,14 +61,14 @@ class ActiveController extends Controller
 
     public function store(ValidatesWhenResolved $request)
     {
-        $data = $this->resourceClass::make($request->model);
-        return response()->json($data, 201);
+        $response = ['message' => 'Successfully saved'];
+        return response()->json($response, 201);
     }
 
     public function update(ValidatesWhenResolved $request)
     {
-        $data = $this->resourceClass::make($request->model);
-        return response()->json($data, 200);
+        $response = ['message' => 'Successfully saved'];
+        return response()->json($response, 200);
     }
 
     public function destroy(Model $model)

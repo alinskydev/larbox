@@ -17,6 +17,12 @@ return new class extends Seeder
                 ]),
                 'date' => date('Y-m-d'),
                 'datetime' => date('Y-m-d H:i:s'),
+                'image' => '/test_data/images/2.png',
+                'images_list' => json_encode([
+                    '/test_data/images/1.png',
+                    '/test_data/images/2.png',
+                    '/test_data/images/3.png',
+                ]),
                 'sort_index' => 0,
             ],
             [
@@ -28,6 +34,10 @@ return new class extends Seeder
                 ]),
                 'date' => date('Y-m-d'),
                 'datetime' => date('Y-m-d H:i:s'),
+                'image' => '/test_data/images/3.png',
+                'images_list' => json_encode([
+                    '/test_data/images/1.png',
+                ]),
                 'sort_index' => 1,
             ],
         ]);

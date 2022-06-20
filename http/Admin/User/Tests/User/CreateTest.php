@@ -15,6 +15,7 @@ class CreateTest extends _TestCase
             'email' => 'registered_2@local.host',
             'role' => 'registered',
             'new_password' => 'test1234',
+            'new_password_confirmation' => 'test1234',
 
             'profile' => [
                 'full_name' => 'Registered 2',

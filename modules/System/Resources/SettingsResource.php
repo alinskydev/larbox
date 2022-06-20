@@ -1,7 +1,7 @@
 <?php
 
 namespace Modules\System\Resources;
- 
+
 use App\Resources\JsonResource;
 
 class SettingsResource extends JsonResource

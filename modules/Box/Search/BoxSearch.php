@@ -6,12 +6,12 @@ use App\Search\Search;
 
 class BoxSearch extends Search
 {
-    protected array $relations = [
+    public array $relations = [
         'brand', 'variations', 'tags',
     ];
 
-    protected array $filterable = [
-        'id' => self::FILTER_TYPE_EQUAL,
+    public array $filterable = [
+        'id' => self::FILTER_TYPE_IN,
         'brand_id' => self::FILTER_TYPE_EQUAL,
         'name' => self::FILTER_TYPE_LOCALIZED,
         'slug' => self::FILTER_TYPE_EQUAL,
@@ -19,7 +19,7 @@ class BoxSearch extends Search
         'datetime' => self::FILTER_TYPE_DATETIME,
     ];
 
-    protected array $sortable = [
+    public array $sortable = [
         'id' => self::SORT_TYPE_SIMPLE,
         'name' => self::SORT_TYPE_LOCALIZED,
         'date' => self::SORT_TYPE_SIMPLE,

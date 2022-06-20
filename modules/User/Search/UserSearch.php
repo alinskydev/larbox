@@ -6,8 +6,8 @@ use App\Search\Search;
 
 class UserSearch extends Search
 {
-    protected array $filterable = [
-        'id' => self::FILTER_TYPE_EQUAL,
+    public array $filterable = [
+        'id' => self::FILTER_TYPE_IN,
         'username' => self::FILTER_TYPE_LIKE,
         'email' => self::FILTER_TYPE_LIKE,
         'role' => self::FILTER_TYPE_EQUAL,
@@ -15,7 +15,7 @@ class UserSearch extends Search
         'profile.full_name' => self::FILTER_TYPE_LIKE,
     ];
 
-    protected array $sortable = [
+    public array $sortable = [
         'id' => self::SORT_TYPE_SIMPLE,
         'username' => self::SORT_TYPE_SIMPLE,
         'email' => self::SORT_TYPE_SIMPLE,

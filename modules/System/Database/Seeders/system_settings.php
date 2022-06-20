@@ -14,11 +14,11 @@ return new class extends Seeder
             ],
             [
                 'name' => 'favicon',
-                'value' => '',
+                'value' => '/test_data/logo.png',
             ],
             [
                 'name' => 'logo',
-                'value' => '',
+                'value' => '/test_data/logo.png',
             ],
             [
                 'name' => 'project_name',

@@ -11,7 +11,7 @@ return new class extends Seeder
             [
                 'name' => 'Русский',
                 'code' => 'ru',
-                'image' => '',
+                'image' => '/test_data/flags/ru.png',
                 'is_main' => 1,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
@@ -19,7 +19,7 @@ return new class extends Seeder
             [
                 'name' => 'O\'zbek',
                 'code' => 'uz',
-                'image' => '',
+                'image' => '/test_data/flags/uz.png',
                 'is_main' => 0,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
@@ -27,7 +27,7 @@ return new class extends Seeder
             [
                 'name' => 'English',
                 'code' => 'en',
-                'image' => '',
+                'image' => '/test_data/flags/gb.png',
                 'is_main' => 0,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),

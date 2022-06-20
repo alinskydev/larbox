@@ -37,6 +37,7 @@ class UpdateTest extends _TestCase
 
         $this->requestBody = [
             'new_password' => 'admin123',
+            'new_password_confirmation' => 'admin123',
         ];
 
         $this->response = $this->sendRequest();

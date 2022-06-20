@@ -18,6 +18,12 @@ return new class extends Seeder
                 'slug' => 'box-1',
                 'date' => date('Y-m-d'),
                 'datetime' => date('Y-m-d H:i:s'),
+                'image' => '/test_data/images/2.png',
+                'images_list' => json_encode([
+                    '/test_data/images/1.png',
+                    '/test_data/images/2.png',
+                    '/test_data/images/3.png',
+                ]),
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
@@ -31,6 +37,10 @@ return new class extends Seeder
                 'slug' => 'box-2',
                 'date' => date('Y-m-d'),
                 'datetime' => date('Y-m-d H:i:s'),
+                'image' => '/test_data/images/3.png',
+                'images_list' => json_encode([
+                    '/test_data/images/1.png',
+                ]),
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],

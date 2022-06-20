@@ -17,7 +17,7 @@ class Language extends Model
     ];
 
     protected $casts = [
-        'image' => AsImage::class . ':100|500',
+        'image' => AsImage::class . ':30|100|500',
     ];
 
     protected static function boot()

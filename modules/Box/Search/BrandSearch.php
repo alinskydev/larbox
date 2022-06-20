@@ -7,19 +7,19 @@ use Illuminate\Support\Arr;
 
 class BrandSearch extends Search
 {
-    protected array $relations = [
+    public array $relations = [
         'creator',
     ];
 
-    protected array $filterable = [
-        'id' => self::FILTER_TYPE_EQUAL,
+    public array $filterable = [
+        'id' => self::FILTER_TYPE_IN,
         'creator_id' => self::FILTER_TYPE_EQUAL,
         'name' => self::FILTER_TYPE_LIKE,
         'slug' => self::FILTER_TYPE_EQUAL,
         'is_active' => self::FILTER_TYPE_EQUAL,
     ];
 
-    protected array $sortable = [
+    public array $sortable = [
         'id' => self::SORT_TYPE_SIMPLE,
         'name' => self::SORT_TYPE_SIMPLE,
     ];

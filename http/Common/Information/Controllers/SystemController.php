@@ -3,30 +3,50 @@
 namespace Http\Common\Information\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Resources\JsonResource;
 use Modules\System\Models\Settings;
 use Modules\System\Resources\SettingsResource;
 use App\Services\LocalizationService;
 
 class SystemController extends Controller
 {
-    public function settings()
+    public function index()
     {
-        $response = Settings::query()->orderBy('name')->get()->keyBy('name');
-        $response = SettingsResource::collection($response);
+        $languages = $this->languages();
+
+        $response = [
+            'settings' => $this->settings(),
+            'languages' => $languages,
+            'translations' => $this->translations($languages['active']->toArray()),
+        ];
 
         return response()->json($response, 200);
     }
 
-    public function languages()
+    private function settings()
+    {
+        $result = Settings::query()->orderBy('name')->get()->keyBy('name');
+        return SettingsResource::collection($result);
+    }
+
+    private function languages()
     {
         $localizationService = LocalizationService::getInstance();
 
-        $response = [
-            'all' => JsonResource::collection($localizationService->allLanguages),
-            'active' => JsonResource::collection($localizationService->activeLanguages),
+        return [
+            'all' => $localizationService->allLanguages,
+            'active' => $localizationService->activeLanguages,
+            'main' => $localizationService->mainLanguage,
         ];
+    }
 
-        return response()->json($response, 200);
+    private function translations(array $languages)
+    {
+        return array_map(function ($value) {
+            $path = lang_path($value['code']);
+
+            return [
+                'field' => require("$path/field.php"),
+            ];
+        }, $languages);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Http\Public\Box\Tests\Brand;
 
-use App\Tests\Feature\Traits\ShowTrait;
+use App\Tests\Feature\Traits\Show\SuccessTrait;
 
 class ShowTest extends _TestCase
 {

@@ -42,6 +42,10 @@ class UserRequest extends ActiveFormRequest
                 'min:8',
                 'max:100',
             ],
+            'new_password_confirmation' => [
+                Rule::requiredIf($this->new_password !== null),
+                'same:new_password',
+            ],
 
             'profile.full_name' => 'required|string|max:100',
             'profile.phone' => 'nullable|string|max:100',

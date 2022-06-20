@@ -19,9 +19,9 @@ class Search
     const SORT_TYPE_LOCALIZED = 'sortTypeLocalized';
 
     public Builder $queryBuilder;
-    protected array $relations = [];
-    protected array $filterable = [];
-    protected array $sortable = [];
+    public array $relations = [];
+    public array $filterable = [];
+    public array $sortable = [];
 
     public int $pageSize = 50;
 

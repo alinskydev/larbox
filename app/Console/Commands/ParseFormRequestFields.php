@@ -2,11 +2,11 @@
 
 namespace App\Console\Commands;
 
-use App\Http\Requests\FormRequest;
 use Illuminate\Console\Command;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use App\Models\Model;
+use Illuminate\Support\Facades\Schema;
 
 class ParseFormRequestFields extends Command
 {
@@ -15,14 +15,14 @@ class ParseFormRequestFields extends Command
      *
      * @var string
      */
-    protected $signature = 'larbox:parse_form_request_fields';
+    protected $signature = 'larbox:parse_fields';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Parse FormRequest fields';
+    protected $description = 'Parse fields';
 
     /**
      * Execute the console command.
@@ -39,7 +39,7 @@ class ParseFormRequestFields extends Command
             return $this->error("'$path' doesn't exists");
         }
 
-        // Parsing data
+        // Parsing form requests
 
         $fields = [];
 
@@ -51,10 +51,27 @@ class ParseFormRequestFields extends Command
             $file = str_replace('/', '\\', $file);
             $file = str_replace('http', 'Http', $file);
 
-            $attributes = $this->formAttributes($file);
+            $attributes = array_keys($this->formAttributes($file));
 
             $fields = array_merge($fields, $attributes);
         }
+
+        // Parsing tables
+
+        $files = glob("$basePath/modules/*/Models/*.php");
+
+        foreach ($files as $file) {
+            $file = str_replace([$basePath, '.php'], '', $file);
+            $file = str_replace('/', '\\', $file);
+            $file = str_replace('modules', 'Modules', $file);
+
+            $table = (new $file())->getTable();
+            $attributes = Schema::getColumnListing($table);
+
+            $fields = array_merge($fields, $attributes);
+        }
+
+        // Preparing to save
 
         $fields = array_unique($fields);
 
@@ -72,7 +89,7 @@ class ParseFormRequestFields extends Command
         $outputData[] = '];';
         $outputData[] = '';
 
-        // Saving data
+        // Saving
 
         $outputData = implode("\n", $outputData);
         $outputFileName = "$path/" . date('Y_m_d_His') . '_form_request_fields.php';

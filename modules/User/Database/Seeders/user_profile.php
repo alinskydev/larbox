@@ -12,11 +12,13 @@ return new class extends Seeder
                 'user_id' => 1,
                 'full_name' => 'Administrator',
                 'phone' => 'Phone 1',
+                'image' => '/test_data/media/webp.webp',
             ],
             [
                 'user_id' => 2,
                 'full_name' => 'Registered 1',
                 'phone' => null,
+                'image' => null,
             ],
         ]);
     }

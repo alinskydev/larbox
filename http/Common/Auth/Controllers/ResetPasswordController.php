@@ -3,7 +3,6 @@
 namespace Http\Common\Auth\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Resources\JsonResource;
 use Http\Common\Auth\Requests\ResetPassword\SendEmailRequest;
 use Http\Common\Auth\Requests\ResetPassword\VerifyCodeRequest;
 use Http\Common\Auth\Requests\ResetPassword\SetNewPasswordRequest;
@@ -30,8 +29,7 @@ class ResetPasswordController extends Controller
         $userService->setNewPassword($request->new_password);
 
         $response = [
-            'token' => 'Basic ' . base64_encode("{$request->user->username}:$request->new_password"),
-            'data' => JsonResource::make($request->user),
+            'message' => 'New password has been set',
         ];
 
         return response()->json($response, 200);

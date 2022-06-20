@@ -2,27 +2,22 @@
 
 namespace Http\Admin\Box\Tests\Brand;
 
+use App\Tests\Feature\Traits\Index\AvailableSortingsTrait;
+use App\Tests\Feature\Traits\Index\AvailableRelationsTrait;
 use App\Tests\Feature\Traits\Index\PaginationTrait;
 use App\Tests\Feature\Traits\Index\ShowDeletedTrait;
+use Modules\Box\Search\BrandSearch;
 
 class IndexTest extends _TestCase
 {
+    use AvailableSortingsTrait;
+    use AvailableRelationsTrait;
     use PaginationTrait;
     use ShowDeletedTrait;
 
+    protected string $searchClass = BrandSearch::class;
+
     protected string $requestMethod = self::REQUEST_METHOD_GET;
-
-    public function test_available_relations()
-    {
-        $this->requestQuery = [
-            'with' => [
-                'creator',
-            ],
-        ];
-
-        $this->response = $this->sendRequest();
-        $this->response->assertStatus(206);
-    }
 
     public function test_available_filters()
     {
@@ -33,19 +28,6 @@ class IndexTest extends _TestCase
                 'name' => 'brand',
                 'slug' => 'brand-1',
                 'is_active' => '1',
-            ],
-        ];
-
-        $this->response = $this->sendRequest();
-        $this->response->assertStatus(206);
-    }
-
-    public function test_available_sortings()
-    {
-        $this->requestQuery = [
-            'sort' => [
-                'id',
-                'name',
             ],
         ];
 

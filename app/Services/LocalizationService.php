@@ -14,6 +14,7 @@ class LocalizationService
 
     public Collection $allLanguages;
     public Collection $activeLanguages;
+    public Language $mainLanguage;
 
     public static function getInstance(): self
     {
@@ -21,6 +22,7 @@ class LocalizationService
             $instance = new self();
             $instance->allLanguages = Language::query()->get()->keyBy('code');
             $instance->activeLanguages = $instance->allLanguages->filter(fn ($value) => $value->is_active);
+            $instance->mainLanguage = Arr::keyBy($instance->activeLanguages, 'is_main')[1];
 
             self::$instance = $instance;
         }
@@ -35,8 +37,7 @@ class LocalizationService
         if (isset($this->activeLanguages[$locale])) {
             app()->setLocale($locale);
         } else {
-            $mainLanguage = Arr::pluck($this->activeLanguages, 'code', 'is_main');
-            app()->setLocale($mainLanguage[1]);
+            app()->setLocale($this->mainLanguage->code);
         }
     }
 }
