@@ -23,7 +23,7 @@ class SlugObserver
 
         $anotherModel = $model->query()
             ->where('slug', $slug)
-            ->whereNot('id', $model->id)
+            ->where('id', '!=', $model->id)
             ->first();
 
         if ($anotherModel) {
