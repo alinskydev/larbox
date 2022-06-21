@@ -9,7 +9,7 @@ trait AvailableSortingsTrait
         $search = new $this->searchClass();
 
         $this->requestQuery = [
-            'sort' => array_keys($search->relations),
+            'sort' => array_keys($search->sortable),
         ];
 
         $this->response = $this->sendRequest();

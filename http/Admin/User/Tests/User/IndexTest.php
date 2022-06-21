@@ -6,15 +6,12 @@ use App\Tests\Feature\Traits\Index\AvailableSortingsTrait;
 use App\Tests\Feature\Traits\Index\AvailableRelationsTrait;
 use App\Tests\Feature\Traits\Index\PaginationTrait;
 use App\Tests\Feature\Traits\Index\ShowDeletedTrait;
-use Modules\User\Search\UserSearch;
 
 class IndexTest extends _TestCase
 {
     use AvailableSortingsTrait;
     use PaginationTrait;
     use ShowDeletedTrait;
-
-    protected string $searchClass = UserSearch::class;
 
     protected string $requestMethod = self::REQUEST_METHOD_GET;
 

@@ -27,7 +27,7 @@ Route::prefix('box')
         Route::delete('box/{box}/delete-file/{field}/{index?}', DeleteFileAction::class)->whereIn('field', ['image', 'images_list']);
         Route::delete('brand/{brand}/delete-file/{field}/{index?}', DeleteFileAction::class)->whereIn('field', ['file', 'files_list']);
 
-        Route::post('brand/{brand}/set-active/{value}', SetValueAction::class)
+        Route::patch('brand/{brand}/set-active/{value}', SetValueAction::class)
             ->whereIn('value', [0, 1])
             ->setBindingFields(['field' => 'is_active']);
     });

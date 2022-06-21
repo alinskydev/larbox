@@ -5,7 +5,7 @@ namespace App\Models;
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Model as BaseModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Services\ActiveService;
+use Illuminate\Support\Arr;
 
 class Model extends BaseModel
 {
@@ -65,7 +65,52 @@ class Model extends BaseModel
         parent::boot();
 
         static::saved(function (self $model) {
-            (new ActiveService($model))->saveRelations();
+            foreach ($model->fillableRelations as $relationType => $relations) {
+                foreach ($relations as $relation => $value) {
+                    switch ($relationType) {
+                        case static::RELATION_TYPE_ONE_ONE:
+                            if ($relatedModel = $model->$relation) {
+                                $relatedModel->fill($value)->save();
+                            } else {
+                                $related = $model->$relation()->getRelated();
+                                $primaryKey = $related->getKeyName();
+
+                                $related->$primaryKey = $model->id;
+                                $related->fill($value)->save();
+                            }
+
+                            break;
+
+                        case static::RELATION_TYPE_ONE_MANY:
+                            $value = array_values((array)$value);
+                            $ids = Arr::pluck($value, 'id');
+                            $ids = array_filter($ids);
+
+                            //  Trying to delete old records
+
+                            if ($records = $model->$relation()->whereNotIn('id', $ids)->get()) {
+                                foreach ($records as $record) {
+                                    $record->delete();
+                                }
+                            }
+
+                            //  Trying to save new records
+
+                            foreach ($value as $k => $v) {
+                                $id = $v['id'] ?? null;
+                                $v['sort_index'] = $k;
+
+                                $model->$relation()->updateOrCreate(['id' => $id], $v);
+                            }
+
+                            break;
+
+                        case static::RELATION_TYPE_MANY_MANY:
+                            $model->$relation()->sync($value);
+                            break;
+                    }
+                }
+            }
         });
     }
 }

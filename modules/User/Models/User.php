@@ -12,7 +12,7 @@ class User extends UserModel
     use SoftDeletes;
 
     protected $table = 'user';
-    
+
     protected $with = ['profile'];
 
     protected $guarded = [
@@ -43,7 +43,7 @@ class User extends UserModel
 
         static::deleting(function (self $model) {
             if ($model->id == 1) {
-                abort(403, __('model.user.undeleteable'));
+                abort(403, __('Данный пользователь не подлежит удалению'));
             }
         });
     }

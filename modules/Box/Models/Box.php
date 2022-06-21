@@ -4,6 +4,9 @@ namespace Modules\Box\Models;
 
 use App\Models\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+
+use App\Casts\Date\AsDate;
+use App\Casts\Date\AsDatetime;
 use App\Casts\Storage\AsImage;
 use App\Casts\Storage\AsImages;
 
@@ -15,8 +18,8 @@ class Box extends Model
 
     protected $casts = [
         'name' => 'array',
-        'date' => 'date:' . LARBOX_FORMAT_DATE,
-        'datetime' => 'datetime',
+        'date' => AsDate::class,
+        'datetime' => AsDatetime::class,
         'image' => AsImage::class . ':100|500',
         'images_list' => AsImages::class . ':100|500',
     ];

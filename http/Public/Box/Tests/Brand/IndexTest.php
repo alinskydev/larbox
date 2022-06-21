@@ -6,7 +6,6 @@ use App\Tests\Feature\Traits\Index\AvailableSortingsTrait;
 use App\Tests\Feature\Traits\Index\AvailableRelationsTrait;
 use App\Tests\Feature\Traits\Index\PaginationTrait;
 use App\Tests\Feature\Traits\Index\ShowDeletedTrait;
-use Modules\Box\Search\BrandSearch;
 
 class IndexTest extends _TestCase
 {
@@ -14,8 +13,6 @@ class IndexTest extends _TestCase
     use AvailableRelationsTrait;
     use PaginationTrait;
     use ShowDeletedTrait;
-
-    protected string $searchClass = BrandSearch::class;
 
     protected string $requestMethod = self::REQUEST_METHOD_GET;
 

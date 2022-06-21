@@ -6,14 +6,11 @@ use App\Tests\Feature\Traits\Index\AvailableSortingsTrait;
 use App\Tests\Feature\Traits\Index\AvailableRelationsTrait;
 use App\Tests\Feature\Traits\Index\PaginationTrait;
 use App\Tests\Feature\Traits\Index\ShowDeletedTrait;
-use Modules\System\Search\LanguageSearch;
 
 class IndexTest extends _TestCase
 {
     use AvailableSortingsTrait;
     use PaginationTrait;
-
-    protected string $searchClass = LanguageSearch::class;
 
     protected string $requestMethod = self::REQUEST_METHOD_GET;
 

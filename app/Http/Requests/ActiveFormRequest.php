@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\Models\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\DB;
 
 class ActiveFormRequest extends FormRequest
 {
@@ -46,7 +47,10 @@ class ActiveFormRequest extends FormRequest
         parent::passedValidation();
 
         $data = $this->validated();
+
+        DB::beginTransaction();
         $this->model->fill($data)->save();
+        DB::commit();
     }
 
     public function validated($key = null, $default = null)

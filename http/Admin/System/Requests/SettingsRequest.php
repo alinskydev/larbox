@@ -13,6 +13,7 @@ class SettingsRequest extends FormRequest
     {
         return [
             'admin_email' => 'sometimes|required|email',
+            'delete_old_files' => 'sometimes|required|boolean',
             'favicon' => FormRequestHelper::imageRules(),
             'logo' => FormRequestHelper::imageRules(),
             'project_name' => 'sometimes|required|string|max:100',

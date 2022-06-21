@@ -40,6 +40,11 @@ abstract class PostmanTestCase extends BaseTestCase
 
     protected function sendRequest(): TestResponse
     {
+        if (in_array($this->requestMethod, [self::REQUEST_METHOD_PUT, self::REQUEST_METHOD_PATCH])) {
+            $this->requestQuery['_method'] = $this->requestMethod;
+            $this->requestMethod = self::REQUEST_METHOD_POST;
+        }
+
         $this->requestQueryAsString = http_build_query($this->requestQuery);
 
         $headers = array_merge($this->defaultHeaders, $this->requestHeaders, $this->authHeaders);
@@ -54,9 +59,7 @@ abstract class PostmanTestCase extends BaseTestCase
 
     public function callBeforeApplicationDestroyedCallbacks()
     {
-        $fileName = base_path('storage/larbox/tests/_postman.json');
-        $oldItems = is_file($fileName) ? file_get_contents($fileName) : '[]';
-        $oldItems = json_decode($oldItems, true);
+        // Collecting
 
         $target = $this->providedTests[0]->getTarget();
 
@@ -108,10 +111,16 @@ abstract class PostmanTestCase extends BaseTestCase
             ],
         ];
 
+        // Storing to cache
+
+        $fileName = base_path('larbox/storage/tests/_postman.json');
+        $oldItems = is_file($fileName) ? file_get_contents($fileName) : '[]';
+        $oldItems = json_decode($oldItems, true);
+
         $items = array_merge($oldItems, $items);
         $items = json_encode($items, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
 
-        // file_put_contents($fileName, $items);
+        file_put_contents($fileName, $items);
 
         parent::callBeforeApplicationDestroyedCallbacks();
     }

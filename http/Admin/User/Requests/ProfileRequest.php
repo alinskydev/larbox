@@ -72,7 +72,7 @@ class ProfileRequest extends ActiveFormRequest
     public function messages()
     {
         return [
-            'username.regex' => __('rule.regex.latin_numbers_extra:_-'),
+            'username.regex' => __("Только латинские символы, цифры и ('_', '-')"),
         ];
     }
 }

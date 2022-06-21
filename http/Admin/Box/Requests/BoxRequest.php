@@ -41,13 +41,8 @@ class BoxRequest extends ActiveFormRequest
                 new ExistsWithOldRule($this->model, Tag::class, 'tags.*.id'),
             ],
 
-            'variations' => 'array',
+            'variations' => 'required|array',
             'variations.*.id' => 'integer',
-            'variations.*.date' => 'required|date|date_format:' . LARBOX_FORMAT_DATE,
-            'variations.*.datetime' => 'required|date|date_format:' . LARBOX_FORMAT_DATETIME,
-            'variations.*.image' => FormRequestHelper::imageRules(),
-            'variations.*.images_list' => 'array',
-            'variations.*.images_list.*' => FormRequestHelper::imageRules(),
         ];
     }
 

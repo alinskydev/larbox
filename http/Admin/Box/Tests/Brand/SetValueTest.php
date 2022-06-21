@@ -4,7 +4,7 @@ namespace Http\Admin\Box\Tests\Brand;
 
 class SetValueTest extends _TestCase
 {
-    protected string $requestMethod = self::REQUEST_METHOD_POST;
+    protected string $requestMethod = self::REQUEST_METHOD_PATCH;
 
     public function test_deactivate()
     {

@@ -11,11 +11,6 @@ class Mail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public function subject($subject)
-    {
-        return parent::subject(__("mail.$subject"));
-    }
-
     public function view($view, array $data = [])
     {
         $view = "mail.$view." . app()->getLocale();

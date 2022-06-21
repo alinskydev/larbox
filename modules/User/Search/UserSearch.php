@@ -20,7 +20,5 @@ class UserSearch extends Search
         'username' => self::SORT_TYPE_SIMPLE,
         'email' => self::SORT_TYPE_SIMPLE,
         'role' => self::SORT_TYPE_SIMPLE,
-
-        'profile.full_name' => self::SORT_TYPE_SIMPLE,
     ];
 }

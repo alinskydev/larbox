@@ -6,11 +6,7 @@ use Illuminate\Http\UploadedFile;
 
 class UpdateTest extends _TestCase
 {
-    protected string $requestMethod = self::REQUEST_METHOD_POST;
-
-    protected array $requestQuery = [
-        '_method' => self::REQUEST_METHOD_PATCH,
-    ];
+    protected string $requestMethod = self::REQUEST_METHOD_PATCH;
 
     public function test_success()
     {
@@ -24,7 +20,7 @@ class UpdateTest extends _TestCase
                 'en' => 'Box 1 en',
             ],
             'date' => date('d.m.Y'),
-            'datetime' => date('d.m.Y H:i:s'),
+            'datetime' => date('d.m.Y H:i'),
             'image' => UploadedFile::fake()->create('image.jpg', 100, 'image/jpeg'),
             'images_list' => [
                 UploadedFile::fake()->create('image.jpg', 100, 'image/jpeg'),
@@ -42,7 +38,7 @@ class UpdateTest extends _TestCase
                         'en' => 'Variation 1 en',
                     ],
                     'date' => date('d.m.Y'),
-                    'datetime' => date('d.m.Y H:i:s'),
+                    'datetime' => date('d.m.Y H:i'),
                     'image' => UploadedFile::fake()->create('image.jpg', 100, 'image/jpeg'),
                     'images_list' => [
                         UploadedFile::fake()->create('image.jpg', 100, 'image/jpeg'),
@@ -57,7 +53,7 @@ class UpdateTest extends _TestCase
                         'en' => 'Variation 2 en',
                     ],
                     'date' => date('d.m.Y'),
-                    'datetime' => date('d.m.Y H:i:s'),
+                    'datetime' => date('d.m.Y H:i'),
                     'image' => UploadedFile::fake()->create('image.jpg', 100, 'image/jpeg'),
                     'images_list' => [
                         UploadedFile::fake()->create('image.jpg', 100, 'image/jpeg'),

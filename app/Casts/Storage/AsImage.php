@@ -3,7 +3,6 @@
 namespace App\Casts\Storage;
 
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Arr;
 use App\Helpers\FileHelper;
 use App\Helpers\ImageHelper;
@@ -36,7 +35,8 @@ class AsImage implements CastsAttributes
                 $oldValue = ImageHelper::clearSizes($oldValue);
                 $oldValue = str_replace(asset(''), '', $oldValue);
                 $oldValue = public_path($oldValue);
-                File::delete($oldValue);
+
+                FileHelper::delete($oldValue);
             }
 
             return FileHelper::upload($newFile, $this->savePath);

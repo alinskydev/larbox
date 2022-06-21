@@ -3,7 +3,6 @@
 namespace App\Casts\Storage;
 
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Arr;
 use App\Helpers\FileHelper;
 
@@ -31,7 +30,8 @@ class AsFile implements CastsAttributes
             if ($oldValue = $model->getOriginal($key)) {
                 $oldValue = str_replace(asset(''), '', $oldValue);
                 $oldValue = public_path($oldValue);
-                File::delete($oldValue);
+
+                FileHelper::delete($oldValue);
             }
 
             return FileHelper::upload($newFile, $this->savePath);

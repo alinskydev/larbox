@@ -18,7 +18,7 @@ class CreateTest extends _TestCase
                 'en' => 'Box 3 en',
             ],
             'date' => date('d.m.Y'),
-            'datetime' => date('d.m.Y H:i:s'),
+            'datetime' => date('d.m.Y H:i'),
             'image' => UploadedFile::fake()->create('image.jpg', 100, 'image/jpeg'),
             'images_list' => [
                 UploadedFile::fake()->create('image.jpg', 100, 'image/jpeg'),
@@ -35,7 +35,7 @@ class CreateTest extends _TestCase
                         'en' => 'Variation 3 en',
                     ],
                     'date' => date('d.m.Y'),
-                    'datetime' => date('d.m.Y H:i:s'),
+                    'datetime' => date('d.m.Y H:i'),
                     'image' => UploadedFile::fake()->create('image.jpg', 100, 'image/jpeg'),
                     'images_list' => [
                         UploadedFile::fake()->create('image.jpg', 100, 'image/jpeg'),
@@ -49,7 +49,7 @@ class CreateTest extends _TestCase
                         'en' => 'Variation 4 en',
                     ],
                     'date' => date('d.m.Y'),
-                    'datetime' => date('d.m.Y H:i:s'),
+                    'datetime' => date('d.m.Y H:i'),
                     'image' => UploadedFile::fake()->create('image.jpg', 100, 'image/jpeg'),
                     'images_list' => [
                         UploadedFile::fake()->create('image.jpg', 100, 'image/jpeg'),

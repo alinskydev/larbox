@@ -13,6 +13,7 @@ class ResetPasswordMail extends Mail
 
     public function build()
     {
-        return $this->subject('auth_reset_password')->view('auth_reset_password');
+        return $this->subject(__('Восстановление пароля'))
+            ->view('auth_reset_password');
     }
 }

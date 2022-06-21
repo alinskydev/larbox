@@ -5,6 +5,9 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\File;
+use Symfony\Component\Console\Output\StreamOutput;
 
 class ExportTestsForPostman extends Command
 {
@@ -29,25 +32,17 @@ class ExportTestsForPostman extends Command
      */
     public function handle()
     {
+        // Preparing input file
+
         $currentLanguage = app()->getLocale();
+        $collectionName = $this->ask('Enter collectioin name', config('app.name'));
 
-        //  Checking folder existance
+        $inputFileName = base_path('larbox/storage/tests/_postman.json');
+        File::delete($inputFileName);
 
-        $path = base_path('storage/larbox/tests');
-
-        if (!is_dir($path)) {
-            return $this->error("'$path' doesn't exists");
-        }
-
-        //  Checking input file existance
-
-        $inputFileName = "$path/_postman.json";
-
-        if (!is_file($inputFileName)) {
-            return $this->error("'$inputFileName' not found");
-        }
-
-        $collectionName = $this->ask('Enter collectioin name', 'unnamed');
+        $stream = fopen('php://output', 'w');
+        Artisan::call("migrate:fresh --seed", [], new StreamOutput($stream));
+        Artisan::call("test", [], new StreamOutput($stream));
 
         // Preparing data
 
@@ -91,9 +86,11 @@ class ExportTestsForPostman extends Command
 
         $outputData = json_encode($outputData, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
         $outputFileName = Str::slug($collectionName);
-        $outputFileName = "$path/" . date('Y_m_d_His') . "_{$outputFileName}_collection.json";
+        $outputFileName = base_path('larbox/storage/tests/' . date('Y_m_d_His') . "_{$outputFileName}_collection.json");
 
         file_put_contents($outputFileName, $outputData);
+        File::delete($inputFileName);
+
         $this->info("Output file is store in: $outputFileName");
     }
 

@@ -13,6 +13,10 @@ return new class extends Seeder
                 'value' => 'info@local.host',
             ],
             [
+                'name' => 'delete_old_files',
+                'value' => 1,
+            ],
+            [
                 'name' => 'favicon',
                 'value' => '/test_data/logo.png',
             ],

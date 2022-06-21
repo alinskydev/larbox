@@ -6,7 +6,6 @@ use App\Tests\Feature\Traits\Index\AvailableSortingsTrait;
 use App\Tests\Feature\Traits\Index\AvailableRelationsTrait;
 use App\Tests\Feature\Traits\Index\PaginationTrait;
 use App\Tests\Feature\Traits\Index\ShowDeletedTrait;
-use Modules\Box\Search\BoxSearch;
 
 class IndexTest extends _TestCase
 {
@@ -14,8 +13,6 @@ class IndexTest extends _TestCase
     use AvailableRelationsTrait;
     use PaginationTrait;
     use ShowDeletedTrait;
-
-    protected string $searchClass = BoxSearch::class;
 
     protected string $requestMethod = self::REQUEST_METHOD_GET;
 
@@ -28,7 +25,7 @@ class IndexTest extends _TestCase
                 'name' => 'box',
                 'slug' => 'box-1',
                 'date' => date('d.m.Y'),
-                'datetime' => date('d.m.Y H:i:s'),
+                'datetime' => date('d.m.Y H:i'),
             ],
         ];
 

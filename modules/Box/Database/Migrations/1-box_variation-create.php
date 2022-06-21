@@ -17,10 +17,6 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('box_id')->unsigned()->index();
             $table->json('name');
-            $table->date('date');
-            $table->dateTime('datetime');
-            $table->string('image')->nullable();
-            $table->json('images_list')->default('[]');
             $table->bigInteger('sort_index')->index();
         });
     }

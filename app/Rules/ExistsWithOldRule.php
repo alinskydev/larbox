@@ -37,7 +37,10 @@ class ExistsWithOldRule extends Rule
         $relationsCount = $query->get()->count();
 
         if ($relationsCount < count((array)$value)) {
-            $this->errorMessage = __('rule.not_exists', ['attribute' => __("field.$attribute")]);
+            $this->errorMessage = __('Выбранное значение для :attribute некорректно', [
+                'attribute' => __("field.$attribute"),
+            ]);
+
             return false;
         }
 

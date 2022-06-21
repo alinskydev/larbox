@@ -16,7 +16,7 @@ class ProfileTest extends _TestCase
 
     public function test_update()
     {
-        $this->requestMethod = self::REQUEST_METHOD_POST;
+        $this->requestMethod = self::REQUEST_METHOD_PATCH;
 
         $this->requestBody = [
             'username' => 'admin',

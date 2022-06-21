@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Illuminate\Support\Facades\File;
 
 class FileHelper
 {
@@ -15,5 +16,12 @@ class FileHelper
         $file->move($path, "$name.$extension");
 
         return "/$path/$name.$extension";
+    }
+
+    public static function delete(string $url)
+    {
+        if (app('settings')->delete_old_files) {
+            File::delete($url);
+        }
     }
 }

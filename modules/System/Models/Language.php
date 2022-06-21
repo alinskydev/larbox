@@ -27,11 +27,11 @@ class Language extends Model
         static::saving(function (self $model) {
             if (Arr::get($model->original, 'is_active') && !$model->is_active) {
                 if ($model->is_main) {
-                    abort(403, __('model.system_language.deactivate_main'));
+                    abort(403, __('Невозможно деактивировать основной язык'));
                 }
 
                 if ($model->code == app()->getLocale()) {
-                    abort(403, __('model.system_language.deactivate_current'));
+                    abort(403, __('Невозможно деактивировать текущий язык'));
                 }
             }
 

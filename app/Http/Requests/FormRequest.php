@@ -4,7 +4,6 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest as BaseFormRequest;
 use App\Helpers\HtmlCleanHelper;
-use App\Services\LocalizationService;
 use Illuminate\Support\Arr;
 
 class FormRequest extends BaseFormRequest
@@ -35,7 +34,7 @@ class FormRequest extends BaseFormRequest
 
     public function rules()
     {
-        $languages = LocalizationService::getInstance()->activeLanguages->toArray();
+        $languages = app('language')->active->toArray();
 
         $localizedRules = $this->localizedRules();
 

@@ -3,50 +3,29 @@
 namespace Http\Common\Information\Controllers;
 
 use App\Http\Controllers\Controller;
-use Modules\System\Models\Settings;
 use Modules\System\Resources\SettingsResource;
-use App\Services\LocalizationService;
 
 class SystemController extends Controller
 {
     public function index()
     {
-        $languages = $this->languages();
-
         $response = [
-            'settings' => $this->settings(),
-            'languages' => $languages,
-            'translations' => $this->translations($languages['active']->toArray()),
+            'settings' => SettingsResource::collection(app('settings')->items),
+            'languages' => app('language'),
+            'translations' => $this->translations(),
         ];
 
         return response()->json($response, 200);
     }
 
-    private function settings()
+    private function translations()
     {
-        $result = Settings::query()->orderBy('name')->get()->keyBy('name');
-        return SettingsResource::collection($result);
-    }
-
-    private function languages()
-    {
-        $localizationService = LocalizationService::getInstance();
-
-        return [
-            'all' => $localizationService->allLanguages,
-            'active' => $localizationService->activeLanguages,
-            'main' => $localizationService->mainLanguage,
-        ];
-    }
-
-    private function translations(array $languages)
-    {
-        return array_map(function ($value) {
-            $path = lang_path($value['code']);
+        return app('language')->active->map(function ($value, $key) {
+            $path = lang_path($value->code);
 
             return [
-                'field' => require("$path/field.php"),
+                'fields' => require("$path/fields.php"),
             ];
-        }, $languages);
+        });
     }
 }

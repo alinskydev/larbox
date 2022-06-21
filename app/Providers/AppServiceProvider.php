@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Schema;
 use Intervention\Image\ImageManagerStatic;
 use Laravel\Sanctum\Sanctum;
 use Illuminate\Support\Facades\Mail;
-use App\Services\LocalizationService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -30,15 +29,13 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(100);
 
-        LocalizationService::getInstance()->setLocaleAndGetRouteParameter();
-
         ImageManagerStatic::configure(['driver' => 'gd']);
 
         if (config('app.env') == 'local') {
             Mail::alwaysTo('admin@local.host');
         }
 
-        $migrationsPath = glob(base_path('modules/*/Database/Migrations'));
+        $migrationsPath = glob(base_path('modules/*/Database/Migrations/*.php'));
         $this->loadMigrationsFrom($migrationsPath);
     }
 }

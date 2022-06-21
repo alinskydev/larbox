@@ -9,6 +9,6 @@ Route::prefix('user')
         Route::prefix('profile')
             ->group(function () {
                 Route::get('', [ProfileController::class, 'show']);
-                Route::post('', [ProfileController::class, 'update']);
+                Route::patch('', [ProfileController::class, 'update']);
             });
     });

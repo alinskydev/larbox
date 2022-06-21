@@ -8,7 +8,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
 use App\Models\Model;
-use Illuminate\Support\Facades\File;
+use App\Helpers\FileHelper;
 use Illuminate\Support\Arr;
 
 class DeleteFileAction extends Controller
@@ -30,17 +30,18 @@ class DeleteFileAction extends Controller
             if ($index === null) abort(403, "'index' is required");
 
             if ($file = Arr::get($originalValue, $index)) {
-                File::delete(public_path($file));
                 Arr::forget($value, $index);
 
                 $model->$field = array_values($value);
                 $model->saveQuietly();
+
+                FileHelper::delete(public_path($file));
             }
         } else {
-            File::delete(public_path($originalValue));
-
             $model->$field = null;
             $model->saveQuietly();
+
+            FileHelper::delete(public_path($originalValue));
         }
 
         return response('', 204);
