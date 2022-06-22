@@ -56,10 +56,6 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $e)
     {
-        if (config('app.debug')) {
-            return parent::render($request, $e);
-        }
-
         switch (get_class($e)) {
             case NotFoundHttpException::class:
                 $response = [
