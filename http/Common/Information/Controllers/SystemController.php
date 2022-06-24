@@ -20,7 +20,7 @@ class SystemController extends Controller
 
     private function translations()
     {
-        return app('language')->active->map(function ($value, $key) {
+        return app('language')->all->map(function ($value, $key) {
             $path = lang_path($value->code);
 
             return [

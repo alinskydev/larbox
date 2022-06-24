@@ -13,12 +13,11 @@ class UserSearch extends Search
         'role' => self::FILTER_TYPE_EQUAL,
 
         'profile.full_name' => self::FILTER_TYPE_LIKE,
+        'profile.phone' => self::FILTER_TYPE_LIKE,
     ];
 
     public array $sortable = [
         'id' => self::SORT_TYPE_SIMPLE,
         'username' => self::SORT_TYPE_SIMPLE,
-        'email' => self::SORT_TYPE_SIMPLE,
-        'role' => self::SORT_TYPE_SIMPLE,
     ];
 }

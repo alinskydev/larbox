@@ -17,7 +17,7 @@ class FormRequest extends BaseFormRequest
         $rulesKeys = array_keys($this->rules());
 
         $attributes = array_combine($rulesKeys, $rulesKeys);
-        $attributes = array_map(fn ($value) => __("field.$value"), $attributes);
+        $attributes = array_map(fn ($value) => __("fields.$value"), $attributes);
 
         return $attributes;
     }

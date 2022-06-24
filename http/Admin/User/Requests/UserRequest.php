@@ -38,6 +38,7 @@ class UserRequest extends ActiveFormRequest
             ],
             'new_password' => [
                 Rule::requiredIf(!$this->model->exists),
+                'nullable',
                 'string',
                 'min:8',
                 'max:100',

@@ -4,7 +4,6 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Illuminate\Support\Arr;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Illuminate\Database\QueryException;
@@ -56,6 +55,10 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $e)
     {
+        if (config('app.debug')) {
+            return parent::render($request, $e);
+        }
+
         switch (get_class($e)) {
             case NotFoundHttpException::class:
                 $response = [

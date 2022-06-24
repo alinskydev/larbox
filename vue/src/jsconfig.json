@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+        "allowJs": true,
+        "baseUrl": ".",
+        "paths": {
+            "@/*": [
+                "./*"
+            ]
+        }
+    },
+    "include": [
+        "./**/*.js",
+        "./**/*.vue",
+        "./**/**/*.js",
+        "./**/**/*.vue",
+        "./**/**/**/*.js",
+        "./**/**/**/*.vue"
+    ]
+    // "compilerOptions": {
+    //     "baseUrl": ".",
+    //     "paths": {
+    //         "@/*": [
+    //             "./src/*"
+    //         ]
+    //     }
+    // }
+}

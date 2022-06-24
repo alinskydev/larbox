@@ -14,7 +14,7 @@ return new class extends Seeder
             ],
             [
                 'name' => 'delete_old_files',
-                'value' => 1,
+                'value' => 0,
             ],
             [
                 'name' => 'favicon',

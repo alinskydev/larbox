@@ -40,7 +40,7 @@ class ProfileRequest extends ActiveFormRequest
                 'max:100',
                 Rule::unique($this->model->getTable())->ignore($this->model->id),
             ],
-            'new_password' => 'string|max:100',
+            'new_password' => 'nullable|string|min:8|max:100',
             'new_password_confirmation' => [
                 Rule::requiredIf($this->new_password !== null),
                 'same:new_password',
