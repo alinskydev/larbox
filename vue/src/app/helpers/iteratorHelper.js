@@ -4,7 +4,7 @@ export default {
             current = object;
 
         for (let i = 0; i < paths.length; ++i) {
-            if (current === undefined || current[paths[i]] === undefined) {
+            if (current === undefined || current === null || current[paths[i]] === undefined || current[paths[i]] === null) {
                 return undefined;
             } else {
                 current = current[paths[i]];

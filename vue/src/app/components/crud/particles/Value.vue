@@ -1,5 +1,5 @@
 <script setup>
-import * as crudEnums from '@/app/enums/crud';
+import * as crudEnums from '@/app/core/crud/enums';
 
 import HttpSelect from '@/app/components/inputs/HttpSelect.vue';
 import HttpSwitcher from '@/app/components/inputs/HttpSwitcher.vue';
@@ -47,22 +47,6 @@ export default {
                 {{ value }}
             </template>
         </div>
-    </template>
-
-    <template v-else-if="item.type === crudEnums.valueTypes.file">
-        <template v-if="item.options.isMultiple">
-            <template v-for="(file, key) in item.value">
-                <a :href="file" target="_blank" class="d-block">
-                    {{ __('Файл №:index', { index: key + 1 }) }}
-                </a>
-            </template>
-        </template>
-
-        <template v-else>
-            <a :href="item.value" target="_blank">
-                {{ __('Файл') }}
-            </a>
-        </template>
     </template>
 
     <template v-else-if="item.type === crudEnums.valueTypes.image">

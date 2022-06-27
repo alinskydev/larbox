@@ -1,5 +1,5 @@
 <script setup>
-import * as inputEnums from '@/app/enums/input';
+import * as crudEnums from '@/app/core/crud/enums';
 
 import ShowGrid from '@/app/components/crud/show/Grid.vue';
 import FormAccordion from '@/app/components/crud/form/Accordion.vue';
@@ -107,7 +107,7 @@ export default {
                                         select2Value: select2Value,
                                         type: field.type,
                                         options: field.options ?? {},
-                                        wrapperSize: field.wrapperSize ?? inputEnums.wrapperSizes.lg,
+                                        wrapperSize: field.wrapperSize ?? crudEnums.wrapperSizes.lg,
                                     };
                                 }
                             }

@@ -1,27 +1,25 @@
-import { CrudModel } from '@/app/core/models/model';
+import { Model } from '@/app/core/crud/model';
+import * as crudEnums from '@/app/core/crud/enums';
 
-import * as crudEnums from '@/app/enums/crud';
-import * as inputEnums from '@/app/enums/input';
-
-export default new CrudModel({
+export default new Model({
     form: {
         'Информация': {
             project_name: {
-                type: inputEnums.types.text,
+                type: crudEnums.inputTypes.text,
             },
             admin_email: {
-                type: inputEnums.types.text,
+                type: crudEnums.inputTypes.text,
             },
             logo: {
-                type: inputEnums.types.file,
-                wrapperSize: inputEnums.wrapperSizes.lg,
+                type: crudEnums.inputTypes.file,
+                wrapperSize: crudEnums.wrapperSizes.lg,
             },
             favicon: {
-                type: inputEnums.types.file,
-                wrapperSize: inputEnums.wrapperSizes.lg,
+                type: crudEnums.inputTypes.file,
+                wrapperSize: crudEnums.wrapperSizes.lg,
             },
             delete_old_files: {
-                type: inputEnums.types.switcher,
+                type: crudEnums.inputTypes.switcher,
             },
         },
     },

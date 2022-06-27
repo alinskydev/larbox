@@ -1,5 +1,5 @@
 <script setup>
-import * as inputEnums from '@/app/enums/input';
+import * as crudEnums from '@/app/core/crud/enums';
 
 import Error from './_Error.vue';
 </script>
@@ -16,7 +16,7 @@ export default {
     data() {
         return {
             wrapperSize: this.$attrs.wrapperSize,
-            childWrapperSize: this.$attrs.options.wrapperSize ?? inputEnums.wrapperSizes.md,
+            childWrapperSize: this.$attrs.options.wrapperSize ?? crudEnums.wrapperSizes.md,
             label: this.$attrs.label,
             options: this.$attrs.options ?? {},
             languages: this.booted.languages.active,

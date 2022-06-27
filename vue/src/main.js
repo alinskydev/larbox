@@ -1,8 +1,7 @@
-import { createApp } from "vue";
-import App from "./App.vue";
-import router from "./app/router";
-
-import config from "@/app/bootstrap/config";
+import { createApp } from 'vue';
+import App from './App.vue';
+import router from '@/app/core/router';
+import config from '@/app/core/config';
 import { __ } from '@/app/helpers/localizationHelper';
 
 import fileHelper from '@/app/helpers/fileHelper';
@@ -29,4 +28,4 @@ app.config.globalProperties = {
 };
 
 app.use(router);
-app.mount("#app");
+app.mount('#app');

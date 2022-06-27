@@ -1,36 +1,34 @@
-import { CrudModel } from '@/app/core/models/model';
+import { Model } from '@/app/core/crud/model';
+import * as crudEnums from '@/app/core/crud/enums';
 
-import * as crudEnums from '@/app/enums/crud';
-import * as inputEnums from '@/app/enums/input';
-
-export default new CrudModel({
+export default new Model({
     form: {
         'Информация': {
             username: {
-                type: inputEnums.types.text,
+                type: crudEnums.inputTypes.text,
             },
             email: {
-                type: inputEnums.types.text,
+                type: crudEnums.inputTypes.text,
             },
             'profile.full_name': {
-                type: inputEnums.types.text,
+                type: crudEnums.inputTypes.text,
             },
             'profile.phone': {
-                type: inputEnums.types.text,
+                type: crudEnums.inputTypes.text,
             },
             'profile.image': {
-                type: inputEnums.types.file,
+                type: crudEnums.inputTypes.file,
                 options: {
                     previewPath: 'original',
                     downloadPath: 'original',
                 },
-                wrapperSize: inputEnums.wrapperSizes.xl,
+                wrapperSize: crudEnums.wrapperSizes.xl,
             },
             new_password: {
-                type: inputEnums.types.password,
+                type: crudEnums.inputTypes.password,
             },
             new_password_confirmation: {
-                type: inputEnums.types.password,
+                type: crudEnums.inputTypes.password,
             },
         },
     },

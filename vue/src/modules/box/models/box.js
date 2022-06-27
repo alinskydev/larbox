@@ -1,9 +1,9 @@
-import { CrudModel } from '@/app/core/models/model';
+import { Model } from '@/app/core/crud/model';
+import * as crudEnums from '@/app/core/crud/enums';
 
-import * as crudEnums from '@/app/enums/crud';
-import * as inputEnums from '@/app/enums/input';
+export default new Model({
+    showDeleted: true,
 
-export default new CrudModel({
     list: {
         image: {
             value: 'image.w_100',
@@ -58,26 +58,26 @@ export default new CrudModel({
 
     filters: {
         id: {
-            type: inputEnums.types.text,
+            type: crudEnums.inputTypes.text,
         },
         name: {
-            type: inputEnums.types.text,
+            type: crudEnums.inputTypes.text,
         },
         date: {
-            type: inputEnums.types.date,
+            type: crudEnums.inputTypes.date,
         },
         datetime: {
-            type: inputEnums.types.date,
+            type: crudEnums.inputTypes.date,
         },
         brand_id: {
-            type: inputEnums.types.select2Ajax,
+            type: crudEnums.inputTypes.select2Ajax,
             options: {
                 path: 'box/brand',
                 field: 'name',
             },
         },
         'tags.id': {
-            type: inputEnums.types.select2Ajax,
+            type: crudEnums.inputTypes.select2Ajax,
             options: {
                 path: 'box/tag',
                 field: 'name',
@@ -166,20 +166,20 @@ export default new CrudModel({
     form: {
         'Информация': {
             name: {
-                type: inputEnums.types.text,
+                type: crudEnums.inputTypes.text,
                 options: {
                     isLocalized: true,
                 },
-                wrapperSize: inputEnums.wrapperSizes.xl,
+                wrapperSize: crudEnums.wrapperSizes.xl,
             },
             date: {
-                type: inputEnums.types.date,
+                type: crudEnums.inputTypes.date,
             },
             datetime: {
-                type: inputEnums.types.datetime,
+                type: crudEnums.inputTypes.datetime,
             },
             brand_id: {
-                type: inputEnums.types.select2Ajax,
+                type: crudEnums.inputTypes.select2Ajax,
                 select2Value: 'brand.name',
                 options: {
                     path: 'box/brand',
@@ -189,7 +189,7 @@ export default new CrudModel({
             tags: {
                 value: (value) => Object.values(value).map((value) => value.id),
                 select2Value: 'tags',
-                type: inputEnums.types.select2Ajax,
+                type: crudEnums.inputTypes.select2Ajax,
                 options: {
                     path: 'box/tag',
                     field: 'name',
@@ -198,36 +198,36 @@ export default new CrudModel({
                 },
             },
             image: {
-                type: inputEnums.types.file,
+                type: crudEnums.inputTypes.file,
                 options: {
                     previewPath: 'w_500',
                     downloadPath: 'original',
                     deletePath: 'box/box/:id/delete-file/image',
                 },
-                wrapperSize: inputEnums.wrapperSizes.xl,
+                wrapperSize: crudEnums.wrapperSizes.xl,
             },
             images_list: {
-                type: inputEnums.types.file,
+                type: crudEnums.inputTypes.file,
                 options: {
                     previewPath: 'w_500',
                     downloadPath: 'original',
                     deletePath: 'box/box/:id/delete-file/images_list/:index',
                     isMultiple: true,
                 },
-                wrapperSize: inputEnums.wrapperSizes.xl,
+                wrapperSize: crudEnums.wrapperSizes.xl,
             },
         },
         'Variations': {
             variations: {
-                type: inputEnums.types.relations,
+                type: crudEnums.inputTypes.relations,
                 options: {
                     fields: {
                         name: {
-                            type: inputEnums.types.text,
+                            type: crudEnums.inputTypes.text,
                             options: {
                                 isLocalized: true,
                             },
-                            wrapperSize: inputEnums.wrapperSizes.xl,
+                            wrapperSize: crudEnums.wrapperSizes.xl,
                         },
                     },
                 },

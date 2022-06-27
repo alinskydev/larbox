@@ -3,8 +3,8 @@
     <testsuites>
         <testsuite name="Feature">
             <directory suffix="Test.php">./http/*/*/Tests</directory>
-            <!-- <directory suffix="Test.php">./http/Admin/Box/Tests</directory> -->
-            <!-- <directory suffix="Test.php">./http/Public/Box/Tests</directory> -->
+            <!-- <directory suffix="Test.php">./http/Admin/User/Tests</directory> -->
+            <!-- <directory suffix="Test.php">./http/Public</directory> -->
         </testsuite>
     </testsuites>
     <coverage processUncoveredFiles="true">

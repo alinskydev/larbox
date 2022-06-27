@@ -1,9 +1,10 @@
 <script setup>
 import { pickBy } from "lodash";
 
-import * as inputEnums from '@/app/enums/input';
+import * as crudEnums from '@/app/core/crud/enums';
 
 import Input from '@/app/components/crud/particles/Input.vue';
+import ShowDeleted from './index/_ShowDeleted.vue';
 import Sort from './index/_Sort.vue';
 import Grid from './index/Grid.vue';
 </script>
@@ -60,7 +61,7 @@ export default {
                 value: values[key],
                 type: filter.type,
                 options: filter.options ?? {},
-                wrapperSize: filter.wrapperSize ?? inputEnums.wrapperSizes.sm,
+                wrapperSize: filter.wrapperSize ?? crudEnums.wrapperSizes.sm,
             }
         }
 
@@ -126,7 +127,13 @@ export default {
                               :model="page.model"
                               name="sort"
                               :label="__('Сортировка')"
-                              :wrapperSize="inputEnums.wrapperSizes.sm" />
+                              :wrapperSize="crudEnums.wrapperSizes.sm" />
+
+                        <ShowDeleted v-if="page.model.showDeleted"
+                                     :model="page.model"
+                                     name="show[deleted]"
+                                     :label="__('Отображать')"
+                                     :wrapperSize="crudEnums.wrapperSizes.sm" />
                     </div>
                 </div>
 

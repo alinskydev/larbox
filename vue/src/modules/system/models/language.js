@@ -1,9 +1,7 @@
-import { CrudModel } from '@/app/core/models/model';
+import { Model } from '@/app/core/crud/model';
+import * as crudEnums from '@/app/core/crud/enums';
 
-import * as crudEnums from '@/app/enums/crud';
-import * as inputEnums from '@/app/enums/input';
-
-export default new CrudModel({
+export default new Model({
     list: {
         image: {
             value: 'image.w_100',
@@ -75,16 +73,16 @@ export default new CrudModel({
 
     filters: {
         id: {
-            type: inputEnums.types.text,
+            type: crudEnums.inputTypes.text,
         },
         name: {
-            type: inputEnums.types.text,
+            type: crudEnums.inputTypes.text,
         },
         code: {
-            type: inputEnums.types.text,
+            type: crudEnums.inputTypes.text,
         },
         is_active: {
-            type: inputEnums.types.select,
+            type: crudEnums.inputTypes.select,
             options: {
                 items: (context) => {
                     return {
@@ -96,7 +94,7 @@ export default new CrudModel({
             },
         },
         is_main: {
-            type: inputEnums.types.select,
+            type: crudEnums.inputTypes.select,
             options: {
                 items: (context) => {
                     return {
@@ -152,15 +150,15 @@ export default new CrudModel({
     form: {
         'Информация': {
             name: {
-                type: inputEnums.types.text,
+                type: crudEnums.inputTypes.text,
             },
             image: {
-                type: inputEnums.types.file,
+                type: crudEnums.inputTypes.file,
                 options: {
                     previewPath: 'original',
                     downloadPath: 'original',
                 },
-                wrapperSize: inputEnums.wrapperSizes.xl,
+                wrapperSize: crudEnums.wrapperSizes.xl,
             },
         },
     },

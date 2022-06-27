@@ -1,9 +1,9 @@
-import { CrudModel } from '@/app/core/models/model';
+import { Model } from '@/app/core/crud/model';
+import * as crudEnums from '@/app/core/crud/enums';
 
-import * as crudEnums from '@/app/enums/crud';
-import * as inputEnums from '@/app/enums/input';
+export default new Model({
+    showDeleted: true,
 
-export default new CrudModel({
     list: {
         id: {
             value: 'id',
@@ -25,10 +25,10 @@ export default new CrudModel({
 
     filters: {
         id: {
-            type: inputEnums.types.text,
+            type: crudEnums.inputTypes.text,
         },
         name: {
-            type: inputEnums.types.text,
+            type: crudEnums.inputTypes.text,
         },
     },
 
@@ -47,7 +47,7 @@ export default new CrudModel({
             type: crudEnums.valueTypes.text,
         },
         created_at: {
-            value: 'updated_at',
+            value: 'created_at',
             type: crudEnums.valueTypes.text,
         },
         updated_at: {
@@ -59,7 +59,7 @@ export default new CrudModel({
     form: {
         'Информация': {
             name: {
-                type: inputEnums.types.text,
+                type: crudEnums.inputTypes.text,
             },
         },
     },

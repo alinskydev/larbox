@@ -1,5 +1,5 @@
 <script setup>
-import * as crudEnums from '@/app/enums/crud';
+import * as crudEnums from '@/app/core/crud/enums';
 
 import Value from '@/app/components/crud/particles/Value.vue';
 import Actions from './_Actions.vue';
@@ -54,6 +54,8 @@ export default {
                                 type: field.type,
                                 options: field.options ?? {},
                             };
+
+                            items[dataKey]['is_deleted'] = data[dataKey]['is_deleted'];
 
                             if (field.options?.onComplete) {
                                 items[dataKey][fieldKey].value = field.options.onComplete(this, items[dataKey][fieldKey].value);
@@ -116,7 +118,7 @@ export default {
 
                                     <template v-if="page.actions.length > 0">
                                         <td style="width: 50px;">
-                                            <Actions :id="item.id.value"
+                                            <Actions :item="item"
                                                      :http="page.http"
                                                      :actions="page.actions"
                                                      :extraActions="page.extraActions" />

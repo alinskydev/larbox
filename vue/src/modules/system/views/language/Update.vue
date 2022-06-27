@@ -1,5 +1,5 @@
 <script setup>
-import { UpdatePage } from '@/app/core/pages/crud';
+import { UpdatePage } from '@/app/core/crud/page';
 import model from '@/modules/system/models/language';
 
 import PageTitle from '@/app/components/blocks/PageTitle.vue';
@@ -37,7 +37,7 @@ export default {
 
 <template>
     <PageTitle :text="title">
-        <Buttons :actions="['cancel', 'save']" />
+        <Buttons />
     </PageTitle>
 
     <Item child="form" />

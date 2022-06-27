@@ -1,5 +1,5 @@
 <script setup>
-import { ShowPage } from '@/app/core/pages/crud';
+import { ShowPage } from '@/app/core/crud/page';
 import model from '@/modules/system/models/language';
 
 import PageTitle from '@/app/components/blocks/PageTitle.vue';

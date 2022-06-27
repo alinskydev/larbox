@@ -33,13 +33,13 @@ class DeleteFileAction extends Controller
                 Arr::forget($value, $index);
 
                 $model->$field = array_values($value);
-                $model->saveQuietly();
+                $model->save();
 
                 FileHelper::delete(public_path($file));
             }
         } else {
             $model->$field = null;
-            $model->saveQuietly();
+            $model->save();
 
             FileHelper::delete(public_path($originalValue));
         }

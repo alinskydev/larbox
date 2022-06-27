@@ -1,5 +1,5 @@
 <script setup>
-import * as inputEnums from '@/app/enums/input';
+import * as crudEnums from '@/app/core/crud/enums';
 import FormAccordion from '@/app/components/crud/form/Accordion.vue';
 </script>
 
@@ -54,7 +54,7 @@ export default {
                         value: value,
                         type: field.type,
                         options: field.options ?? {},
-                        wrapperSize: field.wrapperSize ?? inputEnums.wrapperSizes.lg,
+                        wrapperSize: field.wrapperSize ?? crudEnums.wrapperSizes.lg,
                     };
                 }
             }

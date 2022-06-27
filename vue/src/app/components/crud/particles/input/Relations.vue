@@ -1,5 +1,5 @@
 <script setup>
-import * as inputEnums from '@/app/enums/input';
+import * as crudEnums from '@/app/core/crud/enums';
 
 import Input from '@/app/components/crud/particles/Input.vue';
 </script>
@@ -38,7 +38,7 @@ export default {
                 id: {
                     name: this.namePrefix + '[' + relationKey + '][id]',
                     value: relation.id,
-                    type: inputEnums.types.hidden,
+                    type: crudEnums.inputTypes.hidden,
                 },
                 fields: {},
             };
@@ -65,7 +65,7 @@ export default {
                     select2Value: select2Value,
                     type: field.type,
                     options: field.options ?? {},
-                    wrapperSize: field.wrapperSize ?? inputEnums.wrapperSizes.lg,
+                    wrapperSize: field.wrapperSize ?? crudEnums.wrapperSizes.lg,
                 };
             }
         }
@@ -89,7 +89,7 @@ export default {
                 id: {
                     name: this.namePrefix + '[' + uniqueId + '][id]',
                     value: 0,
-                    type: inputEnums.types.hidden,
+                    type: crudEnums.inputTypes.hidden,
                 },
                 fields: {},
             };
@@ -102,7 +102,7 @@ export default {
                     name: this.namePrefix + '[' + uniqueId + '][' + fieldKey + ']',
                     type: field.type,
                     options: field.options ?? {},
-                    wrapperSize: field.wrapperSize ?? inputEnums.wrapperSizes.lg,
+                    wrapperSize: field.wrapperSize ?? crudEnums.wrapperSizes.lg,
                 };
             }
 

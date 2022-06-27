@@ -1,5 +1,5 @@
 <script setup>
-import { CreatePage } from '@/app/core/pages/crud';
+import { CreatePage } from '@/app/core/crud/page';
 import model from '@/modules/box/models/tag';
 
 import PageTitle from '@/app/components/blocks/PageTitle.vue';
@@ -32,7 +32,7 @@ export default {
 
 <template>
     <PageTitle :text="title">
-        <Buttons :actions="['save']" />
+        <Buttons />
     </PageTitle>
 
     <Create />

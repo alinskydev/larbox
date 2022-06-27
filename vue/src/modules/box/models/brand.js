@@ -1,9 +1,9 @@
-import { CrudModel } from '@/app/core/models/model';
+import { Model } from '@/app/core/crud/model';
+import * as crudEnums from '@/app/core/crud/enums';
 
-import * as crudEnums from '@/app/enums/crud';
-import * as inputEnums from '@/app/enums/input';
+export default new Model({
+    showDeleted: true,
 
-export default new CrudModel({
     list: {
         id: {
             value: 'id',
@@ -44,24 +44,24 @@ export default new CrudModel({
 
     filters: {
         id: {
-            type: inputEnums.types.text,
+            type: crudEnums.inputTypes.text,
         },
         creator_id: {
-            type: inputEnums.types.select2Ajax,
+            type: crudEnums.inputTypes.select2Ajax,
             options: {
                 path: 'user/user',
                 field: 'username',
             },
         },
         name: {
-            type: inputEnums.types.text,
+            type: crudEnums.inputTypes.text,
         },
         slug: {
             value: 'slug',
             type: crudEnums.valueTypes.text,
         },
         is_active: {
-            type: inputEnums.types.select,
+            type: crudEnums.inputTypes.select,
             options: {
                 items: (context) => {
                     return {
@@ -116,7 +116,7 @@ export default new CrudModel({
             type: crudEnums.valueTypes.text,
         },
         created_at: {
-            value: 'updated_at',
+            value: 'created_at',
             type: crudEnums.valueTypes.text,
         },
         updated_at: {
@@ -128,22 +128,22 @@ export default new CrudModel({
     form: {
         'Информация': {
             name: {
-                type: inputEnums.types.text,
+                type: crudEnums.inputTypes.text,
             },
             file: {
-                type: inputEnums.types.file,
+                type: crudEnums.inputTypes.file,
                 options: {
                     deletePath: 'box/brand/:id/delete-file/file',
                 },
-                wrapperSize: inputEnums.wrapperSizes.xl,
+                wrapperSize: crudEnums.wrapperSizes.xl,
             },
             files_list: {
-                type: inputEnums.types.file,
+                type: crudEnums.inputTypes.file,
                 options: {
                     deletePath: 'box/brand/:id/delete-file/files_list/:index',
                     isMultiple: true,
                 },
-                wrapperSize: inputEnums.wrapperSizes.xl,
+                wrapperSize: crudEnums.wrapperSizes.xl,
             },
         },
     },

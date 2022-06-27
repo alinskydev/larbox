@@ -1,5 +1,5 @@
 <script setup>
-import { Page } from '@/app/core/pages/page';
+import { Page } from '@/app/core/page';
 import PageTitle from '@/app/components/blocks/PageTitle.vue';
 </script>
 

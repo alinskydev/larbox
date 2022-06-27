@@ -1,5 +1,5 @@
 <script setup>
-import { UpdatePage } from '@/app/core/pages/crud';
+import { UpdatePage } from '@/app/core/crud/page';
 import model from '@/modules/user/models/profile';
 
 import PageTitle from '@/app/components/blocks/PageTitle.vue';

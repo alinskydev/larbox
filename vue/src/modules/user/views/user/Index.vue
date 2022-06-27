@@ -1,9 +1,9 @@
 <script setup>
-import { IndexPage } from '@/app/core/pages/crud';
+import { IndexPage } from '@/app/core/crud/page';
 import model from '@/modules/user/models/user';
 
 import PageTitle from '@/app/components/blocks/PageTitle.vue';
-import RouterLink from "@/app/components/vue/RouterLink.vue";
+import RouterLink from "@/app/components/blocks/RouterLink.vue";
 import Index from '@/app/components/crud/Index.vue';
 </script>
 
@@ -17,7 +17,7 @@ export default {
             http: {
                 path: 'user/user',
             },
-            actions: ['show', 'update', 'delete'],
+            actions: ['show', 'update', 'delete', 'restore'],
         });
     },
 };

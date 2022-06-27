@@ -49,7 +49,7 @@ class ActiveFormRequest extends FormRequest
         $data = $this->validated();
 
         DB::beginTransaction();
-        $this->model->fill($data)->save();
+        $this->model->fill($data)->touch();
         DB::commit();
     }
 

@@ -1,9 +1,9 @@
-import { CrudModel } from '@/app/core/models/model';
+import { Model } from '@/app/core/crud/model';
+import * as crudEnums from '@/app/core/crud/enums';
 
-import * as crudEnums from '@/app/enums/crud';
-import * as inputEnums from '@/app/enums/input';
+export default new Model({
+    showDeleted: true,
 
-export default new CrudModel({
     list: {
         image: {
             value: 'profile.image.w_100',
@@ -51,16 +51,16 @@ export default new CrudModel({
 
     filters: {
         id: {
-            type: inputEnums.types.text,
+            type: crudEnums.inputTypes.text,
         },
         username: {
-            type: inputEnums.types.text,
+            type: crudEnums.inputTypes.text,
         },
         email: {
-            type: inputEnums.types.text,
+            type: crudEnums.inputTypes.text,
         },
         role: {
-            type: inputEnums.types.select,
+            type: crudEnums.inputTypes.select,
             options: {
                 items: (context) => {
                     return Object.fromEntries(
@@ -74,10 +74,10 @@ export default new CrudModel({
             },
         },
         'profile.full_name': {
-            type: inputEnums.types.text,
+            type: crudEnums.inputTypes.text,
         },
         'profile.phone': {
-            type: inputEnums.types.text,
+            type: crudEnums.inputTypes.text,
         },
     },
 
@@ -134,13 +134,13 @@ export default new CrudModel({
     form: {
         'Информация': {
             username: {
-                type: inputEnums.types.text,
+                type: crudEnums.inputTypes.text,
             },
             email: {
-                type: inputEnums.types.text,
+                type: crudEnums.inputTypes.text,
             },
             role: {
-                type: inputEnums.types.select,
+                type: crudEnums.inputTypes.select,
                 options: {
                     items: (context) => {
                         return Object.fromEntries(
@@ -151,30 +151,30 @@ export default new CrudModel({
                         );
                     },
                 },
-                wrapperSize: inputEnums.wrapperSizes.md,
+                wrapperSize: crudEnums.wrapperSizes.md,
             },
             'profile.full_name': {
-                type: inputEnums.types.text,
-                wrapperSize: inputEnums.wrapperSizes.md,
+                type: crudEnums.inputTypes.text,
+                wrapperSize: crudEnums.wrapperSizes.md,
             },
             'profile.phone': {
-                type: inputEnums.types.text,
-                wrapperSize: inputEnums.wrapperSizes.md,
+                type: crudEnums.inputTypes.text,
+                wrapperSize: crudEnums.wrapperSizes.md,
             },
             'profile.image': {
-                type: inputEnums.types.file,
+                type: crudEnums.inputTypes.file,
                 options: {
                     previewPath: 'original',
                     downloadPath: 'original',
                     deletePath: 'user/user/:id/delete-file/image',
                 },
-                wrapperSize: inputEnums.wrapperSizes.xl,
+                wrapperSize: crudEnums.wrapperSizes.xl,
             },
             new_password: {
-                type: inputEnums.types.password,
+                type: crudEnums.inputTypes.password,
             },
             new_password_confirmation: {
-                type: inputEnums.types.password,
+                type: crudEnums.inputTypes.password,
             },
         },
     },

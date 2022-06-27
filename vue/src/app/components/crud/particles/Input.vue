@@ -1,5 +1,5 @@
 <script setup>
-import * as inputEnums from '@/app/enums/input';
+import * as crudEnums from '@/app/core/crud/enums';
 
 import Date from '@/app/components/inputs/Date.vue';
 import Datetime from '@/app/components/inputs/Datetime.vue';
@@ -29,7 +29,7 @@ export default {
 </script>
 
 <template>
-    <template v-if="item.type === inputEnums.types.text">
+    <template v-if="item.type === crudEnums.inputTypes.text">
         <Text :name="item.name"
               :value="item.value"
               :label="item.label"
@@ -37,7 +37,7 @@ export default {
               :wrapperSize="item.wrapperSize" />
     </template>
 
-    <template v-else-if="item.type === inputEnums.types.textarea">
+    <template v-else-if="item.type === crudEnums.inputTypes.textarea">
         <Textarea :name="item.name"
                   :value="item.value"
                   :label="item.label"
@@ -45,7 +45,7 @@ export default {
                   :wrapperSize="item.wrapperSize" />
     </template>
 
-    <template v-else-if="item.type === inputEnums.types.password">
+    <template v-else-if="item.type === crudEnums.inputTypes.password">
         <Password :name="item.name"
                   :value="item.value"
                   :label="item.label"
@@ -53,7 +53,7 @@ export default {
                   :wrapperSize="item.wrapperSize" />
     </template>
 
-    <template v-else-if="item.type === inputEnums.types.date">
+    <template v-else-if="item.type === crudEnums.inputTypes.date">
         <Date :name="item.name"
               :value="item.value"
               :label="item.label"
@@ -61,7 +61,7 @@ export default {
               :wrapperSize="item.wrapperSize" />
     </template>
 
-    <template v-else-if="item.type === inputEnums.types.datetime">
+    <template v-else-if="item.type === crudEnums.inputTypes.datetime">
         <Datetime :name="item.name"
                   :value="item.value"
                   :label="item.label"
@@ -69,7 +69,7 @@ export default {
                   :wrapperSize="item.wrapperSize" />
     </template>
 
-    <template v-else-if="item.type === inputEnums.types.time">
+    <template v-else-if="item.type === crudEnums.inputTypes.time">
         <Time :name="item.name"
               :value="item.value"
               :label="item.label"
@@ -77,12 +77,12 @@ export default {
               :wrapperSize="item.wrapperSize" />
     </template>
 
-    <template v-else-if="item.type === inputEnums.types.hidden">
+    <template v-else-if="item.type === crudEnums.inputTypes.hidden">
         <Hidden :name="item.name"
                 :value="item.value" />
     </template>
 
-    <template v-else-if="item.type === inputEnums.types.select">
+    <template v-else-if="item.type === crudEnums.inputTypes.select">
         <Select :name="item.name"
                 :value="item.value"
                 :label="item.label"
@@ -90,7 +90,7 @@ export default {
                 :wrapperSize="item.wrapperSize" />
     </template>
 
-    <template v-else-if="item.type === inputEnums.types.select2Ajax">
+    <template v-else-if="item.type === crudEnums.inputTypes.select2Ajax">
         <Select2Ajax :name="item.name"
                      :value="item.value"
                      :select2Value="item.select2Value"
@@ -99,7 +99,7 @@ export default {
                      :wrapperSize="item.wrapperSize" />
     </template>
 
-    <template v-else-if="item.type === inputEnums.types.switcher">
+    <template v-else-if="item.type === crudEnums.inputTypes.switcher">
         <Switcher :name="item.name"
                   :value="item.value"
                   :label="item.label"
@@ -107,7 +107,7 @@ export default {
                   :wrapperSize="item.wrapperSize" />
     </template>
 
-    <template v-else-if="item.type === inputEnums.types.file">
+    <template v-else-if="item.type === crudEnums.inputTypes.file">
         <File :name="item.name"
               :value="item.value"
               :label="item.label"
@@ -115,13 +115,13 @@ export default {
               :wrapperSize="item.wrapperSize" />
     </template>
 
-    <template v-else-if="item.type === inputEnums.types.relations">
+    <template v-else-if="item.type === crudEnums.inputTypes.relations">
         <Relations :namePrefix="item.name"
                    :relations="item.value"
                    :options="item.options" />
     </template>
 
-    <template v-else-if="item.type === inputEnums.types.component">
+    <template v-else-if="item.type === crudEnums.inputTypes.component">
         <ComponentResolver :resolve="item.options.resolve(booted.components.page, item)" />
     </template>
 </template>
