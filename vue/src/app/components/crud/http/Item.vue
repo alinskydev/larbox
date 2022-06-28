@@ -51,26 +51,7 @@ export default {
 
                     switch (this.child) {
                         case 'show':
-                            let fields = model.show;
-
-                            for (let fieldKey in fields) {
-                                let field = fields[fieldKey],
-                                    value = field.value;
-
-                                value = value.replace(':locale', this.booted.locale);
-
-                                items[fieldKey] = {
-                                    label: this.__('fields->' + fieldKey),
-                                    value: this.booted.helpers.iterator.searchByPath(data, value),
-                                    type: field.type,
-                                    options: field.options ?? {},
-                                };
-
-                                if (items[fieldKey].options.onComplete) {
-                                    items[fieldKey].value = items[fieldKey].options.onComplete(this, items[fieldKey].value);
-                                }
-                            }
-
+                            this.items = model.prepareValues(this, model.show, data);
                             break;
                         case 'form':
                             let fieldGroups = model.form;
@@ -107,15 +88,14 @@ export default {
                                         select2Value: select2Value,
                                         type: field.type,
                                         options: field.options ?? {},
-                                        wrapperSize: field.wrapperSize ?? crudEnums.wrapperSizes.lg,
+                                        size: field.size ?? crudEnums.inputSizes.lg,
                                     };
                                 }
                             }
 
+                            this.items = items;
                             break;
                     }
-
-                    this.items = items;
                 });
             } else {
                 this.$router.back();

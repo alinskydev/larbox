@@ -20,13 +20,10 @@ export default {
 
         // Collecting items
 
-        let languages = this.booted.languages.active,
-            fieldGroups = model.form,
+        let fieldGroups = model.form,
             items = {};
 
         for (let fieldGroupKey in fieldGroups) {
-            let fields = fieldGroups[fieldGroupKey];
-
             items[fieldGroupKey] = {};
 
             for (let fieldGroupKey in fieldGroups) {
@@ -54,7 +51,7 @@ export default {
                         value: value,
                         type: field.type,
                         options: field.options ?? {},
-                        wrapperSize: field.wrapperSize ?? crudEnums.wrapperSizes.lg,
+                        size: field.size ?? crudEnums.inputSizes.lg,
                     };
                 }
             }

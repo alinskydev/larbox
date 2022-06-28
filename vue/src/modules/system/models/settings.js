@@ -12,11 +12,11 @@ export default new Model({
             },
             logo: {
                 type: crudEnums.inputTypes.file,
-                wrapperSize: crudEnums.wrapperSizes.lg,
+                size: crudEnums.inputSizes.lg,
             },
             favicon: {
                 type: crudEnums.inputTypes.file,
-                wrapperSize: crudEnums.wrapperSizes.lg,
+                size: crudEnums.inputSizes.lg,
             },
             delete_old_files: {
                 type: crudEnums.inputTypes.switcher,

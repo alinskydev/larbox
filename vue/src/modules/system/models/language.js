@@ -4,11 +4,9 @@ import * as crudEnums from '@/app/core/crud/enums';
 export default new Model({
     list: {
         image: {
+            label: null,
             value: 'image.w_100',
             type: crudEnums.valueTypes.image,
-            options: {
-                hideLabel: true,
-            },
         },
         id: {
             value: 'id',
@@ -126,6 +124,7 @@ export default new Model({
             type: crudEnums.valueTypes.text,
         },
         image: {
+            label: null,
             value: 'image.w_100',
             type: crudEnums.valueTypes.image,
         },
@@ -158,7 +157,7 @@ export default new Model({
                     previewPath: 'original',
                     downloadPath: 'original',
                 },
-                wrapperSize: crudEnums.wrapperSizes.xl,
+                size: crudEnums.inputSizes.xl,
             },
         },
     },

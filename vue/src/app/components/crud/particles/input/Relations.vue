@@ -65,7 +65,7 @@ export default {
                     select2Value: select2Value,
                     type: field.type,
                     options: field.options ?? {},
-                    wrapperSize: field.wrapperSize ?? crudEnums.wrapperSizes.lg,
+                    size: field.size ?? crudEnums.inputSizes.lg,
                 };
             }
         }
@@ -102,7 +102,7 @@ export default {
                     name: this.namePrefix + '[' + uniqueId + '][' + fieldKey + ']',
                     type: field.type,
                     options: field.options ?? {},
-                    wrapperSize: field.wrapperSize ?? crudEnums.wrapperSizes.lg,
+                    size: field.size ?? crudEnums.inputSizes.lg,
                 };
             }
 

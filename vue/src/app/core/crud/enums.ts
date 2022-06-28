@@ -21,7 +21,7 @@ export enum inputTypes {
     component,
 }
 
-export enum wrapperSizes {
+export enum inputSizes {
     xs = 'col-sm-6 col-md-4 col-lg-3 col-xl-2',
     sm = 'col-md-6 col-lg-4 col-xl-3',
     md = 'col-lg-6 col-xl-4',

@@ -28,7 +28,7 @@ export default {
                         <tr v-for="item in items">
                             <template v-if="item.value !== undefined">
                                 <th>
-                                    {{ item.options.hideLabel ? '' : item.label }}
+                                    {{ item.label }}
                                 </th>
 
                                 <td>

@@ -31,5 +31,5 @@ export default {
             :value="value"
             :label="$attrs.label"
             :options="options"
-            :wrapperSize="$attrs.wrapperSize" />
+            :size="$attrs.size" />
 </template>

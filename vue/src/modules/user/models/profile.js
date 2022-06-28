@@ -22,7 +22,7 @@ export default new Model({
                     previewPath: 'original',
                     downloadPath: 'original',
                 },
-                wrapperSize: crudEnums.wrapperSizes.xl,
+                size: crudEnums.inputSizes.xl,
             },
             new_password: {
                 type: crudEnums.inputTypes.password,

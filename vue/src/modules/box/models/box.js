@@ -6,18 +6,14 @@ export default new Model({
 
     list: {
         image: {
+            label: null,
             value: 'image.w_100',
             type: crudEnums.valueTypes.image,
-            options: {
-                hideLabel: true,
-            },
         },
         images_list: {
+            label: null,
             value: 'images_list.0.w_100',
             type: crudEnums.valueTypes.image,
-            options: {
-                hideLabel: true,
-            },
         },
         id: {
             value: 'id',
@@ -44,11 +40,8 @@ export default new Model({
             type: crudEnums.valueTypes.text,
         },
         tags: {
-            value: 'tags',
+            value: 'tags.*.name',
             type: crudEnums.valueTypes.array,
-            options: {
-                path: 'name',
-            },
         },
         updated_at: {
             value: 'updated_at',
@@ -95,20 +88,14 @@ export default new Model({
 
     show: {
         image: {
+            label: null,
             value: 'image.w_500',
             type: crudEnums.valueTypes.image,
-            options: {
-                hideLabel: true,
-            },
         },
         images_list: {
-            value: 'images_list',
+            label: null,
+            value: 'images_list.*.w_500',
             type: crudEnums.valueTypes.image,
-            options: {
-                isMultiple: true,
-                path: 'w_500',
-                hideLabel: true,
-            },
         },
         id: {
             value: 'id',
@@ -135,11 +122,8 @@ export default new Model({
             type: crudEnums.valueTypes.text,
         },
         tags: {
-            value: 'tags',
+            value: 'tags.*.name',
             type: crudEnums.valueTypes.array,
-            options: {
-                path: 'name',
-            },
         },
         variations: {
             value: 'variations',
@@ -170,7 +154,7 @@ export default new Model({
                 options: {
                     isLocalized: true,
                 },
-                wrapperSize: crudEnums.wrapperSizes.xl,
+                size: crudEnums.inputSizes.xl,
             },
             date: {
                 type: crudEnums.inputTypes.date,
@@ -204,7 +188,7 @@ export default new Model({
                     downloadPath: 'original',
                     deletePath: 'box/box/:id/delete-file/image',
                 },
-                wrapperSize: crudEnums.wrapperSizes.xl,
+                size: crudEnums.inputSizes.xl,
             },
             images_list: {
                 type: crudEnums.inputTypes.file,
@@ -214,7 +198,7 @@ export default new Model({
                     deletePath: 'box/box/:id/delete-file/images_list/:index',
                     isMultiple: true,
                 },
-                wrapperSize: crudEnums.wrapperSizes.xl,
+                size: crudEnums.inputSizes.xl,
             },
         },
         'Variations': {
@@ -227,7 +211,7 @@ export default new Model({
                             options: {
                                 isLocalized: true,
                             },
-                            wrapperSize: crudEnums.wrapperSizes.xl,
+                            size: crudEnums.inputSizes.xl,
                         },
                     },
                 },

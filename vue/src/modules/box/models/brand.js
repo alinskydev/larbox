@@ -135,7 +135,7 @@ export default new Model({
                 options: {
                     deletePath: 'box/brand/:id/delete-file/file',
                 },
-                wrapperSize: crudEnums.wrapperSizes.xl,
+                size: crudEnums.inputSizes.xl,
             },
             files_list: {
                 type: crudEnums.inputTypes.file,
@@ -143,7 +143,7 @@ export default new Model({
                     deletePath: 'box/brand/:id/delete-file/files_list/:index',
                     isMultiple: true,
                 },
-                wrapperSize: crudEnums.wrapperSizes.xl,
+                size: crudEnums.inputSizes.xl,
             },
         },
     },

@@ -61,7 +61,7 @@ export default {
                 value: values[key],
                 type: filter.type,
                 options: filter.options ?? {},
-                wrapperSize: filter.wrapperSize ?? crudEnums.wrapperSizes.sm,
+                size: filter.size ?? crudEnums.inputSizes.sm,
             }
         }
 
@@ -127,13 +127,13 @@ export default {
                               :model="page.model"
                               name="sort"
                               :label="__('Сортировка')"
-                              :wrapperSize="crudEnums.wrapperSizes.sm" />
+                              :size="crudEnums.inputSizes.sm" />
 
                         <ShowDeleted v-if="page.model.showDeleted"
                                      :model="page.model"
                                      name="show[deleted]"
                                      :label="__('Отображать')"
-                                     :wrapperSize="crudEnums.wrapperSizes.sm" />
+                                     :size="crudEnums.inputSizes.sm" />
                     </div>
                 </div>
 

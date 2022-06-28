@@ -34,29 +34,13 @@ export default {
 
     <template v-else-if="item.type === crudEnums.valueTypes.array">
         <div v-for="value in item.value">
-            <template v-if="item.options.path">
-                {{
-                        booted.helpers.iterator.searchByPath(
-                            value,
-                            item.options.path.replace(':locale', booted.locale)
-                        )
-                }}
-            </template>
-
-            <template v-else>
-                {{ value }}
-            </template>
+            {{ value }}
         </div>
     </template>
 
     <template v-else-if="item.type === crudEnums.valueTypes.image">
-        <template v-if="item.options.isMultiple">
-            <Images :item="item" />
-        </template>
-
-        <template v-else>
-            <img :src="item.value">
-        </template>
+        <Images v-if="typeof item.value === 'object'" :item="item" />
+        <img v-else :src="item.value">
     </template>
 
     <template v-else-if="item.type === crudEnums.valueTypes.httpSelect">

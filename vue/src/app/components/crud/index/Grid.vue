@@ -11,7 +11,7 @@ export default {
     data() {
         return {
             page: this.booted.components.page,
-            fields: [],
+            fields: {},
             items: [],
             meta: {},
             isReady: false,
@@ -33,40 +33,14 @@ export default {
         }).then((response) => {
             if (response.statusType === 'success') {
                 response.json().then((body) => {
-                    let data = body.data,
-                        fields = model.list,
-                        items = [];
+                    this.fields = model.prepareFields(this, model.list);
 
-                    for (let fieldKey in fields) {
-                        let field = fields[fieldKey],
-                            value = field.value;
-
-                        field.label = this.__('fields->' + fieldKey);
-                        field.options ??= {};
-
-                        value = value.replace(':locale', this.booted.locale);
-
-                        for (let dataKey in data) {
-                            items[dataKey] ??= {};
-
-                            items[dataKey][fieldKey] = {
-                                value: this.booted.helpers.iterator.searchByPath(data[dataKey], value),
-                                type: field.type,
-                                options: field.options ?? {},
-                            };
-
-                            items[dataKey]['is_deleted'] = data[dataKey]['is_deleted'];
-
-                            if (field.options?.onComplete) {
-                                items[dataKey][fieldKey].value = field.options.onComplete(this, items[dataKey][fieldKey].value);
-                            }
-                        }
+                    for (let dataKey in body.data) {
+                        this.items[dataKey] = model.prepareValues(this, model.list, body.data[dataKey]);
+                        this.items[dataKey]['is_deleted'] = body.data[dataKey]['is_deleted'];
                     }
 
-                    this.fields = fields;
-                    this.items = items;
                     this.meta = body.meta;
-
                     this.isReady = true;
                 });
             }
@@ -91,7 +65,7 @@ export default {
                             <thead>
                                 <tr>
                                     <th v-for="field in fields">
-                                        {{ field.options.hideLabel ? '' : field.label }}
+                                        {{ field.label }}
                                     </th>
 
                                     <template v-if="page.actions.length > 0">

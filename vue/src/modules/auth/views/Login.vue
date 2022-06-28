@@ -95,12 +95,12 @@ export default {
                             <Text name="username"
                                   :label="__('fields->username')"
                                   :options="{}"
-                                  :wrapperSize="inputEnums.wrapperSizes.xl" />
+                                  :size="inputEnums.sizes.xl" />
 
                             <Password name="password"
                                       :label="__('fields->password')"
                                       :options="{}"
-                                      :wrapperSize="inputEnums.wrapperSizes.xl" />
+                                      :size="inputEnums.sizes.xl" />
 
                             <button type="submit" class="btn btn-primary btn-block mt-4">
                                 {{ __('Авторизоваться') }}

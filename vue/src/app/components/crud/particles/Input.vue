@@ -34,7 +34,7 @@ export default {
               :value="item.value"
               :label="item.label"
               :options="item.options"
-              :wrapperSize="item.wrapperSize" />
+              :size="item.size" />
     </template>
 
     <template v-else-if="item.type === crudEnums.inputTypes.textarea">
@@ -42,7 +42,7 @@ export default {
                   :value="item.value"
                   :label="item.label"
                   :options="item.options"
-                  :wrapperSize="item.wrapperSize" />
+                  :size="item.size" />
     </template>
 
     <template v-else-if="item.type === crudEnums.inputTypes.password">
@@ -50,7 +50,7 @@ export default {
                   :value="item.value"
                   :label="item.label"
                   :options="item.options"
-                  :wrapperSize="item.wrapperSize" />
+                  :size="item.size" />
     </template>
 
     <template v-else-if="item.type === crudEnums.inputTypes.date">
@@ -58,7 +58,7 @@ export default {
               :value="item.value"
               :label="item.label"
               :options="item.options"
-              :wrapperSize="item.wrapperSize" />
+              :size="item.size" />
     </template>
 
     <template v-else-if="item.type === crudEnums.inputTypes.datetime">
@@ -66,7 +66,7 @@ export default {
                   :value="item.value"
                   :label="item.label"
                   :options="item.options"
-                  :wrapperSize="item.wrapperSize" />
+                  :size="item.size" />
     </template>
 
     <template v-else-if="item.type === crudEnums.inputTypes.time">
@@ -74,7 +74,7 @@ export default {
               :value="item.value"
               :label="item.label"
               :options="item.options"
-              :wrapperSize="item.wrapperSize" />
+              :size="item.size" />
     </template>
 
     <template v-else-if="item.type === crudEnums.inputTypes.hidden">
@@ -87,7 +87,7 @@ export default {
                 :value="item.value"
                 :label="item.label"
                 :options="item.options"
-                :wrapperSize="item.wrapperSize" />
+                :size="item.size" />
     </template>
 
     <template v-else-if="item.type === crudEnums.inputTypes.select2Ajax">
@@ -96,7 +96,7 @@ export default {
                      :select2Value="item.select2Value"
                      :label="item.label"
                      :options="item.options"
-                     :wrapperSize="item.wrapperSize" />
+                     :size="item.size" />
     </template>
 
     <template v-else-if="item.type === crudEnums.inputTypes.switcher">
@@ -104,7 +104,7 @@ export default {
                   :value="item.value"
                   :label="item.label"
                   :options="item.options"
-                  :wrapperSize="item.wrapperSize" />
+                  :size="item.size" />
     </template>
 
     <template v-else-if="item.type === crudEnums.inputTypes.file">
@@ -112,7 +112,7 @@ export default {
               :value="item.value"
               :label="item.label"
               :options="item.options"
-              :wrapperSize="item.wrapperSize" />
+              :size="item.size" />
     </template>
 
     <template v-else-if="item.type === crudEnums.inputTypes.relations">

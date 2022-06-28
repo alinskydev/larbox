@@ -15,8 +15,8 @@ export default {
     },
     data() {
         return {
-            wrapperSize: this.$attrs.wrapperSize,
-            childWrapperSize: this.$attrs.options.wrapperSize ?? crudEnums.wrapperSizes.md,
+            size: this.$attrs.size,
+            childsize: this.$attrs.options.size ?? crudEnums.inputSizes.md,
             label: this.$attrs.label,
             options: this.$attrs.options ?? {},
             languages: this.booted.languages.active,
@@ -47,13 +47,13 @@ export default {
 </script>
 
 <template>
-    <div :class="wrapperSize">
+    <div :class="size">
         <template v-if="options.isLocalized">
             <div class="row">
                 <template v-for="(language, key, index) in languages">
-                    <div :class="'input-wrapper form-group ' + childWrapperSize">
+                    <div :class="'input-wrapper form-group ' + childsize">
                         <label v-if="label !== undefined" :for="inputAttrs['id'].replace(':locale', language.code)">
-                            {{ options.hideLabel ? '' : label }}
+                            {{ label }}
                         </label>
                         |
                         <img :src="language.image?.w_30" class="align-text-bottom ml-1">
@@ -75,7 +75,7 @@ export default {
         <template v-else>
             <div class="input-wrapper form-group">
                 <label v-if="label !== undefined" :for="inputAttrs['id']">
-                    {{ options.hideLabel ? '' : label }}
+                    {{ label }}
                 </label>
 
                 <slot :inputAttrs="inputAttrs"></slot>

@@ -16,42 +16,18 @@ export default {
     },
     data() {
         return {
+            page: this.booted.components.page,
             relations: this.relationItem.value,
             fields: this.relationItem.options.fields,
-            itemGroups: [],
+            itemGroups: {},
         };
     },
     created() {
-        let itemGroups = [];
+        let model = this.page.model;
 
         for (let relationKey in this.relations) {
-            let relation = this.relations[relationKey];
-
-            itemGroups[relationKey] = {};
-
-            for (let fieldKey in this.fields) {
-                let field = this.fields[fieldKey],
-                    value = field.value;
-
-                value = value.replace(':locale', this.booted.locale);
-
-                itemGroups[relationKey][fieldKey] = {
-                    label: this.__('fields->' + fieldKey),
-                    value: this.booted.helpers.iterator.searchByPath(relation, value),
-                    type: field.type,
-                    options: field.options ?? {},
-                };
-
-                if (itemGroups[relationKey][fieldKey].options.onComplete) {
-                    itemGroups[relationKey][fieldKey].value = itemGroups[relationKey][fieldKey].options.onComplete(
-                        this,
-                        itemGroups[relationKey][fieldKey].value,
-                    );
-                }
-            }
+            this.itemGroups[relationKey] = model.prepareValues(this, this.fields, this.relations[relationKey]);
         }
-
-        this.itemGroups = itemGroups;
     },
 };
 </script>
@@ -64,9 +40,7 @@ export default {
 
                 <Value :item="item" :id="id" />
 
-                <template v-if="itemKey !== Object.keys(items).pop()">
-                    <br>
-                </template>
+                <br v-if="itemKey !== Object.keys(items).pop()">
             </template>
         </template>
 

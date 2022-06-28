@@ -6,11 +6,9 @@ export default new Model({
 
     list: {
         image: {
+            label: null,
             value: 'profile.image.w_100',
             type: crudEnums.valueTypes.image,
-            options: {
-                hideLabel: true,
-            },
         },
         id: {
             value: 'id',
@@ -25,11 +23,8 @@ export default new Model({
             type: crudEnums.valueTypes.text,
         },
         role: {
-            value: 'role',
+            value: (context, item) => context.booted.enums.user.role[item.role].label,
             type: crudEnums.valueTypes.text,
-            options: {
-                onComplete: (context, value) => context.booted.enums.user.role[value].label,
-            },
         },
         full_name: {
             value: 'profile.full_name',
@@ -88,11 +83,9 @@ export default new Model({
 
     show: {
         image: {
+            label: null,
             value: 'profile.image.w_500',
             type: crudEnums.valueTypes.image,
-            options: {
-                hideLabel: true,
-            },
         },
         id: {
             value: 'id',
@@ -107,11 +100,8 @@ export default new Model({
             type: crudEnums.valueTypes.text,
         },
         role: {
-            value: 'role',
+            value: (context, item) => context.booted.enums.user.role[item.role].label,
             type: crudEnums.valueTypes.text,
-            options: {
-                onComplete: (context, value) => context.booted.enums.user.role[value].label,
-            },
         },
         full_name: {
             value: 'profile.full_name',
@@ -151,15 +141,15 @@ export default new Model({
                         );
                     },
                 },
-                wrapperSize: crudEnums.wrapperSizes.md,
+                size: crudEnums.inputSizes.md,
             },
             'profile.full_name': {
                 type: crudEnums.inputTypes.text,
-                wrapperSize: crudEnums.wrapperSizes.md,
+                size: crudEnums.inputSizes.md,
             },
             'profile.phone': {
                 type: crudEnums.inputTypes.text,
-                wrapperSize: crudEnums.wrapperSizes.md,
+                size: crudEnums.inputSizes.md,
             },
             'profile.image': {
                 type: crudEnums.inputTypes.file,
@@ -168,7 +158,7 @@ export default new Model({
                     downloadPath: 'original',
                     deletePath: 'user/user/:id/delete-file/image',
                 },
-                wrapperSize: crudEnums.wrapperSizes.xl,
+                size: crudEnums.inputSizes.xl,
             },
             new_password: {
                 type: crudEnums.inputTypes.password,
