@@ -1,11 +1,9 @@
 <script setup>
-import { pickBy } from "lodash";
+import { pickBy } from 'lodash';
 
-import * as crudEnums from '@/app/core/crud/enums';
-
-import Input from '@/app/components/crud/particles/Input.vue';
-import ShowDeleted from './index/_ShowDeleted.vue';
+import Input from '@/app/components/Input.vue';
 import Sort from './index/_Sort.vue';
+import ShowDeleted from './index/_ShowDeleted.vue';
 import Grid from './index/Grid.vue';
 </script>
 
@@ -14,7 +12,7 @@ export default {
     data() {
         return {
             page: this.booted.components.page,
-            items: [],
+            items: {},
             dataKey: 0,
         };
     },
@@ -50,22 +48,7 @@ export default {
 
         // Collecting items
 
-        let items = {};
-
-        for (let key in model.filters) {
-            let filter = model.filters[key];
-
-            items[key] = {
-                label: this.__('fields->' + key),
-                name: filter.options?.isMultiple ? 'filter[' + key + '][]' : 'filter[' + key + ']',
-                value: values[key],
-                type: filter.type,
-                options: filter.options ?? {},
-                size: filter.size ?? crudEnums.inputSizes.sm,
-            }
-        }
-
-        this.items = items;
+        this.items = model.prepareFilters(this, model.filters, values);
     },
     methods: {
         submit(event) {
@@ -123,17 +106,8 @@ export default {
                             <Input :item="item" />
                         </template>
 
-                        <Sort v-if="page.model.sortings"
-                              :model="page.model"
-                              name="sort"
-                              :label="__('Сортировка')"
-                              :size="crudEnums.inputSizes.sm" />
-
-                        <ShowDeleted v-if="page.model.showDeleted"
-                                     :model="page.model"
-                                     name="show[deleted]"
-                                     :label="__('Отображать')"
-                                     :size="crudEnums.inputSizes.sm" />
+                        <Sort v-if="page.model.sortings" :sortings="page.model.sortings" />
+                        <ShowDeleted v-if="page.model.showDeleted" />
                     </div>
                 </div>
 

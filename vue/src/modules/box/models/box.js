@@ -52,6 +52,9 @@ export default new Model({
     filters: {
         id: {
             type: crudEnums.inputTypes.text,
+            attributes: {
+                'type': 'number',
+            },
         },
         name: {
             type: crudEnums.inputTypes.text,
@@ -69,7 +72,9 @@ export default new Model({
                 field: 'name',
             },
         },
-        'tags.id': {
+        tags: {
+            name: 'tags.id',
+            value: 'tags.id',
             type: crudEnums.inputTypes.select2Ajax,
             options: {
                 path: 'box/tag',
@@ -164,21 +169,25 @@ export default new Model({
             },
             brand_id: {
                 type: crudEnums.inputTypes.select2Ajax,
-                select2Value: 'brand.name',
                 options: {
+                    initValue: 'brand.name',
                     path: 'box/brand',
+                    query: (context, $el) => {
+                        return {
+                            'filter[creator_id]': context.booted.user.id,
+                        };
+                    },
                     field: 'name',
                 },
             },
             tags: {
-                value: (value) => Object.values(value).map((value) => value.id),
-                select2Value: 'tags',
+                value: 'tags.*.id',
                 type: crudEnums.inputTypes.select2Ajax,
                 options: {
+                    initValue: 'tags.*.name',
                     path: 'box/tag',
                     field: 'name',
                     isMultiple: true,
-                    select2SubValue: 'name',
                 },
             },
             image: {

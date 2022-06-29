@@ -42,58 +42,19 @@ export default {
 
                     titleField = titleField.replace(':locale', this.booted.locale);
 
-                    this.page.title += ': ' + this.booted.helpers.iterator.searchByPath(data, titleField);
+                    this.page.title += ': ' + this.booted.helpers.iterator.get(data, titleField);
                     this.page.$data.init();
 
                     // Collecting items
-
-                    let items = {};
 
                     switch (this.child) {
                         case 'show':
                             this.items = model.prepareValues(this, model.show, data);
                             break;
                         case 'form':
-                            let fieldGroups = model.form;
-
-                            for (let fieldGroupKey in fieldGroups) {
-                                let fields = fieldGroups[fieldGroupKey];
-
-                                items[fieldGroupKey] = {};
-
-                                for (let fieldKey in fields) {
-                                    let field = fields[fieldKey],
-                                        name = fieldKey,
-                                        value = this.booted.helpers.iterator.searchByPath(data, fieldKey),
-                                        select2Value = field.select2Value;
-
-                                    if (name.includes('.')) {
-                                        name = name.split('.');
-                                        name = name.shift() + '[' + name.join('][') + ']';
-                                    }
-
-                                    if (field.value) {
-                                        value = field.value(value);
-                                    }
-
-                                    if (select2Value) {
-                                        select2Value = select2Value.replace(':locale', this.booted.locale);
-                                        select2Value = this.booted.helpers.iterator.searchByPath(data, select2Value);
-                                    }
-
-                                    items[fieldGroupKey][fieldKey] = {
-                                        label: this.__('fields->' + (field.label ?? fieldKey)),
-                                        name: name,
-                                        value: value,
-                                        select2Value: select2Value,
-                                        type: field.type,
-                                        options: field.options ?? {},
-                                        size: field.size ?? crudEnums.inputSizes.lg,
-                                    };
-                                }
+                            for (let key in model.form) {
+                                this.items[key] = model.prepareInputs(this, model.form[key], data);
                             }
-
-                            this.items = items;
                             break;
                     }
                 });

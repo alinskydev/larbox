@@ -1,5 +1,5 @@
 export default {
-    info(url) {
+    info(url = '') {
         let extension = url.slice(url.lastIndexOf('.') + 1, url.length),
             type;
 

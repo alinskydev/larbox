@@ -1,16 +1,13 @@
-<script setup>
-import Wrapper from './_Wrapper.vue';
-</script>
-
 <script>
 export default {
-    data() {
-        return {
-            id: 'input-' + this.booted.helpers.string.uniqueId(),
-        };
+    props: {
+        item: {
+            type: Object,
+            required: true,
+        },
     },
     mounted() {
-        $('#' + this.id).daterangepicker({
+        $('#' + this.item.id).daterangepicker({
             autoUpdateInput: false,
             singleDatePicker: true,
             showDropdowns: true,
@@ -33,7 +30,5 @@ export default {
 </script>
 
 <template>
-    <Wrapper :id="id" v-slot="main">
-        <input type="text" v-bind="main.inputAttrs">
-    </Wrapper>
+    <input type="text">
 </template>

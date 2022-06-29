@@ -1,8 +1,8 @@
 <script setup>
 import * as crudEnums from '@/app/core/crud/enums';
 
-import HttpSelect from '@/app/components/inputs/HttpSelect.vue';
-import HttpSwitcher from '@/app/components/inputs/HttpSwitcher.vue';
+import HttpSelect from '@/app/components/input/HttpSelect.vue';
+import HttpSwitcher from '@/app/components/input/HttpSwitcher.vue';
 import Relations from './value/Relations.vue';
 import Images from './value/Images.vue';
 import ComponentResolver from '@/app/components/decorators/ComponentResolver.vue';
@@ -36,6 +36,18 @@ export default {
         <div v-for="value in item.value">
             {{ value }}
         </div>
+    </template>
+
+    <template v-else-if="item.type === crudEnums.valueTypes.file">
+        <template v-if="typeof item.value === 'object'" v-for="(file, key) in item.value">
+            <a :href="file" target="_blank" class="d-block">
+                {{ __('Файл №:index', { index: key + 1 }) }}
+            </a>
+        </template>
+
+        <a v-else :href="item.value" target="_blank">
+            {{ __('Файл') }}
+        </a>
     </template>
 
     <template v-else-if="item.type === crudEnums.valueTypes.image">

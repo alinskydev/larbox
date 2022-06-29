@@ -1,5 +1,5 @@
 export default {
-    searchByPath(object, path, separator = '.') {
+    get(object, path, separator = '.') {
         let paths = path.split(separator),
             current = object;
 
@@ -14,9 +14,14 @@ export default {
 
                     switch (typeof current) {
                         case 'array':
-                            return current.map((value) => this.searchByPath(value, newPath));
+                            return current.map((value) => this.get(value, newPath));
                         case 'object':
-                            return Object.values(current).map((value) => this.searchByPath(value, newPath));
+                            return Object.fromEntries(
+                                Object.entries(current).map((entry) => {
+                                    entry[1] = this.get(entry[1], newPath);
+                                    return entry;
+                                }),
+                            );
                     }
                 } else {
                     current = current[paths[i]];

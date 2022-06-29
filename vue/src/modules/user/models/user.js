@@ -47,6 +47,9 @@ export default new Model({
     filters: {
         id: {
             type: crudEnums.inputTypes.text,
+            attributes: {
+                'type': 'number',
+            },
         },
         username: {
             type: crudEnums.inputTypes.text,
@@ -57,21 +60,16 @@ export default new Model({
         role: {
             type: crudEnums.inputTypes.select,
             options: {
-                items: (context) => {
-                    return Object.fromEntries(
-                        Object.entries(context.booted.enums.user.role).map((entry) => {
-                            entry[1] = entry[1].label;
-                            return entry;
-                        }),
-                    );
-                },
+                items: (context) => context.booted.helpers.iterator.get(context.booted.enums.user.role, '*.label'),
                 withPrompt: true,
             },
         },
-        'profile.full_name': {
+        full_name: {
+            name: 'profile.full_name',
             type: crudEnums.inputTypes.text,
         },
-        'profile.phone': {
+        phone: {
+            name: 'profile.phone',
             type: crudEnums.inputTypes.text,
         },
     },
@@ -132,39 +130,44 @@ export default new Model({
             role: {
                 type: crudEnums.inputTypes.select,
                 options: {
-                    items: (context) => {
-                        return Object.fromEntries(
-                            Object.entries(context.booted.enums.user.role).map((entry) => {
-                                entry[1] = entry[1].label;
-                                return entry;
-                            }),
-                        );
-                    },
+                    items: (context) => context.booted.helpers.iterator.get(context.booted.enums.user.role, '*.label'),
                 },
                 size: crudEnums.inputSizes.md,
             },
-            'profile.full_name': {
+            full_name: {
+                name: 'profile[full_name]',
+                value: 'profile.full_name',
                 type: crudEnums.inputTypes.text,
                 size: crudEnums.inputSizes.md,
             },
-            'profile.phone': {
+            phone: {
+                name: 'profile[phone]',
+                value: 'profile.phone',
                 type: crudEnums.inputTypes.text,
                 size: crudEnums.inputSizes.md,
             },
-            'profile.image': {
+            image: {
+                name: 'profile[image]',
+                value: 'profile.image',
                 type: crudEnums.inputTypes.file,
                 options: {
-                    previewPath: 'original',
+                    previewPath: 'w_500',
                     downloadPath: 'original',
                     deletePath: 'user/user/:id/delete-file/image',
                 },
                 size: crudEnums.inputSizes.xl,
             },
             new_password: {
-                type: crudEnums.inputTypes.password,
+                type: crudEnums.inputTypes.text,
+                attributes: {
+                    'type': 'password',
+                },
             },
             new_password_confirmation: {
-                type: crudEnums.inputTypes.password,
+                type: crudEnums.inputTypes.text,
+                attributes: {
+                    'type': 'password',
+                },
             },
         },
     },

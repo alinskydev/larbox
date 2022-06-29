@@ -1,40 +1,47 @@
 <script setup>
-import Select from '@/app/components/inputs/Select.vue';
+import * as crudEnums from '@/app/core/crud/enums';
+
+import Input from '@/app/components/Input.vue';
 </script>
 
 <script>
 export default {
-    inheritAttrs: false,
     props: {
-        model: {
-            type: Object,
+        sortings: {
+            type: Array,
             required: true,
         },
     },
     data() {
         return {
-            options: {
-                items: {},
-                withPrompt: true,
-            },
-            value: this.$route.query.sort,
+            item: {},
         };
     },
     created() {
-        for (let key in this.model.sortings) {
-            let field = this.model.sortings[key];
+        let options = {
+            items: {},
+            withPrompt: true,
+        };
 
-            this.options.items[field] = this.__('fields->' + field) + ' ↑';
-            this.options.items['-' + field] = this.__('fields->' + field) + ' ↓';
+        for (let key in this.sortings) {
+            let field = this.sortings[key];
+
+            options.items[field] = this.__('fields->' + field) + ' ↑';
+            options.items['-' + field] = this.__('fields->' + field) + ' ↓';
         }
+
+        this.item = {
+            label: this.__('Сортировка'),
+            name: 'sort',
+            value: this.$route.query.sort,
+            type: crudEnums.inputTypes.select,
+            options: options,
+            size: crudEnums.inputSizes.sm,
+        };
     },
 };
 </script>
 
 <template>
-    <Select :name="$attrs.name"
-            :value="value"
-            :label="$attrs.label"
-            :options="options"
-            :size="$attrs.size" />
+    <Input :item="item" />
 </template>

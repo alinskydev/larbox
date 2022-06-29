@@ -72,6 +72,9 @@ export default new Model({
     filters: {
         id: {
             type: crudEnums.inputTypes.text,
+            attributes: {
+                'type': 'number',
+            },
         },
         name: {
             type: crudEnums.inputTypes.text,
@@ -154,7 +157,7 @@ export default new Model({
             image: {
                 type: crudEnums.inputTypes.file,
                 options: {
-                    previewPath: 'original',
+                    previewPath: 'w_500',
                     downloadPath: 'original',
                 },
                 size: crudEnums.inputSizes.xl,

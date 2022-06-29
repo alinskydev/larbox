@@ -1,15 +1,14 @@
-<script setup>
-import Wrapper from './_Wrapper.vue';
-</script>
-
 <script>
 export default {
+    props: {
+        item: {
+            type: Object,
+            required: true,
+        },
+    },
     data() {
         return {
-            id: 'input-' + this.booted.helpers.string.uniqueId(),
-            options: this.$attrs.options,
-            select2Value: this.$attrs.select2Value,
-            select2SubValue: this.$attrs.options?.select2SubValue,
+            options: this.item.options,
             items: {},
             field: null,
             isLocalized: false,
@@ -23,31 +22,23 @@ export default {
             this.field = this.options.field;
         }
 
-        let value = this.$attrs.value;
+        let value = this.item.value;
 
         if (value === undefined || value.length === 0) return;
 
-        if (this.select2Value) {
+        if (this.options.initValue) {
             if (this.options.isMultiple) {
-                for (let key in this.select2Value) {
-                    let itemValue = this.select2Value[key],
-                        subValue = this.select2SubValue;
-
-                    if (subValue) {
-                        subValue = subValue.replace(':locale', this.booted.locale);
-                        subValue = this.booted.helpers.iterator.searchByPath(itemValue, subValue);
-                    }
-
-                    this.items[itemValue.id] = subValue;
+                for (let key in value) {
+                    this.items[value[key]] = this.options.initValue[key];
                 }
             } else {
-                this.items[value] = this.select2Value;
+                this.items[value] = this.options.initValue;
             }
         } else {
             let query = this.options.query ?? {};
 
             if (typeof query === 'function') {
-                query = query($('#' + this.id));
+                query = query($('#' + this.item.id));
             }
 
             query = Object.create(query);
@@ -70,12 +61,12 @@ export default {
                 if (response.statusType === 'success') {
                     response.json().then((body) => {
                         for (let key in body.data) {
-                            let item = body.data[key];
+                            let dataItem = body.data[key];
 
                             if (this.isLocalized) {
-                                this.items[item.id] = item[this.field][this.booted.locale];
+                                this.items[dataItem.id] = dataItem[this.field][this.booted.locale];
                             } else {
-                                this.items[item.id] = item[this.field];
+                                this.items[dataItem.id] = dataItem[this.field];
                             }
                         }
                     });
@@ -84,9 +75,9 @@ export default {
         }
     },
     mounted() {
-        $('#' + this.id).select2({
+        $('#' + this.item.id).select2({
             allowClear: true,
-            placeholder: ' ',
+            placeholder: '',
             ajax: {
                 headers: this.booted.config.http.headers,
                 url: () => {
@@ -94,7 +85,7 @@ export default {
                         query = this.options.query ?? {};
 
                     if (typeof query === 'function') {
-                        query = query($('#' + this.id));
+                        query = query(this, $('#' + this.item.id));
                     }
 
                     for (let key in query) {
@@ -137,22 +128,20 @@ export default {
             },
         });
 
-        if (this.options.onChange) this.options.onChange($('#' + this.id));
+        if (this.options.onChange) this.options.onChange($('#' + this.item.id));
 
-        $('#' + this.id).on('change', () => {
-            if (this.options.onChange) this.options.onChange($('#' + this.id));
+        $('#' + this.item.id).on('change', () => {
+            if (this.options.onChange) this.options.onChange($('#' + this.item.id));
         });
     },
 };
 </script>
 
 <template>
-    <Wrapper :id="id" v-slot="main">
-        <select :set="delete main.inputAttrs.value" v-bind="main.inputAttrs" :multiple="options.isMultiple">
-            <option :value="null"></option>
-            <option v-for="(item, key) in items" :value="key" selected>
-                {{ item }}
-            </option>
-        </select>
-    </Wrapper>
+    <select :multiple="options.isMultiple">
+        <option v-if="!options.isMultiple" :value="null"></option>
+        <option v-for="(item, key) in items" :value="key" selected>
+            {{ item }}
+        </option>
+    </select>
 </template>

@@ -45,6 +45,9 @@ export default new Model({
     filters: {
         id: {
             type: crudEnums.inputTypes.text,
+            attributes: {
+                'type': 'number',
+            },
         },
         creator_id: {
             type: crudEnums.inputTypes.select2Ajax,
@@ -57,7 +60,6 @@ export default new Model({
             type: crudEnums.inputTypes.text,
         },
         slug: {
-            value: 'slug',
             type: crudEnums.valueTypes.text,
         },
         is_active: {
@@ -101,11 +103,8 @@ export default new Model({
             type: crudEnums.valueTypes.file,
         },
         files_list: {
-            value: 'files_list',
+            value: 'files_list.*',
             type: crudEnums.valueTypes.file,
-            options: {
-                isMultiple: true,
-            },
         },
         is_active: {
             value: 'is_active',

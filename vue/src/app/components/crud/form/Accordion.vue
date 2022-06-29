@@ -1,5 +1,5 @@
 <script setup>
-import Input from '@/app/components/crud/particles/Input.vue';
+import Input from '@/app/components/Input.vue';
 </script>
 
 <script>

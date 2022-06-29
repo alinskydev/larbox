@@ -1,8 +1,7 @@
 <script setup>
-import * as inputEnums from '@/app/enums/input';
+import model from '@/modules/auth/models/login';
 
-import Text from '@/app/components/inputs/Text.vue';
-import Password from '@/app/components/inputs/Password.vue';
+import Input from '@/app/components/Input.vue';
 </script>
 
 <script>
@@ -10,6 +9,7 @@ export default {
     data() {
         return {
             title: this.__('Авторизация'),
+            inputs: model.prepareInputs(this, model.form),
             isReady: false,
         };
     },
@@ -92,15 +92,8 @@ export default {
                 <div class="card">
                     <div class="card-body login-card-body">
                         <form @submit.prevent="submit">
-                            <Text name="username"
-                                  :label="__('fields->username')"
-                                  :options="{}"
-                                  :size="inputEnums.sizes.xl" />
-
-                            <Password name="password"
-                                      :label="__('fields->password')"
-                                      :options="{}"
-                                      :size="inputEnums.sizes.xl" />
+                            <Input :item="inputs.username" />
+                            <Input :item="inputs.password" />
 
                             <button type="submit" class="btn btn-primary btn-block mt-4">
                                 {{ __('Авторизоваться') }}

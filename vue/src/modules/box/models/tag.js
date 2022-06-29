@@ -26,6 +26,9 @@ export default new Model({
     filters: {
         id: {
             type: crudEnums.inputTypes.text,
+            attributes: {
+                'type': 'number',
+            },
         },
         name: {
             type: crudEnums.inputTypes.text,

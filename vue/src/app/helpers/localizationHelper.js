@@ -7,7 +7,7 @@ export class LocalizationHelper {
 
 export function __(sourceMessage, replacements = []) {
     let locale = LocalizationHelper.locale;
-    let message = iteratorHelper.searchByPath(LocalizationHelper.messages, locale + '->' + sourceMessage, '->');
+    let message = iteratorHelper.get(LocalizationHelper.messages, locale + '->' + sourceMessage, '->');
 
     if (message === undefined) {
         return sourceMessage;

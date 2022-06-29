@@ -10,25 +10,37 @@ export default new Model({
             email: {
                 type: crudEnums.inputTypes.text,
             },
-            'profile.full_name': {
+            full_name: {
+                name: 'profile[full_name]',
+                value: 'profile.full_name',
                 type: crudEnums.inputTypes.text,
             },
-            'profile.phone': {
+            phone: {
+                name: 'profile[phone]',
+                value: 'profile.phone',
                 type: crudEnums.inputTypes.text,
             },
-            'profile.image': {
+            image: {
+                name: 'profile[image]',
+                value: 'profile.image',
                 type: crudEnums.inputTypes.file,
                 options: {
-                    previewPath: 'original',
+                    previewPath: 'w_500',
                     downloadPath: 'original',
                 },
                 size: crudEnums.inputSizes.xl,
             },
             new_password: {
-                type: crudEnums.inputTypes.password,
+                type: crudEnums.inputTypes.text,
+                attributes: {
+                    'type': 'password',
+                },
             },
             new_password_confirmation: {
-                type: crudEnums.inputTypes.password,
+                type: crudEnums.inputTypes.text,
+                attributes: {
+                    'type': 'password',
+                },
             },
         },
     },

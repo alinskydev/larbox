@@ -1,13 +1,14 @@
-<script setup>
-import Wrapper from './_Wrapper.vue';
-</script>
-
 <script>
 export default {
+    props: {
+        item: {
+            type: Object,
+            required: true,
+        },
+    },
     data() {
         return {
-            id: 'input-' + this.booted.helpers.string.uniqueId(),
-            options: this.$attrs.options,
+            options: this.item.options,
             items: [],
             fileInputOptions: {
                 initialPreviewAsData: true,
@@ -67,22 +68,22 @@ export default {
         this.fileInputOptions.initialPreview = this.items.map((value, key) => value.previewUrl);
         this.fileInputOptions.initialPreviewConfig = this.items;
 
-        $('#' + this.id).fileinput(this.fileInputOptions);
+        $('#' + this.item.id).fileinput(this.fileInputOptions);
 
-        $('#' + this.id).on('filedeleted', (event, key) => {
-            this.$attrs.value.splice(key, 1);
+        $('#' + this.item.id).on('filedeleted', (event, key) => {
+            this.item.value.splice(key, 1);
             this.collectItems();
 
             this.fileInputOptions.initialPreview = this.items.map((value, key) => value.previewUrl);
             this.fileInputOptions.initialPreviewConfig = this.items;
 
-            $('#' + this.id).fileinput('destroy').fileinput(this.fileInputOptions);
+            $('#' + this.item.id).fileinput('destroy').fileinput(this.fileInputOptions);
         });
     },
     methods: {
         collectItems() {
             let items = [],
-                value = this.$attrs.value;
+                value = this.item.value;
 
             if (!value) return;
 
@@ -119,7 +120,5 @@ export default {
 </script>
 
 <template>
-    <Wrapper :id="id" v-slot="main">
-        <input type="file" v-bind="main.inputAttrs" :multiple="options.isMultiple" value="">
-    </Wrapper>
+    <input type="file" :multiple="options.isMultiple">
 </template>

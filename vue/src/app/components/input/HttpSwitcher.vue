@@ -45,6 +45,8 @@ export default {
            :id="id"
            :checked="currentValue"
            data-bootstrap-switch
+           data-on-text="<i class='fas fa-check'></i>"
+           data-off-text="<i class='fas fa-times'></i>"
            data-on-color="success"
            data-off-color="danger">
 </template>

@@ -1,35 +1,32 @@
 <script setup>
-import Select from '@/app/components/inputs/Select.vue';
+import * as crudEnums from '@/app/core/crud/enums';
+
+import Input from '@/app/components/Input.vue';
 </script>
 
 <script>
 export default {
-    inheritAttrs: false,
-    props: {
-        model: {
-            type: Object,
-            required: true,
-        },
-    },
     data() {
         return {
-            options: {
-                items: {
-                    '': this.__('Только действующие'),
-                    'only-deleted': this.__('Только удалённые'),
-                    'with-deleted': this.__('Все'),
+            item: {
+                label: this.__('Отображать'),
+                name: 'show[deleted]',
+                value: this.$route.query['show[deleted]'],
+                type: crudEnums.inputTypes.select,
+                options: {
+                    items: {
+                        '': this.__('Только действующие'),
+                        'only-deleted': this.__('Только удалённые'),
+                        'with-deleted': this.__('Все'),
+                    },
                 },
+                size: crudEnums.inputSizes.sm,
             },
-            value: this.$route.query['show[deleted]'],
         };
     },
 };
 </script>
 
 <template>
-    <Select :name="$attrs.name"
-            :value="value"
-            :label="$attrs.label"
-            :options="options"
-            :size="$attrs.size" />
+    <Input :item="item" />
 </template>
