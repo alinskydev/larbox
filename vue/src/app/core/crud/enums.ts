@@ -11,9 +11,8 @@ export enum valueTypes {
 }
 
 export enum inputTypes {
-    text, textarea,
+    text, textarea, hidden,
     date, datetime, time,
-    hidden,
     select, select2Ajax, httpSelect,
     switcher,
     file,

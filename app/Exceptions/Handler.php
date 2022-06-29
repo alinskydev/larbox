@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use TypeError;
 use Throwable;
@@ -61,6 +62,7 @@ class Handler extends ExceptionHandler
 
         switch (get_class($e)) {
             case NotFoundHttpException::class:
+            case ModelNotFoundException::class:
                 $response = [
                     'status' => 404,
                     'data' => ['message' => 'Not found'],

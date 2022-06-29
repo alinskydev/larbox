@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 use App\Models\Model;
 use Illuminate\Support\Facades\Schema;
 
-class ParseFormRequestFields extends Command
+class ParseFields extends Command
 {
     /**
      * The name and signature of the console command.

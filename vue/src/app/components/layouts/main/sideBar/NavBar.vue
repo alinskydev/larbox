@@ -65,7 +65,7 @@ export default {
                             <i :class="'nav-icon ' + item.icon"></i>
                             <p>
                                 {{ __(item.label) }}
-                                <i class="right fas fa-plus"></i>
+                                <i class="right fas fa-caret-down"></i>
                             </p>
                         </a>
 
