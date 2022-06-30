@@ -22,7 +22,7 @@ export default {
             redirectPath: 'system/settings',
             afterSubmit: (context, form, responseBody) => {
                 toastr.success(context.__('Настройки успешно сохранены'));
-                context.booted.components.app.$data.appChildKey++;
+                context.booted.components.app.$data.childKey++;
             },
         });
     },

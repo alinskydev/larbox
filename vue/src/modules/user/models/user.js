@@ -2,7 +2,7 @@ import { Model } from '@/app/core/crud/model';
 import * as crudEnums from '@/app/core/crud/enums';
 
 export default new Model({
-    showDeleted: true,
+    hasSoftDelete: true,
 
     list: {
         image: {
@@ -11,15 +11,12 @@ export default new Model({
             type: crudEnums.valueTypes.image,
         },
         id: {
-            value: 'id',
             type: crudEnums.valueTypes.text,
         },
         username: {
-            value: 'username',
             type: crudEnums.valueTypes.text,
         },
         email: {
-            value: 'email',
             type: crudEnums.valueTypes.text,
         },
         role: {
@@ -35,11 +32,9 @@ export default new Model({
             type: crudEnums.valueTypes.text,
         },
         created_at: {
-            value: 'created_at',
             type: crudEnums.valueTypes.text,
         },
         updated_at: {
-            value: 'updated_at',
             type: crudEnums.valueTypes.text,
         },
     },
@@ -86,15 +81,12 @@ export default new Model({
             type: crudEnums.valueTypes.image,
         },
         id: {
-            value: 'id',
             type: crudEnums.valueTypes.text,
         },
         username: {
-            value: 'username',
             type: crudEnums.valueTypes.text,
         },
         email: {
-            value: 'email',
             type: crudEnums.valueTypes.text,
         },
         role: {
@@ -110,11 +102,9 @@ export default new Model({
             type: crudEnums.valueTypes.text,
         },
         created_at: {
-            value: 'created_at',
             type: crudEnums.valueTypes.text,
         },
         updated_at: {
-            value: 'updated_at',
             type: crudEnums.valueTypes.text,
         },
     },
@@ -151,9 +141,9 @@ export default new Model({
                 value: 'profile.image',
                 type: crudEnums.inputTypes.file,
                 options: {
-                    previewPath: 'w_500',
-                    downloadPath: 'original',
-                    deletePath: 'user/user/:id/delete-file/image',
+                    preview: 'w_500',
+                    download: 'original',
+                    deleteUrl: 'user/user/:id/delete-file/image',
                 },
                 size: crudEnums.inputSizes.xl,
             },

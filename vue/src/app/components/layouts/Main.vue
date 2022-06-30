@@ -25,12 +25,10 @@ export default {
                 path: 'user/profile',
             }).then((response) => {
                 if (response.statusType === 'success') {
-                    response.json().then((body) => {
-                        this.booted.user = body;
+                    $('#preloader').removeClass('active');
 
-                        $('#preloader').removeClass('active');
-                        this.isReady = true;
-                    });
+                    this.booted.user = response.data;
+                    this.isReady = true;
                 }
             });
         });

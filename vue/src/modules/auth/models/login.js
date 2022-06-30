@@ -6,6 +6,9 @@ export default new Model({
         username: {
             type: crudEnums.inputTypes.text,
             size: crudEnums.inputSizes.xl,
+            attributes: {
+                'autofocus': true,
+            },
         },
         password: {
             type: crudEnums.inputTypes.text,

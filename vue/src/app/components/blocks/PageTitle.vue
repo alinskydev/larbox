@@ -1,5 +1,6 @@
 <script>
 export default {
+    inheritAttrs: false,
     props: {
         text: {
             type: String,
@@ -11,7 +12,7 @@ export default {
 
 <template>
     <div class="content-header d-flex align-items-center justify-content-between mb-3">
-        <h1>
+        <h1 v-bind="$attrs">
             {{ text }}
         </h1>
 

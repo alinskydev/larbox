@@ -6,7 +6,6 @@ import Error from './_Error.vue';
 
 <script>
 export default {
-    inheritAttrs: false,
     props: {
         item: {
             type: Object,
@@ -15,7 +14,6 @@ export default {
     },
     data() {
         return {
-            languages: this.booted.languages.active,
             inputAttrs: {},
         };
     },
@@ -25,7 +23,7 @@ export default {
             'data-error-key': this.item.name.replaceAll('[', '.').replaceAll(']', ''),
             'value': this.item.value,
             'id': this.item.id,
-            'class': this.item.class ?? 'form-control',
+            'class': 'form-control',
         };
 
         if (this.item.options.isLocalized) {
@@ -46,7 +44,7 @@ export default {
     <div :class="item.size">
         <template v-if="item.options.isLocalized">
             <div class="row">
-                <template v-for="(language, key, index) in languages">
+                <template v-for="(language, key, index) in booted.languages.active">
                     <div :class="'input-wrapper form-group ' + (item.options.size ?? crudEnums.inputSizes.md)">
                         <label v-if="item.label" :for="inputAttrs['id'].replace(':locale', language.code)">
                             {{ item.label }}

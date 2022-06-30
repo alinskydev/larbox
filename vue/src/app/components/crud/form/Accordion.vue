@@ -35,35 +35,10 @@ export default {
                 body: formData,
             }).then((response) => {
                 if (response.statusType === 'success') {
-                    response.json().then((body) => {
-                        this.page.afterSubmit(this.page, serializedForm, body);
+                    this.page.afterSubmit(this.page, serializedForm, response.data);
 
-                        this.$router.push({
-                            path: '/' + this.booted.locale + '/' + this.page.redirectPath,
-                        });
-                    });
-                } else if (response.statusType === 'validationFailed') {
-                    response.json().then((body) => {
-                        toastr.warning(body.message);
-
-                        $('.input-error').addClass('d-none');
-
-                        for (let key in body.errors) {
-                            let error = body.errors[key].join("\n"),
-                                altKey = null;
-
-                            if (key.includes('.')) {
-                                altKey = key.slice(0, key.lastIndexOf('.')) + '.*';
-                            } else {
-                                altKey = key + '.*';
-                            }
-
-                            $('[data-error-key="' + key + '"], [data-error-key="' + altKey + '"]')
-                                .closest('.input-wrapper')
-                                .find('.input-error')
-                                .text(error)
-                                .removeClass('d-none');
-                        }
+                    this.$router.push({
+                        path: '/' + this.booted.locale + '/' + this.page.redirectPath,
                     });
                 }
             });

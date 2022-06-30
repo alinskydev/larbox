@@ -3,7 +3,7 @@ import { pickBy } from 'lodash';
 
 import Input from '@/app/components/Input.vue';
 import Sort from './index/_Sort.vue';
-import ShowDeleted from './index/_ShowDeleted.vue';
+import SoftDelete from './index/_SoftDelete.vue';
 import Grid from './index/Grid.vue';
 </script>
 
@@ -107,7 +107,7 @@ export default {
                         </template>
 
                         <Sort v-if="page.model.sortings" :sortings="page.model.sortings" />
-                        <ShowDeleted v-if="page.model.showDeleted" />
+                        <SoftDelete v-if="page.model.hasSoftDelete" />
                     </div>
                 </div>
 

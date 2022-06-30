@@ -12,6 +12,7 @@ class CreateTest extends _TestCase
     {
         $this->requestBody = [
             'name' => 'Brand 3',
+            'show_on_the_home_page' => '1',
             'file' => UploadedFile::fake()->create('image.jpg', 100, 'image/jpeg'),
             'files_list' => [
                 UploadedFile::fake()->create('image.jpg', 100, 'image/jpeg'),

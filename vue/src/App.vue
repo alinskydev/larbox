@@ -1,5 +1,5 @@
 <script setup>
-import { RouterView } from "vue-router";
+import { RouterView } from 'vue-router';
 </script>
 
 <script>
@@ -8,11 +8,11 @@ export default {
         this.booted.components.app = this;
 
         // Resolve conflict in jQuery UI tooltip with Bootstrap tooltip
-        $.widget.bridge("uibutton", $.ui.button);
+        $.widget.bridge('uibutton', $.ui.button);
     },
     data() {
         return {
-            appChildKey: 0,
+            childKey: 0,
         };
     },
 };
@@ -23,5 +23,5 @@ export default {
         <img class="animation__shake" src="/assets/dist/img/AdminLTELogo.png" />
     </div>
 
-    <RouterView :key="appChildKey" />
+    <RouterView :key="childKey" />
 </template>

@@ -25,8 +25,8 @@ export default new Model({
                 value: 'profile.image',
                 type: crudEnums.inputTypes.file,
                 options: {
-                    previewPath: 'w_500',
-                    downloadPath: 'original',
+                    preview: 'w_500',
+                    download: 'original',
                 },
                 size: crudEnums.inputSizes.xl,
             },

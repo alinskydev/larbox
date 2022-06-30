@@ -24,9 +24,10 @@ class BoxRequest extends ActiveFormRequest
             'brand_id' => [
                 'required',
                 new ExistsWithOldRule($this->model, Brand::class, 'brand_id', extraQuery: function ($query) {
-                    $query->whereHas('creator', function ($subQuery) {
-                        $subQuery->where('id', auth()->user()->id);
-                    });
+                    $query->where('is_active', 1)
+                        ->whereHas('creator', function ($subQuery) {
+                            $subQuery->where('id', auth()->user()->id);
+                        });
                 }),
             ],
 

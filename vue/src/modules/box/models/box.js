@@ -2,7 +2,7 @@ import { Model } from '@/app/core/crud/model';
 import * as crudEnums from '@/app/core/crud/enums';
 
 export default new Model({
-    showDeleted: true,
+    hasSoftDelete: true,
 
     list: {
         image: {
@@ -16,7 +16,6 @@ export default new Model({
             type: crudEnums.valueTypes.image,
         },
         id: {
-            value: 'id',
             type: crudEnums.valueTypes.text,
         },
         name: {
@@ -24,15 +23,15 @@ export default new Model({
             type: crudEnums.valueTypes.text,
         },
         slug: {
-            value: 'slug',
-            type: crudEnums.valueTypes.text,
+            type: crudEnums.valueTypes.websiteLink,
+            options: {
+                path: 'box/:value',
+            },
         },
         date: {
-            value: 'date',
             type: crudEnums.valueTypes.text,
         },
         datetime: {
-            value: 'datetime',
             type: crudEnums.valueTypes.text,
         },
         brand_id: {
@@ -44,7 +43,6 @@ export default new Model({
             type: crudEnums.valueTypes.array,
         },
         updated_at: {
-            value: 'updated_at',
             type: crudEnums.valueTypes.text,
         },
     },
@@ -103,7 +101,6 @@ export default new Model({
             type: crudEnums.valueTypes.image,
         },
         id: {
-            value: 'id',
             type: crudEnums.valueTypes.text,
         },
         name: {
@@ -111,15 +108,15 @@ export default new Model({
             type: crudEnums.valueTypes.text,
         },
         slug: {
-            value: 'slug',
-            type: crudEnums.valueTypes.text,
+            type: crudEnums.valueTypes.websiteLink,
+            options: {
+                path: 'box/:value',
+            },
         },
         date: {
-            value: 'date',
             type: crudEnums.valueTypes.text,
         },
         datetime: {
-            value: 'datetime',
             type: crudEnums.valueTypes.text,
         },
         brand_id: {
@@ -131,7 +128,6 @@ export default new Model({
             type: crudEnums.valueTypes.array,
         },
         variations: {
-            value: 'variations',
             type: crudEnums.valueTypes.relations,
             options: {
                 fields: {
@@ -143,11 +139,9 @@ export default new Model({
             },
         },
         created_at: {
-            value: 'created_at',
             type: crudEnums.valueTypes.text,
         },
         updated_at: {
-            value: 'updated_at',
             type: crudEnums.valueTypes.text,
         },
     },
@@ -172,12 +166,18 @@ export default new Model({
                 options: {
                     initValue: 'brand.name',
                     path: 'box/brand',
-                    query: (context, $el) => {
+                    query: (context, item) => {
                         return {
                             'filter[creator_id]': context.booted.user.id,
+                            'filter[is_active]': 1,
                         };
                     },
                     field: 'name',
+                },
+                attributes: {
+                    'onchange': (event) => {
+                        $('[name="tags[]"]').attr('disabled', event.target.value === '');
+                    },
                 },
             },
             tags: {
@@ -193,24 +193,24 @@ export default new Model({
             image: {
                 type: crudEnums.inputTypes.file,
                 options: {
-                    previewPath: 'w_500',
-                    downloadPath: 'original',
-                    deletePath: 'box/box/:id/delete-file/image',
+                    preview: 'w_500',
+                    download: 'original',
+                    deleteUrl: 'box/box/:id/delete-file/image',
                 },
                 size: crudEnums.inputSizes.xl,
             },
             images_list: {
                 type: crudEnums.inputTypes.file,
                 options: {
-                    previewPath: 'w_500',
-                    downloadPath: 'original',
-                    deletePath: 'box/box/:id/delete-file/images_list/:index',
+                    preview: 'w_500',
+                    download: 'original',
+                    deleteUrl: 'box/box/:id/delete-file/images_list/:index',
                     isMultiple: true,
                 },
                 size: crudEnums.inputSizes.xl,
             },
         },
-        'Variations': {
+        'Вариации': {
             variations: {
                 type: crudEnums.inputTypes.relations,
                 options: {

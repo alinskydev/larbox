@@ -1,5 +1,5 @@
 <script setup>
-import Value from '@/app/components/crud/particles/Value.vue';
+import Value from '@/app/components/Value.vue';
 </script>
 
 <script>
@@ -26,15 +26,13 @@ export default {
                 <table class="table table-hover table-bordered">
                     <tbody>
                         <tr v-for="item in items">
-                            <template v-if="item.value !== undefined">
-                                <th>
-                                    {{ item.label }}
-                                </th>
+                            <th>
+                                {{ item.label }}
+                            </th>
 
-                                <td>
-                                    <Value :item="item" :id="items.id.value" />
-                                </td>
-                            </template>
+                            <td>
+                                <Value :item="item" :id="items.id.value" />
+                            </td>
                         </tr>
                     </tbody>
                 </table>

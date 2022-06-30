@@ -21,40 +21,80 @@ export default {
 
         return fetch(url, requestOptions)
             .then((response) => {
-                switch (response.status) {
-                    case 200:
-                    case 201:
-                    case 202:
-                    case 204:
-                    case 206:
-                        response.statusType = 'success';
-                        break;
-                    case 401:
-                        response.statusType = 'unauthorized';
-                        context.$router.push({
-                            path: '/' + context.booted.locale + '/auth/login',
-                        });
-                        break;
-                    case 403:
-                    case 405:
-                        response.statusType = 'notAllowed';
-                        response.json().then((body) => {
-                            toastr.warning(body.message);
-                        });
-                        break;
-                    case 404:
-                    case 500:
-                        response.statusType = 'error';
-                        response.json().then((body) => {
-                            toastr.error(body.message);
-                        });
-                        break;
-                    case 422:
-                        response.statusType = 'validationFailed';
-                        break;
+                if (response.status === 204) {
+                    return {
+                        ...response,
+                        ...{
+                            statusType: 'success',
+                        },
+                    };
                 }
 
-                return response;
+                return response.json().then((body) => {
+                    let statusType;
+
+                    switch (response.status) {
+                        case 200:
+                        case 201:
+                        case 202:
+                        case 206:
+                            statusType = 'success';
+                            break;
+
+                        case 401:
+                            statusType = 'unauthorized';
+                            context.$router.push({
+                                path: '/' + context.booted.locale + '/auth/login',
+                            });
+                            break;
+
+                        case 403:
+                        case 405:
+                            statusType = 'notAllowed';
+                            toastr.warning(body.message);
+                            break;
+
+                        case 404:
+                        case 500:
+                            statusType = 'error';
+                            toastr.error(body.message);
+                            break;
+
+                        case 422:
+                            statusType = 'validationFailed';
+
+                            toastr.warning(body.message);
+
+                            $('.input-error').addClass('d-none');
+
+                            for (let key in body.errors) {
+                                let error = body.errors[key].join("\n"),
+                                    altKey = null;
+
+                                if (key.includes('.')) {
+                                    altKey = key.slice(0, key.lastIndexOf('.')) + '.*';
+                                } else {
+                                    altKey = key + '.*';
+                                }
+
+                                $('[data-error-key="' + key + '"], [data-error-key="' + altKey + '"]')
+                                    .closest('.input-wrapper')
+                                    .find('.input-error')
+                                    .text(error)
+                                    .removeClass('d-none');
+                            }
+
+                            break;
+                    }
+
+                    return {
+                        ...response,
+                        ...{
+                            data: body,
+                            statusType: statusType,
+                        },
+                    };
+                });
             });
     },
 };

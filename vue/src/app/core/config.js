@@ -7,4 +7,5 @@ export default {
             'Authorization': localStorage.getItem('authorization'),
         },
     },
+    websiteUrl: 'http://larbox.loc',
 };

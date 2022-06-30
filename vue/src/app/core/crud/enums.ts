@@ -1,11 +1,8 @@
 export enum valueTypes {
-    text,
-    boolean,
-    file,
-    image,
-    array,
-    httpSelect,
-    httpSwitcher,
+    text, boolean, array,
+    file, image,
+    httpSelect, httpSwitcher,
+    websiteLink,
     relations,
     component,
 }

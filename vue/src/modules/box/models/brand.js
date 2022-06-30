@@ -2,11 +2,10 @@ import { Model } from '@/app/core/crud/model';
 import * as crudEnums from '@/app/core/crud/enums';
 
 export default new Model({
-    showDeleted: true,
+    hasSoftDelete: true,
 
     list: {
         id: {
-            value: 'id',
             type: crudEnums.valueTypes.text,
         },
         creator_id: {
@@ -14,30 +13,30 @@ export default new Model({
             type: crudEnums.valueTypes.text,
         },
         name: {
-            value: 'name',
             type: crudEnums.valueTypes.text,
         },
         slug: {
-            value: 'slug',
-            type: crudEnums.valueTypes.text,
+            type: crudEnums.valueTypes.websiteLink,
+            options: {
+                path: 'brand/:value',
+            },
+        },
+        show_on_the_home_page: {
+            type: crudEnums.valueTypes.boolean,
         },
         is_active: {
-            value: 'is_active',
             type: crudEnums.valueTypes.httpSwitcher,
             options: {
                 path: 'box/brand/:id/set-active/:value',
             },
         },
         boxes_count: {
-            value: 'boxes_count',
             type: crudEnums.valueTypes.text,
         },
         created_at: {
-            value: 'created_at',
             type: crudEnums.valueTypes.text,
         },
         updated_at: {
-            value: 'updated_at',
             type: crudEnums.valueTypes.text,
         },
     },
@@ -62,6 +61,18 @@ export default new Model({
         slug: {
             type: crudEnums.valueTypes.text,
         },
+        show_on_the_home_page: {
+            type: crudEnums.inputTypes.select,
+            options: {
+                items: (context) => {
+                    return {
+                        0: context.__('Нет'),
+                        1: context.__('Да'),
+                    };
+                },
+                withPrompt: true,
+            },
+        },
         is_active: {
             type: crudEnums.inputTypes.select,
             options: {
@@ -83,7 +94,6 @@ export default new Model({
 
     show: {
         id: {
-            value: 'id',
             type: crudEnums.valueTypes.text,
         },
         creator_id: {
@@ -91,35 +101,33 @@ export default new Model({
             type: crudEnums.valueTypes.text,
         },
         name: {
-            value: 'name',
             type: crudEnums.valueTypes.text,
         },
         slug: {
-            value: 'slug',
-            type: crudEnums.valueTypes.text,
+            type: crudEnums.valueTypes.websiteLink,
+            options: {
+                path: 'brand/:value',
+            },
         },
         file: {
-            value: 'file',
             type: crudEnums.valueTypes.file,
         },
         files_list: {
-            value: 'files_list.*',
             type: crudEnums.valueTypes.file,
         },
+        show_on_the_home_page: {
+            type: crudEnums.valueTypes.boolean,
+        },
         is_active: {
-            value: 'is_active',
             type: crudEnums.valueTypes.boolean,
         },
         boxes_count: {
-            value: 'boxes_count',
             type: crudEnums.valueTypes.text,
         },
         created_at: {
-            value: 'created_at',
             type: crudEnums.valueTypes.text,
         },
         updated_at: {
-            value: 'updated_at',
             type: crudEnums.valueTypes.text,
         },
     },
@@ -129,17 +137,32 @@ export default new Model({
             name: {
                 type: crudEnums.inputTypes.text,
             },
+            show_on_the_home_page: {
+                type: crudEnums.inputTypes.switcher,
+            },
+            // show_on_the_home_page: {
+            //     type: crudEnums.inputTypes.select,
+            //     options: {
+            //         items: (context) => {
+            //             return {
+            //                 0: context.__('Нет'),
+            //                 1: context.__('Да'),
+            //             };
+            //         },
+            //         isBoolean: true,
+            //     },
+            // },
             file: {
                 type: crudEnums.inputTypes.file,
                 options: {
-                    deletePath: 'box/brand/:id/delete-file/file',
+                    deleteUrl: 'box/brand/:id/delete-file/file',
                 },
                 size: crudEnums.inputSizes.xl,
             },
             files_list: {
                 type: crudEnums.inputTypes.file,
                 options: {
-                    deletePath: 'box/brand/:id/delete-file/files_list/:index',
+                    deleteUrl: 'box/brand/:id/delete-file/files_list/:index',
                     isMultiple: true,
                 },
                 size: crudEnums.inputSizes.xl,

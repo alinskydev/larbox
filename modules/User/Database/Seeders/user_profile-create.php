@@ -12,7 +12,7 @@ return new class extends Seeder
                 'user_id' => 1,
                 'full_name' => 'Administrator',
                 'phone' => 'Phone 1',
-                'image' => '/test_data/media/webp.webp',
+                'image' => '/test_data/images/3.png',
             ],
             [
                 'user_id' => 2,

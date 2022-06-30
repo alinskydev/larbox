@@ -1,24 +1,22 @@
 import { Model } from '@/app/core/crud/model';
 import * as crudEnums from '@/app/core/crud/enums';
 
+import Custom from '@/modules/box/components/Custom.vue';
+
 export default new Model({
-    showDeleted: true,
+    hasSoftDelete: true,
 
     list: {
         id: {
-            value: 'id',
             type: crudEnums.valueTypes.text,
         },
         name: {
-            value: 'name',
             type: crudEnums.valueTypes.text,
         },
         created_at: {
-            value: 'created_at',
             type: crudEnums.valueTypes.text,
         },
         updated_at: {
-            value: 'updated_at',
             type: crudEnums.valueTypes.text,
         },
     },
@@ -42,20 +40,49 @@ export default new Model({
 
     show: {
         id: {
-            value: 'id',
             type: crudEnums.valueTypes.text,
         },
         name: {
-            value: 'name',
             type: crudEnums.valueTypes.text,
         },
         created_at: {
-            value: 'created_at',
             type: crudEnums.valueTypes.text,
         },
         updated_at: {
-            value: 'updated_at',
             type: crudEnums.valueTypes.text,
+        },
+        built_in_component: {
+            label: null,
+            type: crudEnums.valueTypes.component,
+            options: {
+                resolve: (context, item) => {
+                    return {
+                        component: 'h3',
+                        params: [
+                            {
+                                class: 'text-primary m-0',
+                                innerHTML: context.__('Встроенный компонент'),
+                            },
+                        ],
+                    };
+                },
+            },
+        },
+        custom_component: {
+            label: null,
+            type: crudEnums.valueTypes.component,
+            options: {
+                resolve: (context, item) => {
+                    return {
+                        component: Custom,
+                        params: [
+                            {
+                                text: context.__('Кастомный компонент'),
+                            },
+                        ],
+                    };
+                },
+            },
         },
     },
 
@@ -63,6 +90,40 @@ export default new Model({
         'Информация': {
             name: {
                 type: crudEnums.inputTypes.text,
+            },
+        },
+        'Компоненты': {
+            built_in_component: {
+                label: null,
+                type: crudEnums.inputTypes.component,
+                options: {
+                    resolve: (context, item) => {
+                        return {
+                            component: 'h3',
+                            params: [
+                                {
+                                    class: 'w-100 text-primary',
+                                    innerHTML: context.__('Встроенный компонент'),
+                                },
+                            ],
+                        };
+                    },
+                },
+            },
+            custom_component: {
+                type: crudEnums.inputTypes.component,
+                options: {
+                    resolve: (context, item) => {
+                        return {
+                            component: Custom,
+                            params: [
+                                {
+                                    text: context.__('Кастомный компонент'),
+                                },
+                            ],
+                        };
+                    },
+                },
             },
         },
     },

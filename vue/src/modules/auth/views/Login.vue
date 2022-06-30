@@ -18,11 +18,11 @@ export default {
         document.getElementById('favicon').href = this.booted.settings.favicon;
 
         if (this.booted.config.http.headers['Authorization']) {
-            fetch(this.booted.config.http.url + '/user/profile', {
-                method: "GET",
-                headers: this.booted.config.http.headers,
+            this.booted.helpers.http.send(this, {
+                method: 'GET',
+                path: 'user/profile',
             }).then((response) => {
-                if (response.status === 200) {
+                if (response.statusType === 'success') {
                     this.$router.push({
                         path: '/' + this.booted.locale,
                     });
@@ -44,35 +44,10 @@ export default {
                 body: formData,
             }).then((response) => {
                 if (response.statusType === 'success') {
-                    response.json().then((body) => {
-                        this.$router.push({
-                            path: '/' + this.booted.locale,
-                        }).then(() => {
-                            this.booted.helpers.user.login(this, formData.get('username'), formData.get('password'));
-                        });
-                    });
-                } else if (response.statusType === 'validationFailed') {
-                    response.json().then((body) => {
-                        toastr.warning(body.message);
-
-                        $('.input-error').addClass('d-none');
-
-                        for (let key in body.errors) {
-                            let error = body.errors[key].join("\n"),
-                                altKey = null;
-
-                            if (key.includes('.')) {
-                                altKey = key.slice(0, key.lastIndexOf('.')) + '.*';
-                            } else {
-                                altKey = key + '.*';
-                            }
-
-                            $('[data-error-key="' + key + '"], [data-error-key="' + altKey + '"]')
-                                .closest('.input-wrapper')
-                                .find('.input-error')
-                                .text(error)
-                                .removeClass('d-none');
-                        }
+                    this.$router.push({
+                        path: '/' + this.booted.locale,
+                    }).then(() => {
+                        this.booted.helpers.user.login(this, formData.get('username'), formData.get('password'));
                     });
                 }
             });

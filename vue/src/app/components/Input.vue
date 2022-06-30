@@ -27,7 +27,7 @@ export default {
         },
     },
     created() {
-        this.item.id = 'input-' + this.booted.helpers.string.uniqueId();
+        this.item.id = 'el-' + this.booted.helpers.string.uniqueId();
     },
 };
 </script>
@@ -36,7 +36,9 @@ export default {
     <Main v-if="item.type !== crudEnums.inputTypes.hidden
     && item.type !== crudEnums.inputTypes.relations
     && item.type !== crudEnums.inputTypes.component"
-          :item="item" v-slot="main">
+          :item="item"
+          v-slot="main">
+
         <template v-if="item.type === crudEnums.inputTypes.text">
             <Text :item="item" v-bind="main.inputAttrs" />
         </template>

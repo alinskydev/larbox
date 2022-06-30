@@ -20,7 +20,7 @@ export default {
                 format: 'HH:mm',
             },
         }).on('show.daterangepicker', function (ev, picker) {
-            picker.container.find(".calendar-table").hide();
+            picker.container.find('.calendar-table').hide();
         }).on('apply.daterangepicker', function (ev, picker) {
             let value = picker.startDate.format(picker.locale.format);
             $(this).val(value);

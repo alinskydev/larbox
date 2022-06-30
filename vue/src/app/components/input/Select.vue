@@ -1,5 +1,6 @@
 <script>
 export default {
+    inheritAttrs: false,
     props: {
         item: {
             type: Object,
@@ -20,10 +21,10 @@ export default {
 </script>
 
 <template>
-    <select>
+    <select v-bind="$attrs" :value="value">
         <option v-if="options.withPrompt"></option>
-        <option v-for="(item, key) in items" :value="key">
-            {{ item }}
+        <option v-for="(selectItem, key) in items" :value="key">
+            {{ selectItem }}
         </option>
     </select>
 </template>

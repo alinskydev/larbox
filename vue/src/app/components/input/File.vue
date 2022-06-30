@@ -60,7 +60,7 @@ export default {
             actions: '{drag}<div class="file-actions"><div class="file-footer-buttons">{zoom} {download} {delete}</div></div>',
         };
 
-        if (!this.options.deletePath) {
+        if (!this.options.deleteUrl) {
             layoutTemplates.actions = layoutTemplates.actions.replace('{delete}', '');
         }
 
@@ -71,13 +71,15 @@ export default {
         $('#' + this.item.id).fileinput(this.fileInputOptions);
 
         $('#' + this.item.id).on('filedeleted', (event, key) => {
-            this.item.value.splice(key, 1);
-            this.collectItems();
+            if (this.options.isMultiple) {
+                this.item.value.splice(key, 1);
+                this.collectItems();
 
-            this.fileInputOptions.initialPreview = this.items.map((value, key) => value.previewUrl);
-            this.fileInputOptions.initialPreviewConfig = this.items;
+                this.fileInputOptions.initialPreview = this.items.map((value, key) => value.previewUrl);
+                this.fileInputOptions.initialPreviewConfig = this.items;
 
-            $('#' + this.item.id).fileinput('destroy').fileinput(this.fileInputOptions);
+                $('#' + this.item.id).fileinput('destroy').fileinput(this.fileInputOptions);
+            }
         });
     },
     methods: {
@@ -93,23 +95,23 @@ export default {
 
             for (let key in value) {
                 let file = value[key],
-                    url = this.options.deletePath;
+                    deleteUrl = this.options.deleteUrl;
 
-                if (url) {
-                    url = url.replace(':id', this.$route.params.id).replace(':index', key);
+                if (deleteUrl) {
+                    deleteUrl = deleteUrl.replace(':id', this.$route.params.id).replace(':index', key);
                 }
 
-                let previewUrl = this.options.previewPath ? file[this.options.previewPath] : file,
-                    fileInfo = this.booted.helpers.file.info(previewUrl);
+                let downloadUrl = this.options.download ? file[this.options.download] : file,
+                    fileInfo = this.booted.helpers.file.info(downloadUrl);
 
                 items[key] = {
-                    previewUrl: previewUrl,
-                    downloadUrl: this.options.downloadPath ? file[this.options.downloadPath] : file,
-                    url: this.booted.config.http.url + '/' + url,
-                    caption: 'File ' + (parseInt(key) + 1),
                     key: key,
+                    caption: this.__('Файл №:index', { index: parseInt(key) + 1 }),
                     type: fileInfo.type ?? 'html',
                     filetype: fileInfo.mimeType,
+                    previewUrl: this.options.preview ? file[this.options.preview] : file,
+                    downloadUrl: downloadUrl,
+                    url: this.booted.config.http.url + '/' + deleteUrl,
                 };
             }
 

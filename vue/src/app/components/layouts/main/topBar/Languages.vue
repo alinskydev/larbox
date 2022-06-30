@@ -30,7 +30,7 @@ export default {
     methods: {
         changeLocale(url) {
             this.$router.push(url);
-            this.booted.components.app.$data.appChildKey++;
+            this.booted.components.app.$data.childKey++;
         },
     },
 };

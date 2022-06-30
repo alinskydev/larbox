@@ -1,7 +1,7 @@
 import * as crudEnums from '@/app/core/crud/enums';
 
 export class Model {
-    showDeleted;
+    hasSoftDelete;
     list;
     filters;
     sortings;
@@ -9,14 +9,14 @@ export class Model {
     form;
 
     constructor({
-        showDeleted,
+        hasSoftDelete,
         list,
         filters,
         sortings,
         show,
         form,
     }) {
-        this.showDeleted = showDeleted ?? false;
+        this.hasSoftDelete = hasSoftDelete ?? false;
         this.list = list ?? {};
         this.filters = filters ?? {};
         this.sortings = sortings ?? [];
@@ -44,7 +44,7 @@ export class Model {
 
         for (let key in list) {
             let field = list[key],
-                value = field.value;
+                value = field.value ?? key;
 
             if (typeof value === 'function') {
                 value = value(context, item);
@@ -58,6 +58,7 @@ export class Model {
                 value: value,
                 type: field.type,
                 options: field.options ?? {},
+                attributes: field.attributes ?? {},
             };
         }
 

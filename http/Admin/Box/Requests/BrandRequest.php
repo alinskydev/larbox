@@ -18,6 +18,7 @@ class BrandRequest extends ActiveFormRequest
     {
         return [
             'name' => 'required|string|max:100',
+            'show_on_the_home_page' => 'required|boolean',
             'file' => FormRequestHelper::fileRules(),
             'files_list' => 'array',
             'files_list.*' => FormRequestHelper::fileRules(),

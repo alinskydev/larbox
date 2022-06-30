@@ -28,7 +28,7 @@ export default {
             redirectPath: 'system/language',
             afterSubmit: (context, form, responseBody) => {
                 toastr.success(context.__('Запись успешно сохранена'));
-                context.booted.components.app.$data.appChildKey++;
+                context.booted.components.app.$data.childKey++;
             },
         });
     },

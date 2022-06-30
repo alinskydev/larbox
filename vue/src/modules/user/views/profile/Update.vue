@@ -27,7 +27,7 @@ export default {
                     this.booted.helpers.user.login(this, form.username, form.new_password);
                 }
 
-                context.booted.components.app.$data.appChildKey++;
+                context.booted.components.app.$data.childKey++;
             },
         });
     },

@@ -1,7 +1,7 @@
 <script setup>
 import * as crudEnums from '@/app/core/crud/enums';
 
-import Value from '@/app/components/crud/particles/Value.vue';
+import Value from '@/app/components/Value.vue';
 import Actions from './_Actions.vue';
 import Pagination from './_Pagination.vue';
 </script>
@@ -32,17 +32,15 @@ export default {
             query: query,
         }).then((response) => {
             if (response.statusType === 'success') {
-                response.json().then((body) => {
-                    this.fields = model.prepareFields(this, model.list);
+                this.fields = model.prepareFields(this, model.list);
 
-                    for (let dataKey in body.data) {
-                        this.items[dataKey] = model.prepareValues(this, model.list, body.data[dataKey]);
-                        this.items[dataKey]['is_deleted'] = body.data[dataKey]['is_deleted'];
-                    }
+                for (let dataKey in response.data.data) {
+                    this.items[dataKey] = model.prepareValues(this, model.list, response.data.data[dataKey]);
+                    this.items[dataKey]['is_deleted'] = response.data.data[dataKey]['is_deleted'];
+                }
 
-                    this.meta = body.meta;
-                    this.isReady = true;
-                });
+                this.meta = response.data.meta;
+                this.isReady = true;
             }
         });
     },

@@ -1,7 +1,7 @@
 export default {
     info(url = '') {
         let extension = url.slice(url.lastIndexOf('.') + 1, url.length),
-            type;
+            type = null;
 
         switch (extension) {
             case 'jpg':
@@ -23,7 +23,7 @@ export default {
 
         return {
             type: type,
-            mimeType: type + '/' + extension,
+            mimeType: type ? (type + '/' + extension) : type,
         };
     },
 };

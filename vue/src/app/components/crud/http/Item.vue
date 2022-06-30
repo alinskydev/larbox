@@ -1,6 +1,4 @@
 <script setup>
-import * as crudEnums from '@/app/core/crud/enums';
-
 import ShowGrid from '@/app/components/crud/show/Grid.vue';
 import FormAccordion from '@/app/components/crud/form/Accordion.vue';
 </script>
@@ -34,30 +32,28 @@ export default {
             query: http.query,
         }).then((response) => {
             if (response.statusType === 'success') {
-                response.json().then((data) => {
 
-                    // Page init
+                // Page init
 
-                    let titleField = this.page.titleField;
+                let titleField = this.page.titleField;
 
-                    titleField = titleField.replace(':locale', this.booted.locale);
+                titleField = titleField.replace(':locale', this.booted.locale);
 
-                    this.page.title += ': ' + this.booted.helpers.iterator.get(data, titleField);
-                    this.page.$data.init();
+                this.page.title += ': ' + this.booted.helpers.iterator.get(response.data, titleField);
+                this.page.$data.init();
 
-                    // Collecting items
+                // Collecting items
 
-                    switch (this.child) {
-                        case 'show':
-                            this.items = model.prepareValues(this, model.show, data);
-                            break;
-                        case 'form':
-                            for (let key in model.form) {
-                                this.items[key] = model.prepareInputs(this, model.form[key], data);
-                            }
-                            break;
-                    }
-                });
+                switch (this.child) {
+                    case 'show':
+                        this.items = model.prepareValues(this, model.show, response.data);
+                        break;
+                    case 'form':
+                        for (let key in model.form) {
+                            this.items[key] = model.prepareInputs(this, model.form[key], response.data);
+                        }
+                        break;
+                }
             } else {
                 this.$router.back();
             }

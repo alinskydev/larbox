@@ -38,10 +38,10 @@ export default {
             let query = this.options.query ?? {};
 
             if (typeof query === 'function') {
-                query = query($('#' + this.item.id));
+                query = query(this, this.item);
             }
 
-            query = Object.create(query);
+            query['show[]'] = 'with-deleted';
 
             if (typeof value === 'object') {
                 for (let key in value) {
@@ -51,25 +51,21 @@ export default {
                 query['filter[id]'] = value;
             }
 
-            query['show[]'] = 'with-deleted';
-
             this.booted.helpers.http.send(this, {
                 method: 'GET',
                 path: this.options.path,
                 query: query,
             }).then((response) => {
                 if (response.statusType === 'success') {
-                    response.json().then((body) => {
-                        for (let key in body.data) {
-                            let dataItem = body.data[key];
+                    for (let key in response.data.data) {
+                        let dataItem = response.data.data[key];
 
-                            if (this.isLocalized) {
-                                this.items[dataItem.id] = dataItem[this.field][this.booted.locale];
-                            } else {
-                                this.items[dataItem.id] = dataItem[this.field];
-                            }
+                        if (this.isLocalized) {
+                            this.items[dataItem.id] = dataItem[this.field][this.booted.locale];
+                        } else {
+                            this.items[dataItem.id] = dataItem[this.field];
                         }
-                    });
+                    }
                 }
             });
         }
@@ -85,7 +81,7 @@ export default {
                         query = this.options.query ?? {};
 
                     if (typeof query === 'function') {
-                        query = query(this, $('#' + this.item.id));
+                        query = query(this, this.item);
                     }
 
                     for (let key in query) {
@@ -105,18 +101,12 @@ export default {
                     return query;
                 },
                 processResults: (data, params) => {
-                    let valueField = this.options.valueField ?? this.field,
-                        results = [];
-
-                    for (let key in data.data) {
-                        results[key] = {};
-                        results[key]['id'] = data.data[key]['id'];
-                        results[key]['text'] = data.data[key][valueField];
-
-                        if (this.isLocalized) {
-                            results[key]['text'] = results[key]['text'][this.booted.locale];
-                        }
-                    }
+                    let results = data.data.map((value) => {
+                        return {
+                            id: value.id,
+                            text: this.isLocalized ? value[this.field][this.booted.locale] : value[this.field],
+                        };
+                    });
 
                     return {
                         results: results,
@@ -127,12 +117,6 @@ export default {
                 },
             },
         });
-
-        if (this.options.onChange) this.options.onChange($('#' + this.item.id));
-
-        $('#' + this.item.id).on('change', () => {
-            if (this.options.onChange) this.options.onChange($('#' + this.item.id));
-        });
     },
 };
 </script>
@@ -140,8 +124,8 @@ export default {
 <template>
     <select :multiple="options.isMultiple">
         <option v-if="!options.isMultiple" :value="null"></option>
-        <option v-for="(item, key) in items" :value="key" selected>
-            {{ item }}
+        <option v-for="(selectItem, key) in items" :value="key" selected>
+            {{ selectItem }}
         </option>
     </select>
 </template>
