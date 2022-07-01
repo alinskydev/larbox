@@ -1,5 +1,6 @@
 <script setup>
-import { ShowPage } from '@/app/core/crud/page';
+import { Page } from '@/app/core/page';
+import { ShowConfig } from '@/app/core/crud/config';
 import model from '@/modules/user/models/user';
 
 import PageTitle from '@/app/components/blocks/PageTitle.vue';
@@ -9,26 +10,30 @@ import Item from '@/app/components/crud/http/Item.vue';
 <script>
 export default {
     data() {
-        return new ShowPage({
-            context: this,
-            title: this.__('Просмотр'),
-            titleField: 'username',
-            breadcrumbs: [
-                {
-                    label: this.__('Пользователи'),
-                    path: 'user/user',
+        return {
+            page: new Page({
+                context: this,
+                title: this.__('Просмотр'),
+                breadcrumbs: [
+                    {
+                        label: this.__('Пользователи'),
+                        path: 'user/user',
+                    },
+                ],
+            }),
+            config: new ShowConfig({
+                model: model,
+                http: {
+                    path: 'user/user/:id',
                 },
-            ],
-            model: model,
-            http: {
-                path: 'user/user/:id',
-            },
-        });
+                titleField: 'username',
+            }),
+        };
     },
 };
 </script>
 
 <template>
-    <PageTitle :text="title" />
+    <PageTitle :text="page.title" />
     <Item child="show" />
 </template>

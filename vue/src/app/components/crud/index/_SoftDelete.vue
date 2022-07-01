@@ -1,5 +1,5 @@
 <script setup>
-import * as crudEnums from '@/app/core/crud/enums';
+import * as Enums from '@/app/core/enums';
 
 import Input from '@/app/components/Input.vue';
 </script>
@@ -12,7 +12,7 @@ export default {
                 label: this.__('Отображать'),
                 name: 'show[deleted]',
                 value: this.$route.query['show[deleted]'],
-                type: crudEnums.inputTypes.select,
+                type: Enums.inputTypes.select,
                 options: {
                     items: {
                         '': this.__('Только действующие'),
@@ -20,7 +20,7 @@ export default {
                         'with-deleted': this.__('Все'),
                     },
                 },
-                size: crudEnums.inputSizes.sm,
+                size: Enums.inputSizes.sm,
             },
         };
     },

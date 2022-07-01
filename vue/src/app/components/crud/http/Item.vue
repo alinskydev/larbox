@@ -16,13 +16,14 @@ export default {
     },
     data() {
         return {
-            page: this.booted.components.page,
+            page: this.booted.components.current.page,
+            config: this.booted.components.current.config,
+            model: this.booted.components.current.config.model,
             items: {},
         };
     },
     created() {
-        let model = this.page.model,
-            http = this.page.http;
+        let http = this.config.http;
 
         http.path = http.path.replace(':id', this.$route.params.id);
 
@@ -35,22 +36,24 @@ export default {
 
                 // Page init
 
-                let titleField = this.page.titleField;
+                if (this.config.titleField) {
+                    this.page.title += ': ' + this.booted.helpers.iterator.get(
+                        response.data,
+                        this.config.titleField.replace(':locale', this.booted.locale)
+                    );
+                }
 
-                titleField = titleField.replace(':locale', this.booted.locale);
-
-                this.page.title += ': ' + this.booted.helpers.iterator.get(response.data, titleField);
-                this.page.$data.init();
+                this.page.init();
 
                 // Collecting items
 
                 switch (this.child) {
                     case 'show':
-                        this.items = model.prepareValues(this, model.show, response.data);
+                        this.items = this.model.prepareValues(this, this.model.show, response.data);
                         break;
                     case 'form':
-                        for (let key in model.form) {
-                            this.items[key] = model.prepareInputs(this, model.form[key], response.data);
+                        for (let key in this.model.form) {
+                            this.items[key] = this.model.prepareInputs(this, this.model.form[key], response.data);
                         }
                         break;
                 }

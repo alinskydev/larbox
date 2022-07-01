@@ -1,5 +1,5 @@
 <script setup>
-import * as crudEnums from '@/app/core/crud/enums';
+import * as Enums from '@/app/core/enums';
 
 import Input from '@/app/components/Input.vue';
 </script>
@@ -15,22 +15,20 @@ export default {
     },
     data() {
         return {
-            page: this.booted.components.page,
+            model: this.booted.components.current.config.model,
             fields: this.item.options.fields,
             items: [],
         };
     },
     created() {
-        let model = this.page.model;
-
         for (let key in this.item.value) {
             this.items[key] = {
                 id: {
                     name: this.item.name + '[' + key + '][id]',
                     value: this.item.value[key].id,
-                    type: crudEnums.inputTypes.hidden,
+                    type: Enums.inputTypes.hidden,
                 },
-                fields: model.prepareRelationsInputs(this, this.fields, this.item.value[key], this.item.name, key),
+                fields: this.model.prepareRelationsInputs(this, this.fields, this.item.value[key], this.item.name, key),
             };
         }
     },
@@ -45,16 +43,15 @@ export default {
     },
     methods: {
         add() {
-            let model = this.page.model,
-                uniqueId = this.booted.helpers.string.uniqueId();
+            let uniqueId = this.booted.helpers.string.uniqueId();
 
             this.items.push({
                 id: {
                     name: this.item.name + '[' + uniqueId + '][id]',
                     value: 0,
-                    type: crudEnums.inputTypes.hidden,
+                    type: Enums.inputTypes.hidden,
                 },
-                fields: model.prepareRelationsInputs(this, this.fields, {}, this.item.name, uniqueId),
+                fields: this.model.prepareRelationsInputs(this, this.fields, {}, this.item.name, uniqueId),
             });
         },
         remove(event) {

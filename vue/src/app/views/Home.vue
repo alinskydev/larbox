@@ -6,18 +6,20 @@ import PageTitle from '@/app/components/blocks/PageTitle.vue';
 <script>
 export default {
 	data() {
-		return new Page({
-			context: this,
-			title: this.__('Главная'),
-			hideBreadcrumbs: true,
-		});
+		return {
+			page: new Page({
+				context: this,
+				title: this.__('Главная'),
+				showBreadcrumbs: false,
+			}),
+		};
 	},
 	created() {
-		this.$data.init();
+		this.page.init();
 	},
 };
 </script>
 
 <template>
-	<PageTitle :text="title" />
+	<PageTitle :text="page.title" />
 </template>

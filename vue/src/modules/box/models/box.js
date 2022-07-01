@@ -1,5 +1,5 @@
-import { Model } from '@/app/core/crud/model';
-import * as crudEnums from '@/app/core/crud/enums';
+import { Model } from '@/app/core/model';
+import * as Enums from '@/app/core/enums';
 
 export default new Model({
     hasSoftDelete: true,
@@ -8,63 +8,63 @@ export default new Model({
         image: {
             label: null,
             value: 'image.w_100',
-            type: crudEnums.valueTypes.image,
+            type: Enums.valueTypes.image,
         },
         images_list: {
             label: null,
             value: 'images_list.0.w_100',
-            type: crudEnums.valueTypes.image,
+            type: Enums.valueTypes.image,
         },
         id: {
-            type: crudEnums.valueTypes.text,
+            type: Enums.valueTypes.text,
         },
         name: {
             value: 'name.:locale',
-            type: crudEnums.valueTypes.text,
+            type: Enums.valueTypes.text,
         },
         slug: {
-            type: crudEnums.valueTypes.websiteLink,
+            type: Enums.valueTypes.websiteLink,
             options: {
                 path: 'box/:value',
             },
         },
         date: {
-            type: crudEnums.valueTypes.text,
+            type: Enums.valueTypes.text,
         },
         datetime: {
-            type: crudEnums.valueTypes.text,
+            type: Enums.valueTypes.text,
         },
         brand_id: {
             value: 'brand.name',
-            type: crudEnums.valueTypes.text,
+            type: Enums.valueTypes.text,
         },
         tags: {
             value: 'tags.*.name',
-            type: crudEnums.valueTypes.array,
+            type: Enums.valueTypes.array,
         },
         updated_at: {
-            type: crudEnums.valueTypes.text,
+            type: Enums.valueTypes.text,
         },
     },
 
     filters: {
         id: {
-            type: crudEnums.inputTypes.text,
+            type: Enums.inputTypes.text,
             attributes: {
                 'type': 'number',
             },
         },
         name: {
-            type: crudEnums.inputTypes.text,
+            type: Enums.inputTypes.text,
         },
         date: {
-            type: crudEnums.inputTypes.date,
+            type: Enums.inputTypes.date,
         },
         datetime: {
-            type: crudEnums.inputTypes.date,
+            type: Enums.inputTypes.date,
         },
         brand_id: {
-            type: crudEnums.inputTypes.select2Ajax,
+            type: Enums.inputTypes.select2Ajax,
             options: {
                 path: 'box/brand',
                 field: 'name',
@@ -73,7 +73,7 @@ export default new Model({
         tags: {
             name: 'tags.id',
             value: 'tags.id',
-            type: crudEnums.inputTypes.select2Ajax,
+            type: Enums.inputTypes.select2Ajax,
             options: {
                 path: 'box/tag',
                 field: 'name',
@@ -93,76 +93,76 @@ export default new Model({
         image: {
             label: null,
             value: 'image.w_500',
-            type: crudEnums.valueTypes.image,
+            type: Enums.valueTypes.image,
         },
         images_list: {
             label: null,
             value: 'images_list.*.w_500',
-            type: crudEnums.valueTypes.image,
+            type: Enums.valueTypes.image,
         },
         id: {
-            type: crudEnums.valueTypes.text,
+            type: Enums.valueTypes.text,
         },
         name: {
             value: 'name.:locale',
-            type: crudEnums.valueTypes.text,
+            type: Enums.valueTypes.text,
         },
         slug: {
-            type: crudEnums.valueTypes.websiteLink,
+            type: Enums.valueTypes.websiteLink,
             options: {
                 path: 'box/:value',
             },
         },
         date: {
-            type: crudEnums.valueTypes.text,
+            type: Enums.valueTypes.text,
         },
         datetime: {
-            type: crudEnums.valueTypes.text,
+            type: Enums.valueTypes.text,
         },
         brand_id: {
             value: 'brand.name',
-            type: crudEnums.valueTypes.text,
+            type: Enums.valueTypes.text,
         },
         tags: {
             value: 'tags.*.name',
-            type: crudEnums.valueTypes.array,
+            type: Enums.valueTypes.array,
         },
         variations: {
-            type: crudEnums.valueTypes.relations,
+            type: Enums.valueTypes.relations,
             options: {
                 fields: {
                     name: {
                         value: 'name.:locale',
-                        type: crudEnums.valueTypes.text,
+                        type: Enums.valueTypes.text,
                     },
                 },
             },
         },
         created_at: {
-            type: crudEnums.valueTypes.text,
+            type: Enums.valueTypes.text,
         },
         updated_at: {
-            type: crudEnums.valueTypes.text,
+            type: Enums.valueTypes.text,
         },
     },
 
     form: {
         'Информация': {
             name: {
-                type: crudEnums.inputTypes.text,
+                type: Enums.inputTypes.text,
                 options: {
                     isLocalized: true,
                 },
-                size: crudEnums.inputSizes.xl,
+                size: Enums.inputSizes.xl,
             },
             date: {
-                type: crudEnums.inputTypes.date,
+                type: Enums.inputTypes.date,
             },
             datetime: {
-                type: crudEnums.inputTypes.datetime,
+                type: Enums.inputTypes.datetime,
             },
             brand_id: {
-                type: crudEnums.inputTypes.select2Ajax,
+                type: Enums.inputTypes.select2Ajax,
                 options: {
                     initValue: 'brand.name',
                     path: 'box/brand',
@@ -182,7 +182,7 @@ export default new Model({
             },
             tags: {
                 value: 'tags.*.id',
-                type: crudEnums.inputTypes.select2Ajax,
+                type: Enums.inputTypes.select2Ajax,
                 options: {
                     initValue: 'tags.*.name',
                     path: 'box/tag',
@@ -191,36 +191,36 @@ export default new Model({
                 },
             },
             image: {
-                type: crudEnums.inputTypes.file,
+                type: Enums.inputTypes.file,
                 options: {
                     preview: 'w_500',
                     download: 'original',
                     deleteUrl: 'box/box/:id/delete-file/image',
                 },
-                size: crudEnums.inputSizes.xl,
+                size: Enums.inputSizes.xl,
             },
             images_list: {
-                type: crudEnums.inputTypes.file,
+                type: Enums.inputTypes.file,
                 options: {
                     preview: 'w_500',
                     download: 'original',
                     deleteUrl: 'box/box/:id/delete-file/images_list/:index',
                     isMultiple: true,
                 },
-                size: crudEnums.inputSizes.xl,
+                size: Enums.inputSizes.xl,
             },
         },
         'Вариации': {
             variations: {
-                type: crudEnums.inputTypes.relations,
+                type: Enums.inputTypes.relations,
                 options: {
                     fields: {
                         name: {
-                            type: crudEnums.inputTypes.text,
+                            type: Enums.inputTypes.text,
                             options: {
                                 isLocalized: true,
                             },
-                            size: crudEnums.inputSizes.xl,
+                            size: Enums.inputSizes.xl,
                         },
                     },
                 },

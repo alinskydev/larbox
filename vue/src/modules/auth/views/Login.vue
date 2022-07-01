@@ -1,6 +1,6 @@
 <script setup>
+import { Page } from '@/app/core/page';
 import model from '@/modules/auth/models/login';
-
 import Input from '@/app/components/Input.vue';
 </script>
 
@@ -8,15 +8,15 @@ import Input from '@/app/components/Input.vue';
 export default {
     data() {
         return {
-            title: this.__('Авторизация'),
+            page: new Page({
+                context: this,
+                title: this.__('Авторизация'),
+            }),
             inputs: model.prepareInputs(this, model.form),
             isReady: false,
         };
     },
     created() {
-        document.title = this.title;
-        document.getElementById('favicon').href = this.booted.settings.favicon;
-
         if (this.booted.config.http.headers['Authorization']) {
             this.booted.helpers.http.send(this, {
                 method: 'GET',
@@ -61,7 +61,7 @@ export default {
         <div class="login-page">
             <div class="login-box">
                 <div class="login-logo">
-                    <b>{{ title }}</b>
+                    <b>{{ page.title }}</b>
                 </div>
 
                 <div class="card">

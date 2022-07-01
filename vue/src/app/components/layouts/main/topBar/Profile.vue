@@ -4,11 +4,6 @@ import RouterLink from "@/app/components/blocks/RouterLink.vue";
 
 <script>
 export default {
-    data() {
-        return {
-            items: [],
-        };
-    },
     methods: {
         logout() {
             this.booted.helpers.user.logout(this);

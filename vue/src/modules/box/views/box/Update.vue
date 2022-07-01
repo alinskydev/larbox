@@ -1,5 +1,6 @@
 <script setup>
-import { UpdatePage } from '@/app/core/crud/page';
+import { Page } from '@/app/core/page';
+import { UpdateConfig } from '@/app/core/crud/config';
 import model from '@/modules/box/models/box';
 
 import PageTitle from '@/app/components/blocks/PageTitle.vue';
@@ -10,34 +11,37 @@ import Item from '@/app/components/crud/http/Item.vue';
 <script>
 export default {
     data() {
-        return new UpdatePage({
-            context: this,
-            title: this.__('Редактирование'),
-            titleField: 'name.:locale',
-            breadcrumbs: [
-                {
-                    label: this.__('Boxes'),
-                    path: 'box/box',
+        return {
+            page: new Page({
+                context: this,
+                title: this.__('Редактирование'),
+                breadcrumbs: [
+                    {
+                        label: this.__('Boxes'),
+                        path: 'box/box',
+                    },
+                ],
+            }),
+            config: new UpdateConfig({
+                model: model,
+                http: {
+                    path: 'box/box/:id',
+                    query: {
+                        'with[0]': 'brand',
+                        'with[1]': 'tags',
+                        'with[2]': 'variations',
+                    },
                 },
-            ],
-            model: model,
-            http: {
-                method: 'PATCH',
-                path: 'box/box/:id',
-                query: {
-                    'with[0]': 'brand',
-                    'with[1]': 'tags',
-                    'with[2]': 'variations',
-                },
-            },
-            redirectPath: 'box/box',
-        });
+                titleField: 'name.:locale',
+                redirectPath: 'box/box',
+            }),
+        };
     },
 };
 </script>
 
 <template>
-    <PageTitle :text="title">
+    <PageTitle :text="page.title">
         <Buttons />
     </PageTitle>
 

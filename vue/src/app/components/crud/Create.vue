@@ -6,21 +6,19 @@ import FormAccordion from '@/app/components/crud/form/Accordion.vue';
 export default {
     data() {
         return {
-            page: this.booted.components.page,
+            model: this.booted.components.current.config.model,
             items: {},
         };
     },
     created() {
-        let model = this.page.model;
-
         // Page init
 
-        this.page.$data.init();
+        this.booted.components.current.page.init();
 
         // Collecting items
 
-        for (let key in model.form) {
-            this.items[key] = model.prepareInputs(this, model.form[key]);
+        for (let key in this.model.form) {
+            this.items[key] = this.model.prepareInputs(this, this.model.form[key]);
         }
     },
 };

@@ -1,5 +1,6 @@
 <script setup>
-import { IndexPage } from '@/app/core/crud/page';
+import { Page } from '@/app/core/page';
+import { IndexConfig } from '@/app/core/crud/config';
 import model from '@/modules/box/models/tag';
 
 import PageTitle from '@/app/components/blocks/PageTitle.vue';
@@ -10,21 +11,24 @@ import Index from '@/app/components/crud/Index.vue';
 <script>
 export default {
     data() {
-        return new IndexPage({
-            context: this,
-            title: this.__('Tags'),
-            model: model,
-            http: {
-                path: 'box/tag',
-            },
-            actions: ['show', 'update', 'delete', 'restore'],
-        });
+        return {
+            page: new Page({
+                context: this,
+                title: this.__('Tags'),
+            }),
+            config: new IndexConfig({
+                model: model,
+                http: {
+                    path: 'box/tag',
+                },
+            }),
+        };
     },
 };
 </script>
 
 <template>
-    <PageTitle :text="title">
+    <PageTitle :text="page.title">
         <RouterLink to="box/tag/create" class="btn btn-success">
             {{ __('Создать') }}
         </RouterLink>

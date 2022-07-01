@@ -1,5 +1,5 @@
 <script setup>
-import NavBar from './sideBar/NavBar.vue';
+import Nav from './sideBar/Nav.vue';
 import RouterLink from "@/app/components/blocks/RouterLink.vue";
 </script>
 
@@ -20,7 +20,7 @@ export default {};
         </RouterLink>
 
         <div class="sidebar">
-            <NavBar />
+            <Nav />
         </div>
     </aside>
 </template>

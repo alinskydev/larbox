@@ -1,5 +1,6 @@
 <script setup>
-import { CreatePage } from '@/app/core/crud/page';
+import { Page } from '@/app/core/page';
+import { CreateConfig } from '@/app/core/crud/config';
 import model from '@/modules/box/models/brand';
 
 import PageTitle from '@/app/components/blocks/PageTitle.vue';
@@ -10,28 +11,31 @@ import Create from '@/app/components/crud/Create.vue';
 <script>
 export default {
     data() {
-        return new CreatePage({
-            context: this,
-            title: this.__('Создание'),
-            breadcrumbs: [
-                {
-                    label: this.__('Brands'),
+        return {
+            page: new Page({
+                context: this,
+                title: this.__('Создание'),
+                breadcrumbs: [
+                    {
+                        label: this.__('Brands'),
+                        path: 'box/brand',
+                    },
+                ],
+            }),
+            config: new CreateConfig({
+                model: model,
+                http: {
                     path: 'box/brand',
                 },
-            ],
-            model: model,
-            http: {
-                method: 'POST',
-                path: 'box/brand',
-            },
-            redirectPath: 'box/brand',
-        });
+                redirectPath: 'box/brand',
+            }),
+        };
     },
 };
 </script>
 
 <template>
-    <PageTitle :text="title">
+    <PageTitle :text="page.title">
         <Buttons />
     </PageTitle>
 

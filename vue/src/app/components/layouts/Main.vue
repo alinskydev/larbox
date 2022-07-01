@@ -1,6 +1,6 @@
 <script setup>
-import { RouterView } from "vue-router";
-import init from "./_init";
+import { RouterView } from 'vue-router';
+import init from './_init';
 
 import TopBar from './main/TopBar.vue';
 import SideBar from './main/SideBar.vue';
@@ -10,10 +10,14 @@ import SideBar from './main/SideBar.vue';
 export default {
     data() {
         return {
+            childKey: 0,
             isReady: false,
         };
     },
     beforeCreate() {
+        this.booted.components.layout = this;
+    },
+    created() {
         $('#preloader').addClass('active');
 
         init(this).then(() => {
@@ -38,8 +42,8 @@ export default {
 
 <template>
     <template v-if="isReady">
-        <TopBar />
-        <SideBar />
+        <TopBar :key="childKey" />
+        <SideBar :key="childKey" />
 
         <div class="content-wrapper">
             <section class="content">

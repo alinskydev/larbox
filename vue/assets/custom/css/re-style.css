@@ -59,15 +59,19 @@ select.select2-hidden-accessible {
     height: 60px;
 }
 
-.breadcrumbs > li + li {
+.breadcrumbs>li+li {
     position: relative;
 }
 
-.breadcrumbs > li + li::before {
+.breadcrumbs>li+li::before {
     content: '›';
     position: absolute;
     top: -8px;
     left: -5px;
     font-size: 35px;
     font-weight: 100;
+}
+
+.nav-link:not(.collapsed) .nav-icon-caret {
+    transform: rotateZ(90deg);
 }

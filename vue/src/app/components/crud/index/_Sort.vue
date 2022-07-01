@@ -1,5 +1,5 @@
 <script setup>
-import * as crudEnums from '@/app/core/crud/enums';
+import * as Enums from '@/app/core/enums';
 
 import Input from '@/app/components/Input.vue';
 </script>
@@ -34,9 +34,9 @@ export default {
             label: this.__('Сортировка'),
             name: 'sort',
             value: this.$route.query.sort,
-            type: crudEnums.inputTypes.select,
+            type: Enums.inputTypes.select,
             options: options,
-            size: crudEnums.inputSizes.sm,
+            size: Enums.inputSizes.sm,
         };
     },
 };

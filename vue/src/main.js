@@ -2,13 +2,13 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import router from '@/app/core/router';
 import config from '@/app/core/config';
-import { __ } from '@/app/helpers/localizationHelper';
+import { __ } from '@/app/core/helpers/localizationHelper';
 
-import fileHelper from '@/app/helpers/fileHelper';
-import httpHelper from '@/app/helpers/httpHelper';
-import iteratorHelper from '@/app/helpers/iteratorHelper';
-import stringHelper from '@/app/helpers/stringHelper';
-import userHelper from '@/app/helpers/userHelper';
+import fileHelper from '@/app/core/helpers/fileHelper';
+import httpHelper from '@/app/core/helpers/httpHelper';
+import iteratorHelper from '@/app/core/helpers/iteratorHelper';
+import stringHelper from '@/app/core/helpers/stringHelper';
+import userHelper from '@/app/core/helpers/userHelper';
 
 const app = createApp(App);
 

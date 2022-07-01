@@ -11,17 +11,15 @@ import Grid from './index/Grid.vue';
 export default {
     data() {
         return {
-            page: this.booted.components.page,
+            model: this.booted.components.current.config.model,
             items: {},
             dataKey: 0,
         };
     },
     created() {
-        let model = this.page.model;
-
         // Page init
 
-        this.page.$data.init();
+        this.booted.components.current.page.init();
 
         // Collecting active filters
 
@@ -48,7 +46,7 @@ export default {
 
         // Collecting items
 
-        this.items = model.prepareFilters(this, model.filters, values);
+        this.items = this.model.prepareFilters(this, this.model.filters, values);
     },
     methods: {
         submit(event) {
@@ -106,8 +104,8 @@ export default {
                             <Input :item="item" />
                         </template>
 
-                        <Sort v-if="page.model.sortings" :sortings="page.model.sortings" />
-                        <SoftDelete v-if="page.model.hasSoftDelete" />
+                        <Sort v-if="model.sortings" :sortings="model.sortings" />
+                        <SoftDelete v-if="model.hasSoftDelete" />
                     </div>
                 </div>
 

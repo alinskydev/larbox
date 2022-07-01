@@ -1,5 +1,6 @@
 <script setup>
-import { UpdatePage } from '@/app/core/crud/page';
+import { Page } from '@/app/core/page';
+import { UpdateConfig } from '@/app/core/crud/config';
 import model from '@/modules/box/models/tag';
 
 import PageTitle from '@/app/components/blocks/PageTitle.vue';
@@ -10,29 +11,32 @@ import Item from '@/app/components/crud/http/Item.vue';
 <script>
 export default {
     data() {
-        return new UpdatePage({
-            context: this,
-            title: this.__('Редактирование'),
-            titleField: 'name',
-            breadcrumbs: [
-                {
-                    label: this.__('Tags'),
-                    path: 'box/tag',
+        return {
+            page: new Page({
+                context: this,
+                title: this.__('Редактирование'),
+                breadcrumbs: [
+                    {
+                        label: this.__('Tags'),
+                        path: 'box/tag',
+                    },
+                ],
+            }),
+            config: new UpdateConfig({
+                model: model,
+                http: {
+                    path: 'box/tag/:id',
                 },
-            ],
-            model: model,
-            http: {
-                method: 'PATCH',
-                path: 'box/tag/:id',
-            },
-            redirectPath: 'box/tag',
-        });
+                titleField: 'name',
+                redirectPath: 'box/tag',
+            }),
+        };
     },
 };
 </script>
 
 <template>
-    <PageTitle :text="title">
+    <PageTitle :text="page.title">
         <Buttons />
     </PageTitle>
 

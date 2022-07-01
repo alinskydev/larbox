@@ -12,7 +12,7 @@ export default {
     },
     data() {
         return {
-            page: this.booted.components.page,
+            config: this.booted.components.current.config,
         };
     },
     methods: {
@@ -24,21 +24,21 @@ export default {
                 serializedForm[key] = value;
             });
 
-            this.page.beforeSubmit(this.page, serializedForm);
+            this.config.beforeSubmit(this, serializedForm);
 
             this.booted.helpers.http.send(this, {
                 method: 'POST',
-                path: this.page.http.path,
+                path: this.config.http.path,
                 query: {
-                    '_method': this.page.http.method,
+                    '_method': this.config.method,
                 },
                 body: formData,
             }).then((response) => {
                 if (response.statusType === 'success') {
-                    this.page.afterSubmit(this.page, serializedForm, response.data);
+                    this.config.afterSubmit(this, serializedForm, response.data);
 
                     this.$router.push({
-                        path: '/' + this.booted.locale + '/' + this.page.redirectPath,
+                        path: '/' + this.booted.locale + '/' + this.config.redirectPath,
                     });
                 }
             });

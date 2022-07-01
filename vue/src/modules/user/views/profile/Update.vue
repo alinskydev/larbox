@@ -1,5 +1,6 @@
 <script setup>
-import { UpdatePage } from '@/app/core/crud/page';
+import { Page } from '@/app/core/page';
+import { UpdateConfig } from '@/app/core/crud/config';
 import model from '@/modules/user/models/profile';
 
 import PageTitle from '@/app/components/blocks/PageTitle.vue';
@@ -10,32 +11,40 @@ import Item from '@/app/components/crud/http/Item.vue';
 <script>
 export default {
     data() {
-        return new UpdatePage({
-            context: this,
-            title: this.__('Профиль'),
-            titleField: 'username',
-            model: model,
-            http: {
-                method: 'PATCH',
-                path: 'user/profile',
-            },
-            redirectPath: 'user/profile',
-            afterSubmit: (context, form, responseBody) => {
-                toastr.success(context.__('Профиль успешно сохранён'));
+        return {
+            page: new Page({
+                context: this,
+                title: this.__('Профиль'),
+                breadcrumbs: [
+                    {
+                        label: this.__('Boxes'),
+                        path: 'box/box',
+                    },
+                ],
+            }),
+            config: new UpdateConfig({
+                model: model,
+                http: {
+                    path: 'user/profile',
+                },
+                redirectPath: 'user/profile',
+                afterSubmit: (context, form, responseBody) => {
+                    toastr.success(context.__('Профиль успешно сохранён'));
 
-                if (form.new_password) {
-                    this.booted.helpers.user.login(this, form.username, form.new_password);
-                }
+                    if (form.new_password) {
+                        this.booted.helpers.user.login(this, form.username, form.new_password);
+                    }
 
-                context.booted.components.app.$data.childKey++;
-            },
-        });
+                    context.booted.components.app.childKey++;
+                },
+            }),
+        };
     },
 };
 </script>
 
 <template>
-    <PageTitle :text="title">
+    <PageTitle :text="page.title">
         <Buttons :actions="['save']" />
     </PageTitle>
 

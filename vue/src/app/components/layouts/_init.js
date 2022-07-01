@@ -1,4 +1,4 @@
-import { LocalizationHelper } from '@/app/helpers/localizationHelper';
+import { LocalizationHelper } from '@/app/core/helpers/localizationHelper';
 
 import messagesRu from '@/lang/ru';
 import messagesUz from '@/lang/uz';

@@ -1,5 +1,6 @@
 <script setup>
-import { IndexPage } from '@/app/core/crud/page';
+import { Page } from '@/app/core/page';
+import { IndexConfig } from '@/app/core/crud/config';
 import model from '@/modules/box/models/brand';
 
 import PageTitle from '@/app/components/blocks/PageTitle.vue';
@@ -10,37 +11,41 @@ import Index from '@/app/components/crud/Index.vue';
 <script>
 export default {
     data() {
-        return new IndexPage({
-            context: this,
-            title: this.__('Brands'),
-            model: model,
-            http: {
-                path: 'box/brand',
-                query: {
-                    'show[0]': 'boxes_count',
-                    'with[0]': 'creator',
-                },
-            },
-            actions: ['show', 'update', 'delete', 'restore'],
-            extraActions: {
-                boxes: {
-                    path: 'box/box?filter[brand_id]=:id',
-                    buttonOptions: {
-                        title: this.__('Boxes'),
-                        class: 'btn btn-info',
-                    },
-                    iconOptions: {
-                        class: 'fas fa-boxes',
+        return {
+            page: new Page({
+                context: this,
+                title: this.__('Brands'),
+            }),
+            config: new IndexConfig({
+                model: model,
+                http: {
+                    path: 'box/brand',
+                    query: {
+                        'show[0]': 'boxes_count',
+                        'with[0]': 'creator',
                     },
                 },
-            },
-        });
+                actions: ['boxes', 'show', 'update', 'delete', 'restore'],
+                extraActions: {
+                    boxes: {
+                        path: 'box/box?filter[brand_id]=:id',
+                        buttonOptions: {
+                            title: this.__('Boxes'),
+                            class: 'btn btn-info',
+                        },
+                        iconOptions: {
+                            class: 'fas fa-boxes',
+                        },
+                    },
+                },
+            }),
+        };
     },
 };
 </script>
 
 <template>
-    <PageTitle :text="title">
+    <PageTitle :text="page.title">
         <RouterLink to="box/brand/create" class="btn btn-success">
             {{ __('Создать') }}
         </RouterLink>

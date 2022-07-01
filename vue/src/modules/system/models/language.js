@@ -1,78 +1,70 @@
-import { Model } from '@/app/core/crud/model';
-import * as crudEnums from '@/app/core/crud/enums';
+import { Model } from '@/app/core/model';
+import * as Enums from '@/app/core/enums';
 
 export default new Model({
     list: {
         image: {
             label: null,
             value: 'image.w_100',
-            type: crudEnums.valueTypes.image,
+            type: Enums.valueTypes.image,
         },
         id: {
-            type: crudEnums.valueTypes.text,
+            type: Enums.valueTypes.text,
         },
         name: {
-            type: crudEnums.valueTypes.text,
+            type: Enums.valueTypes.text,
         },
         code: {
-            type: crudEnums.valueTypes.text,
+            type: Enums.valueTypes.text,
         },
         is_active: {
-            type: crudEnums.valueTypes.httpSwitcher,
+            type: Enums.valueTypes.httpSwitcher,
             options: {
                 path: 'system/language/:id/set-active/:value',
                 onSuccess: (context, value) => {
-                    context.booted.components.app.$data.childKey++;
+                    context.booted.components.app.childKey++;
                     context.$router.push(context.$router.currentRoute);
                 },
             },
         },
         is_main: {
-            type: crudEnums.valueTypes.httpSelect,
+            type: Enums.valueTypes.httpSwitcher,
             options: {
-                items: (context, value) => {
-                    if (value === 0) {
-                        return {
-                            0: context.__('Нет'),
-                            1: context.__('Да'),
-                        };
-                    } else {
-                        return {
-                            1: context.__('Да'),
-                        };
-                    }
-                },
                 path: 'system/language/:id/set-main/:value',
-                isBoolean: true,
                 onSuccess: (context, value) => {
-                    context.booted.components.app.$data.childKey++;
+                    context.booted.components.app.childKey++;
                     context.$router.push(context.$router.currentRoute);
                 },
             },
+            attributes: (context) => {
+                return {
+                    'disabled': context.item.value,
+                };
+            },
         },
         created_at: {
-            type: crudEnums.valueTypes.text,
+            type: Enums.valueTypes.text,
         },
         updated_at: {
-            type: crudEnums.valueTypes.text,
+            type: Enums.valueTypes.text,
         },
     },
 
     filters: {
         id: {
-            type: crudEnums.inputTypes.text,
+            type: Enums.inputTypes.text,
             attributes: {
                 'type': 'number',
             },
         },
         name: {
-            type: crudEnums.inputTypes.text,
+            type: Enums.inputTypes.text,
         },
         code: {
-            type: crudEnums.inputTypes.text,
+            type: Enums.inputTypes.text,
         },
         is_active: {
-            type: crudEnums.inputTypes.select,
+            type: Enums.inputTypes.select,
             options: {
                 items: (context) => {
                     return {
@@ -84,7 +76,7 @@ export default new Model({
             },
         },
         is_main: {
-            type: crudEnums.inputTypes.select,
+            type: Enums.inputTypes.select,
             options: {
                 items: (context) => {
                     return {
@@ -104,45 +96,45 @@ export default new Model({
 
     show: {
         id: {
-            type: crudEnums.valueTypes.text,
+            type: Enums.valueTypes.text,
         },
         name: {
-            type: crudEnums.valueTypes.text,
+            type: Enums.valueTypes.text,
         },
         code: {
-            type: crudEnums.valueTypes.text,
+            type: Enums.valueTypes.text,
         },
         image: {
             label: null,
             value: 'image.w_100',
-            type: crudEnums.valueTypes.image,
+            type: Enums.valueTypes.image,
         },
         is_active: {
-            type: crudEnums.valueTypes.boolean,
+            type: Enums.valueTypes.boolean,
         },
         is_main: {
-            type: crudEnums.valueTypes.boolean,
+            type: Enums.valueTypes.boolean,
         },
         created_at: {
-            type: crudEnums.valueTypes.text,
+            type: Enums.valueTypes.text,
         },
         updated_at: {
-            type: crudEnums.valueTypes.text,
+            type: Enums.valueTypes.text,
         },
     },
 
     form: {
         'Информация': {
             name: {
-                type: crudEnums.inputTypes.text,
+                type: Enums.inputTypes.text,
             },
             image: {
-                type: crudEnums.inputTypes.file,
+                type: Enums.inputTypes.file,
                 options: {
                     preview: 'w_500',
                     download: 'original',
                 },
-                size: crudEnums.inputSizes.xl,
+                size: Enums.inputSizes.xl,
             },
         },
     },

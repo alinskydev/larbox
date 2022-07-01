@@ -1,94 +1,59 @@
-import { Page } from '@/app/core/page';
-
-export class IndexPage extends Page {
+export class IndexConfig {
     model;
     http;
     actions;
     extraActions;
 
     constructor({
-        context,
-        title,
-        breadcrumbs,
-        hideBreadcrumbs,
-
         model,
         http,
         actions,
         extraActions,
     }) {
-        super({
-            context: context,
-            title: title,
-            breadcrumbs: breadcrumbs,
-            hideBreadcrumbs: hideBreadcrumbs,
-        });
-
         this.model = model;
         this.http = http;
-        this.actions = actions ?? [];
-        this.extraActions = extraActions ?? [];
+        this.actions = actions ?? ['show', 'update', 'delete', 'restore'];
+        this.extraActions = extraActions ?? {};
     }
 }
 
-export class ShowPage extends Page {
-    titleField;
+export class ShowConfig {
     model;
     http;
+    titleField;
 
     constructor({
-        context,
-        title,
-        breadcrumbs,
-        hideBreadcrumbs,
-
-        titleField,
         model,
         http,
+        titleField,
     }) {
-        super({
-            context: context,
-            title: title,
-            breadcrumbs: breadcrumbs,
-            hideBreadcrumbs: hideBreadcrumbs,
-        });
-
-        this.titleField = titleField;
         this.model = model;
         this.http = http;
+        this.titleField = titleField;
     }
 }
 
-export class CreatePage extends Page {
+export class CreateConfig {
     model;
     http;
+    method;
     redirectPath;
 
     beforeSubmit;
     afterSubmit;
 
     constructor({
-        context,
-        title,
-        breadcrumbs,
-        hideBreadcrumbs,
-
         model,
         http,
+        method,
         redirectPath,
 
         beforeSubmit,
         afterSubmit,
     }) {
-        super({
-            context: context,
-            title: title,
-            breadcrumbs: breadcrumbs,
-            hideBreadcrumbs: hideBreadcrumbs,
-        });
-
         this.model = model;
         this.http = http;
+        this.method = method ?? 'POST';
         this.redirectPath = redirectPath;
 
         this.beforeSubmit = beforeSubmit ?? function (context, form) { };
@@ -98,39 +63,30 @@ export class CreatePage extends Page {
     }
 }
 
-export class UpdatePage extends Page {
-    titleField;
+export class UpdateConfig {
     model;
     http;
+    method;
+    titleField;
     redirectPath;
 
     beforeSubmit;
     afterSubmit;
 
     constructor({
-        context,
-        title,
-        breadcrumbs,
-        hideBreadcrumbs,
-
-        titleField,
         model,
         http,
+        method,
+        titleField,
         redirectPath,
 
         beforeSubmit,
         afterSubmit,
     }) {
-        super({
-            context: context,
-            title: title,
-            breadcrumbs: breadcrumbs,
-            hideBreadcrumbs: hideBreadcrumbs,
-        });
-
-        this.titleField = titleField;
         this.model = model;
         this.http = http;
+        this.method = method ?? 'PATCH';
+        this.titleField = titleField;
         this.redirectPath = redirectPath;
 
         this.beforeSubmit = beforeSubmit ?? function (context, form) { };

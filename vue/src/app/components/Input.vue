@@ -1,5 +1,5 @@
 <script setup>
-import * as crudEnums from '@/app/core/crud/enums';
+import * as Enums from '@/app/core/enums';
 
 import Main from '@/app/components/input/layouts/Main.vue';
 
@@ -33,58 +33,58 @@ export default {
 </script>
 
 <template>
-    <Main v-if="item.type !== crudEnums.inputTypes.hidden
-    && item.type !== crudEnums.inputTypes.relations
-    && item.type !== crudEnums.inputTypes.component"
+    <Main v-if="item.type !== Enums.inputTypes.hidden
+    && item.type !== Enums.inputTypes.relations
+    && item.type !== Enums.inputTypes.component"
           :item="item"
           v-slot="main">
 
-        <template v-if="item.type === crudEnums.inputTypes.text">
+        <template v-if="item.type === Enums.inputTypes.text">
             <Text :item="item" v-bind="main.inputAttrs" />
         </template>
 
-        <template v-else-if="item.type === crudEnums.inputTypes.textarea">
+        <template v-else-if="item.type === Enums.inputTypes.textarea">
             <Textarea :item="item" v-bind="main.inputAttrs" />
         </template>
 
-        <template v-else-if="item.type === crudEnums.inputTypes.date">
+        <template v-else-if="item.type === Enums.inputTypes.date">
             <Date :item="item" v-bind="main.inputAttrs" />
         </template>
 
-        <template v-else-if="item.type === crudEnums.inputTypes.datetime">
+        <template v-else-if="item.type === Enums.inputTypes.datetime">
             <Datetime :item="item" v-bind="main.inputAttrs" />
         </template>
 
-        <template v-else-if="item.type === crudEnums.inputTypes.time">
+        <template v-else-if="item.type === Enums.inputTypes.time">
             <Time :item="item" v-bind="main.inputAttrs" />
         </template>
 
-        <template v-else-if="item.type === crudEnums.inputTypes.select">
+        <template v-else-if="item.type === Enums.inputTypes.select">
             <Select :item="item" v-bind="main.inputAttrs" />
         </template>
 
-        <template v-else-if="item.type === crudEnums.inputTypes.select2Ajax">
+        <template v-else-if="item.type === Enums.inputTypes.select2Ajax">
             <Select2Ajax :set="delete main.inputAttrs.value" :item="item" v-bind="main.inputAttrs" />
         </template>
 
-        <template v-else-if="item.type === crudEnums.inputTypes.switcher">
+        <template v-else-if="item.type === Enums.inputTypes.switcher">
             <Switcher :item="item" v-bind="main.inputAttrs" />
         </template>
 
-        <template v-else-if="item.type === crudEnums.inputTypes.file">
+        <template v-else-if="item.type === Enums.inputTypes.file">
             <File :set="delete main.inputAttrs.value" :item="item" v-bind="main.inputAttrs" />
         </template>
     </Main>
 
-    <template v-else-if="item.type === crudEnums.inputTypes.hidden">
+    <template v-else-if="item.type === Enums.inputTypes.hidden">
         <Hidden :item="item" />
     </template>
 
-    <template v-else-if="item.type === crudEnums.inputTypes.relations">
+    <template v-else-if="item.type === Enums.inputTypes.relations">
         <Relations :item="item" />
     </template>
 
-    <template v-else-if="item.type === crudEnums.inputTypes.component">
-        <ComponentResolver :resolve="item.options.resolve(booted.components.page, item)" />
+    <template v-else-if="item.type === Enums.inputTypes.component">
+        <ComponentResolver :resolve="item.options.resolve(booted.components.current, item)" />
     </template>
 </template>

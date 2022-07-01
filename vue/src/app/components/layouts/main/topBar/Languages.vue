@@ -5,32 +5,25 @@
 export default {
     data() {
         return {
-            items: [],
+            items: this.booted.languages.active,
         };
     },
-    beforeCreate() {
-        this.booted.components.languages = this;
-    },
-    beforeUpdate() {
-        let href = this.$route.href;
-        let routeLocale = this.$route.params.locale;
+    created() {
+        let href = this.$route.href,
+            routeLocale = this.$route.params.locale;
 
         if (routeLocale !== undefined) {
             href = href.replace('/' + routeLocale, '');
         }
 
-        let languages = this.booted.languages.active;
-
-        for (let key in languages) {
-            languages[key]['url'] = '/' + key + href;
+        for (let key in this.items) {
+            this.items[key]['url'] = '/' + key + href;
         }
-
-        this.items = languages;
     },
     methods: {
         changeLocale(url) {
             this.$router.push(url);
-            this.booted.components.app.$data.childKey++;
+            this.booted.components.app.childKey++;
         },
     },
 };

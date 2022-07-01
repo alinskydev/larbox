@@ -16,15 +16,13 @@ export default {
     },
     data() {
         return {
-            page: this.booted.components.page,
+            model: this.booted.components.current.config.model,
             itemGroups: {},
         };
     },
     created() {
-        let model = this.page.model;
-
         for (let key in this.item.value) {
-            this.itemGroups[key] = model.prepareValues(this, this.item.options.fields, this.item.value[key]);
+            this.itemGroups[key] = this.model.prepareValues(this, this.item.options.fields, this.item.value[key]);
         }
     },
 };

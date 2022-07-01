@@ -1,11 +1,11 @@
-import iteratorHelper from '@/app/helpers/iteratorHelper';
+import iteratorHelper from '@/app/core/helpers/iteratorHelper';
 
 export class LocalizationHelper {
     static locale;
     static messages = {};
 }
 
-export function __(sourceMessage, replacements = []) {
+export function __(sourceMessage, replacements = {}) {
     let locale = LocalizationHelper.locale;
     let message = iteratorHelper.get(LocalizationHelper.messages, locale + '->' + sourceMessage, '->');
 
@@ -13,8 +13,8 @@ export function __(sourceMessage, replacements = []) {
         return sourceMessage;
     }
 
-    for (let r in replacements) {
-        message = message.replace(':' + r, replacements[r]);
+    for (let key in replacements) {
+        message = message.replace(':' + key, replacements[key]);
     }
 
     return message;

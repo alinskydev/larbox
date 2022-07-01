@@ -1,5 +1,5 @@
 <script setup>
-import * as crudEnums from '@/app/core/crud/enums';
+import * as Enums from '@/app/core/enums';
 
 import Error from './_Error.vue';
 </script>
@@ -15,6 +15,7 @@ export default {
     data() {
         return {
             inputAttrs: {},
+            extraAttrs: typeof this.item.attributes === 'function' ? this.item.attributes(this) : this.item.attributes,
         };
     },
     created() {
@@ -45,7 +46,7 @@ export default {
         <template v-if="item.options.isLocalized">
             <div class="row">
                 <template v-for="(language, key, index) in booted.languages.active">
-                    <div :class="'input-wrapper form-group ' + (item.options.size ?? crudEnums.inputSizes.md)">
+                    <div :class="'input-wrapper form-group ' + (item.options.size ?? Enums.inputSizes.md)">
                         <label v-if="item.label" :for="inputAttrs['id'].replace(':locale', language.code)">
                             {{ item.label }}
                         </label>
@@ -60,7 +61,7 @@ export default {
                                 'id': inputAttrs['id'].replace(':locale', language.code),
                                 'class': inputAttrs['class'],
                             },
-                            ...item.attributes,
+                            ...extraAttrs,
                         }"></slot>
 
                         <Error />
@@ -77,7 +78,7 @@ export default {
 
                 <slot :inputAttrs="{
                     ...inputAttrs,
-                    ...item.attributes,
+                    ...extraAttrs,
                 }"></slot>
 
                 <Error />

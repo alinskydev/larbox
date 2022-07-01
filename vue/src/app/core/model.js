@@ -1,4 +1,4 @@
-import * as crudEnums from '@/app/core/crud/enums';
+import * as Enums from '@/app/core/enums';
 
 export class Model {
     hasSoftDelete;
@@ -85,7 +85,7 @@ export class Model {
                 value: value,
                 type: field.type,
                 options: field.options ?? {},
-                size: field.size ?? crudEnums.inputSizes.sm,
+                size: field.size ?? Enums.inputSizes.sm,
                 attributes: field.attributes ?? {},
             };
         }
@@ -122,7 +122,7 @@ export class Model {
                     ...options,
                     ...{ initValue: initValue },
                 },
-                size: field.size ?? crudEnums.inputSizes.lg,
+                size: field.size ?? Enums.inputSizes.lg,
                 attributes: field.attributes ?? {},
             };
         }

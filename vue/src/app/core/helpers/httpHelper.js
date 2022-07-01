@@ -1,23 +1,16 @@
+import _ from 'lodash';
+
 export default {
     send(context, options = {}) {
-        let headers = {
-            ...context.booted.config.http.headers,
-            ...(options.headers ?? {}),
-        };
-
-        let requestOptions = {
-            ...options,
-            ...{
-                headers: headers,
-            },
-        };
-
-        let url = new URL(context.booted.config.http.url);
-        url.pathname += '/' + options.path;
+        let url = new URL(context.booted.config.http.url + '/' + options.path);
 
         for (let key in options.query) {
             url.searchParams.append(key, options.query[key]);
         }
+
+        let requestOptions = _.merge({
+            headers: context.booted.config.http.headers,
+        }, options);
 
         return fetch(url, requestOptions)
             .then((response) => {

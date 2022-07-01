@@ -1,5 +1,6 @@
 <script setup>
-import { IndexPage } from '@/app/core/crud/page';
+import { Page } from '@/app/core/page';
+import { IndexConfig } from '@/app/core/crud/config';
 import model from '@/modules/user/models/user';
 
 import PageTitle from '@/app/components/blocks/PageTitle.vue';
@@ -10,21 +11,24 @@ import Index from '@/app/components/crud/Index.vue';
 <script>
 export default {
     data() {
-        return new IndexPage({
-            context: this,
-            title: this.__('Пользователи'),
-            model: model,
-            http: {
-                path: 'user/user',
-            },
-            actions: ['show', 'update', 'delete', 'restore'],
-        });
+        return {
+            page: new Page({
+                context: this,
+                title: this.__('Пользователи'),
+            }),
+            config: new IndexConfig({
+                model: model,
+                http: {
+                    path: 'user/user',
+                },
+            }),
+        };
     },
 };
 </script>
 
 <template>
-    <PageTitle :text="title">
+    <PageTitle :text="page.title">
         <RouterLink to="user/user/create" class="btn btn-success">
             {{ __('Создать') }}
         </RouterLink>

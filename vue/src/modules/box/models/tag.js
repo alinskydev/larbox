@@ -1,5 +1,5 @@
-import { Model } from '@/app/core/crud/model';
-import * as crudEnums from '@/app/core/crud/enums';
+import { Model } from '@/app/core/model';
+import * as Enums from '@/app/core/enums';
 
 import Custom from '@/modules/box/components/Custom.vue';
 
@@ -8,28 +8,28 @@ export default new Model({
 
     list: {
         id: {
-            type: crudEnums.valueTypes.text,
+            type: Enums.valueTypes.text,
         },
         name: {
-            type: crudEnums.valueTypes.text,
+            type: Enums.valueTypes.text,
         },
         created_at: {
-            type: crudEnums.valueTypes.text,
+            type: Enums.valueTypes.text,
         },
         updated_at: {
-            type: crudEnums.valueTypes.text,
+            type: Enums.valueTypes.text,
         },
     },
 
     filters: {
         id: {
-            type: crudEnums.inputTypes.text,
+            type: Enums.inputTypes.text,
             attributes: {
                 'type': 'number',
             },
         },
         name: {
-            type: crudEnums.inputTypes.text,
+            type: Enums.inputTypes.text,
         },
     },
 
@@ -40,20 +40,20 @@ export default new Model({
 
     show: {
         id: {
-            type: crudEnums.valueTypes.text,
+            type: Enums.valueTypes.text,
         },
         name: {
-            type: crudEnums.valueTypes.text,
+            type: Enums.valueTypes.text,
         },
         created_at: {
-            type: crudEnums.valueTypes.text,
+            type: Enums.valueTypes.text,
         },
         updated_at: {
-            type: crudEnums.valueTypes.text,
+            type: Enums.valueTypes.text,
         },
         built_in_component: {
             label: null,
-            type: crudEnums.valueTypes.component,
+            type: Enums.valueTypes.component,
             options: {
                 resolve: (context, item) => {
                     return {
@@ -70,7 +70,7 @@ export default new Model({
         },
         custom_component: {
             label: null,
-            type: crudEnums.valueTypes.component,
+            type: Enums.valueTypes.component,
             options: {
                 resolve: (context, item) => {
                     return {
@@ -89,13 +89,13 @@ export default new Model({
     form: {
         'Информация': {
             name: {
-                type: crudEnums.inputTypes.text,
+                type: Enums.inputTypes.text,
             },
         },
         'Компоненты': {
             built_in_component: {
                 label: null,
-                type: crudEnums.inputTypes.component,
+                type: Enums.inputTypes.component,
                 options: {
                     resolve: (context, item) => {
                         return {
@@ -111,7 +111,7 @@ export default new Model({
                 },
             },
             custom_component: {
-                type: crudEnums.inputTypes.component,
+                type: Enums.inputTypes.component,
                 options: {
                     resolve: (context, item) => {
                         return {

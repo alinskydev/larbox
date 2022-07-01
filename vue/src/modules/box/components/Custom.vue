@@ -10,7 +10,7 @@ export default {
 </script>
 
 <template>
-    <h3 class="w-100 text-success">
+    <h3 class="w-100 text-success m-0">
         {{ text }}
     </h3>
 </template>
