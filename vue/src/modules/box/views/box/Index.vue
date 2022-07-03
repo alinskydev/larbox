@@ -25,6 +25,7 @@ export default {
                         'with[1]': 'tags',
                     },
                 },
+                hasSoftDelete: true,
             }),
         };
     },

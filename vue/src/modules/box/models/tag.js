@@ -4,8 +4,6 @@ import * as Enums from '@/app/core/enums';
 import Custom from '@/modules/box/components/Custom.vue';
 
 export default new Model({
-    hasSoftDelete: true,
-
     list: {
         id: {
             type: Enums.valueTypes.text,

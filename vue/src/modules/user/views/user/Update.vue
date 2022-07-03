@@ -33,10 +33,7 @@ export default {
                     toastr.success(context.__('Запись успешно сохранена'));
 
                     if (this.$route.params.id == this.booted.user.id) {
-                        if (form.new_password) {
-                            this.booted.helpers.user.login(this, form.username, form.new_password);
-                        }
-
+                        this.booted.helpers.user.login(this, form.username, form.new_password);
                         context.booted.components.app.childKey++;
                     }
                 },

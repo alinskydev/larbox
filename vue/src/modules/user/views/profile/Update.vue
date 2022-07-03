@@ -15,12 +15,6 @@ export default {
             page: new Page({
                 context: this,
                 title: this.__('Профиль'),
-                breadcrumbs: [
-                    {
-                        label: this.__('Boxes'),
-                        path: 'box/box',
-                    },
-                ],
             }),
             config: new UpdateConfig({
                 model: model,
@@ -31,10 +25,7 @@ export default {
                 afterSubmit: (context, form, responseBody) => {
                     toastr.success(context.__('Профиль успешно сохранён'));
 
-                    if (form.new_password) {
-                        this.booted.helpers.user.login(this, form.username, form.new_password);
-                    }
-
+                    this.booted.helpers.user.login(this, form.username, form.new_password);
                     context.booted.components.app.childKey++;
                 },
             }),

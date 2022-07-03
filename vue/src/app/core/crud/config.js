@@ -3,17 +3,20 @@ export class IndexConfig {
     http;
     actions;
     extraActions;
+    hasSoftDelete;
 
     constructor({
         model,
         http,
         actions,
         extraActions,
+        hasSoftDelete,
     }) {
         this.model = model;
         this.http = http;
         this.actions = actions ?? ['show', 'update', 'delete', 'restore'];
         this.extraActions = extraActions ?? {};
+        this.hasSoftDelete = hasSoftDelete ?? false;
     }
 }
 

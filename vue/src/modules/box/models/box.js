@@ -2,8 +2,6 @@ import { Model } from '@/app/core/model';
 import * as Enums from '@/app/core/enums';
 
 export default new Model({
-    hasSoftDelete: true,
-
     list: {
         image: {
             label: null,

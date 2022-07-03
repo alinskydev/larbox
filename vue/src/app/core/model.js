@@ -1,7 +1,6 @@
 import * as Enums from '@/app/core/enums';
 
 export class Model {
-    hasSoftDelete;
     list;
     filters;
     sortings;
@@ -9,14 +8,12 @@ export class Model {
     form;
 
     constructor({
-        hasSoftDelete,
         list,
         filters,
         sortings,
         show,
         form,
     }) {
-        this.hasSoftDelete = hasSoftDelete ?? false;
         this.list = list ?? {};
         this.filters = filters ?? {};
         this.sortings = sortings ?? [];

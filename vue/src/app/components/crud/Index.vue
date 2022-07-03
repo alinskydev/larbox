@@ -11,6 +11,7 @@ import Grid from './index/Grid.vue';
 export default {
     data() {
         return {
+            config: this.booted.components.current.config,
             model: this.booted.components.current.config.model,
             items: {},
             dataKey: 0,
@@ -105,7 +106,7 @@ export default {
                         </template>
 
                         <Sort v-if="model.sortings" :sortings="model.sortings" />
-                        <SoftDelete v-if="model.hasSoftDelete" />
+                        <SoftDelete v-if="config.hasSoftDelete" />
                     </div>
                 </div>
 

@@ -38,6 +38,7 @@ export default {
                         },
                     },
                 },
+                hasSoftDelete: true,
             }),
         };
     },

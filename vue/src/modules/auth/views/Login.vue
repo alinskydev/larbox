@@ -17,7 +17,7 @@ export default {
         };
     },
     created() {
-        if (this.booted.config.http.headers['Authorization']) {
+        if (localStorage.getItem('auth_username')) {
             this.booted.helpers.http.send(this, {
                 method: 'GET',
                 path: 'user/profile',
