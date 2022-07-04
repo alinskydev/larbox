@@ -59,8 +59,8 @@ export class CreateConfig {
         this.method = method ?? 'POST';
         this.redirectPath = redirectPath;
 
-        this.beforeSubmit = beforeSubmit ?? function (context, form) { };
-        this.afterSubmit = afterSubmit ?? function (context, form, responseBody) {
+        this.beforeSubmit = beforeSubmit ?? function (context, formData) { };
+        this.afterSubmit = afterSubmit ?? function (context, formData, responsey) {
             toastr.success(context.__('Запись успешно сохранена'));
         };
     }
@@ -92,8 +92,8 @@ export class UpdateConfig {
         this.titleField = titleField;
         this.redirectPath = redirectPath;
 
-        this.beforeSubmit = beforeSubmit ?? function (context, form) { };
-        this.afterSubmit = afterSubmit ?? function (context, form, responseBody) {
+        this.beforeSubmit = beforeSubmit ?? function (context, formData) { };
+        this.afterSubmit = afterSubmit ?? function (context, formData, response) {
             toastr.success(context.__('Запись успешно сохранена'));
         };
     }

@@ -4,8 +4,8 @@ import { UpdateConfig } from '@/app/core/crud/config';
 import model from '@/modules/box/models/tag';
 
 import PageTitle from '@/app/components/blocks/PageTitle.vue';
-import Buttons from '@/app/components/crud/form/_Buttons.vue';
-import Item from '@/app/components/crud/http/Item.vue';
+import Buttons from '@/app/components/crud/form/particles/Buttons.vue';
+import Update from '@/app/components/crud/Update.vue';
 </script>
 
 <script>
@@ -40,5 +40,5 @@ export default {
         <Buttons />
     </PageTitle>
 
-    <Item child="form" />
+    <Update />
 </template>

@@ -2,8 +2,8 @@
 import { pickBy } from 'lodash';
 
 import Input from '@/app/components/Input.vue';
-import Sort from './index/_Sort.vue';
-import SoftDelete from './index/_SoftDelete.vue';
+import Sort from './index/particles/Sort.vue';
+import SoftDelete from './index/particles/SoftDelete.vue';
 import Grid from './index/Grid.vue';
 </script>
 
@@ -13,11 +13,13 @@ export default {
         return {
             config: this.booted.components.current.config,
             model: this.booted.components.current.config.model,
+            filterId: 'el-' + this.booted.helpers.string.uniqueId(),
             items: {},
             dataKey: 0,
         };
     },
     created() {
+
         // Page init
 
         this.booted.components.current.page.init();
@@ -88,7 +90,7 @@ export default {
         <div class="card-header d-flex align-items-center justify-content-between"
              role="button"
              data-toggle="collapse"
-             data-target="#filter">
+             :data-target="'#' + filterId">
 
             <h3 class="card-title w-100">
                 {{ __('Фильтр') }}
@@ -97,7 +99,7 @@ export default {
             <i class="fas fa-angle-down"></i>
         </div>
 
-        <div id="filter" class="collapse show">
+        <div :id="filterId" class="collapse show">
             <form @submit.prevent="submit" @reset.prevent="reset">
                 <div class="card-body">
                     <div class="row">
@@ -105,7 +107,7 @@ export default {
                             <Input :item="item" />
                         </template>
 
-                        <Sort v-if="model.sortings" :sortings="model.sortings" />
+                        <Sort v-if="model.sortings.length > 0" :fields="model.sortings" />
                         <SoftDelete v-if="config.hasSoftDelete" />
                     </div>
                 </div>

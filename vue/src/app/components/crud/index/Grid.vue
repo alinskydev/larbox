@@ -2,8 +2,8 @@
 import * as Enums from '@/app/core/enums';
 
 import Value from '@/app/components/Value.vue';
-import Actions from './_Actions.vue';
-import Pagination from './_Pagination.vue';
+import Actions from './particles/Actions.vue';
+import Pagination from './particles/Pagination.vue';
 </script>
 
 <script>
@@ -18,15 +18,13 @@ export default {
         };
     },
     created() {
-        let query = {
-            ...(this.config.http.query ?? {}),
-            ...this.$route.query,
-        };
-
         this.booted.helpers.http.send(this, {
             method: 'GET',
             path: this.config.http.path,
-            query: query,
+            query: {
+                ...(this.config.http.query ?? {}),
+                ...this.$route.query,
+            },
         }).then((response) => {
             if (response.statusType === 'success') {
                 this.fields = this.model.prepareFields(this, this.model.list);
@@ -85,10 +83,7 @@ export default {
 
                                 <template v-if="config.actions.length > 0">
                                     <td style="width: 50px;">
-                                        <Actions :item="item"
-                                                 :http="config.http"
-                                                 :actions="config.actions"
-                                                 :extraActions="config.extraActions" />
+                                        <Actions :item="item" />
                                     </td>
                                 </template>
                             </tr>

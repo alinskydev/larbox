@@ -4,7 +4,7 @@ import { ShowConfig } from '@/app/core/crud/config';
 import model from '@/modules/box/models/box';
 
 import PageTitle from '@/app/components/blocks/PageTitle.vue';
-import Item from '@/app/components/crud/http/Item.vue';
+import Show from '@/app/components/crud/Show.vue';
 </script>
 
 <script>
@@ -40,5 +40,5 @@ export default {
 
 <template>
     <PageTitle :text="page.title" />
-    <Item child="show" />
+    <Show />
 </template>

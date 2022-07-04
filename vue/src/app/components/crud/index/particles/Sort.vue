@@ -7,7 +7,7 @@ import Input from '@/app/components/Input.vue';
 <script>
 export default {
     props: {
-        sortings: {
+        fields: {
             type: Array,
             required: true,
         },
@@ -18,16 +18,13 @@ export default {
         };
     },
     created() {
-        let options = {
-            items: {},
-            withPrompt: true,
-        };
+        let items = {};
 
-        for (let key in this.sortings) {
-            let field = this.sortings[key];
+        for (let key in this.fields) {
+            let field = this.fields[key];
 
-            options.items[field] = this.__('fields->' + field) + ' ↑';
-            options.items['-' + field] = this.__('fields->' + field) + ' ↓';
+            items[field] = this.__('fields->' + field) + ' ↑';
+            items['-' + field] = this.__('fields->' + field) + ' ↓';
         }
 
         this.item = {
@@ -35,7 +32,10 @@ export default {
             name: 'sort',
             value: this.$route.query.sort,
             type: Enums.inputTypes.select,
-            options: options,
+            options: {
+                items: items,
+                withPrompt: true,
+            },
             size: Enums.inputSizes.sm,
         };
     },

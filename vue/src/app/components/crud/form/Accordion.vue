@@ -17,14 +17,9 @@ export default {
     },
     methods: {
         submit(event) {
-            let formData = new FormData(event.target),
-                serializedForm = {};
+            let formData = new FormData(event.target);
 
-            formData.forEach((value, key) => {
-                serializedForm[key] = value;
-            });
-
-            this.config.beforeSubmit(this, serializedForm);
+            this.config.beforeSubmit(this, formData);
 
             this.booted.helpers.http.send(this, {
                 method: 'POST',
@@ -35,7 +30,7 @@ export default {
                 body: formData,
             }).then((response) => {
                 if (response.statusType === 'success') {
-                    this.config.afterSubmit(this, serializedForm, response.data);
+                    this.config.afterSubmit(this, formData, response);
 
                     this.$router.push({
                         path: '/' + this.booted.locale + '/' + this.config.redirectPath,
@@ -49,16 +44,16 @@ export default {
 
 <template>
     <form @submit.prevent="submit" id="crud-form">
-        <div v-for="(items, itemGroupKey) in itemGroups" class="card card-primary mb-3">
+        <div v-for="(items, key) in itemGroups" class="card card-primary mb-3">
             <div class="card-header">
                 <h3 class="card-title">
-                    {{ __(itemGroupKey) }}
+                    {{ __(key) }}
                 </h3>
             </div>
 
             <div class="card-body">
                 <div class="row">
-                    <template v-for="(item, itemKey) in items">
+                    <template v-for="item in items">
                         <Input :item="item" />
                     </template>
                 </div>

@@ -1,19 +1,9 @@
 <script setup>
-import ShowGrid from '@/app/components/crud/show/Grid.vue';
-import FormAccordion from '@/app/components/crud/form/Accordion.vue';
+import Grid from '@/app/components/crud/show/Grid.vue';
 </script>
 
 <script>
 export default {
-    props: {
-        child: {
-            type: String,
-            required: true,
-            validator(value) {
-                return ['show', 'form'].includes(value);
-            },
-        },
-    },
     data() {
         return {
             page: this.booted.components.current.page,
@@ -47,16 +37,7 @@ export default {
 
                 // Collecting items
 
-                switch (this.child) {
-                    case 'show':
-                        this.items = this.model.prepareValues(this, this.model.show, response.data);
-                        break;
-                    case 'form':
-                        for (let key in this.model.form) {
-                            this.items[key] = this.model.prepareInputs(this, this.model.form[key], response.data);
-                        }
-                        break;
-                }
+                this.items = this.model.prepareValues(this, this.model.show, response.data);
             } else {
                 this.$router.back();
             }
@@ -66,6 +47,5 @@ export default {
 </script>
 
 <template>
-    <ShowGrid v-if="child === 'show'" :items="items" />
-    <FormAccordion v-else-if="child === 'form'" :itemGroups="items" />
+    <Grid :items="items" />
 </template>

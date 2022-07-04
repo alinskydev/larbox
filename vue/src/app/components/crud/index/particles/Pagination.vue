@@ -8,21 +8,17 @@ export default {
     },
     data() {
         return {
-            items: {},
+            items: this.meta.links.slice(1, this.meta.links.length - 1),
         };
-    },
-    created() {
-        this.items = this.meta.links.slice(1, this.meta.links.length - 1);
     },
     methods: {
         go(page) {
-            let query = this.$route.query;
-
-            query.page = page;
-
             this.$router.push({
                 path: this.$route.path,
-                query: query,
+                query: {
+                    ...this.$route.query,
+                    ...{ page: page },
+                },
             }).then(() => {
                 this.$parent.$parent.$data.dataKey++;
             });

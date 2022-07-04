@@ -1,24 +1,52 @@
 import * as Enums from '@/app/core/enums';
 
 export class Model {
-    list;
-    filters;
-    sortings;
-    show;
-    form;
+    list: Record<string, any>;
+    filters: Record<string, any>;
+    sortings: Array<string>;
+    show: Record<string, any>;
+    form: Record<string, any>;
 
-    constructor({
-        list,
-        filters,
-        sortings,
-        show,
-        form,
-    }) {
-        this.list = list ?? {};
-        this.filters = filters ?? {};
-        this.sortings = sortings ?? [];
-        this.show = show ?? {};
-        this.form = form ?? {};
+    constructor(
+        config: {
+            list: Record<string, {
+                label: any,
+                value: any,
+                type: Enums.valueTypes,
+                options: Object,
+                attributes: Object,
+            }>,
+            filters: Record<string, {
+                label: any,
+                value: any,
+                type: Enums.inputTypes,
+                options: Object,
+                attributes: Object,
+                size: Enums.inputSizes,
+            }>,
+            sortings: Array<string>,
+            show: Record<string, {
+                label: any,
+                value: any,
+                type: Enums.valueTypes,
+                options: Object,
+                attributes: Object,
+            }>,
+            form: Record<string, {
+                label: any,
+                value: any,
+                type: Enums.inputTypes,
+                options: Object,
+                attributes: Object,
+                size: Enums.inputSizes,
+            }>,
+        },
+    ) {
+        this.list = config.list ?? {};
+        this.filters = config.filters ?? {};
+        this.sortings = config.sortings ?? [];
+        this.show = config.show ?? {};
+        this.form = config.form ?? {};
     }
 
     prepareFields(context, list) {
@@ -82,8 +110,8 @@ export class Model {
                 value: value,
                 type: field.type,
                 options: field.options ?? {},
-                size: field.size ?? Enums.inputSizes.sm,
                 attributes: field.attributes ?? {},
+                size: field.size ?? Enums.inputSizes.sm,
             };
         }
 
@@ -119,8 +147,8 @@ export class Model {
                     ...options,
                     ...{ initValue: initValue },
                 },
-                size: field.size ?? Enums.inputSizes.lg,
                 attributes: field.attributes ?? {},
+                size: field.size ?? Enums.inputSizes.lg,
             };
         }
 

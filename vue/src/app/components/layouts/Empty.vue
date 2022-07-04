@@ -1,6 +1,6 @@
 <script setup>
-import { RouterView } from "vue-router";
-import init from "./_init";
+import { RouterView } from 'vue-router';
+import init from './scripts/init';
 </script>
 
 <script>

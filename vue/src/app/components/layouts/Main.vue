@@ -1,9 +1,9 @@
 <script setup>
 import { RouterView } from 'vue-router';
-import init from './_init';
+import init from './scripts/init';
 
-import TopBar from './main/TopBar.vue';
-import SideBar from './main/SideBar.vue';
+import TopBar from './particles/main/TopBar.vue';
+import SideBar from './particles/main/SideBar.vue';
 </script>
 
 <script>

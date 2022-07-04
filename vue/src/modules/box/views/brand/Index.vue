@@ -29,12 +29,12 @@ export default {
                 extraActions: {
                     boxes: {
                         path: 'box/box?filter[brand_id]=:id',
-                        buttonOptions: {
-                            title: this.__('Boxes'),
-                            class: 'btn btn-info',
+                        linkAttributes: {
+                            'title': this.__('Boxes'),
+                            'class': 'btn btn-info',
                         },
-                        iconOptions: {
-                            class: 'fas fa-boxes',
+                        iconAttributes: {
+                            'class': 'fas fa-boxes',
                         },
                     },
                 },

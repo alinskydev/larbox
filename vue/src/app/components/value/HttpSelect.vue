@@ -26,7 +26,7 @@ export default {
     },
     methods: {
         send() {
-            let value = this.$el.value,
+            let value = $('#' + this.item.id).val(),
                 path = this.item.options.path
                     .replace(':id', this.id)
                     .replace(':value', value);
@@ -42,7 +42,7 @@ export default {
                         this.item.options.onSuccess(this, this.currentValue);
                     }
                 } else {
-                    this.$el.value = this.currentValue;
+                    $('#' + this.item.id).val(this.currentValue);
                 }
             });
         },

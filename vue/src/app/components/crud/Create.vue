@@ -1,5 +1,5 @@
 <script setup>
-import FormAccordion from '@/app/components/crud/form/Accordion.vue';
+import Accordion from '@/app/components/crud/form/Accordion.vue';
 </script>
 
 <script>
@@ -7,23 +7,24 @@ export default {
     data() {
         return {
             model: this.booted.components.current.config.model,
-            items: {},
+            itemGroups: {},
         };
     },
     created() {
+
         // Page init
 
         this.booted.components.current.page.init();
 
-        // Collecting items
+        // Collecting item groups
 
         for (let key in this.model.form) {
-            this.items[key] = this.model.prepareInputs(this, this.model.form[key]);
+            this.itemGroups[key] = this.model.prepareInputs(this, this.model.form[key]);
         }
     },
 };
 </script>
 
 <template>
-    <FormAccordion :itemGroups="items" />
+    <Accordion :itemGroups="itemGroups" />
 </template>

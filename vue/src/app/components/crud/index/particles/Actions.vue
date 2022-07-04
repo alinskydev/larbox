@@ -10,24 +10,18 @@ export default {
             type: Object,
             required: true,
         },
-        http: {
-            type: Object,
-            required: true,
-        },
-        actions: {
-            type: Array,
-            required: true,
-        },
-        extraActions: {
-            type: Object,
-        },
+    },
+    data() {
+        return {
+            config: this.booted.components.current.config,
+        };
     },
     methods: {
-        deleteAction(id) {
+        deleteAction() {
             if (confirm(this.__('Вы уверены?'))) {
                 this.booted.helpers.http.send(this, {
                     method: 'DELETE',
-                    path: this.http.path + '/' + id,
+                    path: this.config.http.path + '/' + this.item.id.value,
                 }).then((response) => {
                     if (response.statusType === 'success') {
                         this.item.is_deleted = true;
@@ -35,11 +29,11 @@ export default {
                 });
             }
         },
-        restoreAction(id) {
+        restoreAction() {
             if (confirm(this.__('Вы уверены?'))) {
                 this.booted.helpers.http.send(this, {
                     method: 'DELETE',
-                    path: this.http.path + '/' + id + '/restore',
+                    path: this.config.http.path + '/' + this.item.id.value + '/restore',
                 }).then((response) => {
                     if (response.statusType === 'success') {
                         this.item.is_deleted = false;
@@ -53,7 +47,7 @@ export default {
 
 <template>
     <div class="btn-group">
-        <template v-for="action in actions">
+        <template v-for="action in config.actions">
             <BaseRouterLink v-if="action === 'show'"
                             :title="__('Просмотреть')"
                             :to="$route.path + '/' + item.id.value + '/show'"
@@ -72,7 +66,7 @@ export default {
 
             <a v-else-if="action === 'delete' && !item.is_deleted"
                :title="__('Удалить')"
-               @click="deleteAction(item.id.value)"
+               @click="deleteAction"
                class="btn btn-danger">
 
                 <i class="fas fa-trash-alt"></i>
@@ -80,16 +74,16 @@ export default {
 
             <a v-else-if="action === 'restore' && item.is_deleted"
                :title="__('Восстановить')"
-               @click="restoreAction(item.id.value)"
+               @click="restoreAction"
                class="btn btn-success">
 
                 <i class="fas fa-trash-restore"></i>
             </a>
 
-            <template v-if="extraActions[action]">
-                <div :set="ea = extraActions[action]">
-                    <RouterLink :to="ea.path.replace(':id', item.id.value)" v-bind="ea.buttonOptions">
-                        <i v-bind="ea.iconOptions"></i>
+            <template v-if="config.extraActions[action]">
+                <div :set="ea = config.extraActions[action]">
+                    <RouterLink :to="ea.path.replace(':id', item.id.value)" v-bind="ea.linkAttributes">
+                        <i v-bind="ea.iconAttributes"></i>
                     </RouterLink>
                 </div>
             </template>

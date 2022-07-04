@@ -1,7 +1,7 @@
 <script setup>
 import * as Enums from '@/app/core/enums';
 
-import Error from './_Error.vue';
+import Error from '@/app/components/input/particles/Error.vue';
 </script>
 
 <script>
