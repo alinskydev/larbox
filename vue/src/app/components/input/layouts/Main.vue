@@ -1,6 +1,7 @@
 <script setup>
 import * as Enums from '@/app/core/enums';
 
+import Hint from '@/app/components/input/particles/Hint.vue';
 import Error from '@/app/components/input/particles/Error.vue';
 </script>
 
@@ -14,6 +15,7 @@ export default {
     },
     data() {
         return {
+            context: this,
             inputAttrs: {},
             extraAttrs: typeof this.item.attributes === 'function' ? this.item.attributes(this) : this.item.attributes,
         };
@@ -64,6 +66,7 @@ export default {
                             ...extraAttrs,
                         }"></slot>
 
+                        <Hint v-if="item.hint" :text="item.hint(context)" />
                         <Error />
                     </div>
                 </template>
@@ -81,6 +84,7 @@ export default {
                     ...extraAttrs,
                 }"></slot>
 
+                <Hint v-if="item.hint" :text="item.hint(context)" />
                 <Error />
             </div>
         </template>

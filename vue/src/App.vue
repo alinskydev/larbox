@@ -20,7 +20,7 @@ export default {
 
 <template>
     <div id="preloader" class="active">
-        <img class="animation__shake" src="/assets/dist/img/AdminLTELogo.png" />
+        <img class="animation__shake" src="/assets/custom/media/logo.png" />
     </div>
 
     <RouterView :key="childKey" />

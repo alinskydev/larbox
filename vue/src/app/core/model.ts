@@ -22,6 +22,7 @@ export class Model {
                 type: Enums.inputTypes,
                 options: Object,
                 attributes: Object,
+                hint: String,
                 size: Enums.inputSizes,
             }>,
             sortings: Array<string>,
@@ -38,6 +39,7 @@ export class Model {
                 type: Enums.inputTypes,
                 options: Object,
                 attributes: Object,
+                hint: String,
                 size: Enums.inputSizes,
             }>,
         },
@@ -111,6 +113,7 @@ export class Model {
                 type: field.type,
                 options: field.options ?? {},
                 attributes: field.attributes ?? {},
+                hint: field.hint,
                 size: field.size ?? Enums.inputSizes.sm,
             };
         }
@@ -148,6 +151,7 @@ export class Model {
                     ...{ initValue: initValue },
                 },
                 attributes: field.attributes ?? {},
+                hint: field.hint,
                 size: field.size ?? Enums.inputSizes.lg,
             };
         }
