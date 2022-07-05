@@ -82,7 +82,7 @@ export default {
                                 </template>
 
                                 <template v-if="config.actions.length > 0">
-                                    <td style="width: 50px;">
+                                    <td class="text-right" style="width: 50px;">
                                         <Actions :item="item" />
                                     </td>
                                 </template>

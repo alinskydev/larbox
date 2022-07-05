@@ -48,44 +48,48 @@ export default {
 <template>
     <div class="btn-group">
         <template v-for="action in config.actions">
-            <BaseRouterLink v-if="action === 'show'"
-                            :title="__('Просмотреть')"
-                            :to="$route.path + '/' + item.id.value + '/show'"
-                            class="btn btn-primary">
+            <template v-if="!item.is_deleted">
+                <BaseRouterLink v-if="action === 'show'"
+                                :title="__('Просмотреть')"
+                                :to="$route.path + '/' + item.id.value + '/show'"
+                                class="btn btn-primary">
 
-                <i class="fas fa-eye"></i>
-            </BaseRouterLink>
+                    <i class="fas fa-eye"></i>
+                </BaseRouterLink>
 
-            <BaseRouterLink v-else-if="action === 'update'"
-                            :title="__('Редактировать')"
-                            :to="$route.path + '/' + item.id.value + '/update'"
-                            class="btn btn-warning">
+                <BaseRouterLink v-else-if="action === 'update'"
+                                :title="__('Редактировать')"
+                                :to="$route.path + '/' + item.id.value + '/update'"
+                                class="btn btn-warning">
 
-                <i class="fas fa-edit"></i>
-            </BaseRouterLink>
+                    <i class="fas fa-edit"></i>
+                </BaseRouterLink>
 
-            <a v-else-if="action === 'delete' && !item.is_deleted"
-               :title="__('Удалить')"
-               @click="deleteAction"
-               class="btn btn-danger">
+                <a v-else-if="action === 'delete'"
+                   :title="__('Удалить')"
+                   @click="deleteAction"
+                   class="btn btn-danger">
 
-                <i class="fas fa-trash-alt"></i>
-            </a>
+                    <i class="fas fa-trash-alt"></i>
+                </a>
 
-            <a v-else-if="action === 'restore' && item.is_deleted"
-               :title="__('Восстановить')"
-               @click="restoreAction"
-               class="btn btn-success">
+                <template v-if="config.extraActions[action]">
+                    <div :set="ea = config.extraActions[action]">
+                        <RouterLink :to="ea.path.replace(':id', item.id.value)" v-bind="ea.linkAttributes">
+                            <i v-bind="ea.iconAttributes"></i>
+                        </RouterLink>
+                    </div>
+                </template>
+            </template>
 
-                <i class="fas fa-trash-restore"></i>
-            </a>
+            <template v-else>
+                <a v-if="action === 'restore'"
+                   :title="__('Восстановить')"
+                   @click="restoreAction"
+                   class="btn btn-success">
 
-            <template v-if="config.extraActions[action]">
-                <div :set="ea = config.extraActions[action]">
-                    <RouterLink :to="ea.path.replace(':id', item.id.value)" v-bind="ea.linkAttributes">
-                        <i v-bind="ea.iconAttributes"></i>
-                    </RouterLink>
-                </div>
+                    <i class="fas fa-trash-restore"></i>
+                </a>
             </template>
         </template>
     </div>
