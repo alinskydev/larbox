@@ -51,17 +51,23 @@ export default new Model({
     },
 
     filters: {
+        common: {
+            label: 'Общий поиск',
+            hint: (context) => {
+                let fields = ['name', 'code'];
+
+                return context.__('Поиск по полям: :fields', {
+                    fields: fields.map((value) => context.__('fields->' + value)).join(' | '),
+                });
+            },
+            type: Enums.inputTypes.text,
+            size: Enums.inputSizes.xl,
+        },
         id: {
             type: Enums.inputTypes.text,
             attributes: {
                 'type': 'number',
             },
-        },
-        name: {
-            type: Enums.inputTypes.text,
-        },
-        code: {
-            type: Enums.inputTypes.text,
         },
         is_active: {
             type: Enums.inputTypes.select,

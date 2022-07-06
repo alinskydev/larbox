@@ -15,7 +15,6 @@ export default {
     },
     data() {
         return {
-            context: this,
             inputAttrs: {},
             extraAttrs: typeof this.item.attributes === 'function' ? this.item.attributes(this) : this.item.attributes,
         };
@@ -66,7 +65,7 @@ export default {
                             ...extraAttrs,
                         }"></slot>
 
-                        <Hint v-if="item.hint" :text="item.hint(context)" />
+                        <Hint v-if="item.hint" :text="item.hint" />
                         <Error />
                     </div>
                 </template>
@@ -84,7 +83,7 @@ export default {
                     ...extraAttrs,
                 }"></slot>
 
-                <Hint v-if="item.hint" :text="item.hint(context)" />
+                <Hint v-if="item.hint" :text="item.hint" />
                 <Error />
             </div>
         </template>

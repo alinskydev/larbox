@@ -11,7 +11,7 @@ class BrandSearch extends Search
         'creator',
     ];
 
-    public array $filterable = [
+    public array $filters = [
         'id' => self::FILTER_TYPE_IN,
         'creator_id' => self::FILTER_TYPE_EQUAL,
         'name' => self::FILTER_TYPE_LIKE,
@@ -19,7 +19,7 @@ class BrandSearch extends Search
         'is_active' => self::FILTER_TYPE_EQUAL,
     ];
 
-    public array $sortable = [
+    public array $sortings = [
         'id' => self::SORT_TYPE_SIMPLE,
         'name' => self::SORT_TYPE_SIMPLE,
     ];

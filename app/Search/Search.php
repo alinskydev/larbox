@@ -5,23 +5,29 @@ namespace App\Search;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 
 class Search
 {
     const FILTER_TYPE_EQUAL = 'filterTypeEqual';
+    const FILTER_TYPE_EQUAL_INSENSITIVE = 'filterTypeEqualInsensitive';
     const FILTER_TYPE_LIKE = 'filterTypeLike';
     const FILTER_TYPE_IN = 'filterTypeIn';
     const FILTER_TYPE_DATE = 'filterTypeDate';
     const FILTER_TYPE_DATETIME = 'filterTypeDatetime';
     const FILTER_TYPE_LOCALIZED = 'filterTypeLocalized';
 
+    const COMBINED_TYPE_AND = 'where';
+    const COMBINED_TYPE_OR = 'orWhere';
+
     const SORT_TYPE_SIMPLE = 'sortTypeSimple';
     const SORT_TYPE_LOCALIZED = 'sortTypeLocalized';
 
     public Builder $queryBuilder;
     public array $relations = [];
-    public array $filterable = [];
-    public array $sortable = [];
+    public array $filters = [];
+    public array $combinedFilters = [];
+    public array $sortings = [];
 
     public int $pageSize = 50;
 
@@ -41,10 +47,12 @@ class Search
         return $this;
     }
 
-    public function filter(array $params): self
+    public function filter(array $params, string $combinedType, ?Builder $query = null): self
     {
+        $query = $query ?? $this->queryBuilder;
+
         foreach ($params as $param => $value) {
-            $type = $this->filterable[$param] ?? null;
+            $type = $this->filters[$param] ?? null;
 
             if (!$type) continue;
 
@@ -53,21 +61,55 @@ class Search
             $value = is_array($value) ? Arr::flatten($value) : $value;
 
             if (count($param) == 1) {
-                $this->applyFilters($this->queryBuilder, $param[0], $type, $value);
+                $this->applyFilters(
+                    query: $query,
+                    param: $param[0],
+                    type: $type,
+                    value: $value,
+                    combinedType: $combinedType,
+                );
             } else {
                 $lastParam = array_pop($param);
 
-                $this->queryBuilder->whereHas(implode('.', $param), function ($query) use ($lastParam, $type, $value) {
-                    $query->select('id');
-                    $this->applyFilters($query, $lastParam, $type, $value);
-                });
+                $query->{$combinedType . 'Has'}(
+                    implode('.', $param),
+                    function ($subQuery) use ($lastParam, $type, $value, $combinedType) {
+                        $subQuery->select('id');
+                        $this->applyFilters(
+                            query: $subQuery,
+                            param: $lastParam,
+                            type: $type,
+                            value: $value,
+                            combinedType: self::COMBINED_TYPE_AND,
+                        );
+                    }
+                );
             }
         }
 
         return $this;
     }
 
-    private function applyFilters(Builder &$query, string $param, string $type, mixed $value)
+    public function combinedFilter(array $params): self
+    {
+        foreach ($params as $param => $value) {
+            $options = $this->combinedFilters[$param] ?? null;
+
+            if (!$options) continue;
+
+            $fields = array_map(fn ($v) => $value, $options['fields']);
+
+            $this->filters += $options['fields'];
+
+            $this->queryBuilder->where(function ($query) use ($fields, $options) {
+                $this->filter($fields, $options['type'], $query);
+            });
+        }
+
+        return $this;
+    }
+
+    private function applyFilters(Builder &$query, string $param, string $type, mixed $value, string $combinedType)
     {
         if ($type != self::FILTER_TYPE_IN) {
             $value = is_array($value) ? implode('', $value) : $value;
@@ -75,23 +117,26 @@ class Search
 
         switch ($type) {
             case self::FILTER_TYPE_EQUAL:
-                $query->where($param, '=', $value);
+                $query->{$combinedType}($param, '=', $value);
+                break;
+            case self::FILTER_TYPE_EQUAL_INSENSITIVE:
+                $query->{$combinedType}(DB::raw("LOWER($param)"), '=', strtolower($value));
                 break;
             case self::FILTER_TYPE_LIKE:
-                $query->where($param, 'ILIKE', "%$value%");
+                $query->{$combinedType}($param, 'ILIKE', "%$value%");
                 break;
             case self::FILTER_TYPE_IN:
-                $query->whereIn($param, (array)$value);
+                $query->{$combinedType . 'In'}($param, (array)$value);
                 break;
             case self::FILTER_TYPE_DATE:
-                $query->where($param, '=', date('Y-m-d', strtotime($value)));
+                $query->{$combinedType}($param, '=', date('Y-m-d', strtotime($value)));
                 break;
             case self::FILTER_TYPE_DATETIME:
-                $query->where($param, '=', date('Y-m-d H:i:s', strtotime($value)));
+                $query->{$combinedType}($param, '=', date('Y-m-d H:i:s', strtotime($value)));
                 break;
             case self::FILTER_TYPE_LOCALIZED:
                 $locale = app()->getLocale();
-                $query->where("$param->$locale", 'ILIKE', "%$value%");
+                $query->{$combinedType}("$param->$locale", 'ILIKE', "%$value%");
                 break;
         }
     }
@@ -108,7 +153,7 @@ class Search
                 $sort_direction = 'ASC';
             }
 
-            $type = $this->sortable[$param] ?? null;
+            $type = $this->sortings[$param] ?? null;
 
             if (!$type) continue;
 

@@ -37,7 +37,8 @@ class ActiveController extends Controller
 
         $this->search->setQueryBuilder($this->model->query())
             ->join((array)$request->get('with'))
-            ->filter((array)$request->get('filter'))
+            ->filter((array)$request->get('filter'), Search::COMBINED_TYPE_AND)
+            ->combinedFilter((array)$request->get('filter'))
             ->sort((array)$request->get('sort', '-id'))
             ->show((array)$request->get('show'))
             ->setPageSize((int)$request->get('page-size'));

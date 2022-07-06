@@ -19,12 +19,9 @@ class IndexTest extends _TestCase
     {
         $this->requestQuery = [
             'filter' => [
+                'common' => 'admin',
                 'id' => '1',
-                'username' => 'admin',
-                'email' => 'admin',
                 'role' => 'admin',
-
-                'profile.full_name' => 'admin',
             ],
         ];
 

@@ -18,11 +18,11 @@ export class Model {
             }>,
             filters: Record<string, {
                 label: any,
+                hint: any,
                 value: any,
                 type: Enums.inputTypes,
                 options: Object,
                 attributes: Object,
-                hint: String,
                 size: Enums.inputSizes,
             }>,
             sortings: Array<string>,
@@ -35,11 +35,11 @@ export class Model {
             }>,
             form: Record<string, {
                 label: any,
+                hint: any,
                 value: any,
                 type: Enums.inputTypes,
                 options: Object,
                 attributes: Object,
-                hint: String,
                 size: Enums.inputSizes,
             }>,
         },
@@ -108,12 +108,12 @@ export class Model {
 
             result[key] = {
                 label: field.label !== undefined ? context.__(field.label) : context.__('fields->' + key),
+                hint: field.hint !== undefined ? field.hint(context) : null,
                 name: 'filter[' + name + ']',
                 value: value,
                 type: field.type,
                 options: field.options ?? {},
                 attributes: field.attributes ?? {},
-                hint: field.hint,
                 size: field.size ?? Enums.inputSizes.sm,
             };
         }
@@ -143,6 +143,7 @@ export class Model {
 
             result[key] = {
                 label: field.label !== undefined ? context.__(field.label) : context.__('fields->' + key),
+                hint: field.hint !== undefined ? field.hint(context) : null,
                 name: field.name ?? key,
                 value: value,
                 type: field.type,
@@ -151,7 +152,6 @@ export class Model {
                     ...{ initValue: initValue },
                 },
                 attributes: field.attributes ?? {},
-                hint: field.hint,
                 size: field.size ?? Enums.inputSizes.lg,
             };
         }

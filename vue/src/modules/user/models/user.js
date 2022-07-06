@@ -38,17 +38,23 @@ export default new Model({
     },
 
     filters: {
+        common: {
+            label: 'Общий поиск',
+            hint: (context) => {
+                let fields = ['username', 'email', 'profile.full_name', 'profile.phone'];
+
+                return context.__('Поиск по полям: :fields', {
+                    fields: fields.map((value) => context.__('fields->' + value)).join(' | '),
+                });
+            },
+            type: Enums.inputTypes.text,
+            size: Enums.inputSizes.xl,
+        },
         id: {
             type: Enums.inputTypes.text,
             attributes: {
                 'type': 'number',
             },
-        },
-        username: {
-            type: Enums.inputTypes.text,
-        },
-        email: {
-            type: Enums.inputTypes.text,
         },
         role: {
             type: Enums.inputTypes.select,
@@ -56,14 +62,6 @@ export default new Model({
                 items: (context) => context.booted.helpers.iterator.get(context.booted.enums.user.role, '*.label'),
                 withPrompt: true,
             },
-        },
-        full_name: {
-            name: 'profile.full_name',
-            type: Enums.inputTypes.text,
-        },
-        phone: {
-            name: 'profile.phone',
-            type: Enums.inputTypes.text,
         },
     },
 

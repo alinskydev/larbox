@@ -6,12 +6,12 @@ use App\Search\Search;
 
 class TagSearch extends Search
 {
-    public array $filterable = [
+    public array $filters = [
         'id' => self::FILTER_TYPE_IN,
         'name' => self::FILTER_TYPE_LIKE,
     ];
 
-    public array $sortable = [
+    public array $sortings = [
         'id' => self::SORT_TYPE_SIMPLE,
         'name' => self::SORT_TYPE_SIMPLE,
     ];
