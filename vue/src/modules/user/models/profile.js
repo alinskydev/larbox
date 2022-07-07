@@ -18,7 +18,7 @@ export default new Model({
             phone: {
                 name: 'profile[phone]',
                 value: 'profile.phone',
-                type: Enums.inputTypes.text,
+                type: Enums.inputTypes.phone,
             },
             image: {
                 name: 'profile[image]',

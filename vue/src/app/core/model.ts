@@ -33,7 +33,7 @@ export class Model {
                 options: Object,
                 attributes: Object,
             }>,
-            form: Record<string, {
+            form: Record<string, Record<string, {
                 label: any,
                 hint: any,
                 value: any,
@@ -41,7 +41,7 @@ export class Model {
                 options: Object,
                 attributes: Object,
                 size: Enums.inputSizes,
-            }>,
+            }>>,
         },
     ) {
         this.list = config.list ?? {};

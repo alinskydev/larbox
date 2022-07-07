@@ -28,6 +28,9 @@ export default {
                     path: 'user/user',
                 },
                 redirectPath: 'user/user',
+                beforeSubmit: function (context, formData) {
+                    console.log(formData);
+                },
             }),
         };
     },

@@ -26,7 +26,7 @@ class ProfileTest extends _TestCase
 
             'profile' => [
                 'full_name' => 'Administrator',
-                'phone' => 'Phone 1',
+                'phone' => '+998001234567',
                 'image' => UploadedFile::fake()->create('image.jpg', 100, 'image/jpeg'),
             ],
         ];
