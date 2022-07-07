@@ -145,16 +145,6 @@ export default new Model({
     },
 
     form: {
-        'fields->description': {
-            description: {
-                type: Enums.inputTypes.textEditor,
-                options: {
-                    isLocalized: true,
-                    size: Enums.inputSizes.xl,
-                },
-                size: Enums.inputSizes.xl,
-            },
-        },
         'Информация': {
             name: {
                 type: Enums.inputTypes.text,
@@ -214,6 +204,16 @@ export default new Model({
                     download: 'original',
                     deleteUrl: 'box/box/:id/delete-file/images_list/:index',
                     isMultiple: true,
+                },
+                size: Enums.inputSizes.xl,
+            },
+        },
+        'fields->description': {
+            description: {
+                type: Enums.inputTypes.textEditor,
+                options: {
+                    isLocalized: true,
+                    size: Enums.inputSizes.xl,
                 },
                 size: Enums.inputSizes.xl,
             },
