@@ -145,6 +145,16 @@ export default new Model({
     },
 
     form: {
+        'fields->description': {
+            description: {
+                type: Enums.inputTypes.textEditor,
+                options: {
+                    isLocalized: true,
+                    size: Enums.inputSizes.xl,
+                },
+                size: Enums.inputSizes.xl,
+            },
+        },
         'Информация': {
             name: {
                 type: Enums.inputTypes.text,

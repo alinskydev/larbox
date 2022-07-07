@@ -16,6 +16,7 @@ return new class extends Seeder
                     'en' => 'Box 1 en',
                 ]),
                 'slug' => 'box-1',
+                'description' => '[]',
                 'date' => date('Y-m-d'),
                 'datetime' => date('Y-m-d H:i:s'),
                 'image' => '/test_data/images/2.png',
@@ -41,6 +42,7 @@ return new class extends Seeder
                 'images_list' => json_encode([
                     '/test_data/images/1.png',
                 ]),
+                'description' => '[]',
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],

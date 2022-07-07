@@ -13,6 +13,7 @@ import Select2Ajax from '@/app/components/input/Select2Ajax.vue';
 import Switcher from '@/app/components/input/Switcher.vue';
 import Text from '@/app/components/input/Text.vue';
 import Textarea from '@/app/components/input/Textarea.vue';
+import TextEditor from '@/app/components/input/TextEditor.vue';
 import Time from '@/app/components/input/Time.vue';
 
 import Relations from '@/app/components/input/Relations.vue';
@@ -78,6 +79,10 @@ export default {
 
         <template v-else-if="item.type === Enums.inputTypes.phone">
             <Phone :item="item" v-bind="main.inputAttrs" />
+        </template>
+
+        <template v-else-if="item.type === Enums.inputTypes.textEditor">
+            <TextEditor :item="item" v-bind="main.inputAttrs" />
         </template>
     </Main>
 

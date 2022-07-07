@@ -12,8 +12,8 @@ export enum inputTypes {
     date, datetime, time,
     select, select2Ajax,
     switcher,
-    phone,
     file,
+    phone, textEditor,
     relations,
     component,
 }

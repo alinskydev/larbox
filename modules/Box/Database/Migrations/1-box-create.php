@@ -18,6 +18,7 @@ return new class extends Migration
             $table->bigInteger('brand_id')->unsigned()->index();
             $table->json('name');
             $table->string('slug')->unique();
+            $table->json('description')->default('[]');
             $table->date('date');
             $table->dateTime('datetime');
             $table->string('image')->nullable();

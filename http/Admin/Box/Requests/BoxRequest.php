@@ -51,6 +51,7 @@ class BoxRequest extends ActiveFormRequest
     {
         return [
             'name' => 'required|string|max:100',
+            'description' => 'nullable|string',
             'variations.*.name' => 'required|string|max:100',
         ];
     }

@@ -18,6 +18,7 @@ class Box extends Model
 
     protected $casts = [
         'name' => 'array',
+        'description' => 'array',
         'date' => AsDate::class,
         'datetime' => AsDatetime::class,
         'image' => AsImage::class . ':100|500',

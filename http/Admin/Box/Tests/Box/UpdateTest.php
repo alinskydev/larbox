@@ -19,6 +19,11 @@ class UpdateTest extends _TestCase
                 'uz' => 'Box 1 uz',
                 'en' => 'Box 1 en',
             ],
+            'description' => [
+                'ru' => 'Description 1 ru',
+                'uz' => 'Description 1 uz',
+                'en' => 'Description 1 en',
+            ],
             'date' => date('d.m.Y'),
             'datetime' => date('d.m.Y H:i'),
             'image' => UploadedFile::fake()->create('image.jpg', 100, 'image/jpeg'),

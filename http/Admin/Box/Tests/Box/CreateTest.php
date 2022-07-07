@@ -17,6 +17,11 @@ class CreateTest extends _TestCase
                 'uz' => 'Box 3 uz',
                 'en' => 'Box 3 en',
             ],
+            'description' => [
+                'ru' => 'Description 3 ru',
+                'uz' => 'Description 3 uz',
+                'en' => 'Description 3 en',
+            ],
             'date' => date('d.m.Y'),
             'datetime' => date('d.m.Y H:i'),
             'image' => UploadedFile::fake()->create('image.jpg', 100, 'image/jpeg'),
