@@ -10,15 +10,15 @@ Larbox is a starter kit based on [Laravel framework](https://laravel.com). It is
 
 **Downloading:** clone repository
 ```
-git clone https://github.com/alinskydev/larbox.git <your-project-name>
+git clone https://github.com/alinskydev/larbox.git {your-project-name}
 ```
-comment this line in <your-folder>/app/Providers/SingletonServiceProvider.php
+comment this line in {your-folder}/app/Providers/SingletonServiceProvider.php
 ```
 app('language');
 ```
 open your project folder
 ```
-cd <your-project-name>
+cd {your-project-name}
 ```
 install all required packages
 ```
@@ -34,7 +34,7 @@ composer install
 php artisan migrate:fresh --seed
 ```
 to import all migrations and fill DB with test data.
-...and finally uncomment this line in <your-folder>/app/Providers/SingletonServiceProvider.php
+...and finally uncomment this line in {your-folder}/app/Providers/SingletonServiceProvider.php
 ```
 app('language');
 ```
