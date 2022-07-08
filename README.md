@@ -34,7 +34,7 @@ to import all migrations and fill DB with test data.
 ## Folders structure
 
 Main folders you need:
-- **app** - contains Laravel core files and custom starter-kit's classes. Later custom data will be moved to **larbox** folder.
+- **app** - contains Laravel core files and custom starter-kit's classes.
 - **modules** - made for project modules. Each module can have it's own migrations, models, resources, etc.
 - **http** - working with HTTP requests. All folders inside are separated by application sections. Each section can have it's own controllers, requests, routes, feature tests, etc. If you want you can use custom model for admin and public parts using inheritance of model from **modules** folder.
 - **vue** - VueJS starter-kit for admin panel.
