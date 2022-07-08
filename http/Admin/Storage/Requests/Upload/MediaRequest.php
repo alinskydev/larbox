@@ -4,7 +4,7 @@ namespace Http\Admin\Storage\Requests\Upload;
 
 use App\Http\Requests\FormRequest;
 
-use App\Helpers\FormRequestHelper;
+use App\Helpers\Validation\FileValidationHelper;
 use App\Helpers\FileHelper;
 
 class MediaRequest extends FormRequest
@@ -14,7 +14,7 @@ class MediaRequest extends FormRequest
     public function rules()
     {
         return [
-            'file' => FormRequestHelper::mediaRules(),
+            'file' => FileValidationHelper::rules(FileValidationHelper::CONFIG_MEDIA),
         ];
     }
 

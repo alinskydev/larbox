@@ -4,7 +4,7 @@ namespace Http\Admin\System\Requests;
 
 use App\Http\Requests\FormRequest;
 
-use App\Helpers\FormRequestHelper;
+use App\Helpers\Validation\FileValidationHelper;
 use App\Helpers\FileHelper;
 
 class SettingsRequest extends FormRequest
@@ -14,8 +14,8 @@ class SettingsRequest extends FormRequest
         return [
             'admin_email' => 'sometimes|required|email',
             'delete_old_files' => 'sometimes|required|boolean',
-            'favicon' => FormRequestHelper::imageRules(),
-            'logo' => FormRequestHelper::imageRules(),
+            'favicon' => FileValidationHelper::rules(FileValidationHelper::CONFIG_IMAGE),
+            'logo' => FileValidationHelper::rules(FileValidationHelper::CONFIG_IMAGE),
             'project_name' => 'sometimes|required|string|max:100',
         ];
     }

@@ -2,11 +2,11 @@
 
 namespace Http\Admin\Box\Requests;
 
-use App\Helpers\FormRequestHelper;
 use App\Http\Requests\ActiveFormRequest;
 
 use Illuminate\Validation\Rule;
 use App\Rules\ExistsWithOldRule;
+use App\Helpers\Validation\FileValidationHelper;
 
 use Modules\Box\Models\Brand;
 use Modules\Box\Models\Tag;
@@ -33,9 +33,9 @@ class BoxRequest extends ActiveFormRequest
 
             'date' => 'required|date|date_format:' . LARBOX_FORMAT_DATE,
             'datetime' => 'required|date|date_format:' . LARBOX_FORMAT_DATETIME,
-            'image' => FormRequestHelper::imageRules(),
+            'image' => FileValidationHelper::rules(FileValidationHelper::CONFIG_IMAGE),
             'images_list' => 'array',
-            'images_list.*' => FormRequestHelper::imageRules(),
+            'images_list.*' => FileValidationHelper::rules(FileValidationHelper::CONFIG_IMAGE),
 
             'tags' => [
                 'array',

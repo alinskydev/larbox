@@ -5,7 +5,7 @@ namespace Http\Admin\Box\Requests;
 use App\Http\Requests\ActiveFormRequest;
 
 use Illuminate\Validation\Rule;
-use App\Helpers\FormRequestHelper;
+use App\Helpers\Validation\FileValidationHelper;
 
 class BrandRequest extends ActiveFormRequest
 {
@@ -19,9 +19,9 @@ class BrandRequest extends ActiveFormRequest
         return [
             'name' => 'required|string|max:100',
             'show_on_the_home_page' => 'required|boolean',
-            'file' => FormRequestHelper::fileRules(),
+            'file' => FileValidationHelper::rules(FileValidationHelper::CONFIG_ALL),
             'files_list' => 'array',
-            'files_list.*' => FormRequestHelper::fileRules(),
+            'files_list.*' => FileValidationHelper::rules(FileValidationHelper::CONFIG_ALL),
         ];
     }
 }

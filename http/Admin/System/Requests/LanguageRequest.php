@@ -3,7 +3,7 @@
 namespace Http\Admin\System\Requests;
 
 use App\Http\Requests\ActiveFormRequest;
-use App\Helpers\FormRequestHelper;
+use App\Helpers\Validation\FileValidationHelper;
 
 class LanguageRequest extends ActiveFormRequest
 {
@@ -15,7 +15,7 @@ class LanguageRequest extends ActiveFormRequest
     {
         return [
             'name' => 'required|string|max:100',
-            'image' => FormRequestHelper::imageRules(),
+            'image' => FileValidationHelper::rules(FileValidationHelper::CONFIG_IMAGE),
         ];
     }
 }

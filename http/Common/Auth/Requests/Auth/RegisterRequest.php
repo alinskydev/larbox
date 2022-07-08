@@ -6,7 +6,7 @@ use App\Http\Requests\ActiveFormRequest;
 use Modules\User\Models\User;
 
 use Illuminate\Validation\Rule;
-use App\Helpers\FormRequestHelper;
+use App\Helpers\Validation\FileValidationHelper;
 use Illuminate\Support\Facades\Hash;
 
 class RegisterRequest extends ActiveFormRequest
@@ -38,7 +38,7 @@ class RegisterRequest extends ActiveFormRequest
 
             'profile.full_name' => 'required|string|max:100',
             'profile.phone' => 'nullable|string|max:100',
-            'profile.image' => FormRequestHelper::imageRules(),
+            'profile.image' => FileValidationHelper::rules(FileValidationHelper::CONFIG_IMAGE),
         ];
     }
 
