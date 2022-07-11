@@ -14,6 +14,7 @@ class BoxSearch extends Search
         'id' => self::FILTER_TYPE_IN,
         'brand_id' => self::FILTER_TYPE_EQUAL,
         'name' => self::FILTER_TYPE_LOCALIZED,
+        'slug' => self::FILTER_TYPE_EQUAL,
         'date' => self::FILTER_TYPE_DATE,
         'datetime' => self::FILTER_TYPE_DATETIME,
 

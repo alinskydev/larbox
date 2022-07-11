@@ -55,6 +55,9 @@ export default new Model({
         name: {
             type: Enums.inputTypes.text,
         },
+        slug: {
+            type: Enums.inputTypes.text,
+        },
         date: {
             type: Enums.inputTypes.date,
         },
