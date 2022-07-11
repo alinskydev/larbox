@@ -5,13 +5,7 @@ export default [
         children: [
             {
                 path: 'settings',
-                component: () => import('@/app/components/decorators/Empty.vue'),
-                children: [
-                    {
-                        path: '',
-                        component: () => import('./views/settings/Update.vue'),
-                    },
-                ],
+                component: () => import('./views/settings/Update.vue'),
             },
             {
                 path: 'language',

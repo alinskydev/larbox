@@ -29,6 +29,21 @@ export default [
         ],
     },
     {
+        label: 'Страницы',
+        icon: 'fas fa-file-alt',
+        path: 'page',
+        children: [
+            {
+                label: 'Главная',
+                path: 'page/home',
+            },
+            {
+                label: 'Контакты',
+                path: 'page/contact',
+            },
+        ],
+    },
+    {
         label: 'Система',
         icon: 'fas fa-cogs',
         path: 'system',

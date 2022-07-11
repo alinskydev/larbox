@@ -8,7 +8,7 @@ use Illuminate\Support\Arr;
 
 class FormRequest extends BaseFormRequest
 {
-    protected array $uncleanedFields = [];
+    protected array $rawFields = [];
 
     protected string $fieldCleanType = 'purify';
 
@@ -22,7 +22,7 @@ class FormRequest extends BaseFormRequest
         return $attributes;
     }
 
-    public function classicRules()
+    public function nonLocalizedRules()
     {
         return [];
     }
@@ -44,7 +44,7 @@ class FormRequest extends BaseFormRequest
 
         $localizedRules = Arr::dot($localizedRules);
 
-        return array_merge($this->classicRules(), $localizedRules);
+        return array_merge($this->nonLocalizedRules(), $localizedRules);
     }
 
     protected function prepareForValidation()
@@ -54,20 +54,20 @@ class FormRequest extends BaseFormRequest
         $data = parent::validationData();
 
         if ($this->fieldCleanType != HtmlCleanHelper::TYPE_NONE) {
-            $uncleanedData = [];
+            $rawData = [];
 
-            foreach ($this->uncleanedFields as $field) {
-                $uncleanedData[$field] = Arr::get($data, $field);
+            foreach ($this->rawFields as $field) {
+                $rawData[$field] = Arr::get($data, $field);
             }
 
-            $uncleanedData = array_filter($uncleanedData);
+            $rawData = array_filter($rawData);
 
             $data = HtmlCleanHelper::process(
                 data: $data,
                 type: $this->fieldCleanType,
             );
 
-            $data = array_replace_recursive($data, $uncleanedData);
+            $data = array_replace_recursive($data, $rawData);
         }
 
         $this->merge($data);

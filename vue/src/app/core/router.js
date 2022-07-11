@@ -5,6 +5,7 @@ import Empty from '@/app/components/layouts/Empty.vue';
 
 import authRoutes from '@/modules/auth/routes';
 import boxRoutes from '@/modules/box/routes';
+import pageRoutes from '@/modules/page/routes';
 import systemRoutes from '@/modules/system/routes';
 import userRoutes from '@/modules/user/routes';
 
@@ -16,6 +17,7 @@ let mainLayout = [
 ];
 
 mainLayout = mainLayout.concat(boxRoutes);
+mainLayout = mainLayout.concat(pageRoutes);
 mainLayout = mainLayout.concat(systemRoutes);
 mainLayout = mainLayout.concat(userRoutes);
 

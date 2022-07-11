@@ -13,9 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('block_page', function (Blueprint $table) {
+        Schema::create('page', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
+            $table->json('blocks')->default('[]');
             $table->timestamp('updated_at');
         });
     }
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('block_page');
+        Schema::dropIfExists('page');
     }
 };

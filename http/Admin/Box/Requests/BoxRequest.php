@@ -18,7 +18,7 @@ class BoxRequest extends ActiveFormRequest
         'images_list',
     ];
 
-    public function classicRules()
+    public function nonLocalizedRules()
     {
         return [
             'brand_id' => [
