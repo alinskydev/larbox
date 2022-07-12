@@ -20,8 +20,6 @@ class SectionController extends Controller
         $this->model = Section::query()->where('name', $name)->firstOrFail();
         $this->config = SectionEnums::config($name);
 
-        // Binding FormRequest class
-
         app()->bind(ValidatesWhenResolved::class, $this->config['request']);
     }
 

@@ -12,11 +12,7 @@ class EnumsController extends Controller
     public function index()
     {
         $response = [
-            'section' => Arr::map(SectionEnums::config(), function ($value, $key) {
-                return [
-                    'label' => $value['label'],
-                ];
-            }),
+            'section' => Arr::map(SectionEnums::config(), fn ($value, $key) => ['label' => $value['label']]),
             'user' => [
                 'role' => UserEnums::roles(),
             ],
