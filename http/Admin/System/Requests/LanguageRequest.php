@@ -11,7 +11,7 @@ class LanguageRequest extends ActiveFormRequest
         'image',
     ];
 
-    public function rules()
+    public function nonLocalizedRules()
     {
         return [
             'name' => 'required|string|max:100',

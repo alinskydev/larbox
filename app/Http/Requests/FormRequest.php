@@ -4,6 +4,8 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest as BaseFormRequest;
 use App\Helpers\HtmlCleanHelper;
+use App\Helpers\FileHelper;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Arr;
 
 class FormRequest extends BaseFormRequest
@@ -71,5 +73,20 @@ class FormRequest extends BaseFormRequest
         }
 
         $this->merge($data);
+    }
+
+    protected function saveFiles(array $data, string $path = 'files'): array
+    {
+        $data = Arr::dot($data);
+
+        foreach ($data as &$value) {
+            if ($value instanceof UploadedFile) {
+                $value = FileHelper::upload($value, $path);
+            }
+        }
+
+        $data = Arr::undot($data);
+
+        return $data;
     }
 }

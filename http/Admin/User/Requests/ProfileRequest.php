@@ -24,7 +24,7 @@ class ProfileRequest extends ActiveFormRequest
         return parent::__construct();
     }
 
-    public function rules()
+    public function nonLocalizedRules()
     {
         return [
             'username' => [

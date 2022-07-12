@@ -15,7 +15,7 @@ class UserRequest extends ActiveFormRequest
         'profile.image',
     ];
 
-    public function rules()
+    public function nonLocalizedRules()
     {
         return [
             'username' => [

@@ -12,7 +12,6 @@ export default {
             items: [],
             fileInputOptions: {
                 initialPreviewAsData: true,
-                overwriteInitial: false,
                 showCaption: false,
                 showUpload: false,
                 showRemove: false,
@@ -20,6 +19,8 @@ export default {
                 showCancel: false,
                 showClose: false,
                 browseOnZoneClick: true,
+
+                overwriteInitial: this.item.options.override ?? false,
 
                 browseClass: 'btn btn-primary btn-block',
                 browseIcon: '<i class="fas fa-folder-open"></i>',

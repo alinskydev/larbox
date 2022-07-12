@@ -6,7 +6,7 @@ use App\Http\Requests\ActiveFormRequest;
 
 class TagRequest extends ActiveFormRequest
 {
-    public function rules()
+    public function nonLocalizedRules()
     {
         return [
             'name' => 'required|string|max:100',

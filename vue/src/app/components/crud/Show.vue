@@ -15,7 +15,9 @@ export default {
     created() {
         let http = this.config.http;
 
-        http.path = http.path.replace(':id', this.$route.params.id);
+        http.path = http.path
+            .replace(':id', this.$route.params.id)
+            .replace(':slug', this.$route.params.slug);
 
         this.booted.helpers.http.send(this, {
             method: 'GET',

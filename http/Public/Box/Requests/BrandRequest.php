@@ -14,7 +14,7 @@ class BrandRequest extends ActiveFormRequest
         'files_list',
     ];
 
-    public function rules()
+    public function nonLocalizedRules()
     {
         return [
             'name' => 'required|string|max:100',
