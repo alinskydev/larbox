@@ -37,7 +37,8 @@ Main folders you need:
 - **app** - contains Laravel core files and custom starter-kit's classes.
 - **modules** - made for project modules. Each module can have it's own migrations, models, resources, etc.
 - **http** - working with HTTP requests. All folders inside are separated by application sections. Each section can have it's own controllers, requests, routes, feature tests, etc. If you want you can use custom model for admin and public parts using inheritance of model from **modules** folder.
-- **vue** - VueJS starter-kit for admin panel. ***Attention:*** before using **npm run build** command, add ```type="module"``` for each **script** tag inside **index.html**.
+- **vue** - VueJS starter-kit for admin panel.
+***Attention:*** before using **npm run build** command, add ```type="module"``` for each ```<script ...>``` inside **index.html**.
 
 ***Advice:*** if you don't know how to start, take a look at **Box** module. It has a lot of useful examples... and do it in the same way ;)
 
