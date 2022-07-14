@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest as BaseFormRequest;
+use Modules\Seo\Traits\SeoMetaFormRequestTrait;
+
 use App\Helpers\HtmlCleanHelper;
 use App\Helpers\FileHelper;
 use Illuminate\Http\UploadedFile;
@@ -11,7 +13,6 @@ use Illuminate\Support\Arr;
 class FormRequest extends BaseFormRequest
 {
     protected array $rawFields = [];
-
     protected string $fieldCleanType = 'purify';
 
     public function attributes()
@@ -24,29 +25,34 @@ class FormRequest extends BaseFormRequest
         return $attributes;
     }
 
-    public function nonLocalizedRules()
+    protected function nonLocalizedRules()
     {
         return [];
     }
 
-    public function localizedRules()
+    protected function localizedRules()
     {
         return [];
     }
 
-    public function rules()
+    final public function rules(): array
     {
+        $rules = $this->nonLocalizedRules();
+
+        if (in_array(SeoMetaFormRequestTrait::class, class_uses_recursive($this))) {
+            $rules += $this->seoMetaRules();
+        }
+
         $languages = app('language')->active->toArray();
-
         $localizedRules = $this->localizedRules();
 
         foreach ($localizedRules as &$rule) {
             $rule = data_set($languages, '*', $rule);
         }
 
-        $localizedRules = Arr::dot($localizedRules);
+        $rules += Arr::dot($localizedRules);
 
-        return array_merge($this->nonLocalizedRules(), $localizedRules);
+        return $rules;
     }
 
     protected function prepareForValidation()

@@ -44,4 +44,6 @@ export default new Model({
             },
         },
     },
+
+    hasSeoMeta: true,
 });

@@ -2,7 +2,7 @@
 
 namespace Http\Admin\Box\Tests\Tag;
 
-use Illuminate\Http\UploadedFile;
+use App\Tests\Feature\Helpers\FormHelper;
 
 class CreateTest extends _TestCase
 {

@@ -1,8 +1,9 @@
 <?php
 
-namespace Modules\Section\Requests;
+namespace Http\Admin\Section\Requests;
 
 use Modules\Section\Base\FormRequest;
+
 use App\Helpers\Validation\FileValidationHelper;
 
 class LayoutRequest extends FormRequest

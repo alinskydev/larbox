@@ -3,12 +3,15 @@
 namespace Http\Admin\Box\Requests;
 
 use App\Http\Requests\ActiveFormRequest;
+use Modules\Seo\Traits\SeoMetaFormRequestTrait;
 
 use Illuminate\Validation\Rule;
 use App\Helpers\Validation\FileValidationHelper;
 
 class BrandRequest extends ActiveFormRequest
 {
+    use SeoMetaFormRequestTrait;
+
     protected array $ignoredModelUpdateFields = [
         'file',
         'files_list',

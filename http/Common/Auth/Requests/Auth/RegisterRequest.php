@@ -17,7 +17,7 @@ class RegisterRequest extends ActiveFormRequest
         return parent::__construct();
     }
 
-    public function rules()
+    public function nonLocalizedRules()
     {
         return [
             'username' => [
@@ -61,7 +61,7 @@ class RegisterRequest extends ActiveFormRequest
     public function messages()
     {
         return [
-            'username.regex' => __("Только латинские символы, цифры и ('_', '-')"),
+            'username.regex' => __("только латинские символы, цифры и (_-)"),
         ];
     }
 }

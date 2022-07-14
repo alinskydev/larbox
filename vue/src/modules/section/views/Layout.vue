@@ -16,7 +16,7 @@ export default {
             page: new Page({
                 context: this,
                 title: this.__('Секция: :name', {
-                    name: this.booted.enums.section.layout.label,
+                    name: this.__('Layout'),
                 }),
             }),
             config: new UpdateConfig({

@@ -9,7 +9,7 @@ use App\Helpers\FileHelper;
 
 class SettingsRequest extends FormRequest
 {
-    public function rules()
+    public function nonLocalizedRules()
     {
         return [
             'admin_email' => 'sometimes|required|email',

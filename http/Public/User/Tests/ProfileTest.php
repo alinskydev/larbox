@@ -2,7 +2,7 @@
 
 namespace Http\Public\User\Tests;
 
-use Illuminate\Http\UploadedFile;
+use App\Tests\Feature\Helpers\FormHelper;
 
 class ProfileTest extends _TestCase
 {
@@ -31,7 +31,7 @@ class ProfileTest extends _TestCase
             'profile' => [
                 'full_name' => 'Registered 1',
                 'phone' => '+44001234567',
-                'image' => UploadedFile::fake()->create('image.jpg', 100, 'image/jpeg'),
+                'image' => FormHelper::file(),
             ],
         ];
 

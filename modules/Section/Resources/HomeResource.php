@@ -11,7 +11,7 @@ class HomeResource extends JsonResource
     {
         switch ($this->name) {
             case 'welcome_image':
-                return ImageHelper::populateSizes($this->value, [500]);
+                return $this->value ? ImageHelper::populateSizes($this->value, [500]) : null;
             case 'images_list':
                 return array_map(fn ($value) => ImageHelper::populateSizes($value, [500]), $this->value);
             case 'slider':

@@ -3,16 +3,18 @@
 namespace Http\Admin\Box\Requests;
 
 use App\Http\Requests\ActiveFormRequest;
+use Modules\Seo\Traits\SeoMetaFormRequestTrait;
 
 use Illuminate\Validation\Rule;
 use App\Rules\ExistsWithOldRule;
 use App\Helpers\Validation\FileValidationHelper;
-
 use Modules\Box\Models\Brand;
 use Modules\Box\Models\Tag;
 
 class BoxRequest extends ActiveFormRequest
 {
+    use SeoMetaFormRequestTrait;
+
     protected array $ignoredModelUpdateFields = [
         'image',
         'images_list',

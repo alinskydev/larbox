@@ -24,8 +24,8 @@ class IndexTest extends _TestCase
                 'brand_id' => '1',
                 'name' => 'box',
                 'slug' => 'box-1',
-                'date' => date('d.m.Y'),
-                'datetime' => date('d.m.Y H:i'),
+                'date' => date(LARBOX_FORMAT_DATE),
+                'datetime' => date(LARBOX_FORMAT_DATETIME),
             ],
         ];
 

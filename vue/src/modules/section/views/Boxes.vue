@@ -16,7 +16,7 @@ export default {
             page: new Page({
                 context: this,
                 title: this.__('Страница: :name', {
-                    name: this.booted.enums.section.boxes.label,
+                    name: this.__('Boxes'),
                 }),
             }),
             config: new UpdateConfig({

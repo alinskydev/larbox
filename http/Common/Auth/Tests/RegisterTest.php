@@ -2,7 +2,7 @@
 
 namespace Http\Common\Auth\Tests;
 
-use Illuminate\Http\UploadedFile;
+use App\Tests\Feature\Helpers\FormHelper;
 
 class RegisterTest extends _TestCase
 {
@@ -21,7 +21,7 @@ class RegisterTest extends _TestCase
             'profile' => [
                 'full_name' => 'Registered 3',
                 'phone' => 'Phone 3',
-                'image' => UploadedFile::fake()->create('image.jpg', 100, 'image/jpeg'),
+                'image' => FormHelper::file(),
             ],
         ];
 

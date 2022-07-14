@@ -2,7 +2,7 @@
 
 namespace Http\Admin\Storage\Tests;
 
-use Illuminate\Http\UploadedFile;
+use App\Tests\Feature\Helpers\FormHelper;
 
 class UploadTest extends _TestCase
 {
@@ -13,7 +13,7 @@ class UploadTest extends _TestCase
         $this->requestUrl .= '/upload/file';
 
         $this->requestBody = [
-            'file' => UploadedFile::fake()->create('image.jpg', 100, 'image/jpeg'),
+            'file' => FormHelper::file(),
         ];
 
         $this->response = $this->sendRequest();
@@ -25,7 +25,7 @@ class UploadTest extends _TestCase
         $this->requestUrl .= '/upload/media';
 
         $this->requestBody = [
-            'file' => UploadedFile::fake()->create('image.jpg', 100, 'image/jpeg'),
+            'file' => FormHelper::file(),
         ];
 
         $this->response = $this->sendRequest();

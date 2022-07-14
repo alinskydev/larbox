@@ -2,7 +2,7 @@
 
 namespace Http\Admin\System\Tests\Settings;
 
-use Illuminate\Http\UploadedFile;
+use App\Tests\Feature\Helpers\FormHelper;
 
 class UpdateTest extends _TestCase
 {
@@ -13,8 +13,8 @@ class UpdateTest extends _TestCase
         $this->requestBody = [
             'admin_email' => 'info@local.host',
             'delete_old_files' => 0,
-            'favicon' => UploadedFile::fake()->create('image_1.jpg', 100, 'image/jpeg'),
-            'logo' => UploadedFile::fake()->create('image_2.jpg', 100, 'image/jpeg'),
+            'favicon' => FormHelper::file(),
+            'logo' => FormHelper::file(),
             'project_name' => 'Larbox',
         ];
 

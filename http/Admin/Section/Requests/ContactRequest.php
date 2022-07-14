@@ -1,12 +1,16 @@
 <?php
 
-namespace Modules\Section\Requests;
+namespace Http\Admin\Section\Requests;
 
 use Modules\Section\Base\FormRequest;
+use Modules\Seo\Traits\SeoMetaFormRequestTrait;
+
 use App\Helpers\Validation\FileValidationHelper;
 
 class ContactRequest extends FormRequest
 {
+    use SeoMetaFormRequestTrait;
+
     protected array $relations = ['branches'];
 
     public function nonLocalizedRules()

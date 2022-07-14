@@ -2,7 +2,7 @@
 
 namespace Http\Admin\System\Tests\Language;
 
-use Illuminate\Http\UploadedFile;
+use App\Tests\Feature\Helpers\FormHelper;
 
 class UpdateTest extends _TestCase
 {
@@ -14,7 +14,7 @@ class UpdateTest extends _TestCase
 
         $this->requestBody = [
             'name' => 'Русский',
-            'image' => UploadedFile::fake()->create('image.jpg', 100, 'image/jpeg'),
+            'image' => FormHelper::file(),
         ];
 
         $this->response = $this->sendRequest();

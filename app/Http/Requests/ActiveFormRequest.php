@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use App\Models\Model;
+use Modules\Seo\Traits\SeoMetaFormRequestTrait;
+
 use Illuminate\Support\Arr;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
@@ -23,7 +25,7 @@ class ActiveFormRequest extends FormRequest
     {
         // Assigning model and its fields
 
-        $relationsAttributes = array_map(fn ($value) => $value->attributesToArray(), $this->model->getRelations());
+        $relationsAttributes = array_map(fn ($value) => $value ? $value->attributesToArray() : [], $this->model->getRelations());
         $attributes = array_replace_recursive($this->model->attributesToArray(), $relationsAttributes);
 
         Arr::forget($attributes, $this->ignoredModelUpdateFields);
@@ -49,7 +51,13 @@ class ActiveFormRequest extends FormRequest
         $data = $this->validated();
 
         DB::beginTransaction();
+
+        if (in_array(SeoMetaFormRequestTrait::class, class_uses_recursive($this))) {
+            $this->model->fillableRelations[$this->model::RELATION_TYPE_ONE_ONE]['seo_meta_morph'] = $data['seo_meta'];
+        }
+
         $this->model->fill($data)->touch();
+
         DB::commit();
     }
 

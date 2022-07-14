@@ -42,6 +42,7 @@ export class Model {
                 attributes: Object,
                 size: Enums.inputSizes,
             }>>,
+            hasSeoMeta: boolean,
         },
     ) {
         this.list = config.list ?? {};
@@ -49,6 +50,25 @@ export class Model {
         this.sortings = config.sortings ?? [];
         this.show = config.show ?? {};
         this.form = config.form ?? {};
+
+        if (config.hasSeoMeta) {
+            this.form['SEO meta'] = {
+                head: {
+                    label: 'fields->seo_meta.head',
+                    name: 'seo_meta[head]',
+                    value: 'seo_meta.head',
+                    type: Enums.inputTypes.textarea,
+                    options: {
+                        isLocalized: true,
+                        size: Enums.inputSizes.xl,
+                    },
+                    attributes: {
+                        'rows': 10,
+                    },
+                    size: Enums.inputSizes.xl,
+                },
+            };
+        }
     }
 
     prepareFields(context, list) {

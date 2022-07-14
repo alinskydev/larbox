@@ -4,6 +4,7 @@ namespace Modules\Box\Models;
 
 use App\Models\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Seo\Traits\SeoMetaModelTrait;
 use App\Casts\Storage\AsFile;
 use App\Casts\Storage\AsFiles;
 use Modules\User\Models\User;
@@ -11,6 +12,7 @@ use Modules\User\Models\User;
 class Brand extends Model
 {
     use SoftDeletes;
+    use SeoMetaModelTrait;
 
     protected $table = 'box_brand';
 

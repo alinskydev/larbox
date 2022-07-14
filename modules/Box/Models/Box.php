@@ -4,6 +4,7 @@ namespace Modules\Box\Models;
 
 use App\Models\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Seo\Traits\SeoMetaModelTrait;
 
 use App\Casts\Date\AsDate;
 use App\Casts\Date\AsDatetime;
@@ -13,6 +14,7 @@ use App\Casts\Storage\AsImages;
 class Box extends Model
 {
     use SoftDeletes;
+    use SeoMetaModelTrait;
 
     protected $table = 'box';
 

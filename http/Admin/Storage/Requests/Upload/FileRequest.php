@@ -11,7 +11,7 @@ class FileRequest extends FormRequest
 {
     public array $url;
 
-    public function rules()
+    public function nonLocalizedRules()
     {
         return [
             'file' => FileValidationHelper::rules(FileValidationHelper::CONFIG_ALL),

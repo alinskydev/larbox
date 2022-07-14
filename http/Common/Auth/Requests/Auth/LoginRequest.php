@@ -12,7 +12,7 @@ class LoginRequest extends FormRequest
 {
     public User $user;
 
-    public function rules()
+    public function nonLocalizedRules()
     {
         return [
             'username' => [

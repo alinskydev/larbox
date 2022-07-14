@@ -11,6 +11,10 @@ class AsBlocks implements CastsAttributes
         $value = json_decode($value, true);
         $value = collect($value);
 
+        if (!in_array($model->name, ['layout'])) {
+            $value->put('seo_meta', $model->seo_meta);
+        }
+
         return $value->map(function ($value, $key) {
             $object = new \stdClass();
             $object->name = $key;

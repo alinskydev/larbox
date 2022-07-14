@@ -105,17 +105,17 @@ class ExportTestsForPostman extends Command
                 $request = $item['request'];
                 $response = $item['response'];
 
+                $formdata = [];
+
+                $formdata[] = array_map(function ($value, $key) {
+                    return [
+                        'key' => $key,
+                        'type' => 'text',
+                        'value' => $value,
+                    ];
+                }, $request['body'], array_keys($request['body']));
+
                 if ($request['files']) {
-                    $formdata = [];
-
-                    $formdata[] = array_map(function ($value, $key) {
-                        return [
-                            'key' => $key,
-                            'type' => 'text',
-                            'value' => $value,
-                        ];
-                    }, $request['body'], array_keys($request['body']));
-
                     $formdata[] = array_map(function ($value, $key) {
                         return [
                             'key' => $key,
@@ -123,26 +123,16 @@ class ExportTestsForPostman extends Command
                             'src' => $value,
                         ];
                     }, $request['files'], array_keys($request['files']));
-
-                    $requestBody = [
-                        'mode' => 'formdata',
-                        'formdata' => array_merge(...$formdata),
-                    ];
-                } else {
-                    if ($request['body']) {
-                        $requestBody = [
-                            'mode' => 'raw',
-                            'raw' => json_encode($request['body'], $jsonOptions),
-                            'options' => [
-                                'raw' => [
-                                    'language' => 'json',
-                                ],
-                            ],
-                        ];
-                    } else {
-                        $requestBody = ['mode' => 'none'];
-                    }
                 }
+
+                $formdata = array_merge(...$formdata);
+                $formdata = Arr::sort($formdata, 'key');
+                $formdata = array_values($formdata);
+
+                $requestBody = [
+                    'mode' => 'formdata',
+                    'formdata' => $formdata,
+                ];
 
                 $data[] = [
                     '_postman_previewlanguage' => 'json',

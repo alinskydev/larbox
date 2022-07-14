@@ -5,6 +5,7 @@ namespace App\Models;
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Model as BaseModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Seo\Traits\SeoMetaModelTrait;
 use Illuminate\Support\Arr;
 
 class Model extends BaseModel
@@ -31,6 +32,7 @@ class Model extends BaseModel
         //    Common hidden fields
 
         $commonHiddenFields = [
+            'seo_meta_morph',
             'deleted_at',
         ];
 
@@ -40,6 +42,11 @@ class Model extends BaseModel
 
         if (in_array(SoftDeletes::class, class_uses_recursive($this))) {
             $this->append(['is_deleted']);
+        }
+
+        if (in_array(SeoMetaModelTrait::class, class_uses_recursive($this))) {
+            $this->with[] = 'seo_meta_morph';
+            $this->append(['seo_meta']);
         }
 
         return parent::__construct($attributes);
@@ -65,20 +72,15 @@ class Model extends BaseModel
         parent::boot();
 
         static::saved(function (self $model) {
+
+            // Saving relations
+
             foreach ($model->fillableRelations as $relationType => $relations) {
                 foreach ($relations as $relation => $value) {
                     switch ($relationType) {
                         case static::RELATION_TYPE_ONE_ONE:
-                            if ($relatedModel = $model->$relation) {
-                                $relatedModel->fill($value)->save();
-                            } else {
-                                $related = $model->$relation()->getRelated();
-                                $primaryKey = $related->getKeyName();
-
-                                $related->$primaryKey = $model->id;
-                                $related->fill($value)->save();
-                            }
-
+                            $relatedModel = $model->$relation()->firstOrNew();
+                            $relatedModel->fill($value)->save();
                             break;
 
                         case static::RELATION_TYPE_ONE_MANY:

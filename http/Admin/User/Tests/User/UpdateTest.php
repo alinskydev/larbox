@@ -2,7 +2,7 @@
 
 namespace Http\Admin\User\Tests\User;
 
-use Illuminate\Http\UploadedFile;
+use App\Tests\Feature\Helpers\FormHelper;
 
 class UpdateTest extends _TestCase
 {
@@ -19,7 +19,7 @@ class UpdateTest extends _TestCase
             'profile' => [
                 'full_name' => 'Administrator',
                 'phone' => '+998001234567',
-                'image' => UploadedFile::fake()->create('image.jpg', 100, 'image/jpeg'),
+                'image' => FormHelper::file(),
             ],
         ];
 

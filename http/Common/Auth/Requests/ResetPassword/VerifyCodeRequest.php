@@ -7,7 +7,7 @@ use Illuminate\Validation\Rule;
 
 class VerifyCodeRequest extends FormRequest
 {
-    public function rules()
+    public function nonLocalizedRules()
     {
         return [
             'email' => [

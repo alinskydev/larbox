@@ -4,6 +4,7 @@ namespace Modules\Section\Base;
 
 use App\Http\Requests\FormRequest as BaseFormRequest;
 use Modules\Section\Models\Section;
+use Modules\Seo\Traits\SeoMetaFormRequestTrait;
 
 use Illuminate\Support\Arr;
 
@@ -23,7 +24,13 @@ class FormRequest extends BaseFormRequest
     {
         parent::passedValidation();
 
-        $this->model->blocks = $this->validated();
+        $data = $this->validated();
+
+        if (in_array(SeoMetaFormRequestTrait::class, class_uses_recursive($this))) {
+            $this->model->fillableRelations[$this->model::RELATION_TYPE_ONE_ONE]['seo_meta_morph'] = Arr::pull($data, 'seo_meta');
+        }
+
+        $this->model->blocks = $data;
         $this->model->save();
     }
 

@@ -2,7 +2,7 @@
 
 namespace Http\Admin\Box\Tests\Box;
 
-use Illuminate\Http\UploadedFile;
+use App\Tests\Feature\Helpers\FormHelper;
 
 class UpdateTest extends _TestCase
 {
@@ -14,58 +14,34 @@ class UpdateTest extends _TestCase
 
         $this->requestBody = [
             'brand_id' => 1,
-            'name' => [
-                'ru' => 'Box 1 ru',
-                'uz' => 'Box 1 uz',
-                'en' => 'Box 1 en',
-            ],
-            'description' => [
-                'ru' => 'Description 1 ru',
-                'uz' => 'Description 1 uz',
-                'en' => 'Description 1 en',
-            ],
-            'date' => date('d.m.Y'),
-            'datetime' => date('d.m.Y H:i'),
-            'image' => UploadedFile::fake()->create('image.jpg', 100, 'image/jpeg'),
+            'name' => FormHelper::localized('Box 1'),
+            'description' => FormHelper::localized('Description 1'),
+            'date' => date(LARBOX_FORMAT_DATE),
+            'datetime' => date(LARBOX_FORMAT_DATETIME),
+            'image' => FormHelper::file(),
             'images_list' => [
-                UploadedFile::fake()->create('image.jpg', 100, 'image/jpeg'),
-                UploadedFile::fake()->create('image.jpg', 100, 'image/jpeg'),
+                FormHelper::file(),
+                FormHelper::file(),
             ],
 
             'tags' => [1, 2],
 
-            'variations' => [
-                [
-                    'id' => 1,
-                    'name' => [
-                        'ru' => 'Variation 1 ru',
-                        'uz' => 'Variation 1 uz',
-                        'en' => 'Variation 1 en',
-                    ],
-                    'date' => date('d.m.Y'),
-                    'datetime' => date('d.m.Y H:i'),
-                    'image' => UploadedFile::fake()->create('image.jpg', 100, 'image/jpeg'),
+            'variations' => FormHelper::multiply(
+                [1, 2],
+                fn ($index) => [
+                    'id' => $index,
+                    'name' => FormHelper::localized("Variation $index"),
+                    'date' => date(LARBOX_FORMAT_DATE),
+                    'datetime' => date(LARBOX_FORMAT_DATETIME),
+                    'image' => FormHelper::file(),
                     'images_list' => [
-                        UploadedFile::fake()->create('image.jpg', 100, 'image/jpeg'),
-                        UploadedFile::fake()->create('image.jpg', 100, 'image/jpeg'),
+                        FormHelper::file(),
+                        FormHelper::file(),
                     ],
                 ],
-                [
-                    'id' => 2,
-                    'name' => [
-                        'ru' => 'Variation 2 ru',
-                        'uz' => 'Variation 2 uz',
-                        'en' => 'Variation 2 en',
-                    ],
-                    'date' => date('d.m.Y'),
-                    'datetime' => date('d.m.Y H:i'),
-                    'image' => UploadedFile::fake()->create('image.jpg', 100, 'image/jpeg'),
-                    'images_list' => [
-                        UploadedFile::fake()->create('image.jpg', 100, 'image/jpeg'),
-                        UploadedFile::fake()->create('image.jpg', 100, 'image/jpeg'),
-                    ],
-                ],
-            ],
+            ),
+
+            'seo_meta' => FormHelper::seoMeta(),
         ];
 
         $this->response = $this->sendRequest();

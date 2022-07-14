@@ -20,7 +20,7 @@ class SectionController extends Controller
         $this->model = Section::query()->where('name', $name)->firstOrFail();
         $this->config = SectionEnums::config($name);
 
-        app()->bind(ValidatesWhenResolved::class, $this->config['request']);
+        app()->bind(ValidatesWhenResolved::class, $this->config['admin_request']);
     }
 
     public function show()
