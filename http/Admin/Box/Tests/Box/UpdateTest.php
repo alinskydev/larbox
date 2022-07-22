@@ -16,6 +16,7 @@ class UpdateTest extends _TestCase
             'brand_id' => 1,
             'name' => FormHelper::localized('Box 1'),
             'description' => FormHelper::localized('Description 1'),
+            'price' => 2000,
             'date' => date(LARBOX_FORMAT_DATE),
             'datetime' => date(LARBOX_FORMAT_DATETIME),
             'image' => FormHelper::file(),

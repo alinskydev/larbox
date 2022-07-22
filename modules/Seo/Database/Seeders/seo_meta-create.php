@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use App\Helpers\DataHelper;
 
 return new class extends Seeder
 {
@@ -11,29 +12,17 @@ return new class extends Seeder
             [
                 'seo_metable_type' => 'Modules\Box\Models\Box',
                 'seo_metable_id' => 1,
-                'head' => json_encode([
-                    'ru' => 'Meta ru',
-                    'uz' => 'Meta uz',
-                    'en' => 'Meta en',
-                ]),
+                'head' => DataHelper::localized('Meta'),
             ],
             [
                 'seo_metable_type' => 'Modules\Box\Models\Brand',
                 'seo_metable_id' => 1,
-                'head' => json_encode([
-                    'ru' => 'Meta ru',
-                    'uz' => 'Meta uz',
-                    'en' => 'Meta en',
-                ]),
+                'head' => DataHelper::localized('Meta'),
             ],
             [
                 'seo_metable_type' => 'Modules\Section\Models\Section',
                 'seo_metable_id' => 2,
-                'head' => json_encode([
-                    'ru' => 'Meta ru',
-                    'uz' => 'Meta uz',
-                    'en' => 'Meta en',
-                ]),
+                'head' => DataHelper::localized('Meta'),
             ],
         ]);
     }

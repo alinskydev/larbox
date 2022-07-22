@@ -26,6 +26,9 @@ export default new Model({
                 path: 'box/:value',
             },
         },
+        price: {
+            type: Enums.valueTypes.text,
+        },
         date: {
             type: Enums.valueTypes.text,
         },
@@ -55,7 +58,12 @@ export default new Model({
         name: {
             type: Enums.inputTypes.text,
         },
-        slug: {
+        price_from: {
+            name: 'price[0]',
+            type: Enums.inputTypes.text,
+        },
+        price_to: {
+            name: 'price[1]',
             type: Enums.inputTypes.text,
         },
         date: {
@@ -114,6 +122,9 @@ export default new Model({
                 path: 'box/:value',
             },
         },
+        price: {
+            type: Enums.valueTypes.text,
+        },
         date: {
             type: Enums.valueTypes.text,
         },
@@ -154,6 +165,10 @@ export default new Model({
                 options: {
                     isLocalized: true,
                 },
+                size: Enums.inputSizes.xl,
+            },
+            price: {
+                type: Enums.inputTypes.text,
                 size: Enums.inputSizes.xl,
             },
             date: {

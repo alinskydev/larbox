@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use App\Helpers\DataHelper;
 
 return new class extends Seeder
 {
@@ -10,13 +11,10 @@ return new class extends Seeder
         DB::table('box')->insert([
             [
                 'brand_id' => 1,
-                'name' => json_encode([
-                    'ru' => 'Box 1 ru',
-                    'uz' => 'Box 1 uz',
-                    'en' => 'Box 1 en',
-                ]),
+                'name' => DataHelper::localized('Box 1'),
                 'slug' => 'box-1',
                 'description' => '[]',
+                'price' => 2000,
                 'date' => date('Y-m-d'),
                 'datetime' => date('Y-m-d H:i:s'),
                 'image' => '/test_data/images/2.png',
@@ -30,19 +28,16 @@ return new class extends Seeder
             ],
             [
                 'brand_id' => 1,
-                'name' => json_encode([
-                    'ru' => 'Box 2 ru',
-                    'uz' => 'Box 2 uz',
-                    'en' => 'Box 2 en',
-                ]),
+                'name' => DataHelper::localized('Box 2'),
                 'slug' => 'box-2',
+                'description' => '[]',
+                'price' => 5500,
                 'date' => date('Y-m-d'),
                 'datetime' => date('Y-m-d H:i:s'),
                 'image' => '/test_data/images/3.png',
                 'images_list' => json_encode([
                     '/test_data/images/1.png',
                 ]),
-                'description' => '[]',
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],

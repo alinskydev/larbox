@@ -9,19 +9,20 @@ use Illuminate\Support\Facades\DB;
 
 class Search
 {
-    const FILTER_TYPE_EQUAL = 'filterTypeEqual';
-    const FILTER_TYPE_EQUAL_INSENSITIVE = 'filterTypeEqualInsensitive';
-    const FILTER_TYPE_LIKE = 'filterTypeLike';
-    const FILTER_TYPE_IN = 'filterTypeIn';
-    const FILTER_TYPE_DATE = 'filterTypeDate';
-    const FILTER_TYPE_DATETIME = 'filterTypeDatetime';
-    const FILTER_TYPE_LOCALIZED = 'filterTypeLocalized';
+    public const FILTER_TYPE_EQUAL = 'filterTypeEqual';
+    public const FILTER_TYPE_EQUAL_INSENSITIVE = 'filterTypeEqualInsensitive';
+    public const FILTER_TYPE_LIKE = 'filterTypeLike';
+    public const FILTER_TYPE_IN = 'filterTypeIn';
+    public const FILTER_TYPE_BETWEEN = 'filterTypeBetween';
+    public const FILTER_TYPE_DATE = 'filterTypeDate';
+    public const FILTER_TYPE_DATETIME = 'filterTypeDatetime';
+    public const FILTER_TYPE_LOCALIZED = 'filterTypeLocalized';
 
-    const COMBINED_TYPE_AND = 'where';
-    const COMBINED_TYPE_OR = 'orWhere';
+    public const COMBINED_TYPE_AND = 'where';
+    public const COMBINED_TYPE_OR = 'orWhere';
 
-    const SORT_TYPE_SIMPLE = 'sortTypeSimple';
-    const SORT_TYPE_LOCALIZED = 'sortTypeLocalized';
+    public const SORT_TYPE_SIMPLE = 'sortTypeSimple';
+    public const SORT_TYPE_LOCALIZED = 'sortTypeLocalized';
 
     public Builder $queryBuilder;
     public array $relations = [];
@@ -111,28 +112,37 @@ class Search
 
     private function applyFilters(Builder &$query, string $param, string $type, mixed $value, string $combinedType)
     {
-        if ($type != self::FILTER_TYPE_IN) {
+        if (in_array($type, [
+            self::FILTER_TYPE_IN,
+            self::FILTER_TYPE_BETWEEN,
+        ])) {
+            $value = (array)$value;
+        } else {
             $value = is_array($value) ? implode('', $value) : $value;
         }
 
         switch ($type) {
             case self::FILTER_TYPE_EQUAL:
-                $query->{$combinedType}($param, '=', $value);
+                $query->{$combinedType}($param, $value);
                 break;
             case self::FILTER_TYPE_EQUAL_INSENSITIVE:
-                $query->{$combinedType}(DB::raw("LOWER($param)"), '=', strtolower($value));
+                $query->{$combinedType}(DB::raw("LOWER($param)"), mb_strtolower($value));
                 break;
             case self::FILTER_TYPE_LIKE:
                 $query->{$combinedType}($param, 'ILIKE', "%$value%");
                 break;
             case self::FILTER_TYPE_IN:
-                $query->{$combinedType . 'In'}($param, (array)$value);
+                $query->{$combinedType . 'In'}($param, $value);
+                break;
+            case self::FILTER_TYPE_BETWEEN:
+                if (isset($value[0])) $query->{$combinedType}($param, '>=', $value[0]);
+                if (isset($value[1])) $query->{$combinedType}($param, '<=', $value[1]);
                 break;
             case self::FILTER_TYPE_DATE:
-                $query->{$combinedType}($param, '=', date('Y-m-d', strtotime($value)));
+                $query->{$combinedType}($param, date('Y-m-d', strtotime($value)));
                 break;
             case self::FILTER_TYPE_DATETIME:
-                $query->{$combinedType}($param, '=', date('Y-m-d H:i:s', strtotime($value)));
+                $query->{$combinedType}($param, date('Y-m-d H:i:s', strtotime($value)));
                 break;
             case self::FILTER_TYPE_LOCALIZED:
                 $locale = app()->getLocale();

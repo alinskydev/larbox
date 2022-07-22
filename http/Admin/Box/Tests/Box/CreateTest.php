@@ -14,6 +14,7 @@ class CreateTest extends _TestCase
             'brand_id' => 1,
             'name' => FormHelper::localized('Box 3'),
             'description' => FormHelper::localized('Description 3'),
+            'price' => 9300,
             'date' => date(LARBOX_FORMAT_DATE),
             'datetime' => date(LARBOX_FORMAT_DATETIME),
             'image' => FormHelper::file(),

@@ -7,9 +7,9 @@ use Illuminate\Http\UploadedFile;
 
 class HtmlCleanHelper
 {
-    const TYPE_NONE = 'none';
-    const TYPE_PURIFY = 'purify';
-    const TYPE_STRIP_TAGS = 'stripTags';
+    public const TYPE_NONE = 'none';
+    public const TYPE_PURIFY = 'purify';
+    public const TYPE_STRIP_TAGS = 'stripTags';
 
     public static function process(array $data, string $type)
     {

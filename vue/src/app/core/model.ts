@@ -120,6 +120,10 @@ export class Model {
                 name = field.name ?? key,
                 value = field.value ?? key;
 
+            name = name.replaceAll('[', '][');
+            name = name.replace(new RegExp(']$'), '');
+            name = 'filter[' + name + ']';
+
             if (typeof value === 'function') {
                 value = value(context, item);
             } else {
@@ -129,7 +133,7 @@ export class Model {
             result[key] = {
                 label: field.label !== undefined ? context.__(field.label) : context.__('fields->' + key),
                 hint: field.hint !== undefined ? field.hint(context) : null,
-                name: 'filter[' + name + ']',
+                name: name,
                 value: value,
                 type: field.type,
                 options: field.options ?? {},

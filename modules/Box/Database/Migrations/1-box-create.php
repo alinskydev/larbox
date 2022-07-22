@@ -19,6 +19,7 @@ return new class extends Migration
             $table->json('name');
             $table->string('slug')->unique();
             $table->json('description')->default('[]');
+            $table->bigInteger('price');
             $table->date('date');
             $table->dateTime('datetime');
             $table->string('image')->nullable();

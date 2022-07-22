@@ -3,23 +3,22 @@
 namespace App\Tests\Feature;
 
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use App\Tests\Feature\Traits\CreatesApplicationTrait;
 use Illuminate\Testing\TestResponse;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Testing\File;
 
-use Tests\CreatesApplication;
-
 abstract class PostmanTestCase extends BaseTestCase
 {
-    use CreatesApplication;
+    use CreatesApplicationTrait;
 
-    const REQUEST_METHOD_GET = 'GET';
-    const REQUEST_METHOD_POST = 'POST';
-    const REQUEST_METHOD_PUT = 'PUT';
-    const REQUEST_METHOD_PATCH = 'PATCH';
-    const REQUEST_METHOD_DELETE = 'DELETE';
-    const REQUEST_METHOD_OPTIONS = 'OPTIONS';
-    const REQUEST_METHOD_HEAD = 'HEAD';
+    public const REQUEST_METHOD_GET = 'GET';
+    public const REQUEST_METHOD_POST = 'POST';
+    public const REQUEST_METHOD_PUT = 'PUT';
+    public const REQUEST_METHOD_PATCH = 'PATCH';
+    public const REQUEST_METHOD_DELETE = 'DELETE';
+    public const REQUEST_METHOD_OPTIONS = 'OPTIONS';
+    public const REQUEST_METHOD_HEAD = 'HEAD';
 
     protected $defaultHeaders = [
         'Accept' => 'application/json',

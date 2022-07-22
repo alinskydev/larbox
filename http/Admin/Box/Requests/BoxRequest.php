@@ -33,6 +33,7 @@ class BoxRequest extends ActiveFormRequest
                 }),
             ],
 
+            'price' => 'required|integer|min:0',
             'date' => 'required|date|date_format:' . LARBOX_FORMAT_DATE,
             'datetime' => 'required|date|date_format:' . LARBOX_FORMAT_DATETIME,
             'image' => FileValidationHelper::rules(FileValidationHelper::CONFIG_IMAGE),

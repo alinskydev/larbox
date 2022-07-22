@@ -4,27 +4,27 @@ namespace App\Helpers\Validation;
 
 class FileValidationHelper
 {
-    const CONFIG_IMAGE = [
+    public const CONFIG_IMAGE = [
         'max' => 2048,
         'mimes' => ['jpg', 'png', 'webp', 'svg'],
     ];
 
-    const CONFIG_AUDIO = [
+    public const CONFIG_AUDIO = [
         'max' => 102400,
         'mimes' => ['mp3', 'ogg'],
     ];
 
-    const CONFIG_VIDEO = [
+    public const CONFIG_VIDEO = [
         'max' => 1024000,
         'mimes' => ['mp4'],
     ];
 
-    const CONFIG_DOCUMENT = [
+    public const CONFIG_DOCUMENT = [
         'max' => 2048,
         'mimes' => ['doc', 'docx', 'xls', 'xlsx', 'pdf'],
     ];
 
-    const CONFIG_MEDIA = [
+    public const CONFIG_MEDIA = [
         'max' => 1024000,
         'mimes' => [
             'jpg', 'png', 'webp', 'svg',
@@ -33,7 +33,7 @@ class FileValidationHelper
         ],
     ];
 
-    const CONFIG_ALL = [
+    public const CONFIG_ALL = [
         'max' => 1024000,
         'mimes' => [
             'jpg', 'png', 'webp', 'svg',

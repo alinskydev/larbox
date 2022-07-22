@@ -56,9 +56,6 @@ export default new Model({
         name: {
             type: Enums.inputTypes.text,
         },
-        slug: {
-            type: Enums.valueTypes.text,
-        },
         show_on_the_home_page: {
             type: Enums.inputTypes.select,
             options: {

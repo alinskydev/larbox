@@ -10,9 +10,9 @@ use Illuminate\Support\Arr;
 
 class Model extends BaseModel
 {
-    const RELATION_TYPE_ONE_ONE = 'relationTypeOneOne';
-    const RELATION_TYPE_ONE_MANY = 'relationTypeOneMany';
-    const RELATION_TYPE_MANY_MANY = 'relationTypeManyMany';
+    public const RELATION_TYPE_ONE_ONE = 'relationTypeOneOne';
+    public const RELATION_TYPE_ONE_MANY = 'relationTypeOneMany';
+    public const RELATION_TYPE_MANY_MANY = 'relationTypeManyMany';
 
     public array $fillableRelations = [];
 
