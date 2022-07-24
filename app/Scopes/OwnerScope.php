@@ -12,11 +12,11 @@ class OwnerScope implements Scope
         private string $field = 'creator_id',
         private ?int $id = null,
     ) {
+        $this->id ??= auth()->user()->id;
     }
 
     public function apply(Builder $builder, Model $model)
     {
-        $id = $this->id ?? auth()->user()->id;
-        $builder->where($this->field, $id);
+        $builder->where($this->field, $this->id);
     }
 }

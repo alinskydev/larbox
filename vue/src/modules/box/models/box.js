@@ -59,11 +59,11 @@ export default new Model({
             type: Enums.inputTypes.text,
         },
         price_from: {
-            name: 'price[0]',
+            name: 'price[from]',
             type: Enums.inputTypes.text,
         },
         price_to: {
-            name: 'price[1]',
+            name: 'price[to]',
             type: Enums.inputTypes.text,
         },
         date: {

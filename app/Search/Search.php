@@ -135,8 +135,8 @@ class Search
                 $query->{$combinedType . 'In'}($param, $value);
                 break;
             case self::FILTER_TYPE_BETWEEN:
-                if (isset($value[0])) $query->{$combinedType}($param, '>=', $value[0]);
-                if (isset($value[1])) $query->{$combinedType}($param, '<=', $value[1]);
+                if (isset($value['from'])) $query->{$combinedType}($param, '>=', $value['from']);
+                if (isset($value['to'])) $query->{$combinedType}($param, '<=', $value['to']);
                 break;
             case self::FILTER_TYPE_DATE:
                 $query->{$combinedType}($param, date('Y-m-d', strtotime($value)));
