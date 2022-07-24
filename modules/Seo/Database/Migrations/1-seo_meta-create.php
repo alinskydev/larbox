@@ -14,9 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('seo_meta', function (Blueprint $table) {
-            $table->string('seo_metable_type')->index();
-            $table->bigInteger('seo_metable_id')->unsigned()->index();
-            $table->json('head')->default('[]');
+            $table->string('seo_metable_type');
+            $table->bigInteger('seo_metable_id')->unsigned();
+            $table->json('head');
 
             $table->primary(['seo_metable_type', 'seo_metable_id']);
         });

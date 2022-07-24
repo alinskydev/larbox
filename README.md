@@ -4,7 +4,7 @@ Larbox is a starter kit based on [Laravel framework](https://laravel.com). It is
 
 ## Requirements
 - PHP version >= PHP 8.0
-- PostgreSQL version >= 12 **(Recommended)** or MySQL version >= 5.7
+- MySQL version >= 5.7 **(Recommended)** or PostgreSQL version >= 12 (I haven't tested on lower version)
 
 ## Installation
 
@@ -22,8 +22,6 @@ composer install
 ```
 
 **Configurating:** create **.ENV** file in the root foolder and fill all configuration inside it.
-
-***Attention:*** if you want to use MySQL, then you need to change some migrations' columns with **JSON** data type, because MySQL (at least 5.7) doesn't suppport default value for this column type.
 
 **Migrating DB:** run
 ```

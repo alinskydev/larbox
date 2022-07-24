@@ -18,7 +18,7 @@ class BoxesTest extends _TestCase
     public function test_update()
     {
         $this->requestUrl .= '/boxes';
-        $this->requestMethod = self::REQUEST_METHOD_PATCH;
+        $this->requestMethod = self::REQUEST_METHOD_PUT;
 
         $this->requestBody = [
             'seo_meta' => FormHelper::seoMeta(),

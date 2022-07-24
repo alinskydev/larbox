@@ -37,7 +37,7 @@ class RegisterRequest extends ActiveFormRequest
             'new_password_confirmation' => 'required|same:new_password',
 
             'profile.full_name' => 'required|string|max:100',
-            'profile.phone' => 'nullable|string|max:100',
+            'profile.phone' => 'string|max:100',
             'profile.image' => FileValidationHelper::rules(FileValidationHelper::CONFIG_IMAGE),
         ];
     }

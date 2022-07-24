@@ -88,7 +88,7 @@ export class UpdateConfig {
     }) {
         this.model = model;
         this.http = http;
-        this.method = method ?? 'PATCH';
+        this.method = method ?? 'PUT';
         this.titleField = titleField;
         this.redirectPath = redirectPath;
 

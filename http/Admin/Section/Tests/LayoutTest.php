@@ -18,7 +18,7 @@ class LayoutTest extends _TestCase
     public function test_update()
     {
         $this->requestUrl .= '/layout';
-        $this->requestMethod = self::REQUEST_METHOD_PATCH;
+        $this->requestMethod = self::REQUEST_METHOD_PUT;
 
         $this->requestBody = [
             'header_phone' => '+998 (00) 111 11 11',

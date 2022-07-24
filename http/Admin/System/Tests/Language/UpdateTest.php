@@ -6,7 +6,7 @@ use App\Tests\Feature\Helpers\FormHelper;
 
 class UpdateTest extends _TestCase
 {
-    protected string $requestMethod = self::REQUEST_METHOD_PATCH;
+    protected string $requestMethod = self::REQUEST_METHOD_PUT;
 
     public function test_success()
     {

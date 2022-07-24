@@ -7,10 +7,6 @@ use App\Helpers\Validation\FileValidationHelper;
 
 class LanguageRequest extends ActiveFormRequest
 {
-    protected array $ignoredModelUpdateFields = [
-        'image',
-    ];
-
     public function nonLocalizedRules()
     {
         return [

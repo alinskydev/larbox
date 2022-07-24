@@ -59,18 +59,20 @@ export default new Model({
             type: Enums.inputTypes.text,
         },
         price_from: {
-            name: 'price[from]',
+            name: 'price[0]',
+            value: 'price.0',
             type: Enums.inputTypes.text,
         },
         price_to: {
-            name: 'price[to]',
+            name: 'price[1]',
+            value: 'price.1',
             type: Enums.inputTypes.text,
         },
         date: {
             type: Enums.inputTypes.date,
         },
         datetime: {
-            type: Enums.inputTypes.date,
+            type: Enums.inputTypes.datetime,
         },
         brand_id: {
             type: Enums.inputTypes.select2Ajax,

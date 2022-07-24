@@ -18,7 +18,7 @@ class ContactTest extends _TestCase
     public function test_update()
     {
         $this->requestUrl .= '/contact';
-        $this->requestMethod = self::REQUEST_METHOD_PATCH;
+        $this->requestMethod = self::REQUEST_METHOD_PUT;
 
         $this->requestBody = [
             'social_facebook' => '',

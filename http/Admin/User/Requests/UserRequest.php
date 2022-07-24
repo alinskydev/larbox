@@ -11,10 +11,6 @@ use Illuminate\Support\Facades\Hash;
 
 class UserRequest extends ActiveFormRequest
 {
-    protected array $ignoredModelUpdateFields = [
-        'profile.image',
-    ];
-
     public function nonLocalizedRules()
     {
         return [
@@ -38,18 +34,17 @@ class UserRequest extends ActiveFormRequest
             ],
             'new_password' => [
                 Rule::requiredIf(!$this->model->exists),
-                'nullable',
                 'string',
                 'min:8',
                 'max:100',
             ],
             'new_password_confirmation' => [
-                Rule::requiredIf($this->new_password !== null),
+                Rule::requiredIf(strlen($this->new_password) > 0),
                 'same:new_password',
             ],
 
             'profile.full_name' => 'required|string|max:100',
-            'profile.phone' => 'nullable|string|max:100',
+            'profile.phone' => 'string|max:100',
             'profile.image' => FileValidationHelper::rules(FileValidationHelper::CONFIG_IMAGE),
         ];
     }

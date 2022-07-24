@@ -21,6 +21,10 @@ class Brand extends Model
         'is_active',
     ];
 
+    protected $attributes = [
+        'files_list' => '[]',
+    ];
+
     protected $casts = [
         'file' => AsFile::class,
         'files_list' => AsFiles::class,

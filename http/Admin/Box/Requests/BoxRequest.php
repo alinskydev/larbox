@@ -15,11 +15,6 @@ class BoxRequest extends ActiveFormRequest
 {
     use SeoMetaFormRequestTrait;
 
-    protected array $ignoredModelUpdateFields = [
-        'image',
-        'images_list',
-    ];
-
     public function nonLocalizedRules()
     {
         return [
@@ -45,7 +40,7 @@ class BoxRequest extends ActiveFormRequest
                 new ExistsWithOldRule($this->model, Tag::class, 'tags.*.id'),
             ],
 
-            'variations' => 'required|array',
+            'variations' => 'array',
             'variations.*.id' => 'integer',
         ];
     }
@@ -54,7 +49,7 @@ class BoxRequest extends ActiveFormRequest
     {
         return [
             'name' => 'required|string|max:100',
-            'description' => 'nullable|string',
+            'description' => 'string',
             'variations.*.name' => 'required|string|max:100',
         ];
     }

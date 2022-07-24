@@ -6,7 +6,7 @@ use App\Tests\Feature\Helpers\FormHelper;
 
 class UpdateTest extends _TestCase
 {
-    protected string $requestMethod = self::REQUEST_METHOD_PATCH;
+    protected string $requestMethod = self::REQUEST_METHOD_PUT;
 
     public function test_success()
     {
@@ -15,25 +15,16 @@ class UpdateTest extends _TestCase
         $this->requestBody = [
             'username' => 'admin',
             'email' => 'admin@local.host',
+            'role' => 'admin',
+
+            'new_password' => 'admin123',
+            'new_password_confirmation' => 'admin123',
 
             'profile' => [
                 'full_name' => 'Administrator',
                 'phone' => '+998001234567',
                 'image' => FormHelper::file(),
             ],
-        ];
-
-        $this->response = $this->sendRequest();
-        $this->response->assertStatus(200);
-    }
-
-    public function test_change_password()
-    {
-        $this->requestUrl .= '/1';
-
-        $this->requestBody = [
-            'new_password' => 'admin123',
-            'new_password_confirmation' => 'admin123',
         ];
 
         $this->response = $this->sendRequest();

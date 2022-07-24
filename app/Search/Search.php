@@ -126,17 +126,19 @@ class Search
                 $query->{$combinedType}($param, $value);
                 break;
             case self::FILTER_TYPE_EQUAL_INSENSITIVE:
-                $query->{$combinedType}(DB::raw("LOWER($param)"), mb_strtolower($value));
+                $value = mb_strtolower($value);
+                $query->{$combinedType}(DB::raw("LOWER($param)"), $value);
                 break;
             case self::FILTER_TYPE_LIKE:
-                $query->{$combinedType}($param, 'ILIKE', "%$value%");
+                $value = mb_strtolower($value);
+                $query->{$combinedType}(DB::raw("LOWER($param)"), 'LIKE', "%$value%");
                 break;
             case self::FILTER_TYPE_IN:
                 $query->{$combinedType . 'In'}($param, $value);
                 break;
             case self::FILTER_TYPE_BETWEEN:
-                if (isset($value['from'])) $query->{$combinedType}($param, '>=', $value['from']);
-                if (isset($value['to'])) $query->{$combinedType}($param, '<=', $value['to']);
+                if (isset($value[0])) $query->{$combinedType}($param, '>=', $value[0]);
+                if (isset($value[1])) $query->{$combinedType}($param, '<=', $value[1]);
                 break;
             case self::FILTER_TYPE_DATE:
                 $query->{$combinedType}($param, date('Y-m-d', strtotime($value)));
@@ -146,7 +148,8 @@ class Search
                 break;
             case self::FILTER_TYPE_LOCALIZED:
                 $locale = app()->getLocale();
-                $query->{$combinedType}("$param->$locale", 'ILIKE', "%$value%");
+                $value = mb_strtolower($value);
+                $query->{$combinedType}(DB::raw("LOWER($param->'$.$locale')"), 'LIKE', "%$value%");
                 break;
         }
     }

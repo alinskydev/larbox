@@ -9,11 +9,6 @@ use App\Helpers\Validation\FileValidationHelper;
 
 class BrandRequest extends ActiveFormRequest
 {
-    protected array $ignoredModelUpdateFields = [
-        'file',
-        'files_list',
-    ];
-
     public function nonLocalizedRules()
     {
         return [

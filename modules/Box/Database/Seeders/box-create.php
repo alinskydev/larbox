@@ -16,7 +16,7 @@ return new class extends Seeder
                 'description' => '[]',
                 'price' => 2000,
                 'date' => date('Y-m-d'),
-                'datetime' => date('Y-m-d H:i:s'),
+                'datetime' => date('Y-m-d H:i:00'),
                 'image' => '/test_data/images/2.png',
                 'images_list' => json_encode([
                     '/test_data/images/1.png',
@@ -33,7 +33,7 @@ return new class extends Seeder
                 'description' => '[]',
                 'price' => 5500,
                 'date' => date('Y-m-d'),
-                'datetime' => date('Y-m-d H:i:s'),
+                'datetime' => date('Y-m-d H:i:00'),
                 'image' => '/test_data/images/3.png',
                 'images_list' => json_encode([
                     '/test_data/images/1.png',

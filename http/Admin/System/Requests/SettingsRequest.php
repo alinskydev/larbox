@@ -12,11 +12,11 @@ class SettingsRequest extends FormRequest
     public function nonLocalizedRules()
     {
         return [
-            'admin_email' => 'sometimes|required|email',
-            'delete_old_files' => 'sometimes|required|boolean',
+            'admin_email' => 'required|email',
+            'delete_old_files' => 'required|boolean',
             'favicon' => FileValidationHelper::rules(FileValidationHelper::CONFIG_IMAGE),
             'logo' => FileValidationHelper::rules(FileValidationHelper::CONFIG_IMAGE),
-            'project_name' => 'sometimes|required|string|max:100',
+            'project_name' => 'required|string|max:100',
         ];
     }
 

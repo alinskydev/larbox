@@ -18,7 +18,7 @@ class HomeTest extends _TestCase
     public function test_update()
     {
         $this->requestUrl .= '/home';
-        $this->requestMethod = self::REQUEST_METHOD_PATCH;
+        $this->requestMethod = self::REQUEST_METHOD_PUT;
 
         $this->requestBody = [
             'welcome_title' => FormHelper::localized('Title'),

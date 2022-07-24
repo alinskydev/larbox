@@ -18,12 +18,12 @@ return new class extends Migration
             $table->bigInteger('brand_id')->unsigned()->index();
             $table->json('name');
             $table->string('slug')->unique();
-            $table->json('description')->default('[]');
+            $table->json('description');
             $table->bigInteger('price');
             $table->date('date');
             $table->dateTime('datetime');
             $table->string('image')->nullable();
-            $table->json('images_list')->default('[]');
+            $table->json('images_list');
             $table->timestamp('created_at');
             $table->timestamp('updated_at');
             $table->softDeletes();

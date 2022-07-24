@@ -12,11 +12,6 @@ class BrandRequest extends ActiveFormRequest
 {
     use SeoMetaFormRequestTrait;
 
-    protected array $ignoredModelUpdateFields = [
-        'file',
-        'files_list',
-    ];
-
     public function nonLocalizedRules()
     {
         return [

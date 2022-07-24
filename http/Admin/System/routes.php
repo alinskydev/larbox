@@ -26,5 +26,5 @@ Route::prefix('system')
             ->setBindingFields(['field' => 'is_main']);
 
         Route::get('settings', [SettingsController::class, 'index']);
-        Route::patch('settings', [SettingsController::class, 'update']);
+        Route::put('settings', [SettingsController::class, 'update']);
     });

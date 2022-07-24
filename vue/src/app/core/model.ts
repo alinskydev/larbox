@@ -127,7 +127,8 @@ export class Model {
             if (typeof value === 'function') {
                 value = value(context, item);
             } else {
-                value = item[value];
+                value = value.replace(':locale', context.booted.locale);
+                value = context.booted.helpers.iterator.get(item, value);
             }
 
             result[key] = {
