@@ -8,12 +8,14 @@ export class IndexConfig {
     constructor({
         model,
         http,
+        selectionActions,
         actions,
         extraActions,
         hasSoftDelete,
     }) {
         this.model = model;
         this.http = http;
+        this.selectionActions = selectionActions ?? [];
         this.actions = actions ?? ['show', 'update', 'delete', 'restore'];
         this.extraActions = extraActions ?? {};
         this.hasSoftDelete = hasSoftDelete ?? false;

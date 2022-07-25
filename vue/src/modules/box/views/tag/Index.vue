@@ -21,6 +21,7 @@ export default {
                 http: {
                     path: 'box/tag',
                 },
+                selectionActions: ['deleteAll', 'restoreAll'],
                 hasSoftDelete: true,
             }),
         };

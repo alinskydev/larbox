@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\DB;
 class Search
 {
     public const FILTER_TYPE_EQUAL = 'filterTypeEqual';
-    public const FILTER_TYPE_EQUAL_INSENSITIVE = 'filterTypeEqualInsensitive';
     public const FILTER_TYPE_LIKE = 'filterTypeLike';
     public const FILTER_TYPE_IN = 'filterTypeIn';
     public const FILTER_TYPE_BETWEEN = 'filterTypeBetween';
@@ -119,18 +118,14 @@ class Search
             $value = (array)$value;
         } else {
             $value = is_array($value) ? implode('', $value) : $value;
+            $value = mb_strtolower((string)$value);
         }
 
         switch ($type) {
             case self::FILTER_TYPE_EQUAL:
-                $query->{$combinedType}($param, $value);
-                break;
-            case self::FILTER_TYPE_EQUAL_INSENSITIVE:
-                $value = mb_strtolower($value);
                 $query->{$combinedType}(DB::raw("LOWER($param)"), $value);
                 break;
             case self::FILTER_TYPE_LIKE:
-                $value = mb_strtolower($value);
                 $query->{$combinedType}(DB::raw("LOWER($param)"), 'LIKE', "%$value%");
                 break;
             case self::FILTER_TYPE_IN:
@@ -148,7 +143,6 @@ class Search
                 break;
             case self::FILTER_TYPE_LOCALIZED:
                 $locale = app()->getLocale();
-                $value = mb_strtolower($value);
                 $query->{$combinedType}(DB::raw("LOWER($param->'$.$locale')"), 'LIKE', "%$value%");
                 break;
         }

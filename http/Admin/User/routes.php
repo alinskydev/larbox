@@ -12,7 +12,7 @@ Route::prefix('user')
         'profile' => '[0-9]+',
     ])
     ->group(function () {
-        Route::apiResource('user', UserController::class);
+        Route::apiResource('user', UserController::class)->except(['deleteAll', 'restoreAll']);
 
         Route::model('profile', Profile::class);
 

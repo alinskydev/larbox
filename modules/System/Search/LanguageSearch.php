@@ -17,7 +17,7 @@ class LanguageSearch extends Search
             'type' => self::COMBINED_TYPE_OR,
             'fields' => [
                 'name' => self::FILTER_TYPE_LIKE,
-                'code' => self::FILTER_TYPE_EQUAL_INSENSITIVE,
+                'code' => self::FILTER_TYPE_EQUAL,
             ],
         ],
     ];

@@ -25,6 +25,7 @@ export default {
                         'with[0]': 'creator',
                     },
                 },
+                selectionActions: ['deleteAll', 'restoreAll'],
                 actions: ['boxes', 'show', 'update', 'delete', 'restore'],
                 extraActions: {
                     boxes: {

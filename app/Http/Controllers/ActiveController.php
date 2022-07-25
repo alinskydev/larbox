@@ -9,6 +9,7 @@ use App\Resources\JsonResource;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Contracts\Validation\ValidatesWhenResolved;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 class ActiveController extends Controller
 {
@@ -44,6 +45,8 @@ class ActiveController extends Controller
             ->setPageSize((int)$request->get('page-size'));
     }
 
+    // Default actions
+
     public function index()
     {
         $paginator = $this->search->queryBuilder->paginate($this->search->pageSize);
@@ -78,10 +81,46 @@ class ActiveController extends Controller
         return response('', 204);
     }
 
+    // Custom actions
+
+    public function destroyAll()
+    {
+        $selection = (array)request()->get('selection', []);
+        $models = $this->model->query()->whereIn('id', $selection)->limit(100)->get();
+
+        DB::beginTransaction();
+
+        $models->map(function ($value, $key) {
+            $value->delete();
+        });
+
+        DB::commit();
+
+        return response('', 204);
+    }
+
     public function restore(int $id)
     {
         if (in_array(SoftDeletes::class, class_uses_recursive($this->model))) {
             $this->model->query()->onlyTrashed()->findOrFail($id)->restore();
+        }
+
+        return response('', 204);
+    }
+
+    public function restoreAll()
+    {
+        if (in_array(SoftDeletes::class, class_uses_recursive($this->model))) {
+            $selection = (array)request()->get('selection', []);
+            $models = $this->model->query()->whereIn('id', $selection)->onlyTrashed()->limit(100)->get();
+
+            DB::beginTransaction();
+
+            $models->map(function ($value, $key) {
+                $value->restore();
+            });
+
+            DB::commit();
         }
 
         return response('', 204);

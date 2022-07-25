@@ -6,14 +6,29 @@ use Illuminate\Routing\Router as BaseRouter;
 
 class Router extends BaseRouter
 {
+    public function destroyAll($uri, $action = null)
+    {
+        return $this->addRoute('DELETE', $uri, $action);
+    }
+
     public function restore($uri, $action = null)
+    {
+        return $this->addRoute('DELETE', $uri, $action);
+    }
+
+    public function restoreAll($uri, $action = null)
     {
         return $this->addRoute('DELETE', $uri, $action);
     }
 
     public function apiResource($name, $controller, array $options = [])
     {
-        $only = ['index', 'show', 'store', 'update', 'destroy', 'restore'];
+        $only = [
+            'index', 'show',
+            'store', 'update',
+            'destroy', 'destroyAll',
+            'restore', 'restoreAll',
+        ];
 
         $this->resourceParameters([$name => 'model']);
 

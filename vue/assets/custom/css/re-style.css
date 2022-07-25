@@ -75,3 +75,16 @@ select.select2-hidden-accessible {
 .nav-link:not(.collapsed) .nav-icon-caret {
     transform: rotateZ(90deg);
 }
+
+.crud-index-data .selection {
+    width: 20px;
+    height: 20px;
+    accent-color: #007bff;
+}
+
+.crud-index-data .actions {
+    position: fixed;
+    bottom: 0px;
+    right: 20px;
+    z-index: 1;
+}

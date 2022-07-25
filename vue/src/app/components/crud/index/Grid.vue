@@ -2,6 +2,8 @@
 import * as Enums from '@/app/core/enums';
 
 import Value from '@/app/components/Value.vue';
+
+import Selection from './particles/Selection.vue';
 import Actions from './particles/Actions.vue';
 import Pagination from './particles/Pagination.vue';
 </script>
@@ -42,7 +44,7 @@ export default {
 </script>
 
 <template>
-    <div class="card card-primary">
+    <div class="card card-primary crud-index-data">
         <div class="card-header">
             <h3 class="card-title">
                 {{ __('Данные') }}
@@ -55,6 +57,8 @@ export default {
                     <table class="table table-hover table-bordered">
                         <thead>
                             <tr>
+                                <Selection type="tableHead" />
+
                                 <th v-for="field in fields">
                                     {{ field.label }}
                                 </th>
@@ -67,6 +71,8 @@ export default {
 
                         <tbody>
                             <tr v-for="item in items">
+                                <Selection type="tableBody" :id="item.id.value" />
+
                                 <template v-for="(field, key) in fields">
                                     <template v-if="item[key].type === Enums.valueTypes.image">
                                         <td style="width: 130px;">
@@ -90,6 +96,8 @@ export default {
                         </tbody>
                     </table>
                 </div>
+
+                <Selection type="actions" />
             </template>
 
             <template v-else>
