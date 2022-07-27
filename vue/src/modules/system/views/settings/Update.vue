@@ -15,12 +15,6 @@ export default {
             page: new Page({
                 context: this,
                 title: this.__('Настройки'),
-                breadcrumbs: [
-                    {
-                        label: this.__('Boxes'),
-                        path: 'box/box',
-                    },
-                ],
             }),
             config: new UpdateConfig({
                 model: model,

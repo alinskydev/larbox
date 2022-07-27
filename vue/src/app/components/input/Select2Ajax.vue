@@ -123,7 +123,6 @@ export default {
 
 <template>
     <select :multiple="options.isMultiple">
-        <option v-if="!options.isMultiple" :value="null"></option>
         <option v-for="(selectItem, key) in items" :value="key" selected>
             {{ selectItem }}
         </option>

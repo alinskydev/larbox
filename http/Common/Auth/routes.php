@@ -6,7 +6,6 @@ use Http\Common\Auth\Controllers\AuthController;
 use Http\Common\Auth\Controllers\ResetPasswordController;
 
 Route::prefix('auth')
-    ->middleware('api')
     ->group(function () {
         Route::post('login', [AuthController::class, 'login']);
         Route::post('register', [AuthController::class, 'register']);

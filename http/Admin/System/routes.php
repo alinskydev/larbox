@@ -25,6 +25,9 @@ Route::prefix('system')
             ->whereIn('value', [1])
             ->setBindingFields(['field' => 'is_main']);
 
-        Route::get('settings', [SettingsController::class, 'index']);
-        Route::put('settings', [SettingsController::class, 'update']);
+        Route::prefix('settings')
+            ->group(function () {
+                Route::get('', [SettingsController::class, 'index']);
+                Route::put('', [SettingsController::class, 'update']);
+            });
     });

@@ -6,6 +6,8 @@ use App\Models\UserModel;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use App\Casts\Date\AsDatetime;
+
 class User extends UserModel
 {
     use Notifiable;
@@ -29,7 +31,7 @@ class User extends UserModel
     ];
 
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'email_verified_at' => AsDatetime::class,
     ];
 
     public function profile()
