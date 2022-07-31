@@ -7,6 +7,8 @@ use App\Tests\Feature\Traits\Index\AvailableRelationsTrait;
 use App\Tests\Feature\Traits\Index\PaginationTrait;
 use App\Tests\Feature\Traits\Index\ShowDeletedTrait;
 
+use Modules\Box\Search\BoxSearch;
+
 class IndexTest extends _TestCase
 {
     use AvailableSortingsTrait;
@@ -14,14 +16,16 @@ class IndexTest extends _TestCase
     use PaginationTrait;
     use ShowDeletedTrait;
 
+    protected string $searchClass = BoxSearch::class;
+
     protected string $requestMethod = self::REQUEST_METHOD_GET;
 
     public function test_available_filters()
     {
         $this->requestQuery = [
             'filter' => [
-                'id' => '1',
-                'brand_id' => '1',
+                'id' => 1,
+                'brand_id' => 1,
                 'name' => 'box',
                 'slug' => 'box-1',
                 'price' => [1000, 10000],

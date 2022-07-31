@@ -7,11 +7,15 @@ use App\Tests\Feature\Traits\Index\AvailableRelationsTrait;
 use App\Tests\Feature\Traits\Index\PaginationTrait;
 use App\Tests\Feature\Traits\Index\ShowDeletedTrait;
 
+use Modules\Box\Search\TagSearch;
+
 class IndexTest extends _TestCase
 {
     use AvailableSortingsTrait;
     use PaginationTrait;
     use ShowDeletedTrait;
+
+    protected string $searchClass = TagSearch::class;
 
     protected string $requestMethod = self::REQUEST_METHOD_GET;
 
@@ -19,7 +23,7 @@ class IndexTest extends _TestCase
     {
         $this->requestQuery = [
             'filter' => [
-                'id' => '1',
+                'id' => 1,
                 'name' => 'tag',
             ],
         ];

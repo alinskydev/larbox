@@ -41,15 +41,7 @@ export default {
           :item="item"
           v-slot="main">
 
-        <template v-if="item.type === Enums.inputTypes.text">
-            <Text :item="item" v-bind="main.inputAttrs" />
-        </template>
-
-        <template v-else-if="item.type === Enums.inputTypes.textarea">
-            <Textarea :item="item" v-bind="main.inputAttrs" />
-        </template>
-
-        <template v-else-if="item.type === Enums.inputTypes.date">
+        <template v-if="item.type === Enums.inputTypes.date">
             <Date :item="item" v-bind="main.inputAttrs" />
         </template>
 
@@ -57,8 +49,12 @@ export default {
             <Datetime :item="item" v-bind="main.inputAttrs" />
         </template>
 
-        <template v-else-if="item.type === Enums.inputTypes.time">
-            <Time :item="item" v-bind="main.inputAttrs" />
+        <template v-else-if="item.type === Enums.inputTypes.file">
+            <File :set="delete main.inputAttrs.value" :item="item" v-bind="main.inputAttrs" />
+        </template>
+
+        <template v-else-if="item.type === Enums.inputTypes.phone">
+            <Phone :item="item" v-bind="main.inputAttrs" />
         </template>
 
         <template v-else-if="item.type === Enums.inputTypes.select">
@@ -73,18 +69,26 @@ export default {
             <Switcher :item="item" v-bind="main.inputAttrs" />
         </template>
 
-        <template v-else-if="item.type === Enums.inputTypes.file">
-            <File :set="delete main.inputAttrs.value" :item="item" v-bind="main.inputAttrs" />
+        <template v-else-if="item.type === Enums.inputTypes.text">
+            <Text :item="item" v-bind="main.inputAttrs" />
         </template>
 
-        <template v-else-if="item.type === Enums.inputTypes.phone">
-            <Phone :item="item" v-bind="main.inputAttrs" />
+        <template v-else-if="item.type === Enums.inputTypes.textarea">
+            <Textarea :item="item" v-bind="main.inputAttrs" />
         </template>
 
         <template v-else-if="item.type === Enums.inputTypes.textEditor">
             <TextEditor :item="item" v-bind="main.inputAttrs" />
         </template>
+
+        <template v-else-if="item.type === Enums.inputTypes.time">
+            <Time :item="item" v-bind="main.inputAttrs" />
+        </template>
     </Main>
+
+    <template v-else-if="item.type === Enums.inputTypes.component">
+        <ComponentResolver :resolve="item.options.resolve(booted.components.current, item)" />
+    </template>
 
     <template v-else-if="item.type === Enums.inputTypes.hidden">
         <Hidden :item="item" />
@@ -92,9 +96,5 @@ export default {
 
     <template v-else-if="item.type === Enums.inputTypes.relations">
         <Relations :item="item" />
-    </template>
-
-    <template v-else-if="item.type === Enums.inputTypes.component">
-        <ComponentResolver :resolve="item.options.resolve(booted.components.current, item)" />
     </template>
 </template>

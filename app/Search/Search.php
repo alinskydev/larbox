@@ -136,7 +136,9 @@ class Search
                 if (isset($value[1])) $query->{$combinedType}($param, '<=', $value[1]);
                 break;
             case self::FILTER_TYPE_DATE:
-                $query->{$combinedType}($param, date('Y-m-d', strtotime($value)));
+                $query->{$combinedType}($param, '>=', date('Y-m-d 00:00:00', strtotime($value)));
+                $query->{$combinedType}($param, '<=', date('Y-m-d 23:59:59', strtotime($value)));
+                break;
                 break;
             case self::FILTER_TYPE_DATETIME:
                 $query->{$combinedType}($param, date('Y-m-d H:i:s', strtotime($value)));

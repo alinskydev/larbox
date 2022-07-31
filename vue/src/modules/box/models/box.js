@@ -27,10 +27,19 @@ export default new Model({
             },
         },
         price: {
-            type: Enums.valueTypes.text,
+            type: Enums.valueTypes.price,
         },
         date: {
-            type: Enums.valueTypes.text,
+            label: 'fields->dates',
+            value: (context, item) => {
+                let result = [
+                    context.__('fields->date') + ' ' + item.date,
+                    context.__('fields->datetime') + ' ' + item.datetime,
+                ];
+
+                return result.join('<br>');
+            },
+            type: Enums.valueTypes.html,
         },
         datetime: {
             type: Enums.valueTypes.text,
@@ -62,11 +71,18 @@ export default new Model({
             name: 'price[0]',
             value: 'price.0',
             type: Enums.inputTypes.text,
+            attributes: {
+                'type': 'number',
+                'pattern': "[0-9]{3}-[0-9]{2}-[0-9]{3}",
+            },
         },
         price_to: {
             name: 'price[1]',
             value: 'price.1',
             type: Enums.inputTypes.text,
+            attributes: {
+                'type': 'number',
+            },
         },
         date: {
             type: Enums.inputTypes.date,
@@ -125,7 +141,7 @@ export default new Model({
             },
         },
         price: {
-            type: Enums.valueTypes.text,
+            type: Enums.valueTypes.price,
         },
         date: {
             type: Enums.valueTypes.text,

@@ -16,7 +16,7 @@ class BoxSearch extends Search
         'name' => self::FILTER_TYPE_LOCALIZED,
         'price' => self::FILTER_TYPE_BETWEEN,
         'date' => self::FILTER_TYPE_DATE,
-        'datetime' => self::FILTER_TYPE_DATETIME,
+        'datetime' => self::FILTER_TYPE_DATE,
 
         'tags.id' => self::FILTER_TYPE_IN,
     ];

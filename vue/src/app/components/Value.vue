@@ -28,18 +28,18 @@ export default {
 </script>
 
 <template>
-    <template v-if="item.type === Enums.valueTypes.text">
-        {{ item.value }}
+    <template v-if="item.type === Enums.valueTypes.array">
+        <div v-for="value in item.value">
+            {{ value }}
+        </div>
     </template>
 
     <template v-else-if="item.type === Enums.valueTypes.boolean">
         {{ item.value ? __('Да') : __('Нет') }}
     </template>
 
-    <template v-else-if="item.type === Enums.valueTypes.array">
-        <div v-for="value in item.value">
-            {{ value }}
-        </div>
+    <template v-else-if="item.type === Enums.valueTypes.component">
+        <ComponentResolver :resolve="item.options.resolve(booted.components.current, item)" />
     </template>
 
     <template v-else-if="item.type === Enums.valueTypes.file">
@@ -54,9 +54,8 @@ export default {
         </a>
     </template>
 
-    <template v-else-if="item.type === Enums.valueTypes.image">
-        <Images v-if="typeof item.value === 'object'" :item="item" />
-        <img v-else :src="item.value">
+    <template v-else-if="item.type === Enums.valueTypes.html">
+        <div v-html="item.value"></div>
     </template>
 
     <template v-else-if="item.type === Enums.valueTypes.httpSelect">
@@ -67,18 +66,31 @@ export default {
         <HttpSwitcher :item="item" :id="id" />
     </template>
 
-    <template v-else-if="item.type === Enums.valueTypes.websiteLink">
-        <a :href="booted.config.websiteUrl + '/' + booted.locale + '/' + item.options.path.replace(':value', item.value)"
-           target="_blank">
-            {{ item.value }}
-        </a>
+    <template v-else-if="item.type === Enums.valueTypes.image">
+        <Images v-if="typeof item.value === 'object'" :item="item" />
+        <img v-else :src="item.value">
+    </template>
+
+    <template v-else-if="item.type === Enums.valueTypes.json">
+        <pre v-html="JSON.stringify(item.value, null, 2)"></pre>
+    </template>
+
+    <template v-else-if="item.type === Enums.valueTypes.price">
+        {{ new Intl.NumberFormat('ru-RU').format(item.value).replace(',', '.') }}
     </template>
 
     <template v-else-if="item.type === Enums.valueTypes.relations">
         <Relations :item="item" :id="id" />
     </template>
 
-    <template v-else-if="item.type === Enums.valueTypes.component">
-        <ComponentResolver :resolve="item.options.resolve(booted.components.current, item)" />
+    <template v-else-if="item.type === Enums.valueTypes.text">
+        {{ item.value }}
+    </template>
+
+    <template v-else-if="item.type === Enums.valueTypes.websiteLink">
+        <a :href="booted.config.websiteUrl + '/' + booted.locale + '/' + item.options.path.replace(':value', item.value)"
+           target="_blank">
+            {{ item.value }}
+        </a>
     </template>
 </template>

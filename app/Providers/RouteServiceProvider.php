@@ -29,17 +29,16 @@ class RouteServiceProvider extends ServiceProvider
         $this->configureRateLimiting();
 
         $this->routes(function () {
-            Route::group(['prefix' => 'api'], function () {
-                Route::middleware('auth.basic.once', 'role:admin', 'api')
-                    ->prefix('admin')
-                    ->group(glob(base_path('http/Admin/*/routes.php')));
+            Route::prefix('api')
+                ->middleware('api')
+                ->group(function () {
+                    Route::prefix('admin')
+                        ->middleware(['auth.basic.once', 'role:admin'])
+                        ->group(glob(base_path('http/Admin/*/routes.php')));
 
-                Route::middleware('api')
-                    ->group(glob(base_path('http/Common/*/routes.php')));
-
-                Route::middleware('auth.basic.once', 'api')
-                    ->group(glob(base_path('http/Public/*/routes.php')));
-            });
+                    Route::group([], glob(base_path('http/Common/*/routes.php')));
+                    Route::group([], glob(base_path('http/Public/*/routes.php')));
+                });
         });
 
         Route::pattern('id', '[0-9]+');

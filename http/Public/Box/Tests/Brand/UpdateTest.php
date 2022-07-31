@@ -14,7 +14,7 @@ class UpdateTest extends _TestCase
 
         $this->requestBody = [
             'name' => 'Brand 2',
-            'show_on_the_home_page' => '1',
+            'show_on_the_home_page' => 1,
             'file' => FormHelper::file(),
             'files_list' => [
                 FormHelper::file(),

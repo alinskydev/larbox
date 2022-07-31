@@ -10,16 +10,17 @@ export class Model {
     constructor(
         config: {
             list: Record<string, {
-                label: any,
-                value: any,
+                label: [String, Function],
+                value: [String, Function],
                 type: Enums.valueTypes,
                 options: Object,
                 attributes: Object,
             }>,
             filters: Record<string, {
-                label: any,
-                hint: any,
-                value: any,
+                label: [String, Function],
+                hint: Function,
+                name: String,
+                value: [String, Function],
                 type: Enums.inputTypes,
                 options: Object,
                 attributes: Object,
@@ -27,16 +28,17 @@ export class Model {
             }>,
             sortings: Array<string>,
             show: Record<string, {
-                label: any,
-                value: any,
+                label: [String, Function],
+                value: [String, Function],
                 type: Enums.valueTypes,
                 options: Object,
                 attributes: Object,
             }>,
             form: Record<string, Record<string, {
-                label: any,
-                hint: any,
-                value: any,
+                label: [String, Function],
+                hint: Function,
+                name: String,
+                value: [String, Function],
                 type: Enums.inputTypes,
                 options: Object,
                 attributes: Object,
@@ -75,10 +77,11 @@ export class Model {
         let result = {};
 
         for (let key in list) {
-            let field = list[key];
+            let field = list[key],
+                label = field.label !== undefined ? field.label : 'fields->' + key;
 
             result[key] = {
-                label: field.label !== undefined ? context.__(field.label) : context.__('fields->' + key),
+                label: typeof label === 'function' ? label(context) : context.__(label),
                 options: field.options ?? {},
             };
         }
@@ -91,6 +94,7 @@ export class Model {
 
         for (let key in list) {
             let field = list[key],
+                label = field.label !== undefined ? field.label : 'fields->' + key,
                 value = field.value ?? key;
 
             if (typeof value === 'function') {
@@ -101,7 +105,7 @@ export class Model {
             }
 
             result[key] = {
-                label: field.label !== undefined ? context.__(field.label) : context.__('fields->' + key),
+                label: typeof label === 'function' ? label(context) : context.__(label),
                 value: value,
                 type: field.type,
                 options: field.options ?? {},
@@ -117,6 +121,7 @@ export class Model {
 
         for (let key in list) {
             let field = list[key],
+                label = field.label !== undefined ? field.label : 'fields->' + key,
                 name = field.name ?? key,
                 value = field.value ?? key;
 
@@ -132,7 +137,7 @@ export class Model {
             }
 
             result[key] = {
-                label: field.label !== undefined ? context.__(field.label) : context.__('fields->' + key),
+                label: typeof label === 'function' ? label(context) : context.__(label),
                 hint: field.hint !== undefined ? field.hint(context) : null,
                 name: name,
                 value: value,
