@@ -9,6 +9,7 @@ export default {
             'Accept-Language': null,
             'Authorization': 'Basic ' + window.btoa(authUsername + ':' + authPassword),
         },
+
+        websiteUrl: 'http://larbox.loc',
     },
-    websiteUrl: 'http://larbox.loc',
 };

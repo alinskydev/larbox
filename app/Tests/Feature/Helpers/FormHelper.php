@@ -22,12 +22,10 @@ class FormHelper
 
     public static function seoMeta()
     {
+        $languages = app('language')->active->toArray();
+
         return [
-            'head' => [
-                'ru' => 'Meta ru',
-                'uz' => 'Meta uz',
-                'en' => 'Meta en',
-            ],
+            'head' => array_map(fn ($value) => 'Meta ' . $value['code'], $languages),
         ];
     }
 
