@@ -17,7 +17,7 @@ export default {
     created() {
         if (this.options.field.includes(':locale')) {
             this.isLocalized = true;
-            this.field = this.options.field.replace(':locale', '');
+            this.field = this.options.field.replace('.:locale', '');
         } else {
             this.field = this.options.field;
         }

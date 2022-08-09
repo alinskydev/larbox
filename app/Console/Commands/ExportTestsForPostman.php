@@ -148,7 +148,12 @@ class ExportTestsForPostman extends Command
                     'body' => $response['body'] ? json_encode($response['body'], $jsonOptions) : null,
                     'originalRequest' => [
                         'method' => $request['method'],
-                        'header' => $request['headers'],
+                        'header' => array_map(function ($value, $key) {
+                            return [
+                                'key' => $key,
+                                'value' => $value,
+                            ];
+                        }, $request['headers'], array_keys($request['headers'])),
                         'body' => $requestBody,
                         'url' => [
                             'host' => ['{{host}}'],

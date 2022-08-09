@@ -42,20 +42,20 @@ export default {
         <ComponentResolver :resolve="item.options.resolve(booted.components.current, item)" />
     </template>
 
-    <template v-else-if="item.type === Enums.valueTypes.file">
-        <template v-if="typeof item.value === 'object'" v-for="(file, key) in item.value">
-            <a :href="file" target="_blank" class="d-block">
-                {{ __('Файл №:index', { index: key + 1 }) }}
+    <template v-else-if="item.type === Enums.valueTypes.link">
+        <template v-if="typeof item.value === 'object'" v-for="(link, key) in item.value">
+            <a :href="link" target="_blank" class="d-block">
+                {{ __('Ссылка №:index', { index: key + 1 }) }}
             </a>
         </template>
 
         <a v-else :href="item.value" target="_blank">
-            {{ __('Файл') }}
+            {{ __('Ссылка') }}
         </a>
     </template>
 
     <template v-else-if="item.type === Enums.valueTypes.html">
-        <div v-html="item.value"></div>
+        <div v-html="item.value" v-bind="item.attributes"></div>
     </template>
 
     <template v-else-if="item.type === Enums.valueTypes.httpSelect">
@@ -68,7 +68,7 @@ export default {
 
     <template v-else-if="item.type === Enums.valueTypes.image">
         <Images v-if="typeof item.value === 'object'" :item="item" />
-        <img v-else :src="item.value">
+        <img v-else :src="item.value" v-bind="item.attributes">
     </template>
 
     <template v-else-if="item.type === Enums.valueTypes.json">

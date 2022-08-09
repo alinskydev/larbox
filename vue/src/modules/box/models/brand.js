@@ -105,10 +105,10 @@ export default new Model({
             },
         },
         file: {
-            type: Enums.valueTypes.file,
+            type: Enums.valueTypes.link,
         },
         files_list: {
-            type: Enums.valueTypes.file,
+            type: Enums.valueTypes.link,
         },
         show_on_the_home_page: {
             type: Enums.valueTypes.boolean,

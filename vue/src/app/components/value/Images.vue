@@ -11,6 +11,7 @@ export default {
             loop: false,
             responsiveClass: true,
             margin: 10,
+            autoWidth: true,
             responsive: {
                 0: {
                     items: 1,
@@ -29,8 +30,6 @@ export default {
 
 <template>
     <div :id="item.id" class="owl-carousel">
-        <div v-for="value in item.value">
-            <img :src="value">
-        </div>
+        <img v-for="value in item.value" :src="value" style="height: 300px;" v-bind="item.attributes">
     </div>
 </template>

@@ -73,7 +73,6 @@ export default new Model({
             type: Enums.inputTypes.text,
             attributes: {
                 'type': 'number',
-                'pattern': "[0-9]{3}-[0-9]{2}-[0-9]{3}",
             },
         },
         price_to: {

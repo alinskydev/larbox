@@ -34,6 +34,7 @@ abstract class PostmanTestCase extends BaseTestCase
     private array $requestFiles = [];
     protected array $requestHeaders = [];
     protected array $authHeaders = [];
+    private array $allRequestHeaders = [];
 
     protected TestResponse $response;
 
@@ -46,13 +47,13 @@ abstract class PostmanTestCase extends BaseTestCase
 
         $this->requestQueryAsString = http_build_query($this->requestQuery);
 
-        $headers = array_merge($this->defaultHeaders, $this->requestHeaders, $this->authHeaders);
+        $this->allRequestHeaders = array_merge($this->defaultHeaders, $this->requestHeaders, $this->authHeaders);
 
         return $this->call(
             method: $this->requestMethod,
             uri: "$this->baseUrl/$this->requestUrl?$this->requestQueryAsString",
             parameters: $this->requestBody,
-            server: $this->transformHeadersToServerVars($headers),
+            server: $this->transformHeadersToServerVars($this->allRequestHeaders),
         );
     }
 
@@ -90,7 +91,7 @@ abstract class PostmanTestCase extends BaseTestCase
         $items[$target] = [
             'is_request' => true,
             'request' => [
-                'headers' => $this->requestHeaders,
+                'headers' => $this->allRequestHeaders,
                 'body' => $this->requestBody,
                 'files' => $this->requestFiles,
                 'method' => $this->requestMethod,
