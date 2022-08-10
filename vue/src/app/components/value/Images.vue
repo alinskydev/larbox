@@ -10,8 +10,8 @@ export default {
         $('#' + this.item.id).owlCarousel({
             loop: false,
             responsiveClass: true,
+            autoHeight: true,
             margin: 10,
-            autoWidth: true,
             responsive: {
                 0: {
                     items: 1,
@@ -30,6 +30,6 @@ export default {
 
 <template>
     <div :id="item.id" class="owl-carousel">
-        <img v-for="value in item.value" :src="value" style="height: 300px;" v-bind="item.attributes">
+        <img v-for="value in item.value" :src="value" v-bind="item.attributes">
     </div>
 </template>

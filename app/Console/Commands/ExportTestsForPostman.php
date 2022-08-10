@@ -34,7 +34,6 @@ class ExportTestsForPostman extends Command
     {
         // Preparing input file
 
-        $currentLanguage = app()->getLocale();
         $collectionName = $this->ask('Enter collectioin name', config('app.name'));
 
         $inputFileName = base_path('larbox/storage/tests/_postman.json');
@@ -53,19 +52,6 @@ class ExportTestsForPostman extends Command
             'info' => [
                 'name' => $collectionName,
                 'schema' => 'https://schema.getpostman.com/json/collection/v2.1.0/collection.json',
-            ],
-            'event' => [
-                [
-                    'listen' => 'prerequest',
-                    'script' => [
-                        'type' => 'text/javascript',
-                        'exec' => [
-                            "var Header = require('postman-collection').Header;",
-                            "pm.request.headers.add(new Header('Accept: application/json'));",
-                            "pm.request.headers.add(new Header('Accept-Language: $currentLanguage'));",
-                        ],
-                    ],
-                ],
             ],
             'variable' => [
                 [

@@ -22,6 +22,7 @@ abstract class PostmanTestCase extends BaseTestCase
 
     protected $defaultHeaders = [
         'Accept' => 'application/json',
+        'Accept-Language' => 'ru',
     ];
 
     private string $baseUrl = '/api';
