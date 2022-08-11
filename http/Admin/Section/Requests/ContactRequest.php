@@ -16,9 +16,9 @@ class ContactRequest extends FormRequest
     public function nonLocalizedRules()
     {
         return [
-            'social_facebook' => 'present|string|max:100',
-            'social_instagram' => 'present|string|max:100',
-            'social_youtube' => 'present|string|max:100',
+            'socials_facebook' => 'present|string|max:100',
+            'socials_instagram' => 'present|string|max:100',
+            'socials_youtube' => 'present|string|max:100',
 
             'branches' => 'array',
             'branches.*.name' => 'required|string|max:100',

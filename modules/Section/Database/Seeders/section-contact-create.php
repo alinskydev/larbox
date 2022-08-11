@@ -12,9 +12,10 @@ return new class extends Seeder
             [
                 'name' => 'contact',
                 'blocks' => json_encode([
-                    'social_facebook' => '',
-                    'social_instagram' => '',
-                    'social_youtube' => '',
+                    'socials_facebook' => '',
+                    'socials_instagram' => '',
+                    'socials_youtube' => '',
+
                     'branches' => DataHelper::multiply(
                         range(1, 2),
                         function ($index) {

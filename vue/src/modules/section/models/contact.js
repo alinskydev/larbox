@@ -4,15 +4,15 @@ import * as Enums from '@/app/core/enums';
 export default new Model({
     form: {
         'Social': {
-            social_facebook: {
+            socials_facebook: {
                 type: Enums.inputTypes.text,
                 size: Enums.inputSizes.md,
             },
-            social_instagram: {
+            socials_instagram: {
                 type: Enums.inputTypes.text,
                 size: Enums.inputSizes.md,
             },
-            social_youtube: {
+            socials_youtube: {
                 type: Enums.inputTypes.text,
                 size: Enums.inputSizes.md,
             },

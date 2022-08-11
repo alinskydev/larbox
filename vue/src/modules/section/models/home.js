@@ -32,9 +32,7 @@ export default new Model({
                 },
                 size: Enums.inputSizes.xl,
             },
-        },
-        'Images': {
-            images_list: {
+            welcome_images_list: {
                 type: Enums.inputTypes.file,
                 options: {
                     preview: 'w_500',

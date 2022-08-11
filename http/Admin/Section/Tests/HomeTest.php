@@ -25,7 +25,7 @@ class HomeTest extends _TestCase
             'welcome_slogan' => 'Slogan',
             'welcome_description' => FormHelper::localized('Description'),
             'welcome_image' => FormHelper::file(),
-            'images_list' => [
+            'welcome_images_list' => [
                 FormHelper::file(),
                 FormHelper::file(),
             ],

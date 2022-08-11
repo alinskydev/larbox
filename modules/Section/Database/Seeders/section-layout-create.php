@@ -13,8 +13,9 @@ return new class extends Seeder
                 'name' => 'layout',
                 'blocks' => json_encode([
                     'header_phone' => '+998 (00) 111 11 11',
+
                     'footer_phone' => '+998 (00) 222 22 22',
-                    'footer_description' => json_decode(DataHelper::localized('Description'), true),
+                    'footer_description' => json_decode(DataHelper::localized('Description')),
                 ]),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],

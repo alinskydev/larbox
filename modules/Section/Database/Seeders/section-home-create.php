@@ -12,15 +12,17 @@ return new class extends Seeder
             [
                 'name' => 'home',
                 'blocks' => json_encode([
-                    'welcome_title' => json_decode(DataHelper::localized('Title'), true),
+                    'welcome_title' => json_decode(DataHelper::localized('Title')),
                     'welcome_slogan' => 'Slogan',
-                    'welcome_description' => json_decode(DataHelper::localized('Description'), true),
+                    'welcome_description' => json_decode(DataHelper::localized('Description')),
                     'welcome_image' => '/test_data/images/1.png',
-                    'images_list' => [
+
+                    'welcome_images_list' => [
                         '/test_data/images/1.png',
                         '/test_data/images/2.png',
                         '/test_data/images/3.png',
                     ],
+
                     'slider' => DataHelper::multiply(
                         range(1, 2),
                         function ($index) {
@@ -31,6 +33,7 @@ return new class extends Seeder
                             ];
                         }
                     ),
+
                     'portfolio' => DataHelper::multiply(
                         range(1, 2),
                         function ($index) {

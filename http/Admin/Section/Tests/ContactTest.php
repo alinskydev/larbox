@@ -21,9 +21,9 @@ class ContactTest extends _TestCase
         $this->requestMethod = self::REQUEST_METHOD_PUT;
 
         $this->requestBody = [
-            'social_facebook' => '',
-            'social_instagram' => '',
-            'social_youtube' => '',
+            'socials_facebook' => '',
+            'socials_instagram' => '',
+            'socials_youtube' => '',
 
             'branches' => FormHelper::multiply(
                 [1, 2],

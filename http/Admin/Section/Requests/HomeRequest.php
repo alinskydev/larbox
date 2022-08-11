@@ -15,7 +15,7 @@ class HomeRequest extends FormRequest
 
     protected array $fileFields = [
         'welcome_image' => null,
-        'images_list' => [],
+        'welcome_images_list' => [],
         'slider.*.image' => null,
         'portfolio.*.images_list' => [],
     ];
@@ -25,8 +25,8 @@ class HomeRequest extends FormRequest
         return [
             'welcome_slogan' => 'required|string|max:100',
             'welcome_image' => FileValidationHelper::rules(FileValidationHelper::CONFIG_IMAGE),
-            'images_list' => 'array',
-            'images_list.*' => FileValidationHelper::rules(FileValidationHelper::CONFIG_IMAGE),
+            'welcome_images_list' => 'array',
+            'welcome_images_list.*' => FileValidationHelper::rules(FileValidationHelper::CONFIG_IMAGE),
 
             'slider' => 'required|array',
             'slider.*.image' => FileValidationHelper::rules(FileValidationHelper::CONFIG_IMAGE),
