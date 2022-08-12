@@ -63,8 +63,12 @@ export default {
 </script>
 
 <template>
+    <label v-if="item.label" class="mb-3">
+        {{ item.label }}
+    </label>
+
     <div class="table-responsive">
-        <table class="table table-hover table-bordered" :id="item.id">
+        <table class="table table-bordered table-striped table-hover" :id="item.id">
             <tbody>
                 <template v-for="(relationItem, key) in items">
                     <tr :data-key="key" class="crud-relation">

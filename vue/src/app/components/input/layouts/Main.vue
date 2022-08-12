@@ -46,7 +46,7 @@ export default {
     <div :class="item.size">
         <template v-if="item.options.isLocalized">
             <div class="row">
-                <template v-for="(language, key, index) in booted.languages.active">
+                <template v-for="language in booted.languages.all">
                     <div :class="'input-wrapper form-group ' + (item.options.size ?? Enums.inputSizes.md)">
                         <label v-if="item.label" :for="inputAttrs['id'].replace(':locale', language.code)">
                             {{ item.label }}

@@ -44,14 +44,16 @@ class FormRequest extends BaseFormRequest
 
         foreach ($this->fileFields as $path => $defaultValue) {
             if (str_contains($path, '*')) {
-                $pathArr = explode('.', $path);
-                $relation = $pathArr[0];
-                $field = end($pathArr);
+                $pathArr = explode('.*.', $path);
+
+                $relation = Arr::pull($pathArr, 0);
+                $field = implode('.', $pathArr);
 
                 if (!isset($data[$relation])) continue;
 
                 foreach ($data[$relation] as $dataRelationKey => &$dataRelation) {
-                    $dataRelation[$field] ??= $oldBlocks[$relation][$dataRelationKey][$field] ?? $defaultValue;
+                    $oldValue = Arr::get($oldBlocks, "$relation.$dataRelationKey.$field", $defaultValue);
+                    data_fill($dataRelation, $field, $oldValue);
                 }
             } else {
                 $oldValue = Arr::get($oldBlocks, $path, $defaultValue);

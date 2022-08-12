@@ -8,7 +8,7 @@ class FormHelper
 {
     public static function localized(string $string)
     {
-        $languages = app('language')->active->toArray();
+        $languages = app('language')->all->toArray();
         return array_map(fn ($value) => "$string " . $value['code'], $languages);
     }
 
@@ -22,7 +22,7 @@ class FormHelper
 
     public static function seoMeta()
     {
-        $languages = app('language')->active->toArray();
+        $languages = app('language')->all->toArray();
 
         return [
             'head' => array_map(fn ($value) => 'Meta ' . $value['code'], $languages),

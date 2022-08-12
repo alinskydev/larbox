@@ -10,7 +10,7 @@ trait SeoMetaFormRequestTrait
     {
         $rules = [];
 
-        $languages = app('language')->active->toArray();
+        $languages = app('language')->all->toArray();
 
         $seoMetaRules = [
             'seo_meta.head' => 'present|nullable|string',

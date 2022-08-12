@@ -16,7 +16,7 @@ class AsImages implements CastsAttributes
     public function __construct(string $sizes = '', string $savePath = 'images')
     {
         $this->sizes = explode('|', $sizes);
-        $this->sizes = array_filter($this->sizes);
+        $this->sizes = array_filter($this->sizes, fn ($f_v) => $f_v !== null);
         $this->savePath = $savePath;
     }
 

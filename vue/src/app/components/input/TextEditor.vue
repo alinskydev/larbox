@@ -98,7 +98,7 @@ export default {
     },
     mounted() {
         if (this.item.options.isLocalized) {
-            for (let key in this.booted.languages.active) {
+            for (let key in this.booted.languages.all) {
                 tinymce.init({
                     ...{ selector: '#' + this.item.id + '-' + key },
                     ...this.pluginOptions,

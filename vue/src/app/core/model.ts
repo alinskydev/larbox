@@ -156,6 +156,7 @@ export class Model {
 
         for (let key in list) {
             let field = list[key],
+                label = field.label !== undefined ? field.label : 'fields->' + key,
                 value = field.value ?? key,
                 options = field.options ?? {},
                 initValue = null;
@@ -172,7 +173,7 @@ export class Model {
             }
 
             result[key] = {
-                label: field.label !== undefined ? context.__(field.label) : context.__('fields->' + key),
+                label: typeof label === 'function' ? label(context) : context.__(label),
                 hint: field.hint !== undefined ? field.hint(context) : null,
                 name: field.name ?? key,
                 value: value,

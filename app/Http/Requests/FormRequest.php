@@ -43,14 +43,13 @@ class FormRequest extends BaseFormRequest
             $rules += $this->seoMetaRules();
         }
 
-        $languages = app('language')->active->toArray();
-        $localizedRules = $this->localizedRules();
+        $languages = app('language')->all->toArray();
 
-        foreach ($localizedRules as &$rule) {
-            $rule = data_set($languages, '*', $rule);
+        foreach ($this->localizedRules() as $key => $rule) {
+            foreach ($languages as $language) {
+                $rules[$key . '.' . $language['code']] = $rule;
+            }
         }
-
-        $rules += Arr::dot($localizedRules);
 
         return $rules;
     }
@@ -68,7 +67,7 @@ class FormRequest extends BaseFormRequest
                 $rawData[$field] = Arr::get($data, $field);
             }
 
-            $rawData = array_filter($rawData);
+            $rawData = array_filter($rawData, fn ($f_v) => $f_v !== null);
 
             $data = HtmlCleanHelper::process(
                 data: $data,

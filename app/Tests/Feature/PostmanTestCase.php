@@ -112,7 +112,7 @@ abstract class PostmanTestCase extends BaseTestCase
             ],
         ];
 
-        // Storing to cache
+        // Storing to file
 
         $fileName = base_path('larbox/storage/tests/_postman.json');
         $oldItems = is_file($fileName) ? file_get_contents($fileName) : '[]';
@@ -132,7 +132,7 @@ abstract class PostmanTestCase extends BaseTestCase
         $data = explode('&', $data);
         $data = array_map(fn ($value) => explode('=', $value), $data);
         $data = Arr::pluck($data, 1, 0);
-        $data = array_filter($data);
+        $data = array_filter($data, fn ($f_v) => $f_v !== null);
 
         return $data;
     }

@@ -86,7 +86,7 @@ class Model extends BaseModel
                         case static::RELATION_TYPE_ONE_MANY:
                             $value = array_values((array)$value);
                             $ids = Arr::pluck($value, 'id');
-                            $ids = array_filter($ids);
+                            $ids = array_filter($ids, fn ($f_v) => $f_v !== null);
 
                             //  Trying to delete old records
 
