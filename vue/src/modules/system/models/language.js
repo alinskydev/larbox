@@ -42,9 +42,6 @@ export default new Model({
                 };
             },
         },
-        created_at: {
-            type: Enums.valueTypes.text,
-        },
         updated_at: {
             type: Enums.valueTypes.text,
         },

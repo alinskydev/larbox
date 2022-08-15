@@ -43,17 +43,18 @@ class FileValidationHelper
         ],
     ];
 
-    public static function rules(array $config, array $extraRules = [])
+    public static function rules(array $config, bool $isRequired = false)
     {
         return array_merge(
             [
-                'sometimes',
                 'required',
                 'file',
                 'mimes:' . implode(',', $config['mimes']),
                 'max:' . $config['max'],
             ],
-            $extraRules
+            !$isRequired ? [
+                'sometimes',
+            ] : [],
         );
     }
 }
