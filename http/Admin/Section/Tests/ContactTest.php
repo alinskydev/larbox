@@ -26,7 +26,7 @@ class ContactTest extends _TestCase
             'socials_youtube' => '',
 
             'branches' => FormHelper::multiply(
-                [1, 2],
+                range(1, 2),
                 fn ($index) => [
                     'name' => "Name $index",
                     'phone' => "Phone $index",

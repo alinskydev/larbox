@@ -31,7 +31,7 @@ class HomeTest extends _TestCase
             ],
 
             'slider' => FormHelper::multiply(
-                [1, 2],
+                range(1, 2),
                 fn ($index) => [
                     'title' => FormHelper::localized("Title $index"),
                     'subtitle' => FormHelper::localized("Subtitle $index"),
@@ -40,7 +40,7 @@ class HomeTest extends _TestCase
             ),
 
             'portfolio' => FormHelper::multiply(
-                [1, 2],
+                range(1, 2),
                 fn ($index) => [
                     'name' => "Name $index",
                     'description' => FormHelper::localized("Description $index"),

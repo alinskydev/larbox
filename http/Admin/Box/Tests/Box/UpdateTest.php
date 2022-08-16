@@ -28,7 +28,7 @@ class UpdateTest extends _TestCase
             'tags' => [1, 2],
 
             'variations' => FormHelper::multiply(
-                [1, 2],
+                range(1, 2),
                 fn ($index) => [
                     'id' => $index,
                     'name' => FormHelper::localized("Variation $index"),

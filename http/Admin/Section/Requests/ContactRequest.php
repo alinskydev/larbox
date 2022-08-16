@@ -16,9 +16,9 @@ class ContactRequest extends FormRequest
     public function nonLocalizedRules()
     {
         return [
-            'socials_facebook' => 'present|string|max:100',
-            'socials_instagram' => 'present|string|max:100',
-            'socials_youtube' => 'present|string|max:100',
+            'socials_facebook' => 'present|nullable|string|max:100',
+            'socials_instagram' => 'present|nullable|string|max:100',
+            'socials_youtube' => 'present|nullable|string|max:100',
 
             'branches' => 'array',
             'branches.*.name' => 'required|string|max:100',
@@ -29,7 +29,7 @@ class ContactRequest extends FormRequest
     public function localizedRules()
     {
         return [
-            'branches.*.description' => 'present|string',
+            'branches.*.description' => 'present|nullable|string',
         ];
     }
 }

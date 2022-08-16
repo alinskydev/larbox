@@ -51,7 +51,12 @@ export default {
 </script>
 
 <template>
-    <select @change="send" class="form-control" :value="currentValue" v-bind="item.attributes">
+    <select @change="send"
+            class="form-control"
+            :id="item.id"
+            :value="currentValue"
+            v-bind="item.attributes">
+
         <option v-for="(selectItem, key) in items" :value="key">
             {{ selectItem }}
         </option>

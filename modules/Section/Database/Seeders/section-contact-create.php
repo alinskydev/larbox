@@ -18,13 +18,11 @@ return new class extends Seeder
 
                     'branches' => DataHelper::multiply(
                         range(1, 2),
-                        function ($index) {
-                            return [
-                                'name' => "Name $index",
-                                'phone' => "Phone $index",
-                                'description' => json_decode(DataHelper::localized("Description $index")),
-                            ];
-                        }
+                        fn ($index) => [
+                            'name' => "Name $index",
+                            'phone' => "Phone $index",
+                            'description' => json_decode(DataHelper::localized("Description $index")),
+                        ],
                     ),
                 ]),
                 'updated_at' => date('Y-m-d H:i:s'),

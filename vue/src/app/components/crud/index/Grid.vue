@@ -80,6 +80,15 @@ export default {
                                         </td>
                                     </template>
 
+                                    <template v-else-if="
+                                        item[key].type === Enums.valueTypes.httpSelect
+                                        || item[key].type === Enums.valueTypes.httpSwitcher
+                                    ">
+                                        <td :set="item[key].attributes['disabled'] = (item.is_deleted === true)">
+                                            <Value :item="item[key]" :id="item.id.value" />
+                                        </td>
+                                    </template>
+
                                     <template v-else>
                                         <td>
                                             <Value :item="item[key]" :id="item.id.value" />

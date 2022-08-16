@@ -24,7 +24,7 @@ export default {
 
         let value = this.item.value;
 
-        if (value === undefined || value.length === 0) return;
+        if (value === undefined || value === null || value.length === 0) return;
 
         if (this.options.initValue) {
             if (this.options.isMultiple) {
@@ -123,6 +123,7 @@ export default {
 
 <template>
     <select :multiple="options.isMultiple">
+        <option v-if="options.withPrompt"></option>
         <option v-for="(selectItem, key) in items" :value="key" selected>
             {{ selectItem }}
         </option>

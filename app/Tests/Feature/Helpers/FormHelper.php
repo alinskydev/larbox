@@ -20,6 +20,15 @@ class FormHelper
         return UploadedFile::fake()->create($name, $size, $mime);
     }
 
+    public static function localizedFile(
+        string $name = 'image.jpg',
+        int $size = 100,
+        string $mime = 'image/jpeg',
+    ) {
+        $languages = app('language')->all->toArray();
+        return array_map(fn ($value) => UploadedFile::fake()->create($name, $size, $mime), $languages);
+    }
+
     public static function seoMeta()
     {
         $languages = app('language')->all->toArray();

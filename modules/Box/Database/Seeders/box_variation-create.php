@@ -16,7 +16,7 @@ return new class extends Seeder
             ],
             [
                 'box_id' => 1,
-                'name' => DataHelper::localized('Variation 1'),
+                'name' => DataHelper::localized('Variation 2'),
                 'sort_index' => 1,
             ],
         ]);

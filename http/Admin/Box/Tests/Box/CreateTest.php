@@ -26,7 +26,7 @@ class CreateTest extends _TestCase
             'tags' => [1, 2],
 
             'variations' => FormHelper::multiply(
-                [3, 4],
+                range(1, 2),
                 fn ($index) => [
                     'name' => FormHelper::localized("Variation $index"),
                     'date' => date(LARBOX_FORMAT_DATE),

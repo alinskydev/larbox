@@ -22,6 +22,7 @@ class LayoutTest extends _TestCase
 
         $this->requestBody = [
             'header_phone' => '+998 (00) 111 11 11',
+
             'footer_phone' => '+998 (00) 222 22 22',
             'footer_description' => FormHelper::localized('Description'),
         ];

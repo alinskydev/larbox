@@ -38,7 +38,7 @@ export default new Model({
             },
             attributes: (context) => {
                 return {
-                    'disabled': context.item.value,
+                    'readonly': context.item.value,
                 };
             },
         },

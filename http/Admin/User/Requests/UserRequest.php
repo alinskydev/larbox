@@ -34,6 +34,7 @@ class UserRequest extends ActiveFormRequest
             ],
             'new_password' => [
                 Rule::requiredIf(!$this->model->exists),
+                'nullable',
                 'string',
                 'min:8',
                 'max:100',
@@ -44,7 +45,7 @@ class UserRequest extends ActiveFormRequest
             ],
 
             'profile.full_name' => 'required|string|max:100',
-            'profile.phone' => 'string|max:100',
+            'profile.phone' => 'nullable|string|max:100',
             'profile.image' => FileValidationHelper::rules(FileValidationHelper::CONFIG_IMAGE),
         ];
     }

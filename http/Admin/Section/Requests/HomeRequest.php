@@ -42,12 +42,12 @@ class HomeRequest extends FormRequest
     {
         return [
             'welcome_title' => 'required|string|max:100',
-            'welcome_description' => 'present|string',
+            'welcome_description' => 'present|nullable|string',
 
             'slider.*.title' => 'required|string|max:100',
             'slider.*.subtitle' => 'required|string|max:100',
 
-            'portfolio.*.description' => 'present|string',
+            'portfolio.*.description' => 'present|nullable|string',
         ];
     }
 }

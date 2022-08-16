@@ -16,12 +16,12 @@ class HtmlCleanHelper
         foreach ($data as &$value) {
             if (is_array($value)) {
                 array_walk_recursive($value, function (&$v, $k) use ($type) {
-                    if (!is_object($v)) {
+                    if (is_string($v)) {
                         $v = self::processValue($v, $type);
                     }
                 });
             } else {
-                if (!is_object($value)) {
+                if (is_string($value)) {
                     $value = self::processValue($value, $type);
                 }
             }
