@@ -70,7 +70,7 @@ export default {
                         </thead>
 
                         <tbody>
-                            <tr v-for="item in items">
+                            <tr v-for="item in items" v-bind="config.gridRowAttributes(item)">
                                 <Selection type="tableBody" :id="item.id.value" />
 
                                 <template v-for="(field, key) in fields">

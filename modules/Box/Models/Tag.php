@@ -10,6 +10,4 @@ class Tag extends Model
     use SoftDeletes;
 
     protected $table = 'box_tag';
-
-    protected $hidden = ['pivot'];
 }

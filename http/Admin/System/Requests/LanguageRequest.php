@@ -10,7 +10,7 @@ class LanguageRequest extends ActiveFormRequest
     public function nonLocalizedRules()
     {
         return [
-            'name' => 'required|string|max:100',
+            'name' => 'required|string|max:255',
             'image' => FileValidationHelper::rules(FileValidationHelper::CONFIG_IMAGE),
         ];
     }

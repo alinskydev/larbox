@@ -9,9 +9,6 @@ use App\Http\Controllers\Actions\SetValueAction;
 use Modules\System\Models\Language;
 
 Route::prefix('system')
-    ->where([
-        'language' => '[0-9]+',
-    ])
     ->group(function () {
         Route::apiResource('language', LanguageController::class)->only(['index', 'show', 'update']);
 

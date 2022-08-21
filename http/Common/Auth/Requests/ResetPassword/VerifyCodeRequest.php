@@ -13,7 +13,7 @@ class VerifyCodeRequest extends FormRequest
             'email' => [
                 'required',
                 'email',
-                'max:100',
+                'max:255',
                 Rule::exists('user')->where('deleted_at', null),
             ],
             'reset_password_code' => [

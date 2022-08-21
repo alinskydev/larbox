@@ -2,7 +2,7 @@
 
 namespace Modules\Box\Resources;
 
-use App\Resources\JsonResource;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Modules\User\Resources\UserResource;
 
 class BrandResource extends JsonResource

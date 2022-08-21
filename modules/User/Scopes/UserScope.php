@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Scopes;
+namespace Modules\User\Scopes;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
 
-class CreatorScope implements Scope
+class UserScope implements Scope
 {
     public function __construct(
-        private string $field = 'creator_id',
+        private string $field,
         private ?int $id = null,
     ) {
     }

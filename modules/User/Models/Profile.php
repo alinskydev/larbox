@@ -13,11 +13,6 @@ class Profile extends Model
     public $incrementing = false;
     public $timestamps = false;
 
-
-    protected $guarded = [
-        'user_id',
-    ];
-
     protected $hidden = [
         'user_id',
     ];

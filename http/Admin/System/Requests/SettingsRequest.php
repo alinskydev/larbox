@@ -16,7 +16,7 @@ class SettingsRequest extends FormRequest
             'delete_old_files' => 'required|boolean',
             'favicon' => FileValidationHelper::rules(FileValidationHelper::CONFIG_IMAGE),
             'logo' => FileValidationHelper::rules(FileValidationHelper::CONFIG_IMAGE),
-            'project_name' => 'required|string|max:100',
+            'project_name' => 'required|string|max:255',
         ];
     }
 

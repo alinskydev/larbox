@@ -6,9 +6,11 @@ use App\Helpers\DataHelper;
 
 return new class extends Seeder
 {
-    public function run()
+    public array $data;
+
+    public function __construct()
     {
-        DB::table('system_language')->insert([
+        $this->data = [
             [
                 'name' => 'Русский',
                 'code' => 'ru',
@@ -33,6 +35,11 @@ return new class extends Seeder
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
-        ]);
+        ];
+    }
+
+    public function run()
+    {
+        DB::table('system_language')->insert($this->data);
     }
 };

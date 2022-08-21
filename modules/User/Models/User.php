@@ -6,8 +6,6 @@ use App\Models\UserModel;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-use App\Casts\Date\AsDatetime;
-
 class User extends UserModel
 {
     use Notifiable;
@@ -17,21 +15,11 @@ class User extends UserModel
 
     protected $with = ['profile'];
 
-    protected $guarded = [
-        'email_verified_at',
-        'remember_token',
-        'reset_password_code',
-    ];
-
     protected $hidden = [
         'email_verified_at',
         'password',
         'remember_token',
         'reset_password_code',
-    ];
-
-    protected $casts = [
-        'email_verified_at' => AsDatetime::class,
     ];
 
     public function profile()
@@ -45,7 +33,7 @@ class User extends UserModel
 
         static::deleting(function (self $model) {
             if ($model->id == 1) {
-                abort(403, __('Данный пользователь не подлежит удалению'));
+                throw new \Exception(__('Данный пользователь не подлежит удалению'));
             }
         });
     }

@@ -11,8 +11,9 @@ class LayoutRequest extends FormRequest
     public function nonLocalizedRules()
     {
         return [
-            'header_phone' => 'required|string|max:100',
-            'footer_phone' => 'required|string|max:100',
+            'header_phone' => 'required|string|max:255',
+
+            'footer_phone' => 'required|string|max:255',
         ];
     }
 

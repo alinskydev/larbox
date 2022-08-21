@@ -17,14 +17,14 @@ class UserRequest extends ActiveFormRequest
             'username' => [
                 'required',
                 'string',
-                'max:100',
+                'max:255',
                 'regex:/^[a-zA-Z0-9_\-]+$/',
                 Rule::unique($this->model->getTable())->ignore($this->model->id),
             ],
             'email' => [
                 'required',
                 'email',
-                'max:100',
+                'max:255',
                 Rule::unique($this->model->getTable())->ignore($this->model->id),
             ],
             'role' => [
@@ -37,15 +37,15 @@ class UserRequest extends ActiveFormRequest
                 'nullable',
                 'string',
                 'min:8',
-                'max:100',
+                'max:255',
             ],
             'new_password_confirmation' => [
                 Rule::requiredIf(strlen($this->new_password) > 0),
                 'same:new_password',
             ],
 
-            'profile.full_name' => 'required|string|max:100',
-            'profile.phone' => 'nullable|string|max:100',
+            'profile.full_name' => 'required|string|max:255',
+            'profile.phone' => 'nullable|string|max:255',
             'profile.image' => FileValidationHelper::rules(FileValidationHelper::CONFIG_IMAGE),
         ];
     }

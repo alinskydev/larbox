@@ -10,10 +10,6 @@ class Variation extends Model
 
     public $timestamps = false;
 
-    protected $guarded = [
-        'box_id',
-    ];
-
     protected $hidden = [
         'box_id',
     ];

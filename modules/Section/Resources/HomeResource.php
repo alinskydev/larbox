@@ -2,7 +2,7 @@
 
 namespace Modules\Section\Resources;
 
-use App\Resources\JsonResource;
+use Illuminate\Http\Resources\Json\JsonResource;
 use App\Helpers\ImageHelper;
 
 class HomeResource extends JsonResource

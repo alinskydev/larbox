@@ -29,7 +29,7 @@ export default {
 
 <template>
     <div class="d-flex align-items-center justify-content-between">
-        <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">
+        <div class="dataTables_info" role="status" aria-live="polite">
             {{ __('Показано с :from по :to записи из :total', meta) }}
         </div>
 

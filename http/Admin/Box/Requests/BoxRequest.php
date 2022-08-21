@@ -48,10 +48,10 @@ class BoxRequest extends ActiveFormRequest
     public function localizedRules()
     {
         return [
-            'name' => 'required|string|max:100',
+            'name' => 'required|string|max:255',
             'description' => 'nullable|string',
 
-            'variations.*.name' => 'required|string|max:100',
+            'variations.*.name' => 'required|string|max:255',
         ];
     }
 

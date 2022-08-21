@@ -16,11 +16,6 @@ class Brand extends Model
 
     protected $table = 'box_brand';
 
-    protected $guarded = [
-        'creator_id',
-        'is_active',
-    ];
-
     protected $attributes = [
         'files_list' => '[]',
     ];

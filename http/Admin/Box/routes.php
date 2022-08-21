@@ -12,10 +12,6 @@ use Modules\Box\Models\Box;
 use Modules\Box\Models\Brand;
 
 Route::prefix('box')
-    ->where([
-        'box' => '[0-9]+',
-        'brand' => '[0-9]+',
-    ])
     ->group(function () {
         Route::apiResource('box', BoxController::class);
         Route::apiResource('brand', BrandController::class);

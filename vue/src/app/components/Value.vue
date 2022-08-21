@@ -84,7 +84,9 @@ export default {
     </template>
 
     <template v-else-if="item.type === Enums.valueTypes.text">
-        {{ item.value }}
+        <span style="white-space: pre;">
+            {{ item.value }}
+        </span>
     </template>
 
     <template v-else-if="item.type === Enums.valueTypes.websiteLink">

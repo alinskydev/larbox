@@ -22,5 +22,10 @@ class SingletonServiceProvider extends ServiceProvider
         $this->app->singleton('language', function ($app) {
             return new LanguageService();
         });
+
+        try {
+            app('language');
+        } catch (\Throwable $e) {
+        }
     }
 }

@@ -25,7 +25,6 @@ abstract class PostmanTestCase extends BaseTestCase
         'Accept-Language' => 'ru',
     ];
 
-    private string $baseUrl = '/api';
     protected string $requestUrl;
     protected string $requestMethod;
     protected array $requestQuery = [];
@@ -52,7 +51,7 @@ abstract class PostmanTestCase extends BaseTestCase
 
         return $this->call(
             method: $this->requestMethod,
-            uri: "$this->baseUrl/$this->requestUrl?$this->requestQueryAsString",
+            uri: "/$this->requestUrl?$this->requestQueryAsString",
             parameters: $this->requestBody,
             server: $this->transformHeadersToServerVars($this->allRequestHeaders),
         );
@@ -69,8 +68,6 @@ abstract class PostmanTestCase extends BaseTestCase
         $target = str_replace(['Tests.'], '', $target);
         $target = str_replace(['Test', 'test_'], '', $target);
         $target = str_replace('___', ' | ', $target);
-
-        $items['host'] = url($this->baseUrl);
 
         $this->requestBody = Arr::dot($this->requestBody);
 

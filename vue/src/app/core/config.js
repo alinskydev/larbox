@@ -3,7 +3,7 @@ let authUsername = localStorage.getItem('auth_username') ?? '',
 
 export default {
     http: {
-        url: 'http://larbox.loc/api/admin',
+        url: 'http://larbox.loc/admin',
         headers: {
             'Accept': 'application/json',
             'Accept-Language': null,

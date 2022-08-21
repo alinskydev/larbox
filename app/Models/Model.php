@@ -32,8 +32,9 @@ class Model extends BaseModel
         //    Common hidden fields
 
         $commonHiddenFields = [
-            'seo_meta_morph',
             'deleted_at',
+            'pivot',
+            'seo_meta_morph',
         ];
 
         $this->makeHidden($commonHiddenFields);

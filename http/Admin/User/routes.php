@@ -8,9 +8,6 @@ use Http\Admin\User\Controllers\ProfileController;
 use Modules\User\Models\Profile;
 
 Route::prefix('user')
-    ->where([
-        'profile' => '[0-9]+',
-    ])
     ->group(function () {
         Route::apiResource('user', UserController::class)->except(['deleteAll', 'restoreAll']);
 

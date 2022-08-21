@@ -25,13 +25,18 @@ class ActiveFormRequest extends FormRequest
 
         $data = $this->validated();
 
-        DB::beginTransaction();
-
         if (in_array(SeoMetaFormRequestTrait::class, class_uses_recursive($this))) {
             $this->model->fillableRelations[$this->model::RELATION_TYPE_ONE_ONE]['seo_meta_morph'] = $data['seo_meta'];
         }
 
-        $this->model->fill($data)->touch();
+        DB::beginTransaction();
+
+        try {
+            $this->model->fill($data)->touch();
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            abort(403, $e->getMessage());
+        }
 
         DB::commit();
     }

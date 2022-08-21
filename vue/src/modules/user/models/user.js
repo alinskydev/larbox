@@ -18,7 +18,7 @@ export default new Model({
             type: Enums.valueTypes.text,
         },
         role: {
-            value: (context, item) => context.booted.enums.user.role[item.role].label,
+            value: (context, item) => context.booted.enums.user.roles[item.role].label,
             type: Enums.valueTypes.text,
         },
         full_name: {
@@ -59,7 +59,7 @@ export default new Model({
         role: {
             type: Enums.inputTypes.select,
             options: {
-                items: (context) => context.booted.helpers.iterator.get(context.booted.enums.user.role, '*.label'),
+                items: (context) => context.booted.helpers.iterator.get(context.booted.enums.user.roles, '*.label'),
                 withPrompt: true,
             },
         },
@@ -86,7 +86,7 @@ export default new Model({
             type: Enums.valueTypes.text,
         },
         role: {
-            value: (context, item) => context.booted.enums.user.role[item.role].label,
+            value: (context, item) => context.booted.enums.user.roles[item.role].label,
             type: Enums.valueTypes.text,
         },
         full_name: {
@@ -116,7 +116,7 @@ export default new Model({
             role: {
                 type: Enums.inputTypes.select,
                 options: {
-                    items: (context) => context.booted.helpers.iterator.get(context.booted.enums.user.role, '*.label'),
+                    items: (context) => context.booted.helpers.iterator.get(context.booted.enums.user.roles, '*.label'),
                 },
                 size: Enums.inputSizes.md,
             },

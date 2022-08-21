@@ -56,7 +56,7 @@ class ExportTestsForPostman extends Command
             'variable' => [
                 [
                     'key' => 'host',
-                    'value' => Arr::pull($inputData, 'host'),
+                    'value' => url('/'),
                     'type' => 'string',
                 ],
             ],

@@ -2,15 +2,16 @@
 
 namespace App\Helpers;
 
+use Illuminate\Support\Arr;
+
 class DataHelper
 {
     public static function localized(string $string, bool $hasLanguageSuffix = true)
     {
-        $languages = ['ru', 'uz', 'en'];
-        $languages = array_combine($languages, $languages);
+        $class = require(base_path('modules/System/Database/Seeders/system_language-create.php'));
+        $languages = Arr::keyBy($class->data, 'code');
 
-        $result = array_map(fn ($value) => $hasLanguageSuffix ? "$string $value" : $string, $languages);
-
+        $result = array_map(fn ($value) => $hasLanguageSuffix ?  "$string " . $value['code'] : $string, $languages);
         return json_encode($result);
     }
 

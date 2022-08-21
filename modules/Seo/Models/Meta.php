@@ -12,11 +12,6 @@ class Meta extends Model
     public $incrementing = false;
     public $timestamps = false;
 
-    protected $guarded = [
-        'seo_metable_type',
-        'seo_metable_id',
-    ];
-
     protected $hidden = [
         'seo_metable_type',
         'seo_metable_id',

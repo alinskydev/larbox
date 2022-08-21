@@ -2,7 +2,7 @@
 
 namespace Modules\System\Resources;
 
-use App\Resources\JsonResource;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class SettingsResource extends JsonResource
 {

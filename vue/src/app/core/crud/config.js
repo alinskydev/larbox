@@ -4,6 +4,7 @@ export class IndexConfig {
     actions;
     extraActions;
     hasSoftDelete;
+    gridRowAttributes;
 
     constructor({
         model,
@@ -12,6 +13,7 @@ export class IndexConfig {
         actions,
         extraActions,
         hasSoftDelete,
+        gridRowAttributes,
     }) {
         this.model = model;
         this.http = http;
@@ -19,6 +21,9 @@ export class IndexConfig {
         this.actions = actions ?? ['show', 'update', 'delete', 'restore'];
         this.extraActions = extraActions ?? {};
         this.hasSoftDelete = hasSoftDelete ?? false;
+        this.gridRowAttributes = gridRowAttributes ?? function (item) {
+            return {};
+        };
     }
 }
 

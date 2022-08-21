@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Schema::defaultStringLength(100);
+        Schema::defaultStringLength(255);
 
         ImageManagerStatic::configure(['driver' => 'gd']);
 

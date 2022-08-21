@@ -14,10 +14,6 @@ class Section extends Model
 
     protected $table = 'section';
 
-    protected $guarded = [
-        'name',
-    ];
-
     protected $casts = [
         'blocks' => AsBlocks::class,
     ];

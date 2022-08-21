@@ -18,10 +18,10 @@ class LoginRequest extends FormRequest
             'username' => [
                 'required',
                 'string',
-                'max:100',
+                'max:255',
                 Rule::exists('user')->where('deleted_at', null),
             ],
-            'password' => 'required|string|max:100',
+            'password' => 'required|string|max:255',
         ];
     }
 

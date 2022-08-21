@@ -12,7 +12,7 @@ class BrandRequest extends ActiveFormRequest
     public function nonLocalizedRules()
     {
         return [
-            'name' => 'required|string|max:100',
+            'name' => 'required|string|max:255',
             'show_on_the_home_page' => 'required|boolean',
             'file' => FileValidationHelper::rules(FileValidationHelper::CONFIG_ALL),
             'files_list' => 'array',

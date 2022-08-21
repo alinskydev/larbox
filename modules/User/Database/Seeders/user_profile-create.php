@@ -12,7 +12,7 @@ return new class extends Seeder
             [
                 'user_id' => 1,
                 'full_name' => 'Administrator',
-                'phone' => '+998001234567',
+                'phone' => '+998000000001',
                 'image' => '/test_data/images/3.png',
             ],
             [

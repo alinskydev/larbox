@@ -10,12 +10,6 @@ class Language extends Model
 {
     protected $table = 'system_language';
 
-    protected $guarded = [
-        'code',
-        'is_active',
-        'is_main',
-    ];
-
     protected $casts = [
         'image' => AsImage::class . ':30|100|500',
     ];
@@ -27,17 +21,16 @@ class Language extends Model
         static::saving(function (self $model) {
             if (Arr::get($model->original, 'is_active') && !$model->is_active) {
                 if ($model->is_main) {
-                    abort(403, __('Невозможно деактивировать основной язык'));
+                    throw new \Exception(__('Невозможно деактивировать основной язык'));
                 }
 
                 if ($model->code == app()->getLocale()) {
-                    abort(403, __('Невозможно деактивировать текущий язык'));
+                    throw new \Exception(__('Невозможно деактивировать текущий язык'));
                 }
             }
 
             if ($model->is_main) {
                 $model->is_active = 1;
-
                 $model->newQuery()->where('id', '!=', $model->id)->update(['is_main' => 0]);
             }
         });

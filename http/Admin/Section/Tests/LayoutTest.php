@@ -21,9 +21,9 @@ class LayoutTest extends _TestCase
         $this->requestMethod = self::REQUEST_METHOD_PUT;
 
         $this->requestBody = [
-            'header_phone' => '+998 (00) 111 11 11',
+            'header_phone' => '+998 00 000 00 01',
 
-            'footer_phone' => '+998 (00) 222 22 22',
+            'footer_phone' => '+998 00 000 00 02',
             'footer_description' => FormHelper::localized('Description'),
         ];
 

@@ -16,13 +16,13 @@ class ContactRequest extends FormRequest
     public function nonLocalizedRules()
     {
         return [
-            'socials_facebook' => 'present|nullable|string|max:100',
-            'socials_instagram' => 'present|nullable|string|max:100',
-            'socials_youtube' => 'present|nullable|string|max:100',
+            'socials_facebook' => 'present|nullable|string|max:255',
+            'socials_instagram' => 'present|nullable|string|max:255',
+            'socials_youtube' => 'present|nullable|string|max:255',
 
             'branches' => 'array',
-            'branches.*.name' => 'required|string|max:100',
-            'branches.*.phone' => 'required|string|max:100',
+            'branches.*.name' => 'required|string|max:255',
+            'branches.*.phone' => 'required|string|max:255',
         ];
     }
 

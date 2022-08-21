@@ -26,7 +26,7 @@ class ProfileTest extends _TestCase
 
             'profile' => [
                 'full_name' => 'Administrator',
-                'phone' => '+998001234567',
+                'phone' => '+998000000001',
                 'image' => FormHelper::file(),
             ],
         ];

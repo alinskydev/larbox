@@ -46,10 +46,16 @@ export default new Model({
         },
         brand_id: {
             value: 'brand.name',
+            query: {
+                'show[0]': 'with-deleted',
+            },
             type: Enums.valueTypes.text,
         },
         tags: {
             value: 'tags.*.name',
+            query: {
+                'show[0]': 'with-deleted',
+            },
             type: Enums.valueTypes.array,
         },
         updated_at: {

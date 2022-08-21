@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Model;
 use App\Search\Search;
-use App\Resources\JsonResource;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Contracts\Validation\ValidatesWhenResolved;
@@ -77,7 +77,12 @@ class ActiveController extends Controller
 
     public function destroy(Model $model)
     {
-        $model->delete();
+        try {
+            $model->delete();
+        } catch (\Throwable $e) {
+            abort(403, $e->getMessage());
+        }
+
         return response('', 204);
     }
 
@@ -86,13 +91,21 @@ class ActiveController extends Controller
     public function destroyAll()
     {
         $selection = (array)request()->get('selection', []);
-        $models = $this->model->query()->whereIn('id', $selection)->limit(100)->get();
+        $models = $this->model->query()
+            ->whereIn('id', $selection)
+            ->limit($this->search->pageSize)
+            ->get();
 
         DB::beginTransaction();
 
-        $models->map(function ($value, $key) {
-            $value->delete();
-        });
+        try {
+            $models->map(function ($value, $key) {
+                $value->delete();
+            });
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            abort(403, $e->getMessage());
+        }
 
         DB::commit();
 
@@ -102,7 +115,11 @@ class ActiveController extends Controller
     public function restore(int $id)
     {
         if (in_array(SoftDeletes::class, class_uses_recursive($this->model))) {
-            $this->model->query()->onlyTrashed()->findOrFail($id)->restore();
+            try {
+                $this->model->query()->onlyTrashed()->findOrFail($id)->restore();
+            } catch (\Throwable $e) {
+                abort(403, $e->getMessage());
+            }
         }
 
         return response('', 204);
@@ -112,12 +129,21 @@ class ActiveController extends Controller
     {
         if (in_array(SoftDeletes::class, class_uses_recursive($this->model))) {
             $selection = (array)request()->get('selection', []);
-            $models = $this->model->query()->whereIn('id', $selection)->onlyTrashed()->limit(100)->get();
+            $models = $this->model->query()
+                ->whereIn('id', $selection)
+                ->limit($this->search->pageSize)
+                ->onlyTrashed()
+                ->get();
 
             DB::beginTransaction();
 
             $models->map(function ($value, $key) {
-                $value->restore();
+                try {
+                    $value->restore();
+                } catch (\Throwable $e) {
+                    DB::rollBack();
+                    abort(403, $e->getMessage());
+                }
             });
 
             DB::commit();

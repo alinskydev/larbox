@@ -50,6 +50,9 @@ export default new Model({
             type: Enums.inputTypes.select2Ajax,
             options: {
                 path: 'user/user',
+                query: {
+                    'show[0]': 'with-deleted',
+                },
                 field: 'username',
             },
         },

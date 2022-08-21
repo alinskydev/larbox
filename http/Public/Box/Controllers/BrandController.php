@@ -8,13 +8,13 @@ use Modules\Box\Search\BrandSearch;
 use Modules\Box\Resources\BrandResource;
 use Http\Public\Box\Requests\BrandRequest;
 
-use App\Scopes\CreatorScope;
+use Modules\User\Scopes\UserScope;
 
 class BrandController extends ActiveController
 {
     public function __construct()
     {
-        Brand::addGlobalScope(new CreatorScope());
+        Brand::addGlobalScope(new UserScope('creator_id'));
 
         return parent::__construct(
             model: new Brand(),

@@ -21,7 +21,7 @@ class SlugRule extends Rule
 
         $validator = Validator::make($data, [$attribute => [
             'string',
-            'max:100',
+            'max:255',
             ValidationRule::unique($this->model->getTable())->ignore($this->model->id),
         ]]);
 

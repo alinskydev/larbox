@@ -23,7 +23,7 @@ class HomeRequest extends FormRequest
     public function nonLocalizedRules()
     {
         return [
-            'welcome_slogan' => 'required|string|max:100',
+            'welcome_slogan' => 'required|string|max:255',
             'welcome_image' => FileValidationHelper::rules(FileValidationHelper::CONFIG_IMAGE),
             'welcome_images_list' => 'array',
             'welcome_images_list.*' => FileValidationHelper::rules(FileValidationHelper::CONFIG_IMAGE),
@@ -32,7 +32,7 @@ class HomeRequest extends FormRequest
             'slider.*.image' => FileValidationHelper::rules(FileValidationHelper::CONFIG_IMAGE),
 
             'portfolio' => 'required|array',
-            'portfolio.*.name' => 'required|string|max:100',
+            'portfolio.*.name' => 'required|string|max:255',
             'portfolio.*.images_list' => 'array',
             'portfolio.*.images_list.*' => FileValidationHelper::rules(FileValidationHelper::CONFIG_IMAGE),
         ];
@@ -41,11 +41,11 @@ class HomeRequest extends FormRequest
     public function localizedRules()
     {
         return [
-            'welcome_title' => 'required|string|max:100',
+            'welcome_title' => 'required|string|max:255',
             'welcome_description' => 'present|nullable|string',
 
-            'slider.*.title' => 'required|string|max:100',
-            'slider.*.subtitle' => 'required|string|max:100',
+            'slider.*.title' => 'required|string|max:255',
+            'slider.*.subtitle' => 'required|string|max:255',
 
             'portfolio.*.description' => 'present|nullable|string',
         ];
