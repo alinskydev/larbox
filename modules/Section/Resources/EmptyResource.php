@@ -2,12 +2,8 @@
 
 namespace Modules\Section\Resources;
 
-use Illuminate\Http\Resources\Json\JsonResource;
+use Modules\Section\Base\JsonResource;
 
 class EmptyResource extends JsonResource
 {
-    public function toArray($request)
-    {
-        return $this->value;
-    }
 }

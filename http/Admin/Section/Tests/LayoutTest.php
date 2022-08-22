@@ -24,7 +24,7 @@ class LayoutTest extends _TestCase
             'header_phone' => '+998 00 000 00 01',
 
             'footer_phone' => '+998 00 000 00 02',
-            'footer_description' => FormHelper::localized('Description'),
+            'footer_copyright' => FormHelper::localized('Copyright'),
         ];
 
         $this->response = $this->sendRequest();

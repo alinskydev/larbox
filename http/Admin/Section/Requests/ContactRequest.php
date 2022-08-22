@@ -11,7 +11,10 @@ class ContactRequest extends FormRequest
 {
     use SeoMetaFormRequestTrait;
 
-    protected array $relations = ['branches'];
+    protected array $relations = [
+        'branches',
+        'branches.*.phones',
+    ];
 
     public function nonLocalizedRules()
     {
@@ -22,7 +25,8 @@ class ContactRequest extends FormRequest
 
             'branches' => 'array',
             'branches.*.name' => 'required|string|max:255',
-            'branches.*.phone' => 'required|string|max:255',
+            'branches.*.phones' => 'array',
+            'branches.*.phones.*' => 'required|string|max:255',
         ];
     }
 

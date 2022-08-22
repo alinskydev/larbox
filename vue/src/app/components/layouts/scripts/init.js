@@ -1,8 +1,5 @@
 import { LocalizationHelper } from '@/app/core/helpers/localizationHelper';
-
-import messagesRu from '@/lang/ru';
-import messagesUz from '@/lang/uz';
-import messagesEn from '@/lang/en';
+import lodash from 'lodash';
 
 export default function (context) {
 
@@ -41,20 +38,7 @@ export default function (context) {
             // Setting localization messages
 
             LocalizationHelper.locale = locale;
-            LocalizationHelper.messages = {
-                ru: {
-                    ...messagesRu,
-                    ...data.translations.ru,
-                },
-                uz: {
-                    ...messagesUz,
-                    ...data.translations.uz,
-                },
-                en: {
-                    ...messagesEn,
-                    ...data.translations.en,
-                },
-            };
+            LocalizationHelper.messages = lodash.merge(LocalizationHelper.messages, data.translations);
 
             // Sending enums request
 

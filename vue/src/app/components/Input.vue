@@ -10,6 +10,7 @@ import Hidden from '@/app/components/input/Hidden.vue';
 import Phone from '@/app/components/input/Phone.vue';
 import Select from '@/app/components/input/Select.vue';
 import Select2Ajax from '@/app/components/input/Select2Ajax.vue';
+import Select2Array from '@/app/components/input/Select2Array.vue';
 import Switcher from '@/app/components/input/Switcher.vue';
 import Text from '@/app/components/input/Text.vue';
 import Textarea from '@/app/components/input/Textarea.vue';
@@ -63,6 +64,10 @@ export default {
 
         <template v-else-if="item.type === Enums.inputTypes.select2Ajax">
             <Select2Ajax :set="delete main.inputAttrs.value" :item="item" v-bind="main.inputAttrs" />
+        </template>
+
+        <template v-else-if="item.type === Enums.inputTypes.select2Array">
+            <Select2Array :set="delete main.inputAttrs.value" :item="item" v-bind="main.inputAttrs" />
         </template>
 
         <template v-else-if="item.type === Enums.inputTypes.switcher">

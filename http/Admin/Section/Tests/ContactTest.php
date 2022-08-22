@@ -29,7 +29,10 @@ class ContactTest extends _TestCase
                 range(1, 2),
                 fn ($index) => [
                     'name' => "Name $index",
-                    'phone' => "Phone $index",
+                    'phones' => [
+                        "+998 00 000 00 {$index}1",
+                        "+998 00 000 00 {$index}2",
+                    ],
                     'description' => FormHelper::localized("Description $index"),
                 ],
             ),

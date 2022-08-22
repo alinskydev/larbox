@@ -21,34 +21,42 @@ class HomeTest extends _TestCase
         $this->requestMethod = self::REQUEST_METHOD_PUT;
 
         $this->requestBody = [
-            'welcome_title' => FormHelper::localized('Title'),
-            'welcome_slogan' => 'Slogan',
-            'welcome_description' => FormHelper::localized('Description'),
-            'welcome_image' => FormHelper::file(),
-            'welcome_images_list' => [
+            'first_text_1' => 'Text 1',
+            'first_text_1_localized' => FormHelper::localized('Text 1'),
+            'first_text_2' => 'Text 2',
+            'first_text_2_localized' => FormHelper::localized('Text 2'),
+            'first_text_3' => 'Text 3',
+            'first_text_3_localized' => FormHelper::localized('Text 3'),
+
+            'second_image' => FormHelper::file(),
+            'second_images_list' => [
                 FormHelper::file(),
                 FormHelper::file(),
             ],
+            'second_image_desktop' => FormHelper::localizedFile(),
+            'second_image_tablet' => FormHelper::localizedFile(),
+            'second_image_mobile' => FormHelper::localizedFile(),
 
-            'slider' => FormHelper::multiply(
+            'relations_1' => FormHelper::multiply(
                 range(1, 2),
                 fn ($index) => [
-                    'title' => FormHelper::localized("Title $index"),
-                    'subtitle' => FormHelper::localized("Subtitle $index"),
+                    'text' => "Text $index",
                     'image' => FormHelper::file(),
-                ],
-            ),
-
-            'portfolio' => FormHelper::multiply(
-                range(1, 2),
-                fn ($index) => [
-                    'name' => "Name $index",
-                    'description' => FormHelper::localized("Description $index"),
                     'images_list' => [
                         FormHelper::file(),
                         FormHelper::file(),
                         FormHelper::file(),
                     ],
+                ],
+            ),
+
+            'relations_2' => FormHelper::multiply(
+                range(1, 2),
+                fn ($index) => [
+                    'text_localized' => FormHelper::localized("Text $index"),
+                    'image_desktop' => FormHelper::localizedFile(),
+                    'image_tablet' => FormHelper::localizedFile(),
+                    'image_mobile' => FormHelper::localizedFile(),
                 ],
             ),
 

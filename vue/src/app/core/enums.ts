@@ -24,6 +24,7 @@ export enum inputTypes {
     relations,
     select,
     select2Ajax,
+    select2Array,
     switcher,
     text,
     textarea,

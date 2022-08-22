@@ -13,10 +13,21 @@ class FormRequest extends BaseFormRequest
     protected Section $model;
     protected array $relations = [];
     protected array $fileFields = [];
+    protected array $localizedFileFields = [];
 
     public function __construct()
     {
         $this->model = request()->route()->controller->model;
+
+        $languages = app('language')->all->toArray();
+
+        foreach ($this->localizedFileFields as $field => $value) {
+            foreach ($languages as $language) {
+                $fileKey = "$field." . $language['code'];
+                $this->fileFields[$fileKey] = $value;
+            }
+        }
+
         return parent::__construct();
     }
 
@@ -62,7 +73,11 @@ class FormRequest extends BaseFormRequest
         }
 
         foreach ($this->relations as $relation) {
-            $data[$relation] = array_values($data[$relation] ?? []);
+            data_fill($data, $relation, []);
+
+            if (!str_contains($relation, '.')) {
+                $data[$relation] = array_values($data[$relation] ?? []);
+            }
         }
 
         return $data;

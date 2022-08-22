@@ -20,7 +20,7 @@ class LayoutRequest extends FormRequest
     public function localizedRules()
     {
         return [
-            'footer_description' => 'present|nullable|string',
+            'footer_copyright' => 'required|string|max:255',
         ];
     }
 }

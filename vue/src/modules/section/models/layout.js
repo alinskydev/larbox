@@ -14,11 +14,10 @@ export default new Model({
                 type: Enums.inputTypes.text,
                 size: Enums.inputSizes.xl,
             },
-            footer_description: {
-                type: Enums.inputTypes.textarea,
+            footer_copyright: {
+                type: Enums.inputTypes.text,
                 options: {
                     isLocalized: true,
-                    size: Enums.inputSizes.xl,
                 },
                 size: Enums.inputSizes.xl,
             },

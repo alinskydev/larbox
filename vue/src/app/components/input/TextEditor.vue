@@ -100,14 +100,14 @@ export default {
         if (this.item.options.isLocalized) {
             for (let key in this.booted.languages.all) {
                 tinymce.init({
-                    ...{ selector: '#' + this.item.id + '-' + key },
                     ...this.pluginOptions,
+                    ...{ selector: '#' + this.item.id + '-' + key },
                 });
             }
         } else {
             tinymce.init({
-                ...{ selector: '#' + this.item.id },
                 ...this.pluginOptions,
+                ...{ selector: '#' + this.item.id },
             });
 
         }

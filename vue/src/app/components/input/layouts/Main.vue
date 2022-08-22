@@ -48,9 +48,7 @@ export default {
             <div class="row">
                 <template v-for="language in booted.languages.all">
                     <div :class="'input-wrapper form-group ' + (item.options.size ?? Enums.inputSizes.md)">
-                        <label v-if="item.label" :for="inputAttrs['id'].replace(':locale', language.code)">
-                            {{ item.label }}
-                        </label>
+                        <label v-if="item.label" :for="inputAttrs['id'].replace(':locale', language.code)" v-html="item.label" />
                         |
                         <img :src="language.image?.w_30" class="align-text-bottom ml-1">
 
@@ -74,9 +72,7 @@ export default {
 
         <template v-else>
             <div class="input-wrapper form-group">
-                <label v-if="item.label" :for="inputAttrs['id']">
-                    {{ item.label }}
-                </label>
+                <label v-if="item.label" :for="inputAttrs['id']" v-html="item.label" />
 
                 <slot :inputAttrs="{
                     ...inputAttrs,

@@ -1,65 +1,86 @@
 import { Model } from '@/app/core/model';
 import * as Enums from '@/app/core/enums';
 
+import inputHelper from '@/app/core/helpers/inputHelper';
+
 export default new Model({
     form: {
-        'Welcome': {
-            welcome_title: {
+        'First': {
+            first_text_1: {
+                type: Enums.inputTypes.text,
+                size: Enums.inputSizes.xl,
+            },
+            first_text_1_localized: {
                 type: Enums.inputTypes.text,
                 options: {
                     isLocalized: true,
                 },
                 size: Enums.inputSizes.xl,
             },
-            welcome_slogan: {
-                type: Enums.inputTypes.text,
+            first_text_2: {
+                type: Enums.inputTypes.textarea,
                 size: Enums.inputSizes.xl,
             },
-            welcome_description: {
+            first_text_2_localized: {
                 type: Enums.inputTypes.textarea,
+                options: {
+                    isLocalized: true,
+                },
+                size: Enums.inputSizes.xl,
+            },
+            first_text_3: {
+                type: Enums.inputTypes.textEditor,
+                size: Enums.inputSizes.xl,
+            },
+            first_text_3_localized: {
+                type: Enums.inputTypes.textEditor,
                 options: {
                     isLocalized: true,
                     size: Enums.inputSizes.xl,
                 },
                 size: Enums.inputSizes.xl,
             },
-            welcome_image: {
-                type: Enums.inputTypes.file,
-                options: {
-                    preview: 'w_500',
-                    download: 'original',
-                    override: true,
-                },
-                size: Enums.inputSizes.xl,
-            },
-            welcome_images_list: {
-                type: Enums.inputTypes.file,
-                options: {
-                    preview: 'w_500',
-                    download: 'original',
-                    isMultiple: true,
-                    override: true,
-                },
-                size: Enums.inputSizes.xl,
-            },
         },
-        'Slider': {
-            slider: {
+        'Second': {
+            ...{
+                second_image: {
+                    type: Enums.inputTypes.file,
+                    options: {
+                        preview: 'w_500',
+                        download: 'original',
+                        override: true,
+                    },
+                    size: Enums.inputSizes.xl,
+                },
+                second_images_list: {
+                    type: Enums.inputTypes.file,
+                    options: {
+                        preview: 'w_500',
+                        download: 'original',
+                        isMultiple: true,
+                        override: true,
+                    },
+                    size: Enums.inputSizes.xl,
+                },
+            },
+            ...inputHelper.localizedTypedFile({
+                key: 'second_image',
+                type: Enums.inputTypes.file,
+                options: {
+                    preview: 'w_500',
+                    download: 'original',
+                    override: true,
+                },
+                size: Enums.inputSizes.md,
+            }),
+        },
+        'Relations 1': {
+            relations_1: {
                 type: Enums.inputTypes.relations,
                 options: {
                     fields: {
-                        title: {
+                        text: {
                             type: Enums.inputTypes.text,
-                            options: {
-                                isLocalized: true,
-                            },
-                            size: Enums.inputSizes.xl,
-                        },
-                        subtitle: {
-                            type: Enums.inputTypes.text,
-                            options: {
-                                isLocalized: true,
-                            },
                             size: Enums.inputSizes.xl,
                         },
                         image: {
@@ -69,19 +90,6 @@ export default new Model({
                                 download: 'original',
                                 override: true,
                             },
-                            size: Enums.inputSizes.xl,
-                        },
-                    },
-                },
-            },
-        },
-        'Portfolio': {
-            portfolio: {
-                type: Enums.inputTypes.relations,
-                options: {
-                    fields: {
-                        name: {
-                            type: Enums.inputTypes.text,
                             size: Enums.inputSizes.xl,
                         },
                         images_list: {
@@ -94,13 +102,33 @@ export default new Model({
                             },
                             size: Enums.inputSizes.xl,
                         },
-                        description: {
-                            type: Enums.inputTypes.textEditor,
+                    },
+                },
+            },
+        },
+        'Relations 2': {
+            relations_2: {
+                type: Enums.inputTypes.relations,
+                options: {
+                    fields: {
+                        ...inputHelper.localizedTypedFile({
+                            key: 'image',
+                            type: Enums.inputTypes.file,
                             options: {
-                                isLocalized: true,
+                                preview: 'w_500',
+                                download: 'original',
+                                override: true,
+                            },
+                            size: Enums.inputSizes.md,
+                        }),
+                        ...{
+                            text_localized: {
+                                type: Enums.inputTypes.text,
+                                options: {
+                                    isLocalized: true,
+                                },
                                 size: Enums.inputSizes.xl,
                             },
-                            size: Enums.inputSizes.xl,
                         },
                     },
                 },

@@ -28,6 +28,19 @@ export default new Model({
                 path: 'box/brand/:id/set-active/:value',
             },
         },
+        // is_active: {
+        //     type: Enums.valueTypes.httpSelect,
+        //     options: {
+        //         path: 'box/brand/:id/set-active/:value',
+        //         items: (context) => {
+        //             return {
+        //                 0: context.__('Нет'),
+        //                 1: context.__('Да'),
+        //             };
+        //         },
+        //         isBoolean: true,
+        //     },
+        // },
         boxes_count: {
             type: Enums.valueTypes.text,
         },

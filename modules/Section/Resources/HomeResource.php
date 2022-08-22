@@ -2,30 +2,32 @@
 
 namespace Modules\Section\Resources;
 
-use Illuminate\Http\Resources\Json\JsonResource;
-use App\Helpers\ImageHelper;
+use Modules\Section\Base\JsonResource;
 
 class HomeResource extends JsonResource
 {
-    public function toArray($request)
-    {
-        switch ($this->name) {
-            case 'welcome_image':
-                return $this->value ? ImageHelper::populateSizes($this->value, [500]) : null;
-            case 'welcome_images_list':
-                return array_map(fn ($value) => ImageHelper::populateSizes($value, [500]), $this->value);
-            case 'slider':
-                return array_map(function ($value) {
-                    $value['image'] = $value['image'] ? ImageHelper::populateSizes($value['image'], [500]) : null;
-                    return $value;
-                }, $this->value);
-            case 'portfolio':
-                return array_map(function ($value) {
-                    $value['images_list'] = array_map(fn ($v) => ImageHelper::populateSizes($v, [500]), $value['images_list']);
-                    return $value;
-                }, $this->value);
-            default:
-                return $this->value;
-        }
-    }
+    protected array $fileGroups = [
+        [
+            'fields' => [
+                'second_image' => null,
+                'relations_1' => [
+                    'image',
+                    'images_list',
+                ],
+            ],
+        ],
+        [
+            'fields' => [
+                'second_images_list' => null,
+                'second_image_desktop' => null,
+                'second_image_tablet' => null,
+                'second_image_mobile' => null,
+                'relations_2' => [
+                    'image_desktop',
+                    'image_tablet',
+                    'image_mobile',
+                ],
+            ],
+        ],
+    ];
 }

@@ -25,17 +25,14 @@ export default new Model({
                         name: {
                             type: Enums.inputTypes.text,
                         },
-                        phone: {
-                            type: Enums.inputTypes.text,
+                        phones: {
+                            type: Enums.inputTypes.select2Array,
                         },
                         description: {
                             type: Enums.inputTypes.textarea,
                             options: {
                                 isLocalized: true,
                                 size: Enums.inputSizes.xl,
-                            },
-                            attributes: {
-                                'rows': 10,
                             },
                             size: Enums.inputSizes.xl,
                         },

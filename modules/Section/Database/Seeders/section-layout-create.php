@@ -15,7 +15,7 @@ return new class extends Seeder
                     'header_phone' => '+998 00 000 00 01',
 
                     'footer_phone' => '+998 00 000 00 02',
-                    'footer_description' => json_decode(DataHelper::localized('Description')),
+                    'footer_copyright' => json_decode(DataHelper::localized('Copyright')),
                 ]),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
