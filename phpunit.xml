@@ -2,8 +2,9 @@
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="./vendor/phpunit/phpunit/phpunit.xsd" bootstrap="vendor/autoload.php" colors="true" stopOnFailure="true">
     <testsuites>
         <testsuite name="Feature">
-            <directory suffix="Test.php">./http/*/*/Tests</directory>
+            <directory suffix="Test.php">./http</directory>
             <!-- <directory suffix="Test.php">./http/Admin/User/Tests</directory> -->
+            <!-- <directory suffix="Test.php">./http/Common</directory> -->
             <!-- <directory suffix="Test.php">./http/Public</directory> -->
         </testsuite>
     </testsuites>

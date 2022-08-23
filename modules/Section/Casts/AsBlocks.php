@@ -21,7 +21,7 @@ class AsBlocks implements CastsAttributes
             $object->value = $value;
 
             return $object;
-        });
+        })->sortKeys();
     }
 
     public function set($model, $key, $value, $attributes)

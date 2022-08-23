@@ -29,6 +29,7 @@ class Search
     public array $combinedFilters = [];
     public array $sortings = [];
 
+    public array $defaultSort = ['-id'];
     public int $pageSize = 50;
 
     public function setQueryBuilder(Builder $queryBuilder): self

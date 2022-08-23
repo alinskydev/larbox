@@ -16,6 +16,10 @@ class BrandController extends ActiveController
     {
         Brand::addGlobalScope(new UserScope('creator_id'));
 
+        Brand::addGlobalScope(function ($query) {
+            $query->where('deleted_at', null);
+        });
+
         return parent::__construct(
             model: new Brand(),
             search: new BrandSearch(),

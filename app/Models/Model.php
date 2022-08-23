@@ -33,6 +33,7 @@ class Model extends BaseModel
 
         $commonHiddenFields = [
             'deleted_at',
+            'sort_index',
             'pivot',
             'seo_meta_morph',
         ];

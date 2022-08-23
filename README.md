@@ -4,7 +4,7 @@ Larbox is a starter kit based on [Laravel framework](https://laravel.com). It is
 
 ## Requirements
 - PHP version >= PHP 8.0
-- MySQL version >= 5.7 **(Recommended)** or PostgreSQL version >= 12 (I haven't tested on lower version)
+- MySQL version >= 5.7 **(Recommended)** or PostgreSQL version >= 12 (I haven't tested on lower version) ***Attention:*** run all tests before beginning to work
 
 ## Installation
 

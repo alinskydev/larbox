@@ -31,11 +31,12 @@ class RouteServiceProvider extends ServiceProvider
         $this->routes(function () {
             Route::middleware('api')
                 ->group(function () {
+                    Route::group([], glob(base_path('http/Common/*/routes.php')));
+
                     Route::prefix('admin')
                         ->middleware(['auth.basic.once', 'role:admin'])
                         ->group(glob(base_path('http/Admin/*/routes.php')));
 
-                    Route::group([], glob(base_path('http/Common/*/routes.php')));
                     Route::group([], glob(base_path('http/Public/*/routes.php')));
                 });
         });

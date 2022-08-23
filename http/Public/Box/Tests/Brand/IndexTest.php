@@ -36,7 +36,7 @@ class IndexTest extends _TestCase
         $this->response->assertStatus(206);
     }
 
-    public function test_show_boxes_count()
+    public function test_available_showings()
     {
         $this->requestQuery = [
             'show' => [

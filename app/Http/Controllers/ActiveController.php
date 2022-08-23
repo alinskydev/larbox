@@ -40,7 +40,7 @@ class ActiveController extends Controller
             ->join((array)$request->get('with'))
             ->filter((array)$request->get('filter'), Search::COMBINED_TYPE_AND)
             ->combinedFilter((array)$request->get('filter'))
-            ->sort((array)$request->get('sort', '-id'))
+            ->sort((array)$request->get('sort'))
             ->show((array)$request->get('show'))
             ->setPageSize((int)$request->get('page-size'));
     }

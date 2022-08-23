@@ -15,6 +15,7 @@ class BrandSearch extends Search
         'id' => self::FILTER_TYPE_IN,
         'creator_id' => self::FILTER_TYPE_EQUAL,
         'name' => self::FILTER_TYPE_LIKE,
+        'slug' => self::FILTER_TYPE_EQUAL,
         'show_on_the_home_page' => self::FILTER_TYPE_EQUAL,
         'is_active' => self::FILTER_TYPE_EQUAL,
     ];
