@@ -47,7 +47,7 @@ class Box extends Model
             Tag::class,
             'box_tag_ref',
             'box_id',
-            'tag_id'
+            'tag_id',
         )->withTrashed();
     }
 }
