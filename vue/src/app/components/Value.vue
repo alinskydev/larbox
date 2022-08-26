@@ -76,7 +76,7 @@ export default {
     </template>
 
     <template v-else-if="item.type === Enums.valueTypes.price">
-        {{ new Intl.NumberFormat('ru-RU').format(item.value).replace(',', '.') }}
+        {{ item.value !== null ? new Intl.NumberFormat('ru-RU').format(item.value).replace(',', '.') : null }}
     </template>
 
     <template v-else-if="item.type === Enums.valueTypes.relations">

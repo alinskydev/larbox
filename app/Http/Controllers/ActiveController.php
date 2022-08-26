@@ -112,11 +112,11 @@ class ActiveController extends Controller
         return response('', 204);
     }
 
-    public function restore(int $id)
+    public function restore(mixed $value)
     {
         if (in_array(SoftDeletes::class, class_uses_recursive($this->model))) {
             try {
-                $this->model->query()->onlyTrashed()->findOrFail($id)->restore();
+                $this->model->query()->onlyTrashed()->findOrFail($value)->restore();
             } catch (\Throwable $e) {
                 abort(403, $e->getMessage());
             }

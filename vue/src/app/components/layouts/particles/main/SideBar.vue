@@ -4,7 +4,14 @@ import RouterLink from "@/app/components/blocks/RouterLink.vue";
 </script>
 
 <script>
-export default {};
+export default {
+    props: {
+        templateKey: {
+            type: Number,
+            required: true,
+        },
+    },
+};
 </script>
 
 <template>
@@ -18,7 +25,7 @@ export default {};
         </RouterLink>
 
         <div class="sidebar">
-            <Nav />
+            <Nav :key="templateKey" />
         </div>
     </aside>
 </template>

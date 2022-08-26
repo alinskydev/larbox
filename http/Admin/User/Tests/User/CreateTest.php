@@ -19,7 +19,7 @@ class CreateTest extends _TestCase
 
             'profile' => [
                 'full_name' => 'Registered 2',
-                'phone' => 'Phone 2',
+                'phone' => '+998000000002',
                 'image' => FormHelper::file(),
             ],
         ];

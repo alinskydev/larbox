@@ -12,7 +12,7 @@ class BrandController extends ActiveController
 {
     public function __construct()
     {
-        return parent::__construct(
+        parent::__construct(
             model: new Brand(),
             search: new BrandSearch(),
             resourceClass: BrandResource::class,

@@ -3,7 +3,7 @@
     <testsuites>
         <testsuite name="Feature">
             <directory suffix="Test.php">./http</directory>
-            <!-- <directory suffix="Test.php">./http/Admin/User/Tests</directory> -->
+            <!-- <directory suffix="Test.php">./http/Admin/User</directory> -->
             <!-- <directory suffix="Test.php">./http/Common</directory> -->
             <!-- <directory suffix="Test.php">./http/Public</directory> -->
         </testsuite>

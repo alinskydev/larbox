@@ -12,7 +12,7 @@ class BoxController extends ActiveController
 {
     public function __construct()
     {
-        return parent::__construct(
+        parent::__construct(
             model: new Box(),
             search: new BoxSearch(),
             resourceClass: BoxResource::class,

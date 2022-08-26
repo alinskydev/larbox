@@ -16,7 +16,6 @@ class UpdateTest extends _TestCase
             'username' => 'admin',
             'email' => 'admin@local.host',
             'role' => 'admin',
-
             'new_password' => 'admin123',
             'new_password_confirmation' => 'admin123',
 

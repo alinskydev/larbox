@@ -1,26 +1,36 @@
 export class IndexConfig {
     model;
     http;
+    hasSoftDelete;
+
     actions;
     extraActions;
-    hasSoftDelete;
+    selectionActions;
+
+    gridHiddenFields;
     gridRowAttributes;
 
     constructor({
         model,
         http,
-        selectionActions,
+        hasSoftDelete,
+
         actions,
         extraActions,
-        hasSoftDelete,
+        selectionActions,
+
+        gridHiddenFields,
         gridRowAttributes,
     }) {
         this.model = model;
         this.http = http;
-        this.selectionActions = selectionActions ?? [];
+        this.hasSoftDelete = hasSoftDelete ?? false;
+
         this.actions = actions ?? ['show', 'update', 'delete', 'restore'];
         this.extraActions = extraActions ?? {};
-        this.hasSoftDelete = hasSoftDelete ?? false;
+        this.selectionActions = selectionActions ?? [];
+
+        this.gridHiddenFields = gridHiddenFields ?? [];
         this.gridRowAttributes = gridRowAttributes ?? function (item) {
             return {};
         };

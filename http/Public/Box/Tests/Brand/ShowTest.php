@@ -10,7 +10,7 @@ class ShowTest extends _TestCase
 
     public function test_success()
     {
-        $this->requestUrl .= '/2';
+        $this->requestUrl .= '/brand-2';
 
         $this->response = $this->sendRequest();
         $this->response->assertStatus(200);
@@ -18,7 +18,7 @@ class ShowTest extends _TestCase
 
     public function test_error___Not_your_record()
     {
-        $this->requestUrl .= '/1';
+        $this->requestUrl .= '/brand-1';
 
         $this->response = $this->sendRequest();
         $this->response->assertStatus(404);

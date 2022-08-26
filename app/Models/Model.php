@@ -16,6 +16,8 @@ class Model extends BaseModel
 
     public array $fillableRelations = [];
 
+    protected string $routeKeyName = 'id';
+
     public function __construct(array $attributes = [])
     {
         //    Common guarded fields
@@ -54,12 +56,6 @@ class Model extends BaseModel
         return parent::__construct($attributes);
     }
 
-    protected function serializeDate(DateTimeInterface $date)
-    {
-        $format = $this->dateFormat ?? LARBOX_FORMAT_DATETIME;
-        return $date->format($format);
-    }
-
     public function getIsDeletedAttribute()
     {
         if (in_array(SoftDeletes::class, class_uses_recursive($this))) {
@@ -67,6 +63,23 @@ class Model extends BaseModel
         } else {
             return false;
         }
+    }
+
+    protected function serializeDate(DateTimeInterface $date)
+    {
+        $format = $this->dateFormat ?? LARBOX_FORMAT_DATETIME;
+        return $date->format($format);
+    }
+
+    public function getRouteKeyName()
+    {
+        return $this->routeKeyName;
+    }
+
+    public function setRouteKeyName(string $name): self
+    {
+        $this->routeKeyName = $name;
+        return $this;
     }
 
     protected static function boot()

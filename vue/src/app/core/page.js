@@ -27,7 +27,7 @@ export class Page {
         if (!this.showBreadcrumbs) this.breadcrumbs = [];
 
         if (this.context.booted.components.layout) {
-            this.context.booted.components.layout.childKey++;
+            this.context.booted.components.layout.templateKey++;
         }
     }
 }

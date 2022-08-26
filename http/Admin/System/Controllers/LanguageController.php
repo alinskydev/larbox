@@ -13,7 +13,7 @@ class LanguageController extends ActiveController
 {
     public function __construct()
     {
-        return parent::__construct(
+        parent::__construct(
             model: new Language(),
             search: new LanguageSearch(),
             resourceClass: LanguageResource::class,

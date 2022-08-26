@@ -12,7 +12,7 @@ class TagController extends ActiveController
 {
     public function __construct()
     {
-        return parent::__construct(
+        parent::__construct(
             model: new Tag(),
             search: new TagSearch(),
             resourceClass: TagResource::class,

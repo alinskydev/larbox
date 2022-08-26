@@ -12,7 +12,7 @@ class UserController extends ActiveController
 {
     public function __construct()
     {
-        return parent::__construct(
+        parent::__construct(
             model: new User(),
             search: new UserSearch(),
             resourceClass: UserResource::class,

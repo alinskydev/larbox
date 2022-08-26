@@ -10,7 +10,7 @@ import SideBar from './particles/main/SideBar.vue';
 export default {
     data() {
         return {
-            childKey: 0,
+            templateKey: 0,
             isReady: false,
         };
     },
@@ -42,8 +42,8 @@ export default {
 
 <template>
     <template v-if="isReady">
-        <TopBar :key="childKey" />
-        <SideBar :key="childKey" />
+        <TopBar :templateKey="templateKey" />
+        <SideBar :templateKey="templateKey" />
 
         <div class="content-wrapper">
             <section class="content">
