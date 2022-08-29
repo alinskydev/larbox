@@ -13,16 +13,10 @@ class SetNewPasswordRequest extends FormRequest
     public function nonLocalizedRules()
     {
         return [
-            'email' => [
-                'required',
-                'email',
-                'max:255',
-                Rule::exists('user')->where('deleted_at', null),
-            ],
+            'email' => 'required|email|max:255',
             'reset_password_code' => [
                 'required',
                 'string',
-                'size:8',
                 Rule::exists('user')->where('deleted_at', null)->where('email', $this->email),
             ],
             'new_password' => 'required|string|min:8|max:255',

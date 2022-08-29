@@ -12,12 +12,12 @@ class ResetPasswordService extends ActiveService
 {
     public function sendCode()
     {
-        $reset_password_code = Str::random(8);
+        $resetPasswordCode = Str::random(8);
 
-        $this->model->reset_password_code = $reset_password_code;
+        $this->model->reset_password_code = $resetPasswordCode;
         $this->model->saveQuietly();
 
-        Mail::to([$this->model->email])->send(new ResetPasswordMail($reset_password_code));
+        Mail::to([$this->model->email])->send(new ResetPasswordMail($resetPasswordCode));
     }
 
     public function setNewPassword(string $password)

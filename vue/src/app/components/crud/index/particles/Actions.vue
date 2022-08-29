@@ -74,8 +74,8 @@ export default {
                 </a>
 
                 <template v-if="config.extraActions[action]">
-                    <div :set="ea = config.extraActions[action]">
-                        <RouterLink :to="ea.path.replace(':id', item.id.value)" v-bind="ea.linkAttributes">
+                    <div :set="ea = config.extraActions[action](item)">
+                        <RouterLink v-if="ea" :to="ea.path" v-bind="ea.linkAttributes">
                             <i v-bind="ea.iconAttributes"></i>
                         </RouterLink>
                     </div>

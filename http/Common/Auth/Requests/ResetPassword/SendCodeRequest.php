@@ -6,7 +6,7 @@ use App\Http\Requests\FormRequest;
 use Modules\User\Models\User;
 use Illuminate\Validation\Rule;
 
-class SendEmailRequest extends FormRequest
+class SendCodeRequest extends FormRequest
 {
     public User $user;
 

@@ -28,15 +28,17 @@ export default {
                 selectionActions: ['deleteAll', 'restoreAll'],
                 actions: ['boxes', 'show', 'update', 'delete', 'restore'],
                 extraActions: {
-                    boxes: {
-                        path: 'box/box?filter[brand_id]=:id',
-                        linkAttributes: {
-                            'title': this.__('Boxes'),
-                            'class': 'btn btn-info',
-                        },
-                        iconAttributes: {
-                            'class': 'fas fa-boxes',
-                        },
+                    boxes: (item) => {
+                        return {
+                            path: 'box/box?filter[brand_id]=' + item.id.value,
+                            linkAttributes: {
+                                'title': this.__('Boxes'),
+                                'class': 'btn btn-info',
+                            },
+                            iconAttributes: {
+                                'class': 'fas fa-boxes',
+                            },
+                        };
                     },
                 },
                 hasSoftDelete: true,
@@ -49,7 +51,7 @@ export default {
 <template>
     <PageTitle :text="page.title">
         <RouterLink to="box/brand/create" class="btn btn-success">
-            {{ __('Создать') }}
+            {{  __('Создать')  }}
         </RouterLink>
     </PageTitle>
 

@@ -15,8 +15,8 @@ class RegisterTest extends _TestCase
         $this->requestBody = [
             'username' => 'registered_3',
             'email' => 'registered_3@local.host',
-            'new_password' => 'test1234',
-            'new_password_confirmation' => 'test1234',
+            'password' => 'test1234',
+            'password_confirmation' => 'test1234',
 
             'profile' => [
                 'full_name' => 'Registered 3',

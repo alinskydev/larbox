@@ -70,7 +70,7 @@ class UserRequest extends ActiveFormRequest
     public function messages()
     {
         return [
-            'username.regex' => __("только латинские символы, цифры и (_-)"),
+            'username.regex' => __("Только латинские символы, цифры и (_-)"),
         ];
     }
 }

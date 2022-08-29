@@ -3,14 +3,14 @@
 namespace Http\Common\Auth\Controllers;
 
 use App\Http\Controllers\Controller;
-use Http\Common\Auth\Requests\ResetPassword\SendEmailRequest;
+use Http\Common\Auth\Requests\ResetPassword\SendCodeRequest;
 use Http\Common\Auth\Requests\ResetPassword\VerifyCodeRequest;
 use Http\Common\Auth\Requests\ResetPassword\SetNewPasswordRequest;
 use Http\Common\Auth\Services\ResetPasswordService;
 
 class ResetPasswordController extends Controller
 {
-    public function sendEmail(SendEmailRequest $request)
+    public function sendCode(SendCodeRequest $request)
     {
         $userService = new ResetPasswordService($request->user);
         $userService->sendCode();

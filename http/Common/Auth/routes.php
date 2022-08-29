@@ -12,7 +12,7 @@ Route::prefix('auth')
 
         Route::prefix('reset-password')
             ->group(function () {
-                Route::post('send-email', [ResetPasswordController::class, 'sendEmail']);
+                Route::post('send-code', [ResetPasswordController::class, 'sendCode']);
                 Route::post('verify-code', [ResetPasswordController::class, 'verifyCode']);
                 Route::post('set-new-password', [ResetPasswordController::class, 'setNewPassword']);
             });

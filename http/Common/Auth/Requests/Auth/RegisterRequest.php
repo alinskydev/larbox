@@ -33,8 +33,8 @@ class RegisterRequest extends ActiveFormRequest
                 'max:255',
                 Rule::unique('user', 'email'),
             ],
-            'new_password' => 'required|string|max:255',
-            'new_password_confirmation' => 'required|same:new_password',
+            'password' => 'required|string|max:255',
+            'password_confirmation' => 'required|same:password',
 
             'profile.full_name' => 'required|string|max:255',
             'profile.phone' => 'string|max:255',
@@ -46,7 +46,7 @@ class RegisterRequest extends ActiveFormRequest
     {
         $data = parent::validated($key, $default);
 
-        $data['password'] = Hash::make($this->new_password);
+        $data['password'] = Hash::make($this->password);
         $data['role'] = 'registered';
 
         $this->model->fillableRelations = [
@@ -61,7 +61,7 @@ class RegisterRequest extends ActiveFormRequest
     public function messages()
     {
         return [
-            'username.regex' => __("только латинские символы, цифры и (_-)"),
+            'username.regex' => __("Только латинские символы, цифры и (_-)"),
         ];
     }
 }

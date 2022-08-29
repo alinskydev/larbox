@@ -6,9 +6,9 @@ class ResetPasswordScenarioTest extends _TestCase
 {
     protected string $requestMethod = self::REQUEST_METHOD_POST;
 
-    public function test_send_email()
+    public function test_send_code()
     {
-        $this->requestUrl .= '/reset-password/send-email';
+        $this->requestUrl .= '/reset-password/send-code';
 
         $this->requestBody = [
             'email' => 'registered_1@local.host',
