@@ -2,6 +2,7 @@ export class IndexConfig {
     model;
     http;
     hasSoftDelete;
+    showFilter;
 
     actions;
     extraActions;
@@ -14,6 +15,7 @@ export class IndexConfig {
         model,
         http,
         hasSoftDelete,
+        showFilter,
 
         actions,
         extraActions,
@@ -25,6 +27,7 @@ export class IndexConfig {
         this.model = model;
         this.http = http;
         this.hasSoftDelete = hasSoftDelete ?? false;
+        this.showFilter = showFilter ?? true;
 
         this.actions = actions ?? ['show', 'update', 'delete', 'restore'];
         this.extraActions = extraActions ?? {};

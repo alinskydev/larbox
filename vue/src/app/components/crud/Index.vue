@@ -86,14 +86,14 @@ export default {
 </script>
 
 <template>
-    <div class="card card-primary mb-3">
+    <div class="card card-primary mb-3" v-if="config.showFilter">
         <div class="card-header d-flex align-items-center justify-content-between"
              role="button"
              data-toggle="collapse"
              :data-target="'#' + filterId">
 
             <h3 class="card-title w-100">
-                {{ __('Фильтр') }}
+                {{  __('Фильтр')  }}
             </h3>
 
             <i class="fas fa-angle-down"></i>
@@ -115,11 +115,11 @@ export default {
                 <div class="card-footer text-right">
                     <div class="btn-group">
                         <button type="reset" class="btn btn-danger">
-                            {{ __('Сбросить') }}
+                            {{  __('Сбросить')  }}
                         </button>
 
                         <button type="submit" class="btn btn-primary">
-                            {{ __('Применить') }}
+                            {{  __('Применить')  }}
                         </button>
                     </div>
                 </div>
