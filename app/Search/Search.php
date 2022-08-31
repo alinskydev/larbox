@@ -153,6 +153,7 @@ class Search
 
     public function sort(array $params): self
     {
+        $params = $params ?: $this->defaultSort;
         $params = Arr::flatten($params);
 
         foreach ($params as $param) {

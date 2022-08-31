@@ -20,7 +20,7 @@ class Model extends BaseModel
 
     public function __construct(array $attributes = [])
     {
-        //    Common guarded fields
+        // Common guarded fields
 
         $commonGuardedFields = [
             'id',
@@ -31,7 +31,7 @@ class Model extends BaseModel
 
         $this->mergeGuarded($commonGuardedFields);
 
-        //    Common hidden fields
+        // Common hidden fields
 
         $commonHiddenFields = [
             'deleted_at',
@@ -42,7 +42,7 @@ class Model extends BaseModel
 
         $this->makeHidden($commonHiddenFields);
 
-        //    Common appended fields
+        // Common appended fields
 
         if (in_array(SoftDeletes::class, class_uses_recursive($this))) {
             $this->append(['is_deleted']);
@@ -103,7 +103,7 @@ class Model extends BaseModel
                             $ids = Arr::pluck($value, 'id');
                             $ids = array_filter($ids, fn ($f_v) => $f_v !== null);
 
-                            //  Trying to delete old records
+                            // Trying to delete old records
 
                             if ($records = $model->$relation()->whereNotIn('id', $ids)->get()) {
                                 foreach ($records as $record) {
@@ -111,7 +111,7 @@ class Model extends BaseModel
                                 }
                             }
 
-                            //  Trying to save new records
+                            // Trying to save new records
 
                             foreach ($value as $k => $v) {
                                 $id = $v['id'] ?? null;

@@ -37,7 +37,7 @@ return [
         'database' => [
             'driver' => 'database',
             'table' => 'jobs',
-            'queue' => 'default',
+            'queue' => implode(',', ['default', 'notification_create']),
             'retry_after' => 90,
             'after_commit' => false,
         ],

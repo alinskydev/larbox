@@ -65,14 +65,12 @@ class ActiveController extends Controller
 
     public function store(ValidatesWhenResolved $request)
     {
-        $response = ['message' => 'Successfully saved'];
-        return response()->json($response, 201);
+        return response()->json(['message' => 'Success'], 201);
     }
 
     public function update(ValidatesWhenResolved $request)
     {
-        $response = ['message' => 'Successfully saved'];
-        return response()->json($response, 200);
+        return response()->json(['message' => 'Success'], 200);
     }
 
     public function destroy(Model $model)
@@ -83,7 +81,7 @@ class ActiveController extends Controller
             abort(403, $e->getMessage());
         }
 
-        return response('', 204);
+        return response()->json(['message' => 'Success'], 200);
     }
 
     // Custom actions
@@ -109,7 +107,7 @@ class ActiveController extends Controller
 
         DB::commit();
 
-        return response('', 204);
+        return response()->json(['message' => 'Success'], 200);
     }
 
     public function restore(mixed $value)
@@ -122,7 +120,7 @@ class ActiveController extends Controller
             }
         }
 
-        return response('', 204);
+        return response()->json(['message' => 'Success'], 200);
     }
 
     public function restoreAll()
@@ -149,6 +147,6 @@ class ActiveController extends Controller
             DB::commit();
         }
 
-        return response('', 204);
+        return response()->json(['message' => 'Success'], 200);
     }
 }

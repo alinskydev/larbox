@@ -17,7 +17,7 @@ class SendCodeRequest extends FormRequest
                 'required',
                 'email',
                 'max:255',
-                Rule::exists('user')->where('deleted_at', null),
+                Rule::exists('user')->withoutTrashed(),
             ],
         ];
     }

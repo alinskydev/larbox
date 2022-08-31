@@ -26,7 +26,6 @@ class IndexTest extends _TestCase
             'filter' => [
                 'id' => 1,
                 'name' => 'brand',
-                'slug' => 'brand-1',
                 'show_on_the_home_page' => 1,
                 'is_active' => 1,
             ],

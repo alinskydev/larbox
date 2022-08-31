@@ -14,7 +14,7 @@ class VerifyCodeRequest extends FormRequest
             'reset_password_code' => [
                 'required',
                 'string',
-                Rule::exists('user')->where('deleted_at', null)->where('email', $this->email),
+                Rule::exists('user')->where('email', $this->email)->withoutTrashed(),
             ],
         ];
     }

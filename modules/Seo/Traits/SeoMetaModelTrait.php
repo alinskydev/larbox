@@ -8,7 +8,7 @@ trait SeoMetaModelTrait
 {
     public function getSeoMetaAttribute()
     {
-        return $this->seo_meta_morph ?? [];
+        return $this->seo_meta_morph ?? null;
     }
 
     public function seo_meta_morph()

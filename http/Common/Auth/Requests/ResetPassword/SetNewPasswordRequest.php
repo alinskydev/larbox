@@ -17,7 +17,7 @@ class SetNewPasswordRequest extends FormRequest
             'reset_password_code' => [
                 'required',
                 'string',
-                Rule::exists('user')->where('deleted_at', null)->where('email', $this->email),
+                Rule::exists('user')->where('email', $this->email)->withoutTrashed(),
             ],
             'new_password' => 'required|string|min:8|max:255',
             'new_password_confirmation' => 'required|same:new_password',

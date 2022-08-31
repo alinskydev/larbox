@@ -19,7 +19,7 @@ class LoginRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::exists('user')->where('deleted_at', null),
+                Rule::exists('user')->withoutTrashed(),
             ],
             'password' => 'required|string|max:255',
         ];
