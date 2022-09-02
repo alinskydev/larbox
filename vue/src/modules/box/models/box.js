@@ -123,12 +123,10 @@ export default new Model({
 
     show: {
         image: {
-            label: null,
             value: 'image.w_500',
             type: Enums.valueTypes.image,
         },
         images_list: {
-            label: null,
             value: 'images_list.*.w_500',
             type: Enums.valueTypes.image,
         },

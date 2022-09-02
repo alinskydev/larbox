@@ -72,7 +72,6 @@ export default new Model({
 
     show: {
         image: {
-            label: null,
             value: 'profile.image.w_500',
             type: Enums.valueTypes.image,
         },

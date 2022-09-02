@@ -108,7 +108,6 @@ export default new Model({
             type: Enums.valueTypes.text,
         },
         image: {
-            label: null,
             value: 'image.w_100',
             type: Enums.valueTypes.image,
         },
