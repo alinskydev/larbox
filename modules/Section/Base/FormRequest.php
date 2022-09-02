@@ -3,21 +3,22 @@
 namespace Modules\Section\Base;
 
 use App\Http\Requests\FormRequest as BaseFormRequest;
-use Modules\Section\Models\Section;
+use App\Models\Model;
 use Modules\Seo\Traits\SeoMetaFormRequestTrait;
 
 use Illuminate\Support\Arr;
 
 class FormRequest extends BaseFormRequest
 {
-    protected Section $model;
+    public Model $model;
+
     protected array $relations = [];
     protected array $fileFields = [];
     protected array $localizedFileFields = [];
 
     public function __construct()
     {
-        $this->model = request()->route()->controller->model;
+        $this->model = $this->model ?? request()->route()->controller->model;
 
         $languages = app('language')->all->toArray();
 

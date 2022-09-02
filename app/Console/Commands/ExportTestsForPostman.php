@@ -161,7 +161,6 @@ class ExportTestsForPostman extends Command
                     'name' => implode(' ', Str::ucsplit($name)),
                     'request' => [
                         'method' => $request['method'],
-                        'header' => $request['headers'],
                         'body' => ['mode' => 'none'],
                     ],
                     'response' => $this->addItems($item),

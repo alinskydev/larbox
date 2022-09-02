@@ -33,7 +33,8 @@ class ParseFields extends Command
     {
         //  Checking folder existance
 
-        $path = base_path('larbox/storage/localization');
+        $basePath = base_path();
+        $path = "$basePath/larbox/storage/localization";
 
         if (!is_dir($path)) {
             return $this->error("'$path' doesn't exists");
@@ -43,8 +44,12 @@ class ParseFields extends Command
 
         $fields = [];
 
-        $basePath = base_path();
-        $files = glob("$basePath/http/*/*/Requests/*.php");
+        $files = array_merge([
+            ...glob("$basePath/http/*/Requests/*.php"),
+            ...glob("$basePath/http/*/Requests/*/*.php"),
+            ...glob("$basePath/http/*/*/Requests/*.php"),
+            ...glob("$basePath/http/*/*/Requests/*/*.php"),
+        ]);
 
         foreach ($files as $file) {
             $file = str_replace([$basePath, '.php'], '', $file);
