@@ -8,5 +8,5 @@ class _TestCase extends PostmanTestCase
 {
     protected array $authHeaders = LARBOX_TEST_ADMIN_HEADERS;
 
-    protected string $requestUrl = 'admin/system/language';
+    public string $requestUrl = 'admin/system/language';
 }

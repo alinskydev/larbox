@@ -11,7 +11,7 @@ use Illuminate\Contracts\Validation\ValidatesWhenResolved;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 
-class ActiveController extends Controller
+class ApiResourceController extends Controller
 {
     public function __construct(
         public Model $model,
@@ -65,12 +65,12 @@ class ActiveController extends Controller
 
     public function store(ValidatesWhenResolved $request)
     {
-        return response()->json(['message' => 'Success'], 201);
+        return $this->success(201);
     }
 
     public function update(ValidatesWhenResolved $request)
     {
-        return response()->json(['message' => 'Success'], 200);
+        return $this->success();
     }
 
     public function destroy(Model $model)
@@ -81,7 +81,7 @@ class ActiveController extends Controller
             abort(403, $e->getMessage());
         }
 
-        return response()->json(['message' => 'Success'], 200);
+        return $this->success();
     }
 
     // Custom actions
@@ -107,7 +107,7 @@ class ActiveController extends Controller
 
         DB::commit();
 
-        return response()->json(['message' => 'Success'], 200);
+        return $this->success();
     }
 
     public function restore(mixed $value)
@@ -120,7 +120,7 @@ class ActiveController extends Controller
             }
         }
 
-        return response()->json(['message' => 'Success'], 200);
+        return $this->success();
     }
 
     public function restoreAll()
@@ -147,6 +147,6 @@ class ActiveController extends Controller
             DB::commit();
         }
 
-        return response()->json(['message' => 'Success'], 200);
+        return $this->success();
     }
 }

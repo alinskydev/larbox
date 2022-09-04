@@ -10,19 +10,11 @@ class AuthController extends Controller
 {
     public function login(LoginRequest $request)
     {
-        $response = [
-            'message' => 'Successfully logined',
-        ];
-
-        return response()->json($response, 200);
+        return $this->success();
     }
 
     public function register(RegisterRequest $request)
     {
-        $response = [
-            'message' => 'Successfully registered',
-        ];
-
-        return response()->json($response, 200);
+        return $this->success();
     }
 }

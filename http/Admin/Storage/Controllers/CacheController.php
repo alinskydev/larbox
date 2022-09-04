@@ -12,6 +12,6 @@ class CacheController extends Controller
         $path = public_path('storage/thumbs');
         File::deleteDirectory($path);
 
-        return response('', 204);
+        return $this->success();
     }
 }

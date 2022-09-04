@@ -15,12 +15,12 @@ class ResetPasswordController extends Controller
         $userService = new ResetPasswordService($request->user);
         $userService->sendCode();
 
-        return response()->json('', 204);
+        return $this->success();
     }
 
     public function verifyCode(VerifyCodeRequest $request)
     {
-        return response()->json('', 204);
+        return $this->success();
     }
 
     public function setNewPassword(SetNewPasswordRequest $request)
@@ -28,10 +28,6 @@ class ResetPasswordController extends Controller
         $userService = new ResetPasswordService($request->user);
         $userService->setNewPassword($request->new_password);
 
-        $response = [
-            'message' => 'New password has been set',
-        ];
-
-        return response()->json($response, 200);
+        return $this->success();
     }
 }

@@ -8,10 +8,12 @@ use App\Casts\Storage\AsImage;
 class Profile extends Model
 {
     protected $table = 'user_profile';
-    protected $primaryKey = 'user_id';
 
     public $incrementing = false;
     public $timestamps = false;
+
+    protected $primaryKey = 'user_id';
+    protected $routeKeyName = 'user_id';
 
     protected $hidden = [
         'user_id',

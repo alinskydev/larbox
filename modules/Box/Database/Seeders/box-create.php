@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use App\Helpers\DataHelper;
+use App\Helpers\SeederHelper;
 
 return new class extends Seeder
 {
@@ -11,7 +11,7 @@ return new class extends Seeder
         DB::table('box')->insert([
             [
                 'brand_id' => 1,
-                'name' => DataHelper::localized('Box 1'),
+                'name' => SeederHelper::localized('Box 1'),
                 'slug' => 'box-1',
                 'description' => '[]',
                 'price' => 2000,
@@ -28,7 +28,7 @@ return new class extends Seeder
             ],
             [
                 'brand_id' => 1,
-                'name' => DataHelper::localized('Box 2'),
+                'name' => SeederHelper::localized('Box 2'),
                 'slug' => 'box-2',
                 'description' => '[]',
                 'price' => 5500,

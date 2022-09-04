@@ -2,15 +2,15 @@
 
 namespace Http\Public\Box\Tests\Brand;
 
-use App\Tests\Feature\Helpers\FormHelper;
+use App\Helpers\Test\Feature\FormHelper;
 
 class UpdateTest extends _TestCase
 {
-    protected string $requestMethod = self::REQUEST_METHOD_PUT;
+    public string $requestMethod = self::REQUEST_METHOD_PUT;
 
     public function test_success()
     {
-        $this->requestUrl .= '/2';
+        $this->requestUrl .= '/brand-2';
 
         $this->requestBody = [
             'name' => 'Brand 2',
@@ -28,7 +28,7 @@ class UpdateTest extends _TestCase
 
     public function test_error___Not_your_record()
     {
-        $this->requestUrl .= '/1';
+        $this->requestUrl .= '/brand-1';
 
         $this->response = $this->sendRequest();
         $this->response->assertStatus(404);

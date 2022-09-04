@@ -2,11 +2,17 @@
 
 namespace Http\Admin\Box\Tests\Brand;
 
-use App\Tests\Feature\Traits\Delete\DeleteTrait;
-use App\Tests\Feature\Traits\Delete\RestoreTrait;
+use App\Services\Test\Feature\DeleteFeatureTestService;
 
 class DeleteTest extends _TestCase
 {
-    use DeleteTrait;
-    use RestoreTrait;
+    public function test_delete()
+    {
+        (new DeleteFeatureTestService($this))->delete();
+    }
+
+    public function test_restore()
+    {
+        (new DeleteFeatureTestService($this))->restore();
+    }
 }

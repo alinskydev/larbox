@@ -2,13 +2,13 @@
 
 namespace Http\Admin\User\Controllers;
 
-use App\Http\Controllers\ActiveController;
+use App\Http\Controllers\ApiResourceController;
 use Modules\User\Models\User;
 use Modules\User\Search\UserSearch;
 use Modules\User\Resources\UserResource;
 use Http\Admin\User\Requests\UserRequest;
 
-class UserController extends ActiveController
+class UserController extends ApiResourceController
 {
     public function __construct()
     {

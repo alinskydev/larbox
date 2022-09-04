@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use App\Helpers\DataHelper;
+use App\Helpers\SeederHelper;
 
 return new class extends Seeder
 {

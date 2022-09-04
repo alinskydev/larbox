@@ -2,7 +2,7 @@
 
 namespace Http\Admin\Section\Tests;
 
-use App\Tests\Feature\Helpers\FormHelper;
+use App\Helpers\Test\Feature\FormHelper;
 
 class BoxesTest extends _TestCase
 {

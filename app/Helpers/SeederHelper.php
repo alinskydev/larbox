@@ -4,7 +4,7 @@ namespace App\Helpers;
 
 use Illuminate\Support\Arr;
 
-class DataHelper
+class SeederHelper
 {
     public static function localized(string $string, bool $hasLanguageSuffix = true)
     {

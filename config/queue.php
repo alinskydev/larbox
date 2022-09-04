@@ -36,7 +36,7 @@ return [
 
         'database' => [
             'driver' => 'database',
-            'table' => 'jobs',
+            'table' => 'job',
             'queue' => implode(',', ['default', 'notification_create']),
             'retry_after' => 90,
             'after_commit' => false,
@@ -87,7 +87,7 @@ return [
     'failed' => [
         'driver' => env('QUEUE_FAILED_DRIVER', 'database-uuids'),
         'database' => env('DB_CONNECTION', 'mysql'),
-        'table' => 'failed_jobs',
+        'table' => 'job_failed',
     ],
 
 ];

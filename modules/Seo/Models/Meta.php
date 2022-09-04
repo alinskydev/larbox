@@ -8,9 +8,10 @@ class Meta extends Model
 {
     protected $table = 'seo_meta';
 
-    protected $primaryKey = null;
     public $incrementing = false;
     public $timestamps = false;
+
+    protected $primaryKey = null;
 
     protected $hidden = [
         'seo_metable_type',

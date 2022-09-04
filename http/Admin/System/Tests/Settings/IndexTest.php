@@ -4,7 +4,7 @@ namespace Http\Admin\System\Tests\Settings;
 
 class IndexTest extends _TestCase
 {
-    protected string $requestMethod = self::REQUEST_METHOD_GET;
+    public string $requestMethod = self::REQUEST_METHOD_GET;
 
     public function test_success()
     {

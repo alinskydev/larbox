@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use App\Helpers\DataHelper;
+use App\Helpers\SeederHelper;
 
 return new class extends Seeder
 {
@@ -11,12 +11,12 @@ return new class extends Seeder
         DB::table('box_variation')->insert([
             [
                 'box_id' => 1,
-                'name' => DataHelper::localized('Variation 1'),
+                'name' => SeederHelper::localized('Variation 1'),
                 'sort_index' => 0,
             ],
             [
                 'box_id' => 1,
-                'name' => DataHelper::localized('Variation 2'),
+                'name' => SeederHelper::localized('Variation 2'),
                 'sort_index' => 1,
             ],
         ]);

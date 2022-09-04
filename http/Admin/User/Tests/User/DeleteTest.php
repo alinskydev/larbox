@@ -2,21 +2,25 @@
 
 namespace Http\Admin\User\Tests\User;
 
-use App\Tests\Feature\Traits\Delete\DeleteTrait;
-use App\Tests\Feature\Traits\Delete\RestoreTrait;
+use App\Services\Test\Feature\DeleteFeatureTestService;
 
 class DeleteTest extends _TestCase
 {
-    use DeleteTrait;
-    use RestoreTrait;
+    public function test_delete()
+    {
+        (new DeleteFeatureTestService($this))->delete();
+    }
 
-    protected string $requestMethod = self::REQUEST_METHOD_DELETE;
+    public function test_restore()
+    {
+        (new DeleteFeatureTestService($this))->restore();
+    }
 
     public function test_undeletable()
     {
-        $this->requestUrl .= '/1';
-
-        $this->response = $this->sendRequest();
-        $this->response->assertStatus(403);
+        (new DeleteFeatureTestService($this))->delete(
+            path: '1',
+            assertStatus: 403,
+        );
     }
 }

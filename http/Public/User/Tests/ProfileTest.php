@@ -2,7 +2,7 @@
 
 namespace Http\Public\User\Tests;
 
-use App\Tests\Feature\Helpers\FormHelper;
+use App\Helpers\Test\Feature\FormHelper;
 
 class ProfileTest extends _TestCase
 {
@@ -25,8 +25,8 @@ class ProfileTest extends _TestCase
         $this->requestBody = [
             'username' => 'registered_1',
             'email' => 'registered_1@local.host',
-            'new_password' => 'test1234',
-            'new_password_confirmation' => 'test1234',
+            'new_password' => 'user1234',
+            'new_password_confirmation' => 'user1234',
 
             'profile' => [
                 'full_name' => 'Registered 1',

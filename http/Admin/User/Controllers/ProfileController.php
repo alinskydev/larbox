@@ -15,10 +15,6 @@ class ProfileController extends Controller
 
     public function update(ProfileRequest $request)
     {
-        $response = [
-            'message' => 'Successfully saved',
-        ];
-
-        return response()->json($response, 200);
+        return $this->success();
     }
 }

@@ -2,11 +2,11 @@
 
 namespace Http\Common\Auth\Tests;
 
-use App\Tests\Feature\Helpers\FormHelper;
+use App\Helpers\Test\Feature\FormHelper;
 
 class RegisterTest extends _TestCase
 {
-    protected string $requestMethod = self::REQUEST_METHOD_POST;
+    public string $requestMethod = self::REQUEST_METHOD_POST;
 
     public function test_success()
     {
@@ -15,8 +15,8 @@ class RegisterTest extends _TestCase
         $this->requestBody = [
             'username' => 'registered_3',
             'email' => 'registered_3@local.host',
-            'password' => 'test1234',
-            'password_confirmation' => 'test1234',
+            'password' => 'user1234',
+            'password_confirmation' => 'user1234',
 
             'profile' => [
                 'full_name' => 'Registered 3',
@@ -35,7 +35,7 @@ class RegisterTest extends _TestCase
 
         $this->requestBody = [
             'username' => 'registered_3',
-            'password' => 'test1234',
+            'password' => 'user1234',
         ];
 
         $this->response = $this->sendRequest();

@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use App\Helpers\DataHelper;
+use App\Helpers\SeederHelper;
 
 return new class extends Seeder
 {
@@ -16,7 +16,7 @@ return new class extends Seeder
                     'socials_instagram' => '',
                     'socials_youtube' => '',
 
-                    'branches' => DataHelper::multiply(
+                    'branches' => SeederHelper::multiply(
                         range(1, 2),
                         fn ($index) => [
                             'name' => "Name $index",
@@ -24,7 +24,7 @@ return new class extends Seeder
                                 "+998 00 000 00 {$index}1",
                                 "+998 00 000 00 {$index}2",
                             ],
-                            'description' => json_decode(DataHelper::localized("Description $index")),
+                            'description' => json_decode(SeederHelper::localized("Description $index")),
                         ],
                     ),
                 ]),

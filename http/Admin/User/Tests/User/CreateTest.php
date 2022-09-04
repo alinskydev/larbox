@@ -2,11 +2,11 @@
 
 namespace Http\Admin\User\Tests\User;
 
-use App\Tests\Feature\Helpers\FormHelper;
+use App\Helpers\Test\Feature\FormHelper;
 
 class CreateTest extends _TestCase
 {
-    protected string $requestMethod = self::REQUEST_METHOD_POST;
+    public string $requestMethod = self::REQUEST_METHOD_POST;
 
     public function test_success()
     {
@@ -14,8 +14,8 @@ class CreateTest extends _TestCase
             'username' => 'registered_2',
             'email' => 'registered_2@local.host',
             'role' => 'registered',
-            'new_password' => 'test1234',
-            'new_password_confirmation' => 'test1234',
+            'new_password' => 'user1234',
+            'new_password_confirmation' => 'user1234',
 
             'profile' => [
                 'full_name' => 'Registered 2',

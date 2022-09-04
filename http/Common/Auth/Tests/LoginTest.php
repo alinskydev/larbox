@@ -4,7 +4,7 @@ namespace Http\Common\Auth\Tests;
 
 class LoginTest extends _TestCase
 {
-    protected string $requestMethod = self::REQUEST_METHOD_POST;
+    public string $requestMethod = self::REQUEST_METHOD_POST;
 
     public function test_as_admin()
     {
@@ -25,7 +25,7 @@ class LoginTest extends _TestCase
 
         $this->requestBody = [
             'username' => 'registered_1',
-            'password' => 'test1234',
+            'password' => 'user1234',
         ];
 
         $this->response = $this->sendRequest();

@@ -3,7 +3,6 @@
 namespace Modules\Box\Search;
 
 use App\Search\Search;
-use Illuminate\Support\Arr;
 
 class BrandSearch extends Search
 {
@@ -27,8 +26,6 @@ class BrandSearch extends Search
     public function show(array $params): self
     {
         parent::show($params);
-
-        $params = Arr::flatten($params);
 
         if (in_array('boxes_count', $params)) {
             $this->queryBuilder->withCount('boxes');

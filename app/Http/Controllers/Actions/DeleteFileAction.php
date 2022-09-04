@@ -19,7 +19,9 @@ class DeleteFileAction extends Controller
     {
         $value = $model->$field;
 
-        if ($value === null) abort(204);
+        if ($value === null) {
+            return response()->json(['message' => 'Success'], 200);
+        }
 
         $originalValue = $model->getRawOriginal($field);
         $isArray = json_decode($originalValue) !== null;
@@ -44,6 +46,6 @@ class DeleteFileAction extends Controller
             FileHelper::delete(public_path($originalValue));
         }
 
-        return response('', 204);
+        return response()->json(['message' => 'Success'], 200);
     }
 }

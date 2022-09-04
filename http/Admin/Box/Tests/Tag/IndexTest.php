@@ -2,22 +2,14 @@
 
 namespace Http\Admin\Box\Tests\Tag;
 
-use App\Tests\Feature\Traits\Index\AvailableSortingsTrait;
-use App\Tests\Feature\Traits\Index\AvailableRelationsTrait;
-use App\Tests\Feature\Traits\Index\PaginationTrait;
-use App\Tests\Feature\Traits\Index\ShowDeletedTrait;
-
+use App\Services\Test\Feature\IndexFeatureTestService;
 use Modules\Box\Search\TagSearch;
 
 class IndexTest extends _TestCase
 {
-    use AvailableSortingsTrait;
-    use PaginationTrait;
-    use ShowDeletedTrait;
+    public string $requestMethod = self::REQUEST_METHOD_GET;
 
-    protected string $searchClass = TagSearch::class;
-
-    protected string $requestMethod = self::REQUEST_METHOD_GET;
+    public string $searchClass = TagSearch::class;
 
     public function test_available_filters()
     {
@@ -30,5 +22,25 @@ class IndexTest extends _TestCase
 
         $this->response = $this->sendRequest();
         $this->response->assertStatus(206);
+    }
+
+    public function test_available_sortings()
+    {
+        (new IndexFeatureTestService($this))->availableSortings();
+    }
+
+    public function test_show_with_deleted()
+    {
+        (new IndexFeatureTestService($this))->showWithDeleted();
+    }
+
+    public function test_show_only_deleted()
+    {
+        (new IndexFeatureTestService($this))->showOnlyDeleted();
+    }
+
+    public function test_pagination()
+    {
+        (new IndexFeatureTestService($this))->pagination();
     }
 }

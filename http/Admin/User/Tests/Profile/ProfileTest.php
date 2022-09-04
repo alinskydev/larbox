@@ -2,7 +2,7 @@
 
 namespace Http\Admin\User\Tests\Profile;
 
-use App\Tests\Feature\Helpers\FormHelper;
+use App\Helpers\Test\Feature\FormHelper;
 
 class ProfileTest extends _TestCase
 {

@@ -29,6 +29,6 @@ class SetValueAction extends Controller
             abort(403, $e->getMessage());
         }
 
-        return response('', 204);
+        return response()->json(['message' => 'Success'], 200);
     }
 }

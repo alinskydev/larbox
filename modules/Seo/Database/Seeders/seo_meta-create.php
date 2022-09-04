@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use App\Helpers\DataHelper;
+use App\Helpers\SeederHelper;
 
 return new class extends Seeder
 {
@@ -12,7 +12,7 @@ return new class extends Seeder
             [
                 'seo_metable_type' => 'Modules\Section\Models\Section',
                 'seo_metable_id' => 2,
-                'head' => DataHelper::localized('Meta'),
+                'head' => SeederHelper::localized('Meta'),
             ],
         ]);
     }

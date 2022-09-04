@@ -2,11 +2,11 @@
 
 namespace Http\Admin\Box\Tests\Tag;
 
-use App\Tests\Feature\Helpers\FormHelper;
+use App\Helpers\Test\Feature\FormHelper;
 
 class UpdateTest extends _TestCase
 {
-    protected string $requestMethod = self::REQUEST_METHOD_PUT;
+    public string $requestMethod = self::REQUEST_METHOD_PUT;
 
     public function test_success()
     {

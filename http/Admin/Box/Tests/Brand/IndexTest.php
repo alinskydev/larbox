@@ -2,23 +2,19 @@
 
 namespace Http\Admin\Box\Tests\Brand;
 
-use App\Tests\Feature\Traits\Index\AvailableSortingsTrait;
-use App\Tests\Feature\Traits\Index\AvailableRelationsTrait;
-use App\Tests\Feature\Traits\Index\PaginationTrait;
-use App\Tests\Feature\Traits\Index\ShowDeletedTrait;
-
+use App\Services\Test\Feature\IndexFeatureTestService;
 use Modules\Box\Search\BrandSearch;
 
 class IndexTest extends _TestCase
 {
-    use AvailableSortingsTrait;
-    use AvailableRelationsTrait;
-    use PaginationTrait;
-    use ShowDeletedTrait;
+    public string $requestMethod = self::REQUEST_METHOD_GET;
 
-    protected string $searchClass = BrandSearch::class;
+    public string $searchClass = BrandSearch::class;
 
-    protected string $requestMethod = self::REQUEST_METHOD_GET;
+    public function test_available_relations()
+    {
+        (new IndexFeatureTestService($this))->availableRelations();
+    }
 
     public function test_available_filters()
     {
@@ -36,6 +32,11 @@ class IndexTest extends _TestCase
         $this->response->assertStatus(206);
     }
 
+    public function test_available_sortings()
+    {
+        (new IndexFeatureTestService($this))->availableSortings();
+    }
+
     public function test_available_showings()
     {
         $this->requestQuery = [
@@ -46,5 +47,20 @@ class IndexTest extends _TestCase
 
         $this->response = $this->sendRequest();
         $this->response->assertStatus(206);
+    }
+
+    public function test_show_with_deleted()
+    {
+        (new IndexFeatureTestService($this))->showWithDeleted();
+    }
+
+    public function test_show_only_deleted()
+    {
+        (new IndexFeatureTestService($this))->showOnlyDeleted();
+    }
+
+    public function test_pagination()
+    {
+        (new IndexFeatureTestService($this))->pagination();
     }
 }

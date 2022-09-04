@@ -2,25 +2,22 @@
 
 namespace Http\Public\Box\Tests\Brand;
 
-use App\Tests\Feature\Traits\Show\SuccessTrait;
+use App\Services\Test\Feature\ShowFeatureTestService;
 
 class ShowTest extends _TestCase
 {
-    protected string $requestMethod = self::REQUEST_METHOD_GET;
-
     public function test_success()
     {
-        $this->requestUrl .= '/brand-2';
-
-        $this->response = $this->sendRequest();
-        $this->response->assertStatus(200);
+        (new ShowFeatureTestService($this))->show(
+            path: 'brand-2',
+        );
     }
 
     public function test_error___Not_your_record()
     {
-        $this->requestUrl .= '/brand-1';
-
-        $this->response = $this->sendRequest();
-        $this->response->assertStatus(404);
+        (new ShowFeatureTestService($this))->show(
+            path: 'brand-1',
+            assertStatus: 404,
+        );
     }
 }

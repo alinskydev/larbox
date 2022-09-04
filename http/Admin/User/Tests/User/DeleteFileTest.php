@@ -4,13 +4,13 @@ namespace Http\Admin\User\Tests\User;
 
 class DeleteFileTest extends _TestCase
 {
-    protected string $requestMethod = self::REQUEST_METHOD_DELETE;
+    public string $requestMethod = self::REQUEST_METHOD_DELETE;
 
     public function test_image()
     {
         $this->requestUrl .= '/1/delete-file/image';
 
         $this->response = $this->sendRequest();
-        $this->response->assertStatus(204);
+        $this->response->assertStatus(200);
     }
 }

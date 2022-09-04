@@ -10,4 +10,9 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    protected function success(int $status = 200)
+    {
+        return response()->json(['message' => 'Success'], $status);
+    }
 }

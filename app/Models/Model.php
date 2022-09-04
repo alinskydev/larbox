@@ -16,7 +16,7 @@ class Model extends BaseModel
 
     public array $fillableRelations = [];
 
-    protected string $routeKeyName = 'id';
+    protected $routeKeyName = 'id';
 
     public function __construct(array $attributes = [])
     {

@@ -2,11 +2,11 @@
 
 namespace Http\Admin\Box\Tests\Box;
 
-use App\Tests\Feature\Helpers\FormHelper;
+use App\Helpers\Test\Feature\FormHelper;
 
 class CreateTest extends _TestCase
 {
-    protected string $requestMethod = self::REQUEST_METHOD_POST;
+    public string $requestMethod = self::REQUEST_METHOD_POST;
 
     public function test_success()
     {

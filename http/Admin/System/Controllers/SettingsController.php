@@ -29,6 +29,6 @@ class SettingsController extends Controller
 
         Settings::upsert($data, 'name');
 
-        return $this->index();
+        return $this->success();
     }
 }

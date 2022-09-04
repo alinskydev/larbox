@@ -2,9 +2,12 @@
 
 namespace Http\Admin\Box\Tests\Tag;
 
-use App\Tests\Feature\Traits\Show\SuccessTrait;
+use App\Services\Test\Feature\ShowFeatureTestService;
 
 class ShowTest extends _TestCase
 {
-    use SuccessTrait;
+    public function test_success()
+    {
+        (new ShowFeatureTestService($this))->show();
+    }
 }

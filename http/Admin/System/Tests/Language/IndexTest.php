@@ -2,21 +2,14 @@
 
 namespace Http\Admin\System\Tests\Language;
 
-use App\Tests\Feature\Traits\Index\AvailableSortingsTrait;
-use App\Tests\Feature\Traits\Index\AvailableRelationsTrait;
-use App\Tests\Feature\Traits\Index\PaginationTrait;
-use App\Tests\Feature\Traits\Index\ShowDeletedTrait;
-
+use App\Services\Test\Feature\IndexFeatureTestService;
 use Modules\System\Search\LanguageSearch;
 
 class IndexTest extends _TestCase
 {
-    use AvailableSortingsTrait;
-    use PaginationTrait;
+    public string $requestMethod = self::REQUEST_METHOD_GET;
 
-    protected string $searchClass = LanguageSearch::class;
-
-    protected string $requestMethod = self::REQUEST_METHOD_GET;
+    public string $searchClass = LanguageSearch::class;
 
     public function test_available_filters()
     {
@@ -32,5 +25,15 @@ class IndexTest extends _TestCase
 
         $this->response = $this->sendRequest();
         $this->response->assertStatus(206);
+    }
+
+    public function test_available_sortings()
+    {
+        (new IndexFeatureTestService($this))->availableSortings();
+    }
+
+    public function test_pagination()
+    {
+        (new IndexFeatureTestService($this))->pagination();
     }
 }

@@ -25,20 +25,21 @@ abstract class PostmanTestCase extends BaseTestCase
         'Accept-Language' => 'ru',
     ];
 
-    protected string $requestUrl;
-    protected string $requestMethod;
-    protected array $requestQuery = [];
+    public string $requestUrl;
+    public string $requestMethod;
+    public array $requestQuery = [];
     private string $requestQueryAsString;
 
-    protected array $requestBody = [];
+    public array $requestBody = [];
     private array $requestFiles = [];
+
     protected array $requestHeaders = [];
     protected array $authHeaders = [];
     private array $allRequestHeaders = [];
 
-    protected TestResponse $response;
+    public TestResponse $response;
 
-    protected function sendRequest(): TestResponse
+    public function sendRequest(): TestResponse
     {
         if (in_array($this->requestMethod, [self::REQUEST_METHOD_PUT, self::REQUEST_METHOD_PATCH])) {
             $this->requestQuery['_method'] = $this->requestMethod;

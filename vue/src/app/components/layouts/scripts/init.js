@@ -39,13 +39,5 @@ export default function (context) {
 
             LocalizationHelper.locale = locale;
             LocalizationHelper.messages = lodash.merge(LocalizationHelper.messages, data.translations);
-
-            // Sending enums request
-
-            return fetch(url + '/../information/enums', requestOptions)
-                .then((response) => response.json())
-                .then((data) => {
-                    context.booted.enums = data;
-                });
         });
 };

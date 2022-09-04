@@ -4,14 +4,14 @@ namespace Http\Admin\System\Tests\Language;
 
 class SetValueTest extends _TestCase
 {
-    protected string $requestMethod = self::REQUEST_METHOD_PATCH;
+    public string $requestMethod = self::REQUEST_METHOD_PATCH;
 
     public function test_deactivate()
     {
         $this->requestUrl .= '/2/set-active/0';
 
         $this->response = $this->sendRequest();
-        $this->response->assertStatus(204);
+        $this->response->assertStatus(200);
     }
 
     public function test_activate()
@@ -19,7 +19,7 @@ class SetValueTest extends _TestCase
         $this->requestUrl .= '/2/set-active/1';
 
         $this->response = $this->sendRequest();
-        $this->response->assertStatus(204);
+        $this->response->assertStatus(200);
     }
 
     public function test_deactivation_error___Main_language()
@@ -35,7 +35,7 @@ class SetValueTest extends _TestCase
         $this->requestUrl .= '/2/set-main/1';
 
         $this->response = $this->sendRequest();
-        $this->response->assertStatus(204);
+        $this->response->assertStatus(200);
     }
 
     public function test_deactivation_error___Current_language()

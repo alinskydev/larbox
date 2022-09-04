@@ -2,14 +2,14 @@
 
 namespace Http\Admin\System\Controllers;
 
-use App\Http\Controllers\ActiveController;
+use App\Http\Controllers\ApiResourceController;
 
 use Modules\System\Models\Language;
 use Modules\System\Search\LanguageSearch;
 use Modules\System\Resources\LanguageResource;
 use Http\Admin\System\Requests\LanguageRequest;
 
-class LanguageController extends ActiveController
+class LanguageController extends ApiResourceController
 {
     public function __construct()
     {

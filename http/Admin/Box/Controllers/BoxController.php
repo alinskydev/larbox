@@ -2,13 +2,13 @@
 
 namespace Http\Admin\Box\Controllers;
 
-use App\Http\Controllers\ActiveController;
+use App\Http\Controllers\ApiResourceController;
 use Modules\Box\Models\Box;
 use Modules\Box\Search\BoxSearch;
 use Modules\Box\Resources\BoxResource;
 use Http\Admin\Box\Requests\BoxRequest;
 
-class BoxController extends ActiveController
+class BoxController extends ApiResourceController
 {
     public function __construct()
     {

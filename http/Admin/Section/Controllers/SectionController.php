@@ -31,7 +31,6 @@ class SectionController extends Controller
 
     public function update(ValidatesWhenResolved $request)
     {
-        $response = ['message' => 'Successfully saved'];
-        return response()->json($response, 200);
+        return $this->success();
     }
 }
