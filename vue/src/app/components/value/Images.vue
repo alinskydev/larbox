@@ -21,15 +21,15 @@ export default {
                 },
                 1000: {
                     items: 5,
-                }
-            }
-        })
+                },
+            },
+        });
     },
 };
 </script>
 
 <template>
     <div :id="item.id" class="owl-carousel">
-        <img v-for="value in item.value" :src="value" v-bind="item.attributes">
+        <img v-for="value in item.value" :src="value" v-bind="item.attributes" />
     </div>
 </template>

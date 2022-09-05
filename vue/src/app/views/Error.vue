@@ -1,5 +1,5 @@
 <script setup>
-import RouterLink from "@/app/components/blocks/RouterLink.vue";
+import RouterLink from '@/app/components/blocks/RouterLink.vue';
 </script>
 
 <script>
@@ -17,9 +17,7 @@ export default {
 
 <template>
     <div class="error-page">
-        <h2 class="headline text-warning">
-            404
-        </h2>
+        <h2 class="headline text-warning">404</h2>
 
         <div class="ml-5">
             <h3>

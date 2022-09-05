@@ -36,12 +36,11 @@ export default {
 </script>
 
 <template>
-    <Main v-if="item.type !== Enums.inputTypes.hidden
-    && item.type !== Enums.inputTypes.relations
-    && item.type !== Enums.inputTypes.component"
-          :item="item"
-          v-slot="main">
-
+    <Main
+        v-if="item.type !== Enums.inputTypes.hidden && item.type !== Enums.inputTypes.relations && item.type !== Enums.inputTypes.component"
+        :item="item"
+        v-slot="main"
+    >
         <template v-if="item.type === Enums.inputTypes.date">
             <Date :item="item" v-bind="main.inputAttrs" />
         </template>

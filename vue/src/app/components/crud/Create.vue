@@ -11,7 +11,6 @@ export default {
         };
     },
     created() {
-
         // Page init
 
         this.booted.components.current.page.init();

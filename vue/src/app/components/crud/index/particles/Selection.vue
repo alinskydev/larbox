@@ -1,7 +1,3 @@
-<script setup>
-
-</script>
-
 <script>
 export default {
     props: {
@@ -73,64 +69,65 @@ export default {
         },
         sendRequest(options, callback) {
             let formData = new FormData(),
-                selection = Array.from(
-                    document.querySelectorAll('.crud-index-data tbody .selection:checked'),
-                    e => parseInt(e.value)
-                );
+                selection = Array.from(document.querySelectorAll('.crud-index-data tbody .selection:checked'), (e) => parseInt(e.value));
 
             for (let key in selection) {
                 formData.append('selection[]', selection[key]);
             }
 
             if (confirm(this.__('Вы уверены?'))) {
-                this.booted.helpers.http.send(this, {
-                    ...{
-                        body: formData,
-                    },
-                    ...options,
-                }).then((response) => {
-                    if (response.statusType === 'success') {
-                        callback(selection);
+                this.booted.helpers.http
+                    .send(this, {
+                        ...{
+                            body: formData,
+                        },
+                        ...options,
+                    })
+                    .then((response) => {
+                        if (response.statusType === 'success') {
+                            callback(selection);
 
-                        $('.crud-index-data .selection').prop('checked', false);
-                        this.toggleBody();
-                    }
-                });
+                            $('.crud-index-data .selection').prop('checked', false);
+                            this.toggleBody();
+                        }
+                    });
             }
         },
     },
-}
+};
 </script>
 
 <template>
     <template v-if="config.selectionActions.length > 0">
-        <th v-if="type === 'tableHead'">
-            <input type="checkbox" class="selection" @change="toggleHead">
+        <th v-if="type === 'tableHead'" style="width: 50px">
+            <input type="checkbox" class="selection" @change="toggleHead" />
         </th>
 
         <th v-if="type === 'tableBody'">
-            <input type="checkbox" :value="id" class="selection" @change="toggleBody">
+            <input type="checkbox" :value="id" class="selection" @change="toggleBody" />
         </th>
 
-        <div v-if="type === 'actions'" class="actions card card-light" style="display: none;">
+        <div v-if="type === 'actions'" class="actions card card-light" style="display: none">
             <div class="card-header">
                 {{ __('Действия') }}
             </div>
 
             <div class="card-body">
                 <template v-for="action in config.selectionActions">
-                    <button v-if="action === 'deleteAll' && !$route.query['show[deleted]']"
-                            class="btn btn-danger btn-block text-left"
-                            @click="deleteAllAction">
-
+                    <button
+                        v-if="action === 'deleteAll' && !$route.query['show[deleted]']"
+                        class="btn btn-danger btn-block text-left"
+                        @click="deleteAllAction"
+                    >
                         <i class="fas fa-trash-alt mr-1"></i>
                         {{ __('Удалить все') }}
                     </button>
 
-                    <button v-if="action === 'restoreAll' && $route.query['show[deleted]'] === 'only-deleted'"
-                            class="btn btn-success btn-block text-left"
-                            @click="restoreAllAction">
-
+                    <button
+                        v-if="action === 'restoreAll' && $route.query['show[deleted]'] === 'only-deleted'"
+                        class="btn btn-success btn-block text-left"
+                        @click="restoreAllAction"
+                    >
                         <i class="fas fa-trash-restore mr-1"></i>
                         {{ __('Восстановить все') }}
                     </button>

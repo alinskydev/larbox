@@ -10,5 +10,5 @@ export default {
 </script>
 
 <template>
-    <input type="hidden" :name="item.name" :value="item.value">
+    <input type="hidden" :name="item.name" :value="item.value" />
 </template>

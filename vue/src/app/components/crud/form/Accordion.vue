@@ -21,22 +21,24 @@ export default {
 
             this.config.beforeSubmit(this, formData);
 
-            this.booted.helpers.http.send(this, {
-                method: 'POST',
-                path: this.config.http.path,
-                query: {
-                    '_method': this.config.method,
-                },
-                body: formData,
-            }).then((response) => {
-                if (response.statusType === 'success') {
-                    this.config.afterSubmit(this, formData, response);
+            this.booted.helpers.http
+                .send(this, {
+                    method: 'POST',
+                    path: this.config.http.path,
+                    query: {
+                        _method: this.config.method,
+                    },
+                    body: formData,
+                })
+                .then((response) => {
+                    if (response.statusType === 'success') {
+                        this.config.afterSubmit(this, formData, response);
 
-                    this.$router.push({
-                        path: '/' + this.booted.locale + '/' + this.config.redirectPath,
-                    });
-                }
-            });
+                        this.$router.push({
+                            path: '/' + this.booted.locale + '/' + this.config.redirectPath,
+                        });
+                    }
+                });
         },
     },
 };
@@ -44,14 +46,17 @@ export default {
 
 <template>
     <form @submit.prevent="submit" id="crud-form">
-        <div v-for="(items, key) in itemGroups" class="card card-primary mb-3"
-             :set="groupId = 'el-' + this.booted.helpers.string.uniqueId()">
-
-            <div class="card-header d-flex align-items-center justify-content-between"
-                 role="button"
-                 data-toggle="collapse"
-                 :data-target="'#' + groupId">
-
+        <div
+            v-for="(items, key) in itemGroups"
+            class="card card-primary mb-3"
+            :set="(groupId = 'el-' + this.booted.helpers.string.uniqueId())"
+        >
+            <div
+                class="card-header d-flex align-items-center justify-content-between"
+                role="button"
+                data-toggle="collapse"
+                :data-target="'#' + groupId"
+            >
                 <h3 class="card-title w-100">
                     {{ __(key) }}
                 </h3>

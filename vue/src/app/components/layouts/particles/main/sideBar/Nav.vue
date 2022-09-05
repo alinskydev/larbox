@@ -16,9 +16,7 @@ export default {
         matched.shift();
 
         this.activeItems = matched.map((value) => {
-            return value.path.replace(':locale', '')
-                .replace('//', '/')
-                .replace('/', '');
+            return value.path.replace(':locale', '').replace('//', '/').replace('/', '');
         });
     },
 };
@@ -26,17 +24,14 @@ export default {
 
 <template>
     <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column"
-            data-widget="treeview"
-            role="menu"
-            data-accordion="false">
-
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <li v-for="(item, key) in items" class="nav-item">
                 <template v-if="item.children">
-                    <a :href="'#nav-' + key"
-                       data-toggle="collapse"
-                       :class="'nav-link ' + (activeItems.includes(item.path) ? 'active' : 'collapsed')">
-
+                    <a
+                        :href="'#nav-' + key"
+                        data-toggle="collapse"
+                        :class="'nav-link ' + (activeItems.includes(item.path) ? 'active' : 'collapsed')"
+                    >
                         <i :class="'nav-icon ' + item.icon"></i>
                         <p>
                             {{ __(item.label) }}
@@ -44,12 +39,9 @@ export default {
                         </p>
                     </a>
 
-                    <ul :id="'nav-' + key"
-                        :class="'nav nav-treeview collapse ' + (activeItems.includes(item.path) ? 'show' : '')">
-
+                    <ul :id="'nav-' + key" :class="'nav nav-treeview collapse ' + (activeItems.includes(item.path) ? 'show' : '')">
                         <li v-for="itemChild in item.children" class="nav-item">
-                            <RouterLink :to="itemChild.path"
-                                        :class="'nav-link ' + (activeItems.includes(itemChild.path) ? 'active' : '')">
+                            <RouterLink :to="itemChild.path" :class="'nav-link ' + (activeItems.includes(itemChild.path) ? 'active' : '')">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>{{ __(itemChild.label) }}</p>
                             </RouterLink>
@@ -57,10 +49,7 @@ export default {
                     </ul>
                 </template>
 
-                <RouterLink v-else
-                            :to="item.path"
-                            :class="'nav-link ' + (activeItems.includes(item.path) ? 'active' : '')">
-
+                <RouterLink v-else :to="item.path" :class="'nav-link ' + (activeItems.includes(item.path) ? 'active' : '')">
                     <i :class="'nav-icon ' + item.icon"></i>
                     <p>{{ __(item.label) }}</p>
                 </RouterLink>

@@ -20,25 +20,27 @@ export default {
         };
     },
     created() {
-        this.booted.helpers.http.send(this, {
-            method: 'GET',
-            path: this.config.http.path,
-            query: {
-                ...(this.config.http.query ?? {}),
-                ...this.$route.query,
-            },
-        }).then((response) => {
-            if (response.statusType === 'success') {
-                this.fields = this.model.prepareFields(this, this.model.list);
+        this.booted.helpers.http
+            .send(this, {
+                method: 'GET',
+                path: this.config.http.path,
+                query: {
+                    ...(this.config.http.query ?? {}),
+                    ...this.$route.query,
+                },
+            })
+            .then((response) => {
+                if (response.statusType === 'success') {
+                    this.fields = this.model.prepareFields(this, this.model.list);
 
-                for (let dataKey in response.data.data) {
-                    this.items[dataKey] = this.model.prepareValues(this, this.model.list, response.data.data[dataKey]);
-                    this.items[dataKey]['is_deleted'] = response.data.data[dataKey]['is_deleted'];
+                    for (let dataKey in response.data.data) {
+                        this.items[dataKey] = this.model.prepareValues(this, this.model.list, response.data.data[dataKey]);
+                        this.items[dataKey]['is_deleted'] = response.data.data[dataKey]['is_deleted'];
+                    }
+
+                    this.meta = response.data.meta;
                 }
-
-                this.meta = response.data.meta;
-            }
-        });
+            });
     },
 };
 </script>
@@ -78,16 +80,18 @@ export default {
                                 <template v-for="(field, key) in fields">
                                     <template v-if="!config.gridHiddenFields.includes(key)">
                                         <template v-if="item[key].type === Enums.valueTypes.image">
-                                            <td style="width: 130px;">
+                                            <td style="width: 130px">
                                                 <Value :item="item[key]" :id="item.id.value" />
                                             </td>
                                         </template>
 
-                                        <template v-else-if="
-                                            item[key].type === Enums.valueTypes.httpSelect
-                                            || item[key].type === Enums.valueTypes.httpSwitcher
-                                        ">
-                                            <td :set="item[key].attributes['disabled'] = (item.is_deleted === true)">
+                                        <template
+                                            v-else-if="
+                                                item[key].type === Enums.valueTypes.httpSelect ||
+                                                item[key].type === Enums.valueTypes.httpSwitcher
+                                            "
+                                        >
+                                            <td :set="(item[key].attributes['disabled'] = item.is_deleted === true)">
                                                 <Value :item="item[key]" :id="item.id.value" />
                                             </td>
                                         </template>
@@ -101,7 +105,7 @@ export default {
                                 </template>
 
                                 <template v-if="config.actions.length > 0">
-                                    <td class="text-right" style="width: 50px;">
+                                    <td class="text-right" style="width: 50px">
                                         <Actions :item="item" />
                                     </td>
                                 </template>

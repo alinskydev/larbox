@@ -51,23 +51,25 @@ export default {
                 query['filter[id]'] = value;
             }
 
-            this.booted.helpers.http.send(this, {
-                method: 'GET',
-                path: this.options.path,
-                query: query,
-            }).then((response) => {
-                if (response.statusType === 'success') {
-                    for (let key in response.data.data) {
-                        let dataItem = response.data.data[key];
+            this.booted.helpers.http
+                .send(this, {
+                    method: 'GET',
+                    path: this.options.path,
+                    query: query,
+                })
+                .then((response) => {
+                    if (response.statusType === 'success') {
+                        for (let key in response.data.data) {
+                            let dataItem = response.data.data[key];
 
-                        if (this.isLocalized) {
-                            this.items[dataItem.id] = dataItem[this.field][this.booted.locale];
-                        } else {
-                            this.items[dataItem.id] = dataItem[this.field];
+                            if (this.isLocalized) {
+                                this.items[dataItem.id] = dataItem[this.field][this.booted.locale];
+                            } else {
+                                this.items[dataItem.id] = dataItem[this.field];
+                            }
                         }
                     }
-                }
-            });
+                });
         }
     },
     mounted() {

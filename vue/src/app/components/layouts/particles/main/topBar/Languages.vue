@@ -34,11 +34,8 @@ export default {
 
         <div class="dropdown-menu dropdown-menu-right p-0">
             <template v-for="(item, key, index) in items">
-                <a @click="changeLocale(item.url)"
-                   href="#"
-                   :class="'dropdown-item py-2 ' + (key === booted.locale ? 'active' : '')">
-
-                    <img :src="item.image?.w_30" class="mr-2">
+                <a @click="changeLocale(item.url)" href="#" :class="'dropdown-item py-2 ' + (key === booted.locale ? 'active' : '')">
+                    <img :src="item.image?.w_30" class="mr-2" />
                     {{ item.name }}
                 </a>
             </template>

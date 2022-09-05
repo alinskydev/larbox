@@ -2,7 +2,6 @@ import { LocalizationHelper } from '@/app/core/helpers/localizationHelper';
 import lodash from 'lodash';
 
 export default function (context) {
-
     // Setting options
 
     let locale,
@@ -40,4 +39,4 @@ export default function (context) {
             LocalizationHelper.locale = locale;
             LocalizationHelper.messages = lodash.merge(LocalizationHelper.messages, data.translations);
         });
-};
+}

@@ -146,7 +146,7 @@ class Search
                 break;
             case self::FILTER_TYPE_LOCALIZED:
                 $locale = app()->getLocale();
-                $query->{$combinedType}(DB::raw("LOWER($param->'$.$locale')"), 'LIKE', "%$value%");
+                $query->{$combinedType}(DB::raw("LOWER(JSON_UNQUOTE($param->'$.$locale'))"), 'LIKE', "%$value%");
                 break;
         }
     }

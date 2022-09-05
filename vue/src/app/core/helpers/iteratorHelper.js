@@ -20,7 +20,7 @@ export default {
                                 Object.entries(current).map((entry) => {
                                     entry[1] = this.get(entry[1], newPath);
                                     return entry;
-                                }),
+                                })
                             );
                     }
                 } else {

@@ -4,12 +4,7 @@ export class Page {
     breadcrumbs;
     showBreadcrumbs;
 
-    constructor({
-        context,
-        title,
-        breadcrumbs,
-        showBreadcrumbs,
-    }) {
+    constructor({ context, title, breadcrumbs, showBreadcrumbs }) {
         this.context = context;
         this.title = title;
         this.breadcrumbs = breadcrumbs ?? [];

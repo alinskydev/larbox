@@ -7,46 +7,59 @@ export class Model {
     show: Record<string, any>;
     form: Record<string, any>;
 
-    constructor(
-        config: {
-            list: Record<string, {
-                label: [String, Function],
-                value: [String, Function],
-                type: Enums.valueTypes,
-                options: Object,
-                attributes: Object,
-            }>,
-            filters: Record<string, {
-                label: [String, Function],
-                hint: Function,
-                name: String,
-                value: [String, Function],
-                type: Enums.inputTypes,
-                options: Object,
-                attributes: Object,
-                size: Enums.inputSizes,
-            }>,
-            sortings: Array<string>,
-            show: Record<string, {
-                label: [String, Function],
-                value: [String, Function],
-                type: Enums.valueTypes,
-                options: Object,
-                attributes: Object,
-            }>,
-            form: Record<string, Record<string, {
-                label: [String, Function],
-                hint: Function,
-                name: String,
-                value: [String, Function],
-                type: Enums.inputTypes,
-                options: Object,
-                attributes: Object,
-                size: Enums.inputSizes,
-            }>>,
-            hasSeoMeta: boolean,
-        },
-    ) {
+    constructor(config: {
+        list: Record<
+            string,
+            {
+                label: [String, Function];
+                value: [String, Function];
+                type: Enums.valueTypes;
+                options: Object;
+                attributes: Object;
+            }
+        >;
+        filters: Record<
+            string,
+            {
+                label: [String, Function];
+                hint: Function;
+                name: String;
+                value: [String, Function];
+                type: Enums.inputTypes;
+                options: Object;
+                attributes: Object;
+                size: Enums.inputSizes;
+            }
+        >;
+        sortings: Array<string>;
+        show: Record<
+            string,
+            {
+                label: [String, Function];
+                value: [String, Function];
+                type: Enums.valueTypes;
+                options: Object;
+                attributes: Object;
+            }
+        >;
+        form: Record<
+            string,
+            Record<
+                string,
+                {
+                    label: [String, Function];
+                    hint: Function;
+                    name: String;
+                    value: [String, Function];
+                    type: Enums.inputTypes;
+                    options: Object;
+                    attributes: Object;
+                    size: Enums.inputSizes;
+                }
+            >
+        >;
+        hasSeoMeta: boolean;
+    }) {
         this.list = config.list ?? {};
         this.filters = config.filters ?? {};
         this.sortings = config.sortings ?? [];
@@ -65,7 +78,7 @@ export class Model {
                         size: Enums.inputSizes.xl,
                     },
                     attributes: {
-                        'rows': 10,
+                        rows: 10,
                     },
                     size: Enums.inputSizes.xl,
                 },

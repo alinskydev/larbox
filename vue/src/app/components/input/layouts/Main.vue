@@ -21,11 +21,11 @@ export default {
     },
     created() {
         this.inputAttrs = {
-            'name': this.item.name,
+            name: this.item.name,
             'data-error-key': this.item.name.replaceAll('[', '.').replaceAll(']', ''),
-            'value': this.item.value,
-            'id': this.item.id,
-            'class': 'form-control',
+            value: this.item.value,
+            id: this.item.id,
+            class: 'form-control',
         };
 
         if (this.item.options.isLocalized) {
@@ -50,18 +50,20 @@ export default {
                     <div :class="'input-wrapper form-group ' + (item.options.size ?? Enums.inputSizes.md)">
                         <label v-if="item.label" :for="inputAttrs['id'].replace(':locale', language.code)" v-html="item.label" />
                         |
-                        <img :src="language.image?.w_30" class="align-text-bottom ml-1">
+                        <img :src="language.image?.w_30" class="align-text-bottom ml-1" />
 
-                        <slot :inputAttrs="{
-                            ...{
-                                'name': inputAttrs['name'].replace(':locale', language.code),
-                                'data-error-key': inputAttrs['data-error-key'].replace(':locale', language.code),
-                                'value': inputAttrs['value'] ? inputAttrs['value'][language.code] : '',
-                                'id': inputAttrs['id'].replace(':locale', language.code),
-                                'class': inputAttrs['class'],
-                            },
-                            ...extraAttrs,
-                        }"></slot>
+                        <slot
+                            :inputAttrs="{
+                                ...{
+                                    name: inputAttrs['name'].replace(':locale', language.code),
+                                    'data-error-key': inputAttrs['data-error-key'].replace(':locale', language.code),
+                                    value: inputAttrs['value'] ? inputAttrs['value'][language.code] : '',
+                                    id: inputAttrs['id'].replace(':locale', language.code),
+                                    class: inputAttrs['class'],
+                                },
+                                ...extraAttrs,
+                            }"
+                        ></slot>
 
                         <Hint v-if="item.hint" :text="item.hint" />
                         <Error />
@@ -74,10 +76,12 @@ export default {
             <div class="input-wrapper form-group">
                 <label v-if="item.label" :for="inputAttrs['id']" v-html="item.label" />
 
-                <slot :inputAttrs="{
-                    ...inputAttrs,
-                    ...extraAttrs,
-                }"></slot>
+                <slot
+                    :inputAttrs="{
+                        ...inputAttrs,
+                        ...extraAttrs,
+                    }"
+                ></slot>
 
                 <Hint v-if="item.hint" :text="item.hint" />
                 <Error />

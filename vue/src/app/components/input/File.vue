@@ -58,7 +58,7 @@ export default {
         this.collectItems();
 
         let layoutTemplates = {
-            actions: '{drag}<div class="file-actions"><div class="file-footer-buttons">{zoom} {download} {delete}</div></div>',
+            actions: '{drag}<div class="file-actions">' + '<div class="file-footer-buttons">{zoom} {download} {delete}</div>' + '</div>',
         };
 
         if (!this.options.deleteUrl) {
@@ -79,7 +79,9 @@ export default {
                 this.fileInputOptions.initialPreview = this.items.map((value, key) => value.previewUrl);
                 this.fileInputOptions.initialPreviewConfig = this.items;
 
-                $('#' + this.item.id).fileinput('destroy').fileinput(this.fileInputOptions);
+                $('#' + this.item.id)
+                    .fileinput('destroy')
+                    .fileinput(this.fileInputOptions);
             }
         });
     },
@@ -123,5 +125,5 @@ export default {
 </script>
 
 <template>
-    <input type="file" :multiple="options.isMultiple">
+    <input type="file" :multiple="options.isMultiple" />
 </template>

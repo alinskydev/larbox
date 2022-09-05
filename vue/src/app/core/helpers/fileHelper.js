@@ -23,7 +23,7 @@ export default {
 
         return {
             type: type,
-            mimeType: type ? (type + '/' + extension) : type,
+            mimeType: type ? type + '/' + extension : type,
         };
     },
 };

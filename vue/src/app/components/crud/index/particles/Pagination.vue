@@ -13,15 +13,17 @@ export default {
     },
     methods: {
         go(page) {
-            this.$router.push({
-                path: this.$route.path,
-                query: {
-                    ...this.$route.query,
-                    ...{ page: page },
-                },
-            }).then(() => {
-                this.$parent.$parent.$data.dataKey++;
-            });
+            this.$router
+                .push({
+                    path: this.$route.path,
+                    query: {
+                        ...this.$route.query,
+                        ...{ page: page },
+                    },
+                })
+                .then(() => {
+                    this.$parent.$parent.$data.dataKey++;
+                });
         },
     },
 };

@@ -1,5 +1,5 @@
 <script setup>
-import RouterLink from "@/app/components/blocks/RouterLink.vue";
+import RouterLink from '@/app/components/blocks/RouterLink.vue';
 </script>
 
 <script>

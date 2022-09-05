@@ -7,22 +7,19 @@ export default {
         },
     },
     mounted() {
-        intlTelInput(
-            document.getElementById(this.item.id),
-            {
-                preferredCountries: [],
-                onlyCountries: ['gb', 'ru', 'uz'],
-                initialCountry: 'uz',
-                customContainer: 'w-100',
-                nationalMode: false,
-                autoPlaceholder: 'off',
-                autoHideDialCode: false,
-            },
-        );
+        intlTelInput(document.getElementById(this.item.id), {
+            preferredCountries: [],
+            onlyCountries: ['gb', 'ru', 'uz'],
+            initialCountry: 'uz',
+            customContainer: 'w-100',
+            nationalMode: false,
+            autoPlaceholder: 'off',
+            autoHideDialCode: false,
+        });
     },
 };
 </script>
 
 <template>
-    <input type="text">
+    <input type="text" />
 </template>

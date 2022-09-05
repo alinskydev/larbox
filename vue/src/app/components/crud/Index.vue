@@ -19,7 +19,6 @@ export default {
         };
     },
     created() {
-
         // Page init
 
         this.booted.components.current.page.init();
@@ -66,20 +65,24 @@ export default {
                 query[key] = value;
             });
 
-            this.$router.push({
-                path: this.$route.path,
-                query: pickBy(query),
-            }).then(() => {
-                this.dataKey++;
-            });
+            this.$router
+                .push({
+                    path: this.$route.path,
+                    query: pickBy(query),
+                })
+                .then(() => {
+                    this.dataKey++;
+                });
         },
         reset(event) {
-            this.$router.push({
-                path: this.$route.path,
-            }).then(() => {
-                $(event.target).find('input, textarea, select').val('').trigger('change');
-                this.dataKey++;
-            });
+            this.$router
+                .push({
+                    path: this.$route.path,
+                })
+                .then(() => {
+                    $(event.target).find('input, textarea, select').val('').trigger('change');
+                    this.dataKey++;
+                });
         },
     },
 };
@@ -87,13 +90,14 @@ export default {
 
 <template>
     <div class="card card-primary mb-3" v-if="config.showFilter">
-        <div class="card-header d-flex align-items-center justify-content-between"
-             role="button"
-             data-toggle="collapse"
-             :data-target="'#' + filterId">
-
+        <div
+            class="card-header d-flex align-items-center justify-content-between"
+            role="button"
+            data-toggle="collapse"
+            :data-target="'#' + filterId"
+        >
             <h3 class="card-title w-100">
-                {{  __('Фильтр')  }}
+                {{ __('Фильтр') }}
             </h3>
 
             <i class="fas fa-angle-down"></i>
@@ -115,11 +119,11 @@ export default {
                 <div class="card-footer text-right">
                     <div class="btn-group">
                         <button type="reset" class="btn btn-danger">
-                            {{  __('Сбросить')  }}
+                            {{ __('Сбросить') }}
                         </button>
 
                         <button type="submit" class="btn btn-primary">
-                            {{  __('Применить')  }}
+                            {{ __('Применить') }}
                         </button>
                     </div>
                 </div>

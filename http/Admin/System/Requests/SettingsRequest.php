@@ -4,6 +4,7 @@ namespace Http\Admin\System\Requests;
 
 use App\Http\Requests\FormRequest;
 
+use Illuminate\Validation\Rule;
 use App\Helpers\Validation\FileValidationHelper;
 use App\Helpers\FileHelper;
 

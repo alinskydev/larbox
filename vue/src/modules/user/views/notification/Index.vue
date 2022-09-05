@@ -34,26 +34,28 @@ export default {
     },
     methods: {
         seeAll() {
-            this.booted.helpers.http
-                .send(this, {
-                    method: 'PUT',
-                    path: 'user/notification/see-all',
-                })
-                .then((response) => {
-                    if (response.statusType === 'success') {
-                        toastr.success(this.__('Операция прошла успешно'));
-                        this.booted.components.app.childKey++;
-                    }
-                });
+            if (confirm(this.__('Вы уверены?'))) {
+                this.booted.helpers.http
+                    .send(this, {
+                        method: 'PUT',
+                        path: 'user/notification/see-all',
+                    })
+                    .then((response) => {
+                        if (response.statusType === 'success') {
+                            toastr.success(this.__('Операция прошла успешно'));
+                            this.booted.components.app.childKey++;
+                        }
+                    });
+            }
         },
     },
 };
 </script>
 
 <template>
-    <PageTitle :text="page.title"> 
+    <PageTitle :text="page.title">
         <button type="button" @click="seeAll" class="btn btn-warning">
-            {{__('Отметить все как просмотренные')}}
+            {{ __('Отметить все как просмотренные') }}
         </button>
     </PageTitle>
 

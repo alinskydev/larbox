@@ -8,86 +8,88 @@ export default {
             url.searchParams.append(key, options.query[key]);
         }
 
-        let requestOptions = _.merge({
-            headers: context.booted.config.http.headers,
-        }, options);
+        let requestOptions = _.merge(
+            {
+                headers: context.booted.config.http.headers,
+            },
+            options
+        );
 
-        return fetch(url, requestOptions)
-            .then((response) => {
-                if (response.status === 204) {
-                    return {
-                        ...response,
-                        ...{
-                            statusType: 'success',
-                        },
-                    };
-                }
+        return fetch(url, requestOptions).then((response) => {
+            if (response.status === 204) {
+                return {
+                    ...response,
+                    ...{
+                        statusType: 'success',
+                    },
+                };
+            }
 
-                return response.json().then((body) => {
-                    let statusType;
+            return response.json().then((body) => {
+                let statusType;
 
-                    switch (response.status) {
-                        case 200:
-                        case 201:
-                        case 202:
-                        case 206:
-                            statusType = 'success';
-                            break;
+                switch (response.status) {
+                    case 200:
+                    case 201:
+                    case 202:
+                    case 206:
+                        statusType = 'success';
+                        break;
 
-                        case 401:
-                            statusType = 'unauthorized';
-                            context.$router.push({
-                                path: '/' + context.booted.locale + '/auth/login',
-                            });
-                            break;
+                    case 401:
+                        statusType = 'unauthorized';
+                        context.$router.push({
+                            path: '/' + context.booted.locale + '/auth/login',
+                        });
+                        break;
 
-                        case 403:
-                        case 405:
-                            statusType = 'notAllowed';
-                            toastr.warning(body.message);
-                            break;
+                    case 403:
+                    case 405:
+                        statusType = 'notAllowed';
+                        toastr.warning(body.message);
+                        break;
 
-                        case 404:
-                        case 500:
-                            statusType = 'error';
-                            toastr.error(body.message);
-                            break;
+                    case 404:
+                    case 500:
+                        statusType = 'error';
+                        toastr.error(body.message);
+                        break;
 
-                        case 422:
-                            statusType = 'validationFailed';
+                    case 422:
+                        statusType = 'validationFailed';
 
-                            toastr.warning(body.message);
+                        toastr.warning(body.message);
 
-                            $('.input-error').addClass('d-none');
+                        $('.input-error').addClass('d-none');
 
-                            for (let key in body.errors) {
-                                let error = body.errors[key].join("\n"),
-                                    altKey = null;
+                        for (let key in body.errors) {
+                            let error = body.errors[key].join('\n'),
+                                altKey = null;
 
-                                if (key.includes('.')) {
-                                    altKey = key.slice(0, key.lastIndexOf('.')) + '.*';
-                                } else {
-                                    altKey = key + '.*';
-                                }
-
-                                $('[data-error-key="' + key + '"], [data-error-key="' + altKey + '"]')
-                                    .closest('.input-wrapper')
-                                    .find('.input-error')
-                                    .text(error)
-                                    .removeClass('d-none');
+                            if (key.includes('.')) {
+                                altKey = key.slice(0, key.lastIndexOf('.')) + '.*';
+                            } else {
+                                altKey = key + '.*';
                             }
 
-                            break;
-                    }
+                            $('[data-error-key="' + key + '"], [data-error-key="' + altKey + '"]')
+                                .closest('.input-wrapper')
+                                .find('.input-error')
+                                .text(error)
+                                .removeClass('d-none');
+                        }
 
-                    return {
-                        ...response,
-                        ...{
-                            data: body,
-                            statusType: statusType,
-                        },
-                    };
-                });
+                        break;
+                }
+
+                return {
+                    ...response,
+                    ...{
+                        data: body,
+                        statusType: statusType,
+                    },
+                };
             });
+        });
     },
 };

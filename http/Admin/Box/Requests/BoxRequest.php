@@ -4,12 +4,13 @@ namespace Http\Admin\Box\Requests;
 
 use App\Http\Requests\ActiveFormRequest;
 use Modules\Seo\Traits\SeoMetaFormRequestTrait;
+use Modules\Box\Models\Brand;
+use Modules\Box\Models\Tag;
 
 use Illuminate\Validation\Rule;
 use App\Rules\ExistsWithOldRule;
+use App\Rules\UniqueRule;
 use App\Helpers\Validation\FileValidationHelper;
-use Modules\Box\Models\Brand;
-use Modules\Box\Models\Tag;
 
 class BoxRequest extends ActiveFormRequest
 {
@@ -48,7 +49,12 @@ class BoxRequest extends ActiveFormRequest
     public function localizedRules()
     {
         return [
-            'name' => 'required|string|max:255',
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                new UniqueRule($this->model),
+            ],
             'description' => 'nullable|string',
 
             'variations.*.name' => 'required|string|max:255',

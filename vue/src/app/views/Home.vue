@@ -5,21 +5,21 @@ import PageTitle from '@/app/components/blocks/PageTitle.vue';
 
 <script>
 export default {
-	data() {
-		return {
-			page: new Page({
-				context: this,
-				title: this.__('Главная'),
-				showBreadcrumbs: false,
-			}),
-		};
-	},
-	created() {
-		this.page.init();
-	},
+    data() {
+        return {
+            page: new Page({
+                context: this,
+                title: this.__('Главная'),
+                showBreadcrumbs: false,
+            }),
+        };
+    },
+    created() {
+        this.page.init();
+    },
 };
 </script>
 
 <template>
-	<PageTitle :text="page.title" />
+    <PageTitle :text="page.title" />
 </template>

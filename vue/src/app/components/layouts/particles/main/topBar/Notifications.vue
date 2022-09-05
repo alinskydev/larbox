@@ -1,5 +1,5 @@
 <script setup>
-import RouterLink from "@/app/components/blocks/RouterLink.vue";
+import RouterLink from '@/app/components/blocks/RouterLink.vue';
 </script>
 
 <script>
@@ -10,17 +10,19 @@ export default {
         };
     },
     created() {
-        this.booted.helpers.http.send(this, {
-            method: 'GET',
-            path: 'user/notification',
-            query: {
-                'filter[is_seen]': 0,
-            },
-        }).then((response) => {
-            if (response.statusType === 'success') {
-                this.quantity = response.data.meta.total;
-            }
-        });
+        this.booted.helpers.http
+            .send(this, {
+                method: 'GET',
+                path: 'user/notification',
+                query: {
+                    'filter[is_seen]': 0,
+                },
+            })
+            .then((response) => {
+                if (response.statusType === 'success') {
+                    this.quantity = response.data.meta.total;
+                }
+            });
     },
 };
 </script>

@@ -68,7 +68,7 @@ export default {
 
     <template v-else-if="item.type === Enums.valueTypes.image">
         <Images v-if="typeof item.value === 'object'" :item="item" />
-        <img v-else :src="item.value" v-bind="item.attributes">
+        <img v-else :src="item.value" v-bind="item.attributes" />
     </template>
 
     <template v-else-if="item.type === Enums.valueTypes.json">
@@ -84,14 +84,16 @@ export default {
     </template>
 
     <template v-else-if="item.type === Enums.valueTypes.text">
-        <span style="white-space: pre;">
+        <span style="white-space: pre">
             {{ item.value }}
         </span>
     </template>
 
     <template v-else-if="item.type === Enums.valueTypes.websiteLink">
-        <a :href="booted.config.http.websiteUrl + '/' + booted.locale + '/' + item.options.path.replace(':value', item.value)"
-           target="_blank">
+        <a
+            :href="booted.config.http.websiteUrl + '/' + booted.locale + '/' + item.options.path.replace(':value', item.value)"
+            target="_blank"
+        >
             {{ item.value }}
         </a>
     </template>

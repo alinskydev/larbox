@@ -38,7 +38,7 @@ export default {
             placeholder: 'sortable-placeholder',
             start: function (event, ui) {
                 ui.placeholder.height(ui.helper.outerHeight());
-            }
+            },
         });
     },
     methods: {
@@ -93,7 +93,7 @@ export default {
                         <tbody>
                             <template v-for="(relationItem, key) in items">
                                 <tr :data-key="key" class="crud-relation">
-                                    <td class="align-middle" style="width: 50px;">
+                                    <td class="align-middle" style="width: 50px">
                                         <div class="btn btn-primary table-sorter">
                                             <i class="fas fa-arrows-alt"></i>
                                         </div>
@@ -109,7 +109,7 @@ export default {
                                         </div>
                                     </td>
 
-                                    <td style="width: 50px;">
+                                    <td style="width: 50px">
                                         <button type="button" @click="remove" class="btn btn-danger">
                                             <i class="fas fa-times"></i>
                                         </button>

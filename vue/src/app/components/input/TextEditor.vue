@@ -57,15 +57,17 @@ export default {
                             let formData = new FormData();
                             formData.append('file', file, file.name);
 
-                            this.booted.helpers.http.send(this, {
-                                method: 'POST',
-                                path: 'storage/upload/media',
-                                body: formData,
-                            }).then((response) => {
-                                if (response.statusType === 'success') {
-                                    callback(response.data.absolute);
-                                }
-                            });
+                            this.booted.helpers.http
+                                .send(this, {
+                                    method: 'POST',
+                                    path: 'storage/upload/media',
+                                    body: formData,
+                                })
+                                .then((response) => {
+                                    if (response.statusType === 'success') {
+                                        callback(response.data.absolute);
+                                    }
+                                });
                         };
 
                         reader.readAsDataURL(file);
@@ -73,20 +75,23 @@ export default {
 
                     input.click();
                 },
-                images_upload_handler: (blobInfo, progress) => new Promise((resolve, reject) => {
-                    let formData = new FormData();
-                    formData.append('file', blobInfo.blob(), blobInfo.filename());
+                images_upload_handler: (blobInfo, progress) =>
+                    new Promise((resolve, reject) => {
+                        let formData = new FormData();
+                        formData.append('file', blobInfo.blob(), blobInfo.filename());
 
-                    this.booted.helpers.http.send(this, {
-                        method: 'POST',
-                        path: 'storage/upload/media',
-                        body: formData,
-                    }).then((response) => {
-                        if (response.statusType === 'success') {
-                            resolve(response.data.absolute);
-                        }
-                    });
-                }),
+                        this.booted.helpers.http
+                            .send(this, {
+                                method: 'POST',
+                                path: 'storage/upload/media',
+                                body: formData,
+                            })
+                            .then((response) => {
+                                if (response.statusType === 'success') {
+                                    resolve(response.data.absolute);
+                                }
+                            });
+                    }),
 
                 setup: function (editor) {
                     editor.on('change', function () {
@@ -109,7 +114,6 @@ export default {
                 ...this.pluginOptions,
                 ...{ selector: '#' + this.item.id },
             });
-
         }
     },
 };

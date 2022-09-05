@@ -30,11 +30,11 @@ export default {
 
 <template>
     <template v-for="(items, itemGroupKey) in itemGroups">
-        <div v-for="(relationItem) in items">
+        <div v-for="relationItem in items">
             <i>{{ relationItem.label }}: </i>
             <Value :item="relationItem" :id="id" />
         </div>
 
-        <hr v-if="itemGroupKey < Object.keys(itemGroups).length - 1">
+        <hr v-if="itemGroupKey < Object.keys(itemGroups).length - 1" />
     </template>
 </template>
