@@ -14,6 +14,6 @@ Route::prefix('auth')
             ->group(function () {
                 Route::post('send-code', [ResetPasswordController::class, 'sendCode']);
                 Route::post('verify-code', [ResetPasswordController::class, 'verifyCode']);
-                Route::post('set-new-password', [ResetPasswordController::class, 'setNewPassword']);
+                Route::post('complete', [ResetPasswordController::class, 'complete']);
             });
     });

@@ -19,11 +19,9 @@ return new class extends Migration
             $table->id();
             $table->string('username')->unique();
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
-            $table->string('reset_password_code')->nullable();
-            $table->enum('role', array_keys(UserEnums::roles()));
+            $table->enum('role', array_keys(UserEnums::roles()))->index();
             $table->timestamp('created_at');
             $table->timestamp('updated_at');
             $table->softDeletes();

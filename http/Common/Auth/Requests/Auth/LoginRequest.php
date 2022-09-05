@@ -3,15 +3,12 @@
 namespace Http\Common\Auth\Requests\Auth;
 
 use App\Http\Requests\FormRequest;
-use Modules\User\Models\User;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 class LoginRequest extends FormRequest
 {
-    public User $user;
-
     public function nonLocalizedRules()
     {
         return [
@@ -36,12 +33,5 @@ class LoginRequest extends FormRequest
                 }
             });
         }
-    }
-
-    protected function passedValidation()
-    {
-        parent::passedValidation();
-
-        $this->user = User::query()->where('username', $this->username)->firstOrFail();
     }
 }

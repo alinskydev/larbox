@@ -20,7 +20,7 @@ class RegisterTest extends _TestCase
 
             'profile' => [
                 'full_name' => 'Registered 3',
-                'phone' => 'Phone 3',
+                'phone' => '+998000000003',
                 'image' => FormHelper::file(),
             ],
         ];

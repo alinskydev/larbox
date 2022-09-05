@@ -13,7 +13,10 @@ class RegisterRequest extends ActiveFormRequest
 {
     public function __construct()
     {
-        $this->model = new User();
+        $this->model = new User([
+            'role' => 'registered',
+        ]);
+
         return parent::__construct();
     }
 
@@ -47,7 +50,6 @@ class RegisterRequest extends ActiveFormRequest
         $data = parent::validated($key, $default);
 
         $data['password'] = Hash::make($this->password);
-        $data['role'] = 'registered';
 
         $this->model->fillableRelations = [
             $this->model::RELATION_TYPE_ONE_ONE => [

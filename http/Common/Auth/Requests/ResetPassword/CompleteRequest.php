@@ -4,10 +4,11 @@ namespace Http\Common\Auth\Requests\ResetPassword;
 
 use App\Http\Requests\FormRequest;
 use Modules\Auth\Services\CodeService;
+use Illuminate\Support\Facades\Hash;
 
 use Illuminate\Validation\Rule;
 
-class VerifyCodeRequest extends FormRequest
+class CompleteRequest extends FormRequest
 {
     public function nonLocalizedRules()
     {
@@ -19,6 +20,8 @@ class VerifyCodeRequest extends FormRequest
                 Rule::exists('user')->withoutTrashed(),
             ],
             'code' => 'required|string',
+            'new_password' => 'required|string|min:8|max:100',
+            'new_password_confirmation' => 'required|same:new_password',
         ];
     }
 
@@ -34,5 +37,14 @@ class VerifyCodeRequest extends FormRequest
                 }
             });
         }
+    }
+
+    public function validated($key = null, $default = null)
+    {
+        $data = parent::validated($key, $default);
+
+        $data['password'] = Hash::make($this->new_password);
+
+        return $data;
     }
 }

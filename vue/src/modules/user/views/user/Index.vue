@@ -4,8 +4,10 @@ import { IndexConfig } from '@/app/core/crud/config';
 import model from '@/modules/user/models/user';
 
 import PageTitle from '@/app/components/blocks/PageTitle.vue';
-import RouterLink from "@/app/components/blocks/RouterLink.vue";
+import RouterLink from '@/app/components/blocks/RouterLink.vue';
 import Index from '@/app/components/crud/Index.vue';
+
+import NotificationCreate from '@/modules/user/components/notification/Create.vue';
 </script>
 
 <script>
@@ -30,6 +32,8 @@ export default {
 
 <template>
     <PageTitle :text="page.title">
+        <NotificationCreate />
+
         <RouterLink to="user/user/create" class="btn btn-success">
             {{ __('Создать') }}
         </RouterLink>

@@ -16,10 +16,8 @@ class User extends UserModel
     protected $with = ['profile'];
 
     protected $hidden = [
-        'email_verified_at',
         'password',
         'remember_token',
-        'reset_password_code',
     ];
 
     public function profile()

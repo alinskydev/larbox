@@ -1,6 +1,7 @@
 <script setup>
 import Breadcrumbs from './topBar/Breadcrumbs.vue';
 import Languages from './topBar/Languages.vue';
+import Notifications from './topBar/Notifications.vue';
 import Profile from './topBar/Profile.vue';
 </script>
 
@@ -21,6 +22,7 @@ export default {
 
         <ul class="navbar-nav ml-auto">
             <Languages :key="templateKey" />
+            <Notifications />
             <Profile />
         </ul>
     </nav>

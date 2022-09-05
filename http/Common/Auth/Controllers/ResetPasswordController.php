@@ -5,15 +5,17 @@ namespace Http\Common\Auth\Controllers;
 use App\Http\Controllers\Controller;
 use Http\Common\Auth\Requests\ResetPassword\SendCodeRequest;
 use Http\Common\Auth\Requests\ResetPassword\VerifyCodeRequest;
-use Http\Common\Auth\Requests\ResetPassword\SetNewPasswordRequest;
-use Http\Common\Auth\Services\ResetPasswordService;
+use Http\Common\Auth\Requests\ResetPassword\CompleteRequest;
+
+use Modules\User\Models\User;
+use Modules\Auth\Services\CodeService;
 
 class ResetPasswordController extends Controller
 {
     public function sendCode(SendCodeRequest $request)
     {
-        $userService = new ResetPasswordService($request->user);
-        $userService->sendCode();
+        $codeService = new CodeService($request->email);
+        $codeService->sendCode();
 
         return $this->success();
     }
@@ -23,10 +25,14 @@ class ResetPasswordController extends Controller
         return $this->success();
     }
 
-    public function setNewPassword(SetNewPasswordRequest $request)
+    public function complete(CompleteRequest $request)
     {
-        $userService = new ResetPasswordService($request->user);
-        $userService->setNewPassword($request->new_password);
+        $codeService = new CodeService($request->email);
+        $codeService->delete();
+
+        $user = User::query()->where('email', $request->email)->firstOrFail();
+        $user->fill($request->validated());
+        $user->saveQuietly();
 
         return $this->success();
     }

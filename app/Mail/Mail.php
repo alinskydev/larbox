@@ -2,6 +2,8 @@
 
 namespace App\Mail;
 
+use Illuminate\Support\Facades\View;
+
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -13,7 +15,14 @@ class Mail extends Mailable
 
     public function view($view, array $data = [])
     {
-        $view = "mail.$view." . app()->getLocale();
+        $calledClass = get_called_class();
+        $calledClassReflection = new \ReflectionClass($calledClass);
+        $calledClassFile = $calledClassReflection->getFileName();
+        $calledClassDir = dirname($calledClassFile);
+
+        View::addNamespace('Mail', $calledClassDir . '/views');
+
+        $view = "Mail::$view." . app()->getLocale();
         return parent::view($view, $data);
     }
 }

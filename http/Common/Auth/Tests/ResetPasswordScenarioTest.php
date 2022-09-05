@@ -18,33 +18,31 @@ class ResetPasswordScenarioTest extends _TestCase
         $this->response->assertStatus(200);
     }
 
-    public function test_verify_code_error()
+    public function test_verify_code()
     {
         $this->requestUrl .= '/reset-password/verify-code';
 
         $this->requestBody = [
             'email' => 'registered_1@local.host',
-            'reset_password_code' => '12345678',
-            'new_password' => 'user1234',
-            'new_password_confirmation' => 'user1234',
+            'code' => '1234',
         ];
 
         $this->response = $this->sendRequest();
-        $this->response->assertStatus(422);
+        $this->response->assertStatus(200);
     }
 
-    public function test_set_new_password_error()
+    public function test_complete()
     {
-        $this->requestUrl .= '/reset-password/set-new-password';
+        $this->requestUrl .= '/reset-password/complete';
 
         $this->requestBody = [
             'email' => 'registered_1@local.host',
-            'reset_password_code' => '12345678',
+            'code' => '1234',
             'new_password' => 'user1234',
             'new_password_confirmation' => 'user1234',
         ];
 
         $this->response = $this->sendRequest();
-        $this->response->assertStatus(422);
+        $this->response->assertStatus(200);
     }
 }

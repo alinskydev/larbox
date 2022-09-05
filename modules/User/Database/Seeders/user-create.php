@@ -13,7 +13,6 @@ return new class extends Seeder
             [
                 'username' => 'admin',
                 'email' => 'admin@local.host',
-                'email_verified_at' => date('Y-m-d H:i:s'),
                 'password' => Hash::make('admin123'),
                 'role' => 'admin',
                 'created_at' => date('Y-m-d H:i:s'),
@@ -22,7 +21,6 @@ return new class extends Seeder
             [
                 'username' => 'registered_1',
                 'email' => 'registered_1@local.host',
-                'email_verified_at' => date('Y-m-d H:i:s'),
                 'password' => Hash::make('user1234'),
                 'role' => 'registered',
                 'created_at' => date('Y-m-d H:i:s'),
