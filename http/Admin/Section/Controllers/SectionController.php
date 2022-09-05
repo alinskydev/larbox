@@ -31,6 +31,6 @@ class SectionController extends Controller
 
     public function update(ValidatesWhenResolved $request)
     {
-        return $this->success();
+        return $this->successResponse();
     }
 }

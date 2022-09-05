@@ -11,7 +11,7 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    protected function success(int $status = 200)
+    protected function successResponse(int $status = 200)
     {
         return response()->json(['message' => 'Success'], $status);
     }

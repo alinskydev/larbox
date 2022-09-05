@@ -65,12 +65,12 @@ class ApiResourceController extends Controller
 
     public function store(ValidatesWhenResolved $request)
     {
-        return $this->success(201);
+        return $this->successResponse(201);
     }
 
     public function update(ValidatesWhenResolved $request)
     {
-        return $this->success();
+        return $this->successResponse();
     }
 
     public function destroy(Model $model)
@@ -81,7 +81,7 @@ class ApiResourceController extends Controller
             abort(403, $e->getMessage());
         }
 
-        return $this->success();
+        return $this->successResponse();
     }
 
     // Custom actions
@@ -107,7 +107,7 @@ class ApiResourceController extends Controller
 
         DB::commit();
 
-        return $this->success();
+        return $this->successResponse();
     }
 
     public function restore(mixed $value)
@@ -120,7 +120,7 @@ class ApiResourceController extends Controller
             }
         }
 
-        return $this->success();
+        return $this->successResponse();
     }
 
     public function restoreAll()
@@ -147,6 +147,6 @@ class ApiResourceController extends Controller
             DB::commit();
         }
 
-        return $this->success();
+        return $this->successResponse();
     }
 }

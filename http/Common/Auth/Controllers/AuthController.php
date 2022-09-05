@@ -10,11 +10,11 @@ class AuthController extends Controller
 {
     public function login(LoginRequest $request)
     {
-        return $this->success();
+        return $this->successResponse();
     }
 
     public function register(RegisterRequest $request)
     {
-        return $this->success();
+        return $this->successResponse();
     }
 }

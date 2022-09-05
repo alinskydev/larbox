@@ -33,6 +33,6 @@ class NotificationController extends ApiResourceController
     public function seeAll()
     {
         Notification::query()->update(['is_seen' => 1]);
-        return $this->success();
+        return $this->successResponse();
     }
 }

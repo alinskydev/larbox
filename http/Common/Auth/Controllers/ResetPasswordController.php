@@ -17,12 +17,12 @@ class ResetPasswordController extends Controller
         $codeService = new CodeService($request->email);
         $codeService->sendCode();
 
-        return $this->success();
+        return $this->successResponse();
     }
 
     public function verifyCode(VerifyCodeRequest $request)
     {
-        return $this->success();
+        return $this->successResponse();
     }
 
     public function complete(CompleteRequest $request)
@@ -34,6 +34,6 @@ class ResetPasswordController extends Controller
         $user->fill($request->validated());
         $user->saveQuietly();
 
-        return $this->success();
+        return $this->successResponse();
     }
 }

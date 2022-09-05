@@ -15,6 +15,6 @@ class ProfileController extends Controller
 
     public function update(ProfileRequest $request)
     {
-        return $this->success();
+        return $this->successResponse();
     }
 }
