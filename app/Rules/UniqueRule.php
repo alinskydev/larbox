@@ -39,7 +39,7 @@ class UniqueRule extends Rule
         if ($modelExists) {
             $attribute = implode('.', $attribute);
 
-            $this->errorMessage = __('Данное значение поле :attribute уже используется в записи №:pk', [
+            $this->errorMessage = __('Данное значение поля :attribute уже используется в записи №:pk', [
                 'attribute' => __("fields.$attribute"),
                 'pk' => $modelExists->getKey(),
             ]);

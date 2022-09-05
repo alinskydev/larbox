@@ -32,10 +32,7 @@ export default new Model({
         date: {
             label: 'fields->dates',
             value: (context, item) => {
-                let result = [
-                    context.__('fields->date') + ' ' + item.date,
-                    context.__('fields->datetime') + ' ' + item.datetime,
-                ];
+                let result = [context.__('fields->date') + ' ' + item.date, context.__('fields->datetime') + ' ' + item.datetime];
 
                 return result.join('<br>');
             },
@@ -46,16 +43,10 @@ export default new Model({
         },
         brand_id: {
             value: 'brand.name',
-            query: {
-                'show[0]': 'with-deleted',
-            },
             type: Enums.valueTypes.text,
         },
         tags: {
             value: 'tags.*.name',
-            query: {
-                'show[0]': 'with-deleted',
-            },
             type: Enums.valueTypes.array,
         },
         updated_at: {
@@ -67,7 +58,7 @@ export default new Model({
         id: {
             type: Enums.inputTypes.text,
             attributes: {
-                'type': 'number',
+                type: 'number',
             },
         },
         name: {
@@ -78,7 +69,7 @@ export default new Model({
             value: 'price.0',
             type: Enums.inputTypes.text,
             attributes: {
-                'type': 'number',
+                type: 'number',
             },
         },
         price_to: {
@@ -86,7 +77,7 @@ export default new Model({
             value: 'price.1',
             type: Enums.inputTypes.text,
             attributes: {
-                'type': 'number',
+                type: 'number',
             },
         },
         date: {
@@ -99,6 +90,9 @@ export default new Model({
             type: Enums.inputTypes.select2Ajax,
             options: {
                 path: 'box/brand',
+                query: {
+                    'show[0]': 'with-deleted',
+                },
                 field: 'name',
             },
         },
@@ -108,18 +102,16 @@ export default new Model({
             type: Enums.inputTypes.select2Ajax,
             options: {
                 path: 'box/tag',
+                query: {
+                    'show[0]': 'with-deleted',
+                },
                 field: 'name',
                 isMultiple: true,
             },
         },
     },
 
-    sortings: [
-        'id',
-        'name',
-        'date',
-        'datetime',
-    ],
+    sortings: ['id', 'name', 'date', 'datetime'],
 
     show: {
         image: {
@@ -180,7 +172,7 @@ export default new Model({
     },
 
     form: {
-        'Информация': {
+        Информация: {
             name: {
                 type: Enums.inputTypes.text,
                 options: {
@@ -212,7 +204,7 @@ export default new Model({
                     field: 'name',
                 },
                 attributes: {
-                    'onchange': (event) => {
+                    onchange: (event) => {
                         $('[name="tags[]"]').attr('disabled', event.target.value === '');
                     },
                 },
@@ -257,7 +249,7 @@ export default new Model({
                 size: Enums.inputSizes.xl,
             },
         },
-        'Вариации': {
+        Вариации: {
             variations: {
                 type: Enums.inputTypes.relations,
                 options: {
