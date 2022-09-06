@@ -163,7 +163,7 @@ export class Model {
                 value = value(context, item);
             } else {
                 value = value.replace(':locale', context.booted.locale);
-                value = item[value];
+                value = context.booted.helpers.iterator.get(item, value, '->');
             }
 
             result[key] = {

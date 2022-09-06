@@ -66,7 +66,7 @@ export default new Model({
         },
         price_from: {
             name: 'price[0]',
-            value: 'price.0',
+            value: 'price->0',
             type: Enums.inputTypes.text,
             attributes: {
                 type: 'number',
@@ -74,7 +74,7 @@ export default new Model({
         },
         price_to: {
             name: 'price[1]',
-            value: 'price.1',
+            value: 'price->1',
             type: Enums.inputTypes.text,
             attributes: {
                 type: 'number',

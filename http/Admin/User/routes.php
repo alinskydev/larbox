@@ -11,7 +11,7 @@ use Modules\User\Models\Profile;
 
 Route::prefix('user')
     ->group(function () {
-        Route::apiResource('user', UserController::class)->except(['deleteAll', 'restoreAll']);
+        Route::apiResource('user', UserController::class)->except(['destroyAll', 'restoreAll']);
 
         Route::prefix('notification')
             ->group(function () {

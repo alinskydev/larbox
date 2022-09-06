@@ -37,7 +37,7 @@ class NotificationPrepareCreateJob implements ShouldQueue
         try {
             $usersCount = User::query()->count();
 
-            for ($i = 1; $i < $usersCount; $i += 1000) {
+            for ($i = 1; $i <= $usersCount; $i += 1000) {
                 NotificationCreateJob::dispatch(
                     data: $this->data,
                     from: $i,
