@@ -12,12 +12,7 @@ class LoginRequest extends FormRequest
     public function nonLocalizedRules()
     {
         return [
-            'username' => [
-                'required',
-                'string',
-                'max:255',
-                Rule::exists('user')->withoutTrashed(),
-            ],
+            'username' => 'required|string|max:100',
             'password' => 'required|string|max:255',
         ];
     }
