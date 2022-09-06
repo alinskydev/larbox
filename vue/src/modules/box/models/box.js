@@ -1,5 +1,5 @@
-import { Model } from '@/app/core/model';
-import * as Enums from '@/app/core/enums';
+import { Model } from '@/core/model';
+import * as Enums from '@/core/enums';
 
 export default new Model({
     list: {
@@ -89,11 +89,13 @@ export default new Model({
         brand_id: {
             type: Enums.inputTypes.select2Ajax,
             options: {
-                path: 'box/brand',
-                query: {
-                    'show[0]': 'with-deleted',
+                select2Ajax: {
+                    path: 'box/brand',
+                    query: {
+                        'show[0]': 'with-deleted',
+                    },
+                    field: 'name',
                 },
-                field: 'name',
             },
         },
         tags: {
@@ -101,12 +103,14 @@ export default new Model({
             value: 'tags.id',
             type: Enums.inputTypes.select2Ajax,
             options: {
-                path: 'box/tag',
-                query: {
-                    'show[0]': 'with-deleted',
-                },
-                field: 'name',
                 isMultiple: true,
+                select2Ajax: {
+                    path: 'box/tag',
+                    query: {
+                        'show[0]': 'with-deleted',
+                    },
+                    field: 'name',
+                },
             },
         },
     },
@@ -155,7 +159,7 @@ export default new Model({
         variations: {
             type: Enums.valueTypes.relations,
             options: {
-                fields: {
+                relations: {
                     name: {
                         value: 'name.:locale',
                         type: Enums.valueTypes.text,
@@ -194,14 +198,16 @@ export default new Model({
                 type: Enums.inputTypes.select2Ajax,
                 options: {
                     initValue: 'brand.name',
-                    path: 'box/brand',
-                    query: (context, item) => {
-                        return {
-                            'filter[creator_id]': context.booted.user.id,
-                            'filter[is_active]': 1,
-                        };
+                    select2Ajax: {
+                        path: 'box/brand',
+                        query: (context, item) => {
+                            return {
+                                'filter[creator_id]': context.booted.user.id,
+                                'filter[is_active]': 1,
+                            };
+                        },
+                        field: 'name',
                     },
-                    field: 'name',
                 },
                 attributes: {
                     onchange: (event) => {
@@ -214,27 +220,33 @@ export default new Model({
                 type: Enums.inputTypes.select2Ajax,
                 options: {
                     initValue: 'tags.*.name',
-                    path: 'box/tag',
-                    field: 'name',
                     isMultiple: true,
+                    select2Ajax: {
+                        path: 'box/tag',
+                        field: 'name',
+                    },
                 },
             },
             image: {
                 type: Enums.inputTypes.file,
                 options: {
-                    preview: 'w_500',
-                    download: 'original',
-                    deleteUrl: 'box/box/:id/delete-file/image',
+                    file: {
+                        previewPath: 'w_500',
+                        downloadPath: 'original',
+                        deleteUrl: 'box/box/:id/delete-file/image',
+                    },
                 },
                 size: Enums.inputSizes.xl,
             },
             images_list: {
                 type: Enums.inputTypes.file,
                 options: {
-                    preview: 'w_500',
-                    download: 'original',
-                    deleteUrl: 'box/box/:id/delete-file/images_list/:index',
                     isMultiple: true,
+                    file: {
+                        previewPath: 'w_500',
+                        downloadPath: 'original',
+                        deleteUrl: 'box/box/:id/delete-file/images_list/:index',
+                    },
                 },
                 size: Enums.inputSizes.xl,
             },
@@ -253,7 +265,7 @@ export default new Model({
             variations: {
                 type: Enums.inputTypes.relations,
                 options: {
-                    fields: {
+                    relations: {
                         name: {
                             type: Enums.inputTypes.text,
                             options: {

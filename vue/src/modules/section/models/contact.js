@@ -1,9 +1,9 @@
-import { Model } from '@/app/core/model';
-import * as Enums from '@/app/core/enums';
+import { Model } from '@/core/model';
+import * as Enums from '@/core/enums';
 
 export default new Model({
     form: {
-        'Social': {
+        Social: {
             socials_facebook: {
                 type: Enums.inputTypes.text,
                 size: Enums.inputSizes.md,
@@ -17,11 +17,11 @@ export default new Model({
                 size: Enums.inputSizes.md,
             },
         },
-        'Branches': {
+        Branches: {
             branches: {
                 type: Enums.inputTypes.relations,
                 options: {
-                    fields: {
+                    relations: {
                         name: {
                             type: Enums.inputTypes.text,
                         },

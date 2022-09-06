@@ -1,5 +1,5 @@
-import { Model } from '@/app/core/model';
-import * as Enums from '@/app/core/enums';
+import { Model } from '@/core/model';
+import * as Enums from '@/core/enums';
 
 export default new Model({
     form: {
@@ -7,14 +7,14 @@ export default new Model({
             type: Enums.inputTypes.text,
             size: Enums.inputSizes.xl,
             attributes: {
-                'autofocus': true,
+                autofocus: true,
             },
         },
         password: {
             type: Enums.inputTypes.text,
             size: Enums.inputSizes.xl,
             attributes: {
-                'type': 'password',
+                type: 'password',
             },
         },
     },

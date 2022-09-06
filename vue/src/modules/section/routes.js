@@ -1,11 +1,11 @@
 export default [
     {
         path: 'section',
-        component: () => import('@/app/components/decorators/Empty.vue'),
+        component: () => import('@/components/decorators/Empty.vue'),
         children: [
             {
                 path: 'page',
-                component: () => import('@/app/components/decorators/Empty.vue'),
+                component: () => import('@/components/decorators/Empty.vue'),
                 children: [
                     {
                         path: 'boxes',
@@ -23,7 +23,7 @@ export default [
             },
             {
                 path: 'section',
-                component: () => import('@/app/components/decorators/Empty.vue'),
+                component: () => import('@/components/decorators/Empty.vue'),
                 children: [
                     {
                         path: 'layout',

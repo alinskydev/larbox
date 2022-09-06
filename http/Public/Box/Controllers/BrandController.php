@@ -2,7 +2,7 @@
 
 namespace Http\Public\Box\Controllers;
 
-use App\Http\Controllers\ApiResourceController;
+use App\Http\Controllers\ResourceController;
 use Modules\Box\Models\Brand;
 use Modules\Box\Search\BrandSearch;
 use Modules\Box\Resources\BrandResource;
@@ -10,7 +10,7 @@ use Http\Public\Box\Requests\BrandRequest;
 
 use Modules\User\Scopes\UserScope;
 
-class BrandController extends ApiResourceController
+class BrandController extends ResourceController
 {
     public function __construct()
     {

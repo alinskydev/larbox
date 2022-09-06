@@ -1,15 +1,15 @@
-import { Model } from '@/app/core/model';
-import * as Enums from '@/app/core/enums';
+import { Model } from '@/core/model';
+import * as Enums from '@/core/enums';
 
 export default new Model({
     form: {
-        'Header': {
+        Header: {
             header_phone: {
                 type: Enums.inputTypes.text,
                 size: Enums.inputSizes.xl,
             },
         },
-        'Footer': {
+        Footer: {
             footer_phone: {
                 type: Enums.inputTypes.text,
                 size: Enums.inputSizes.xl,

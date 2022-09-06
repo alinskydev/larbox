@@ -1,7 +1,7 @@
 <script setup>
-import { Page } from '@/app/core/page';
+import { Page } from '@/core/page';
 import model from '@/modules/auth/models/login';
-import Input from '@/app/components/Input.vue';
+import Input from '@/components/Input.vue';
 </script>
 
 <script>

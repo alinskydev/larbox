@@ -1,4 +1,4 @@
-import { Model } from '@/app/core/model';
+import { Model } from '@/core/model';
 
 export default new Model({
     hasSeoMeta: true,

@@ -1,9 +1,9 @@
-import { Model } from '@/app/core/model';
-import * as Enums from '@/app/core/enums';
+import { Model } from '@/core/model';
+import * as Enums from '@/core/enums';
 
 export default new Model({
     form: {
-        'Информация': {
+        Информация: {
             username: {
                 type: Enums.inputTypes.text,
             },
@@ -25,21 +25,23 @@ export default new Model({
                 value: 'profile.image',
                 type: Enums.inputTypes.file,
                 options: {
-                    preview: 'w_500',
-                    download: 'original',
+                    file: {
+                        previewPath: 'w_500',
+                        downloadPath: 'original',
+                    },
                 },
                 size: Enums.inputSizes.xl,
             },
             new_password: {
                 type: Enums.inputTypes.text,
                 attributes: {
-                    'type': 'password',
+                    type: 'password',
                 },
             },
             new_password_confirmation: {
                 type: Enums.inputTypes.text,
                 attributes: {
-                    'type': 'password',
+                    type: 'password',
                 },
             },
         },

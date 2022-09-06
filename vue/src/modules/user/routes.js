@@ -1,11 +1,11 @@
 export default [
     {
         path: 'user',
-        component: () => import('@/app/components/decorators/Empty.vue'),
+        component: () => import('@/components/decorators/Empty.vue'),
         children: [
             {
                 path: 'notification',
-                component: () => import('@/app/components/decorators/Empty.vue'),
+                component: () => import('@/components/decorators/Empty.vue'),
                 children: [
                     {
                         path: '',
@@ -19,7 +19,7 @@ export default [
             },
             {
                 path: 'profile',
-                component: () => import('@/app/components/decorators/Empty.vue'),
+                component: () => import('@/components/decorators/Empty.vue'),
                 children: [
                     {
                         path: '',
@@ -29,7 +29,7 @@ export default [
             },
             {
                 path: 'user',
-                component: () => import('@/app/components/decorators/Empty.vue'),
+                component: () => import('@/components/decorators/Empty.vue'),
                 children: [
                     {
                         path: '',

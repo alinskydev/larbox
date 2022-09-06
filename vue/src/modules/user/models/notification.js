@@ -1,5 +1,5 @@
-import { Model } from '@/app/core/model';
-import * as Enums from '@/app/core/enums';
+import { Model } from '@/core/model';
+import * as Enums from '@/core/enums';
 
 export default new Model({
     list: {
@@ -22,33 +22,35 @@ export default new Model({
         id: {
             type: Enums.inputTypes.text,
             attributes: {
-                'type': 'number',
+                type: 'number',
             },
         },
         type: {
             type: Enums.inputTypes.select,
             options: {
-                items: (context) => context.booted.helpers.iterator.get(context.booted.enums.user_notification.types, '*.label'),
-                withPrompt: true,
+                select: {
+                    items: (context) => context.booted.helpers.iterator.get(context.booted.enums.user_notification.types, '*.label'),
+                    hasPrompt: true,
+                },
             },
         },
         is_seen: {
             type: Enums.inputTypes.select,
             options: {
-                items: (context) => {
-                    return {
-                        0: context.__('Нет'),
-                        1: context.__('Да'),
-                    };
+                select: {
+                    items: (context) => {
+                        return {
+                            0: context.__('Нет'),
+                            1: context.__('Да'),
+                        };
+                    },
+                    hasPrompt: true,
                 },
-                withPrompt: true,
             },
         },
     },
 
-    sortings: [
-        'id',
-    ],
+    sortings: ['id'],
 
     show: {
         id: {

@@ -1,11 +1,11 @@
 export default [
     {
         path: 'box',
-        component: () => import('@/app/components/decorators/Empty.vue'),
+        component: () => import('@/components/decorators/Empty.vue'),
         children: [
             {
                 path: 'box',
-                component: () => import('@/app/components/decorators/Empty.vue'),
+                component: () => import('@/components/decorators/Empty.vue'),
                 children: [
                     {
                         path: '',
@@ -27,7 +27,7 @@ export default [
             },
             {
                 path: 'brand',
-                component: () => import('@/app/components/decorators/Empty.vue'),
+                component: () => import('@/components/decorators/Empty.vue'),
                 children: [
                     {
                         path: '',
@@ -49,7 +49,7 @@ export default [
             },
             {
                 path: 'tag',
-                component: () => import('@/app/components/decorators/Empty.vue'),
+                component: () => import('@/components/decorators/Empty.vue'),
                 children: [
                     {
                         path: '',

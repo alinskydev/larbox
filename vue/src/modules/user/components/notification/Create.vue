@@ -1,6 +1,6 @@
 <script setup>
 import form from '@/modules/user/forms/notification';
-import Input from '@/app/components/Input.vue';
+import Input from '@/components/Input.vue';
 </script>
 
 <script>
@@ -8,7 +8,7 @@ export default {
     data() {
         return {
             id: 'el-' + this.booted.helpers.string.uniqueId(),
-            inputs: form.prepareInputs(this, form.form),
+            inputs: form.prepareInputs(this, form.form[0]),
         };
     },
     methods: {

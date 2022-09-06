@@ -1,9 +1,9 @@
-import { Model } from '@/app/core/model';
-import * as Enums from '@/app/core/enums';
+import { Model } from '@/core/model';
+import * as Enums from '@/core/enums';
 
 export default new Model({
     form: {
-        'Информация': {
+        Информация: {
             project_name: {
                 type: Enums.inputTypes.text,
             },

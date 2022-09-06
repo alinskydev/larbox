@@ -1,12 +1,12 @@
 <script setup>
-import { Page } from '@/app/core/page';
-import { UpdateConfig } from '@/app/core/crud/config';
+import { Page } from '@/core/page';
+import { UpdateConfig } from '@/core/crud/config';
 
-import { Model } from '@/app/core/model';
+import { Model } from '@/core/model';
 
-import PageTitle from '@/app/components/blocks/PageTitle.vue';
-import Buttons from '@/app/components/crud/form/particles/Buttons.vue';
-import Update from '@/app/components/crud/Update.vue';
+import PageTitle from '@/components/blocks/PageTitle.vue';
+import Buttons from '@/components/crud/form/particles/Buttons.vue';
+import Update from '@/components/crud/Update.vue';
 </script>
 
 <script>

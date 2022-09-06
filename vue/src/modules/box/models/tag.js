@@ -1,5 +1,5 @@
-import { Model } from '@/app/core/model';
-import * as Enums from '@/app/core/enums';
+import { Model } from '@/core/model';
+import * as Enums from '@/core/enums';
 
 import Custom from '@/modules/box/components/Custom.vue';
 
@@ -23,7 +23,7 @@ export default new Model({
         id: {
             type: Enums.inputTypes.text,
             attributes: {
-                'type': 'number',
+                type: 'number',
             },
         },
         name: {
@@ -31,10 +31,7 @@ export default new Model({
         },
     },
 
-    sortings: [
-        'id',
-        'name',
-    ],
+    sortings: ['id', 'name'],
 
     show: {
         id: {
@@ -85,12 +82,12 @@ export default new Model({
     },
 
     form: {
-        'Информация': {
+        Информация: {
             name: {
                 type: Enums.inputTypes.text,
             },
         },
-        'Компоненты': {
+        Компоненты: {
             built_in_component: {
                 label: null,
                 type: Enums.inputTypes.component,

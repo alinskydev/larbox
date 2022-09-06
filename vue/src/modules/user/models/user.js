@@ -1,5 +1,5 @@
-import { Model } from '@/app/core/model';
-import * as Enums from '@/app/core/enums';
+import { Model } from '@/core/model';
+import * as Enums from '@/core/enums';
 
 export default new Model({
     list: {
@@ -51,24 +51,22 @@ export default new Model({
             size: Enums.inputSizes.xl,
         },
         id: {
-            type: Enums.inputTypes.text,
-            attributes: {
-                'type': 'number',
-            },
+            value: (context, item) => Object.values(item.id ?? {}),
+            type: Enums.inputTypes.select2Array,
+            size: Enums.inputSizes.xl,
         },
         role: {
             type: Enums.inputTypes.select,
             options: {
-                items: (context) => context.booted.helpers.iterator.get(context.booted.enums.user.roles, '*.label'),
-                withPrompt: true,
+                select: {
+                    items: (context) => context.booted.helpers.iterator.get(context.booted.enums.user.roles, '*.label'),
+                    hasPrompt: true,
+                },
             },
         },
     },
 
-    sortings: [
-        'id',
-        'username',
-    ],
+    sortings: ['id', 'username'],
 
     show: {
         image: {
@@ -105,7 +103,7 @@ export default new Model({
     },
 
     form: {
-        'Информация': {
+        Информация: {
             username: {
                 type: Enums.inputTypes.text,
             },
@@ -115,7 +113,9 @@ export default new Model({
             role: {
                 type: Enums.inputTypes.select,
                 options: {
-                    items: (context) => context.booted.helpers.iterator.get(context.booted.enums.user.roles, '*.label'),
+                    select: {
+                        items: (context) => context.booted.helpers.iterator.get(context.booted.enums.user.roles, '*.label'),
+                    },
                 },
                 size: Enums.inputSizes.md,
             },
@@ -136,22 +136,24 @@ export default new Model({
                 value: 'profile.image',
                 type: Enums.inputTypes.file,
                 options: {
-                    preview: 'w_500',
-                    download: 'original',
-                    deleteUrl: 'user/user/:id/delete-file/image',
+                    file: {
+                        previewPath: 'w_500',
+                        downloadPath: 'original',
+                        deleteUrl: 'user/user/:id/delete-file/image',
+                    },
                 },
                 size: Enums.inputSizes.xl,
             },
             new_password: {
                 type: Enums.inputTypes.text,
                 attributes: {
-                    'type': 'password',
+                    type: 'password',
                 },
             },
             new_password_confirmation: {
                 type: Enums.inputTypes.text,
                 attributes: {
-                    'type': 'password',
+                    type: 'password',
                 },
             },
         },

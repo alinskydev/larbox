@@ -1,10 +1,10 @@
 <script setup>
-import { Page } from '@/app/core/page';
-import { ShowConfig } from '@/app/core/crud/config';
+import { Page } from '@/core/page';
+import { ShowConfig } from '@/core/crud/config';
 import model from '@/modules/system/models/language';
 
-import PageTitle from '@/app/components/blocks/PageTitle.vue';
-import Show from '@/app/components/crud/Show.vue';
+import PageTitle from '@/components/blocks/PageTitle.vue';
+import Show from '@/components/crud/Show.vue';
 </script>
 
 <script>

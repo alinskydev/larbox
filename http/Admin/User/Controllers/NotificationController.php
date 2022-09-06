@@ -2,7 +2,7 @@
 
 namespace Http\Admin\User\Controllers;
 
-use App\Http\Controllers\ApiResourceController;
+use App\Http\Controllers\ResourceController;
 use Modules\User\Models\Notification;
 use Modules\User\Search\NotificationSearch;
 use Modules\User\Resources\NotificationResource;
@@ -10,7 +10,7 @@ use Http\Admin\User\Requests\NotificationRequest;
 
 use App\Models\Model;
 
-class NotificationController extends ApiResourceController
+class NotificationController extends ResourceController
 {
     public function __construct()
     {

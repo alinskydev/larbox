@@ -1,7 +1,7 @@
 export default [
     {
         path: 'auth',
-        component: () => import('@/app/components/decorators/Empty.vue'),
+        component: () => import('@/components/decorators/Empty.vue'),
         children: [
             {
                 path: 'login',

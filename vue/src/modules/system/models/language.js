@@ -1,5 +1,5 @@
-import { Model } from '@/app/core/model';
-import * as Enums from '@/app/core/enums';
+import { Model } from '@/core/model';
+import * as Enums from '@/core/enums';
 
 export default new Model({
     list: {
@@ -38,7 +38,7 @@ export default new Model({
             },
             attributes: (context) => {
                 return {
-                    'readonly': context.item.value,
+                    readonly: context.item.value,
                 };
             },
         },
@@ -63,39 +63,40 @@ export default new Model({
         id: {
             type: Enums.inputTypes.text,
             attributes: {
-                'type': 'number',
+                type: 'number',
             },
         },
         is_active: {
             type: Enums.inputTypes.select,
             options: {
-                items: (context) => {
-                    return {
-                        0: context.__('Нет'),
-                        1: context.__('Да'),
-                    };
+                select: {
+                    items: (context) => {
+                        return {
+                            0: context.__('Нет'),
+                            1: context.__('Да'),
+                        };
+                    },
+                    hasPrompt: true,
                 },
-                withPrompt: true,
             },
         },
         is_main: {
             type: Enums.inputTypes.select,
             options: {
-                items: (context) => {
-                    return {
-                        0: context.__('Нет'),
-                        1: context.__('Да'),
-                    };
+                select: {
+                    items: (context) => {
+                        return {
+                            0: context.__('Нет'),
+                            1: context.__('Да'),
+                        };
+                    },
+                    hasPrompt: true,
                 },
-                withPrompt: true,
             },
         },
     },
 
-    sortings: [
-        'id',
-        'name',
-    ],
+    sortings: ['id', 'name'],
 
     show: {
         id: {
@@ -126,15 +127,17 @@ export default new Model({
     },
 
     form: {
-        'Информация': {
+        Информация: {
             name: {
                 type: Enums.inputTypes.text,
             },
             image: {
                 type: Enums.inputTypes.file,
                 options: {
-                    preview: 'w_500',
-                    download: 'original',
+                    file: {
+                        previewPath: 'w_500',
+                        downloadPath: 'original',
+                    },
                 },
                 size: Enums.inputSizes.xl,
             },

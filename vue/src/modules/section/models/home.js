@@ -1,11 +1,11 @@
-import { Model } from '@/app/core/model';
-import * as Enums from '@/app/core/enums';
+import { Model } from '@/core/model';
+import * as Enums from '@/core/enums';
 
-import inputHelper from '@/app/core/helpers/inputHelper';
+import inputHelper from '@/core/helpers/inputHelper';
 
 export default new Model({
     form: {
-        'First': {
+        First: {
             first_text_1: {
                 type: Enums.inputTypes.text,
                 size: Enums.inputSizes.xl,
@@ -41,24 +41,28 @@ export default new Model({
                 size: Enums.inputSizes.xl,
             },
         },
-        'Second': {
+        Second: {
             ...{
                 second_image: {
                     type: Enums.inputTypes.file,
                     options: {
-                        preview: 'w_500',
-                        download: 'original',
-                        override: true,
+                        file: {
+                            previewPath: 'w_500',
+                            downloadPath: 'original',
+                            willOverride: true,
+                        },
                     },
                     size: Enums.inputSizes.xl,
                 },
                 second_images_list: {
                     type: Enums.inputTypes.file,
                     options: {
-                        preview: 'w_500',
-                        download: 'original',
                         isMultiple: true,
-                        override: true,
+                        file: {
+                            previewPath: 'w_500',
+                            downloadPath: 'original',
+                            willOverride: true,
+                        },
                     },
                     size: Enums.inputSizes.xl,
                 },
@@ -67,9 +71,11 @@ export default new Model({
                 key: 'second_image',
                 type: Enums.inputTypes.file,
                 options: {
-                    preview: 'w_500',
-                    download: 'original',
-                    override: true,
+                    file: {
+                        previewPath: 'w_500',
+                        downloadPath: 'original',
+                        willOverride: true,
+                    },
                 },
                 size: Enums.inputSizes.md,
             }),
@@ -78,7 +84,7 @@ export default new Model({
             relations_1: {
                 type: Enums.inputTypes.relations,
                 options: {
-                    fields: {
+                    relations: {
                         text: {
                             type: Enums.inputTypes.text,
                             size: Enums.inputSizes.xl,
@@ -86,19 +92,23 @@ export default new Model({
                         image: {
                             type: Enums.inputTypes.file,
                             options: {
-                                preview: 'w_500',
-                                download: 'original',
-                                override: true,
+                                file: {
+                                    previewPath: 'w_500',
+                                    downloadPath: 'original',
+                                    willOverride: true,
+                                },
                             },
                             size: Enums.inputSizes.xl,
                         },
                         images_list: {
                             type: Enums.inputTypes.file,
                             options: {
-                                preview: 'w_500',
-                                download: 'original',
                                 isMultiple: true,
-                                override: true,
+                                file: {
+                                    previewPath: 'w_500',
+                                    downloadPath: 'original',
+                                    willOverride: true,
+                                },
                             },
                             size: Enums.inputSizes.xl,
                         },
@@ -110,14 +120,16 @@ export default new Model({
             relations_2: {
                 type: Enums.inputTypes.relations,
                 options: {
-                    fields: {
+                    relations: {
                         ...inputHelper.localizedTypedFile({
                             key: 'image',
                             type: Enums.inputTypes.file,
                             options: {
-                                preview: 'w_500',
-                                download: 'original',
-                                override: true,
+                                file: {
+                                    previewPath: 'w_500',
+                                    downloadPath: 'original',
+                                    willOverride: true,
+                                },
                             },
                             size: Enums.inputSizes.md,
                         }),

@@ -1,5 +1,5 @@
-import { Model } from '@/app/core/model';
-import * as Enums from '@/app/core/enums';
+import { Model } from '@/core/model';
+import * as Enums from '@/core/enums';
 
 export default new Model({
     list: {
@@ -23,24 +23,18 @@ export default new Model({
             type: Enums.valueTypes.boolean,
         },
         is_active: {
-            type: Enums.valueTypes.httpSwitcher,
+            type: Enums.valueTypes.httpSelect,
             options: {
                 path: 'box/brand/:id/set-active/:value',
+                items: (context) => {
+                    return {
+                        0: context.__('Нет'),
+                        1: context.__('Да'),
+                    };
+                },
+                isBoolean: true,
             },
         },
-        // is_active: {
-        //     type: Enums.valueTypes.httpSelect,
-        //     options: {
-        //         path: 'box/brand/:id/set-active/:value',
-        //         items: (context) => {
-        //             return {
-        //                 0: context.__('Нет'),
-        //                 1: context.__('Да'),
-        //             };
-        //         },
-        //         isBoolean: true,
-        //     },
-        // },
         boxes_count: {
             type: Enums.valueTypes.text,
         },
@@ -56,17 +50,19 @@ export default new Model({
         id: {
             type: Enums.inputTypes.text,
             attributes: {
-                'type': 'number',
+                type: 'number',
             },
         },
         creator_id: {
             type: Enums.inputTypes.select2Ajax,
             options: {
-                path: 'user/user',
-                query: {
-                    'show[0]': 'with-deleted',
+                select2Ajax: {
+                    path: 'user/user',
+                    query: {
+                        'show[0]': 'with-deleted',
+                    },
+                    field: 'username',
                 },
-                field: 'username',
             },
         },
         name: {
@@ -75,33 +71,34 @@ export default new Model({
         show_on_the_home_page: {
             type: Enums.inputTypes.select,
             options: {
-                items: (context) => {
-                    return {
-                        0: context.__('Нет'),
-                        1: context.__('Да'),
-                    };
+                select: {
+                    items: (context) => {
+                        return {
+                            0: context.__('Нет'),
+                            1: context.__('Да'),
+                        };
+                    },
+                    hasPrompt: true,
                 },
-                withPrompt: true,
             },
         },
         is_active: {
             type: Enums.inputTypes.select,
             options: {
-                items: (context) => {
-                    return {
-                        0: context.__('Нет'),
-                        1: context.__('Да'),
-                    };
+                select: {
+                    items: (context) => {
+                        return {
+                            0: context.__('Нет'),
+                            1: context.__('Да'),
+                        };
+                    },
+                    hasPrompt: true,
                 },
-                withPrompt: true,
             },
         },
     },
 
-    sortings: [
-        'id',
-        'name',
-    ],
+    sortings: ['id', 'name'],
 
     show: {
         id: {
@@ -144,37 +141,29 @@ export default new Model({
     },
 
     form: {
-        'Информация': {
+        Информация: {
             name: {
                 type: Enums.inputTypes.text,
             },
             show_on_the_home_page: {
                 type: Enums.inputTypes.switcher,
             },
-            // show_on_the_home_page: {
-            //     type: Enums.inputTypes.select,
-            //     options: {
-            //         items: (context) => {
-            //             return {
-            //                 0: context.__('Нет'),
-            //                 1: context.__('Да'),
-            //             };
-            //         },
-            //         isBoolean: true,
-            //     },
-            // },
             file: {
                 type: Enums.inputTypes.file,
                 options: {
-                    deleteUrl: 'box/brand/:id/delete-file/file',
+                    file: {
+                        deleteUrl: 'box/brand/:id/delete-file/file',
+                    },
                 },
                 size: Enums.inputSizes.xl,
             },
             files_list: {
                 type: Enums.inputTypes.file,
                 options: {
-                    deleteUrl: 'box/brand/:id/delete-file/files_list/:index',
                     isMultiple: true,
+                    file: {
+                        deleteUrl: 'box/brand/:id/delete-file/files_list/:index',
+                    },
                 },
                 size: Enums.inputSizes.xl,
             },

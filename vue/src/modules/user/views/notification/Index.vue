@@ -1,11 +1,11 @@
 <script setup>
-import { Page } from '@/app/core/page';
-import { IndexConfig } from '@/app/core/crud/config';
+import { Page } from '@/core/page';
+import { IndexConfig } from '@/core/crud/config';
 import model from '@/modules/user/models/notification';
 
-import PageTitle from '@/app/components/blocks/PageTitle.vue';
-import RouterLink from '@/app/components/blocks/RouterLink.vue';
-import Index from '@/app/components/crud/Index.vue';
+import PageTitle from '@/components/blocks/PageTitle.vue';
+import RouterLink from '@/components/blocks/RouterLink.vue';
+import Index from '@/components/crud/Index.vue';
 </script>
 
 <script>

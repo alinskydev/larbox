@@ -1,7 +1,7 @@
 export default [
     {
         path: 'system',
-        component: () => import('@/app/components/decorators/Empty.vue'),
+        component: () => import('@/components/decorators/Empty.vue'),
         children: [
             {
                 path: 'settings',
@@ -9,7 +9,7 @@ export default [
             },
             {
                 path: 'language',
-                component: () => import('@/app/components/decorators/Empty.vue'),
+                component: () => import('@/components/decorators/Empty.vue'),
                 children: [
                     {
                         path: '',
