@@ -11,7 +11,8 @@ use App\Models\Model;
 class UniqueRule extends Rule
 {
     public function __construct(
-        public Model $model
+        public Model $model,
+        public bool $showPK = true,
     ) {
     }
 
@@ -39,10 +40,14 @@ class UniqueRule extends Rule
         if ($modelExists) {
             $attribute = implode('.', $attribute);
 
-            $this->errorMessage = __('Данное значение поля :attribute уже используется в записи №:pk', [
-                'attribute' => __("fields.$attribute"),
-                'pk' => $modelExists->getKey(),
-            ]);
+            if ($this->showPK) {
+                $this->errorMessage = __('Данное значение поля :attribute уже используется в записи №:pk', [
+                    'attribute' => __("fields.$attribute"),
+                    'pk' => $modelExists->getKey(),
+                ]);
+            } else {
+                $this->errorMessage = __('validation.unique');
+            }
 
             return false;
         }
