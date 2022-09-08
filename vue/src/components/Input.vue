@@ -1,5 +1,5 @@
 <script setup>
-import * as Enums from '@/core/enums';
+import * as Enums from '@/core/base/enums';
 
 import Main from '@/components/input/layouts/Main.vue';
 

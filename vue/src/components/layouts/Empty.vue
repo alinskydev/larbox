@@ -1,6 +1,6 @@
 <script setup>
+import init from '@/core/app/init';
 import { RouterView } from 'vue-router';
-import init from './scripts/init';
 </script>
 
 <script>

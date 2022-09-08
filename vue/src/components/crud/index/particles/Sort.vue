@@ -1,5 +1,5 @@
 <script setup>
-import * as Enums from '@/core/enums';
+import * as Enums from '@/core/base/enums';
 
 import Input from '@/components/Input.vue';
 </script>

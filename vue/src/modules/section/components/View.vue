@@ -1,8 +1,8 @@
 <script setup>
-import { Page } from '@/core/page';
+import { Page } from '@/core/base/page';
 import { UpdateConfig } from '@/core/crud/config';
 
-import { Model } from '@/core/model';
+import { Model } from '@/core/base/model';
 
 import PageTitle from '@/components/blocks/PageTitle.vue';
 import Buttons from '@/components/crud/form/particles/Buttons.vue';

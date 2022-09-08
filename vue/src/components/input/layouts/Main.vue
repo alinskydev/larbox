@@ -1,5 +1,5 @@
 <script setup>
-import * as Enums from '@/core/enums';
+import * as Enums from '@/core/base/enums';
 
 import Hint from '@/components/input/particles/Hint.vue';
 import Error from '@/components/input/particles/Error.vue';

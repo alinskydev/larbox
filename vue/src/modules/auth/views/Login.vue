@@ -1,5 +1,5 @@
 <script setup>
-import { Page } from '@/core/page';
+import { Page } from '@/core/base/page';
 import model from '@/modules/auth/models/login';
 import Input from '@/components/Input.vue';
 </script>

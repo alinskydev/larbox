@@ -1,5 +1,5 @@
 <script setup>
-import items from './nav/items';
+import items from '@/core/app/nav';
 import RouterLink from '@/components/blocks/RouterLink.vue';
 </script>
 

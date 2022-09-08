@@ -1,5 +1,5 @@
 <script setup>
-import { Page } from '@/core/page';
+import { Page } from '@/core/base/page';
 import { CreateConfig } from '@/core/crud/config';
 import model from '@/modules/box/models/box';
 

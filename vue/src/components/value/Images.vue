@@ -10,7 +10,7 @@ export default {
         $('#' + this.item.id).owlCarousel({
             loop: false,
             responsiveClass: true,
-            autoHeight: true,
+            autoHeight: false,
             margin: 10,
             responsive: {
                 0: {

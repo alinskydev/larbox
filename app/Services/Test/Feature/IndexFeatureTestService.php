@@ -29,8 +29,12 @@ class IndexFeatureTestService extends FeatureTestService
         $testCase = $this->testCase;
         $testCase->requestMethod = $testCase::REQUEST_METHOD_GET;
 
+        $sortings = array_keys($search->sortings);
+        $sortings = array_map(fn ($value) => [$value, "-$value"], $sortings);
+        $sortings = array_merge(...$sortings);
+
         $testCase->requestQuery = [
-            'sort' => array_keys($search->sortings),
+            'sort' => $sortings,
         ];
 
         $testCase->response = $testCase->sendRequest();
