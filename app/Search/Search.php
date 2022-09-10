@@ -59,8 +59,6 @@ class Search
 
             $param = explode('.', $param);
 
-            $value = is_array($value) ? Arr::flatten($value) : $value;
-
             if (count($param) == 1) {
                 $this->applyFilters(
                     query: $query,
@@ -133,8 +131,8 @@ class Search
                 $query->{$combinedType . 'In'}($param, $value);
                 break;
             case self::FILTER_TYPE_BETWEEN:
-                if (isset($value[0])) $query->{$combinedType}($param, '>=', $value[0]);
-                if (isset($value[1])) $query->{$combinedType}($param, '<=', $value[1]);
+                if (isset($value[0])) $query->{$combinedType}(DB::raw("CAST($param as UNSIGNED INTEGER)"), '>=', (int)$value[0]);
+                if (isset($value[1])) $query->{$combinedType}(DB::raw("CAST($param as UNSIGNED INTEGER)"), '<=', (int)$value[1]);
                 break;
             case self::FILTER_TYPE_DATE:
                 $query->{$combinedType}($param, '>=', date('Y-m-d 00:00:00', strtotime($value)));

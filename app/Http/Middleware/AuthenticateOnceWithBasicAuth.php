@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 
 class AuthenticateOnceWithBasicAuth
 {
-    public function handle(Request $request, \Closure $next)
+    public function handle(Request $request, \Closure $next, string $field = 'username')
     {
-        return Auth::onceBasic('username') ?: $next($request);
+        return Auth::onceBasic($field) ?: $next($request);
     }
 }
