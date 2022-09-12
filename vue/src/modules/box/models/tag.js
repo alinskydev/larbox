@@ -50,16 +50,18 @@ export default new Model({
             label: null,
             type: Enums.valueTypes.component,
             options: {
-                resolve: (context, item) => {
-                    return {
-                        component: 'h3',
-                        params: [
-                            {
-                                class: 'text-primary m-0',
-                                innerHTML: context.__('Встроенный компонент'),
-                            },
-                        ],
-                    };
+                component: {
+                    resolve: (context, item) => {
+                        return {
+                            component: 'h3',
+                            params: [
+                                {
+                                    class: 'text-primary m-0',
+                                    innerHTML: context.__('Встроенный компонент'),
+                                },
+                            ],
+                        };
+                    },
                 },
             },
         },
@@ -67,15 +69,17 @@ export default new Model({
             label: null,
             type: Enums.valueTypes.component,
             options: {
-                resolve: (context, item) => {
-                    return {
-                        component: Custom,
-                        params: [
-                            {
-                                text: context.__('Кастомный компонент'),
-                            },
-                        ],
-                    };
+                component: {
+                    resolve: (context, item) => {
+                        return {
+                            component: Custom,
+                            params: [
+                                {
+                                    text: context.__('Кастомный компонент'),
+                                },
+                            ],
+                        };
+                    },
                 },
             },
         },
@@ -92,31 +96,35 @@ export default new Model({
                 label: null,
                 type: Enums.inputTypes.component,
                 options: {
-                    resolve: (context, item) => {
-                        return {
-                            component: 'h3',
-                            params: [
-                                {
-                                    class: 'w-100 text-primary',
-                                    innerHTML: context.__('Встроенный компонент'),
-                                },
-                            ],
-                        };
+                    component: {
+                        resolve: (context, item) => {
+                            return {
+                                component: 'h3',
+                                params: [
+                                    {
+                                        class: 'w-100 text-primary',
+                                        innerHTML: context.__('Встроенный компонент'),
+                                    },
+                                ],
+                            };
+                        },
                     },
                 },
             },
             custom_component: {
                 type: Enums.inputTypes.component,
                 options: {
-                    resolve: (context, item) => {
-                        return {
-                            component: Custom,
-                            params: [
-                                {
-                                    text: context.__('Кастомный компонент'),
-                                },
-                            ],
-                        };
+                    component: {
+                        resolve: (context, item) => {
+                            return {
+                                component: Custom,
+                                params: [
+                                    {
+                                        text: context.__('Кастомный компонент'),
+                                    },
+                                ],
+                            };
+                        },
                     },
                 },
             },

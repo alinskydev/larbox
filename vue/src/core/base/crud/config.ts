@@ -1,8 +1,13 @@
+import { Model } from '../model';
+
 export class IndexConfig {
-    model;
-    http;
-    hasSoftDelete;
-    showFilter;
+    model: Model;
+    http: {
+        path: string;
+        query: object;
+    };
+    hasSoftDelete: boolean;
+    showFilter: boolean;
 
     actions;
     extraActions;
@@ -81,6 +86,7 @@ export class CreateConfig {
         this.afterSubmit =
             afterSubmit ??
             function (context, formData, responsey) {
+                // @ts-ignore
                 toastr.success(context.__('Запись успешно сохранена'));
             };
     }
@@ -116,6 +122,7 @@ export class UpdateConfig {
         this.afterSubmit =
             afterSubmit ??
             function (context, formData, response) {
+                // @ts-ignore
                 toastr.success(context.__('Запись успешно сохранена'));
             };
     }

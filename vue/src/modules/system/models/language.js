@@ -20,20 +20,24 @@ export default new Model({
         is_active: {
             type: Enums.valueTypes.httpSwitcher,
             options: {
-                path: 'system/language/:id/set-active/:value',
-                onSuccess: (context, value) => {
-                    context.booted.components.app.childKey++;
-                    context.$router.push(context.$router.currentRoute);
+                httpSwitcher: {
+                    path: 'system/language/:id/set-active/:value',
+                    onSuccess: (context, value) => {
+                        context.booted.components.app.childKey++;
+                        context.$router.push(context.$router.currentRoute);
+                    },
                 },
             },
         },
         is_main: {
             type: Enums.valueTypes.httpSwitcher,
             options: {
-                path: 'system/language/:id/set-main/:value',
-                onSuccess: (context, value) => {
-                    context.booted.components.app.childKey++;
-                    context.$router.push(context.$router.currentRoute);
+                httpSwitcher: {
+                    path: 'system/language/:id/set-main/:value',
+                    onSuccess: (context, value) => {
+                        context.booted.components.app.childKey++;
+                        context.$router.push(context.$router.currentRoute);
+                    },
                 },
             },
             attributes: (context) => {

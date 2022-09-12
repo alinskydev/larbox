@@ -13,6 +13,7 @@ export default {
     },
     data() {
         return {
+            valueOptions: this.item.options.httpSwitcher ?? {},
             currentValue: this.item.value,
         };
     },
@@ -20,7 +21,7 @@ export default {
         $('#' + this.item.id).bootstrapSwitch('state', $('#' + this.item.id).prop('checked'));
 
         $('#' + this.item.id).on('switchChange.bootstrapSwitch', (event, state) => {
-            let path = this.item.options.path.replace(':id', this.id).replace(':value', state ? 1 : 0);
+            let path = this.valueOptions.path.replace(':id', this.id).replace(':value', Number(state));
 
             this.booted.helpers.http
                 .send(this, {
@@ -31,8 +32,8 @@ export default {
                     if (response.statusType === 'success') {
                         this.currentValue = state;
 
-                        if (this.item.options.onSuccess) {
-                            this.item.options.onSuccess(this, this.currentValue);
+                        if (this.valueOptions.onSuccess) {
+                            this.valueOptions.onSuccess(this, this.currentValue);
                         }
                     } else {
                         $('#' + this.item.id).bootstrapSwitch('state', this.currentValue, true);

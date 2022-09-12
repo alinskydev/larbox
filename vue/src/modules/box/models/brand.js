@@ -16,7 +16,9 @@ export default new Model({
         slug: {
             type: Enums.valueTypes.websiteLink,
             options: {
-                path: 'box/brand/:value',
+                websiteLink: {
+                    path: 'box/brand/:value',
+                },
             },
         },
         show_on_the_home_page: {
@@ -25,14 +27,15 @@ export default new Model({
         is_active: {
             type: Enums.valueTypes.httpSelect,
             options: {
-                path: 'box/brand/:id/set-active/:value',
-                items: (context) => {
-                    return {
-                        0: context.__('Нет'),
-                        1: context.__('Да'),
-                    };
+                httpSelect: {
+                    path: 'box/brand/:id/set-active/:value',
+                    items: (context) => {
+                        return {
+                            0: context.__('Нет'),
+                            1: context.__('Да'),
+                        };
+                    },
                 },
-                isBoolean: true,
             },
         },
         boxes_count: {
@@ -114,7 +117,9 @@ export default new Model({
         slug: {
             type: Enums.valueTypes.websiteLink,
             options: {
-                path: 'box/brand/:value',
+                websiteLink: {
+                    path: 'box/brand/:value',
+                },
             },
         },
         file: {

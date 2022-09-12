@@ -1,6 +1,6 @@
 <script setup>
 import { Page } from '@/core/base/page';
-import { IndexConfig } from '@/core/crud/config';
+import { IndexConfig } from '@/core/base/crud/config';
 import model from '@/modules/system/models/language';
 
 import PageTitle from '@/components/blocks/PageTitle.vue';

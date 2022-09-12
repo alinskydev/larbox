@@ -13,21 +13,22 @@ export default {
     },
     data() {
         return {
-            currentValue: this.item.options.isBoolean ? (this.item.value ? 1 : 0) : this.item.value,
+            valueOptions: this.item.options.httpSelect ?? {},
+            currentValue: this.item.value,
             items: {},
         };
     },
     created() {
-        if (typeof this.item.options.items === 'function') {
-            this.items = this.item.options.items(this, this.currentValue);
+        if (typeof this.valueOptions.items === 'function') {
+            this.items = this.valueOptions.items(this);
         } else {
-            this.items = this.item.options.items;
+            this.items = this.valueOptions.items;
         }
     },
     methods: {
         send() {
             let value = $('#' + this.item.id).val(),
-                path = this.item.options.path.replace(':id', this.id).replace(':value', value);
+                path = this.valueOptions.path.replace(':id', this.id).replace(':value', value);
 
             this.booted.helpers.http
                 .send(this, {
@@ -38,8 +39,8 @@ export default {
                     if (response.statusType === 'success') {
                         this.currentValue = value;
 
-                        if (this.item.options.onSuccess) {
-                            this.item.options.onSuccess(this, this.currentValue);
+                        if (this.valueOptions.onSuccess) {
+                            this.valueOptions.onSuccess(this, this.currentValue);
                         }
                     } else {
                         $('#' + this.item.id).val(this.currentValue);

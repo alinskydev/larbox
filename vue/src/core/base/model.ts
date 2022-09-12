@@ -1,75 +1,32 @@
-import * as Enums from '@/core/base/enums';
-
-type InputParams = {
-    label: string | ((context: any) => any);
-    hint: string | ((context: any) => any);
-    name: string;
-    value: string | ((context: any, item: Object) => any);
-    type: Enums.inputTypes;
-    options: {
-        isLocalized: boolean;
-        size: Enums.inputSizes;
-        isMultiple: boolean;
-        initValue: string;
-        file: {
-            previewPath: string;
-            downloadPath: string;
-            deleteUrl: string;
-            willOverride: boolean;
-        };
-        select: {
-            items: Object | ((context: any) => any);
-            hasPrompt: boolean;
-            isBoolean: boolean;
-        };
-        select2Ajax: {
-            path: string;
-            query: Object | ((context: any, item: Object) => any);
-            field: string;
-            hasPrompt: boolean;
-        };
-    };
-    attributes: Object;
-    size: Enums.inputSizes;
-};
+import * as Enums from './enums';
+import * as Params from './model/params';
 
 export class Model {
-    list: Record<string, any>;
-    filters: Record<string, any>;
+    list: Record<string, Params.value>;
+    filters: Record<string, Params.input>;
     sortings: Array<string>;
     show: Record<string, any>;
     form: Record<string, any>;
 
     constructor(config: {
-        list: Record<
-            string,
-            {
-                label: string | ((context: any) => any);
-                value: string | ((context: any, item: Object) => any);
-                type: Enums.valueTypes;
-                options: Object;
-                attributes: Object;
-            }
-        >;
-        filters: Record<string, InputParams>;
+        list: Record<string, Params.value>;
+        filters: Record<string, Params.input>;
         sortings: Array<string>;
         show: Record<
             string,
-            {
-                label: string | ((context: any) => any);
-                value: string | ((context: any, item: Object) => any);
-                type: Enums.valueTypes;
-                options: Object;
-                attributes: Object;
+            Params.value & {
+                options: {
+                    relations: Record<string, Params.value>;
+                };
             }
         >;
         form: Record<
             string,
             Record<
                 string,
-                InputParams & {
+                Params.input & {
                     options: {
-                        relations: Record<string, InputParams>;
+                        relations: Record<string, Params.input>;
                     };
                 }
             >

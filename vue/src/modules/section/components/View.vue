@@ -1,6 +1,6 @@
 <script setup>
 import { Page } from '@/core/base/page';
-import { UpdateConfig } from '@/core/crud/config';
+import { UpdateConfig } from '@/core/base/crud/config';
 
 import { Model } from '@/core/base/model';
 

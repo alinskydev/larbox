@@ -23,7 +23,9 @@ export default new Model({
         slug: {
             type: Enums.valueTypes.websiteLink,
             options: {
-                path: 'box/box/:value',
+                websiteLink: {
+                    path: 'box/box/:value',
+                },
             },
         },
         price: {
@@ -136,7 +138,9 @@ export default new Model({
         slug: {
             type: Enums.valueTypes.websiteLink,
             options: {
-                path: 'box/box/:value',
+                websiteLink: {
+                    path: 'box/box/:value',
+                },
             },
         },
         price: {
