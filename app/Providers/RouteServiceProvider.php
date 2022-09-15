@@ -43,6 +43,7 @@ class RouteServiceProvider extends ServiceProvider
 
         Route::pattern('id', '[0-9]+');
         Route::pattern('index', '[0-9]+');
+        // Route::pattern('model', '^(?!(destroy-all|restore-all)).*');
 
         parent::boot();
     }

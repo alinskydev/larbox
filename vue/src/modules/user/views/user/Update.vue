@@ -24,18 +24,21 @@ export default {
             }),
             config: new UpdateConfig({
                 model: model,
+                title: 'username',
                 http: {
                     path: 'user/user/:id',
                 },
-                titleField: 'username',
-                redirectPath: 'user/user',
-                afterSubmit: (context, formData, response) => {
-                    toastr.success(context.__('Запись успешно сохранена'));
+                events: {
+                    afterSubmit: (context, formData, response) => {
+                        toastr.success(context.__('Запись успешно сохранена'));
 
-                    if (this.$route.params.id == this.booted.user.id) {
-                        this.booted.helpers.user.login(this, formData.get('username'), formData.get('new_password'));
-                        context.booted.components.app.childKey++;
-                    }
+                        if (this.$route.params.id == this.booted.user.id) {
+                            this.booted.helpers.user.login(this, formData.get('username'), formData.get('new_password'));
+                            context.booted.components.app.childKey++;
+                        }
+
+                        this.page.goUp();
+                    },
                 },
             }),
         };

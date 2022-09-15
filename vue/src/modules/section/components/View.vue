@@ -13,7 +13,7 @@ import Update from '@/components/crud/Update.vue';
 export default {
     inheritAttrs: false,
     props: {
-        pageTitle: {
+        title: {
             type: String,
             required: true,
         },
@@ -35,7 +35,7 @@ export default {
             page: new Page({
                 context: this,
                 title: this.__('Страница: :name', {
-                    name: this.pageTitle,
+                    name: this.title,
                 }),
             }),
             config: new UpdateConfig({
@@ -43,10 +43,11 @@ export default {
                 http: {
                     path: 'section/' + this.name,
                 },
-                redirectPath: 'section/' + this.type + '/' + this.name,
-                afterSubmit: (context, formData, response) => {
-                    toastr.success(context.__('Страница успешно сохранена'));
-                    context.booted.components.app.childKey++;
+                events: {
+                    afterSubmit: (context, formData, response) => {
+                        toastr.success(context.__('Страница успешно сохранена'));
+                        context.booted.components.app.childKey++;
+                    },
                 },
             }),
         };

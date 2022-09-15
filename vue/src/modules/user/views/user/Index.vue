@@ -23,7 +23,9 @@ export default {
                 http: {
                     path: 'user/user',
                 },
-                hasSoftDelete: true,
+                filter: {
+                    hasSoftDelete: true,
+                },
             }),
         };
     },

@@ -30,6 +30,8 @@ export default {
             </li>
 
             <li v-for="item in items" class="nav-item d-none d-sm-inline-block">
+                <i class="fas fa-angle-right"></i>
+
                 <RouterLink v-if="item.path" :to="item.path" class="nav-link">
                     {{ item.label }}
                 </RouterLink>

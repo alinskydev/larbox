@@ -25,8 +25,12 @@ export default {
                         'with[1]': 'tags',
                     },
                 },
-                selectionActions: ['deleteAll', 'restoreAll'],
-                hasSoftDelete: true,
+                filter: {
+                    hasSoftDelete: true,
+                },
+                selection: {
+                    actions: ['deleteAll', 'restoreAll'],
+                },
             }),
         };
     },

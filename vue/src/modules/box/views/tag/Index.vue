@@ -21,8 +21,12 @@ export default {
                 http: {
                     path: 'box/tag',
                 },
-                selectionActions: ['deleteAll', 'restoreAll'],
-                hasSoftDelete: true,
+                filter: {
+                    hasSoftDelete: true,
+                },
+                selection: {
+                    actions: ['deleteAll', 'restoreAll'],
+                },
             }),
         };
     },

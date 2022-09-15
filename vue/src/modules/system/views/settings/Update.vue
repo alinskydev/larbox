@@ -21,10 +21,11 @@ export default {
                 http: {
                     path: 'system/settings',
                 },
-                redirectPath: 'system/settings',
-                afterSubmit: (context, formData, response) => {
-                    toastr.success(context.__('Настройки успешно сохранены'));
-                    context.booted.components.app.childKey++;
+                events: {
+                    afterSubmit: (context, formData, response) => {
+                        toastr.success(context.__('Настройки успешно сохранены'));
+                        context.booted.components.app.childKey++;
+                    },
                 },
             }),
         };

@@ -1,10 +1,21 @@
 export class Page {
     context: any;
     title: string;
-    breadcrumbs: Array<Object>;
+    breadcrumbs: Array<{
+        label: string;
+        path?: string | null;
+    }>;
     showBreadcrumbs: boolean;
 
-    constructor(config: { context: any; title: string; breadcrumbs: Array<Object>; showBreadcrumbs: boolean }) {
+    constructor(config: {
+        context: any;
+        title: string;
+        breadcrumbs: Array<{
+            label: string;
+            path?: string;
+        }>;
+        showBreadcrumbs: boolean;
+    }) {
         this.context = config.context;
         this.title = config.title;
         this.breadcrumbs = config.breadcrumbs ?? [];
@@ -24,5 +35,11 @@ export class Page {
         if (this.context.booted.components.layout) {
             this.context.booted.components.layout.templateKey++;
         }
+    }
+
+    goUp() {
+        this.context.$router.push({
+            path: '/' + this.context.booted.locale + '/' + this.breadcrumbs[this.breadcrumbs.length - 2].path,
+        });
     }
 }

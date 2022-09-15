@@ -4,8 +4,10 @@ export default {
     send(context, options = {}) {
         let url = new URL(context.booted.config.http.url + '/' + options.path);
 
-        for (let key in options.query) {
-            url.searchParams.append(key, options.query[key]);
+        if (options.query) {
+            for (let key in options.query) {
+                url.searchParams.append(key, options.query[key]);
+            }
         }
 
         let requestOptions = _.merge(

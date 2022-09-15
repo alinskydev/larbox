@@ -24,6 +24,7 @@ export default {
             }),
             config: new UpdateConfig({
                 model: model,
+                title: 'name.:locale',
                 http: {
                     path: 'box/box/:id',
                     query: {
@@ -32,8 +33,6 @@ export default {
                         'with[2]': 'variations',
                     },
                 },
-                titleField: 'name.:locale',
-                redirectPath: 'box/box',
             }),
         };
     },

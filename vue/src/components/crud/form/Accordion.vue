@@ -17,26 +17,26 @@ export default {
     },
     methods: {
         submit(event) {
-            let formData = new FormData(event.target);
+            let http = this.config.http,
+                formData = new FormData(event.target);
 
-            this.config.beforeSubmit(this, formData);
+            this.config.events.beforeSubmit(this, formData);
 
             this.booted.helpers.http
                 .send(this, {
                     method: 'POST',
-                    path: this.config.http.path,
+                    path: http.path,
                     query: {
-                        _method: this.config.method,
+                        ...http.query,
+                        ...{
+                            _method: http.method,
+                        },
                     },
                     body: formData,
                 })
                 .then((response) => {
                     if (response.statusType === 'success') {
-                        this.config.afterSubmit(this, formData, response);
-
-                        this.$router.push({
-                            path: '/' + this.booted.locale + '/' + this.config.redirectPath,
-                        });
+                        this.config.events.afterSubmit(this, formData, response);
                     }
                 });
         },
@@ -46,11 +46,7 @@ export default {
 
 <template>
     <form @submit.prevent="submit" id="crud-form">
-        <div
-            v-for="(items, key) in itemGroups"
-            class="card card-primary mb-3"
-            :set="(groupId = 'el-' + booted.helpers.string.uniqueId())"
-        >
+        <div v-for="(items, key) in itemGroups" class="card card-primary mb-3" :set="(groupId = 'el-' + booted.helpers.string.uniqueId())">
             <div
                 class="card-header d-flex align-items-center justify-content-between"
                 role="button"

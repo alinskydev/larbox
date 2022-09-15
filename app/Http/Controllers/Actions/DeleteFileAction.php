@@ -29,7 +29,7 @@ class DeleteFileAction extends Controller
         if ($isArray) {
             $originalValue = json_decode($originalValue);
 
-            if ($index === null) abort(403, "'index' is required");
+            if ($index === null) abort(400, "'index' is required");
 
             if ($file = Arr::get($originalValue, $index)) {
                 Arr::forget($value, $index);

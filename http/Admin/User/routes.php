@@ -16,7 +16,7 @@ Route::prefix('user')
         Route::prefix('notification')
             ->group(function () {
                 Route::apiResource('', NotificationController::class)->only(['index', 'show', 'store']);
-                Route::put('see-all', [NotificationController::class, 'seeAll']);
+                Route::patch('see-all', [NotificationController::class, 'seeAll']);
             });
 
         Route::model('profile', Profile::class);

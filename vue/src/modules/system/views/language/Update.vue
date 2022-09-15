@@ -24,6 +24,7 @@ export default {
             }),
             config: new UpdateConfig({
                 model: model,
+                title: 'name',
                 http: {
                     path: 'system/language/:id',
                     query: {
@@ -32,11 +33,12 @@ export default {
                         'with[2]': 'variations',
                     },
                 },
-                titleField: 'name',
-                redirectPath: 'system/language',
-                afterSubmit: (context, formData, response) => {
-                    toastr.success(context.__('Запись успешно сохранена'));
-                    context.booted.components.app.childKey++;
+                events: {
+                    afterSubmit: (context, formData, response) => {
+                        toastr.success(context.__('Запись успешно сохранена'));
+                        context.booted.components.app.childKey++;
+                        this.page.goUp();
+                    },
                 },
             }),
         };

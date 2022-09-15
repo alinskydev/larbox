@@ -27,10 +27,10 @@ export default {
                 if (response.statusType === 'success') {
                     // Page init
 
-                    if (this.config.titleField) {
+                    if (this.config.title) {
                         this.page.title +=
                             ': ' +
-                            this.booted.helpers.iterator.get(response.data, this.config.titleField.replace(':locale', this.booted.locale));
+                            this.booted.helpers.iterator.get(response.data, this.config.title.replace(':locale', this.booted.locale));
                     }
 
                     this.page.init();

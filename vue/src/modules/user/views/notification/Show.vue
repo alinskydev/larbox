@@ -23,10 +23,10 @@ export default {
             }),
             config: new ShowConfig({
                 model: model,
+                title: 'id',
                 http: {
                     path: 'user/notification/:id',
                 },
-                titleField: 'id',
             }),
         };
     },

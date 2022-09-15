@@ -27,7 +27,7 @@ class SetValueTest extends _TestCase
         $this->requestUrl .= '/1/set-active/0';
 
         $this->response = $this->sendRequest();
-        $this->response->assertStatus(403);
+        $this->response->assertStatus(400);
     }
 
     public function test_set_main()
@@ -43,6 +43,6 @@ class SetValueTest extends _TestCase
         $this->requestUrl .= '/2/set-active/0';
 
         $this->response = $this->sendRequest();
-        $this->response->assertStatus(403);
+        $this->response->assertStatus(400);
     }
 }

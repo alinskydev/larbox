@@ -10,8 +10,8 @@ class ResourceRegistrar extends BaseResourceRegistrar
         'index', 'show',
         'create', 'store',
         'edit', 'update',
-        'destroy', 'destroyAll',
-        'restore', 'restoreAll',
+        'destroyAll', 'restoreAll',
+        'destroy', 'restore',
     ];
 
     protected function addResourceDestroyAll($name, $base, $controller, $options)

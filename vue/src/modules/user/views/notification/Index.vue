@@ -21,13 +21,15 @@ export default {
                 http: {
                     path: 'user/notification',
                 },
-                actions: ['show'],
-                gridRowAttributes: (item) => {
-                    if (!item.is_seen.value) {
-                        return {
-                            class: 'table-warning',
-                        };
-                    }
+                grid: {
+                    actions: ['show'],
+                    rowAttributes: (item) => {
+                        if (!item.is_seen.value) {
+                            return {
+                                class: 'table-warning',
+                            };
+                        }
+                    },
                 },
             }),
         };
@@ -37,7 +39,7 @@ export default {
             if (confirm(this.__('Вы уверены?'))) {
                 this.booted.helpers.http
                     .send(this, {
-                        method: 'PUT',
+                        method: 'PATCH',
                         path: 'user/notification/see-all',
                     })
                     .then((response) => {

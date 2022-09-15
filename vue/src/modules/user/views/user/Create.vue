@@ -27,7 +27,6 @@ export default {
                 http: {
                     path: 'user/user',
                 },
-                redirectPath: 'user/user',
             }),
         };
     },

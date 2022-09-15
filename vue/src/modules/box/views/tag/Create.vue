@@ -27,7 +27,6 @@ export default {
                 http: {
                     path: 'box/tag',
                 },
-                redirectPath: 'box/tag',
             }),
         };
     },

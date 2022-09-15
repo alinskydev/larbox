@@ -62,23 +62,23 @@ export default {
                                 <Selection type="tableHead" />
 
                                 <template v-for="(field, key) in fields">
-                                    <th v-if="!config.gridHiddenFields.includes(key)">
+                                    <th v-if="!config.grid.hiddenFields.includes(key)">
                                         {{ field.label }}
                                     </th>
                                 </template>
 
-                                <template v-if="config.actions.length > 0">
+                                <template v-if="config.grid.actions.length > 0">
                                     <th></th>
                                 </template>
                             </tr>
                         </thead>
 
                         <tbody>
-                            <tr v-for="item in items" v-bind="config.gridRowAttributes(item)">
+                            <tr v-for="item in items" v-bind="config.grid.rowAttributes(item)">
                                 <Selection type="tableBody" :id="item.id.value" />
 
                                 <template v-for="(field, key) in fields">
-                                    <template v-if="!config.gridHiddenFields.includes(key)">
+                                    <template v-if="!config.grid.hiddenFields.includes(key)">
                                         <template v-if="item[key].type === Enums.valueTypes.image">
                                             <td style="width: 130px">
                                                 <Value :item="item[key]" :id="item.id.value" />
@@ -104,7 +104,7 @@ export default {
                                     </template>
                                 </template>
 
-                                <template v-if="config.actions.length > 0">
+                                <template v-if="config.grid.actions.length > 0">
                                     <td class="text-right" style="width: 50px">
                                         <Actions :item="item" />
                                     </td>

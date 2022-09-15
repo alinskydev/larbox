@@ -35,10 +35,7 @@ export default {
         },
         deleteAllAction() {
             this.sendRequest(
-                {
-                    method: 'POST',
-                    path: this.config.http.path + '/destroy-all?_method=DELETE',
-                },
+                this.config.http.path + '/destroy-all?_method=DELETE',
                 (selection) => {
                     for (let key in this.$parent.$data.items) {
                         let item = this.$parent.$data.items[key];
@@ -52,10 +49,7 @@ export default {
         },
         restoreAllAction() {
             this.sendRequest(
-                {
-                    method: 'POST',
-                    path: this.config.http.path + '/restore-all?_method=DELETE',
-                },
+                this.config.http.path + '/restore-all?_method=DELETE',
                 (selection) => {
                     for (let key in this.$parent.$data.items) {
                         let item = this.$parent.$data.items[key];
@@ -67,7 +61,7 @@ export default {
                 }
             );
         },
-        sendRequest(options, callback) {
+        sendRequest(path, callback) {
             let formData = new FormData(),
                 selection = Array.from(document.querySelectorAll('.crud-index-data tbody .selection:checked'), (e) => parseInt(e.value));
 
@@ -78,10 +72,9 @@ export default {
             if (confirm(this.__('Вы уверены?'))) {
                 this.booted.helpers.http
                     .send(this, {
-                        ...{
-                            body: formData,
-                        },
-                        ...options,
+                        method: 'POST',
+                        path: path,
+                        body: formData,
                     })
                     .then((response) => {
                         if (response.statusType === 'success') {
@@ -98,7 +91,7 @@ export default {
 </script>
 
 <template>
-    <template v-if="config.selectionActions.length > 0">
+    <template v-if="config.selection.actions.length > 0">
         <th v-if="type === 'tableHead'" style="width: 50px">
             <input type="checkbox" class="selection" @change="toggleHead" />
         </th>
@@ -113,7 +106,7 @@ export default {
             </div>
 
             <div class="card-body">
-                <template v-for="action in config.selectionActions">
+                <template v-for="action in config.selection.actions">
                     <button
                         v-if="action === 'deleteAll' && !$route.query['show[deleted]']"
                         class="btn btn-danger btn-block text-left"

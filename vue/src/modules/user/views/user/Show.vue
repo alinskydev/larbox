@@ -23,10 +23,10 @@ export default {
             }),
             config: new ShowConfig({
                 model: model,
+                title: 'username',
                 http: {
                     path: 'user/user/:id',
                 },
-                titleField: 'username',
             }),
         };
     },

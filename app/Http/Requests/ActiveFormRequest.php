@@ -35,7 +35,7 @@ class ActiveFormRequest extends FormRequest
             $this->model->fill($data)->touch();
         } catch (\Throwable $e) {
             DB::rollBack();
-            abort(403, $e->getMessage());
+            abort(400, $e->getMessage());
         }
 
         DB::commit();

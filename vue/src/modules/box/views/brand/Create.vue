@@ -27,7 +27,6 @@ export default {
                 http: {
                     path: 'box/brand',
                 },
-                redirectPath: 'box/brand',
             }),
         };
     },

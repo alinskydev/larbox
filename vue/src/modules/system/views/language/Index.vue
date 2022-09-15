@@ -20,7 +20,9 @@ export default {
                 http: {
                     path: 'system/language',
                 },
-                actions: ['show', 'update'],
+                grid: {
+                    actions: ['show', 'update'],
+                },
             }),
         };
     },

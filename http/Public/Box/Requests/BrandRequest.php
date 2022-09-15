@@ -17,7 +17,7 @@ class BrandRequest extends ActiveFormRequest
                 'required',
                 'string',
                 'max:255',
-                new UniqueRule($this->model),
+                new UniqueRule($this->model, false),
             ],
             'show_on_the_home_page' => 'required|boolean',
             'file' => FileValidationHelper::rules(FileValidationHelper::CONFIG_ALL),

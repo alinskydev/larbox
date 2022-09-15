@@ -31,7 +31,7 @@ class User extends UserModel
 
         static::deleting(function (self $model) {
             if ($model->id == 1) {
-                throw new \Exception(__('Данный пользователь не подлежит удалению'));
+                throw new \Exception(__('Данная запись не подлежит удалению'));
             }
         });
     }

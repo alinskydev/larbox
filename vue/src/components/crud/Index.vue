@@ -89,7 +89,7 @@ export default {
 </script>
 
 <template>
-    <div class="card card-primary mb-3" v-if="config.showFilter">
+    <div class="card card-primary mb-3" v-if="items.length > 0 || model.sortings.length > 0 || config.filter.hasSoftDelete">
         <div
             class="card-header d-flex align-items-center justify-content-between"
             role="button"
@@ -112,7 +112,7 @@ export default {
                         </template>
 
                         <Sort v-if="model.sortings.length > 0" :fields="model.sortings" />
-                        <SoftDelete v-if="config.hasSoftDelete" />
+                        <SoftDelete v-if="config.filter.hasSoftDelete" />
                     </div>
                 </div>
 

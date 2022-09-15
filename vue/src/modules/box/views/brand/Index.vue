@@ -4,7 +4,7 @@ import { IndexConfig } from '@/core/base/crud/config';
 import model from '@/modules/box/models/brand';
 
 import PageTitle from '@/components/blocks/PageTitle.vue';
-import RouterLink from "@/components/blocks/RouterLink.vue";
+import RouterLink from '@/components/blocks/RouterLink.vue';
 import Index from '@/components/crud/Index.vue';
 </script>
 
@@ -25,23 +25,29 @@ export default {
                         'with[0]': 'creator',
                     },
                 },
-                selectionActions: ['deleteAll', 'restoreAll'],
-                actions: ['boxes', 'show', 'update', 'delete', 'restore'],
-                extraActions: {
-                    boxes: (item) => {
-                        return {
-                            path: 'box/box?filter[brand_id]=' + item.id.value,
-                            linkAttributes: {
-                                'title': this.__('Boxes'),
-                                'class': 'btn btn-info',
-                            },
-                            iconAttributes: {
-                                'class': 'fas fa-boxes',
-                            },
-                        };
+                filter: {
+                    hasSoftDelete: true,
+                },
+                grid: {
+                    actions: ['boxes', 'show', 'update', 'delete', 'restore'],
+                    customActions: {
+                        boxes: (item) => {
+                            return {
+                                path: 'box/box?filter[brand_id]=' + item.id.value,
+                                linkAttributes: {
+                                    title: this.__('Boxes'),
+                                    class: 'btn btn-info',
+                                },
+                                iconAttributes: {
+                                    class: 'fas fa-boxes',
+                                },
+                            };
+                        },
                     },
                 },
-                hasSoftDelete: true,
+                selection: {
+                    actions: ['deleteAll', 'restoreAll'],
+                },
             }),
         };
     },
@@ -51,7 +57,7 @@ export default {
 <template>
     <PageTitle :text="page.title">
         <RouterLink to="box/brand/create" class="btn btn-success">
-            {{  __('Создать')  }}
+            {{ __('Создать') }}
         </RouterLink>
     </PageTitle>
 

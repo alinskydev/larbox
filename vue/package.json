@@ -2,7 +2,7 @@
   "name": "larbox",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host larbox.loc",
     "build": "vite build",
     "preview": "vite preview --port 4173",
     "test:unit": "vitest --environment jsdom",

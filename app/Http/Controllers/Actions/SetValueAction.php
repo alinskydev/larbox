@@ -26,7 +26,7 @@ class SetValueAction extends Controller
         try {
             $model->save();
         } catch (\Throwable $e) {
-            abort(403, $e->getMessage());
+            abort(400, $e->getMessage());
         }
 
         return response()->json(['message' => 'Success'], 200);

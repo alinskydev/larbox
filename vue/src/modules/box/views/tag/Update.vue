@@ -24,11 +24,10 @@ export default {
             }),
             config: new UpdateConfig({
                 model: model,
+                title: 'name',
                 http: {
                     path: 'box/tag/:id',
                 },
-                titleField: 'name',
-                redirectPath: 'box/tag',
             }),
         };
     },

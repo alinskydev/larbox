@@ -20,7 +20,7 @@ class DeleteTest extends _TestCase
     {
         (new DeleteFeatureTestService($this))->delete(
             path: '1',
-            assertStatus: 403,
+            assertStatus: 400,
         );
     }
 }

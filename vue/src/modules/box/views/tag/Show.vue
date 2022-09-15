@@ -23,10 +23,10 @@ export default {
             }),
             config: new ShowConfig({
                 model: model,
+                title: 'name',
                 http: {
                     path: 'box/tag/:id',
                 },
-                titleField: 'name',
             }),
         };
     },

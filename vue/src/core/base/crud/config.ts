@@ -6,124 +6,112 @@ export class IndexConfig {
         path: string;
         query: object;
     };
-    hasSoftDelete: boolean;
-    showFilter: boolean;
+    filter: {
+        hasSoftDelete: boolean;
+    };
+    grid: {
+        hiddenFields: Array<string>;
+        actions: Array<string>;
+        customActions: Record<string, (item: object) => any>;
+        rowAttributes: (item: object) => any;
+    };
+    selection: {
+        actions: Array<string>;
+    };
 
-    actions;
-    extraActions;
-    selectionActions;
+    constructor(config: IndexConfig) {
+        this.model = config.model;
 
-    gridHiddenFields;
-    gridRowAttributes;
+        this.http = config.http;
+        this.http.query ??= {};
 
-    constructor({
-        model,
-        http,
-        hasSoftDelete,
-        showFilter,
+        this.filter = config.filter ?? {};
+        this.filter.hasSoftDelete ??= false;
 
-        actions,
-        extraActions,
-        selectionActions,
+        this.grid = config.grid ?? {};
+        this.grid.hiddenFields ??= [];
+        this.grid.actions ??= ['show', 'update', 'delete', 'restore'];
+        this.grid.customActions ??= {};
+        this.grid.rowAttributes ??= (item) => {};
 
-        gridHiddenFields,
-        gridRowAttributes,
-    }) {
-        this.model = model;
-        this.http = http;
-        this.hasSoftDelete = hasSoftDelete ?? false;
-        this.showFilter = showFilter ?? true;
-
-        this.actions = actions ?? ['show', 'update', 'delete', 'restore'];
-        this.extraActions = extraActions ?? {};
-        this.selectionActions = selectionActions ?? [];
-
-        this.gridHiddenFields = gridHiddenFields ?? [];
-        this.gridRowAttributes =
-            gridRowAttributes ??
-            function (item) {
-                return {};
-            };
+        this.selection = config.selection ?? {};
+        this.selection.actions ??= [];
     }
 }
 
 export class ShowConfig {
-    model;
-    http;
-    titleField;
+    model: Model;
+    title: string;
+    http: {
+        path: string;
+        query: object;
+    };
 
-    constructor({ model, http, titleField }) {
-        this.model = model;
-        this.http = http;
-        this.titleField = titleField;
+    constructor(config: ShowConfig) {
+        this.model = config.model;
+        this.title = config.title;
+
+        this.http = config.http;
+        this.http.query ??= {};
     }
 }
 
 export class CreateConfig {
-    model;
-    http;
-    method;
-    redirectPath;
+    model: Model;
+    http: {
+        method: string;
+        path: string;
+        query: object;
+    };
+    events: {
+        beforeSubmit: (context: any, formData: FormData) => any;
+        afterSubmit: (context: any, formData: FormData, response: Object) => any;
+    };
 
-    beforeSubmit;
-    afterSubmit;
+    constructor(config: CreateConfig) {
+        this.model = config.model;
 
-    constructor({
-        model,
-        http,
-        method,
-        redirectPath,
+        this.http = config.http;
+        this.http.method ??= 'POST';
+        this.http.query ??= {};
 
-        beforeSubmit,
-        afterSubmit,
-    }) {
-        this.model = model;
-        this.http = http;
-        this.method = method ?? 'POST';
-        this.redirectPath = redirectPath;
-
-        this.beforeSubmit = beforeSubmit ?? function (context, formData) {};
-        this.afterSubmit =
-            afterSubmit ??
-            function (context, formData, responsey) {
-                // @ts-ignore
-                toastr.success(context.__('Запись успешно сохранена'));
-            };
+        this.events = config.events ?? {};
+        this.events.beforeSubmit ??= function (context: any, formData: FormData) {};
+        this.events.afterSubmit ??= function (context: any, formData: FormData, response: Object) {
+            // @ts-ignore
+            toastr.success(context.__('Запись успешно сохранена'));
+            context.booted.components.current.page.goUp();
+        };
     }
 }
 
 export class UpdateConfig {
-    model;
-    http;
-    method;
-    titleField;
-    redirectPath;
+    model: Model;
+    title: string;
+    http: {
+        method: string;
+        path: string;
+        query: object;
+    };
+    events: {
+        beforeSubmit: (context: any, formData: FormData) => any;
+        afterSubmit: (context: any, formData: FormData, response: Object) => any;
+    };
 
-    beforeSubmit;
-    afterSubmit;
+    constructor(config: UpdateConfig) {
+        this.model = config.model;
+        this.title = config.title;
 
-    constructor({
-        model,
-        http,
-        method,
-        titleField,
-        redirectPath,
+        this.http = config.http;
+        this.http.method ??= 'PUT';
+        this.http.query ??= {};
 
-        beforeSubmit,
-        afterSubmit,
-    }) {
-        this.model = model;
-        this.http = http;
-        this.method = method ?? 'PUT';
-        this.titleField = titleField;
-        this.redirectPath = redirectPath;
-
-        this.beforeSubmit = beforeSubmit ?? function (context, formData) {};
-        this.afterSubmit =
-            afterSubmit ??
-            function (context, formData, response) {
-                // @ts-ignore
-                toastr.success(context.__('Запись успешно сохранена'));
-            };
+        this.events = config.events ?? {};
+        this.events.beforeSubmit ??= function (context: any, formData: FormData) {};
+        this.events.afterSubmit ??= function (context: any, formData: FormData, response: Object) {
+            // @ts-ignore
+            toastr.success(context.__('Запись успешно сохранена'));
+            context.booted.components.current.page.goUp();
+        };
     }
 }

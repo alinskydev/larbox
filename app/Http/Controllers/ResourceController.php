@@ -78,7 +78,7 @@ class ResourceController extends Controller
         try {
             $model->delete();
         } catch (\Throwable $e) {
-            abort(403, $e->getMessage());
+            abort(400, $e->getMessage());
         }
 
         return $this->successResponse();
@@ -102,7 +102,7 @@ class ResourceController extends Controller
             });
         } catch (\Throwable $e) {
             DB::rollBack();
-            abort(403, $e->getMessage());
+            abort(400, $e->getMessage());
         }
 
         DB::commit();
@@ -116,7 +116,7 @@ class ResourceController extends Controller
             try {
                 $this->model->query()->onlyTrashed()->findOrFail($value)->restore();
             } catch (\Throwable $e) {
-                abort(403, $e->getMessage());
+                abort(400, $e->getMessage());
             }
         }
 
@@ -140,7 +140,7 @@ class ResourceController extends Controller
                     $value->restore();
                 } catch (\Throwable $e) {
                     DB::rollBack();
-                    abort(403, $e->getMessage());
+                    abort(400, $e->getMessage());
                 }
             });
 

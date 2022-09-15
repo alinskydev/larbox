@@ -72,7 +72,7 @@ class Handler extends ExceptionHandler
             case TypeError::class:
             case QueryException::class:
                 $response = [
-                    'status' => 403,
+                    'status' => 400,
                     'data' => ['message' => 'Invalid input data type'],
                 ];
                 break;

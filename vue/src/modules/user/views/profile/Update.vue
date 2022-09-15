@@ -21,12 +21,13 @@ export default {
                 http: {
                     path: 'user/profile',
                 },
-                redirectPath: 'user/profile',
-                afterSubmit: (context, formData, response) => {
-                    toastr.success(context.__('Профиль успешно сохранён'));
+                events: {
+                    afterSubmit: (context, formData, response) => {
+                        toastr.success(context.__('Профиль успешно сохранён'));
 
-                    this.booted.helpers.user.login(this, formData.get('username'), formData.get('new_password'));
-                    context.booted.components.app.childKey++;
+                        this.booted.helpers.user.login(this, formData.get('username'), formData.get('new_password'));
+                        context.booted.components.app.childKey++;
+                    },
                 },
             }),
         };

@@ -23,6 +23,7 @@ export default {
             }),
             config: new ShowConfig({
                 model: model,
+                title: 'name',
                 http: {
                     path: 'box/brand/:id',
                     query: {
@@ -30,7 +31,6 @@ export default {
                         'with[0]': 'creator',
                     },
                 },
-                titleField: 'name',
             }),
         };
     },

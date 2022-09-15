@@ -51,7 +51,7 @@ export default {
 
 <template>
     <div class="btn-group">
-        <template v-for="action in config.actions">
+        <template v-for="action in config.grid.actions">
             <template v-if="!item.is_deleted">
                 <BaseRouterLink
                     v-if="action === 'show'"
@@ -75,8 +75,8 @@ export default {
                     <i class="fas fa-trash-alt"></i>
                 </a>
 
-                <template v-if="config.extraActions[action]">
-                    <div :set="(ea = config.extraActions[action](item))">
+                <template v-if="config.grid.customActions[action]">
+                    <div :set="(ea = config.grid.customActions[action](item))">
                         <RouterLink v-if="ea" :to="ea.path" v-bind="ea.linkAttributes">
                             <i v-bind="ea.iconAttributes"></i>
                         </RouterLink>
