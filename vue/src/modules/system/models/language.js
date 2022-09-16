@@ -40,9 +40,9 @@ export default new Model({
                     },
                 },
             },
-            attributes: (context) => {
+            attributes: (context, item) => {
                 return {
-                    readonly: context.item.value,
+                    readonly: item.value,
                 };
             },
         },

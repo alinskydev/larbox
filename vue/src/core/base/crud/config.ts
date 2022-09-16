@@ -13,7 +13,7 @@ export class IndexConfig {
         hiddenFields: Array<string>;
         actions: Array<string>;
         customActions: Record<string, (item: object) => any>;
-        rowAttributes: (item: object) => any;
+        rowAttributes: (context: any, item: object) => any;
     };
     selection: {
         actions: Array<string>;
@@ -32,7 +32,7 @@ export class IndexConfig {
         this.grid.hiddenFields ??= [];
         this.grid.actions ??= ['show', 'update', 'delete', 'restore'];
         this.grid.customActions ??= {};
-        this.grid.rowAttributes ??= (item) => {};
+        this.grid.rowAttributes ??= (context, item) => {};
 
         this.selection = config.selection ?? {};
         this.selection.actions ??= [];

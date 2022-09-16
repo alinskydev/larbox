@@ -25,7 +25,7 @@ return new class extends Seeder
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
             [
-                'creator_id' => 2,
+                'creator_id' => 3,
                 'name' => 'Brand 2',
                 'slug' => 'brand-2',
                 'file' => '/test_data/media/webp.webp',

@@ -3,17 +3,23 @@
 namespace Http\Admin\User\Requests;
 
 use App\Http\Requests\ActiveFormRequest;
-use Modules\User\Enums\UserEnums;
+use Modules\User\Models\Role;
+use Illuminate\Support\Facades\Hash;
 
 use Illuminate\Validation\Rule;
+use App\Rules\ExistsWithOldRule;
 use App\Helpers\Validation\FileValidationHelper;
-use Illuminate\Support\Facades\Hash;
 
 class UserRequest extends ActiveFormRequest
 {
     public function nonLocalizedRules()
     {
         return [
+            'role_id' => [
+                'nullable',
+                Rule::prohibitedIf($this->model->id == 1),
+                new ExistsWithOldRule($this->model, Role::class, 'role_id'),
+            ],
             'username' => [
                 'required',
                 'string',
@@ -26,11 +32,6 @@ class UserRequest extends ActiveFormRequest
                 'email',
                 'max:255',
                 Rule::unique($this->model->getTable())->ignore($this->model->id),
-            ],
-            'role' => [
-                'required',
-                Rule::in(array_keys(UserEnums::roles())),
-                Rule::prohibitedIf($this->model->id == 1 && $this->role != 'admin'),
             ],
             'new_password' => [
                 Rule::requiredIf(!$this->model->exists),

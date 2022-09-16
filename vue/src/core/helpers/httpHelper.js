@@ -14,7 +14,7 @@ export default {
             {
                 headers: context.booted.config.http.headers,
             },
-            options
+            options,
         );
 
         return fetch(url, requestOptions).then((response) => {
@@ -45,6 +45,7 @@ export default {
                         });
                         break;
 
+                    case 400:
                     case 403:
                     case 405:
                         statusType = 'notAllowed';

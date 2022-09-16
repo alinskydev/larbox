@@ -6,5 +6,5 @@ use App\Tests\Feature\PostmanTestCase;
 
 class _TestCase extends PostmanTestCase
 {
-    public string $requestUrl = 'auth';
+    public string $requestUrl = 'common/auth';
 }

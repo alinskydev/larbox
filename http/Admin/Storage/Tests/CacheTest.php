@@ -2,13 +2,12 @@
 
 namespace Http\Admin\Storage\Tests;
 
-class DeleteThumbsTest extends _TestCase
+class CacheTest extends _TestCase
 {
-    public string $requestMethod = self::REQUEST_METHOD_DELETE;
-
-    public function test_success()
+    public function test_delete_thumbs()
     {
         $this->requestUrl .= '/cache/delete-thumbs';
+        $this->requestMethod = self::REQUEST_METHOD_DELETE;
 
         $this->response = $this->sendRequest();
         $this->response->assertStatus(200);

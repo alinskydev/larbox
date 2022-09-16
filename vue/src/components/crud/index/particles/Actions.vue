@@ -26,7 +26,11 @@ export default {
                     })
                     .then((response) => {
                         if (response.statusType === 'success') {
-                            this.item.is_deleted = true;
+                            if (this.config.filter.hasSoftDelete) {
+                                this.item.is_deleted = true;
+                            } else {
+                                this.$parent.$parent.$data.dataKey++;
+                            }
                         }
                     });
             }
@@ -39,7 +43,7 @@ export default {
                         path: this.config.http.path + '/' + this.item.id.value + '/restore',
                     })
                     .then((response) => {
-                        if (response.statusType === 'success') {
+                        if (response.statusType === 'success' && this.config.filter.hasSoftDelete) {
                             this.item.is_deleted = false;
                         }
                     });
@@ -52,7 +56,7 @@ export default {
 <template>
     <div class="btn-group">
         <template v-for="action in config.grid.actions">
-            <template v-if="!item.is_deleted">
+            <template v-if="!this.config.filter.hasSoftDelete || !item.is_deleted">
                 <BaseRouterLink
                     v-if="action === 'show'"
                     :title="__('Просмотреть')"

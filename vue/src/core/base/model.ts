@@ -157,7 +157,7 @@ export class Model {
 
             if (options.initValue) {
                 initValue = options.initValue.replace(':locale', context.booted.locale);
-                initValue = context.booted.helpers.iterator.get(item, options.initValue);
+                initValue = context.booted.helpers.iterator.get(item, initValue);
             }
 
             result[key] = {

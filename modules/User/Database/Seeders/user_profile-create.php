@@ -17,6 +17,12 @@ return new class extends Seeder
             ],
             [
                 'user_id' => 2,
+                'full_name' => 'Moderator 1',
+                'phone' => null,
+                'image' => null,
+            ],
+            [
+                'user_id' => 3,
                 'full_name' => 'Registered 1',
                 'phone' => null,
                 'image' => null,

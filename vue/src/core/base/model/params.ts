@@ -21,7 +21,7 @@ export type value = {
             path: string;
         };
     };
-    attributes: Object;
+    attributes: Object | ((context: any, item: Object) => any);
 };
 
 export type input = {
@@ -55,6 +55,6 @@ export type input = {
             hasPrompt: boolean;
         };
     };
-    attributes: Object;
+    attributes: Object | ((context: any, item: Object) => any);
     size: Enums.inputSizes;
 };

@@ -10,6 +10,7 @@ class UserResource extends JsonResource
     {
         return array_replace_recursive(parent::toArray($request), [
             'profile' => ProfileResource::make($this->whenLoaded('profile')),
+            'role' => RoleResource::make($this->whenLoaded('role')),
         ]);
     }
 }

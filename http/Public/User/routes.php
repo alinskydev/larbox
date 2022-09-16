@@ -9,7 +9,7 @@ Route::prefix('user')
     ->group(function () {
         Route::prefix('profile')
             ->group(function () {
-                Route::get('', [ProfileController::class, 'show']);
-                Route::put('', [ProfileController::class, 'update']);
+                Route::get('', [ProfileController::class, 'show'])->name('show');
+                Route::put('', [ProfileController::class, 'update'])->name('update');
             });
     });

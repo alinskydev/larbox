@@ -5,9 +5,9 @@ export default {
     http: {
         url: 'http://larbox.loc/admin',
         headers: {
-            Accept: 'application/json',
+            'Accept': 'application/json',
             'Accept-Language': null,
-            Authorization: 'Basic ' + window.btoa(authUsername + ':' + authPassword),
+            'Authorization': 'Basic ' + window.btoa(authUsername + ':' + authPassword),
         },
 
         websiteUrl: 'http://larbox.loc',

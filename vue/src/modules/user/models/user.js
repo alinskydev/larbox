@@ -17,8 +17,8 @@ export default new Model({
         email: {
             type: Enums.valueTypes.text,
         },
-        role: {
-            value: (context, item) => context.booted.enums.user.roles[item.role].label,
+        role_id: {
+            value: 'role.name.:locale',
             type: Enums.valueTypes.text,
         },
         full_name: {
@@ -55,12 +55,12 @@ export default new Model({
             type: Enums.inputTypes.select2Array,
             size: Enums.inputSizes.xl,
         },
-        role: {
-            type: Enums.inputTypes.select,
+        role_id: {
+            type: Enums.inputTypes.select2Ajax,
             options: {
-                select: {
-                    items: (context) => context.booted.helpers.iterator.get(context.booted.enums.user.roles, '*.label'),
-                    hasPrompt: true,
+                select2Ajax: {
+                    path: 'user/role',
+                    field: 'name.:locale',
                 },
             },
         },
@@ -82,8 +82,8 @@ export default new Model({
         email: {
             type: Enums.valueTypes.text,
         },
-        role: {
-            value: (context, item) => context.booted.enums.user.roles[item.role].label,
+        role_id: {
+            value: 'role.name.:locale',
             type: Enums.valueTypes.text,
         },
         full_name: {
@@ -110,14 +110,21 @@ export default new Model({
             email: {
                 type: Enums.inputTypes.text,
             },
-            role: {
-                type: Enums.inputTypes.select,
+            role_id: {
+                type: Enums.inputTypes.select2Ajax,
                 options: {
-                    select: {
-                        items: (context) => context.booted.helpers.iterator.get(context.booted.enums.user.roles, '*.label'),
+                    initValue: 'role.name.:locale',
+                    select2Ajax: {
+                        path: 'user/role',
+                        field: 'name.:locale',
+                        hasPrompt: true,
                     },
                 },
-                size: Enums.inputSizes.md,
+                attributes: (context, item) => {
+                    return {
+                        disabled: context.$route.params.id === '1',
+                    };
+                },
             },
             full_name: {
                 name: 'profile[full_name]',

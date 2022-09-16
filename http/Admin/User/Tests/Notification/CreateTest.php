@@ -11,7 +11,7 @@ class CreateTest extends _TestCase
     public function test_success()
     {
         $this->requestBody = [
-            'user_query' => '?filter[common]=Admin&filter[role]=admin',
+            'user_query' => '?filter[common]=Admin&filter[role_id]=1',
             'type' => 'message',
             'message' => 'Message 3',
         ];

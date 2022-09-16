@@ -74,7 +74,7 @@ export default {
                         </thead>
 
                         <tbody>
-                            <tr v-for="item in items" v-bind="config.grid.rowAttributes(item)">
+                            <tr v-for="item in items" v-bind="config.grid.rowAttributes(booted.components.current, item)">
                                 <Selection type="tableBody" :id="item.id.value" />
 
                                 <template v-for="(field, key) in fields">

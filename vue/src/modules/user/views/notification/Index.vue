@@ -23,7 +23,7 @@ export default {
                 },
                 grid: {
                     actions: ['show'],
-                    rowAttributes: (item) => {
+                    rowAttributes: (context, item) => {
                         if (!item.is_seen.value) {
                             return {
                                 class: 'table-warning',

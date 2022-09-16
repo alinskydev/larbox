@@ -19,6 +19,7 @@ class Box extends Model
     protected $table = 'box';
 
     protected $attributes = [
+        'description' => '[]',
         'images_list' => '[]',
     ];
 

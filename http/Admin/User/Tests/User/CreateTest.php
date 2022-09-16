@@ -11,9 +11,9 @@ class CreateTest extends _TestCase
     public function test_success()
     {
         $this->requestBody = [
+            'role_id' => null,
             'username' => 'registered_2',
             'email' => 'registered_2@local.host',
-            'role' => 'registered',
             'new_password' => 'user1234',
             'new_password_confirmation' => 'user1234',
 

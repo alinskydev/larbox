@@ -6,10 +6,12 @@ use Http\Admin\Storage\Controllers\UploadController;
 use Http\Admin\Storage\Controllers\CacheController;
 
 Route::prefix('storage')->group(function () {
-    Route::prefix('upload')->group(function () {
-        Route::post('file', [UploadController::class, 'file']);
-        Route::post('media', [UploadController::class, 'media']);
+    Route::prefix('cache')->group(function () {
+        Route::delete('delete-thumbs', [CacheController::class, 'deleteThumbs'])->name('deleteThumbs');
     });
 
-    Route::delete('cache/delete-thumbs', [CacheController::class, 'deleteThumbs']);
+    Route::prefix('upload')->group(function () {
+        Route::post('file', [UploadController::class, 'file'])->name('file');
+        Route::post('media', [UploadController::class, 'media'])->name('media');
+    });
 });

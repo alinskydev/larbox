@@ -7,6 +7,6 @@ use Http\Common\Information\Controllers\EnumsController;
 
 Route::prefix('information')
     ->group(function () {
-        Route::get('enums', [EnumsController::class, 'index']);
-        Route::get('system', [SystemController::class, 'index']);
+        Route::get('enums', [EnumsController::class, 'index'])->name('enums');
+        Route::get('system', [SystemController::class, 'index'])->name('system');
     });

@@ -30,7 +30,7 @@ return new class extends Seeder
             ],
             [
                 'creator_id' => 1,
-                'owner_id' => 3,
+                'owner_id' => 2,
                 'type' => 'message',
                 'params' => json_encode([
                     'message' => 'Message 3',

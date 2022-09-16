@@ -40,7 +40,7 @@ export default {
 
             this.booted.helpers.http.send(this, {
                 method: 'POST',
-                path: '../auth/login',
+                path: '../common/auth/login',
                 body: formData,
             }).then((response) => {
                 if (response.statusType === 'success') {

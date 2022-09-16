@@ -17,7 +17,7 @@ class IndexTest extends _TestCase
             'filter' => [
                 'common' => 'admin',
                 'id' => 1,
-                'role' => 'admin',
+                'role_id' => 1,
             ],
         ];
 

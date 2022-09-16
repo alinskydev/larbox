@@ -7,7 +7,17 @@ export default [
     {
         label: 'Пользователи',
         icon: 'fas fa-users',
-        path: 'user/user',
+        path: 'user',
+        children: [
+            {
+                label: 'Пользователи',
+                path: 'user/user',
+            },
+            {
+                label: 'Роли',
+                path: 'user/role',
+            },
+        ],
     },
     {
         label: 'Box',

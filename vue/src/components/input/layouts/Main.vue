@@ -16,7 +16,7 @@ export default {
     data() {
         return {
             inputAttrs: {},
-            extraAttrs: typeof this.item.attributes === 'function' ? this.item.attributes(this) : this.item.attributes,
+            extraAttrs: typeof this.item.attributes === 'function' ? this.item.attributes(this, this.item) : this.item.attributes,
         };
     },
     created() {

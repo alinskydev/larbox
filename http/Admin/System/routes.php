@@ -10,21 +10,26 @@ use Modules\System\Models\Language;
 
 Route::prefix('system')
     ->group(function () {
-        Route::apiResource('language', LanguageController::class)->only(['index', 'show', 'update']);
+        Route::prefix('language')
+            ->group(function () {
+                Route::model('language', Language::class);
 
-        Route::model('language', Language::class);
+                Route::apiResource('', LanguageController::class)->only(['index', 'show', 'update']);
 
-        Route::patch('language/{language}/set-active/{value}', SetValueAction::class)
-            ->whereIn('value', [0, 1])
-            ->setBindingFields(['field' => 'is_active']);
+                Route::patch('{language}/set-active/{value}', SetValueAction::class)
+                    ->whereIn('value', [0, 1])
+                    ->setBindingFields(['field' => 'is_active'])
+                    ->name('setActive');
 
-        Route::patch('language/{language}/set-main/{value}', SetValueAction::class)
-            ->whereIn('value', [1])
-            ->setBindingFields(['field' => 'is_main']);
+                Route::patch('{language}/set-main/{value}', SetValueAction::class)
+                    ->whereIn('value', [1])
+                    ->setBindingFields(['field' => 'is_main'])
+                    ->name('setMain');
+            });
 
         Route::prefix('settings')
             ->group(function () {
-                Route::get('', [SettingsController::class, 'index']);
-                Route::put('', [SettingsController::class, 'update']);
+                Route::get('', [SettingsController::class, 'index'])->name('index');
+                Route::put('', [SettingsController::class, 'update'])->name('update');
             });
     });

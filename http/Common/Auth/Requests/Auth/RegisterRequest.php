@@ -13,10 +13,7 @@ class RegisterRequest extends ActiveFormRequest
 {
     public function __construct()
     {
-        $this->model = new User([
-            'role' => 'registered',
-        ]);
-
+        $this->model = new User();
         return parent::__construct();
     }
 

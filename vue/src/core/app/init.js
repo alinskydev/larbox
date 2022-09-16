@@ -14,7 +14,7 @@ export default function (context) {
 
     // Sending system request
 
-    return fetch(url + '/../information/system', requestOptions)
+    return fetch(url + '/../common/information/system', requestOptions)
         .then((response) => response.json())
         .then((data) => {
             context.booted.languages = data.languages;

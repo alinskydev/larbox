@@ -13,7 +13,10 @@ class User extends UserModel
 
     protected $table = 'user';
 
-    protected $with = ['profile'];
+    protected $with = [
+        'profile',
+        'role',
+    ];
 
     protected $hidden = [
         'password',
@@ -23,6 +26,11 @@ class User extends UserModel
     public function profile()
     {
         return $this->hasOne(Profile::class, 'user_id');
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'role_id');
     }
 
     protected static function boot()

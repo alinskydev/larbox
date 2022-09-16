@@ -10,18 +10,18 @@ class UpdateTest extends _TestCase
 
     public function test_success()
     {
-        $this->requestUrl .= '/1';
+        $this->requestUrl .= '/2';
 
         $this->requestBody = [
-            'username' => 'admin',
-            'email' => 'admin@local.host',
-            'role' => 'admin',
-            'new_password' => 'admin123',
-            'new_password_confirmation' => 'admin123',
+            'username' => 'moderator_1',
+            'email' => 'moderator_1@local.host',
+            'role_id' => 2,
+            'new_password' => 'user1234',
+            'new_password_confirmation' => 'user1234',
 
             'profile' => [
-                'full_name' => 'Administrator',
-                'phone' => '+998000000001',
+                'full_name' => 'Moderator 1',
+                'phone' => '+998000000002',
                 'image' => FormHelper::file(),
             ],
         ];
@@ -35,7 +35,7 @@ class UpdateTest extends _TestCase
         $this->requestUrl .= '/1';
 
         $this->requestBody = [
-            'role' => 'registered',
+            'role_id' => 2,
         ];
 
         $this->response = $this->sendRequest();

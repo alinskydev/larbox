@@ -6,5 +6,5 @@ use App\Tests\Feature\PostmanTestCase;
 
 class _TestCase extends PostmanTestCase
 {
-    public string $requestUrl = 'information';
+    public string $requestUrl = 'common/information';
 }
