@@ -40,7 +40,7 @@ export default {
 <template>
     <PageTitle :text="page.title">
         <RouterLink to="box/box/create" class="btn btn-success">
-            {{ __('routeActions->store') }}
+            {{ __('routeActions->create') }}
         </RouterLink>
     </PageTitle>
 

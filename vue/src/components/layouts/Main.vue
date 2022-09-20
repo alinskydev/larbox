@@ -55,7 +55,7 @@ export default {
 
 <template>
     <template v-if="isReady">
-        <TopBar :templateKey="templateKey" id="qwe" />
+        <TopBar :templateKey="templateKey" />
         <SideBar :templateKey="templateKey" />
 
         <div class="content-wrapper">

@@ -10,11 +10,16 @@ export default {
             required: true,
         },
     },
+    data() {
+        return {
+            isAllowed: this.booted.helpers.user.checkRoute(this, this.to.split('?')[0]),
+        };
+    },
 };
 </script>
 
 <template>
-    <RouterLink :to="'/' + booted.locale + '/' + to">
+    <RouterLink v-if="isAllowed" :to="'/' + booted.locale + '/' + to">
         <slot></slot>
     </RouterLink>
 </template>

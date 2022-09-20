@@ -12,6 +12,7 @@ export default {
     data() {
         return {
             config: this.booted.components.current.config,
+            pathPrefix: this.$route.matched.at(-1).path.replace('/', '').replace(':locale/', ''),
         };
     },
     methods: {
@@ -34,32 +35,26 @@ export default {
             }
         },
         deleteAllAction() {
-            this.sendRequest(
-                this.config.http.path + '/delete/all?_method=DELETE',
-                (selection) => {
-                    for (let key in this.$parent.$data.items) {
-                        let item = this.$parent.$data.items[key];
+            this.sendRequest(this.config.http.path + '/delete/all?_method=DELETE', (selection) => {
+                for (let key in this.$parent.$data.items) {
+                    let item = this.$parent.$data.items[key];
 
-                        if (selection.includes(item.id.value)) {
-                            item.is_deleted = true;
-                        }
+                    if (selection.includes(item.id.value)) {
+                        item.is_deleted = true;
                     }
                 }
-            );
+            });
         },
         restoreAllAction() {
-            this.sendRequest(
-                this.config.http.path + '/restore/all?_method=DELETE',
-                (selection) => {
-                    for (let key in this.$parent.$data.items) {
-                        let item = this.$parent.$data.items[key];
+            this.sendRequest(this.config.http.path + '/restore/all?_method=DELETE', (selection) => {
+                for (let key in this.$parent.$data.items) {
+                    let item = this.$parent.$data.items[key];
 
-                        if (selection.includes(item.id.value)) {
-                            item.is_deleted = false;
-                        }
+                    if (selection.includes(item.id.value)) {
+                        item.is_deleted = false;
                     }
                 }
-            );
+            });
         },
         sendRequest(path, callback) {
             let formData = new FormData(),
@@ -108,7 +103,11 @@ export default {
             <div class="card-body">
                 <template v-for="action in config.selection.actions">
                     <button
-                        v-if="action === 'deleteAll' && !$route.query['show[deleted]']"
+                        v-if="
+                            action === 'deleteAll' &&
+                            !$route.query['show[deleted]'] &&
+                            booted.helpers.user.checkRoute(booted.components.app, pathPrefix + '/deleteAll')
+                        "
                         class="btn btn-danger btn-block text-left"
                         @click="deleteAllAction"
                     >
@@ -117,7 +116,11 @@ export default {
                     </button>
 
                     <button
-                        v-if="action === 'restoreAll' && $route.query['show[deleted]'] === 'only-deleted'"
+                        v-if="
+                            action === 'restoreAll' &&
+                            $route.query['show[deleted]'] === 'only-deleted' &&
+                            booted.helpers.user.checkRoute(booted.components.app, pathPrefix + '/restoreAll')
+                        "
                         class="btn btn-success btn-block text-left"
                         @click="restoreAllAction"
                     >

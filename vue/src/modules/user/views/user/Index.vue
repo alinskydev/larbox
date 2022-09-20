@@ -37,7 +37,7 @@ export default {
         <NotificationCreate />
 
         <RouterLink to="user/user/create" class="btn btn-success">
-            {{ __('routeActions->store') }}
+            {{ __('routeActions->create') }}
         </RouterLink>
     </PageTitle>
 

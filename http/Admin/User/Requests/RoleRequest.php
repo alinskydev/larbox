@@ -3,7 +3,7 @@
 namespace Http\Admin\User\Requests;
 
 use App\Http\Requests\ActiveFormRequest;
-use Modules\User\Helpers\Role\AdminRoleHelper;
+use Modules\User\Helpers\RoleHelper;
 
 use Illuminate\Validation\Rule;
 use App\Rules\UniqueRule;
@@ -23,7 +23,7 @@ class RoleRequest extends ActiveFormRequest
     {
         return [
             'routes' => 'array',
-            'routes.*' => Rule::in((new AdminRoleHelper(true))->routes()),
+            'routes.*' => Rule::in(RoleHelper::routesList(true)),
         ];
     }
 

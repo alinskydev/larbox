@@ -14,7 +14,7 @@ export default {
         return {
             page: new Page({
                 context: this,
-                title: this.__('routeActions->store'),
+                title: this.__('routeActions->create'),
                 breadcrumbs: [
                     {
                         label: this.__('routes->box.tag'),

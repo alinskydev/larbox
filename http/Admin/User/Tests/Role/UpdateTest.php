@@ -18,7 +18,7 @@ class UpdateTest extends _TestCase
                 'admin.box.box.*',
                 'admin.box.tag.index',
                 'admin.box.tag.show',
-                'admin.box.tag.store',
+                'admin.box.tag.create',
                 'admin.box.tag.update',
                 'admin.section.show',
             ],

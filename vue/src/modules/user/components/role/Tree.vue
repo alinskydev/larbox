@@ -16,20 +16,8 @@ export default {
     },
     data() {
         return {
-            routes: {},
+            routes: this.booted.enums.user.role.routes.tree.admin,
         };
-    },
-    created() {
-        this.booted.helpers.http
-            .send(this, {
-                method: 'GET',
-                path: 'user/role/routes-tree/admin',
-            })
-            .then((response) => {
-                if (response.statusType === 'success') {
-                    this.routes = response.data;
-                }
-            });
     },
 };
 </script>

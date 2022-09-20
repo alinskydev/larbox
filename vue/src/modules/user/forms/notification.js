@@ -8,7 +8,7 @@ export default new Model({
                 type: Enums.inputTypes.select,
                 options: {
                     select: {
-                        items: (context) => context.booted.helpers.iterator.get(context.booted.enums.user_notification.types, '*.label'),
+                        items: (context) => context.booted.helpers.iterator.get(context.booted.enums.user.notification.types, '*.label'),
                     },
                 },
                 size: Enums.inputSizes.xl,

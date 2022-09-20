@@ -7,15 +7,16 @@ use Illuminate\Support\Arr;
 
 class RoleHelper
 {
-    protected string $routesPrefix;
-    protected array $excludedRoutes = [];
+    private static array $excludedRoutes = [
+        'admin.information',
+        'admin.storage',
+        'admin.user.notification.index',
+        'admin.user.notification.show',
+        'admin.user.notification.seeAll',
+        'admin.user.profile',
+    ];
 
-    public function __construct(
-        protected bool $routesWithAsterisk,
-    ) {
-    }
-
-    public function routes(): array
+    public static function routesList(bool $routesWithAsterisk): array
     {
         $result = [];
 
@@ -27,21 +28,19 @@ class RoleHelper
             $routeName = $route->getName();
             $routeName = "$routePrefix.$routeName";
 
-            if (str_starts_with($routeName, $this->routesPrefix)) {
-                if ($this->routesWithAsterisk) {
-                    $routeNameArr = explode('.', $routeName);
-                    array_pop($routeNameArr);
+            if ($routesWithAsterisk) {
+                $routeNameArr = explode('.', $routeName);
+                array_pop($routeNameArr);
 
-                    $prevPrefix = '';
+                $prevPrefix = '';
 
-                    foreach ($routeNameArr as $prefix) {
-                        $prevPrefix .= "$prefix.";
-                        $result[] = "$prevPrefix*";
-                    }
+                foreach ($routeNameArr as $prefix) {
+                    $prevPrefix .= "$prefix.";
+                    $result[] = "$prevPrefix*";
                 }
-
-                $result[] = $routeName;
             }
+
+            $result[] = $routeName;
         }
 
         $result = array_unique($result);
@@ -49,8 +48,8 @@ class RoleHelper
         $result = array_combine($result, $result);
         $result = Arr::undot($result);
 
-        foreach ($this->excludedRoutes as $route) {
-            Arr::forget($result, "$this->routesPrefix.$route");
+        foreach (self::$excludedRoutes as $route) {
+            Arr::forget($result, $route);
         }
 
         $result = Arr::dot($result);
@@ -59,9 +58,9 @@ class RoleHelper
         return $result;
     }
 
-    public function routesTree(): array
+    public static function routesTree(bool $routesWithAsterisk): array
     {
-        $result = $this->routes($this->routesPrefix);
+        $result = self::routesList($routesWithAsterisk);
         $result = array_combine($result, $result);
         $result = Arr::undot($result);
 

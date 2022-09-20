@@ -23,7 +23,7 @@ class ResourceController extends Controller
 
         $request = request();
 
-        if (!$this->formRequestClass && in_array($request->route()->getActionMethod(), ['store', 'update'])) {
+        if (!$this->formRequestClass && in_array($request->route()->getActionMethod(), ['creates', 'update'])) {
             throw new \Exception("'formRequestClass' must be set");
         }
 
@@ -63,7 +63,7 @@ class ResourceController extends Controller
         return response()->json($data, 200);
     }
 
-    public function store(ValidatesWhenResolved $request)
+    public function create(ValidatesWhenResolved $request)
     {
         return $this->successResponse(201);
     }

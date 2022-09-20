@@ -47,7 +47,7 @@ export default {
 
 <template>
     <PageTitle :text="page.title">
-        <Buttons :actions="['save']" />
+        <Buttons v-if="booted.helpers.user.checkRoute(booted.components.app, 'section/update')" :actions="['save']" />
     </PageTitle>
 
     <Update />

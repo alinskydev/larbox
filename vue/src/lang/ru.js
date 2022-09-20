@@ -57,6 +57,7 @@ export default {
     },
 
     'routeActions': {
+        'create': 'Создание',
         'deleteFile': 'Удаление файлов',
         'delete': 'Удаление',
         'deleteAll': 'Множественное удаление',
@@ -67,7 +68,6 @@ export default {
         'setActive': 'Активация',
         'setMain': 'Установка основного',
         'show': 'Просмотр',
-        'store': 'Создание',
         'update': 'Редактирование',
     },
 };

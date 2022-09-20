@@ -46,18 +46,22 @@ export default [
             {
                 label: 'section.home',
                 path: 'section/home',
+                name: 'section/show',
             },
             {
                 label: 'section.contact',
                 path: 'section/contact',
+                name: 'section/show',
             },
             {
                 label: 'section.boxes',
                 path: 'section/boxes',
+                name: 'section/show',
             },
             {
                 label: 'section.layout',
                 path: 'section/layout',
+                name: 'section/show',
             },
         ],
     },

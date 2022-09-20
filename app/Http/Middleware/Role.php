@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
-use Modules\User\Helpers\Role\AdminRoleHelper;
+use Modules\User\Helpers\RoleHelper;
 
 class Role
 {
@@ -22,7 +22,7 @@ class Role
         $routeName = request()->route()->getName();
         $routeName = "$routePrefix.$routeName";
 
-        $routes = (new AdminRoleHelper(true))->routes();
+        $routes = RoleHelper::routesList(false);
 
         if (!in_array($routeName, $routes) || in_array($routeName, $role->routes)) return $next($request);
 

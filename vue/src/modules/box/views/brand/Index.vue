@@ -32,6 +32,8 @@ export default {
                     actions: ['boxes', 'show', 'update', 'delete', 'restore'],
                     customActions: {
                         boxes: (item) => {
+                            if (!this.booted.helpers.user.checkRoute(this, 'box/box/index')) return null;
+
                             return {
                                 path: 'box/box?filter[brand_id]=' + item.id.value,
                                 linkAttributes: {
@@ -57,7 +59,7 @@ export default {
 <template>
     <PageTitle :text="page.title">
         <RouterLink to="box/brand/create" class="btn btn-success">
-            {{ __('routeActions->store') }}
+            {{ __('routeActions->create') }}
         </RouterLink>
     </PageTitle>
 
