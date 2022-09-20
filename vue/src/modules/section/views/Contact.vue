@@ -4,6 +4,6 @@ import View from '@/modules/section/components/View.vue';
 </script>
 
 <template>
-    <View :title="__('Contact')" name="contact" type="page" :model="model" />
+    <View name="contact" :model="model" />
 </template>
 

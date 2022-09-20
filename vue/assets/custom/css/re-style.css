@@ -95,3 +95,9 @@ select.select2-hidden-accessible {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.checkbox-lg {
+    width: 20px;
+    height: 20px;
+    accent-color: #007bff;
+}

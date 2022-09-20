@@ -13,7 +13,7 @@ export default {
         return {
             page: new Page({
                 context: this,
-                title: this.__('Языки'),
+                title: this.__('routes->system.language'),
             }),
             config: new IndexConfig({
                 model: model,

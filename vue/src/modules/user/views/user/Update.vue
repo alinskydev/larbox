@@ -14,10 +14,10 @@ export default {
         return {
             page: new Page({
                 context: this,
-                title: this.__('Редактирование'),
+                title: this.__('routeActions->update'),
                 breadcrumbs: [
                     {
-                        label: this.__('Пользователи'),
+                        label: this.__('routes->user.user'),
                         path: 'user/user',
                     },
                 ],
@@ -30,7 +30,7 @@ export default {
                 },
                 events: {
                     afterSubmit: (context, formData, response) => {
-                        toastr.success(context.__('Запись успешно сохранена'));
+                        toastr.success(context.__('Сохранение прошло успешно'));
 
                         if (this.$route.params.id == this.booted.user.id) {
                             this.booted.helpers.user.login(this, formData.get('username'), formData.get('new_password'));

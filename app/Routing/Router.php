@@ -6,7 +6,7 @@ use Illuminate\Routing\Router as BaseRouter;
 
 class Router extends BaseRouter
 {
-    public function destroyAll($uri, $action = null)
+    public function deleteAll($uri, $action = null)
     {
         return $this->addRoute('DELETE', $uri, $action);
     }
@@ -26,7 +26,7 @@ class Router extends BaseRouter
         $only = [
             'index', 'show',
             'store', 'update',
-            'destroy', 'destroyAll',
+            'delete', 'deleteAll',
             'restore', 'restoreAll',
         ];
 

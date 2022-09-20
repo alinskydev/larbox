@@ -10,27 +10,37 @@ class ResourceRegistrar extends BaseResourceRegistrar
         'index', 'show',
         'create', 'store',
         'edit', 'update',
-        'destroyAll',
+        'delete', 'deleteAll',
         'restore', 'restoreAll',
-        'destroy',
     ];
 
-    protected function addResourceDestroyAll($name, $base, $controller, $options)
+    protected function addResourceDelete($name, $base, $controller, $options)
     {
-        $uri = $this->getResourceUri($name) . '/destroy-all';
+        $name = $this->getShallowName($name, $options);
+
+        $uri = $this->getResourceUri($name) . '/{' . $base . '}';
+
+        $action = $this->getResourceAction($name, $controller, 'delete', $options);
+
+        return $this->router->delete($uri, $action);
+    }
+
+    protected function addResourceDeleteAll($name, $base, $controller, $options)
+    {
+        $uri = $this->getResourceUri($name) . '/delete/all';
 
         unset($options['missing']);
 
-        $action = $this->getResourceAction($name, $controller, 'destroyAll', $options);
+        $action = $this->getResourceAction($name, $controller, 'deleteAll', $options);
 
-        return $this->router->destroyAll($uri, $action);
+        return $this->router->deleteAll($uri, $action);
     }
 
     protected function addResourceRestore($name, $base, $controller, $options)
     {
         $name = $this->getShallowName($name, $options);
 
-        $uri = $this->getResourceUri($name) . '/{id}/restore';
+        $uri = $this->getResourceUri($name) . '/{value}/restore';
 
         $action = $this->getResourceAction($name, $controller, 'restore', $options);
 
@@ -39,12 +49,12 @@ class ResourceRegistrar extends BaseResourceRegistrar
 
     protected function addResourceRestoreAll($name, $base, $controller, $options)
     {
-        $uri = $this->getResourceUri($name) . '/restore-all';
+        $uri = $this->getResourceUri($name) . '/restore/all';
 
         unset($options['missing']);
 
         $action = $this->getResourceAction($name, $controller, 'restoreAll', $options);
 
-        return $this->router->destroyAll($uri, $action);
+        return $this->router->restoreAll($uri, $action);
     }
 }

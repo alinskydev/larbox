@@ -13,15 +13,7 @@ import Update from '@/components/crud/Update.vue';
 export default {
     inheritAttrs: false,
     props: {
-        title: {
-            type: String,
-            required: true,
-        },
         name: {
-            type: String,
-            required: true,
-        },
-        type: {
             type: String,
             required: true,
         },
@@ -34,9 +26,7 @@ export default {
         return {
             page: new Page({
                 context: this,
-                title: this.__('Страница: :name', {
-                    name: this.title,
-                }),
+                title: this.__('routeActions->update') + ': ' + this.__('routes->section.' + this.name),
             }),
             config: new UpdateConfig({
                 model: this.model,
@@ -45,7 +35,7 @@ export default {
                 },
                 events: {
                     afterSubmit: (context, formData, response) => {
-                        toastr.success(context.__('Страница успешно сохранена'));
+                        toastr.success(context.__('Сохранение прошло успешно'));
                         context.booted.components.app.childKey++;
                     },
                 },

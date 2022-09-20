@@ -34,7 +34,7 @@ export default {
                     >
                         <i :class="'nav-icon ' + item.icon"></i>
                         <p>
-                            {{ __(item.label) }}
+                            {{ __('routes->' + item.label) }}
                             <i class="right fas fa-caret-right nav-icon-caret"></i>
                         </p>
                     </a>
@@ -43,7 +43,7 @@ export default {
                         <li v-for="itemChild in item.children" class="nav-item">
                             <RouterLink :to="itemChild.path" :class="'nav-link ' + (activeItems.includes(itemChild.path) ? 'active' : '')">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>{{ __(itemChild.label) }}</p>
+                                <p>{{ __('routes->' + itemChild.label) }}</p>
                             </RouterLink>
                         </li>
                     </ul>
@@ -51,7 +51,7 @@ export default {
 
                 <RouterLink v-else :to="item.path" :class="'nav-link ' + (activeItems.includes(item.path) ? 'active' : '')">
                     <i :class="'nav-icon ' + item.icon"></i>
-                    <p>{{ __(item.label) }}</p>
+                    <p>{{ __('routes->' + item.label) }}</p>
                 </RouterLink>
             </li>
         </ul>

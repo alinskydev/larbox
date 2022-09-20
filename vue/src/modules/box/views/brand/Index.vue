@@ -14,7 +14,7 @@ export default {
         return {
             page: new Page({
                 context: this,
-                title: this.__('Brands'),
+                title: this.__('routes->box.brand'),
             }),
             config: new IndexConfig({
                 model: model,
@@ -35,7 +35,7 @@ export default {
                             return {
                                 path: 'box/box?filter[brand_id]=' + item.id.value,
                                 linkAttributes: {
-                                    title: this.__('Boxes'),
+                                    title: this.__('routes->box.box'),
                                     class: 'btn btn-info',
                                 },
                                 iconAttributes: {
@@ -57,7 +57,7 @@ export default {
 <template>
     <PageTitle :text="page.title">
         <RouterLink to="box/brand/create" class="btn btn-success">
-            {{ __('Создать') }}
+            {{ __('routeActions->store') }}
         </RouterLink>
     </PageTitle>
 

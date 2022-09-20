@@ -12,19 +12,6 @@ use Modules\User\Models\Profile;
 
 Route::prefix('user')
     ->group(function () {
-        Route::prefix('user')
-            ->group(function () {
-                Route::model('profile', Profile::class);
-
-                Route::apiResource('', UserController::class)->except(['destroyAll', 'restoreAll']);
-
-                Route::delete('{profile}/delete-file/{field}/{index?}', DeleteFileAction::class)
-                    ->whereIn('field', ['image'])
-                    ->name('deleteFile');
-            });
-
-        Route::apiResource('role', RoleController::class)->except(['destroyAll', 'restore', 'restoreAll']);
-
         Route::prefix('notification')
             ->group(function () {
                 Route::apiResource('', NotificationController::class)->only(['index', 'show', 'store']);
@@ -35,5 +22,24 @@ Route::prefix('user')
             ->group(function () {
                 Route::get('', [ProfileController::class, 'show'])->name('show');
                 Route::put('', [ProfileController::class, 'update'])->name('update');
+            });
+
+        Route::prefix('role')
+            ->group(function () {
+                Route::apiResource('', RoleController::class)->except(['deleteAll', 'restore', 'restoreAll']);
+                Route::get('routes-tree/{prefix}', [RoleController::class, 'routesTree'])
+                    ->whereIn('prefix', ['admin'])
+                    ->name('routesTree');
+            });
+
+        Route::prefix('user')
+            ->group(function () {
+                Route::model('profile', Profile::class);
+
+                Route::apiResource('', UserController::class)->except(['deleteAll', 'restoreAll']);
+
+                Route::delete('{profile}/delete-file/{field}/{index?}', DeleteFileAction::class)
+                    ->whereIn('field', ['image'])
+                    ->name('deleteFile');
             });
     });

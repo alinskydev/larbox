@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('user_role', function (Blueprint $table) {
             $table->id();
             $table->json('name');
-            $table->json('permissions');
+            $table->json('routes');
             $table->timestamp('created_at');
             $table->timestamp('updated_at');
         });

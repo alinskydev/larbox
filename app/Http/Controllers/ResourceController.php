@@ -73,7 +73,7 @@ class ResourceController extends Controller
         return $this->successResponse();
     }
 
-    public function destroy(Model $model)
+    public function delete(Model $model)
     {
         try {
             $model->delete();
@@ -86,9 +86,10 @@ class ResourceController extends Controller
 
     // Custom actions
 
-    public function destroyAll()
+    public function deleteAll()
     {
         $selection = (array)request()->get('selection', []);
+
         $models = $this->model->query()
             ->whereIn('id', $selection)
             ->limit($this->search->pageSize)
@@ -127,6 +128,7 @@ class ResourceController extends Controller
     {
         if (in_array(SoftDeletes::class, class_uses_recursive($this->model))) {
             $selection = (array)request()->get('selection', []);
+
             $models = $this->model->query()
                 ->whereIn('id', $selection)
                 ->limit($this->search->pageSize)

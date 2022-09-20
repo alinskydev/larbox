@@ -14,10 +14,10 @@ export default {
         return {
             page: new Page({
                 context: this,
-                title: this.__('Редактирование'),
+                title: this.__('routeActions->update'),
                 breadcrumbs: [
                     {
-                        label: this.__('Языки'),
+                        label: this.__('routes->system.language'),
                         path: 'system/language',
                     },
                 ],
@@ -35,7 +35,7 @@ export default {
                 },
                 events: {
                     afterSubmit: (context, formData, response) => {
-                        toastr.success(context.__('Запись успешно сохранена'));
+                        toastr.success(context.__('Сохранение прошло успешно'));
                         context.booted.components.app.childKey++;
                         this.page.goUp();
                     },

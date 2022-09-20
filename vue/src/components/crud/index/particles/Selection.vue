@@ -35,7 +35,7 @@ export default {
         },
         deleteAllAction() {
             this.sendRequest(
-                this.config.http.path + '/destroy-all?_method=DELETE',
+                this.config.http.path + '/delete/all?_method=DELETE',
                 (selection) => {
                     for (let key in this.$parent.$data.items) {
                         let item = this.$parent.$data.items[key];
@@ -49,7 +49,7 @@ export default {
         },
         restoreAllAction() {
             this.sendRequest(
-                this.config.http.path + '/restore-all?_method=DELETE',
+                this.config.http.path + '/restore/all?_method=DELETE',
                 (selection) => {
                     for (let key in this.$parent.$data.items) {
                         let item = this.$parent.$data.items[key];
@@ -113,7 +113,7 @@ export default {
                         @click="deleteAllAction"
                     >
                         <i class="fas fa-trash-alt mr-1"></i>
-                        {{ __('Удалить все') }}
+                        {{ __('routeActions->deleteAll') }}
                     </button>
 
                     <button
@@ -122,7 +122,7 @@ export default {
                         @click="restoreAllAction"
                     >
                         <i class="fas fa-trash-restore mr-1"></i>
-                        {{ __('Восстановить все') }}
+                        {{ __('routeActions->restoreAll') }}
                     </button>
                 </template>
             </div>

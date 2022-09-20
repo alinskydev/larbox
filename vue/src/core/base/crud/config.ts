@@ -79,7 +79,7 @@ export class CreateConfig {
         this.events.beforeSubmit ??= function (context: any, formData: FormData) {};
         this.events.afterSubmit ??= function (context: any, formData: FormData, response: Object) {
             // @ts-ignore
-            toastr.success(context.__('Запись успешно сохранена'));
+            toastr.success(context.__('Сохранение прошло успешно'));
             context.booted.components.current.page.goUp();
         };
     }
@@ -110,7 +110,7 @@ export class UpdateConfig {
         this.events.beforeSubmit ??= function (context: any, formData: FormData) {};
         this.events.afterSubmit ??= function (context: any, formData: FormData, response: Object) {
             // @ts-ignore
-            toastr.success(context.__('Запись успешно сохранена'));
+            toastr.success(context.__('Сохранение прошло успешно'));
             context.booted.components.current.page.goUp();
         };
     }

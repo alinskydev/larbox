@@ -14,7 +14,7 @@ export default {
         return {
             page: new Page({
                 context: this,
-                title: this.__('Tags'),
+                title: this.__('routes->box.tag'),
             }),
             config: new IndexConfig({
                 model: model,
@@ -36,7 +36,7 @@ export default {
 <template>
     <PageTitle :text="page.title">
         <RouterLink to="box/tag/create" class="btn btn-success">
-            {{ __('Создать') }}
+            {{ __('routeActions->store') }}
         </RouterLink>
     </PageTitle>
 

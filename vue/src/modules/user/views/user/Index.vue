@@ -16,7 +16,7 @@ export default {
         return {
             page: new Page({
                 context: this,
-                title: this.__('Пользователи'),
+                title: this.__('routes->user.user'),
             }),
             config: new IndexConfig({
                 model: model,
@@ -37,7 +37,7 @@ export default {
         <NotificationCreate />
 
         <RouterLink to="user/user/create" class="btn btn-success">
-            {{ __('Создать') }}
+            {{ __('routeActions->store') }}
         </RouterLink>
     </PageTitle>
 

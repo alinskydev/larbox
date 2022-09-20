@@ -14,10 +14,10 @@ export default {
         return {
             page: new Page({
                 context: this,
-                title: this.__('Создание'),
+                title: this.__('routeActions->store'),
                 breadcrumbs: [
                     {
-                        label: this.__('Пользователи'),
+                        label: this.__('routes->user.user'),
                         path: 'user/user',
                     },
                 ],

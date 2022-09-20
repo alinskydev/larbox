@@ -31,7 +31,7 @@ export default {
 
             <RouterLink :to="'user/profile'" class="dropdown-item">
                 <i class="fas fa-edit mr-2"></i>
-                {{ __('Профиль') }}
+                {{ __('routes->user.profile') }}
             </RouterLink>
 
             <div class="dropdown-divider"></div>

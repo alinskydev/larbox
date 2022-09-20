@@ -10,7 +10,7 @@ export default {
         return {
             page: new Page({
                 context: this,
-                title: this.__('Авторизация'),
+                title: this.__('routes->auth.login'),
             }),
             inputs: model.prepareInputs(this, model.form),
             isReady: false,
@@ -18,18 +18,20 @@ export default {
     },
     created() {
         if (localStorage.getItem('auth_username')) {
-            this.booted.helpers.http.send(this, {
-                method: 'GET',
-                path: 'user/profile',
-            }).then((response) => {
-                if (response.statusType === 'success') {
-                    this.$router.push({
-                        path: '/' + this.booted.locale,
-                    });
-                } else {
-                    this.isReady = true;
-                }
-            });
+            this.booted.helpers.http
+                .send(this, {
+                    method: 'GET',
+                    path: 'user/profile',
+                })
+                .then((response) => {
+                    if (response.statusType === 'success') {
+                        this.$router.push({
+                            path: '/' + this.booted.locale,
+                        });
+                    } else {
+                        this.isReady = true;
+                    }
+                });
         } else {
             this.isReady = true;
         }
@@ -38,19 +40,23 @@ export default {
         submit(event) {
             let formData = new FormData(event.target);
 
-            this.booted.helpers.http.send(this, {
-                method: 'POST',
-                path: '../common/auth/login',
-                body: formData,
-            }).then((response) => {
-                if (response.statusType === 'success') {
-                    this.$router.push({
-                        path: '/' + this.booted.locale,
-                    }).then(() => {
-                        this.booted.helpers.user.login(this, formData.get('username'), formData.get('password'));
-                    });
-                }
-            });
+            this.booted.helpers.http
+                .send(this, {
+                    method: 'POST',
+                    path: '../common/auth/login',
+                    body: formData,
+                })
+                .then((response) => {
+                    if (response.statusType === 'success') {
+                        this.$router
+                            .push({
+                                path: '/' + this.booted.locale,
+                            })
+                            .then(() => {
+                                this.booted.helpers.user.login(this, formData.get('username'), formData.get('password'));
+                            });
+                    }
+                });
         },
     },
 };

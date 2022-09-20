@@ -9,7 +9,7 @@ export default {
         return {
             page: new Page({
                 context: this,
-                title: this.__('Главная'),
+                title: this.__('routes->home'),
                 showBreadcrumbs: false,
             }),
         };

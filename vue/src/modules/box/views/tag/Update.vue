@@ -14,10 +14,10 @@ export default {
         return {
             page: new Page({
                 context: this,
-                title: this.__('Редактирование'),
+                title: this.__('routeActions->update'),
                 breadcrumbs: [
                     {
-                        label: this.__('Tags'),
+                        label: this.__('routes->box.tag'),
                         path: 'box/tag',
                     },
                 ],

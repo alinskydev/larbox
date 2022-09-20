@@ -14,7 +14,7 @@ export default {
         return {
             page: new Page({
                 context: this,
-                title: this.__('Профиль'),
+                title: this.__('routes->user.profile'),
             }),
             config: new UpdateConfig({
                 model: model,
@@ -23,7 +23,7 @@ export default {
                 },
                 events: {
                     afterSubmit: (context, formData, response) => {
-                        toastr.success(context.__('Профиль успешно сохранён'));
+                        toastr.success(context.__('Сохранение прошло успешно'));
 
                         this.booted.helpers.user.login(this, formData.get('username'), formData.get('new_password'));
                         context.booted.components.app.childKey++;

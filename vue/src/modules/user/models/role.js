@@ -1,6 +1,8 @@
 import { Model } from '@/core/base/model';
 import * as Enums from '@/core/base/enums';
 
+import Tree from '@/modules/user/components/role/Tree.vue';
+
 export default new Model({
     list: {
         id: {
@@ -40,9 +42,6 @@ export default new Model({
             value: 'name.:locale',
             type: Enums.valueTypes.text,
         },
-        permissions: {
-            type: Enums.valueTypes.array,
-        },
         created_at: {
             type: Enums.valueTypes.text,
         },
@@ -59,6 +58,26 @@ export default new Model({
                     isLocalized: true,
                 },
                 size: Enums.inputSizes.xl,
+            },
+        },
+        Права: {
+            routes: {
+                type: Enums.inputTypes.component,
+                options: {
+                    component: {
+                        resolve: (context, item) => {
+                            return {
+                                component: Tree,
+                                params: [
+                                    {
+                                        prefix: 'admin',
+                                        value: item.value,
+                                    },
+                                ],
+                            };
+                        },
+                    },
+                },
             },
         },
     },

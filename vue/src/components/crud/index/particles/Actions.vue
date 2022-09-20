@@ -59,7 +59,7 @@ export default {
             <template v-if="!this.config.filter.hasSoftDelete || !item.is_deleted">
                 <BaseRouterLink
                     v-if="action === 'show'"
-                    :title="__('Просмотреть')"
+                    :title="__('routeActions->show')"
                     :to="$route.path + '/' + item.id.value + '/show'"
                     class="btn btn-primary"
                 >
@@ -68,14 +68,14 @@ export default {
 
                 <BaseRouterLink
                     v-else-if="action === 'update'"
-                    :title="__('Редактировать')"
+                    :title="__('routeActions->update')"
                     :to="$route.path + '/' + item.id.value + '/update'"
                     class="btn btn-warning"
                 >
                     <i class="fas fa-edit"></i>
                 </BaseRouterLink>
 
-                <a v-else-if="action === 'delete'" :title="__('Удалить')" @click="deleteAction" class="btn btn-danger">
+                <a v-else-if="action === 'delete'" :title="__('routeActions->delete')" @click="deleteAction" class="btn btn-danger">
                     <i class="fas fa-trash-alt"></i>
                 </a>
 
@@ -89,7 +89,7 @@ export default {
             </template>
 
             <template v-else>
-                <a v-if="action === 'restore'" :title="__('Восстановить')" @click="restoreAction" class="btn btn-success">
+                <a v-if="action === 'restore'" :title="__('routeActions->restore')" @click="restoreAction" class="btn btn-success">
                     <i class="fas fa-trash-restore"></i>
                 </a>
             </template>

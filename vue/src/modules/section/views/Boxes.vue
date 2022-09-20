@@ -4,6 +4,6 @@ import View from '@/modules/section/components/View.vue';
 </script>
 
 <template>
-    <View :title="__('Boxes')" name="boxes" type="page" :model="model" />
+    <View name="boxes" :model="model" />
 </template>
 

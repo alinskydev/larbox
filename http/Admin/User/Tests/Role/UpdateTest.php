@@ -14,6 +14,14 @@ class UpdateTest extends _TestCase
 
         $this->requestBody = [
             'name' => FormHelper::localized('Moderator'),
+            'routes' => [
+                'admin.box.box.*',
+                'admin.box.tag.index',
+                'admin.box.tag.show',
+                'admin.box.tag.store',
+                'admin.box.tag.update',
+                'admin.section.show',
+            ],
         ];
 
         $this->response = $this->sendRequest();

@@ -25,7 +25,7 @@ export default {
         <template v-if="items.length > 0">
             <li class="nav-item d-none d-sm-inline-block">
                 <RouterLink to="" class="nav-link">
-                    {{ __('Главная') }}
+                    {{ __('routes->home') }}
                 </RouterLink>
             </li>
 

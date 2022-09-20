@@ -7,15 +7,15 @@ use Illuminate\Support\Arr;
 
 class RoleHelper
 {
-    private static array $localizations = [
-        'index' => 'Список',
-        'show' => 'Просмотр',
-        'store' => 'Создание',
-        'index' => 'Список',
-        'index' => 'Список',
-    ];
+    protected string $routesPrefix;
+    protected array $excludedRoutes = [];
 
-    public static function list(string $prefix = ''): array
+    public function __construct(
+        protected bool $routesWithAsterisk,
+    ) {
+    }
+
+    public function routes(): array
     {
         $result = [];
 
@@ -27,22 +27,43 @@ class RoleHelper
             $routeName = $route->getName();
             $routeName = "$routePrefix.$routeName";
 
-            $result[] = $routeName;
+            if (str_starts_with($routeName, $this->routesPrefix)) {
+                if ($this->routesWithAsterisk) {
+                    $routeNameArr = explode('.', $routeName);
+                    array_pop($routeNameArr);
+
+                    $prevPrefix = '';
+
+                    foreach ($routeNameArr as $prefix) {
+                        $prevPrefix .= "$prefix.";
+                        $result[] = "$prevPrefix*";
+                    }
+                }
+
+                $result[] = $routeName;
+            }
         }
 
-        $result = array_filter($result, fn ($value) => str_starts_with($value, $prefix));
-        $result = array_combine($result, $result);
+        $result = array_unique($result);
 
+        $result = array_combine($result, $result);
         $result = Arr::undot($result);
 
-        array_walk_recursive($result, function (&$value, $key) {
-            $value = self::$localizations[$key] ?? $value;
-        });
+        foreach ($this->excludedRoutes as $route) {
+            Arr::forget($result, "$this->routesPrefix.$route");
+        }
 
-        echo '<pre>';
-        print_r($result);
-        echo '</pre>';
-        die;
+        $result = Arr::dot($result);
+        $result = array_values($result);
+
+        return $result;
+    }
+
+    public function routesTree(): array
+    {
+        $result = $this->routes($this->routesPrefix);
+        $result = array_combine($result, $result);
+        $result = Arr::undot($result);
 
         return $result;
     }

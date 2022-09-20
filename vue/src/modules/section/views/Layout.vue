@@ -4,5 +4,5 @@ import View from '@/modules/section/components/View.vue';
 </script>
 
 <template>
-    <View :title="__('Layout')" name="layout" type="section" :model="model" />
+    <View name="layout" :model="model" />
 </template>

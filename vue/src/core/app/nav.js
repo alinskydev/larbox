@@ -1,84 +1,77 @@
 export default [
     {
-        label: 'Главная',
+        label: 'home',
         icon: 'fas fa-tachometer-alt',
         path: '',
     },
     {
-        label: 'Пользователи',
+        label: 'user',
         icon: 'fas fa-users',
         path: 'user',
         children: [
             {
-                label: 'Пользователи',
+                label: 'user.user',
                 path: 'user/user',
             },
             {
-                label: 'Роли',
+                label: 'user.role',
                 path: 'user/role',
             },
         ],
     },
     {
-        label: 'Box',
+        label: 'box',
         icon: 'fas fa-boxes',
         path: 'box',
         children: [
             {
-                label: 'Boxes',
+                label: 'box.box',
                 path: 'box/box',
             },
             {
-                label: 'Brands',
+                label: 'box.brand',
                 path: 'box/brand',
             },
             {
-                label: 'Tags',
+                label: 'box.tag',
                 path: 'box/tag',
             },
         ],
     },
     {
-        label: 'Страницы',
-        icon: 'fas fa-file-alt',
-        path: 'section/page',
-        children: [
-            {
-                label: 'Home',
-                path: 'section/page/home',
-            },
-            {
-                label: 'Contact',
-                path: 'section/page/contact',
-            },
-            {
-                label: 'Boxes',
-                path: 'section/page/boxes',
-            },
-        ],
-    },
-    {
-        label: 'Секции',
+        label: 'section',
         icon: 'fas fa-th-large',
-        path: 'section/section',
+        path: 'section',
         children: [
             {
-                label: 'Layout',
-                path: 'section/section/layout',
+                label: 'section.home',
+                path: 'section/home',
+            },
+            {
+                label: 'section.contact',
+                path: 'section/contact',
+            },
+            {
+                label: 'section.boxes',
+                path: 'section/boxes',
+            },
+            {
+                label: 'section.layout',
+                path: 'section/layout',
             },
         ],
     },
     {
-        label: 'Система',
+        label: 'system',
         icon: 'fas fa-cogs',
         path: 'system',
         children: [
             {
-                label: 'Настройки',
+                label: 'system.settings',
                 path: 'system/settings',
             },
             {
-                label: 'Языки',
+                label: 'system.language',
                 path: 'system/language',
             },
         ],

@@ -7,5 +7,5 @@ use Http\Public\Box\Controllers\BrandController;
 Route::prefix('box')
     ->middleware(['auth.basic.once'])
     ->group(function () {
-        Route::apiResource('brand', BrandController::class)->except(['destroyAll', 'restore', 'restoreAll']);
+        Route::apiResource('brand', BrandController::class)->except(['deleteAll', 'restore', 'restoreAll']);
     });

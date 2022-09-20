@@ -11,17 +11,22 @@ return new class extends Seeder
     {
         DB::table('user_role')->insert([
             [
-                'name' => SeederHelper::localized('Admin'),
-                'permissions' => json_encode([
-                    '*',
+                'name' => SeederHelper::localized('Admin', false),
+                'routes' => json_encode([
+                    'admin.*',
                 ]),
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
             [
                 'name' => SeederHelper::localized('Moderator'),
-                'permissions' => json_encode([
-                    'box.*',
+                'routes' => json_encode([
+                    'admin.box.box.*',
+                    'admin.box.tag.index',
+                    'admin.box.tag.show',
+                    'admin.box.tag.store',
+                    'admin.box.tag.update',
+                    'admin.section.show',
                 ]),
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),

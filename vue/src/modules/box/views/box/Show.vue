@@ -13,10 +13,10 @@ export default {
         return {
             page: new Page({
                 context: this,
-                title: this.__('Просмотр'),
+                title: this.__('routeActions->show'),
                 breadcrumbs: [
                     {
-                        label: this.__('Boxes'),
+                        label: this.__('routes->box.box'),
                         path: 'box/box',
                     },
                 ],

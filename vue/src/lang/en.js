@@ -1,3 +1,5 @@
 export default {
-    "Главная": "Главная en",
+    'routes': {
+        'home': 'Главная en',
+    },
 };

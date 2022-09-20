@@ -14,7 +14,7 @@ export default {
         return {
             page: new Page({
                 context: this,
-                title: this.__('Настройки'),
+                title: this.__('routes->system.settings'),
             }),
             config: new UpdateConfig({
                 model: model,
@@ -23,7 +23,7 @@ export default {
                 },
                 events: {
                     afterSubmit: (context, formData, response) => {
-                        toastr.success(context.__('Настройки успешно сохранены'));
+                        toastr.success(context.__('Сохранение прошло успешно'));
                         context.booted.components.app.childKey++;
                     },
                 },

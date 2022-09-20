@@ -10,11 +10,11 @@ class Role extends Model
 
     protected $casts = [
         'name' => 'array',
-        'permissions' => 'array',
+        'routes' => 'array',
     ];
 
     protected $attributes = [
-        'permissions' => '[]',
+        'routes' => '[]',
     ];
 
     protected static function boot()

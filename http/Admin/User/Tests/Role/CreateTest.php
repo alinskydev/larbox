@@ -12,6 +12,9 @@ class CreateTest extends _TestCase
     {
         $this->requestBody = [
             'name' => FormHelper::localized('Role 3'),
+            'routes' => [
+                'admin.section.show',
+            ],
         ];
 
         $this->response = $this->sendRequest();

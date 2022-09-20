@@ -14,7 +14,7 @@ export default {
         return {
             page: new Page({
                 context: this,
-                title: this.__('Уведомления'),
+                title: this.__('routes->user.notification'),
             }),
             config: new IndexConfig({
                 model: model,

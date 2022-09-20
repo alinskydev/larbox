@@ -3,43 +3,40 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
-use Modules\User\Helpers\RoleHelper;
+use Modules\User\Helpers\Role\AdminRoleHelper;
 
 class Role
 {
     public function handle(Request $request, \Closure $next)
     {
+        // Cheking role existance
+
         $role = auth()->user()->role;
 
         if (!$role) abort(403);
 
-        echo '<pre>';
-        print_r(RoleHelper::list('admin'));
-        echo '</pre>';
-        die;
-
-        // $action = request()->route()->uri() . '/' . request()->route()->getActionMethod();
-
-        // echo '<pre>';
-        // print_r($action);
-        // echo '</pre>';
-        // die;
-
-        // echo '<pre>';
-        // print_r(request()->route()->uri());
-        // echo '</pre>';
-        // die;
+        // Checking route availability
 
         $routePrefix = request()->route()->getPrefix();
         $routePrefix = str_replace('/', '.', request()->route()->getPrefix());
         $routeName = request()->route()->getName();
         $routeName = "$routePrefix.$routeName";
 
-        echo '<pre>';
-        print_r($routeName);
-        echo '</pre>';
-        die;
+        $routes = (new AdminRoleHelper(true))->routes();
 
-        return $next($request);
+        if (!in_array($routeName, $routes) || in_array($routeName, $role->routes)) return $next($request);
+
+        // Checking route availability by asterisks
+
+        $routeNameArr = explode('.', $routeName);
+
+        for ($i = 0; $i < count($routeNameArr); $i++) {
+            $routeName = array_slice($routeNameArr, 0, $i);
+            $routeName = $routeName ? implode('.', $routeName) . '.*' : '*';
+
+            if (in_array($routeName, $role->routes)) return $next($request);
+        }
+
+        return abort(403, __('У вас нет доступа для совершения данного действия'));
     }
 }
