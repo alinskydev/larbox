@@ -22,7 +22,6 @@ class SectionEnums
                 'resource' => Resources\HomeResource::class,
                 'admin_request' => Requests\HomeRequest::class,
             ],
-
             'layout' => [
                 'resource' => Resources\LayoutResource::class,
                 'admin_request' => Requests\LayoutRequest::class,
