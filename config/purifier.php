@@ -31,7 +31,7 @@ return [
                 'div', 'span',
                 'section', 'nav', 'article', 'aside', 'header', 'footer',
                 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
-                'p', 'b', 'i', 'small', 'pre',
+                'p', 'b', 'strong', 'i', 'em', 'small', 'pre',
                 'sub', 'sup', 'mark', 'ins', 'del', 'blockquote',
                 'ul', 'ol', 'li',
                 'img', 'a',
