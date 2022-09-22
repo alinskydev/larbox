@@ -1,13 +1,13 @@
 export default [
     {
         label: 'home',
-        icon: 'fas fa-tachometer-alt',
         path: '',
+        icon: 'fas fa-tachometer-alt',
     },
     {
         label: 'user',
-        icon: 'fas fa-users',
         path: 'user',
+        icon: 'fas fa-users',
         children: [
             {
                 label: 'user.user',
@@ -21,8 +21,8 @@ export default [
     },
     {
         label: 'box',
-        icon: 'fas fa-boxes',
         path: 'box',
+        icon: 'fas fa-boxes',
         children: [
             {
                 label: 'box.box',
@@ -40,8 +40,8 @@ export default [
     },
     {
         label: 'section',
-        icon: 'fas fa-th-large',
         path: 'section',
+        icon: 'fas fa-th-large',
         children: [
             {
                 label: 'section.home',
@@ -67,8 +67,8 @@ export default [
     },
     {
         label: 'system',
-        icon: 'fas fa-cogs',
         path: 'system',
+        icon: 'fas fa-cogs',
         children: [
             {
                 label: 'system.settings',

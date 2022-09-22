@@ -125,6 +125,7 @@ export default new Model({
                         disabled: context.$route.params.id === '1',
                     };
                 },
+                size: Enums.inputSizes.md,
             },
             full_name: {
                 name: 'profile[full_name]',

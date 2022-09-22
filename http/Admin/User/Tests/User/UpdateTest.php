@@ -13,15 +13,15 @@ class UpdateTest extends _TestCase
         $this->requestUrl .= '/2';
 
         $this->requestBody = [
+            'role_id' => 2,
             'username' => 'moderator_1',
             'email' => 'moderator_1@local.host',
-            'role_id' => 2,
             'new_password' => 'user1234',
             'new_password_confirmation' => 'user1234',
 
             'profile' => [
                 'full_name' => 'Moderator 1',
-                'phone' => '+998000000002',
+                'phone' => '+998000000011',
                 'image' => FormHelper::file(),
             ],
         ];
