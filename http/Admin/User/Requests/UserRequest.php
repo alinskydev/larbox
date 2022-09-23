@@ -3,12 +3,13 @@
 namespace Http\Admin\User\Requests;
 
 use App\Http\Requests\ActiveFormRequest;
-use Modules\User\Models\Role;
 use Illuminate\Support\Facades\Hash;
 
 use Illuminate\Validation\Rule;
 use App\Rules\ExistsWithOldRule;
 use App\Helpers\Validation\FileValidationHelper;
+
+use Modules\User\Models\Role;
 
 class UserRequest extends ActiveFormRequest
 {
