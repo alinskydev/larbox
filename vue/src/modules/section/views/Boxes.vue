@@ -1,9 +1,9 @@
 <script setup>
 import model from '@/modules/section/models/empty';
-import View from '@/modules/section/components/View.vue';
+import Update from '@/modules/section/components/Update.vue';
 </script>
 
 <template>
-    <View name="boxes" :model="model" />
+    <Update name="boxes" :model="model" />
 </template>
 

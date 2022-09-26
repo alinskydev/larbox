@@ -31,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
 
         ImageManagerStatic::configure(['driver' => 'gd']);
 
-        if (config('app.env') == 'local') {
+        if (config('app.env') != 'production') {
             Mail::alwaysTo('admin@local.host');
         }
 

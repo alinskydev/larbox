@@ -4,12 +4,15 @@ use Illuminate\Support\Facades\Route;
 
 use Http\Admin\System\Controllers\LanguageController;
 use Http\Admin\System\Controllers\SettingsController;
+use Http\Admin\System\Controllers\SystemController;
 use App\Http\Controllers\Actions\SetValueAction;
 
 use Modules\System\Models\Language;
 
 Route::prefix('system')
     ->group(function () {
+        Route::get('information', [SystemController::class, 'information'])->name('information');
+
         Route::prefix('language')
             ->group(function () {
                 Route::model('language', Language::class);

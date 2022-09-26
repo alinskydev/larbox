@@ -1,9 +1,9 @@
 <script setup>
 import model from '@/modules/section/models/contact';
-import View from '@/modules/section/components/View.vue';
+import Update from '@/modules/section/components/Update.vue';
 </script>
 
 <template>
-    <View name="contact" :model="model" />
+    <Update name="contact" :model="model" />
 </template>
 

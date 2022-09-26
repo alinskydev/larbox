@@ -1,14 +1,14 @@
 <?php
 
-namespace Http\Common\Information\Tests;
+namespace Http\Common\System\Tests;
 
-class InformationTest extends _TestCase
+class SystemTest extends _TestCase
 {
     public string $requestMethod = self::REQUEST_METHOD_GET;
 
-    public function test_system()
+    public function test_information()
     {
-        $this->requestUrl .= '/system';
+        $this->requestUrl .= '/information';
 
         $this->response = $this->sendRequest();
         $this->response->assertStatus(200);

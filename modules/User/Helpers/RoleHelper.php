@@ -8,8 +8,8 @@ use Illuminate\Support\Arr;
 class RoleHelper
 {
     private static array $excludedRoutes = [
-        'admin.information',
         'admin.storage',
+        'admin.system.information',
         'admin.user.notification.index',
         'admin.user.notification.show',
         'admin.user.notification.seeAll',
@@ -23,10 +23,10 @@ class RoleHelper
         $routeCollection = Route::getRoutes()->getRoutes();
 
         foreach ($routeCollection as $route) {
-            $routePrefix = $route->getPrefix();
             $routePrefix = str_replace('/', '.', $route->getPrefix());
             $routeName = $route->getName();
             $routeName = "$routePrefix.$routeName";
+            $routeName = trim($routeName, '.');
 
             if ($routesWithAsterisk) {
                 $routeNameArr = explode('.', $routeName);

@@ -41,6 +41,8 @@ export default {
 
                         if (this.valueOptions.onSuccess) {
                             this.valueOptions.onSuccess(this, this.currentValue);
+                        } else {
+                            toastr.success(this.__('Успешно изменено'));
                         }
                     } else {
                         $('#' + this.item.id).val(this.currentValue);

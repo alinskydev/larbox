@@ -1,8 +1,8 @@
 <script setup>
 import model from '@/modules/section/models/layout';
-import View from '@/modules/section/components/View.vue';
+import Update from '@/modules/section/components/Update.vue';
 </script>
 
 <template>
-    <View name="layout" :model="model" />
+    <Update name="layout" :model="model" />
 </template>

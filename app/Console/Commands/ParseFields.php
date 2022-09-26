@@ -97,7 +97,7 @@ class ParseFields extends Command
         // Saving
 
         $outputData = implode("\n", $outputData);
-        $outputFileName = "$path/" . date('Y_m_d_His') . '_form_request_fields.php';
+        $outputFileName = "$path/" . date('Y_m_d___H_i_s') . '_fields.php';
 
         file_put_contents($outputFileName, $outputData);
         $this->info("Output file is store in: $outputFileName");

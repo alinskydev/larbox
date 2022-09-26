@@ -17,10 +17,10 @@ class Role
 
         // Checking route availability
 
-        $routePrefix = request()->route()->getPrefix();
         $routePrefix = str_replace('/', '.', request()->route()->getPrefix());
         $routeName = request()->route()->getName();
         $routeName = "$routePrefix.$routeName";
+        $routeName = trim($routeName, '.');
 
         $routes = RoleHelper::routesList(false);
 

@@ -8,11 +8,11 @@ use Illuminate\Support\Arr;
 
 class JsonResource extends BaseJsonResource
 {
-    protected array $fileGroups = [];
+    protected array $imageGroups = [];
 
     public function toArray($request)
     {
-        foreach ($this->fileGroups as $group) {
+        foreach ($this->imageGroups as $group) {
             $sizes = $group['sizes'] ?? [500];
 
             foreach ($group['fields'] as $field => $subFields) {

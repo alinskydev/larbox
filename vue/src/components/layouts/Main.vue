@@ -1,7 +1,9 @@
 <script setup>
 import init from '@/core/app/init';
-import { RouterView } from 'vue-router';
+import { LocalizationHelper } from '@/core/helpers/localizationHelper';
+import lodash from 'lodash';
 
+import { RouterView } from 'vue-router';
 import TopBar from './particles/main/TopBar.vue';
 import SideBar from './particles/main/SideBar.vue';
 </script>
@@ -36,13 +38,14 @@ export default {
                         this.booted.helpers.http
                             .send(this, {
                                 method: 'GET',
-                                path: 'information/enums',
+                                path: 'system/information',
                             })
                             .then((response2) => {
                                 if (response2.statusType === 'success') {
                                     $('#preloader').removeClass('active');
 
-                                    this.booted.enums = response2.data;
+                                    this.booted.enums = response2.data.enums;
+                                    LocalizationHelper.messages = lodash.merge(LocalizationHelper.messages, response2.data.translations);
                                     this.isReady = true;
                                 }
                             });

@@ -13,6 +13,6 @@ class ActivateObserver
 
     public function saving(Model $model)
     {
-        if (auth()->user()->role != 1) $model->is_active = false;
+        if (auth()->user()->role_id != 1) $model->is_active = false;
     }
 }

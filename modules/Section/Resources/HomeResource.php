@@ -6,7 +6,7 @@ use Modules\Section\Base\JsonResource;
 
 class HomeResource extends JsonResource
 {
-    protected array $fileGroups = [
+    protected array $imageGroups = [
         [
             'fields' => [
                 'second_image' => null,

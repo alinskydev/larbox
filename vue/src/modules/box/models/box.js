@@ -160,6 +160,10 @@ export default new Model({
             value: 'tags.*.name',
             type: Enums.valueTypes.array,
         },
+        description: {
+            value: 'description.:locale',
+            type: Enums.valueTypes.html,
+        },
         variations: {
             type: Enums.valueTypes.relations,
             options: {

@@ -23,8 +23,8 @@ export default new Model({
                 httpSwitcher: {
                     path: 'system/language/:id/set-active/:value',
                     onSuccess: (context, value) => {
+                        toastr.success(context.__('Успешно изменено'));
                         context.booted.components.app.childKey++;
-                        context.$router.push(context.$router.currentRoute);
                     },
                 },
             },
@@ -35,8 +35,8 @@ export default new Model({
                 httpSwitcher: {
                     path: 'system/language/:id/set-main/:value',
                     onSuccess: (context, value) => {
+                        toastr.success(context.__('Успешно изменено'));
                         context.booted.components.app.childKey++;
-                        context.$router.push(context.$router.currentRoute);
                     },
                 },
             },
