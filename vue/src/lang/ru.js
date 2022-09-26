@@ -42,6 +42,8 @@ export default {
         'box.box': 'Boxes',
         'box.brand': 'Brands',
         'box.tag': 'Tags',
+        'feedback': 'Обратная связь',
+        'feedback.callback': 'Заявки',
         'home': 'Главная ru',
         'section': 'Секции',
         'section.boxes': 'Boxes',
@@ -70,5 +72,10 @@ export default {
         'setMain': 'Установка основного',
         'show': 'Просмотр',
         'update': 'Редактирование',
+    },
+
+    'fields': {
+        'password': 'Пароль',
+        'username': 'Логин',
     },
 };

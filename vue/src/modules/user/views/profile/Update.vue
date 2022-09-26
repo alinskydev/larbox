@@ -1,6 +1,6 @@
 <script setup>
-import { Page } from '@/core/base/page';
-import { UpdateConfig } from '@/core/base/crud/config';
+import { Page } from '@/core/page';
+import { UpdateConfig } from '@/core/crud/config';
 import model from '@/modules/user/models/profile';
 
 import PageTitle from '@/components/blocks/PageTitle.vue';

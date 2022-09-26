@@ -1,5 +1,5 @@
 <script setup>
-import * as Enums from '@/core/base/enums';
+import * as Enums from '@/core/enums';
 
 import HttpSelect from '@/components/value/HttpSelect.vue';
 import HttpSwitcher from '@/components/value/HttpSwitcher.vue';

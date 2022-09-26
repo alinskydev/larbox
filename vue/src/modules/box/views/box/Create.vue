@@ -1,6 +1,6 @@
 <script setup>
-import { Page } from '@/core/base/page';
-import { CreateConfig } from '@/core/base/crud/config';
+import { Page } from '@/core/page';
+import { CreateConfig } from '@/core/crud/config';
 import model from '@/modules/box/models/box';
 
 import PageTitle from '@/components/blocks/PageTitle.vue';

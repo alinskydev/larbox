@@ -1,5 +1,5 @@
-import { Model } from '@/core/base/model';
-import * as Enums from '@/core/base/enums';
+import { Model } from '@/core/model';
+import * as Enums from '@/core/enums';
 
 import inputHelper from '@/core/helpers/inputHelper';
 

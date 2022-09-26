@@ -3,8 +3,10 @@
 namespace Http\Admin\System\Controllers;
 
 use App\Http\Controllers\Controller;
-use Modules\User\Enums\NotificationEnums;
 use Modules\User\Helpers\RoleHelper;
+
+use Modules\Feedback\Enums\FeedbackEnums;
+use Modules\User\Enums\NotificationEnums;
 
 class SystemController extends Controller
 {
@@ -21,6 +23,9 @@ class SystemController extends Controller
     private function enums()
     {
         return [
+            'feedback' => [
+                'statuses' => FeedbackEnums::statuses(),
+            ],
             'user' => [
                 'notification' => [
                     'types' => NotificationEnums::types(),

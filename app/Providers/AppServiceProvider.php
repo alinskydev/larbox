@@ -31,10 +31,6 @@ class AppServiceProvider extends ServiceProvider
 
         ImageManagerStatic::configure(['driver' => 'gd']);
 
-        if (config('app.env') != 'production') {
-            Mail::alwaysTo('admin@local.host');
-        }
-
         $migrationsPath = glob(base_path('modules/*/Database/Migrations/*.php'));
         $this->loadMigrationsFrom($migrationsPath);
     }

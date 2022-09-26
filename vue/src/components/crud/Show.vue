@@ -1,5 +1,5 @@
 <script setup>
-import Grid from '@/components/crud/show/Grid.vue';
+import Data from '@/components/crud/show/Data.vue';
 </script>
 
 <script>
@@ -47,5 +47,5 @@ export default {
 </script>
 
 <template>
-    <Grid :items="items" />
+    <Data :items="items" />
 </template>

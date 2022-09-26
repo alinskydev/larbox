@@ -1,11 +1,11 @@
 <script setup>
-import init from '@/core/app/init';
+import init from '@/app/init';
 import { LocalizationHelper } from '@/core/helpers/localizationHelper';
 import lodash from 'lodash';
 
 import { RouterView } from 'vue-router';
-import TopBar from './particles/main/TopBar.vue';
-import SideBar from './particles/main/SideBar.vue';
+import TopBar from './main/TopBar.vue';
+import SideBar from './main/SideBar.vue';
 </script>
 
 <script>

@@ -1,7 +1,7 @@
 <script setup>
-import * as Enums from '@/core/base/enums';
+import * as Enums from '@/core/enums';
 
-import Main from '@/components/input/layouts/Main.vue';
+import Wrapper from '@/components/input/particles/Wrapper.vue';
 
 import Date from '@/components/input/Date.vue';
 import Datetime from '@/components/input/Datetime.vue';
@@ -36,59 +36,59 @@ export default {
 </script>
 
 <template>
-    <Main
+    <Wrapper
         v-if="item.type !== Enums.inputTypes.hidden && item.type !== Enums.inputTypes.relations && item.type !== Enums.inputTypes.component"
         :item="item"
-        v-slot="main"
+        v-slot="wrapper"
     >
         <template v-if="item.type === Enums.inputTypes.date">
-            <Date :item="item" v-bind="main.inputAttrs" />
+            <Date :item="item" v-bind="wrapper.inputAttrs" />
         </template>
 
         <template v-else-if="item.type === Enums.inputTypes.datetime">
-            <Datetime :item="item" v-bind="main.inputAttrs" />
+            <Datetime :item="item" v-bind="wrapper.inputAttrs" />
         </template>
 
         <template v-else-if="item.type === Enums.inputTypes.file">
-            <File :set="delete main.inputAttrs.value" :item="item" v-bind="main.inputAttrs" />
+            <File :set="delete wrapper.inputAttrs.value" :item="item" v-bind="wrapper.inputAttrs" />
         </template>
 
         <template v-else-if="item.type === Enums.inputTypes.phone">
-            <Phone :item="item" v-bind="main.inputAttrs" />
+            <Phone :item="item" v-bind="wrapper.inputAttrs" />
         </template>
 
         <template v-else-if="item.type === Enums.inputTypes.select">
-            <Select :item="item" v-bind="main.inputAttrs" />
+            <Select :item="item" v-bind="wrapper.inputAttrs" />
         </template>
 
         <template v-else-if="item.type === Enums.inputTypes.select2Ajax">
-            <Select2Ajax :set="delete main.inputAttrs.value" :item="item" v-bind="main.inputAttrs" />
+            <Select2Ajax :set="delete wrapper.inputAttrs.value" :item="item" v-bind="wrapper.inputAttrs" />
         </template>
 
         <template v-else-if="item.type === Enums.inputTypes.select2Array">
-            <Select2Array :set="delete main.inputAttrs.value" :item="item" v-bind="main.inputAttrs" />
+            <Select2Array :set="delete wrapper.inputAttrs.value" :item="item" v-bind="wrapper.inputAttrs" />
         </template>
 
         <template v-else-if="item.type === Enums.inputTypes.switcher">
-            <Switcher :item="item" v-bind="main.inputAttrs" />
+            <Switcher :item="item" v-bind="wrapper.inputAttrs" />
         </template>
 
         <template v-else-if="item.type === Enums.inputTypes.text">
-            <Text :item="item" v-bind="main.inputAttrs" />
+            <Text :item="item" v-bind="wrapper.inputAttrs" />
         </template>
 
         <template v-else-if="item.type === Enums.inputTypes.textarea">
-            <Textarea :item="item" v-bind="main.inputAttrs" />
+            <Textarea :item="item" v-bind="wrapper.inputAttrs" />
         </template>
 
         <template v-else-if="item.type === Enums.inputTypes.textEditor">
-            <TextEditor :item="item" v-bind="main.inputAttrs" />
+            <TextEditor :item="item" v-bind="wrapper.inputAttrs" />
         </template>
 
         <template v-else-if="item.type === Enums.inputTypes.time">
-            <Time :item="item" v-bind="main.inputAttrs" />
+            <Time :item="item" v-bind="wrapper.inputAttrs" />
         </template>
-    </Main>
+    </Wrapper>
 
     <template v-else-if="item.type === Enums.inputTypes.component">
         <ComponentResolver :resolve="item.options.component.resolve(booted.components.current, item)" />

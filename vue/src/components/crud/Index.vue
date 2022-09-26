@@ -4,7 +4,7 @@ import { pickBy } from 'lodash';
 import Input from '@/components/Input.vue';
 import Sort from './index/particles/Sort.vue';
 import SoftDelete from './index/particles/SoftDelete.vue';
-import Grid from './index/Grid.vue';
+import Data from './index/Data.vue';
 </script>
 
 <script>
@@ -131,5 +131,5 @@ export default {
         </div>
     </div>
 
-    <Grid :key="dataKey" />
+    <Data :key="dataKey" />
 </template>

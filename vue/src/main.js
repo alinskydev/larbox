@@ -1,7 +1,7 @@
 import { createApp } from 'vue';
 import App from './App.vue';
-import config from '@/core/app/config';
-import router from '@/core/app/router';
+import config from '@/app/config';
+import router from '@/app/router';
 import { __ } from '@/core/helpers/localizationHelper';
 
 import fileHelper from '@/core/helpers/fileHelper';
