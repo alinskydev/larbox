@@ -19,30 +19,34 @@ class ImageHelper
             throw new \Exception("Unavailable 'type'");
         }
 
-        $sourceFile = public_path($sourceUrl);
+        try {
+            $sourceFile = public_path($sourceUrl);
 
-        if (!is_file($sourceFile)) {
+            if (!is_file($sourceFile)) {
+                return $isAbsoluteThumbUrl ? asset($sourceUrl) : $sourceUrl;
+            }
+
+            $extension = pathinfo($sourceFile, PATHINFO_EXTENSION);
+            $extension = mb_strtolower($extension);
+
+            $thumbPath = "storage/thumbs/$type/" . implode('x', $params);
+            $thumbName = md5(filemtime($sourceFile) . File::basename($sourceFile)) . ".$extension";
+
+            $thumbFile = public_path("$thumbPath/$thumbName");
+            $thumbUrl = "/$thumbPath/$thumbName";
+
+            if (!is_file($thumbFile)) {
+                File::makeDirectory(public_path($thumbPath), 0777, true, true);
+
+                $image = ImageManagerStatic::make($sourceFile);
+                $image->{$type}(...$params);
+                $image->save($thumbFile);
+            }
+
+            return $isAbsoluteThumbUrl ? asset($thumbUrl) : $thumbUrl;
+        } catch (\Throwable $e) {
             return $isAbsoluteThumbUrl ? asset($sourceUrl) : $sourceUrl;
         }
-
-        $extension = pathinfo($sourceFile, PATHINFO_EXTENSION);
-        $extension = mb_strtolower($extension);
-
-        $thumbPath = "storage/thumbs/$type/" . implode('x', $params);
-        $thumbName = md5(filemtime($sourceFile) . File::basename($sourceFile)) . ".$extension";
-
-        $thumbFile = public_path("$thumbPath/$thumbName");
-        $thumbUrl = "/$thumbPath/$thumbName";
-
-        if (!is_file($thumbFile)) {
-            File::makeDirectory(public_path($thumbPath), 0777, true, true);
-
-            $image = ImageManagerStatic::make($sourceFile);
-            $image->{$type}(...$params);
-            $image->save($thumbFile);
-        }
-
-        return $isAbsoluteThumbUrl ? asset($thumbUrl) : $thumbUrl;
     }
 
     public static function populateSizes(string $url, array $sizes)

@@ -25,9 +25,7 @@ class NotificationController extends ResourceController
     public function show(Model $model)
     {
         $model->update(['is_seen' => 1]);
-        $data = $this->resourceClass::make($model);
-
-        return response()->json($data, 200);
+        return parent::show($model);
     }
 
     public function seeAll()
