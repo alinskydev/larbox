@@ -24,7 +24,7 @@ export default {
 
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
             <h5 class="dropdown-item text-center">
-                {{ booted.user.profile.full_name }}
+                {{ booted.user.username }}
             </h5>
 
             <div class="dropdown-divider"></div>
