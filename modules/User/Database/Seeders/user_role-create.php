@@ -19,7 +19,7 @@ return new class extends Seeder
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
             [
-                'name' => SeederHelper::localized('Moderator'),
+                'name' => SeederHelper::localized('Moderator', false),
                 'routes' => json_encode([
                     'admin.box.box.*',
                     'admin.box.tag.index',
