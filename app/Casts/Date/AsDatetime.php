@@ -22,6 +22,6 @@ class AsDatetime implements CastsAttributes
     {
         if (!$value) return null;
 
-        return date('Y-m-d H:i', strtotime($value));
+        return date('Y-m-d H:i:s', strtotime($value));
     }
 }

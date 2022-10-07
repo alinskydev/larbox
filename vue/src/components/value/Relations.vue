@@ -17,24 +17,41 @@ export default {
     data() {
         return {
             model: this.booted.components.current.config.model,
-            itemGroups: {},
+            fields: {},
+            items: {},
         };
     },
     created() {
+        this.fields = this.model.prepareFields(this, this.item.options.relations);
+
         for (let key in this.item.value) {
-            this.itemGroups[key] = this.model.prepareValues(this, this.item.options.relations, this.item.value[key]);
+            this.items[key] = this.model.prepareValues(this, this.item.options.relations, this.item.value[key]);
         }
     },
 };
 </script>
 
 <template>
-    <template v-for="(items, itemGroupKey) in itemGroups">
-        <div v-for="relationItem in items">
-            <i>{{ relationItem.label }}: </i>
-            <Value :item="relationItem" :id="id" />
-        </div>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr class="bg-info">
+                    <th style="width: 30px">№</th>
+                    <th v-for="field in fields">
+                        {{ field.label }}
+                    </th>
+                </tr>
+            </thead>
 
-        <hr v-if="itemGroupKey < Object.keys(itemGroups).length - 1" />
-    </template>
+            <tbody>
+                <tr v-for="(relationItem, relationItemKey) in items">
+                    <td>{{ parseInt(relationItemKey) + 1 }}</td>
+
+                    <td v-for="(field, fieldKey) in fields">
+                        <Value :item="relationItem[fieldKey]" :id="id" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </template>
