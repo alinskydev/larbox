@@ -14,11 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('seo_meta', function (Blueprint $table) {
+            $table->id();
             $table->string('seo_metable_type');
             $table->bigInteger('seo_metable_id')->unsigned();
             $table->json('head');
 
-            $table->primary(['seo_metable_type', 'seo_metable_id']);
+            $table->unique(['seo_metable_type', 'seo_metable_id']);
         });
     }
 
