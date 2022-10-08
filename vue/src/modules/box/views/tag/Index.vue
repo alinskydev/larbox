@@ -25,7 +25,7 @@ export default {
                     hasSoftDelete: true,
                 },
                 selection: {
-                    actions: ['deleteAll', 'restoreAll'],
+                    actions: ['deleteAll'],
                 },
             }),
         };

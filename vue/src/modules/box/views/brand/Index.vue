@@ -29,7 +29,7 @@ export default {
                     hasSoftDelete: true,
                 },
                 grid: {
-                    actions: ['boxes', 'show', 'update', 'delete', 'restore'],
+                    actions: ['boxes', 'show', 'update', 'delete'],
                     customActions: {
                         boxes: (item) => {
                             if (!this.booted.helpers.user.checkRoute(this, 'box/box/index')) return null;
@@ -48,7 +48,7 @@ export default {
                     },
                 },
                 selection: {
-                    actions: ['deleteAll', 'restoreAll'],
+                    actions: ['deleteAll'],
                 },
             }),
         };

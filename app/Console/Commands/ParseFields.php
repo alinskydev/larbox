@@ -34,7 +34,7 @@ class ParseFields extends Command
         //  Checking folder existance
 
         $basePath = base_path();
-        $path = "$basePath/larbox/storage/localization";
+        $path = "$basePath/storage/larbox/localization";
 
         if (!is_dir($path)) {
             return $this->error("'$path' doesn't exists");

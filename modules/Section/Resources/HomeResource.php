@@ -9,24 +9,22 @@ class HomeResource extends JsonResource
     protected array $imageGroups = [
         [
             'fields' => [
-                'second_image' => null,
-                'relations_1' => [
-                    'image',
-                    'images_list',
-                ],
+                'second_images_list',
+                'second_image_desktop',
+                'second_image_tablet',
+                'second_image_mobile',
             ],
         ],
         [
+            'relation' => 'relations_1',
             'fields' => [
-                'second_images_list' => null,
-                'second_image_desktop' => null,
-                'second_image_tablet' => null,
-                'second_image_mobile' => null,
-                'relations_2' => [
-                    'image_desktop',
-                    'image_tablet',
-                    'image_mobile',
-                ],
+                'image',
+            ],
+        ],
+        [
+            'relation' => 'relations_2',
+            'fields' => [
+                'images_list',
             ],
         ],
     ];

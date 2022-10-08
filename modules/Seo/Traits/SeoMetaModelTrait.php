@@ -8,7 +8,11 @@ trait SeoMetaModelTrait
 {
     public function getSeoMetaAttribute()
     {
-        return $this->seo_meta_morph ?? null;
+        $languages = app('language')->all->toArray();
+
+        return $this->seo_meta_morph ?? [
+            'head' => array_map(fn ($value) => '', $languages),
+        ];
     }
 
     public function seo_meta_morph()

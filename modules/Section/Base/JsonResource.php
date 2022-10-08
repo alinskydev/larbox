@@ -4,7 +4,6 @@ namespace Modules\Section\Base;
 
 use Illuminate\Http\Resources\Json\JsonResource as BaseJsonResource;
 use App\Helpers\ImageHelper;
-use Illuminate\Support\Arr;
 
 class JsonResource extends BaseJsonResource
 {
@@ -13,29 +12,30 @@ class JsonResource extends BaseJsonResource
     public function toArray($request)
     {
         foreach ($this->imageGroups as $group) {
+            $relation = $group['relation'] ?? null;
             $sizes = $group['sizes'] ?? [500];
 
-            foreach ($group['fields'] as $field => $subFields) {
+            if ($relation == $this->name) {
+                return array_map(function ($value) use ($group, $sizes) {
+                    foreach ($group['fields'] as $field) {
+                        if (is_array($value[$field])) {
+                            $value[$field] = array_map(fn ($v) => ImageHelper::populateSizes($v, $sizes), $value[$field]);
+                        } else {
+                            $value[$field] = $value[$field] ? ImageHelper::populateSizes($value[$field], $sizes) : null;
+                        }
+                    }
+
+                    return $value;
+                }, $this->value);
+            }
+
+            foreach ($group['fields'] as $field) {
                 if ($field != $this->name) continue;
 
-                if ($subFields) {
-                    return array_map(function ($value) use ($subFields, $sizes) {
-                        foreach ($subFields as $s_f) {
-                            if (is_array($value[$s_f])) {
-                                $value[$s_f] = array_map(fn ($v) => ImageHelper::populateSizes($v, $sizes), $value[$s_f]);
-                            } else {
-                                $value[$s_f] = $value[$s_f] ? ImageHelper::populateSizes($value[$s_f], $sizes) : null;
-                            }
-                        }
-
-                        return $value;
-                    }, $this->value);
+                if (is_array($this->value)) {
+                    return array_map(fn ($value) => ImageHelper::populateSizes($value, $sizes), $this->value);
                 } else {
-                    if (is_array($this->value)) {
-                        return array_map(fn ($value) => ImageHelper::populateSizes($value, $sizes), $this->value);
-                    } else {
-                        return $this->value ? ImageHelper::populateSizes($this->value, $sizes) : null;
-                    }
+                    return $this->value ? ImageHelper::populateSizes($this->value, $sizes) : null;
                 }
             }
         }

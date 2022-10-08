@@ -3,8 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Modules\System\Services\SettingsService;
-use Modules\System\Services\LanguageService;
+use Modules\System\Singletons\SettingsSingleton;
+use Modules\System\Singletons\LanguageSingleton;
 
 class SingletonServiceProvider extends ServiceProvider
 {
@@ -16,11 +16,11 @@ class SingletonServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->app->singleton('settings', function ($app) {
-            return new SettingsService();
+            return new SettingsSingleton();
         });
 
         $this->app->singleton('language', function ($app) {
-            return new LanguageService();
+            return new LanguageSingleton();
         });
 
         try {

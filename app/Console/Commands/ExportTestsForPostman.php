@@ -36,7 +36,9 @@ class ExportTestsForPostman extends Command
 
         $collectionName = $this->ask('Enter collectioin name', config('app.name'));
 
-        $inputFileName = base_path('larbox/storage/tests/_postman.json');
+        $path = base_path('storage/larbox/tests');
+
+        $inputFileName = "$path/_postman.json";
         File::delete($inputFileName);
 
         $stream = fopen('php://output', 'w');
@@ -71,8 +73,8 @@ class ExportTestsForPostman extends Command
         // Saving data
 
         $outputData = json_encode($outputData, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
-        $outputFileName = Str::slug($collectionName);
-        $outputFileName = base_path('larbox/storage/tests/' . date('Y_m_d_His') . "_{$outputFileName}_collection.json");
+        $collectionName = Str::slug($collectionName) . '_' . date('Y_m_d__H_i_s') . '_collection.json';
+        $outputFileName = "$path/$collectionName";
 
         file_put_contents($outputFileName, $outputData);
         File::delete($inputFileName);

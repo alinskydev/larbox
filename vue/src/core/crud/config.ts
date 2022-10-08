@@ -30,7 +30,7 @@ export class IndexConfig {
 
         this.grid = config.grid ?? {};
         this.grid.hiddenFields ??= [];
-        this.grid.actions ??= ['show', 'update', 'delete', 'restore'];
+        this.grid.actions ??= ['show', 'update', 'delete'];
         this.grid.customActions ??= {};
         this.grid.rowAttributes ??= (context, item) => {};
 

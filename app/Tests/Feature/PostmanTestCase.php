@@ -112,7 +112,7 @@ abstract class PostmanTestCase extends BaseTestCase
 
         // Storing to file
 
-        $fileName = base_path('larbox/storage/tests/_postman.json');
+        $fileName = base_path('storage/larbox/tests/_postman.json');
         $oldItems = is_file($fileName) ? file_get_contents($fileName) : '[]';
         $oldItems = json_decode($oldItems, true);
 

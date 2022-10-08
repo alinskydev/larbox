@@ -56,7 +56,7 @@ export default {
 <template>
     <div class="btn-group">
         <template v-for="action in config.grid.actions">
-            <template v-if="!config.filter.hasSoftDelete || !item.is_deleted">
+            <template v-if="!item.is_deleted">
                 <RouterLink
                     v-if="action === 'show' && booted.helpers.user.checkRoute(booted.components.app, pathPrefix + '/show')"
                     :title="__('routeActions->show')"
@@ -83,25 +83,25 @@ export default {
                 >
                     <i class="fas fa-trash-alt"></i>
                 </a>
-
-                <template v-if="config.grid.customActions[action]">
-                    <div :set="(ea = config.grid.customActions[action](item))">
-                        <RouterLink v-if="ea" :to="ea.path" v-bind="ea.linkAttributes">
-                            <i v-bind="ea.iconAttributes"></i>
-                        </RouterLink>
-                    </div>
-                </template>
             </template>
 
             <template v-else>
                 <a
-                    v-if="action === 'restore' && booted.helpers.user.checkRoute(booted.components.app, pathPrefix + '/restore')"
+                    v-if="action === 'delete' && booted.helpers.user.checkRoute(booted.components.app, pathPrefix + '/restore')"
                     :title="__('routeActions->restore')"
                     @click="restoreAction"
                     class="btn btn-success"
                 >
                     <i class="fas fa-trash-restore"></i>
                 </a>
+            </template>
+
+            <template v-if="config.grid.customActions[action]">
+                <div :set="(ea = config.grid.customActions[action](item))">
+                    <RouterLink v-if="ea" :to="ea.path" v-bind="ea.linkAttributes">
+                        <i v-bind="ea.iconAttributes"></i>
+                    </RouterLink>
+                </div>
             </template>
         </template>
     </div>

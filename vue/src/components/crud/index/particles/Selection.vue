@@ -117,7 +117,7 @@ export default {
 
                     <button
                         v-if="
-                            action === 'restoreAll' &&
+                            action === 'deleteAll' &&
                             $route.query['show[deleted]'] === 'only-deleted' &&
                             booted.helpers.user.checkRoute(booted.components.app, pathPrefix + '/restoreAll')
                         "

@@ -12,7 +12,7 @@ Route::prefix('auth')
 
         Route::prefix('reset-password')
             ->group(function () {
-                Route::post('send-code', [ResetPasswordController::class, 'sendCode'])->name('sendCode');
+                Route::post('send-code', [ResetPasswordController::class, 'sendCode'])->middleware('throttle:3')->name('sendCode');
                 Route::post('verify-code', [ResetPasswordController::class, 'verifyCode'])->name('verifyCode');
                 Route::post('complete', [ResetPasswordController::class, 'complete'])->name('complete');
             });

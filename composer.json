@@ -29,7 +29,7 @@
     },
     "autoload": {
         "files": [
-            "larbox/bootstrap.php"
+            "bootstrap/larbox.php"
         ],
         "psr-4": {
             "App\\": "app/",

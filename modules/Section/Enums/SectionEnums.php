@@ -2,6 +2,8 @@
 
 namespace Modules\Section\Enums;
 
+use Modules\Section\Base\JsonResource;
+
 use Modules\Section\Resources as Resources;
 use Http\Admin\Section\Requests as Requests;
 
@@ -11,20 +13,20 @@ class SectionEnums
     {
         $result = [
             'boxes' => [
-                'resource' => Resources\EmptyResource::class,
-                'admin_request' => Requests\EmptyRequest::class,
+                'resource' => JsonResource::class,
+                'request' => Requests\EmptyRequest::class,
             ],
             'contact' => [
-                'resource' => Resources\ContactResource::class,
-                'admin_request' => Requests\ContactRequest::class,
+                'resource' => JsonResource::class,
+                'request' => Requests\ContactRequest::class,
             ],
             'home' => [
                 'resource' => Resources\HomeResource::class,
-                'admin_request' => Requests\HomeRequest::class,
+                'request' => Requests\HomeRequest::class,
             ],
             'layout' => [
-                'resource' => Resources\LayoutResource::class,
-                'admin_request' => Requests\LayoutRequest::class,
+                'resource' => JsonResource::class,
+                'request' => Requests\LayoutRequest::class,
             ],
         ];
 

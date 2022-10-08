@@ -4,7 +4,7 @@ namespace Http\Common\System\Controllers;
 
 use App\Http\Controllers\Controller;
 use Modules\System\Resources\SettingsResource;
-use Modules\User\Enums\NotificationEnums;
+use Modules\Feedback\Enums\FeedbackEnums;
 
 class SystemController extends Controller
 {
@@ -21,10 +21,8 @@ class SystemController extends Controller
     public function enums()
     {
         $response = [
-            'user' => [
-                'notification' => [
-                    'types' => NotificationEnums::types(),
-                ],
+            'feedback' => [
+                'statuses' => FeedbackEnums::statuses(),
             ],
         ];
 

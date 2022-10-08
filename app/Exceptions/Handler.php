@@ -8,6 +8,8 @@ use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
+use Illuminate\Http\Exceptions\ThrottleRequestsException;
+use Illuminate\Support\Arr;
 use TypeError;
 use Throwable;
 
@@ -79,6 +81,16 @@ class Handler extends ExceptionHandler
 
             case ValidationException::class:
                 return $this->invalidJson($request, $e);
+
+            case ThrottleRequestsException::class:
+                $response = [
+                    'status' => $e->getStatusCode(),
+                    'data' => [
+                        'message' => $e->getMessage(),
+                        'seconds_left' => Arr::get($e->getHeaders(), 'Retry-After', 0),
+                    ],
+                ];
+                break;
 
             default:
                 $response = [

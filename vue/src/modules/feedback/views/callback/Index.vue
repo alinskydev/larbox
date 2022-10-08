@@ -25,10 +25,10 @@ export default {
                     hasSoftDelete: true,
                 },
                 grid: {
-                    actions: ['show', 'delete', 'restore'],
+                    actions: ['show', 'delete'],
                 },
                 selection: {
-                    actions: ['deleteAll', 'restoreAll'],
+                    actions: ['deleteAll'],
                 },
             }),
         };
