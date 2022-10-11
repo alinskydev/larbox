@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->json('name');
             $table->json('routes');
-            $table->timestamp('created_at');
+            $table->timestamp('created_at')->index();
             $table->timestamp('updated_at');
         });
     }

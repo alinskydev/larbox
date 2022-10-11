@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Model;
 use App\Search\Search;
-use Illuminate\Http\Resources\Json\JsonResource;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Contracts\Validation\ValidatesWhenResolved;
@@ -15,34 +14,28 @@ class ResourceController extends Controller
 {
     public function __construct(
         public Model $model,
-        protected Search $search,
-        protected string $resourceClass = JsonResource::class,
+        protected ?Search $search = null,
+        protected ?string $resourceClass = null,
         protected ?string $formRequestClass = null,
     ) {
-        // Binding FormRequest class
-
         $request = request();
 
-        if (!$this->formRequestClass && in_array($request->route()->getActionMethod(), ['creates', 'update'])) {
-            throw new \Exception("'formRequestClass' must be set");
+        Route::model('model', $this->model::class);
+
+        if ($this->search !== null) {
+            $this->search->setQueryBuilder($this->model->query())
+                ->join((array)$request->get('with'))
+                ->filter((array)$request->get('filter'), Search::COMBINED_TYPE_AND)
+                ->combinedFilter((array)$request->get('filter'))
+                ->sort((array)$request->get('sort'))
+                ->show((array)$request->get('show'))
+                ->setPageSize((int)$request->get('page-size'));
         }
 
-        app()->bind(ValidatesWhenResolved::class, $this->formRequestClass);
-
-        // Binding model for FormRequest
-
-        Route::model('model', $this->model::class);
-        $request->route()->setBindingFields(['new_model' => $this->model]);
-
-        // Searching
-
-        $this->search->setQueryBuilder($this->model->query())
-            ->join((array)$request->get('with'))
-            ->filter((array)$request->get('filter'), Search::COMBINED_TYPE_AND)
-            ->combinedFilter((array)$request->get('filter'))
-            ->sort((array)$request->get('sort'))
-            ->show((array)$request->get('show'))
-            ->setPageSize((int)$request->get('page-size'));
+        if ($this->formRequestClass !== null) {
+            $request->route()->setBindingFields(['new_model' => $this->model]);
+            app()->bind(ValidatesWhenResolved::class, $this->formRequestClass);
+        }
     }
 
     // Default actions

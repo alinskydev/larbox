@@ -4,8 +4,8 @@
         <testsuite name="Feature">
             <!-- <directory suffix="Test.php">./http</directory> -->
             <!-- <directory suffix="Test.php">./http/Admin</directory> -->
-            <directory suffix="Test.php">./http/Common</directory>
-            <!-- <directory suffix="Test.php">./http/Client</directory> -->
+            <!-- <directory suffix="Test.php">./http/Common</directory> -->
+            <directory suffix="Test.php">./http/Website</directory>
         </testsuite>
     </testsuites>
     <coverage processUncoveredFiles="true">

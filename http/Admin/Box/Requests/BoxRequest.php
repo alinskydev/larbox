@@ -55,7 +55,7 @@ class BoxRequest extends ActiveFormRequest
                 'max:255',
                 new UniqueRule($this->model),
             ],
-            'description' => 'nullable|string',
+            'description' => 'present|nullable|string',
 
             'variations.*.name' => 'required|string|max:255',
         ];

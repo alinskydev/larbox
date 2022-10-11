@@ -16,13 +16,13 @@ class Brand extends Model
 
     protected $table = 'box_brand';
 
-    protected $attributes = [
-        'files_list' => '[]',
-    ];
-
     protected $casts = [
         'file' => AsFile::class,
         'files_list' => AsFiles::class,
+    ];
+
+    protected $attributes = [
+        'files_list' => '[]',
     ];
 
     public function creator()

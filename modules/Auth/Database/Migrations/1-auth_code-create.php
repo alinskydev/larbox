@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('key')->primary();
             $table->string('code')->index();
             $table->tinyInteger('attempts_left');
-            $table->timestamp('created_at');
+            $table->timestamp('created_at')->index();
         });
     }
 

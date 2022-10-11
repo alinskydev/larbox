@@ -18,11 +18,6 @@ class Box extends Model
 
     protected $table = 'box';
 
-    protected $attributes = [
-        'description' => '[]',
-        'images_list' => '[]',
-    ];
-
     protected $casts = [
         'name' => 'array',
         'description' => 'array',
@@ -30,6 +25,10 @@ class Box extends Model
         'datetime' => AsDatetime::class,
         'image' => AsImage::class . ':100|500',
         'images_list' => AsImages::class . ':100|500',
+    ];
+
+    protected $attributes = [
+        'images_list' => '[]',
     ];
 
     public function brand()

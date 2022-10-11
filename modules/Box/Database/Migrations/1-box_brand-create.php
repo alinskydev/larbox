@@ -22,7 +22,7 @@ return new class extends Migration
             $table->json('files_list');
             $table->boolean('show_on_the_home_page')->default(0)->index();
             $table->boolean('is_active')->default(0)->index();
-            $table->timestamp('created_at');
+            $table->timestamp('created_at')->index();
             $table->timestamp('updated_at');
             $table->softDeletes();
         });

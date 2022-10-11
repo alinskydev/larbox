@@ -16,6 +16,6 @@ if (!defined('LARBOX_TEST_ADMIN_HEADERS')) define('LARBOX_TEST_ADMIN_HEADERS', [
     'Authorization' => 'Basic ' . base64_encode('admin:admin123'),
 ]);
 
-if (!defined('LARBOX_TEST_CLIENT_HEADERS')) define('LARBOX_TEST_CLIENT_HEADERS', [
+if (!defined('LARBOX_TEST_WEBSITE_HEADERS')) define('LARBOX_TEST_WEBSITE_HEADERS', [
     'Authorization' => 'Basic ' . base64_encode('registered_1:user1234'),
 ]);

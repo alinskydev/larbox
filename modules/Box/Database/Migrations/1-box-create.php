@@ -24,7 +24,7 @@ return new class extends Migration
             $table->dateTime('datetime');
             $table->string('image')->nullable();
             $table->json('images_list');
-            $table->timestamp('created_at');
+            $table->timestamp('created_at')->index();
             $table->timestamp('updated_at');
             $table->softDeletes();
         });

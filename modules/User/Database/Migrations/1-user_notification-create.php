@@ -23,7 +23,7 @@ return new class extends Migration
             $table->bigInteger('action_id')->unsigned()->default(0);
             $table->json('params');
             $table->boolean('is_seen')->default(0);
-            $table->timestamp('created_at');
+            $table->timestamp('created_at')->index();
         });
     }
 

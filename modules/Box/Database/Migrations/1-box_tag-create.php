@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('box_tag', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->timestamp('created_at');
+            $table->timestamp('created_at')->index();
             $table->timestamp('updated_at');
             $table->softDeletes();
         });

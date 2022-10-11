@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->rememberToken();
-            $table->timestamp('created_at');
+            $table->timestamp('created_at')->index();
             $table->timestamp('updated_at');
             $table->softDeletes();
         });

@@ -38,8 +38,8 @@ class RouteServiceProvider extends ServiceProvider
                     Route::prefix('common')
                         ->group(glob(base_path('http/Common/*/routes.php')));
 
-                    Route::prefix('client')
-                        ->group(glob(base_path('http/Client/*/routes.php')));
+                    Route::prefix('website')
+                        ->group(glob(base_path('http/Website/*/routes.php')));
                 });
         });
 
