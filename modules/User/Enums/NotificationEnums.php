@@ -8,10 +8,10 @@ class NotificationEnums
     {
         return [
             'message' => [
-                'label' => __('Сообщение'),
+                'label' => __('notifications.message.label'),
             ],
             'announcement' => [
-                'label' => __('Объявление'),
+                'label' => __('notifications.announcement.label'),
             ],
         ];
     }

@@ -14,8 +14,6 @@ class Notification extends Model
     protected $hidden = [
         'creator_id',
         'owner_id',
-        'action_id',
-        'params',
     ];
 
     protected $casts = [
@@ -37,5 +35,9 @@ class Notification extends Model
         parent::boot();
 
         self::addGlobalScope(new UserScope('owner_id'));
+
+        static::creating(function (self $model) {
+            $model->creator_id ??= auth()->user()->id;
+        });
     }
 }
