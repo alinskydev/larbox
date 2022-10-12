@@ -17,7 +17,7 @@ class NotificationRequest extends FormRequest
                 'required',
                 Rule::in(['message', 'announcement']),
             ],
-            'message' => 'required|string',
+            'text' => 'required|string',
         ];
     }
 

@@ -28,7 +28,7 @@ export default {
                         toastr.success(this.__('Уведомление будет отправлено в ближайшее время'));
 
                         $('#' + this.id).modal('hide');
-                        $('#user-notification-create-form [name="message"]').val('');
+                        $('#user-notification-create-form [name="text"]').val('');
                     }
                 });
         },
@@ -54,7 +54,7 @@ export default {
 
                     <div class="modal-body">
                         <Input :item="inputs.type" />
-                        <Input :item="inputs.message" />
+                        <Input :item="inputs.text" />
                     </div>
 
                     <div class="modal-footer">

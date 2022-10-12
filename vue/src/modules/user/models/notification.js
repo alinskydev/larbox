@@ -66,7 +66,7 @@ export default new Model({
         created_at: {
             type: Enums.valueTypes.text,
         },
-        message: {
+        text: {
             type: Enums.valueTypes.text,
         },
     },

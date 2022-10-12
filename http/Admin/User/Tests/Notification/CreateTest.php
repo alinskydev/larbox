@@ -13,7 +13,7 @@ class CreateTest extends _TestCase
         $this->requestBody = [
             'user_query' => '?filter[common]=Admin&filter[role_id]=1',
             'type' => 'message',
-            'message' => 'Message 3',
+            'text' => 'Text 3',
         ];
 
         $this->response = $this->sendRequest();

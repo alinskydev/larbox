@@ -1,6 +1,8 @@
 import { Model } from '@/core/model';
 import * as Enums from '@/core/enums';
 
+import _ from 'lodash';
+
 export default new Model({
     form: {
         0: {
@@ -8,12 +10,16 @@ export default new Model({
                 type: Enums.inputTypes.select,
                 options: {
                     select: {
-                        items: (context) => context.booted.helpers.iterator.get(context.booted.enums.user.notification.types, '*.label'),
+                        items: (context) => {
+                            let types = context.booted.enums.user.notification.types;
+                            types = _.pick(types, ['message', 'announcement']);
+                            return context.booted.helpers.iterator.get(types, '*.label');
+                        },
                     },
                 },
                 size: Enums.inputSizes.xl,
             },
-            message: {
+            text: {
                 type: Enums.inputTypes.textarea,
                 size: Enums.inputSizes.xl,
                 attributes: {

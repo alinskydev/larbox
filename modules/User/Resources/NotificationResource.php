@@ -13,7 +13,7 @@ class NotificationResource extends JsonResource
         switch ($this->type) {
             case 'message':
             case 'announcement':
-                $data['message'] = $this->params['message'];
+                $data['text'] = $this->params['text'];
                 break;
         }
 

@@ -15,7 +15,7 @@ return new class extends Seeder
                 'owner_id' => 1,
                 'type' => 'message',
                 'params' => json_encode([
-                    'message' => 'Message 1',
+                    'text' => 'Text 1',
                 ]),
                 'created_at' => date('Y-m-d H:i:s'),
             ],
@@ -24,7 +24,7 @@ return new class extends Seeder
                 'owner_id' => 1,
                 'type' => 'message',
                 'params' => json_encode([
-                    'message' => 'Message 2',
+                    'text' => 'Text 2',
                 ]),
                 'created_at' => date('Y-m-d H:i:s'),
             ],
@@ -33,7 +33,7 @@ return new class extends Seeder
                 'owner_id' => 2,
                 'type' => 'message',
                 'params' => json_encode([
-                    'message' => 'Message 3',
+                    'text' => 'Text 3',
                 ]),
                 'created_at' => date('Y-m-d H:i:s'),
             ],

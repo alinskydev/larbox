@@ -61,7 +61,7 @@ class NotificationCreateJob implements ShouldQueue
                 'owner_id' => $value,
                 'type' => $this->data['type'],
                 'params' => json_encode([
-                    'message' => $this->data['message'],
+                    'text' => $this->data['text'],
                 ]),
                 'created_at' => date('Y-m-d H:i:s'),
             ], $ids);
