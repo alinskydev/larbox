@@ -44,7 +44,7 @@ export default {
         'box.brand': 'Brands',
         'box.tag': 'Tags',
         'feedback': 'Обратная связь',
-        'feedback.callback': 'Заявки',
+        'feedback.callback': 'Заявки с сообщениями',
         'home': 'Главная ru',
         'section': 'Секции',
         'section.boxes': 'Boxes',
