@@ -34,7 +34,7 @@ class FormHelper
         $languages = app('language')->all->toArray();
 
         return [
-            'head' => array_map(fn ($value) => 'Meta ' . $value['code'], $languages),
+            'head' => array_map(fn ($value) => '<meta name="description" content="Meta description" />', $languages),
         ];
     }
 

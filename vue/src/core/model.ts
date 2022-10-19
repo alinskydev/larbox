@@ -44,7 +44,22 @@ export class Model {
                 head: {
                     label: 'fields->seo_meta.head',
                     name: 'seo_meta[head]',
-                    value: 'seo_meta.head',
+                    value: (context, item) => {
+                        let value = item.seo_meta.head,
+                            result = [];
+
+                        for (let language in context.booted.languages.all) {
+                            result[language] =
+                                value[language] ??
+                                [
+                                    // '<meta name="description" content="" />',
+                                    // '<meta name="keywords" content="" />',
+                                    // '<meta property="og:description" content="" />',
+                                ].join('\n');
+                        }
+
+                        return result;
+                    },
                     type: Enums.inputTypes.textarea,
                     options: {
                         isLocalized: true,

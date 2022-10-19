@@ -12,7 +12,7 @@ return new class extends Seeder
             [
                 'seo_metable_type' => 'Modules\Section\Models\Section',
                 'seo_metable_id' => 2,
-                'head' => SeederHelper::localized('Meta'),
+                'head' => SeederHelper::localized('<meta name="description" content="Meta description" />', false),
             ],
         ]);
     }

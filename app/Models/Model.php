@@ -50,7 +50,7 @@ class Model extends BaseModel
 
         if (in_array(SeoMetaModelTrait::class, class_uses_recursive($this))) {
             $this->with[] = 'seo_meta_morph';
-            $this->append(['seo_meta']);
+            $this->append(['seo_meta', 'seo_meta_as_array']);
         }
 
         return parent::__construct($attributes);

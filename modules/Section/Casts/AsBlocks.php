@@ -13,6 +13,7 @@ class AsBlocks implements CastsAttributes
 
         if (!in_array($model->name, ['layout'])) {
             $value->put('seo_meta', $model->seo_meta);
+            $value->put('seo_meta_as_array', $model->seo_meta_as_array);
         }
 
         return $value->map(function ($value, $key) {

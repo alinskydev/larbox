@@ -42,18 +42,6 @@ export default {
         <ComponentResolver :resolve="item.options.component.resolve(booted.components.current, item)" />
     </template>
 
-    <template v-else-if="item.type === Enums.valueTypes.link">
-        <template v-if="typeof item.value === 'object'" v-for="(link, key) in item.value">
-            <a :href="link" target="_blank" class="d-block">
-                {{ __('Ссылка №:index', { index: key + 1 }) }}
-            </a>
-        </template>
-
-        <a v-else :href="item.value" target="_blank">
-            {{ __('Ссылка') }}
-        </a>
-    </template>
-
     <template v-else-if="item.type === Enums.valueTypes.html">
         <div v-html="item.value" v-bind="item.attributes"></div>
     </template>
@@ -73,6 +61,18 @@ export default {
 
     <template v-else-if="item.type === Enums.valueTypes.json">
         <pre v-html="JSON.stringify(item.value, null, 2)"></pre>
+    </template>
+
+    <template v-else-if="item.type === Enums.valueTypes.link">
+        <template v-if="typeof item.value === 'object'" v-for="(link, key) in item.value">
+            <a :href="link" target="_blank" class="d-block">
+                {{ __('Ссылка №:index', { index: key + 1 }) }}
+            </a>
+        </template>
+
+        <a v-else :href="item.value" target="_blank">
+            {{ __('Ссылка') }}
+        </a>
     </template>
 
     <template v-else-if="item.type === Enums.valueTypes.price">
