@@ -1,2 +1,2 @@
-DirectoryIndex index.html
+DirectoryIndex index_prod.html
 ErrorDocument 404 /

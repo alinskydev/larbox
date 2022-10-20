@@ -4,18 +4,17 @@ namespace Modules\System\Singletons;
 
 use Illuminate\Support\Arr;
 use Modules\System\Models\Language;
-use Illuminate\Database\Eloquent\Collection;
 
 class LanguageSingleton
 {
-    public Collection $all;
-    public Collection $active;
-    public Language $main;
+    public array $all;
+    public array $active;
+    public array $main;
 
     public function __construct()
     {
-        $this->all = Language::query()->get()->keyBy('code');
-        $this->active = $this->all->filter(fn ($value) => $value->is_active);
+        $this->all = Language::query()->get()->keyBy('code')->toArray();
+        $this->active = array_filter($this->all, fn ($value) => $value['is_active']);
         $this->main = Arr::keyBy($this->active, 'is_main')[1];
 
         // Setting locale
@@ -25,7 +24,7 @@ class LanguageSingleton
         if (isset($this->active[$locale])) {
             app()->setLocale($locale);
         } else {
-            app()->setLocale($this->main->code);
+            app()->setLocale($this->main['code']);
         }
     }
 }

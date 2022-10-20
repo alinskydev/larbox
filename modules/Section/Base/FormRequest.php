@@ -20,7 +20,7 @@ class FormRequest extends BaseFormRequest
     {
         $this->model = $this->model ?? request()->route()->controller->model;
 
-        $languages = app('language')->all->toArray();
+        $languages = app('language')->all;
 
         foreach ($this->localizedFileFields as $field => $value) {
             foreach ($languages as $language) {

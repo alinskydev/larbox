@@ -43,7 +43,7 @@ class FormRequest extends BaseFormRequest
             $rules += $this->seoMetaRules();
         }
 
-        $languages = app('language')->all->toArray();
+        $languages = app('language')->all;
 
         foreach ($this->localizedRules() as $key => $rule) {
             foreach ($languages as $language) {

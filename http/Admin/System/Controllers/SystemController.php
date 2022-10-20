@@ -42,12 +42,12 @@ class SystemController extends Controller
 
     private function translations()
     {
-        return app('language')->all->map(function ($value, $key) {
-            $path = lang_path($value->code);
+        return array_map(function ($value) {
+            $path = lang_path($value['code']);
 
             return [
                 'fields' => require("$path/fields.php"),
             ];
-        });
+        }, app('language')->all);
     }
 }

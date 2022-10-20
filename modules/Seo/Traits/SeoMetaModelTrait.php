@@ -11,7 +11,7 @@ trait SeoMetaModelTrait
         $languages = app('language')->all;
 
         return $this->seo_meta_morph ?? [
-            'head' => $languages->map(fn ($value, $key) => null),
+            'head' => array_map(fn ($value) => null, $languages),
         ];
     }
 
@@ -41,7 +41,7 @@ trait SeoMetaModelTrait
             $languages = app('language')->all;
 
             return  [
-                'head' => $languages->map(fn ($value, $key) => []),
+                'head' => array_map(fn ($value) => [], $languages),
             ];
         }
     }

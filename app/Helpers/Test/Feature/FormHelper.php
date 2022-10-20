@@ -8,7 +8,7 @@ class FormHelper
 {
     public static function localized(string $string)
     {
-        $languages = app('language')->all->toArray();
+        $languages = app('language')->all;
         return array_map(fn ($value) => "$string " . $value['code'], $languages);
     }
 
@@ -25,13 +25,13 @@ class FormHelper
         int $size = 100,
         ?string $mime = 'image/jpeg',
     ) {
-        $languages = app('language')->all->toArray();
+        $languages = app('language')->all;
         return array_map(fn ($value) => UploadedFile::fake()->create($name, $size, $mime), $languages);
     }
 
     public static function seoMeta()
     {
-        $languages = app('language')->all->toArray();
+        $languages = app('language')->all;
 
         return [
             'head' => array_map(fn ($value) => '<meta name="description" content="Meta description" />', $languages),

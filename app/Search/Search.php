@@ -16,6 +16,8 @@ class Search
     public const FILTER_TYPE_DATE = 'filterTypeDate';
     public const FILTER_TYPE_DATETIME = 'filterTypeDatetime';
     public const FILTER_TYPE_LOCALIZED = 'filterTypeLocalized';
+    public const FILTER_TYPE_JSON_CONTAINS_AND = 'filterTypeJsonContainsAnd';
+    public const FILTER_TYPE_JSON_CONTAINS_OR = 'filterTypeJsonContainsOr';
 
     public const COMBINED_TYPE_AND = 'where';
     public const COMBINED_TYPE_OR = 'orWhere';
@@ -113,6 +115,8 @@ class Search
         if (in_array($type, [
             self::FILTER_TYPE_IN,
             self::FILTER_TYPE_BETWEEN,
+            self::FILTER_TYPE_JSON_CONTAINS_AND,
+            self::FILTER_TYPE_JSON_CONTAINS_OR,
         ])) {
             $value = (array)$value;
         } else {
@@ -145,6 +149,16 @@ class Search
             case self::FILTER_TYPE_LOCALIZED:
                 $locale = app()->getLocale();
                 $query->{$combinedType}(DB::raw("LOWER(JSON_UNQUOTE($param->'$.$locale'))"), 'LIKE', "%$value%");
+                break;
+            case self::FILTER_TYPE_JSON_CONTAINS_AND:
+                $query->{$combinedType}(function ($q) use ($param, $value) {
+                    foreach ($value as $v) $q->whereJsonContains($param, $v);
+                });
+                break;
+            case self::FILTER_TYPE_JSON_CONTAINS_OR:
+                $query->{$combinedType}(function ($q) use ($param, $value) {
+                    foreach ($value as $v) $q->orWhereJsonContains($param, $v);
+                });
                 break;
         }
     }
