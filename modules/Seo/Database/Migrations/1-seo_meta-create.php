@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('seo_metable_type');
             $table->bigInteger('seo_metable_id')->unsigned();
-            $table->json('head');
+            $table->json('value');
 
             $table->unique(['seo_metable_type', 'seo_metable_id']);
         });

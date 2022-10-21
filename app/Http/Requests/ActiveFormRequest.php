@@ -26,7 +26,9 @@ class ActiveFormRequest extends FormRequest
         $data = $this->validated();
 
         if (in_array(SeoMetaFormRequestTrait::class, class_uses_recursive($this))) {
-            $this->model->fillableRelations[$this->model::RELATION_TYPE_ONE_ONE]['seo_meta_morph'] = $data['seo_meta'];
+            $this->model->fillableRelations[$this->model::RELATION_TYPE_ONE_ONE]['seo_meta_morph'] = [
+                'value' => Arr::pull($data, 'seo_meta'),
+            ];
         }
 
         DB::beginTransaction();

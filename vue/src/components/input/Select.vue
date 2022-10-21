@@ -9,7 +9,6 @@ export default {
     },
     data() {
         return {
-            options: this.item.options,
             inputOptions: this.item.options.select ?? {},
             items: {},
         };

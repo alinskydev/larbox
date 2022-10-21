@@ -9,32 +9,48 @@ export default {
     },
     data() {
         return {
+            value: this.item.value ? Object.values(this.item.value) : [],
+            inputOptions: this.item.options.select2Array ?? {},
             items: {},
         };
     },
     created() {
-        this.items = this.item.value.reduce((obj, key, index) => ({ ...obj, [key]: this.item.value[index] }), {});
+        if (this.inputOptions.items) {
+            this.items = typeof this.inputOptions.items === 'function' ? this.inputOptions.items(this) : this.inputOptions.items;
+        } else {
+            this.items = this.value.reduce((obj, key, index) => ({ ...obj, [key]: this.value[index] }), {});
+        }
     },
     mounted() {
-        $('#' + this.item.id).select2({
+        let select2Options = {
             allowClear: true,
             placeholder: '',
-            tags: true,
-            createTag: (data) => {
-                return {
-                    id: data.term,
-                    text: data.term,
-                    newTag: true,
-                };
-            },
-        });
+        };
+
+        if (!this.inputOptions.items) {
+            select2Options = {
+                ...select2Options,
+                ...{
+                    tags: true,
+                    createTag: (data) => {
+                        return {
+                            id: data.term,
+                            text: data.term,
+                            newTag: true,
+                        };
+                    },
+                },
+            };
+        }
+
+        $('#' + this.item.id).select2(select2Options);
     },
 };
 </script>
 
 <template>
     <select :multiple="true" v-bind="$attrs" :name="item.name + '[]'">
-        <option v-for="(selectItem, key) in items" :value="key" selected>
+        <option v-for="(selectItem, key) in items" :value="key" :selected="value.includes(key)">
             {{ selectItem }}
         </option>
     </select>

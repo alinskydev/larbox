@@ -3,7 +3,7 @@ let authUsername = localStorage.getItem('auth_username') ?? '',
 
 export default {
     http: {
-        url: window.__VUE_OPTIONS_API__ ? 'http://larbox.loc/admin' : 'http://larbox.loc/admin',
+        url: LARBOX.http.url,
         headers: {
             'Accept': 'application/json',
             'Accept-Language': null,

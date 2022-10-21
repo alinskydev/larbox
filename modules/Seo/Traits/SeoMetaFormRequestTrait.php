@@ -13,7 +13,7 @@ trait SeoMetaFormRequestTrait
         $languages = app('language')->all;
 
         $seoMetaRules = [
-            'seo_meta.head' => 'present|nullable|string',
+            'seo_meta' => 'present|nullable|string',
         ];
 
         foreach ($seoMetaRules as &$rule) {

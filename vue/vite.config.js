@@ -17,7 +17,4 @@ export default defineConfig({
             input: './index_prod.html',
         },
     },
-    server: {
-        open: '/',
-    },
 });

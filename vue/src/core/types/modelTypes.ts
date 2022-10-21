@@ -54,6 +54,9 @@ export type inputParams = {
             field: string;
             hasPrompt: boolean;
         };
+        select2Array: {
+            items: Object | ((context: any) => any);
+        };
     };
     attributes: Object | ((context: any, item: Object) => any);
     size: Enums.inputSizes;

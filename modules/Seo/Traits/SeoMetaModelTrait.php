@@ -8,17 +8,13 @@ trait SeoMetaModelTrait
 {
     public function getSeoMetaAttribute()
     {
-        $languages = app('language')->all;
-
-        return $this->seo_meta_morph ?? [
-            'head' => array_map(fn ($value) => null, $languages),
-        ];
+        return $this->seo_meta_morph ? $this->seo_meta_morph->value : array_map(fn ($value) => null, app('language')->all);
     }
 
     public function getSeoMetaAsArrayAttribute()
     {
         if ($this->seo_meta_morph) {
-            $head = array_map(function ($value) {
+            return array_map(function ($value) {
                 if ($value == strip_tags($value)) return [];
 
                 $result = [];
@@ -34,15 +30,9 @@ trait SeoMetaModelTrait
                 }
 
                 return $result;
-            }, $this->seo_meta_morph['head']);
-
-            return ['head' => $head];
+            }, $this->seo_meta_morph->value);
         } else {
-            $languages = app('language')->all;
-
-            return  [
-                'head' => array_map(fn ($value) => [], $languages),
-            ];
+            return  array_map(fn ($value) => [], app('language')->all);
         }
     }
 

@@ -51,7 +51,6 @@ export default new Model({
             size: Enums.inputSizes.xl,
         },
         id: {
-            value: (context, item) => Object.values(item.id ?? {}),
             type: Enums.inputTypes.select2Array,
             size: Enums.inputSizes.xl,
         },

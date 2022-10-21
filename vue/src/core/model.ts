@@ -41,11 +41,9 @@ export class Model {
 
         if (config.hasSeoMeta) {
             this.form['SEO meta'] = {
-                head: {
-                    label: 'fields->seo_meta.head',
-                    name: 'seo_meta[head]',
+                seo_meta: {
                     value: (context, item) => {
-                        let value = item.seo_meta.head,
+                        let value = item.seo_meta,
                             result = [];
 
                         for (let language in context.booted.languages.all) {

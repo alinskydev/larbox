@@ -10,14 +10,12 @@ class Meta extends Model
 
     public $timestamps = false;
 
-    protected $hidden = [
-        'id',
-        'seo_metable_type',
-        'seo_metable_id',
+    protected $visible = [
+        'value',
     ];
 
     protected $casts = [
-        'head' => 'array',
+        'value' => 'array',
     ];
 
     public function seo_metable()

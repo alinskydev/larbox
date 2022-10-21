@@ -33,9 +33,7 @@ class FormHelper
     {
         $languages = app('language')->all;
 
-        return [
-            'head' => array_map(fn ($value) => '<meta name="description" content="Meta description" />', $languages),
-        ];
+        return array_map(fn ($value) => '<meta name="description" content="Meta description" />', $languages);
     }
 
     public static function multiply(array $indexes, callable $callback)
