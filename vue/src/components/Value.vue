@@ -42,6 +42,12 @@ export default {
         <ComponentResolver :resolve="item.options.component.resolve(booted.components.current, item)" />
     </template>
 
+    <template v-else-if="item.type === Enums.valueTypes.fields">
+        <div v-for="field in item.options.fields">
+            {{ __('fields->' + field) + ': ' + item.value[field] }}
+        </div>
+    </template>
+
     <template v-else-if="item.type === Enums.valueTypes.html">
         <div v-html="item.value" v-bind="item.attributes"></div>
     </template>

@@ -31,17 +31,12 @@ export default new Model({
         price: {
             type: Enums.valueTypes.price,
         },
-        date: {
-            label: 'fields->dates',
-            value: (context, item) => {
-                let result = [context.__('fields->date') + ' ' + item.date, context.__('fields->datetime') + ' ' + item.datetime];
-
-                return result.join('<br>');
+        dates: {
+            value: (context, item) => item,
+            type: Enums.valueTypes.fields,
+            options: {
+                fields: ['date', 'datetime'],
             },
-            type: Enums.valueTypes.html,
-        },
-        datetime: {
-            type: Enums.valueTypes.text,
         },
         brand_id: {
             value: 'brand.name',

@@ -46,6 +46,8 @@ export class Model {
                         let value = item.seo_meta,
                             result = [];
 
+                        if (!value) return null;
+
                         for (let language in context.booted.languages.all) {
                             result[language] =
                                 value[language] ??

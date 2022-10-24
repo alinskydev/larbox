@@ -8,6 +8,7 @@ export type valueParams = {
         component: {
             resolve: (context: any, item: Object) => any;
         };
+        fields: Array<string>;
         httpSelect: {
             path: string;
             items: Object | ((context: any) => any);

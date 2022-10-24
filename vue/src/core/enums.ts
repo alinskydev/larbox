@@ -2,6 +2,7 @@ export enum valueTypes {
     array,
     boolean,
     component,
+    fields,
     html,
     httpSelect,
     httpSwitcher,
