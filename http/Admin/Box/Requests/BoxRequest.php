@@ -6,8 +6,8 @@ use App\Http\Requests\ActiveFormRequest;
 use Modules\Seo\Traits\SeoMetaFormRequestTrait;
 
 use Illuminate\Validation\Rule;
-use App\Rules\ExistsWithOldRule;
 use App\Rules\UniqueRule;
+use App\Rules\ExistsWithOldRule;
 use App\Helpers\Validation\FileValidationHelper;
 
 use Modules\Box\Models\Brand;

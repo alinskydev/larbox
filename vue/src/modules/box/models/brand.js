@@ -16,9 +16,7 @@ export default new Model({
         slug: {
             type: Enums.valueTypes.websiteLink,
             options: {
-                websiteLink: {
-                    path: 'box/brand/:value',
-                },
+                websiteLink: 'box/brand/:value',
             },
         },
         show_on_the_home_page: {
@@ -117,9 +115,7 @@ export default new Model({
         slug: {
             type: Enums.valueTypes.websiteLink,
             options: {
-                websiteLink: {
-                    path: 'box/brand/:value',
-                },
+                websiteLink: 'box/brand/:value',
             },
         },
         file: {

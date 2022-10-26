@@ -18,8 +18,8 @@ class UserRequest extends ActiveFormRequest
         return [
             'role_id' => [
                 'nullable',
-                Rule::prohibitedIf($this->model->id == 1),
                 new ExistsWithOldRule($this->model, Role::class, 'role_id'),
+                Rule::prohibitedIf($this->model->id == 1),
             ],
             'username' => [
                 'required',

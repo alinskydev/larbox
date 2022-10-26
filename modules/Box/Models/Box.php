@@ -5,6 +5,7 @@ namespace Modules\Box\Models;
 use App\Models\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Seo\Traits\SeoMetaModelTrait;
+use Illuminate\Database\Eloquent\Builder;
 
 use App\Casts\Date\AsDate;
 use App\Casts\Date\AsDatetime;
@@ -49,5 +50,10 @@ class Box extends Model
             'box_id',
             'tag_id',
         )->withTrashed();
+    }
+
+    public function scopePublished(Builder $query)
+    {
+        $query->where('datetime', '<=', date('Y-m-d'));
     }
 }

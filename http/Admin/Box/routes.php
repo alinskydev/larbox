@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use Http\Admin\Box\Controllers\BoxController;
 use Http\Admin\Box\Controllers\BrandController;
+use Http\Admin\Box\Controllers\CategoryController;
 use Http\Admin\Box\Controllers\TagController;
 use App\Http\Controllers\Actions\DeleteFileAction;
 use App\Http\Controllers\Actions\SetValueAction;
@@ -39,6 +40,9 @@ Route::prefix('box')
                     ->setBindingFields(['field' => 'is_active'])
                     ->name('setActive');
             });
+
+        Route::apiResource('category', CategoryController::class)->except(['deleteAll', 'restoreAll']);
+        Route::get('category-tree', [CategoryController::class, 'tree'])->name('category.tree');
 
         Route::apiResource('tag', TagController::class);
     });

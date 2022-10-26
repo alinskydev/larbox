@@ -97,7 +97,7 @@ export default {
 
     <template v-else-if="item.type === Enums.valueTypes.websiteLink">
         <a
-            :href="booted.config.http.websiteUrl + '/' + booted.locale + '/' + item.options.websiteLink.path.replace(':value', item.value)"
+            :href="booted.config.http.websiteUrl + '/' + booted.locale + '/' + item.options.websiteLink.replace(':value', item.value)"
             target="_blank"
         >
             {{ item.value }}

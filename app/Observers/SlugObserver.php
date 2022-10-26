@@ -15,7 +15,7 @@ class SlugObserver
         $sourceValue = $model->{$this->sourceField};
 
         if (is_array($sourceValue)) {
-            $locale = app()->getLocale();
+            $locale = app('language')->main['code'];
             $sourceValue = Arr::get($sourceValue, $locale);
         }
 

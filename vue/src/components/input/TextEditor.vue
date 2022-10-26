@@ -75,8 +75,8 @@ export default {
 
                     input.click();
                 },
-                images_upload_handler: (blobInfo, progress) =>
-                    new Promise((resolve, reject) => {
+                images_upload_handler: (blobInfo, progress) => {
+                    return new Promise((resolve, reject) => {
                         let formData = new FormData();
                         formData.append('file', blobInfo.blob(), blobInfo.filename());
 
@@ -89,10 +89,15 @@ export default {
                             .then((response) => {
                                 if (response.statusType === 'success') {
                                     resolve(response.data.absolute);
+                                } else {
+                                    reject({
+                                        message: response.data.message,
+                                        remove: true,
+                                    });
                                 }
                             });
-                    }),
-
+                    });
+                },
                 setup: function (editor) {
                     editor.on('change', function () {
                         tinymce.triggerSave();

@@ -75,7 +75,7 @@ select.select2-hidden-accessible {
     transform: rotateZ(90deg);
 }
 
-.crud-index-data .selection {
+input[type="checkbox"] {
     width: 20px;
     height: 20px;
     accent-color: #007bff;
@@ -100,4 +100,13 @@ select.select2-hidden-accessible {
     width: 20px;
     height: 20px;
     accent-color: #007bff;
+}
+
+.jstree-default .jstree-disabled {
+    opacity: 0.7;
+    color: #dc3545;
+}
+
+.jstree-default .jstree-search {
+    color: #007bff;
 }

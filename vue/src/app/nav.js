@@ -44,6 +44,10 @@ export default [
                 path: 'box/brand',
             },
             {
+                label: 'box.category',
+                path: 'box/category',
+            },
+            {
                 label: 'box.tag',
                 path: 'box/tag',
             },

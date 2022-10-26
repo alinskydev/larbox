@@ -8,7 +8,6 @@ use Illuminate\Support\Arr;
 class RoleHelper
 {
     private static array $excludedRoutes = [
-        'admin.storage',
         'admin.system.information',
         'admin.user.notification.index',
         'admin.user.notification.show',

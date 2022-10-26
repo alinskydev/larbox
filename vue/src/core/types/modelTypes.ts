@@ -18,9 +18,7 @@ export type valueParams = {
             path: string;
             onSuccess: (context: any, value: any) => any;
         };
-        websiteLink: {
-            path: string;
-        };
+        websiteLink: string;
     };
     attributes: Object | ((context: any, item: Object) => any);
 };

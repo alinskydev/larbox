@@ -20,29 +20,19 @@ class Model extends BaseModel
 
     public function __construct(array $attributes = [])
     {
-        // Common guarded fields
-
-        $commonGuardedFields = [
+        $this->mergeGuarded([
             'id',
             'created_at',
             'updated_at',
             'deleted_at',
-        ];
+        ]);
 
-        $this->mergeGuarded($commonGuardedFields);
-
-        // Common hidden fields
-
-        $commonHiddenFields = [
+        $this->makeHidden([
             'deleted_at',
             'sort_index',
             'pivot',
             'seo_meta_morph',
-        ];
-
-        $this->makeHidden($commonHiddenFields);
-
-        // Common appended fields
+        ]);
 
         if (in_array(SoftDeletes::class, class_uses_recursive($this))) {
             $this->append(['is_deleted']);

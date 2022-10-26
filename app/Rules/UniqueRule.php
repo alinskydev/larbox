@@ -3,7 +3,6 @@
 namespace App\Rules;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
 use App\Models\Model;
@@ -13,6 +12,7 @@ class UniqueRule extends Rule
     public function __construct(
         public Model $model,
         public bool $showPK = true,
+        public ?\Closure $extraQuery = null,
     ) {
     }
 
@@ -33,6 +33,10 @@ class UniqueRule extends Rule
 
         if (in_array(SoftDeletes::class, class_uses_recursive($this->model))) {
             $query->withTrashed();
+        }
+
+        if ($this->extraQuery) {
+            ($this->extraQuery)($query);
         }
 
         $modelExists = $query->first();

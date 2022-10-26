@@ -47,6 +47,16 @@ export default {
             ],
         },
         {
+            path: 'category',
+            component: () => import('@/components/decorators/Empty.vue'),
+            children: [
+                {
+                    path: '',
+                    component: () => import('./views/category/Index.vue'),
+                },
+            ],
+        },
+        {
             path: 'tag',
             component: () => import('@/components/decorators/Empty.vue'),
             children: [
