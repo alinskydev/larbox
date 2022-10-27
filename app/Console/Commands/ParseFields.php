@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use App\Models\Model;
+use App\Base\Model;
 use Illuminate\Support\Facades\Schema;
 
 class ParseFields extends Command
@@ -97,10 +97,14 @@ class ParseFields extends Command
         // Saving
 
         $outputData = implode("\n", $outputData);
-        $outputFileName = "$path/" . date('Y_m_d___H_i_s') . '_fields.php';
+        $outputFileName = "$path/" . date('Y_m_d__H_i_s') . '_fields.php';
 
         file_put_contents($outputFileName, $outputData);
-        $this->info("Output file is store in: $outputFileName");
+
+        $this->line('File:');
+        $this->line($outputFileName);
+        $this->line('Folder:');
+        $this->line($path);
     }
 
     private function formAttributes(string $formRequestClass)

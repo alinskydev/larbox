@@ -2,7 +2,7 @@
 
 namespace Modules\Feedback\Search;
 
-use App\Search\Search;
+use App\Base\Search;
 
 class CallbackSearch extends Search
 {

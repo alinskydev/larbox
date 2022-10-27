@@ -74,6 +74,7 @@ export default {
         'file': 'Файл',
         'index': 'Список',
         'media': 'Медиа',
+        'move': 'Перенос',
         'restore': 'Восстановление',
         'restoreAll': 'Множественное восстановление',
         'setActive': 'Активация',

@@ -3,7 +3,7 @@
 namespace Modules\Section\Base;
 
 use App\Http\Requests\FormRequest as BaseFormRequest;
-use App\Models\Model;
+use App\Base\Model;
 use Modules\Seo\Traits\SeoMetaFormRequestTrait;
 
 use Illuminate\Support\Arr;

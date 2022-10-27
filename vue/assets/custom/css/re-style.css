@@ -76,9 +76,12 @@ select.select2-hidden-accessible {
 }
 
 input[type="checkbox"] {
+    accent-color: #007bff;
+}
+
+input[type="checkbox"].checkbox-lg {
     width: 20px;
     height: 20px;
-    accent-color: #007bff;
 }
 
 .crud-index-data .actions {
@@ -94,12 +97,6 @@ input[type="checkbox"] {
     max-width: 178px;
     overflow: hidden;
     text-overflow: ellipsis;
-}
-
-.checkbox-lg {
-    width: 20px;
-    height: 20px;
-    accent-color: #007bff;
 }
 
 .jstree-default .jstree-disabled {

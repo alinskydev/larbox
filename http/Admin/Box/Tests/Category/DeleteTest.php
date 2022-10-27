@@ -8,11 +8,11 @@ class DeleteTest extends _TestCase
 {
     public function test_delete()
     {
-        (new DeleteFeatureTestService($this))->delete();
+        (new DeleteFeatureTestService($this))->delete('3');
     }
 
     public function test_restore()
     {
-        (new DeleteFeatureTestService($this))->restore();
+        (new DeleteFeatureTestService($this))->restore('3/restore');
     }
 }

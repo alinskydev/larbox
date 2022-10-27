@@ -2,7 +2,7 @@
 
 namespace Modules\Auth\Mail;
 
-use App\Mail\Mail;
+use App\Base\Mail;
 
 class CodeMail extends Mail
 {

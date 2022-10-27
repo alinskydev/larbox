@@ -3,7 +3,6 @@
 namespace App\Services\Test\Feature;
 
 use App\Services\Test\FeatureTestService;
-use App\Search\Search;
 
 class IndexFeatureTestService extends FeatureTestService
 {

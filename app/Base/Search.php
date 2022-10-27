@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Search;
+namespace App\Base;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;

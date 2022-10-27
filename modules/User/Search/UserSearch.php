@@ -2,7 +2,7 @@
 
 namespace Modules\User\Search;
 
-use App\Search\Search;
+use App\Base\Search;
 
 class UserSearch extends Search
 {

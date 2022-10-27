@@ -2,7 +2,7 @@
 
 namespace Modules\System\Search;
 
-use App\Search\Search;
+use App\Base\Search;
 
 class LanguageSearch extends Search
 {

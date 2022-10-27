@@ -2,7 +2,7 @@
 
 namespace Modules\Section\Models;
 
-use App\Models\Model;
+use App\Base\Model;
 use Modules\Seo\Traits\SeoMetaModelTrait;
 use Modules\Section\Casts\AsBlocks;
 

@@ -2,7 +2,7 @@
 
 namespace App\Observers;
 
-use App\Models\Model;
+use App\Base\Model;
 
 class CreatorObserver
 {

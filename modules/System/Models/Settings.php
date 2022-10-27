@@ -2,7 +2,7 @@
 
 namespace Modules\System\Models;
 
-use App\Models\Model;
+use App\Base\Model;
 
 class Settings extends Model
 {

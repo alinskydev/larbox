@@ -8,7 +8,7 @@ use Modules\User\Search\NotificationSearch;
 use Modules\User\Resources\NotificationResource;
 use Http\Admin\User\Requests\NotificationRequest;
 
-use App\Models\Model;
+use App\Base\Model;
 
 class NotificationController extends ResourceController
 {

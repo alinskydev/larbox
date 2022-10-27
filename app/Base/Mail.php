@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Mail;
+namespace App\Base;
 
 use Illuminate\Support\Facades\View;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 

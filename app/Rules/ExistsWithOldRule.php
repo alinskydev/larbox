@@ -2,7 +2,7 @@
 
 namespace App\Rules;
 
-use App\Models\Model;
+use App\Base\Model;
 
 class ExistsWithOldRule extends Rule
 {

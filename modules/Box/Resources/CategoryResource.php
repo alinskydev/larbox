@@ -61,7 +61,6 @@ class CategoryResource extends JsonResource
     {
         foreach ($items as &$item) {
             $item['full_slug'] = implode('/', array_merge($prefix, [$item['slug']]));
-            $item['ancestors'] = null;
 
             if ($item['children']) {
                 $this->appendChildrenFields($item['children'], array_merge($prefix, [$item['slug']]));

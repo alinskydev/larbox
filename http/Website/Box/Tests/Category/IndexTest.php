@@ -1,6 +1,6 @@
 <?php
 
-namespace Http\Admin\Box\Tests\Category;
+namespace Http\Website\Box\Tests\Category;
 
 use App\Services\Test\Feature\IndexFeatureTestService;
 use Modules\Box\Search\CategorySearch;
@@ -24,16 +24,6 @@ class IndexTest extends _TestCase
 
         $this->response = $this->sendRequest();
         $this->response->assertStatus(206);
-    }
-
-    public function test_show_with_deleted()
-    {
-        (new IndexFeatureTestService($this))->showWithDeleted();
-    }
-
-    public function test_show_only_deleted()
-    {
-        (new IndexFeatureTestService($this))->showOnlyDeleted();
     }
 
     public function test_pagination()

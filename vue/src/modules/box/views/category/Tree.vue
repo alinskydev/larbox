@@ -4,8 +4,10 @@ import { IndexConfig } from '@/core/crud/config';
 import model from '@/modules/box/models/category';
 
 import PageTitle from '@/components/blocks/PageTitle.vue';
+
 import Tree from '@/components/hierarchy/Tree.vue';
 import Create from './Create.vue';
+import Show from './Show.vue';
 import Update from './Update.vue';
 </script>
 
@@ -62,6 +64,7 @@ export default {
             <div class="modal-dialog modal-xl">
                 <div class="modal-content" :key="formKey">
                     <Create v-if="formType === 'create'" :id="id" />
+                    <Show v-else-if="formType === 'show'" :id="id" />
                     <Update v-else-if="formType === 'update'" :id="id" />
                 </div>
             </div>

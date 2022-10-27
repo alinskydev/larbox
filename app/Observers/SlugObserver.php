@@ -2,7 +2,7 @@
 
 namespace App\Observers;
 
-use App\Models\Model;
+use App\Base\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
@@ -21,12 +21,12 @@ class SlugObserver
 
         $slug = Str::slug($sourceValue);
 
-        $anotherModel = $model->query()
+        $modelWithSameSlug = $model->query()
             ->where('slug', $slug)
             ->where('id', '!=', $model->id)
             ->first();
 
-        if ($anotherModel) {
+        if ($modelWithSameSlug) {
             $slug .= '-' . uniqid();
         }
 

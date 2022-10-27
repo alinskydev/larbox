@@ -19,8 +19,8 @@ class CategoryRequest extends ActiveFormRequest
                 'required',
                 'string',
                 'max:255',
-                new UniqueRule($this->model, extraQuery: function ($query) {
-                    $query->where('depth', $this->model->depth ?? 1);
+                new UniqueRule($this->model, false, extraQuery: function ($query) {
+                    $query->where('parent_id', $this->model->parent_id ?? 1);
                 }),
             ],
         ];

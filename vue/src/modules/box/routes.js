@@ -51,8 +51,8 @@ export default {
             component: () => import('@/components/decorators/Empty.vue'),
             children: [
                 {
-                    path: '',
-                    component: () => import('./views/category/Index.vue'),
+                    path: 'tree',
+                    component: () => import('./views/category/Tree.vue'),
                 },
             ],
         },
@@ -77,6 +77,10 @@ export default {
                     component: () => import('./views/tag/Update.vue'),
                 },
             ],
+        },
+        {
+            path: 'test/:full_slug(.*)',
+            component: () => import('./components/Test.vue'),
         },
     ],
 };

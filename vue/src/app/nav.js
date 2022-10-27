@@ -45,7 +45,7 @@ export default [
             },
             {
                 label: 'box.category',
-                path: 'box/category',
+                path: 'box/category/tree',
             },
             {
                 label: 'box.tag',

@@ -2,7 +2,7 @@
 
 namespace Modules\System\Models;
 
-use App\Models\Model;
+use App\Base\Model;
 use App\Casts\Storage\AsImage;
 use Illuminate\Support\Arr;
 

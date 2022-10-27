@@ -2,7 +2,7 @@
 
 namespace Modules\User\Models;
 
-use App\Models\Model;
+use App\Base\Model;
 use Modules\User\Scopes\UserScope;
 
 class Notification extends Model

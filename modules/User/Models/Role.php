@@ -2,7 +2,7 @@
 
 namespace Modules\User\Models;
 
-use App\Models\Model;
+use App\Base\Model;
 
 class Role extends Model
 {

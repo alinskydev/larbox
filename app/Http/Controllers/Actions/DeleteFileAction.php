@@ -7,7 +7,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
-use App\Models\Model;
+use App\Base\Model;
 use App\Helpers\FileHelper;
 use Illuminate\Support\Arr;
 

@@ -5,7 +5,7 @@ namespace App\Rules;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 
-use App\Models\Model;
+use App\Base\Model;
 
 class UniqueRule extends Rule
 {

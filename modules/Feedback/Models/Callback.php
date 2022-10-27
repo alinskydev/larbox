@@ -2,7 +2,7 @@
 
 namespace Modules\Feedback\Models;
 
-use App\Models\Model;
+use App\Base\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Callback extends Model

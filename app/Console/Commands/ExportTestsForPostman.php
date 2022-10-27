@@ -79,7 +79,10 @@ class ExportTestsForPostman extends Command
         file_put_contents($outputFileName, $outputData);
         File::delete($inputFileName);
 
-        $this->info("Output file is store in: $outputFileName");
+        $this->line('File:');
+        $this->line($outputFileName);
+        $this->line('Folder:');
+        $this->line($path);
     }
 
     private function addItems(array $items)

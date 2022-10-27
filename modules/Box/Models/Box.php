@@ -2,7 +2,7 @@
 
 namespace Modules\Box\Models;
 
-use App\Models\Model;
+use App\Base\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Seo\Traits\SeoMetaModelTrait;
 use Illuminate\Database\Eloquent\Builder;

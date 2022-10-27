@@ -4,16 +4,18 @@ namespace Http\Admin\Box\Tests\Category;
 
 use App\Helpers\Test\Feature\FormHelper;
 
-class UpdateTest extends _TestCase
+class MoveTest extends _TestCase
 {
-    public string $requestMethod = self::REQUEST_METHOD_PUT;
+    public string $requestUrl = 'admin/box/category-move';
+
+    public string $requestMethod = self::REQUEST_METHOD_PATCH;
 
     public function test_success()
     {
-        $this->requestUrl .= '/3';
-
         $this->requestBody = [
-            'name' => FormHelper::localized('Category 2'),
+            'id' => 3,
+            'parent_id' => 1,
+            'position' => 0,
 
             'seo_meta' => FormHelper::seoMeta(),
         ];

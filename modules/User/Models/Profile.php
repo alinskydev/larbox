@@ -2,7 +2,7 @@
 
 namespace Modules\User\Models;
 
-use App\Models\Model;
+use App\Base\Model;
 use App\Casts\Storage\AsImage;
 
 class Profile extends Model

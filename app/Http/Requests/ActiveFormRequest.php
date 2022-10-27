@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Model;
+use App\Base\Model;
 use Modules\Seo\Traits\SeoMetaFormRequestTrait;
 
 use Illuminate\Support\Arr;

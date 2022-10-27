@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Model;
-use App\Search\Search;
+use App\Base\Model;
+use App\Base\Search;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Contracts\Validation\ValidatesWhenResolved;

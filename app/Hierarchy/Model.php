@@ -1,15 +1,18 @@
 <?php
 
-namespace App\Models;
+namespace App\Hierarchy;
 
-class HierarchicalModel extends Model
+use App\Base\Model as BaseModel;
+use App\Hierarchy\Helper as HierarchyHelper;
+use Illuminate\Support\Arr;
+
+class Model extends BaseModel
 {
+    protected $textField;
+
     public function __construct(array $attributes = [])
     {
-        $this->with[] = 'ancestors';
-
-        $this->append(['state']);
-
+        $this->append(['text', 'state']);
         return parent::__construct($attributes);
     }
 
@@ -49,11 +52,17 @@ class HierarchicalModel extends Model
         });
 
         static::deleted(function (self $model) {
-            $model->children()->delete();
+            $children = HierarchyHelper::childrenAsList($model);
+            $childrenIds = Arr::pluck($children, 'id');
+
+            static::query()->whereIn('id', $childrenIds)->delete();
         });
 
         static::restored(function (self $model) {
-            $model->children()->restore();
+            $children = HierarchyHelper::childrenAsList($model);
+            $childrenIds = Arr::pluck($children, 'id');
+
+            static::query()->whereIn('id', $childrenIds)->restore();
         });
     }
 }

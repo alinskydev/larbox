@@ -2,7 +2,7 @@
 
 namespace Modules\Auth\Models;
 
-use App\Models\Model;
+use App\Base\Model;
 
 class Code extends Model
 {

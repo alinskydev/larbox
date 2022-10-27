@@ -8,6 +8,6 @@ class ShowTest extends _TestCase
 {
     public function test_success()
     {
-        (new ShowFeatureTestService($this))->show('2');
+        (new ShowFeatureTestService($this))->show('3');
     }
 }

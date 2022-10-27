@@ -2,7 +2,7 @@
 
 namespace Modules\Box\Models;
 
-use App\Models\Model;
+use App\Base\Model;
 
 class Variation extends Model
 {
