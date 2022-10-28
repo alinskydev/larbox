@@ -4,6 +4,11 @@ namespace App\Hierarchy;
 
 class Helper
 {
+    public static function parentsAsList(Model $model)
+    {
+        return $model->parent ? array_merge([$model->parent], self::parentsAsList($model->parent)) : [];
+    }
+
     public static function childrenAsList(Model $model)
     {
         $result = [];

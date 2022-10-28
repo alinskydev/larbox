@@ -24,7 +24,7 @@ class CategoryController extends ResourceController
         );
 
         if (in_array(request()->route()->getActionMethod(), ['index', 'showByFullSlug'])) {
-            $this->search->queryBuilder->with(['ancestors']);
+            $this->search->queryBuilder->with(['parent']);
         }
     }
 

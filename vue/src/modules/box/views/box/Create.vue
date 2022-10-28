@@ -27,6 +27,15 @@ export default {
                 http: {
                     path: 'box/box',
                 },
+                events: {
+                    beforeSubmit: (context, formData) => {
+                        let checked = $('#box-categories-tree').jstree(true).get_checked();
+
+                        checked.forEach((value) => {
+                            formData.append('categories[]', value);
+                        });
+                    },
+                },
             }),
         };
     },

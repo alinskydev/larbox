@@ -1,6 +1,8 @@
 import { Model } from '@/core/model';
 import * as Enums from '@/core/enums';
 
+import CategoriesTree from '@/modules/box/components/box/CategoriesTree.vue';
+
 export default new Model({
     list: {
         image: {
@@ -39,6 +41,20 @@ export default new Model({
         brand_id: {
             value: 'brand.name',
             type: Enums.valueTypes.html,
+        },
+        // categories: {
+        //     value: (context, item) => {
+        //         let result = item.categories.map((value, index) => {
+        //             return '<div title="' + value.full_text + '">' + value.text + '</div>';
+        //         });
+
+        //         return result.join('');
+        //     },
+        //     type: Enums.valueTypes.html,
+        // },
+        categories: {
+            value: 'categories.*.full_text',
+            type: Enums.valueTypes.array,
         },
         tags: {
             value: 'tags.*.name',
@@ -90,6 +106,20 @@ export default new Model({
                         'show[0]': 'with-deleted',
                     },
                     field: 'name',
+                },
+            },
+        },
+        categories: {
+            name: 'categories.id',
+            value: 'categories.id',
+            type: Enums.inputTypes.select2Ajax,
+            options: {
+                select2Ajax: {
+                    path: 'box/category',
+                    query: {
+                        'show[0]': 'with-deleted',
+                    },
+                    field: 'name.:locale',
                 },
             },
         },
@@ -147,6 +177,10 @@ export default new Model({
             value: 'brand.name',
             type: Enums.valueTypes.text,
         },
+        categories: {
+            value: 'categories.*.full_text',
+            type: Enums.valueTypes.array,
+        },
         tags: {
             value: 'tags.*.name',
             type: Enums.valueTypes.array,
@@ -175,6 +209,27 @@ export default new Model({
     },
 
     form: {
+        Categories: {
+            categories: {
+                label: null,
+                type: Enums.inputTypes.component,
+                options: {
+                    component: {
+                        resolve: (context, item) => {
+                            return {
+                                component: CategoriesTree,
+                                params: [
+                                    {
+                                        value: item.value.map((value) => value.id),
+                                        httpPath: 'box/category-tree',
+                                    },
+                                ],
+                            };
+                        },
+                    },
+                },
+            },
+        },
         Информация: {
             name: {
                 type: Enums.inputTypes.text,
@@ -260,7 +315,7 @@ export default new Model({
                 size: Enums.inputSizes.xl,
             },
         },
-        Вариации: {
+        Variations: {
             variations: {
                 type: Enums.inputTypes.relations,
                 options: {

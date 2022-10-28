@@ -1,0 +1,101 @@
+<script setup></script>
+
+<script>
+export default {
+    props: {
+        value: {
+            type: Array,
+            default: [],
+        },
+        httpPath: {
+            type: String,
+            required: true,
+        },
+    },
+    data() {
+        return {
+            hiddenNodes: [],
+            treeView: null,
+        };
+    },
+    mounted() {
+        this.treeView = $('#box-categories-tree');
+
+        this.booted.helpers.http
+            .send(this, {
+                method: 'GET',
+                path: this.httpPath,
+            })
+            .then((response) => {
+                if (response.statusType === 'success') {
+                    this.treeView
+                        .jstree({
+                            core: {
+                                data: response.data.children,
+                                multiple: false,
+                                check_callback: false,
+                                themes: {
+                                    icons: false,
+                                },
+                            },
+                            plugins: ['search', 'checkbox'],
+                            search: {
+                                case_insensitive: true,
+                                show_only_matches: true,
+                            },
+                            checkbox: {
+                                three_state: false,
+                                keep_selected_style: false,
+                                tie_selection: false,
+                            },
+                        })
+                        .on('loaded.jstree', () => {
+                            this.treeView.jstree(true).check_node(this.value);
+                            this.hiddenNodes = this.treeView.jstree(true).get_json('#', { flat: true });
+                        });
+                }
+            });
+    },
+    methods: {
+        search(event) {
+            this.treeView.jstree(true).search(event.target.value);
+        },
+        toggle(event) {
+            if (event.target.value === '1') {
+                this.hiddenNodes.forEach((node, index) => {
+                    if (node.state.hidden) this.treeView.jstree(true).show_node(node.id);
+                });
+            } else {
+                this.hiddenNodes.forEach((node, index) => {
+                    if (node.state.hidden) this.treeView.jstree(true).hide_node(node.id);
+                });
+            }
+        },
+    },
+};
+</script>
+
+<template>
+    <div class="col-12">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label> {{ __('Поиск') }} </label>
+                    <input type="text" @keyup="search" class="form-control" />
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>{{ __('Отображать') }}</label>
+                    <select @change="toggle" class="form-control">
+                        <option value="0">{{ __('Только действующие') }}</option>
+                        <option value="1">{{ __('Все') }}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div id="box-categories-tree" class="mt-3"></div>
+    </div>
+</template>

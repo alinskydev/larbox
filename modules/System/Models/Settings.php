@@ -8,6 +8,7 @@ class Settings extends Model
 {
     protected $table = 'system_settings';
 
+    protected $keyType = 'string';
     public $incrementing = false;
     public $timestamps = false;
 

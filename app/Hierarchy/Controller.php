@@ -23,7 +23,7 @@ class Controller extends ResourceController
         );
 
         if (in_array(request()->route()->getActionMethod(), ['index', 'show'])) {
-            $this->search->queryBuilder->with(['ancestors']);
+            $this->search->queryBuilder->with(['parent']);
         }
     }
 

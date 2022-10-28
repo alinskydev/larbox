@@ -23,6 +23,7 @@ class CreateTest extends _TestCase
                 FormHelper::file(),
             ],
 
+            'categories' => [6, 8],
             'tags' => [1, 2],
 
             'variations' => FormHelper::multiply(

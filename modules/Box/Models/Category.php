@@ -25,6 +25,11 @@ class Category extends Model
         return Arr::get($this->name, app()->getLocale());
     }
 
+    public function boxes()
+    {
+        return $this->belongsToMany(Box::class, 'box_category_ref', 'category_id', 'box_id')->withTrashed();
+    }
+
     protected static function boot()
     {
         parent::boot();

@@ -25,6 +25,7 @@ class UpdateTest extends _TestCase
                 FormHelper::file(),
             ],
 
+            'categories' => [6, 7],
             'tags' => [1, 2],
 
             'variations' => FormHelper::multiply(

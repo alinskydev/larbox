@@ -22,7 +22,8 @@ export default {
                     path: 'box/box',
                     query: {
                         'with[0]': 'brand',
-                        'with[1]': 'tags',
+                        'with[1]': 'categories',
+                        'with[2]': 'tags',
                     },
                 },
                 filter: {

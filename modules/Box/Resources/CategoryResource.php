@@ -10,21 +10,16 @@ class CategoryResource extends JsonResource
     public function toArray($request)
     {
         return array_replace_recursive(parent::toArray($request), [
-            'full_slug' => $this->whenLoaded('ancestors', function () {
-                $fullSlug = [$this->slug];
-                $parents = $this->ancestors->toArray();
-
-                array_walk_recursive($parents, function ($value, $key) use (&$fullSlug) {
-                    if ($key == 'slug') $fullSlug[] = $value;
-                });
-
-                $fullSlug = array_reverse($fullSlug);
-                return implode('/', $fullSlug);
+            'full_slug' => $this->whenLoaded('parent', function () {
+                return $this->fullField('slug', '/');
             }) ?: $this->slug,
+            'full_text' => $this->whenLoaded('parent', function () {
+                return $this->fullField('text', ' => ');
+            }) ?: $this->text,
 
-            'ancestors' => $this->when(false, false),
-            'parents' => $this->whenLoaded('ancestors', function () {
-                $parents = $this->ancestors->toArray();
+            'parent' => $this->when(false, false),
+            'parents' => $this->whenLoaded('parent', function () {
+                $parents = $this->parent->toArray();
                 return $this->collectParents($parents);
             }) ?: [],
             'children' => $this->whenLoaded('children', function () {
@@ -34,6 +29,19 @@ class CategoryResource extends JsonResource
                 return $children;
             }),
         ]);
+    }
+
+    private function fullField(string $field, string $separator)
+    {
+        $result = [$this->{$field}];
+        $parents = $this->parent->toArray();
+
+        array_walk_recursive($parents, function ($value, $key) use (&$result, $field) {
+            if ($key == $field) $result[] = $value;
+        });
+
+        $result = array_reverse($result);
+        return implode($separator, $result);
     }
 
     private function collectParents(array $item, array $result = [])
@@ -47,11 +55,11 @@ class CategoryResource extends JsonResource
         $fullSlug = array_reverse($fullSlug);
         $item['full_slug'] = implode('/', $fullSlug);
 
-        if ($item['ancestors']) {
-            $result = $this->collectParents($item['ancestors']);
+        if ($item['parent']) {
+            $result = $this->collectParents($item['parent']);
         }
 
-        Arr::forget($item, 'ancestors');
+        Arr::forget($item, 'parent');
         $result[] = $item;
 
         return $result;

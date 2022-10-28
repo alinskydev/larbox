@@ -42,14 +42,19 @@ class Box extends Model
         return $this->hasMany(Variation::class, 'box_id')->orderBy('sort_index');
     }
 
+    public function categories_without_parents()
+    {
+        return $this->belongsToMany(Category::class, 'box_category_ref', 'box_id', 'category_id')->withTrashed();
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'box_category_ref', 'box_id', 'category_id')->withTrashed()->with('parent');
+    }
+
     public function tags()
     {
-        return $this->belongsToMany(
-            Tag::class,
-            'box_tag_ref',
-            'box_id',
-            'tag_id',
-        )->withTrashed();
+        return $this->belongsToMany(Tag::class, 'box_tag_ref', 'box_id', 'tag_id')->withTrashed();
     }
 
     public function scopePublished(Builder $query)

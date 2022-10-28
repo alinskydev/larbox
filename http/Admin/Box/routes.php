@@ -43,7 +43,7 @@ Route::prefix('box')
 
         Route::get('category-tree', [CategoryController::class, 'tree'])->name('category.tree');
         Route::patch('category-move', [CategoryController::class, 'move'])->name('category.move');
-        Route::apiResource('category', CategoryController::class)->except(['index', 'deleteAll', 'restoreAll']);
+        Route::apiResource('category', CategoryController::class)->except(['deleteAll', 'restoreAll']);
 
         Route::apiResource('tag', TagController::class);
     });

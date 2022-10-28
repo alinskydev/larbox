@@ -76,8 +76,8 @@ export class CreateConfig {
         this.http.query ??= {};
 
         this.events = config.events ?? {};
-        this.events.beforeSubmit ??= function (context: any, formData: FormData) {};
-        this.events.afterSubmit ??= function (context: any, formData: FormData, response: Object) {
+        this.events.beforeSubmit ??= (context: any, formData: FormData) => {};
+        this.events.afterSubmit ??= (context: any, formData: FormData, response: Object) => {
             // @ts-ignore
             toastr.success(context.__('Сохранение прошло успешно'));
             context.booted.components.current.page.goUp();
@@ -107,8 +107,8 @@ export class UpdateConfig {
         this.http.query ??= {};
 
         this.events = config.events ?? {};
-        this.events.beforeSubmit ??= function (context: any, formData: FormData) {};
-        this.events.afterSubmit ??= function (context: any, formData: FormData, response: Object) {
+        this.events.beforeSubmit ??= (context: any, formData: FormData) => {};
+        this.events.afterSubmit ??= (context: any, formData: FormData, response: Object) => {
             // @ts-ignore
             toastr.success(context.__('Сохранение прошло успешно'));
             context.booted.components.current.page.goUp();

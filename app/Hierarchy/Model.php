@@ -25,9 +25,9 @@ class Model extends BaseModel
         ];
     }
 
-    public function ancestors()
+    public function parent()
     {
-        return $this->belongsTo(static::class, 'parent_id')->with('ancestors');
+        return $this->belongsTo(static::class, 'parent_id')->with('parent');
     }
 
     public function children()

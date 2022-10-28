@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('box_category', function (Blueprint $table) {
             $table->id();
-            $table->tinyInteger('parent_id')->index();
+            $table->bigInteger('parent_id')->index();
             $table->integer('depth')->unsigned()->index();
             $table->integer('position')->unsigned()->index();
             $table->json('name');

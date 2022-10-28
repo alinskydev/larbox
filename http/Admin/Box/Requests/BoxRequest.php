@@ -11,6 +11,7 @@ use App\Rules\ExistsWithOldRule;
 use App\Helpers\Validation\FileValidationHelper;
 
 use Modules\Box\Models\Brand;
+use Modules\Box\Models\Category;
 use Modules\Box\Models\Tag;
 
 class BoxRequest extends ActiveFormRequest
@@ -35,6 +36,12 @@ class BoxRequest extends ActiveFormRequest
             'image' => FileValidationHelper::rules(FileValidationHelper::CONFIG_IMAGE),
             'images_list' => 'array',
             'images_list.*' => FileValidationHelper::rules(FileValidationHelper::CONFIG_IMAGE),
+
+            'categories' => [
+                'required',
+                'array',
+                new ExistsWithOldRule($this->model, Category::class, 'categories_without_parents.*.id'),
+            ],
 
             'tags' => [
                 'array',
@@ -70,6 +77,7 @@ class BoxRequest extends ActiveFormRequest
                 'variations' => $data['variations'] ?? [],
             ],
             $this->model::RELATION_TYPE_MANY_MANY => [
+                'categories_without_parents' => $data['categories'] ?? [],
                 'tags' => $data['tags'] ?? [],
             ],
         ];
