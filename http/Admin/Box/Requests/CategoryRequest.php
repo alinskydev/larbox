@@ -4,6 +4,7 @@ namespace Http\Admin\Box\Requests;
 
 use App\Http\Requests\ActiveFormRequest;
 use Modules\Seo\Traits\SeoMetaFormRequestTrait;
+use Illuminate\Support\Arr;
 
 use Illuminate\Validation\Rule;
 use App\Rules\UniqueRule;
@@ -20,7 +21,12 @@ class CategoryRequest extends ActiveFormRequest
                 'string',
                 'max:255',
                 new UniqueRule($this->model, false, extraQuery: function ($query) {
-                    $query->where('parent_id', $this->model->parent_id ?? 1);
+                    if ($this->model->exists) {
+                        $siblingsIds = Arr::pluck($this->model->siblings, 'id');
+                        $query->whereIn('id', $siblingsIds);
+                    } else {
+                        $query->where('depth', 1);
+                    }
                 }),
             ],
         ];

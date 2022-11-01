@@ -6,9 +6,9 @@ use App\Http\Requests\FormRequest;
 
 use Illuminate\Validation\Rule;
 
-class MoveRequest extends FormRequest
+class HierarchyMoveRequest extends FormRequest
 {
-    public Model $model;
+    public HierarchyModel $model;
 
     public function __construct()
     {

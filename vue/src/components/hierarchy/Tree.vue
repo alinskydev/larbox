@@ -29,7 +29,7 @@ export default {
                     this.treeView
                         .jstree({
                             core: {
-                                data: response.data.children,
+                                data: response.data,
                                 multiple: false,
                                 check_callback: true,
                                 themes: {
@@ -121,6 +121,8 @@ export default {
                         })
                         .on('move_node.jstree', (event, data) => {
                             let formData = new FormData();
+
+                            console.log(data);
 
                             formData.append('id', data.node.id);
                             formData.append('parent_id', data.parent === '#' ? 1 : data.parent);

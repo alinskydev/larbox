@@ -220,7 +220,7 @@ export default new Model({
                                 component: CategoriesTree,
                                 params: [
                                     {
-                                        value: item.value.map((value) => value.id),
+                                        value: item.value ? item.value.map((value) => value.id) : [],
                                         httpPath: 'box/category-tree',
                                     },
                                 ],

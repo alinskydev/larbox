@@ -78,9 +78,5 @@ export default {
                 },
             ],
         },
-        {
-            path: 'test/:full_slug(.*)',
-            component: () => import('./components/Test.vue'),
-        },
     ],
 };

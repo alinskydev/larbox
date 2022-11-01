@@ -31,7 +31,7 @@ export default {
                     this.treeView
                         .jstree({
                             core: {
-                                data: response.data.children,
+                                data: response.data,
                                 multiple: false,
                                 check_callback: false,
                                 themes: {

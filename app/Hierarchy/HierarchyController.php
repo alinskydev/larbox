@@ -5,9 +5,8 @@ namespace App\Hierarchy;
 use App\Http\Controllers\ResourceController;
 use App\Base\Model;
 use App\Base\Search;
-use Illuminate\Support\Arr;
 
-class Controller extends ResourceController
+class HierarchyController extends ResourceController
 {
     public function __construct(
         Model $model,
@@ -23,47 +22,55 @@ class Controller extends ResourceController
         );
 
         if (in_array(request()->route()->getActionMethod(), ['index', 'show'])) {
-            $this->search->queryBuilder->with(['parent']);
+            $this->search->queryBuilder->with(['parents']);
         }
     }
 
     public function tree()
     {
-        $model = $this->model->query()->withoutGlobalScopes()->with('children')->findOrFail(1);
-        $data = $this->resourceClass::make($model);
+        $model = $this->model->query()->withoutGlobalScopes()->with(['children'])->findOrFail(1);
+        $tree = (new HierarchyService($model))->tree();
+        HierarchyHelper::appendFieldsToChildren($tree, 'slug', '/');
 
-        return response()->json($data, 200);
+        return response()->json($tree, 200);
     }
 
-    public function move(MoveRequest $request)
+    public function move(HierarchyMoveRequest $request)
     {
         $data = $request->validated();
 
-        $model = $this->model->query()->where('depth', '>', 0)->findOrFail($data['id']);
-        $parent = $this->model->query()->withoutGlobalScopes()->findOrFail($data['parent_id']);
+        $model = $this->model->query()->findOrFail($data['id']);
+        $oldParent = $model->parent()->withoutGlobalScopes()->firstOrFail();
+        $newParent = $this->model->query()->withoutGlobalScopes()->findOrFail($data['parent_id']);
+
+        echo '<pre>';
+        print_r($oldParent->toArray());
+        echo '</pre>';
+
+        return response()->json(['message' => 'Success'], 200);
 
         // Previous/next nodes
 
-        if ($data['parent_id'] == $model->parent_id) {
+        if ($newParent->id == $oldParent->id) {
             if ($data['position'] > $model->position) {
                 $this->model->query()
-                    ->where('parent_id', $data['parent_id'])
+                    ->where('parent_id', $newParent->id)
                     ->whereBetween('position', [$model->position + 1, $data['position']])
                     ->decrement('position', 1);
             } elseif ($data['position'] < $model->position) {
                 $this->model->query()
-                    ->where('parent_id', $data['parent_id'])
+                    ->where('parent_id', $newParent->id)
                     ->whereBetween('position', [$data['position'], $model->position - 1])
                     ->increment('position', 1);
             }
         } else {
             $this->model->query()
-                ->where('parent_id', $data['parent_id'])
+                ->where('parent_id', $newParent->id)
                 ->where('position', '>=', $data['position'])
                 ->increment('position', 1);
 
             $this->model->query()
-                ->where('parent_id', $model->parent_id)
+                ->where('parent_id', $oldParent->id)
                 ->where('position', '>', $model->position)
                 ->decrement('position', 1);
         }
@@ -73,10 +80,10 @@ class Controller extends ResourceController
         $depthDiff = $parent->depth + 1 - $model->depth;
 
         if ($depthDiff != 0) {
-            $children = Helper::childrenAsList($model);
-            $childrenIds = Arr::pluck($children, 'id');
+            // $children = Helper::childrenAsList($model);
+            // $childrenIds = Arr::pluck($children, 'id');
 
-            $this->model->query()->whereIn('id', $childrenIds)->increment('depth', $depthDiff);
+            // $this->model->query()->whereIn('id', $childrenIds)->increment('depth', $depthDiff);
         }
 
         // Self

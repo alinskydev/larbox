@@ -2,14 +2,14 @@
 
 namespace Modules\Box\Models;
 
-use App\Hierarchy\Model;
+use App\Hierarchy\HierarchyModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Seo\Traits\SeoMetaModelTrait;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
-class Category extends Model
+class Category extends HierarchyModel
 {
     use SoftDeletes;
     use SeoMetaModelTrait;
@@ -39,10 +39,11 @@ class Category extends Model
             $slug = Arr::get($model->name, $locale);
             $slug = Str::slug($slug);
 
-            $modelWithSameSlug = $model->query()
-                ->where('slug', $slug)
-                ->where('id', '!=', $model->id)
-                ->first();
+            if ($model->exists) {
+                $modelWithSameSlug = $model->siblings()->where('slug', $slug)->first();
+            } else {
+                $modelWithSameSlug = static::query()->where('slug', $slug)->first();
+            }
 
             if ($modelWithSameSlug) {
                 $slug .= '-' . uniqid();

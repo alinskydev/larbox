@@ -5,7 +5,6 @@ namespace Modules\Box\Search;
 use App\Base\Search;
 use Illuminate\Database\Eloquent\Builder;
 use Modules\Box\Models\Category;
-use App\Hierarchy\Helper as HierarchyHelper;
 
 class BoxSearch extends Search
 {
@@ -37,19 +36,18 @@ class BoxSearch extends Search
         parent::filter($params, $combinedType, $query);
 
         if (isset($params['categories.id']) && !is_iterable($params['categories.id'])) {
-            $categoriesIds = [$params['categories.id']];
+            // $categoriesIds = [$params['categories.id']];
 
-            $category = Category::query()->with(['children'])->where('id', $params['categories.id'])->first();
+            // $category = Category::query()->with(['children'])->where('id', $params['categories.id'])->first();
 
-            if ($category) {
-                $children = HierarchyHelper::childrenAsList($category);
-                $categoriesIds = array_merge($categoriesIds, data_get($children, '*.id'));
-            }
+            // if ($category) {
+            //     $children = HierarchyHelper::childrenAsList($category);
+            //     $categoriesIds = array_merge($categoriesIds, data_get($children, '*.id'));
+            // }
 
-            $this->queryBuilder
-                ->whereHas('categories', function ($q) use ($categoriesIds) {
-                    $q->whereIn('id', $categoriesIds);
-                });
+            // $this->queryBuilder->whereHas('categories', function ($q) use ($categoriesIds) {
+            //     $q->whereIn('id', $categoriesIds);
+            // });
         }
 
         return $this;

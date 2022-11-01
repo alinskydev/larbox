@@ -15,14 +15,17 @@ return new class extends Migration
     {
         Schema::create('box_category', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('parent_id')->index();
+            $table->tinyInteger('tree')->unsigned()->default(1)->index();
+            $table->integer('lft')->unsigned();
+            $table->integer('rgt')->unsigned();
             $table->integer('depth')->unsigned()->index();
-            $table->integer('position')->unsigned()->index();
             $table->json('name');
             $table->string('slug')->index();
             $table->timestamp('created_at')->index();
             $table->timestamp('updated_at');
             $table->softDeletes();
+
+            $table->index(['lft', 'rgt']);
         });
     }
 
