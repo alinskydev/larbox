@@ -19,15 +19,7 @@ class HierarchyMoveRequest extends FormRequest
     public function nonLocalizedRules()
     {
         return [
-            'id' => [
-                'required',
-                Rule::exists($this->model->getTable(), 'id')->withoutTrashed(),
-            ],
-            'parent_id' => [
-                'required',
-                Rule::exists($this->model->getTable(), 'id')->withoutTrashed(),
-            ],
-            'position' => 'required|integer|min:0',
+            'tree' => 'required|json',
         ];
     }
 }

@@ -27,10 +27,13 @@ export default {
                     path: 'box/category/:id',
                 },
                 events: {
-                    afterSubmit: (context, formData, response) => {
-                        this.$parent.$data.treeKey++;
+                    afterSubmit: (formData, response) => {
+                        let text = formData.get('name[' + this.booted.locale + ']');
+
+                        $('#tree-' + this.id).jstree(true).rename_node(this.$route.params.id, text);
                         $('#' + this.id).modal('hide');
-                        toastr.success(context.__('Сохранение прошло успешно'));
+
+                        toastr.success(this.__('Сохранение прошло успешно'));
                     },
                 },
             }),

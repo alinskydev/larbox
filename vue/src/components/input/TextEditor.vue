@@ -32,7 +32,7 @@ export default {
                 toolbar: [
                     [
                         'undo redo',
-                        'fontfamily fontsize styles',
+                        'fontsize styles',
                         'removeformat bold italic underline strikethrough superscript subscript',
                         'forecolor backcolor',
                     ].join('|'),

@@ -36,7 +36,7 @@ export default {
                 this.items[value] = this.options.initValue;
             }
         } else {
-            let query = this.inputOptions.query ?? {};
+            let query = Object.assign({}, this.inputOptions.query ?? {});
 
             if (typeof query === 'function') {
                 query = query(this, this.item);

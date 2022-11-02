@@ -1,3 +1,7 @@
+<script setup>
+import lodash from 'lodash';
+</script>
+
 <script>
 export default {
     props: {
@@ -12,7 +16,7 @@ export default {
     },
     data() {
         return {
-            hiddenNodes: [],
+            nodes: [],
             treeView: null,
         };
     },
@@ -26,6 +30,10 @@ export default {
             })
             .then((response) => {
                 if (response.statusType === 'success') {
+                    let plugins = ['search', 'contextmenu'];
+
+                    if (this.booted.helpers.user.checkRoute(this, this.httpPath + '.move')) plugins.push('dnd');
+
                     this.treeView
                         .jstree({
                             core: {
@@ -36,80 +44,99 @@ export default {
                                     icons: false,
                                 },
                             },
-                            plugins: ['search', 'contextmenu', 'dnd'],
+                            plugins: plugins,
                             search: {
                                 case_insensitive: true,
                                 show_only_matches: true,
                             },
                             contextmenu: {
                                 items: (node) => {
-                                    if (node.state.disabled) {
-                                        return {
-                                            restore: {
-                                                label: this.__('routeActions->restore'),
-                                                icon: 'fas fa-trash-restore',
-                                                action: (obj) => {
-                                                    if (confirm(this.__('Вы уверены?'))) {
-                                                        this.booted.helpers.http
-                                                            .send(this, {
-                                                                method: 'DELETE',
-                                                                path: this.httpPath + '/' + node.id + '/restore',
-                                                            })
-                                                            .then((response) => {
-                                                                if (response.statusType === 'success') {
-                                                                    this.$parent.$data.treeKey++;
-                                                                }
-                                                            });
-                                                    }
-                                                },
-                                            },
-                                        };
-                                    } else {
-                                        return {
-                                            show: {
-                                                label: this.__('routeActions->show'),
-                                                icon: 'fas fa-eye',
-                                                action: (obj) => {
-                                                    this.$route.params.id = node.id;
+                                    let allActions = {
+                                        show: {
+                                            label: this.__('routeActions->show'),
+                                            icon: 'fas fa-eye',
+                                            action: (obj) => {
+                                                this.$route.params.id = node.id;
 
-                                                    this.$parent.$data.formType = 'show';
-                                                    this.$parent.$data.formKey++;
+                                                this.$parent.$data.formType = 'show';
+                                                this.$parent.$data.formKey++;
 
-                                                    $('#' + this.id).modal('show');
-                                                },
+                                                $('#' + this.id).modal('show');
                                             },
-                                            update: {
-                                                label: this.__('routeActions->update'),
-                                                icon: 'fas fa-edit',
-                                                action: (obj) => {
-                                                    this.$route.params.id = node.id;
+                                        },
+                                        update: {
+                                            label: this.__('routeActions->update'),
+                                            icon: 'fas fa-edit',
+                                            action: (obj) => {
+                                                this.$route.params.id = node.id;
 
-                                                    this.$parent.$data.formType = 'update';
-                                                    this.$parent.$data.formKey++;
+                                                this.$parent.$data.formType = 'update';
+                                                this.$parent.$data.formKey++;
 
-                                                    $('#' + this.id).modal('show');
-                                                },
+                                                $('#' + this.id).modal('show');
                                             },
-                                            delete: {
-                                                label: this.__('routeActions->delete'),
-                                                icon: 'fas fa-trash-alt',
-                                                action: (obj) => {
-                                                    if (confirm(this.__('Вы уверены?'))) {
-                                                        this.booted.helpers.http
-                                                            .send(this, {
-                                                                method: 'DELETE',
-                                                                path: this.httpPath + '/' + node.id,
-                                                            })
-                                                            .then((response) => {
-                                                                if (response.statusType === 'success') {
-                                                                    this.$parent.$data.treeKey++;
-                                                                }
-                                                            });
-                                                    }
-                                                },
+                                        },
+                                        delete: {
+                                            label: this.__('routeActions->delete'),
+                                            icon: 'fas fa-trash-alt',
+                                            action: (obj) => {
+                                                if (confirm(this.__('Вы уверены?'))) {
+                                                    this.booted.helpers.http
+                                                        .send(this, {
+                                                            method: 'DELETE',
+                                                            path: this.httpPath + '/' + node.id,
+                                                        })
+                                                        .then((response) => {
+                                                            if (response.statusType === 'success') {
+                                                                this.treeView
+                                                                    .jstree(true)
+                                                                    .get_json(node.id, { flat: true })
+                                                                    .forEach((value) => {
+                                                                        this.treeView.jstree(true).disable_node(value);
+                                                                        this.treeView.jstree(true).hide_node(value);
+                                                                    });
+
+                                                                this.nodes = this.treeView.jstree(true).get_json('#', { flat: true });
+                                                            }
+                                                        });
+                                                }
                                             },
-                                        };
-                                    }
+                                        },
+                                        restore: {
+                                            label: this.__('routeActions->restore'),
+                                            icon: 'fas fa-trash-restore',
+                                            action: (obj) => {
+                                                if (confirm(this.__('Вы уверены?'))) {
+                                                    this.booted.helpers.http
+                                                        .send(this, {
+                                                            method: 'DELETE',
+                                                            path: this.httpPath + '/' + node.id + '/restore',
+                                                        })
+                                                        .then((response) => {
+                                                            if (response.statusType === 'success') {
+                                                                this.treeView
+                                                                    .jstree(true)
+                                                                    .get_json(node.id, { flat: true })
+                                                                    .forEach((value) => {
+                                                                        this.treeView.jstree(true).enable_node(value);
+                                                                        this.treeView.jstree(true).show_node(value);
+                                                                    });
+
+                                                                this.nodes = this.treeView.jstree(true).get_json('#', { flat: true });
+                                                            }
+                                                        });
+                                                }
+                                            },
+                                        },
+                                    };
+
+                                    let availableActions = node.state.disabled ? ['restore'] : ['show', 'update', 'delete'];
+
+                                    availableActions = availableActions.filter((value) => {
+                                        return this.booted.helpers.user.checkRoute(this, this.httpPath + '/' + value);
+                                    });
+
+                                    return lodash.pick(allActions, availableActions);
                                 },
                             },
                             dnd: {
@@ -117,16 +144,15 @@ export default {
                             },
                         })
                         .on('loaded.jstree', () => {
-                            this.hiddenNodes = this.treeView.jstree(true).get_json('#', { flat: true });
+                            this.nodes = this.treeView.jstree(true).get_json('#', { flat: true });
                         })
                         .on('move_node.jstree', (event, data) => {
-                            let formData = new FormData();
+                            let formData = new FormData(),
+                                nodes = this.treeView
+                                    .jstree(true)
+                                    .get_json('#', { no_data: true, no_state: true, no_li_attr: true, no_a_attr: true });
 
-                            console.log(data);
-
-                            formData.append('id', data.node.id);
-                            formData.append('parent_id', data.parent === '#' ? 1 : data.parent);
-                            formData.append('position', data.position);
+                            formData.append('tree', JSON.stringify(nodes));
 
                             this.booted.helpers.http
                                 .send(this, {
@@ -149,12 +175,10 @@ export default {
         },
         toggle(event) {
             if (event.target.value === '1') {
-                this.hiddenNodes.forEach((node, index) => {
-                    if (node.state.hidden) this.treeView.jstree(true).show_node(node.id);
-                });
+                this.treeView.jstree(true).show_all();
             } else {
-                this.hiddenNodes.forEach((node, index) => {
-                    if (node.state.hidden) this.treeView.jstree(true).hide_node(node.id);
+                this.nodes.forEach((value, index) => {
+                    if (value.state.hidden) this.treeView.jstree(true).hide_node(value.id);
                 });
             }
         },

@@ -22,11 +22,11 @@ export default {
                     path: 'user/profile',
                 },
                 events: {
-                    afterSubmit: (context, formData, response) => {
-                        toastr.success(context.__('Сохранение прошло успешно'));
+                    afterSubmit: (formData, response) => {
+                        toastr.success(this.__('Сохранение прошло успешно'));
 
                         this.booted.helpers.user.login(this, formData.get('username'), formData.get('new_password'));
-                        context.booted.components.app.childKey++;
+                        this.booted.components.app.childKey++;
                     },
                 },
             }),

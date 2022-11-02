@@ -22,8 +22,7 @@ class HierarchyAllSiblingsRelation extends HasMany
             $parent = $this->getParent();
 
             $query->where('depth', '=', $parent->depth)
-                ->where('id', '!=', $parent->id)
-                ->withTrashed();
+                ->where('id', '!=', $parent->id);
 
             $parentNode = $parent->parent;
 
@@ -55,6 +54,19 @@ class HierarchyAllSiblingsRelation extends HasMany
      * @return array
      */
     protected function matchOneOrMany(array $models, Collection $results, $relation, $type)
+    {
+        throw new \Exception('Not available');
+    }
+
+    /**
+     * Add the constraints for a relationship query on the same table.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  \Illuminate\Database\Eloquent\Builder  $parentQuery
+     * @param  array|mixed  $columns
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function getRelationExistenceQueryForSelfRelation(Builder $query, Builder $parentQuery, $columns = ['*'])
     {
         throw new \Exception('Not available');
     }

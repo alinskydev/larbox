@@ -20,7 +20,9 @@ export default {
             let http = this.config.http,
                 formData = new FormData(event.target);
 
-            this.config.events.beforeSubmit(this, formData);
+            if (this.config.events.beforeSubmit) {
+                this.config.events.beforeSubmit(formData);
+            }
 
             this.booted.helpers.http
                 .send(this, {
@@ -36,7 +38,12 @@ export default {
                 })
                 .then((response) => {
                     if (response.statusType === 'success') {
-                        this.config.events.afterSubmit(this, formData, response);
+                        if (this.config.events.afterSubmit) {
+                            this.config.events.afterSubmit(formData, response);
+                        } else {
+                            toastr.success(this.__('Сохранение прошло успешно'));
+                            this.booted.components.current.page.goUp();
+                        }
                     }
                 });
         },

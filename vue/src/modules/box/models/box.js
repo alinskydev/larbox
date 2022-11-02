@@ -112,6 +112,7 @@ export default new Model({
         categories: {
             name: 'categories.id',
             value: 'categories.id',
+            hint: 'Поиск произвонится только по самому нижнему уровню',
             type: Enums.inputTypes.select2Ajax,
             options: {
                 select2Ajax: {
@@ -119,7 +120,7 @@ export default new Model({
                     query: {
                         'show[0]': 'with-deleted',
                     },
-                    field: 'name.:locale',
+                    field: 'full_text',
                 },
             },
         },

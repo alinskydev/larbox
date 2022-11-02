@@ -6,22 +6,47 @@ use App\Base\ActiveService;
 
 class HierarchyService extends ActiveService
 {
-    public function tree(): array
+    private int $size;
+
+    public function __construct(HierarchyModel $model)
     {
-        $children = $this->model->children->toArray();
-        $children = array_reverse($children);
+        parent::__construct($model);
 
-        foreach ($children as &$child) {
-            $child['children'] = array_filter($children, function ($value) use ($child) {
-                return $value['lft'] > $child['lft'] && $value['rgt'] < $child['rgt'] && $value['depth'] == $child['depth'] + 1;
-            });
+        $this->size = $model->rgt - $model->lft + 1;
+    }
 
-            $child['children'] = array_reverse($child['children']);
-        }
+    // public function appendTo(HierarchyModel $parent)
+    // {
+    //     if ($parent->id == $this->model->id) {
+    //         throw new \Exception('Cannot insert to self');
+    //     }
 
-        $children = array_filter($children, fn ($value) => $value['depth'] == $this->model->depth + 1);
-        $children = array_reverse($children);
+    //     if ($parent->lft > $this->model->lft && $parent->rgt < $this->model->rgt) {
+    //         throw new \Exception('Cannot insert to children');
+    //     }
+    // }
 
-        return $children;
+    public function appendToRoot()
+    {
+        $parent = $this->model->query()->findOrFail(1);
+
+        // Next
+
+        $this->model->query()
+            ->where('lft', '>', $parent->rgt)
+            ->increment('lft', $this->size);
+
+        // Parents & next
+
+        $this->model->query()
+            ->where('rgt', '>=', $parent->rgt)
+            ->increment('rgt', $this->size);
+
+        // Self
+
+        $this->model->lft = $parent->rgt;
+        $this->model->rgt = $parent->rgt + 1;
+        $this->model->depth = $parent->depth + 1;
+        $this->model->saveQuietly();
     }
 }

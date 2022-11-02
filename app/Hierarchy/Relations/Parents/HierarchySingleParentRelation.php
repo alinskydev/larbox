@@ -23,8 +23,7 @@ class HierarchySingleParentRelation extends HasOne
 
             $query->where('lft', '<', $parent->lft)
                 ->where('rgt', '>', $parent->rgt)
-                ->where('depth', $parent->depth - 1)
-                ->withTrashed();
+                ->where('depth', $parent->depth - 1);
         }
     }
 
@@ -45,8 +44,7 @@ class HierarchySingleParentRelation extends HasOne
                             ->where('depth', $model->depth - 1);
                     });
                 }
-            })
-            ->withTrashed();
+            });
     }
 
     /**

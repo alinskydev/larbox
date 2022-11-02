@@ -6,6 +6,9 @@ use App\Http\Controllers\ResourceController;
 use App\Base\Model;
 use App\Base\Search;
 
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Arr;
+
 class HierarchyController extends ResourceController
 {
     public function __construct(
@@ -21,78 +24,98 @@ class HierarchyController extends ResourceController
             formRequestClass: $formRequestClass,
         );
 
-        if (in_array(request()->route()->getActionMethod(), ['index', 'show'])) {
-            $this->search->queryBuilder->with(['parents']);
+        if (in_array(request()->route()->getActionMethod(), ['index', 'show', 'showByFullSlug'])) {
+            $this->search->queryBuilder->with(['parents'])->where('depth', '>', 0);
         }
     }
 
     public function tree()
     {
-        $model = $this->model->query()->withoutGlobalScopes()->with(['children'])->findOrFail(1);
-        $tree = (new HierarchyService($model))->tree();
-        HierarchyHelper::appendFieldsToChildren($tree, 'slug', '/');
+        $model = $this->model->query()->with(['children'])->findOrFail(1);
+
+        $tree = HierarchyHelper::tree($model);
+        $tree = HierarchyHelper::appendFullFieldToTree($tree, 'slug', '/');
 
         return response()->json($tree, 200);
     }
 
+    public function showByFullSlug(string $fullSlug)
+    {
+        $slugs = explode('/', $fullSlug);
+        $slugs = array_filter($slugs, fn ($value) => $value);
+        $lastSlug = array_pop($slugs);
+
+        $possibleModels = $this->search->queryBuilder->where('slug', $lastSlug)->get();
+        $possibleModels = $this->resourceClass::collection($possibleModels)->resolve();
+        $possibleModels = Arr::keyBy($possibleModels, 'full_slug');
+
+        $model = Arr::get($possibleModels, $fullSlug);
+
+        if (!$model) abort(404);
+
+        return response()->json($model, 200);
+    }
+
     public function move(HierarchyMoveRequest $request)
     {
-        $data = $request->validated();
+        try {
+            $data = $request->validated();
 
-        $model = $this->model->query()->findOrFail($data['id']);
-        $oldParent = $model->parent()->withoutGlobalScopes()->firstOrFail();
-        $newParent = $this->model->query()->withoutGlobalScopes()->findOrFail($data['parent_id']);
+            $tree = json_decode($data['tree'], true);
+            $nodes = $this->collectSystemFields($tree);
 
-        echo '<pre>';
-        print_r($oldParent->toArray());
-        echo '</pre>';
-
-        return response()->json(['message' => 'Success'], 200);
-
-        // Previous/next nodes
-
-        if ($newParent->id == $oldParent->id) {
-            if ($data['position'] > $model->position) {
-                $this->model->query()
-                    ->where('parent_id', $newParent->id)
-                    ->whereBetween('position', [$model->position + 1, $data['position']])
-                    ->decrement('position', 1);
-            } elseif ($data['position'] < $model->position) {
-                $this->model->query()
-                    ->where('parent_id', $newParent->id)
-                    ->whereBetween('position', [$data['position'], $model->position - 1])
-                    ->increment('position', 1);
+            if (isset($nodes[1]) || count($nodes) != $this->model->query()->withTrashed()->count() - 1) {
+                throw new \Exception('Invalid node');
             }
-        } else {
-            $this->model->query()
-                ->where('parent_id', $newParent->id)
-                ->where('position', '>=', $data['position'])
-                ->increment('position', 1);
 
-            $this->model->query()
-                ->where('parent_id', $oldParent->id)
-                ->where('position', '>', $model->position)
-                ->decrement('position', 1);
+            foreach ($nodes as $key => &$node) {
+                $queryCases['lft'][] = "WHEN id = $key THEN " . $node['lft'];
+                $queryCases['rgt'][] = "WHEN id = $key THEN " . $node['rgt'];
+                $queryCases['depth'][] = "WHEN id = $key THEN " . $node['depth'];
+            }
+        } catch (\Throwable $e) {
+            abort(400, 'Invalid node');
         }
 
-        // Children
+        $this->model->query()->withTrashed()->update([
+            'lft' => DB::raw('CASE ' . implode(' ', $queryCases['lft']) . ' ELSE lft END'),
+            'rgt' => DB::raw('CASE ' . implode(' ', $queryCases['rgt']) . ' ELSE rgt END'),
+            'depth' => DB::raw('CASE ' . implode(' ', $queryCases['depth']) . ' ELSE depth END'),
+        ]);
 
-        $depthDiff = $parent->depth + 1 - $model->depth;
+        return $this->successResponse();
+    }
 
-        if ($depthDiff != 0) {
-            // $children = Helper::childrenAsList($model);
-            // $childrenIds = Arr::pluck($children, 'id');
+    private function collectSystemFields(array $tree, int $lft = 2, int $rgt = 3, int $depth = 1, array $result = [])
+    {
+        foreach ($tree as $node) {
+            $nodeId = $node['id'];
 
-            // $this->model->query()->whereIn('id', $childrenIds)->increment('depth', $depthDiff);
+            $result[$nodeId] = [
+                'lft' => $lft,
+                'rgt' => $rgt,
+                'depth' => $depth,
+            ];
+
+            if ($node['children']) {
+                $childrenCount = 0;
+
+                array_walk_recursive($node['children'], function ($value, $key) use (&$childrenCount) {
+                    if ($key == 'id') $childrenCount++;
+                });
+
+                $result[$nodeId]['rgt'] += $childrenCount * 2;
+
+                $result += $this->collectSystemFields($node['children'], $lft + 1, $rgt + 1, $depth + 1, $result);
+
+                $lft = $result[$nodeId]['rgt'] + 1;
+                $rgt = $result[$nodeId]['rgt'] + 2;
+            } else {
+                $lft += 2;
+                $rgt += 2;
+            }
         }
 
-        // Self
-
-        $model->parent_id = $data['parent_id'];
-        $model->depth += $depthDiff;
-        $model->position = $data['position'];
-        $model->save();
-
-        return response()->json(['message' => 'Success'], 200);
+        return $result;
     }
 }

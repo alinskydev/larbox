@@ -35,7 +35,7 @@ export default {
                     },
                 },
                 events: {
-                    beforeSubmit: (context, formData) => {
+                    beforeSubmit: (formData) => {
                         let checked = $('#box-categories-tree').jstree(true).get_checked();
 
                         checked.forEach((value) => {

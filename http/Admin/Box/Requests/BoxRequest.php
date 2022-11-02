@@ -40,7 +40,7 @@ class BoxRequest extends ActiveFormRequest
             'categories' => [
                 'required',
                 'array',
-                new ExistsWithOldRule($this->model, Category::class, 'categories_without_parents.*.id'),
+                new ExistsWithOldRule($this->model, Category::class, 'categories.*.id'),
             ],
 
             'tags' => [
@@ -77,7 +77,7 @@ class BoxRequest extends ActiveFormRequest
                 'variations' => $data['variations'] ?? [],
             ],
             $this->model::RELATION_TYPE_MANY_MANY => [
-                'categories_without_parents' => $data['categories'] ?? [],
+                'categories' => $data['categories'] ?? [],
                 'tags' => $data['tags'] ?? [],
             ],
         ];

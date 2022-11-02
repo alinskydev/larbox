@@ -3,6 +3,8 @@
 namespace Http\Admin\Box\Tests\Category;
 
 use App\Helpers\Test\Feature\FormHelper;
+use Modules\Box\Models\Category;
+use App\Hierarchy\HierarchyHelper;
 
 class MoveTest extends _TestCase
 {
@@ -12,10 +14,19 @@ class MoveTest extends _TestCase
 
     public function test_success()
     {
+        $model = Category::query()
+            ->with(['children' => function ($query) {
+                $query->select(['id', 'lft', 'rgt', 'depth']);
+            }])
+            ->select(['id', 'lft', 'rgt', 'depth'])
+            ->findOrFail(1);
+
+        $tree = HierarchyHelper::tree($model);
+        $tree = json_encode($tree);
+        $tree = htmlspecialchars($tree);
+
         $this->requestBody = [
-            'id' => 3,
-            'parent_id' => 1,
-            'position' => 0,
+            'tree' => $tree,
 
             'seo_meta' => FormHelper::seoMeta(),
         ];

@@ -27,7 +27,7 @@ class IndexTest extends _TestCase
                 'date' => date(LARBOX_FORMAT_DATE),
                 'datetime' => date(LARBOX_FORMAT_DATETIME),
 
-                'categories.id' => 2,
+                'categories.id' => [3, 6],
                 'tags.id' => [1, 2],
             ],
         ];

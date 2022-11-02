@@ -64,8 +64,8 @@ export class CreateConfig {
         query: object;
     };
     events: {
-        beforeSubmit: (context: any, formData: FormData) => any;
-        afterSubmit: (context: any, formData: FormData, response: Object) => any;
+        beforeSubmit: (formData: FormData) => any;
+        afterSubmit: (formData: FormData, response: Object) => any;
     };
 
     constructor(config: CreateConfig) {
@@ -76,12 +76,6 @@ export class CreateConfig {
         this.http.query ??= {};
 
         this.events = config.events ?? {};
-        this.events.beforeSubmit ??= (context: any, formData: FormData) => {};
-        this.events.afterSubmit ??= (context: any, formData: FormData, response: Object) => {
-            // @ts-ignore
-            toastr.success(context.__('Сохранение прошло успешно'));
-            context.booted.components.current.page.goUp();
-        };
     }
 }
 
@@ -94,8 +88,8 @@ export class UpdateConfig {
         query: object;
     };
     events: {
-        beforeSubmit: (context: any, formData: FormData) => any;
-        afterSubmit: (context: any, formData: FormData, response: Object) => any;
+        beforeSubmit: (formData: FormData) => any;
+        afterSubmit: (formData: FormData, response: Object) => any;
     };
 
     constructor(config: UpdateConfig) {
@@ -107,11 +101,5 @@ export class UpdateConfig {
         this.http.query ??= {};
 
         this.events = config.events ?? {};
-        this.events.beforeSubmit ??= (context: any, formData: FormData) => {};
-        this.events.afterSubmit ??= (context: any, formData: FormData, response: Object) => {
-            // @ts-ignore
-            toastr.success(context.__('Сохранение прошло успешно'));
-            context.booted.components.current.page.goUp();
-        };
     }
 }

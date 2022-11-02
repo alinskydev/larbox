@@ -28,7 +28,7 @@ export default {
                     path: 'box/box/:id',
                     query: {
                         'with[0]': 'brand',
-                        'with[1]': 'categories',
+                        'with[1]': 'categories.parents',
                         'with[2]': 'tags',
                         'with[3]': 'variations',
                     },

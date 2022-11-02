@@ -11,15 +11,15 @@ return new class extends Seeder
         DB::table('box_category_ref')->insert([
             [
                 'box_id' => 1,
-                'category_id' => 6,
+                'category_id' => 4,
             ],
             [
                 'box_id' => 1,
-                'category_id' => 7,
+                'category_id' => 5,
             ],
             [
                 'box_id' => 2,
-                'category_id' => 8,
+                'category_id' => 7,
             ],
         ]);
     }

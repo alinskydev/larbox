@@ -22,8 +22,7 @@ class HierarchyAllChildrenRelation extends HasMany
             $parent = $this->getParent();
 
             $query->where('lft', '>', $parent->lft)
-                ->where('rgt', '<', $parent->rgt)
-                ->withTrashed();
+                ->where('rgt', '<', $parent->rgt);
         }
     }
 
@@ -44,8 +43,7 @@ class HierarchyAllChildrenRelation extends HasMany
                     });
                 }
             })
-            ->orderBy('lft')
-            ->withTrashed();
+            ->orderBy('lft');
     }
 
     /**
@@ -69,5 +67,33 @@ class HierarchyAllChildrenRelation extends HasMany
         }
 
         return $models;
+    }
+
+    /**
+     * Add the constraints for a relationship query on the same table.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  \Illuminate\Database\Eloquent\Builder  $parentQuery
+     * @param  array|mixed  $columns
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function getRelationExistenceQueryForSelfRelation(Builder $query, Builder $parentQuery, $columns = ['*'])
+    {
+        $query->from($query->getModel()->getTable() . ' as ' . $hash = $this->getRelationCountHash());
+
+        $query->getModel()->setTable($hash);
+
+        return $query
+            ->select($columns)
+            ->whereColumn(
+                "$hash.lft",
+                '>',
+                $this->parent->qualifyColumn('lft')
+            )
+            ->whereColumn(
+                "$hash.rgt",
+                '<',
+                $this->parent->qualifyColumn('rgt')
+            );
     }
 }

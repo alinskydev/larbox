@@ -44,7 +44,12 @@ export default {
 
 <template>
     <PageTitle :text="page.title">
-        <button type="button" class="btn btn-success" @click="create">
+        <button
+            v-if="booted.helpers.user.checkRoute(booted.components.app, 'box/category/create')"
+            type="button"
+            class="btn btn-success"
+            @click="create"
+        >
             {{ __('routeActions->create') }}
         </button>
     </PageTitle>

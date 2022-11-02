@@ -14,7 +14,7 @@ export default {
     },
     data() {
         return {
-            hiddenNodes: [],
+            nodes: [],
             treeView: null,
         };
     },
@@ -51,7 +51,7 @@ export default {
                         })
                         .on('loaded.jstree', () => {
                             this.treeView.jstree(true).check_node(this.value);
-                            this.hiddenNodes = this.treeView.jstree(true).get_json('#', { flat: true });
+                            this.nodes = this.treeView.jstree(true).get_json('#', { flat: true });
                         });
                 }
             });
@@ -62,12 +62,10 @@ export default {
         },
         toggle(event) {
             if (event.target.value === '1') {
-                this.hiddenNodes.forEach((node, index) => {
-                    if (node.state.hidden) this.treeView.jstree(true).show_node(node.id);
-                });
+                this.treeView.jstree(true).show_all();
             } else {
-                this.hiddenNodes.forEach((node, index) => {
-                    if (node.state.hidden) this.treeView.jstree(true).hide_node(node.id);
+                this.nodes.forEach((value, index) => {
+                    if (value.state.hidden) this.treeView.jstree(true).hide_node(value.id);
                 });
             }
         },

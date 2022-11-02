@@ -34,9 +34,9 @@ export default {
                     path: 'section/' + this.name,
                 },
                 events: {
-                    afterSubmit: (context, formData, response) => {
-                        toastr.success(context.__('Сохранение прошло успешно'));
-                        context.booted.components.app.childKey++;
+                    afterSubmit: (formData, response) => {
+                        toastr.success(this.__('Сохранение прошло успешно'));
+                        this.booted.components.app.childKey++;
                     },
                 },
             }),

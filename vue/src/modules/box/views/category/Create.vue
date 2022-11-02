@@ -27,10 +27,10 @@ export default {
                     path: 'box/category',
                 },
                 events: {
-                    afterSubmit: (context, formData, response) => {
+                    afterSubmit: (formData, response) => {
                         this.$parent.$data.treeKey++;
                         $('#' + this.id).modal('hide');
-                        toastr.success(context.__('Сохранение прошло успешно'));
+                        toastr.success(this.__('Сохранение прошло успешно'));
                     },
                 },
             }),

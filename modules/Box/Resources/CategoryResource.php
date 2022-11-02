@@ -2,9 +2,9 @@
 
 namespace Modules\Box\Resources;
 
-use Illuminate\Http\Resources\Json\JsonResource;
+use App\Hierarchy\HierarchyResource;
 
-class CategoryResource extends JsonResource
+class CategoryResource extends HierarchyResource
 {
     public function toArray($request)
     {
@@ -15,32 +15,13 @@ class CategoryResource extends JsonResource
             'full_text' => $this->whenLoaded('parents', function () {
                 return $this->fullField('text', ' => ');
             }) ?: $this->text,
+            'boxes_count' => $this->whenLoaded('children', function () {
+                return $this->boxes_count + $this->children->sum('boxes_count');
+            }),
 
             'parents' => $this->whenLoaded('parents', function () {
-                return $this->collectParents();
+                return $this->assignFullFieldToParents($this->parents, 'slug', '/');
             }) ?: [],
         ]);
-    }
-
-    private function fullField(string $field, string $separator)
-    {
-        $result = $this->parents->pluck($field);
-        $result[] = $this->{$field};
-
-        return $result->join($separator);
-    }
-
-    private function collectParents()
-    {
-        $slugs = [];
-        $result = [];
-
-        foreach ($this->parents as $parent) {
-            $slugs[] = $parent->slug;
-            $parent->full_slug = implode('/', $slugs);
-            $result[] = $parent;
-        }
-
-        return $result;
     }
 }

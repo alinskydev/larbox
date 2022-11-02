@@ -33,41 +33,40 @@ class HierarchyModel extends Model
     public function parent()
     {
         // Only for getting relations
-        return new HierarchySingleParentRelation($this->newQuery(), $this, 'tree', 'tree');
+        return (new HierarchySingleParentRelation(static::query(), $this, 'tree', 'tree'))->withTrashed();
     }
 
     public function parents()
     {
         // Only for getting relations
-        return new HierarchyAllParentsRelation($this->newQuery(), $this, 'tree', 'tree');
+        return (new HierarchyAllParentsRelation(static::query(), $this, 'tree', 'tree'))->withTrashed();
     }
 
     public function children()
     {
         // Only for getting relations
-        return new HierarchyAllChildrenRelation($this->newQuery(), $this, 'tree', 'tree');
+        return (new HierarchyAllChildrenRelation(static::query(), $this, 'tree', 'tree'))->withTrashed();
     }
 
     public function siblings()
     {
         // Only for getting relations
-        return new HierarchyAllSiblingsRelation($this->newQuery(), $this, 'tree', 'tree');
+        return (new HierarchyAllSiblingsRelation(static::query(), $this, 'tree', 'tree'))->withTrashed();
     }
 
     protected static function boot()
     {
         parent::boot();
 
-        static::addGlobalScope(function ($query) {
-            $query->where('box_category.depth', '>', 0);
+        static::creating(function (self $model) {
+            $model->lft = 1;
+            $model->rgt = 2;
+            $model->depth = 1;
         });
 
-        static::creating(function (self $model) {
-            $maxRgt = static::query()->max('rgt');
-
-            $model->lft = $maxRgt + 1;
-            $model->rgt = $maxRgt + 2;
-            $model->depth = 1;
+        static::created(function (self $model) {
+            $service = new HierarchyService($model);
+            $service->appendToRoot();
         });
 
         static::deleted(function (self $model) {

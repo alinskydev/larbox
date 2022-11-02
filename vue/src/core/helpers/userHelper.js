@@ -11,6 +11,7 @@ export default {
         localStorage.removeItem('auth_username');
         localStorage.removeItem('auth_password');
     },
+
     checkRoute(context, routeName) {
         // Checking route availability
 
