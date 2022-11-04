@@ -7,9 +7,12 @@ use Illuminate\Testing\TestResponse;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Testing\File;
 
+use App\Tests\Feature\Traits\ActionFeatureTestTrait;
+
 abstract class PostmanTestCase extends BaseTestCase
 {
     use CreatesApplicationTrait;
+    use ActionFeatureTestTrait;
 
     public const REQUEST_METHOD_GET = 'GET';
     public const REQUEST_METHOD_POST = 'POST';

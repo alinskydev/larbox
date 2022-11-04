@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Helpers\Test\Feature;
+namespace App\Tests\Feature\Helpers;
 
 use Illuminate\Http\UploadedFile;
 

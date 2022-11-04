@@ -2,29 +2,22 @@
 
 namespace Http\Admin\Box\Tests\Brand;
 
-use App\Helpers\Test\Feature\FormHelper;
-
 class UpdateTest extends _TestCase
 {
-    public string $requestMethod = self::REQUEST_METHOD_PUT;
-
     public function test_success()
     {
-        $this->requestUrl .= '/1';
+        $this->processUpdate(
+            body: [
+                'name' => 'Brand 1',
+                'show_on_the_home_page' => 1,
+                'file' => $this->formHelper::file(),
+                'files_list' => [
+                    $this->formHelper::file(),
+                    $this->formHelper::file(),
+                ],
 
-        $this->requestBody = [
-            'name' => 'Brand 1',
-            'show_on_the_home_page' => 1,
-            'file' => FormHelper::file(),
-            'files_list' => [
-                FormHelper::file(),
-                FormHelper::file(),
+                'seo_meta' => $this->formHelper::seoMeta(),
             ],
-
-            'seo_meta' => FormHelper::seoMeta(),
-        ];
-
-        $this->response = $this->sendRequest();
-        $this->response->assertStatus(200);
+        );
     }
 }

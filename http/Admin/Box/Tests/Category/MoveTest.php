@@ -2,14 +2,12 @@
 
 namespace Http\Admin\Box\Tests\Category;
 
-use App\Helpers\Test\Feature\FormHelper;
 use Modules\Box\Models\Category;
 use App\Hierarchy\HierarchyHelper;
 
 class MoveTest extends _TestCase
 {
     public string $requestUrl = 'admin/box/category-move';
-
     public string $requestMethod = self::REQUEST_METHOD_PATCH;
 
     public function test_success()
@@ -28,7 +26,7 @@ class MoveTest extends _TestCase
         $this->requestBody = [
             'tree' => $tree,
 
-            'seo_meta' => FormHelper::seoMeta(),
+            'seo_meta' => $this->formHelper::seoMeta(),
         ];
 
         $this->response = $this->sendRequest();

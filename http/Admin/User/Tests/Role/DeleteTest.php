@@ -2,12 +2,8 @@
 
 namespace Http\Admin\User\Tests\Role;
 
-use App\Tests\Feature\Traits\DeleteFeatureTestTrait;
-
 class DeleteTest extends _TestCase
 {
-    use DeleteFeatureTestTrait;
-
     public function test_delete()
     {
         $this->processDelete('3');

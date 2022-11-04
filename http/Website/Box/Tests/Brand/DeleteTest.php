@@ -2,15 +2,11 @@
 
 namespace Http\Website\Box\Tests\Brand;
 
-use App\Tests\Feature\Traits\DeleteFeatureTestTrait;
-
 /**
  * @depends Http\Website\Box\Tests\Brand\UpdateTest::test_success
  */
 class DeleteTest extends _TestCase
 {
-    use DeleteFeatureTestTrait;
-
     public function test_delete()
     {
         $this->processDelete('brand-2');

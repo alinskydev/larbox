@@ -2,48 +2,44 @@
 
 namespace Http\Admin\Box\Tests\Box;
 
-use App\Helpers\Test\Feature\FormHelper;
-
 class CreateTest extends _TestCase
 {
-    public string $requestMethod = self::REQUEST_METHOD_POST;
-
     public function test_success()
     {
-        $this->requestBody = [
-            'brand_id' => 1,
-            'name' => FormHelper::localized('Box 3'),
-            'description' => FormHelper::localized('Description 3'),
-            'price' => 9300,
-            'date' => date(LARBOX_FORMAT_DATE),
-            'datetime' => date(LARBOX_FORMAT_DATETIME),
-            'image' => FormHelper::file(),
-            'images_list' => [
-                FormHelper::file(),
-                FormHelper::file(),
-            ],
-
-            'categories' => [6, 8],
-            'tags' => [1, 2],
-
-            'variations' => FormHelper::multiply(
-                range(1, 2),
-                fn ($index) => [
-                    'name' => FormHelper::localized("Variation $index"),
-                    'date' => date(LARBOX_FORMAT_DATE),
-                    'datetime' => date(LARBOX_FORMAT_DATETIME),
-                    'image' => FormHelper::file(),
-                    'images_list' => [
-                        FormHelper::file(),
-                        FormHelper::file(),
-                    ],
+        $this->processPost(
+            body: [
+                'brand_id' => 1,
+                'name' => $this->formHelper::localized('Box 3'),
+                'description' => $this->formHelper::localized('Description 3'),
+                'price' => 9300,
+                'date' => date(LARBOX_FORMAT_DATE),
+                'datetime' => date(LARBOX_FORMAT_DATETIME),
+                'image' => $this->formHelper::file(),
+                'images_list' => [
+                    $this->formHelper::file(),
+                    $this->formHelper::file(),
                 ],
-            ),
 
-            'seo_meta' => FormHelper::seoMeta(),
-        ];
+                'categories' => [6, 8],
+                'tags' => [1, 2],
 
-        $this->response = $this->sendRequest();
-        $this->response->assertStatus(201);
+                'variations' => $this->formHelper::multiply(
+                    range(1, 2),
+                    fn ($index) => [
+                        'name' => $this->formHelper::localized("Variation $index"),
+                        'date' => date(LARBOX_FORMAT_DATE),
+                        'datetime' => date(LARBOX_FORMAT_DATETIME),
+                        'image' => $this->formHelper::file(),
+                        'images_list' => [
+                            $this->formHelper::file(),
+                            $this->formHelper::file(),
+                        ],
+                    ],
+                ),
+
+                'seo_meta' => $this->formHelper::seoMeta(),
+            ],
+            assertStatus: 201,
+        );
     }
 }

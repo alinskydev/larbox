@@ -2,13 +2,8 @@
 
 namespace Http\Admin\Section\Tests;
 
-use App\Tests\Feature\Traits\ShowFeatureTestTrait;
-use App\Helpers\Test\Feature\FormHelper;
-
 class HomeTest extends _TestCase
 {
-    use ShowFeatureTestTrait;
-
     public function test_show()
     {
         $this->processShow('home');
@@ -16,49 +11,46 @@ class HomeTest extends _TestCase
 
     public function test_update()
     {
-        $this->requestUrl .= '/home';
-        $this->requestMethod = self::REQUEST_METHOD_PUT;
+        $this->processUpdate(
+            path: 'home',
+            body: [
+                'first_text_1' => 'Text 1',
+                'first_text_1_localized' => $this->formHelper::localized('Text 1'),
+                'first_text_2' => 'Text 2',
+                'first_text_2_localized' => $this->formHelper::localized('Text 2'),
+                'first_text_3' => 'Text 3',
+                'first_text_3_localized' => $this->formHelper::localized('Text 3'),
 
-        $this->requestBody = [
-            'first_text_1' => 'Text 1',
-            'first_text_1_localized' => FormHelper::localized('Text 1'),
-            'first_text_2' => 'Text 2',
-            'first_text_2_localized' => FormHelper::localized('Text 2'),
-            'first_text_3' => 'Text 3',
-            'first_text_3_localized' => FormHelper::localized('Text 3'),
-
-            'second_image_desktop' => FormHelper::file(),
-            'second_image_tablet' => FormHelper::file(),
-            'second_image_mobile' => FormHelper::file(),
-            'second_images_list' => [
-                FormHelper::file(),
-                FormHelper::file(),
-            ],
-
-            'relations_1' => FormHelper::multiply(
-                range(1, 2),
-                fn ($index) => [
-                    'text' => "Text $index",
-                    'image' => FormHelper::file(),
+                'second_image_desktop' => $this->formHelper::file(),
+                'second_image_tablet' => $this->formHelper::file(),
+                'second_image_mobile' => $this->formHelper::file(),
+                'second_images_list' => [
+                    $this->formHelper::file(),
+                    $this->formHelper::file(),
                 ],
-            ),
 
-            'relations_2' => FormHelper::multiply(
-                range(1, 2),
-                fn ($index) => [
-                    'text_localized' => FormHelper::localized("Text $index"),
-                    'images_list' => [
-                        FormHelper::file(),
-                        FormHelper::file(),
-                        FormHelper::file(),
+                'relations_1' => $this->formHelper::multiply(
+                    range(1, 2),
+                    fn ($index) => [
+                        'text' => "Text $index",
+                        'image' => $this->formHelper::file(),
                     ],
-                ],
-            ),
+                ),
 
-            'seo_meta' => FormHelper::seoMeta(),
-        ];
+                'relations_2' => $this->formHelper::multiply(
+                    range(1, 2),
+                    fn ($index) => [
+                        'text_localized' => $this->formHelper::localized("Text $index"),
+                        'images_list' => [
+                            $this->formHelper::file(),
+                            $this->formHelper::file(),
+                            $this->formHelper::file(),
+                        ],
+                    ],
+                ),
 
-        $this->response = $this->sendRequest();
-        $this->response->assertStatus(200);
+                'seo_meta' => $this->formHelper::seoMeta(),
+            ],
+        );
     }
 }

@@ -2,51 +2,44 @@
 
 namespace Http\Admin\Box\Tests\Box;
 
-use App\Helpers\Test\Feature\FormHelper;
-
 class UpdateTest extends _TestCase
 {
-    public string $requestMethod = self::REQUEST_METHOD_PUT;
-
     public function test_success()
     {
-        $this->requestUrl .= '/1';
-
-        $this->requestBody = [
-            'brand_id' => 1,
-            'name' => FormHelper::localized('Box 1'),
-            'description' => FormHelper::localized('Description 1'),
-            'price' => 2000,
-            'date' => date(LARBOX_FORMAT_DATE),
-            'datetime' => date(LARBOX_FORMAT_DATETIME),
-            'image' => FormHelper::file(),
-            'images_list' => [
-                FormHelper::file(),
-                FormHelper::file(),
-            ],
-
-            'categories' => [6, 7],
-            'tags' => [1, 2],
-
-            'variations' => FormHelper::multiply(
-                range(1, 2),
-                fn ($index) => [
-                    'id' => $index,
-                    'name' => FormHelper::localized("Variation $index"),
-                    'date' => date(LARBOX_FORMAT_DATE),
-                    'datetime' => date(LARBOX_FORMAT_DATETIME),
-                    'image' => FormHelper::file(),
-                    'images_list' => [
-                        FormHelper::file(),
-                        FormHelper::file(),
-                    ],
+        $this->processUpdate(
+            body: [
+                'brand_id' => 1,
+                'name' => $this->formHelper::localized('Box 1'),
+                'description' => $this->formHelper::localized('Description 1'),
+                'price' => 2000,
+                'date' => date(LARBOX_FORMAT_DATE),
+                'datetime' => date(LARBOX_FORMAT_DATETIME),
+                'image' => $this->formHelper::file(),
+                'images_list' => [
+                    $this->formHelper::file(),
+                    $this->formHelper::file(),
                 ],
-            ),
 
-            'seo_meta' => FormHelper::seoMeta(),
-        ];
+                'categories' => [6, 7],
+                'tags' => [1, 2],
 
-        $this->response = $this->sendRequest();
-        $this->response->assertStatus(200);
+                'variations' => $this->formHelper::multiply(
+                    range(1, 2),
+                    fn ($index) => [
+                        'id' => $index,
+                        'name' => $this->formHelper::localized("Variation $index"),
+                        'date' => date(LARBOX_FORMAT_DATE),
+                        'datetime' => date(LARBOX_FORMAT_DATETIME),
+                        'image' => $this->formHelper::file(),
+                        'images_list' => [
+                            $this->formHelper::file(),
+                            $this->formHelper::file(),
+                        ],
+                    ],
+                ),
+
+                'seo_meta' => $this->formHelper::seoMeta(),
+            ],
+        );
     }
 }
