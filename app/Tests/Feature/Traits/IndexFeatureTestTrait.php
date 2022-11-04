@@ -23,12 +23,12 @@ trait IndexFeatureTestTrait
         $this->response->assertStatus($assertStatus);
     }
 
-    public function processAvailableFilters(array $filters, int $assertStatus = 206)
+    public function processAvailableFilters(array $params, int $assertStatus = 206)
     {
         $this->requestMethod = PostmanTestCase::REQUEST_METHOD_GET;
 
         $this->requestQuery = [
-            'filter' => $filters,
+            'filter' => $params,
         ];
 
         $this->response = $this->sendRequest();
@@ -53,12 +53,12 @@ trait IndexFeatureTestTrait
         $this->response->assertStatus($assertStatus);
     }
 
-    public function processAvailableShowings(array $showings, int $assertStatus = 206)
+    public function processAvailableShowings(array $params, int $assertStatus = 206)
     {
         $this->requestMethod = PostmanTestCase::REQUEST_METHOD_GET;
 
         $this->requestQuery = [
-            'show' => $showings,
+            'show' => $params,
         ];
 
         $this->response = $this->sendRequest();
