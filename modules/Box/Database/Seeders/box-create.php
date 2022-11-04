@@ -12,7 +12,7 @@ return new class extends Seeder
             [
                 'brand_id' => 1,
                 'name' => SeederHelper::localized('Box 1'),
-                'slug' => 'box-1',
+                'slug' => SeederHelper::slug('Box 1'),
                 'description' => '[]',
                 'price' => 2000,
                 'date' => date('Y-m-d'),
@@ -29,7 +29,7 @@ return new class extends Seeder
             [
                 'brand_id' => 1,
                 'name' => SeederHelper::localized('Box 2'),
-                'slug' => 'box-2',
+                'slug' => SeederHelper::slug('Box 2'),
                 'description' => '[]',
                 'price' => 5500,
                 'date' => date('Y-m-d'),

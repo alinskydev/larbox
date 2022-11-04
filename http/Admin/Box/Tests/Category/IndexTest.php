@@ -2,58 +2,48 @@
 
 namespace Http\Admin\Box\Tests\Category;
 
-use App\Services\Test\Feature\IndexFeatureTestService;
+use App\Tests\Feature\Traits\IndexFeatureTestTrait;
 use Modules\Box\Search\CategorySearch;
 
 class IndexTest extends _TestCase
 {
-    public string $requestMethod = self::REQUEST_METHOD_GET;
+    use IndexFeatureTestTrait;
 
     public string $searchClass = CategorySearch::class;
 
     public function test_available_filters()
     {
-        $this->requestQuery = [
-            'filter' => [
-                'id' => 3,
-                'depth' => 2,
-                'name' => 'category',
-            ],
-        ];
-
-        $this->response = $this->sendRequest();
-        $this->response->assertStatus(206);
+        $this->processAvailableFilters([
+            'id' => 3,
+            'depth' => 1,
+            'name' => 'category',
+        ]);
     }
 
     public function test_available_sortings()
     {
-        (new IndexFeatureTestService($this))->availableSortings();
+        $this->processAvailableSortings();
     }
 
     public function test_available_showings()
     {
-        $this->requestQuery = [
-            'show' => [
-                'boxes_count',
-            ],
-        ];
-
-        $this->response = $this->sendRequest();
-        $this->response->assertStatus(206);
+        $this->processAvailableShowings([
+            'boxes_count',
+        ]);
     }
 
     public function test_show_with_deleted()
     {
-        (new IndexFeatureTestService($this))->showWithDeleted();
+        $this->processShowWithDeleted();
     }
 
     public function test_show_only_deleted()
     {
-        (new IndexFeatureTestService($this))->showOnlyDeleted();
+        $this->processShowOnlyDeleted();
     }
 
     public function test_pagination()
     {
-        (new IndexFeatureTestService($this))->pagination();
+        $this->processPagination();
     }
 }

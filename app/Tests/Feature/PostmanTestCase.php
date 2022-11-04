@@ -3,7 +3,6 @@
 namespace App\Tests\Feature;
 
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
-use App\Tests\Feature\Traits\CreatesApplicationTrait;
 use Illuminate\Testing\TestResponse;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Testing\File;

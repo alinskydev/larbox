@@ -2,17 +2,19 @@
 
 namespace Http\Admin\Box\Tests\Category;
 
-use App\Services\Test\Feature\DeleteFeatureTestService;
+use App\Tests\Feature\Traits\DeleteFeatureTestTrait;
 
 class DeleteTest extends _TestCase
 {
+    use DeleteFeatureTestTrait;
+
     public function test_delete()
     {
-        (new DeleteFeatureTestService($this))->delete('8');
+        $this->processDelete('2');
     }
 
     public function test_restore()
     {
-        (new DeleteFeatureTestService($this))->restore('8/restore');
+        $this->processRestore('2/restore');
     }
 }

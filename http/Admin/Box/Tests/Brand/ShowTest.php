@@ -2,12 +2,14 @@
 
 namespace Http\Admin\Box\Tests\Brand;
 
-use App\Services\Test\Feature\ShowFeatureTestService;
+use App\Tests\Feature\Traits\ShowFeatureTestTrait;
 
 class ShowTest extends _TestCase
 {
+    use ShowFeatureTestTrait;
+
     public function test_success()
     {
-        (new ShowFeatureTestService($this))->show();
+        $this->processShow();
     }
 }

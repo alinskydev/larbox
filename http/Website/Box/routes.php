@@ -10,10 +10,10 @@ Route::prefix('box')
     ->group(function () {
         Route::apiResource('brand', BrandController::class)->except(['deleteAll', 'restore', 'restoreAll']);
 
-        Route::get('category-tree', [CategoryController::class, 'tree'])->name('category.tree');
-        Route::get('category-show/{fullSlug}', [CategoryController::class, 'showByFullSlug'])
+        Route::apiResource('category', CategoryController::class)->only(['index']);
+        Route::get('category/{fullSlug}', [CategoryController::class, 'showByFullSlug'])
             ->where('fullSlug', '(.*)')
             ->name('category.show');
 
-        Route::apiResource('category', CategoryController::class)->only(['index']);
+        Route::get('category-tree', [CategoryController::class, 'tree'])->name('category.tree');
     });

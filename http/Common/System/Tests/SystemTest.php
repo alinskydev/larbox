@@ -2,23 +2,19 @@
 
 namespace Http\Common\System\Tests;
 
+use App\Tests\Feature\Traits\ShowFeatureTestTrait;
+
 class SystemTest extends _TestCase
 {
-    public string $requestMethod = self::REQUEST_METHOD_GET;
+    use ShowFeatureTestTrait;
 
     public function test_information()
     {
-        $this->requestUrl .= '/information';
-
-        $this->response = $this->sendRequest();
-        $this->response->assertStatus(200);
+        $this->processShow('information');
     }
 
     public function test_enums()
     {
-        $this->requestUrl .= '/enums';
-
-        $this->response = $this->sendRequest();
-        $this->response->assertStatus(200);
+        $this->processShow('enums');
     }
 }

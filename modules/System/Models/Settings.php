@@ -13,5 +13,4 @@ class Settings extends Model
     public $timestamps = false;
 
     protected $primaryKey = 'name';
-    protected $routeKeyName = 'name';
 }

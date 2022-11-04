@@ -13,7 +13,6 @@ class Profile extends Model
     public $timestamps = false;
 
     protected $primaryKey = 'user_id';
-    protected $routeKeyName = 'user_id';
 
     protected $hidden = [
         'user_id',

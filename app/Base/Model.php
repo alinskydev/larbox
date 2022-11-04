@@ -5,8 +5,8 @@ namespace App\Base;
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Model as BaseModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Modules\Seo\Traits\SeoMetaModelTrait;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 
 class Model extends BaseModel
 {
@@ -16,7 +16,7 @@ class Model extends BaseModel
 
     public array $fillableRelations = [];
 
-    protected $routeKeyName = 'id';
+    protected string $routeKeyName;
 
     public function __construct(array $attributes = [])
     {
@@ -38,21 +38,12 @@ class Model extends BaseModel
             $this->append(['is_deleted']);
         }
 
-        if (in_array(SeoMetaModelTrait::class, class_uses_recursive($this))) {
-            $this->with[] = 'seo_meta_morph';
-            $this->append(['seo_meta', 'seo_meta_as_array']);
-        }
-
         return parent::__construct($attributes);
     }
 
     public function getIsDeletedAttribute()
     {
-        if (in_array(SoftDeletes::class, class_uses_recursive($this))) {
-            return (bool)$this->deleted_at;
-        } else {
-            return false;
-        }
+        return (bool)$this->deleted_at;
     }
 
     protected function serializeDate(DateTimeInterface $date)
@@ -63,7 +54,7 @@ class Model extends BaseModel
 
     public function getRouteKeyName()
     {
-        return $this->routeKeyName;
+        return $this->routeKeyName ?? $this->getKeyName();
     }
 
     public function setRouteKeyName(string $name): self
@@ -81,10 +72,10 @@ class Model extends BaseModel
             // Saving relations
 
             foreach ($model->fillableRelations as $relationType => $relations) {
-                foreach ($relations as $relation => $value) {
+                foreach ($relations as $relationName => $value) {
                     switch ($relationType) {
                         case static::RELATION_TYPE_ONE_ONE:
-                            $relatedModel = $model->$relation()->firstOrNew();
+                            $relatedModel = $model->$relationName()->firstOrNew();
                             $relatedModel->fill($value)->save();
                             break;
 
@@ -95,7 +86,7 @@ class Model extends BaseModel
 
                             // Trying to delete old records
 
-                            if ($records = $model->$relation()->whereNotIn('id', $ids)->get()) {
+                            if ($records = $model->$relationName()->whereNotIn('id', $ids)->get()) {
                                 foreach ($records as $record) {
                                     $record->delete();
                                 }
@@ -107,13 +98,42 @@ class Model extends BaseModel
                                 $id = $v['id'] ?? null;
                                 $v['sort_index'] = $k;
 
-                                $model->$relation()->updateOrCreate(['id' => $id], $v);
+                                $model->$relationName()->updateOrCreate(['id' => $id], $v);
                             }
 
                             break;
 
                         case static::RELATION_TYPE_MANY_MANY:
-                            $model->$relation()->sync($value);
+
+                            // Getting keys
+
+                            $relation = $model->$relationName();
+                            $relatedKeyName = $relation->getRelatedKeyName(); // E.g.: box_category.id
+                            $foreignPivotKeyName = $relation->getForeignPivotKeyName(); // E.g.: box_category_ref.box_id
+                            $relationPivotKeyName = $relation->getRelatedPivotKeyName(); // E.g.: box_category_ref.category_id
+
+                            $pivotTable = $relation->getTable();
+
+                            $oldRelationIds = $model->$relationName->pluck($relatedKeyName)->toArray();
+
+                            // Deleting old records
+
+                            DB::table($pivotTable)
+                                ->where($foreignPivotKeyName, $model->getKey())
+                                ->whereNotIn($relationPivotKeyName, $value)
+                                ->delete();
+
+                            // Inserting old records
+
+                            $value = array_diff($value, $oldRelationIds);
+
+                            $value = array_map(fn ($v) => [
+                                $foreignPivotKeyName => $model->getKey(),
+                                $relationPivotKeyName => $v,
+                            ], $value);
+
+                            DB::table($pivotTable)->insert($value);
+
                             break;
                     }
                 }

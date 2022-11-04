@@ -12,7 +12,7 @@ return new class extends Seeder
             [
                 'creator_id' => 1,
                 'name' => 'Brand 1',
-                'slug' => 'brand-1',
+                'slug' => SeederHelper::slug('Brand 1', false),
                 'file' => '/test_data/images/1.png',
                 'files_list' => json_encode([
                     '/test_data/media/music.mp3',
@@ -27,7 +27,7 @@ return new class extends Seeder
             [
                 'creator_id' => 3,
                 'name' => 'Brand 2',
-                'slug' => 'brand-2',
+                'slug' => SeederHelper::slug('Brand 2', false),
                 'file' => '/test_data/media/webp.webp',
                 'files_list' => json_encode([
                     '/test_data/media/svg_html.svg',

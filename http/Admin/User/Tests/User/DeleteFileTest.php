@@ -2,15 +2,14 @@
 
 namespace Http\Admin\User\Tests\User;
 
+use App\Tests\Feature\Traits\DeleteFeatureTestTrait;
+
 class DeleteFileTest extends _TestCase
 {
-    public string $requestMethod = self::REQUEST_METHOD_DELETE;
+    use DeleteFeatureTestTrait;
 
     public function test_image()
     {
-        $this->requestUrl .= '/1/delete-file/image';
-
-        $this->response = $this->sendRequest();
-        $this->response->assertStatus(200);
+        $this->processDelete('1/delete-file/image');
     }
 }

@@ -2,15 +2,14 @@
 
 namespace Http\Admin\System\Tests\System;
 
+use App\Tests\Feature\Traits\ShowFeatureTestTrait;
+
 class SystemTest extends _TestCase
 {
-    public string $requestMethod = self::REQUEST_METHOD_GET;
+    use ShowFeatureTestTrait;
 
     public function test_information()
     {
-        $this->requestUrl .= '/information';
-
-        $this->response = $this->sendRequest();
-        $this->response->assertStatus(200);
+        $this->processShow('information');
     }
 }

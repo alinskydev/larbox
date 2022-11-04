@@ -2,23 +2,19 @@
 
 namespace Http\Website\Box\Tests\Category;
 
+use App\Tests\Feature\Traits\ShowFeatureTestTrait;
+
 class ShowTest extends _TestCase
 {
-    public string $requestMethod = self::REQUEST_METHOD_GET;
+    use ShowFeatureTestTrait;
 
     public function test_full_slug_1()
     {
-        $this->requestUrl = 'website/box/category-show/category-1/category-1-1/leaf-1';
-
-        $this->response = $this->sendRequest();
-        $this->response->assertStatus(200);
+        $this->processShow('category-1-ru/category-1-1-ru/leaf-1-ru');
     }
 
     public function test_full_slug_2()
     {
-        $this->requestUrl = 'website/box/category-show/category-1/category-1-2/leaf-1';
-
-        $this->response = $this->sendRequest();
-        $this->response->assertStatus(200);
+        $this->processShow('category-1-ru/category-1-2-ru/leaf-1-ru');
     }
 }

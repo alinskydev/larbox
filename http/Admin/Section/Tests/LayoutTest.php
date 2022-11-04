@@ -2,17 +2,16 @@
 
 namespace Http\Admin\Section\Tests;
 
+use App\Tests\Feature\Traits\ShowFeatureTestTrait;
 use App\Helpers\Test\Feature\FormHelper;
 
 class LayoutTest extends _TestCase
 {
+    use ShowFeatureTestTrait;
+
     public function test_show()
     {
-        $this->requestUrl .= '/layout';
-        $this->requestMethod = self::REQUEST_METHOD_GET;
-
-        $this->response = $this->sendRequest();
-        $this->response->assertStatus(200);
+        $this->processShow('layout');
     }
 
     public function test_update()

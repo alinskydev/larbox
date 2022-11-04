@@ -2,18 +2,16 @@
 
 namespace Http\Website\User\Tests;
 
+use App\Tests\Feature\Traits\ShowFeatureTestTrait;
 use App\Helpers\Test\Feature\FormHelper;
 
 class ProfileTest extends _TestCase
 {
+    use ShowFeatureTestTrait;
+
     public function test_show()
     {
-        $this->requestMethod = self::REQUEST_METHOD_GET;
-
-        $this->requestUrl .= '/profile';
-
-        $this->response = $this->sendRequest();
-        $this->response->assertStatus(200);
+        $this->processShow('profile');
     }
 
     public function test_update()

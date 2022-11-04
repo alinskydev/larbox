@@ -10,10 +10,10 @@ class UpdateTest extends _TestCase
 
     public function test_success()
     {
-        $this->requestUrl .= '/8';
+        $this->requestUrl .= '/2';
 
         $this->requestBody = [
-            'name' => FormHelper::localized('Category 2'),
+            'name' => FormHelper::localized('Category 1'),
 
             'seo_meta' => FormHelper::seoMeta(),
         ];

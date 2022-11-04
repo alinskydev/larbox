@@ -8,6 +8,7 @@ use App\Base\Search;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Contracts\Validation\ValidatesWhenResolved;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Seo\Traits\SeoMetaModelTrait;
 use Illuminate\Support\Facades\DB;
 
 class ResourceController extends Controller
@@ -51,6 +52,11 @@ class ResourceController extends Controller
     public function show(Model $model)
     {
         $model = $this->search->queryBuilder->findOrFail($model->id);
+
+        if (in_array(SeoMetaModelTrait::class, class_uses_recursive($model))) {
+            $model->append(['seo_meta', 'seo_meta_as_array']);
+        }
+
         $data = $this->resourceClass::make($model);
 
         return response()->json($data, 200);

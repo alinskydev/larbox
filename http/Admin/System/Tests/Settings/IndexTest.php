@@ -2,13 +2,14 @@
 
 namespace Http\Admin\System\Tests\Settings;
 
+use App\Tests\Feature\Traits\ShowFeatureTestTrait;
+
 class IndexTest extends _TestCase
 {
-    public string $requestMethod = self::REQUEST_METHOD_GET;
+    use ShowFeatureTestTrait;
 
     public function test_success()
     {
-        $this->response = $this->sendRequest();
-        $this->response->assertStatus(200);
+        $this->processShow('');
     }
 }
