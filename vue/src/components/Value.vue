@@ -90,7 +90,7 @@ export default {
     </template>
 
     <template v-else-if="item.type === Enums.valueTypes.text">
-        <span style="white-space: pre">
+        <span style="white-space: pre-wrap">
             {{ item.value }}
         </span>
     </template>
