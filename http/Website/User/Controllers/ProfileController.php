@@ -2,7 +2,7 @@
 
 namespace Http\Website\User\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Base\Controller;
 use Http\Website\User\Requests\ProfileRequest;
 use Modules\User\Resources\UserResource;
 

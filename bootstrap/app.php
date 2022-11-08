@@ -26,13 +26,9 @@ $app = new Illuminate\Foundation\Application(
 $headers = getallheaders();
 
 $envFile = match (Arr::get($headers, 'ENV')) {
-        // 'NIMyG6tVOpAir7VioWGLZLWJwnJ67CCp' => '.env.debug',
+        // 'debug_key' => '.env.debug',
     default => '.env',
 };
-
-// if (Arr::get($headers, 'Debug-Key') == 'vu8eaajiaw') {
-//     $envFile = '.env.debug';
-// }
 
 $app->loadEnvironmentFrom($envFile);
 

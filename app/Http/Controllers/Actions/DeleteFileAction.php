@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Actions;
 
-use Illuminate\Routing\Controller;
+use App\Base\Controller;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -20,7 +20,7 @@ class DeleteFileAction extends Controller
         $value = $model->$field;
 
         if ($value === null) {
-            return response()->json(['message' => 'Success'], 200);
+            return $this->successResponse();
         }
 
         $originalValue = $model->getRawOriginal($field);
@@ -46,6 +46,6 @@ class DeleteFileAction extends Controller
             FileHelper::delete(public_path($originalValue));
         }
 
-        return response()->json(['message' => 'Success'], 200);
+        return $this->successResponse();
     }
 }

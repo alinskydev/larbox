@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Base;
 
 use Illuminate\Foundation\Http\FormRequest as BaseFormRequest;
 use Modules\Seo\Traits\SeoMetaFormRequestTrait;
@@ -12,8 +12,7 @@ use Illuminate\Support\Arr;
 
 class FormRequest extends BaseFormRequest
 {
-    protected array $rawFields = [];
-    protected string $fieldCleanType = 'purify';
+    protected string $fieldCleanType = HtmlCleanHelper::TYPE_PURIFY;
 
     public function attributes()
     {
@@ -59,23 +58,7 @@ class FormRequest extends BaseFormRequest
         parent::prepareForValidation();
 
         $data = parent::validationData();
-
-        if ($this->fieldCleanType != HtmlCleanHelper::TYPE_NONE) {
-            $rawData = [];
-
-            foreach ($this->rawFields as $field) {
-                $rawData[$field] = Arr::get($data, $field);
-            }
-
-            $rawData = array_filter($rawData, fn ($f_v) => $f_v !== null);
-
-            $data = HtmlCleanHelper::process(
-                data: $data,
-                type: $this->fieldCleanType,
-            );
-
-            $data = array_replace_recursive($data, $rawData);
-        }
+        $data = HtmlCleanHelper::process($data, $this->fieldCleanType);
 
         $this->merge($data);
     }

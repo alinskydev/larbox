@@ -2,7 +2,7 @@
 
 namespace Http\Admin\Storage\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Base\Controller;
 use Http\Admin\Storage\Requests\Upload\FileRequest;
 use Http\Admin\Storage\Requests\Upload\MediaRequest;
 

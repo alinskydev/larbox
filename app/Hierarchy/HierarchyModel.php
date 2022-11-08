@@ -59,14 +59,14 @@ class HierarchyModel extends Model
         parent::boot();
 
         static::creating(function (self $model) {
-            $model->lft = 1;
-            $model->rgt = 2;
-            $model->depth = 1;
-        });
+            $root = self::query()->findOrFail(1);
 
-        static::created(function (self $model) {
-            $service = new HierarchyService($model);
-            $service->appendToRoot();
+            $model->lft = $root->rgt;
+            $model->rgt = $root->rgt + 1;
+            $model->depth = 1;
+
+            $root->rgt += 2;
+            $root->saveQuietly();
         });
 
         static::deleted(function (self $model) {

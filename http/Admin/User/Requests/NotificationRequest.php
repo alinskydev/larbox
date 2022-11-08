@@ -2,7 +2,7 @@
 
 namespace Http\Admin\User\Requests;
 
-use App\Http\Requests\FormRequest;
+use App\Base\FormRequest;
 use Modules\User\Jobs\NotificationPrepareCreateJob;
 
 use Illuminate\Validation\Rule;

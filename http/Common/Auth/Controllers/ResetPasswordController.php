@@ -2,7 +2,7 @@
 
 namespace Http\Common\Auth\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Base\Controller;
 use Http\Common\Auth\Requests\ResetPassword\SendCodeRequest;
 use Http\Common\Auth\Requests\ResetPassword\VerifyCodeRequest;
 use Http\Common\Auth\Requests\ResetPassword\CompleteRequest;

@@ -2,7 +2,7 @@
 
 namespace Http\Admin\System\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Base\Controller;
 
 use Modules\System\Models\Settings;
 use Modules\System\Resources\SettingsResource;

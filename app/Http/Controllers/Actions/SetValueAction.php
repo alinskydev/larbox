@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Actions;
 
-use Illuminate\Routing\Controller;
+use App\Base\Controller;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -29,6 +29,6 @@ class SetValueAction extends Controller
             abort(400, $e->getMessage());
         }
 
-        return response()->json(['message' => 'Success'], 200);
+        return $this->successResponse();
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Http\Website\Feedback\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Base\Controller;
 use Http\Website\Feedback\Requests\CallbackRequest;
 
 class FeedbackController extends Controller

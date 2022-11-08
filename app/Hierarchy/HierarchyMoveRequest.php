@@ -2,7 +2,7 @@
 
 namespace App\Hierarchy;
 
-use App\Http\Requests\FormRequest;
+use App\Base\FormRequest;
 
 use Illuminate\Validation\Rule;
 

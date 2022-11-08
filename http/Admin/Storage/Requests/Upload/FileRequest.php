@@ -2,7 +2,7 @@
 
 namespace Http\Admin\Storage\Requests\Upload;
 
-use App\Http\Requests\FormRequest;
+use App\Base\FormRequest;
 
 use App\Helpers\Validation\FileValidationHelper;
 use App\Helpers\FileHelper;

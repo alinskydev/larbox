@@ -83,6 +83,8 @@ class Handler extends ExceptionHandler
                 return $this->invalidJson($request, $e);
 
             case ThrottleRequestsException::class:
+                /** @var ThrottleRequestsException $e */
+
                 $response = [
                     'status' => $e->getStatusCode(),
                     'data' => [

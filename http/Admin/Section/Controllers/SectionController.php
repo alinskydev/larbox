@@ -2,7 +2,7 @@
 
 namespace Http\Admin\Section\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Base\Controller;
 use Modules\Section\Models\Section;
 use Modules\Section\Enums\SectionEnums;
 

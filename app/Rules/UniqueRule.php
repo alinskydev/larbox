@@ -5,6 +5,7 @@ namespace App\Rules;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 
+use App\Base\Rule;
 use App\Base\Model;
 
 class UniqueRule extends Rule
@@ -18,7 +19,7 @@ class UniqueRule extends Rule
 
     public function passes($attribute, $value)
     {
-        $query = $this->model->newQuery()->whereNot($this->model->getKeyName(), $this->model->getKey());
+        $query = $this->model->query()->whereNot($this->model->getKeyName(), $this->model->getKey());
 
         $attribute = explode('.', $attribute);
 

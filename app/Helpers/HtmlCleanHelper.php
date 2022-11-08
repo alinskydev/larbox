@@ -3,7 +3,6 @@
 namespace App\Helpers;
 
 use Mews\Purifier\Facades\Purifier;
-use Illuminate\Http\UploadedFile;
 
 class HtmlCleanHelper
 {
@@ -35,7 +34,7 @@ class HtmlCleanHelper
         return match ($type) {
             self::TYPE_PURIFY => Purifier::clean($value),
             self::TYPE_STRIP_TAGS => strip_tags($value),
-            default => '',
+            default => $value,
         };
     }
 }

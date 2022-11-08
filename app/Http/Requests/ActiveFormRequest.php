@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Base\FormRequest;
 use App\Base\Model;
 use Modules\Seo\Traits\SeoMetaFormRequestTrait;
 

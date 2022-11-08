@@ -2,7 +2,7 @@
 
 namespace Http\Common\Auth\Requests\ResetPassword;
 
-use App\Http\Requests\FormRequest;
+use App\Base\FormRequest;
 
 use Illuminate\Validation\Rule;
 

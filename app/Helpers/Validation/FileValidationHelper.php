@@ -25,7 +25,7 @@ class FileValidationHelper
     ];
 
     public const CONFIG_MEDIA = [
-        'max' => 1024000,
+        'max' => 102400,
         'mimes' => [
             'jpg', 'png', 'webp', 'svg',
             'mp3', 'ogg',
@@ -34,7 +34,7 @@ class FileValidationHelper
     ];
 
     public const CONFIG_ALL = [
-        'max' => 1024000,
+        'max' => 102400,
         'mimes' => [
             'jpg', 'png', 'webp', 'svg',
             'mp3', 'ogg',

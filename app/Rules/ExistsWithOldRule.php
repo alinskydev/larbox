@@ -2,6 +2,7 @@
 
 namespace App\Rules;
 
+use App\Base\Rule;
 use App\Base\Model;
 
 class ExistsWithOldRule extends Rule
@@ -34,7 +35,7 @@ class ExistsWithOldRule extends Rule
             ($this->extraQuery)($query);
         }
 
-        $relationsCount = $query->get()->count();
+        $relationsCount = $query->count();
 
         if ($relationsCount < count((array)$value)) {
             $this->errorMessage = __(':attribute с данным значением не существует', [

@@ -2,7 +2,7 @@
 
 namespace Http\Common\System\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Base\Controller;
 use Modules\System\Resources\SettingsResource;
 use Modules\Feedback\Enums\FeedbackEnums;
 

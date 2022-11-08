@@ -2,7 +2,7 @@
 
 namespace Http\Admin\System\Requests;
 
-use App\Http\Requests\FormRequest;
+use App\Base\FormRequest;
 
 use Illuminate\Validation\Rule;
 use App\Helpers\Validation\FileValidationHelper;

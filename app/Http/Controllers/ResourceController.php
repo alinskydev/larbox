@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Base\Controller;
 use App\Base\Model;
 use App\Base\Search;
 
