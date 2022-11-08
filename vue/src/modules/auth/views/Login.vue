@@ -17,6 +17,8 @@ export default {
         };
     },
     created() {
+        this.page.init();
+
         if (localStorage.getItem('auth_username')) {
             this.booted.helpers.http
                 .send(this, {

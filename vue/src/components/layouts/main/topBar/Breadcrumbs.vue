@@ -35,6 +35,7 @@ export default {
                 <RouterLink v-if="item.path" :to="item.path" class="nav-link">
                     {{ item.label }}
                 </RouterLink>
+
                 <span v-else class="nav-link">
                     {{ item.label }}
                 </span>

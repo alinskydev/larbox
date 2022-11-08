@@ -7,15 +7,7 @@ export class Page {
     }>;
     showBreadcrumbs: boolean;
 
-    constructor(config: {
-        context: any;
-        title: string;
-        breadcrumbs: Array<{
-            label: string;
-            path?: string;
-        }>;
-        showBreadcrumbs: boolean;
-    }) {
+    constructor(config: Page) {
         this.context = config.context;
         this.title = config.title;
         this.breadcrumbs = config.breadcrumbs ?? [];

@@ -1,6 +1,7 @@
 <script setup>
 import * as Enums from '@/core/enums';
 
+import { Model } from '@/core/model';
 import Input from '@/components/Input.vue';
 </script>
 
@@ -15,7 +16,7 @@ export default {
     },
     data() {
         return {
-            model: this.booted.components.current.config.model,
+            model: new Model({}),
             fields: this.item.options.relations,
             items: [],
         };

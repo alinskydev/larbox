@@ -39,7 +39,7 @@ export default {
     </template>
 
     <template v-else-if="item.type === Enums.valueTypes.component">
-        <ComponentResolver :resolve="item.options.component.resolve(booted.components.current, item)" />
+        <ComponentResolver :resolve="item.options.component.resolve(booted.components.app, item)" />
     </template>
 
     <template v-else-if="item.type === Enums.valueTypes.fields">

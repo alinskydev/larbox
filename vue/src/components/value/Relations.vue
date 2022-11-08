@@ -1,4 +1,5 @@
 <script setup>
+import { Model } from '@/core/model';
 import Value from '@/components/Value.vue';
 </script>
 
@@ -16,7 +17,7 @@ export default {
     },
     data() {
         return {
-            model: this.booted.components.current.config.model,
+            model: new Model({}),
             fields: {},
             items: {},
         };
