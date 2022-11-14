@@ -21,8 +21,8 @@ export default function (context) {
 
             // Setting locale
 
-            let mainLocale = context.booted.languages.main.code;
-            let routeLocale = context.$route.params.locale;
+            let mainLocale = context.booted.languages.main.code,
+                routeLocale = context.$route.params.locale;
 
             if (routeLocale !== undefined && routeLocale in context.booted.languages.active) {
                 locale = routeLocale;

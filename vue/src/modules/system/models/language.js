@@ -17,34 +17,40 @@ export default new Model({
         code: {
             type: Enums.valueTypes.text,
         },
+        // is_active: {
+        //     type: Enums.valueTypes.httpSwitcher,
+        //     options: {
+        //         httpSwitcher: {
+        //             path: 'system/language/:id/set-active/:value',
+        //             onSuccess: (context, value) => {
+        //                 toastr.success(context.__('Успешно изменено'));
+        //                 context.booted.components.app.childKey++;
+        //             },
+        //         },
+        //     },
+        // },
+        // is_main: {
+        //     type: Enums.valueTypes.httpSwitcher,
+        //     options: {
+        //         httpSwitcher: {
+        //             path: 'system/language/:id/set-main/:value',
+        //             onSuccess: (context, value) => {
+        //                 toastr.success(context.__('Успешно изменено'));
+        //                 context.booted.components.app.childKey++;
+        //             },
+        //         },
+        //     },
+        //     attributes: (context, item) => {
+        //         return {
+        //             readonly: item.value,
+        //         };
+        //     },
+        // },
         is_active: {
-            type: Enums.valueTypes.httpSwitcher,
-            options: {
-                httpSwitcher: {
-                    path: 'system/language/:id/set-active/:value',
-                    onSuccess: (context, value) => {
-                        toastr.success(context.__('Успешно изменено'));
-                        context.booted.components.app.childKey++;
-                    },
-                },
-            },
+            type: Enums.valueTypes.boolean,
         },
         is_main: {
-            type: Enums.valueTypes.httpSwitcher,
-            options: {
-                httpSwitcher: {
-                    path: 'system/language/:id/set-main/:value',
-                    onSuccess: (context, value) => {
-                        toastr.success(context.__('Успешно изменено'));
-                        context.booted.components.app.childKey++;
-                    },
-                },
-            },
-            attributes: (context, item) => {
-                return {
-                    readonly: item.value,
-                };
-            },
+            type: Enums.valueTypes.boolean,
         },
         updated_at: {
             type: Enums.valueTypes.text,

@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Base\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class SlugObserver
 {
@@ -21,12 +22,13 @@ class SlugObserver
 
         $slug = Str::slug($sourceValue);
 
-        $modelWithSameSlug = $model->query()
-            ->where('slug', $slug)
-            ->where('id', '!=', $model->id)
-            ->first();
+        $query = $model->query()->where('slug', $slug)->where('id', '!=', $model->id);
 
-        if ($modelWithSameSlug) {
+        if (in_array(SoftDeletes::class, class_uses_recursive($model))) {
+            $query->withTrashed();
+        }
+
+        if ($query->count() > 0) {
             $slug .= '-' . uniqid();
         }
 
