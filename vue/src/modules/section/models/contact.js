@@ -26,7 +26,10 @@ export default new Model({
                             type: Enums.inputTypes.text,
                         },
                         phones: {
-                            type: Enums.inputTypes.select2Array,
+                            type: Enums.inputTypes.select2,
+                            options: {
+                                isMultiple: true,
+                            },
                         },
                         description: {
                             type: Enums.inputTypes.textarea,

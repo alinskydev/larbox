@@ -88,11 +88,11 @@ export default {
 <template>
     <template v-if="config.selection.actions.length > 0">
         <th v-if="type === 'tableHead'" style="width: 50px">
-            <input type="checkbox" class="checkbox-lg" @change="toggleHead" />
+            <input type="checkbox" class="selection checkbox-lg" @change="toggleHead" />
         </th>
 
         <th v-if="type === 'tableBody'">
-            <input type="checkbox" :value="id" class="checkbox-lg" @change="toggleBody" />
+            <input type="checkbox" :value="id" class="selection checkbox-lg" @change="toggleBody" />
         </th>
 
         <div v-if="type === 'actions'" class="actions card card-light" style="display: none">

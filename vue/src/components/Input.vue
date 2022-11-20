@@ -9,8 +9,8 @@ import File from '@/components/input/File.vue';
 import Hidden from '@/components/input/Hidden.vue';
 import Phone from '@/components/input/Phone.vue';
 import Select from '@/components/input/Select.vue';
+import Select2 from '@/components/input/Select2.vue';
 import Select2Ajax from '@/components/input/Select2Ajax.vue';
-import Select2Array from '@/components/input/Select2Array.vue';
 import Switcher from '@/components/input/Switcher.vue';
 import Text from '@/components/input/Text.vue';
 import Textarea from '@/components/input/Textarea.vue';
@@ -65,8 +65,8 @@ export default {
             <Select2Ajax :set="delete wrapper.inputAttrs.value" :item="item" v-bind="wrapper.inputAttrs" />
         </template>
 
-        <template v-else-if="item.type === Enums.inputTypes.select2Array">
-            <Select2Array :set="delete wrapper.inputAttrs.value" :item="item" v-bind="wrapper.inputAttrs" />
+        <template v-else-if="item.type === Enums.inputTypes.select2">
+            <Select2 :set="delete wrapper.inputAttrs.value" :item="item" v-bind="wrapper.inputAttrs" />
         </template>
 
         <template v-else-if="item.type === Enums.inputTypes.switcher">

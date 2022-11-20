@@ -15,7 +15,7 @@ export default {
     checkRoute(context, routeName) {
         // Checking route availability
 
-        let routes = context.booted.enums.user.role.routes.list,
+        let routes = context.booted.enums.user_role.routes.list,
             userRoutes = context.booted.user.role.routes;
 
         routeName = 'admin.' + routeName.replaceAll('/', '.');

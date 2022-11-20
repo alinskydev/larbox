@@ -91,7 +91,14 @@ export default new Model({
                 type: 'number',
             },
         },
-        date: {
+        date_from: {
+            name: 'date[0]',
+            value: 'date->0',
+            type: Enums.inputTypes.date,
+        },
+        date_to: {
+            name: 'date[1]',
+            value: 'date->1',
             type: Enums.inputTypes.date,
         },
         datetime: {

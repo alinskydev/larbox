@@ -51,7 +51,10 @@ export default new Model({
             size: Enums.inputSizes.xl,
         },
         id: {
-            type: Enums.inputTypes.select2Array,
+            type: Enums.inputTypes.select2,
+            options: {
+                isMultiple: true,
+            },
             size: Enums.inputSizes.xl,
         },
         role_id: {

@@ -1,7 +1,5 @@
 <script setup>
 import init from '@/app/init';
-import { LocalizationHelper } from '@/core/helpers/localizationHelper';
-import lodash from 'lodash';
 
 import { RouterView } from 'vue-router';
 import TopBar from './main/TopBar.vue';
@@ -34,21 +32,9 @@ export default {
                 .then((response) => {
                     if (response.statusType === 'success') {
                         this.booted.user = response.data;
+                        this.isReady = true;
 
-                        this.booted.helpers.http
-                            .send(this, {
-                                method: 'GET',
-                                path: 'system/information',
-                            })
-                            .then((response2) => {
-                                if (response2.statusType === 'success') {
-                                    $('#preloader').removeClass('active');
-
-                                    this.booted.enums = response2.data.enums;
-                                    LocalizationHelper.messages = lodash.merge(LocalizationHelper.messages, response2.data.translations);
-                                    this.isReady = true;
-                                }
-                            });
+                        $('#preloader').removeClass('active');
                     }
                 });
         });

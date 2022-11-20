@@ -9,15 +9,17 @@ use Illuminate\Support\Arr;
 
 class Search
 {
-    public const FILTER_TYPE_EQUAL = 'filterTypeEqual';
-    public const FILTER_TYPE_LIKE = 'filterTypeLike';
-    public const FILTER_TYPE_IN = 'filterTypeIn';
-    public const FILTER_TYPE_BETWEEN = 'filterTypeBetween';
-    public const FILTER_TYPE_DATE = 'filterTypeDate';
-    public const FILTER_TYPE_DATETIME = 'filterTypeDatetime';
-    public const FILTER_TYPE_LOCALIZED = 'filterTypeLocalized';
-    public const FILTER_TYPE_JSON_CONTAINS_AND = 'filterTypeJsonContainsAnd';
-    public const FILTER_TYPE_JSON_CONTAINS_OR = 'filterTypeJsonContainsOr';
+    public const FILTER_TYPE_BETWEEN_DATE = 'FILTER_TYPE_BETWEEN_DATE';
+    public const FILTER_TYPE_BETWEEN_DATETIME = 'FILTER_TYPE_BETWEEN_DATETIME';
+    public const FILTER_TYPE_BETWEEN_NUMBER = 'FILTER_TYPE_BETWEEN_NUMBER';
+    public const FILTER_TYPE_DATE = 'FILTER_TYPE_DATE';
+    public const FILTER_TYPE_DATETIME = 'FILTER_TYPE_DATETIME';
+    public const FILTER_TYPE_EQUAL = 'FILTER_TYPE_EQUAL';
+    public const FILTER_TYPE_IN = 'FILTER_TYPE_IN';
+    public const FILTER_TYPE_JSON_CONTAINS_AND = 'FILTER_TYPE_JSON_CONTAINS_AND';
+    public const FILTER_TYPE_JSON_CONTAINS_OR = 'FILTER_TYPE_JSON_CONTAINS_OR';
+    public const FILTER_TYPE_LIKE = 'FILTER_TYPE_LIKE';
+    public const FILTER_TYPE_LOCALIZED = 'FILTER_TYPE_LOCALIZED';
 
     public const COMBINED_TYPE_AND = 'where';
     public const COMBINED_TYPE_OR = 'orWhere';
@@ -113,8 +115,10 @@ class Search
     private function applyFilters(Builder &$query, string $param, string $type, mixed $value, string $combinedType)
     {
         if (in_array($type, [
+            self::FILTER_TYPE_BETWEEN_DATE,
+            self::FILTER_TYPE_BETWEEN_DATETIME,
+            self::FILTER_TYPE_BETWEEN_NUMBER,
             self::FILTER_TYPE_IN,
-            self::FILTER_TYPE_BETWEEN,
             self::FILTER_TYPE_JSON_CONTAINS_AND,
             self::FILTER_TYPE_JSON_CONTAINS_OR,
         ])) {
@@ -125,16 +129,15 @@ class Search
         }
 
         switch ($type) {
-            case self::FILTER_TYPE_EQUAL:
-                $query->{$combinedType}(DB::raw("LOWER($param)"), $value);
+            case self::FILTER_TYPE_BETWEEN_DATE:
+                if (isset($value[0])) $query->{$combinedType}($param, '>=', date('Y-m-d 00:00:00', strtotime($value[0])));
+                if (isset($value[1]))  $query->{$combinedType}($param, '<=', date('Y-m-d 23:59:59', strtotime($value[1])));
                 break;
-            case self::FILTER_TYPE_LIKE:
-                $query->{$combinedType}(DB::raw("LOWER($param)"), 'LIKE', "%$value%");
+            case self::FILTER_TYPE_BETWEEN_DATETIME:
+                if (isset($value[0])) $query->{$combinedType}($param, '>=', date('Y-m-d H:i:s', strtotime($value[0])));
+                if (isset($value[1]))  $query->{$combinedType}($param, '<=', date('Y-m-d H:i:s', strtotime($value[1])));
                 break;
-            case self::FILTER_TYPE_IN:
-                $query->{$combinedType . 'In'}($param, $value);
-                break;
-            case self::FILTER_TYPE_BETWEEN:
+            case self::FILTER_TYPE_BETWEEN_NUMBER:
                 if (isset($value[0])) $query->{$combinedType}(DB::raw("CAST($param as UNSIGNED INTEGER)"), '>=', (int)$value[0]);
                 if (isset($value[1])) $query->{$combinedType}(DB::raw("CAST($param as UNSIGNED INTEGER)"), '<=', (int)$value[1]);
                 break;
@@ -145,9 +148,11 @@ class Search
             case self::FILTER_TYPE_DATETIME:
                 $query->{$combinedType}($param, date('Y-m-d H:i:s', strtotime($value)));
                 break;
-            case self::FILTER_TYPE_LOCALIZED:
-                $locale = app()->getLocale();
-                $query->{$combinedType}(DB::raw("LOWER(JSON_UNQUOTE($param->'$.$locale'))"), 'LIKE', "%$value%");
+            case self::FILTER_TYPE_EQUAL:
+                $query->{$combinedType}(DB::raw("LOWER($param)"), $value);
+                break;
+            case self::FILTER_TYPE_IN:
+                $query->{$combinedType . 'In'}($param, $value);
                 break;
             case self::FILTER_TYPE_JSON_CONTAINS_AND:
                 $query->{$combinedType}(function ($q) use ($param, $value) {
@@ -158,6 +163,13 @@ class Search
                 $query->{$combinedType}(function ($q) use ($param, $value) {
                     foreach ($value as $v) $q->orWhereJsonContains($param, $v);
                 });
+                break;
+            case self::FILTER_TYPE_LIKE:
+                $query->{$combinedType}(DB::raw("LOWER($param)"), 'LIKE', "%$value%");
+                break;
+            case self::FILTER_TYPE_LOCALIZED:
+                $locale = app()->getLocale();
+                $query->{$combinedType}(DB::raw("LOWER(JSON_UNQUOTE($param->'$.$locale'))"), 'LIKE', "%$value%");
                 break;
         }
     }

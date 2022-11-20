@@ -1,4 +1,5 @@
 import { LocalizationHelper } from '@/core/helpers/localizationHelper';
+import lodash from 'lodash';
 
 export default function (context) {
     // Setting options
@@ -13,11 +14,12 @@ export default function (context) {
 
     // Sending system request
 
-    return fetch(url + '/../common/system/information', requestOptions)
+    return fetch(url + '/../common/system?show-all=1', requestOptions)
         .then((response) => response.json())
         .then((data) => {
             context.booted.languages = data.languages;
             context.booted.settings = data.settings;
+            context.booted.enums = data.enums;
 
             // Setting locale
 
@@ -36,5 +38,6 @@ export default function (context) {
             // Setting locale
 
             LocalizationHelper.locale = locale;
+            LocalizationHelper.messages = lodash.merge(LocalizationHelper.messages, data.translations);
         });
 }

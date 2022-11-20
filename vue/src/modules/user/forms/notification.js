@@ -11,7 +11,7 @@ export default new Model({
                 options: {
                     select: {
                         items: (context) => {
-                            let types = context.booted.enums.user.notification.types;
+                            let types = context.booted.enums.user_notification.types;
                             types = _.pick(types, ['message', 'announcement']);
                             return context.booted.helpers.iterator.get(types, '*.label');
                         },

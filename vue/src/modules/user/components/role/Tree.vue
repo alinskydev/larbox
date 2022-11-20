@@ -16,7 +16,7 @@ export default {
     },
     data() {
         return {
-            routes: this.booted.enums.user.role.routes.tree.admin,
+            routes: this.booted.enums.user_role.routes.tree.admin,
         };
     },
 };

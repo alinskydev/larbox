@@ -74,52 +74,58 @@ export default {
         }
     },
     mounted() {
-        $('#' + this.item.id).select2({
-            allowClear: true,
-            placeholder: '',
-            ajax: {
-                headers: this.booted.config.http.headers,
-                url: () => {
-                    let url = new URL(this.booted.config.http.url + '/' + this.inputOptions.path),
-                        query = this.inputOptions.query ?? {};
+        $('#' + this.item.id)
+            .select2({
+                allowClear: true,
+                placeholder: this.$attrs.placeholder ?? '',
+                ajax: {
+                    headers: this.booted.config.http.headers,
+                    url: () => {
+                        let url = new URL(this.booted.config.http.url + '/' + this.inputOptions.path),
+                            query = this.inputOptions.query ?? {};
 
-                    if (typeof query === 'function') {
-                        query = query(this, this.item);
-                    }
+                        if (typeof query === 'function') {
+                            query = query(this, this.item);
+                        }
 
-                    for (let key in query) {
-                        url.searchParams.append(key, query[key]);
-                    }
+                        for (let key in query) {
+                            url.searchParams.append(key, query[key]);
+                        }
 
-                    return url;
-                },
-                dataType: 'json',
-                delay: 300,
-                data: (params) => {
-                    let query = {};
+                        return url;
+                    },
+                    dataType: 'json',
+                    delay: 300,
+                    data: (params) => {
+                        let query = {};
 
-                    query['page'] = params.page;
-                    query['filter[' + this.field + ']'] = params.term;
+                        query['page'] = params.page;
+                        query['filter[' + this.field + ']'] = params.term;
 
-                    return query;
-                },
-                processResults: (data, params) => {
-                    let results = data.data.map((value) => {
+                        return query;
+                    },
+                    processResults: (data, params) => {
+                        let results = data.data.map((value) => {
+                            return {
+                                id: value.id,
+                                text: this.isLocalized ? value[this.field][this.booted.locale] : value[this.field],
+                            };
+                        });
+
                         return {
-                            id: value.id,
-                            text: this.isLocalized ? value[this.field][this.booted.locale] : value[this.field],
+                            results: results,
+                            pagination: {
+                                more: results.length > 0,
+                            },
                         };
-                    });
-
-                    return {
-                        results: results,
-                        pagination: {
-                            more: results.length > 0,
-                        },
-                    };
+                    },
                 },
-            },
-        });
+            })
+            .on('select2:open', () => {
+                $('.select2-search__field[aria-controls="select2-' + this.item.id + '-results"]')
+                    .get(0)
+                    .focus();
+            });
     },
 };
 </script>

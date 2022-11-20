@@ -39,16 +39,6 @@ class Category extends HierarchyModel
             $slug = Arr::get($model->name, $locale);
             $slug = Str::slug($slug);
 
-            if ($model->exists) {
-                $modelWithSameSlug = $model->siblings()->where('slug', $slug)->first();
-            } else {
-                $modelWithSameSlug = static::query()->where('slug', $slug)->first();
-            }
-
-            if ($modelWithSameSlug) {
-                $slug .= '-' . uniqid();
-            }
-
             $model->slug = $slug;
         });
     }

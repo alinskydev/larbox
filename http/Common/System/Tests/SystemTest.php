@@ -4,13 +4,8 @@ namespace Http\Common\System\Tests;
 
 class SystemTest extends _TestCase
 {
-    public function test_information()
+    public function test_index()
     {
-        $this->processShow('information');
-    }
-
-    public function test_enums()
-    {
-        $this->processShow('enums');
+        $this->processShow('');
     }
 }

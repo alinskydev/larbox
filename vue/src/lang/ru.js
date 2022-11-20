@@ -85,9 +85,4 @@ export default {
         'tree': 'Древо',
         'update': 'Редактирование',
     },
-
-    'fields': {
-        'password': 'Пароль',
-        'username': 'Логин',
-    },
 };
