@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->string('file')->nullable();
-            $table->json('files_list');
+            $table->jsonb('files_list')->default('[]');
             $table->boolean('show_on_the_home_page')->default(0)->index();
             $table->boolean('is_active')->default(0)->index();
             $table->timestamp('created_at')->index();

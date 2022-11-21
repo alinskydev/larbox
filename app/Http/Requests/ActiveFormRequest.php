@@ -19,11 +19,21 @@ class ActiveFormRequest extends FormRequest
         $this->model = $this->model ?? request()->route('model') ?? request()->route()->bindingFieldFor('new_model');
         return parent::__construct();
     }
+    
+    // protected function prepareForValidation()
+    // {
+    //     parent::prepareForValidation();
+
+    //     if ($this->model->exists && $this->updated_at && $this->updated_at != $this->model->updated_at) {
+    //         abort(409, $this->updated_at . ' --- ' . $this->model->updated_at);
+    //         abort(409, __('Data has been refreshed by another source'));
+    //     }
+    // }
 
     protected function passedValidation()
     {
         parent::passedValidation();
-
+        
         $data = $this->validated();
 
         if (in_array(SeoMetaFormRequestTrait::class, class_uses_recursive($this))) {

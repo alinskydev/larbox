@@ -57,7 +57,7 @@ export default new Model({
             type: Enums.valueTypes.text,
         },
         type: {
-            value: (context, item) => context.booted.enums.user.notification.types[item.type].label,
+            value: (context, item) => context.booted.enums.user_notification.types[item.type].label,
             type: Enums.valueTypes.text,
         },
         is_seen: {

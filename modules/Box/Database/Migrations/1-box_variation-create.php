@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('box_variation', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('box_id')->unsigned();
-            $table->json('name');
+            $table->jsonb('name');
             $table->integer('sort_index')->index();
         });
     }

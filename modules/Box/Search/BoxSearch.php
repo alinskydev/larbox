@@ -12,8 +12,8 @@ class BoxSearch extends Search
     ];
 
     public array $filters = [
-        'id' => self::FILTER_TYPE_IN,
-        'brand_id' => self::FILTER_TYPE_EQUAL,
+        'id' => self::FILTER_TYPE_EQUAL_RAW,
+        'brand_id' => self::FILTER_TYPE_EQUAL_RAW,
         'name' => self::FILTER_TYPE_LOCALIZED,
         'price' => self::FILTER_TYPE_BETWEEN_NUMBER,
         'date' => self::FILTER_TYPE_BETWEEN_DATE,
@@ -26,8 +26,8 @@ class BoxSearch extends Search
         'categories.id' => [
             'type' => self::COMBINED_TYPE_OR,
             'fields' => [
-                'categories.id' => self::FILTER_TYPE_IN,
-                'categories.parents.id' => self::FILTER_TYPE_IN,
+                'categories.id' => self::FILTER_TYPE_EQUAL_RAW,
+                'categories.parents.id' => self::FILTER_TYPE_EQUAL_RAW,
             ],
         ],
     ];

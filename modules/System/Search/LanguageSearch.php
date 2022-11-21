@@ -7,9 +7,9 @@ use App\Base\Search;
 class LanguageSearch extends Search
 {
     public array $filters = [
-        'id' => self::FILTER_TYPE_IN,
-        'is_active' => self::FILTER_TYPE_EQUAL,
-        'is_main' => self::FILTER_TYPE_EQUAL,
+        'id' => self::FILTER_TYPE_EQUAL_RAW,
+        'is_active' => self::FILTER_TYPE_EQUAL_RAW,
+        'is_main' => self::FILTER_TYPE_EQUAL_RAW,
     ];
 
     public array $combinedFilters = [
@@ -17,7 +17,7 @@ class LanguageSearch extends Search
             'type' => self::COMBINED_TYPE_OR,
             'fields' => [
                 'name' => self::FILTER_TYPE_LIKE,
-                'code' => self::FILTER_TYPE_EQUAL,
+                'code' => self::FILTER_TYPE_EQUAL_STRING,
             ],
         ],
     ];

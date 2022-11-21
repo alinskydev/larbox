@@ -20,7 +20,7 @@ return new class extends Migration
             $table->bigInteger('creator_id')->unsigned();
             $table->bigInteger('owner_id')->unsigned();
             $table->enum('type', array_keys(NotificationEnums::types()));
-            $table->json('params');
+            $table->jsonb('params');
             $table->boolean('is_seen')->default(0);
             $table->timestamp('created_at')->index();
         });

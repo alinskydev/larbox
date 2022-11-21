@@ -48,6 +48,7 @@ export default {
                     case 400:
                     case 403:
                     case 405:
+                    case 409:
                     case 429:
                         statusType = 'notAllowed';
                         toastr.warning(body.message);

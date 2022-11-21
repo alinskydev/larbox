@@ -19,11 +19,18 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => [
+        'http://larbox.loc:3000',
+    ],
 
     'allowed_origins_patterns' => [],
 
-    'allowed_headers' => ['*'],
+    'allowed_headers' => [
+        'Accept',
+        'Accept-Language',
+        'Authorization',
+        'Content-Type',
+    ],
 
     'exposed_headers' => [],
 

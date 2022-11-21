@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('section', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->json('blocks');
+            $table->jsonb('blocks');
             $table->timestamp('updated_at');
         });
     }

@@ -9,8 +9,8 @@ class CategorySearch extends Search
     public array $defaultSort = ['lft'];
 
     public array $filters = [
-        'id' => self::FILTER_TYPE_IN,
-        'depth' => self::FILTER_TYPE_EQUAL,
+        'id' => self::FILTER_TYPE_EQUAL_RAW,
+        'depth' => self::FILTER_TYPE_EQUAL_RAW,
         'name' => self::FILTER_TYPE_LOCALIZED,
     ];
 

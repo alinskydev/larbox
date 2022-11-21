@@ -29,7 +29,7 @@ class UniqueRule extends Rule
             $fieldKey = $attribute[0];
             $fieldPath = $attribute[1];
 
-            $query->where(DB::raw("LOWER(JSON_UNQUOTE($fieldKey->'$.$fieldPath'))"), mb_strtolower($value));
+            $query->where(DB::raw("LOWER($fieldKey->>'$fieldPath')"), mb_strtolower($value));
         }
 
         if (in_array(SoftDeletes::class, class_uses_recursive($this->model))) {

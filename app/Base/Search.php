@@ -14,7 +14,8 @@ class Search
     public const FILTER_TYPE_BETWEEN_NUMBER = 'FILTER_TYPE_BETWEEN_NUMBER';
     public const FILTER_TYPE_DATE = 'FILTER_TYPE_DATE';
     public const FILTER_TYPE_DATETIME = 'FILTER_TYPE_DATETIME';
-    public const FILTER_TYPE_EQUAL = 'FILTER_TYPE_EQUAL';
+    public const FILTER_TYPE_EQUAL_RAW = 'FILTER_TYPE_EQUAL_RAW';
+    public const FILTER_TYPE_EQUAL_STRING = 'FILTER_TYPE_EQUAL_STRING';
     public const FILTER_TYPE_IN = 'FILTER_TYPE_IN';
     public const FILTER_TYPE_JSON_CONTAINS_AND = 'FILTER_TYPE_JSON_CONTAINS_AND';
     public const FILTER_TYPE_JSON_CONTAINS_OR = 'FILTER_TYPE_JSON_CONTAINS_OR';
@@ -42,7 +43,7 @@ class Search
         return $this;
     }
 
-    public function join(array $params): self
+    public function with(array $params): self
     {
         $params = Arr::flatten($params);
         $params = array_intersect($params, $this->relations);
@@ -131,15 +132,15 @@ class Search
         switch ($type) {
             case self::FILTER_TYPE_BETWEEN_DATE:
                 if (isset($value[0])) $query->{$combinedType}($param, '>=', date('Y-m-d 00:00:00', strtotime($value[0])));
-                if (isset($value[1]))  $query->{$combinedType}($param, '<=', date('Y-m-d 23:59:59', strtotime($value[1])));
+                if (isset($value[1])) $query->{$combinedType}($param, '<=', date('Y-m-d 23:59:59', strtotime($value[1])));
                 break;
             case self::FILTER_TYPE_BETWEEN_DATETIME:
                 if (isset($value[0])) $query->{$combinedType}($param, '>=', date('Y-m-d H:i:s', strtotime($value[0])));
-                if (isset($value[1]))  $query->{$combinedType}($param, '<=', date('Y-m-d H:i:s', strtotime($value[1])));
+                if (isset($value[1])) $query->{$combinedType}($param, '<=', date('Y-m-d H:i:s', strtotime($value[1])));
                 break;
             case self::FILTER_TYPE_BETWEEN_NUMBER:
-                if (isset($value[0])) $query->{$combinedType}(DB::raw("CAST($param as UNSIGNED INTEGER)"), '>=', (int)$value[0]);
-                if (isset($value[1])) $query->{$combinedType}(DB::raw("CAST($param as UNSIGNED INTEGER)"), '<=', (int)$value[1]);
+                if (isset($value[0])) $query->{$combinedType}(DB::raw("$param::INTEGER"), '>=', (int)$value[0]);
+                if (isset($value[1])) $query->{$combinedType}(DB::raw("$param::INTEGER"), '>=', (int)$value[1]);
                 break;
             case self::FILTER_TYPE_DATE:
                 $query->{$combinedType}($param, '>=', date('Y-m-d 00:00:00', strtotime($value)));
@@ -148,8 +149,11 @@ class Search
             case self::FILTER_TYPE_DATETIME:
                 $query->{$combinedType}($param, date('Y-m-d H:i:s', strtotime($value)));
                 break;
-            case self::FILTER_TYPE_EQUAL:
-                $query->{$combinedType}(DB::raw("LOWER($param)"), $value);
+            case self::FILTER_TYPE_EQUAL_RAW:
+                $query->{$combinedType}($param, $value);
+                break;
+            case self::FILTER_TYPE_EQUAL_STRING:
+                $query->{$combinedType}(DB::raw("LOWER($param::VARCHAR)"), $value);
                 break;
             case self::FILTER_TYPE_IN:
                 $query->{$combinedType . 'In'}($param, $value);
@@ -165,11 +169,11 @@ class Search
                 });
                 break;
             case self::FILTER_TYPE_LIKE:
-                $query->{$combinedType}(DB::raw("LOWER($param)"), 'LIKE', "%$value%");
+                $query->{$combinedType}(DB::raw("LOWER($param::VARCHAR)"), 'LIKE', "%$value%");
                 break;
             case self::FILTER_TYPE_LOCALIZED:
                 $locale = app()->getLocale();
-                $query->{$combinedType}(DB::raw("LOWER(JSON_UNQUOTE($param->'$.$locale'))"), 'LIKE', "%$value%");
+                $query->{$combinedType}(DB::raw("LOWER($param->>'$locale')"), 'LIKE', "%$value%");
                 break;
         }
     }

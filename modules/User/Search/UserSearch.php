@@ -8,7 +8,7 @@ class UserSearch extends Search
 {
     public array $filters = [
         'id' => self::FILTER_TYPE_IN,
-        'role_id' => self::FILTER_TYPE_EQUAL,
+        'role_id' => self::FILTER_TYPE_EQUAL_RAW,
     ];
 
     public array $combinedFilters = [

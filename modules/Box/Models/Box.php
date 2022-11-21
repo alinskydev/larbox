@@ -28,10 +28,6 @@ class Box extends Model
         'images_list' => AsImages::class . ':100|500',
     ];
 
-    protected $attributes = [
-        'images_list' => '[]',
-    ];
-
     public function brand()
     {
         return $this->belongsTo(Brand::class, 'brand_id')->withTrashed();

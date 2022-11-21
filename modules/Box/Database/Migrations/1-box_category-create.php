@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('lft')->unsigned();
             $table->integer('rgt')->unsigned();
             $table->integer('depth')->unsigned()->index();
-            $table->json('name');
+            $table->jsonb('name');
             $table->string('slug')->index();
             $table->timestamp('created_at')->index();
             $table->timestamp('updated_at');

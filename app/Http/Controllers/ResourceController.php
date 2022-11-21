@@ -26,7 +26,7 @@ class ResourceController extends Controller
 
         if ($this->search !== null) {
             $this->search->setQueryBuilder($this->model->query())
-                ->join((array)$request->get('with'))
+                ->with((array)$request->get('with'))
                 ->filter((array)$request->get('filter'), Search::COMBINED_TYPE_AND)
                 ->combinedFilter((array)$request->get('filter'))
                 ->sort((array)$request->get('sort'))

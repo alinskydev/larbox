@@ -7,8 +7,8 @@ use App\Base\Search;
 class CallbackSearch extends Search
 {
     public array $filters = [
-        'id' => self::FILTER_TYPE_IN,
-        'status' => self::FILTER_TYPE_EQUAL,
+        'id' => self::FILTER_TYPE_EQUAL_RAW,
+        'status' => self::FILTER_TYPE_EQUAL_RAW,
     ];
 
     public array $combinedFilters = [

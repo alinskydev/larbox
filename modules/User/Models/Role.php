@@ -13,10 +13,6 @@ class Role extends Model
         'routes' => 'array',
     ];
 
-    protected $attributes = [
-        'routes' => '[]',
-    ];
-
     protected static function boot()
     {
         parent::boot();

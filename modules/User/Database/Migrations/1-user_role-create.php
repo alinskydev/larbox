@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('user_role', function (Blueprint $table) {
             $table->id();
-            $table->json('name');
-            $table->json('routes');
+            $table->jsonb('name');
+            $table->jsonb('routes')->default('[]');
             $table->timestamp('created_at')->index();
             $table->timestamp('updated_at');
         });

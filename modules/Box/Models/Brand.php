@@ -21,10 +21,6 @@ class Brand extends Model
         'files_list' => AsFiles::class,
     ];
 
-    protected $attributes = [
-        'files_list' => '[]',
-    ];
-
     public function creator()
     {
         return $this->belongsTo(User::class, 'creator_id')->withTrashed();
