@@ -77,7 +77,7 @@ return [
             'search_path' => 'public',
             'sslmode' => 'prefer',
             'options' => [
-                PDO::ATTR_ERRMODE => PDO::ERRMODE_SILENT,
+                PDO::ATTR_ERRMODE => env('APP_ENV') == 'production' ? PDO::ERRMODE_SILENT : PDO::ERRMODE_EXCEPTION,
             ],
         ],
 

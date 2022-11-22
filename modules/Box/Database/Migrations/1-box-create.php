@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('box', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('brand_id')->unsigned();
+            $table->bigInteger('brand_id')->unsigned()->index();
             $table->jsonb('name');
             $table->string('slug')->unique();
             $table->jsonb('description')->default('[]');
