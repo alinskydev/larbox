@@ -42,8 +42,7 @@ class ExportTestsForPostman extends Command
         File::delete($inputFileName);
 
         $stream = fopen('php://output', 'w');
-        Artisan::call("migrate:fresh --seed", [], new StreamOutput($stream));
-        Artisan::call("test", [], new StreamOutput($stream));
+        Artisan::call('larbox:test', [], new StreamOutput($stream));
 
         // Preparing data
 

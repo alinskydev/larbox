@@ -9,7 +9,7 @@ class SeederHelper
 {
     public static function localized(string $string, bool $hasLanguageSuffix = true)
     {
-        $class = require(base_path('modules/System/Database/Seeders/system_language-create.php'));
+        $class = require(base_path('modules/System/Database/Seeders/system_language.php'));
         $languages = Arr::keyBy($class->data, 'code');
 
         $result = array_map(fn ($value) => $hasLanguageSuffix ?  "$string " . $value['code'] : $string, $languages);

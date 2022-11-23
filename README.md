@@ -32,7 +32,7 @@ composer install
 **Migrating DB:** run
 
 ```
-php artisan migrate:fresh --seed
+php artisan larbox:migrate
 ```
 
 to import all migrations and fill DB with test data.

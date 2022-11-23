@@ -29,10 +29,8 @@ class Test extends Command
      */
     public function handle()
     {
-        // Preparing input file
-
         $stream = fopen('php://output', 'w');
-        Artisan::call("migrate:fresh --seed", [], new StreamOutput($stream));
+        Artisan::call('larbox:migrate', [], new StreamOutput($stream));
         Artisan::call("test", [], new StreamOutput($stream));
     }
 }
