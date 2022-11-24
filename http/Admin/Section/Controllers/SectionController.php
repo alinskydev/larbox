@@ -25,7 +25,9 @@ class SectionController extends Controller
 
     public function show()
     {
-        $response = $this->config['resource']::collection($this->model->blocks);
+        $response = $this->config['resource']::collection($this->model->blocks)->collection->toArray();
+        $response['updated_at'] = $this->model->updated_at->format(LARBOX_FORMAT_DATETIME);
+
         return response()->json($response, 200);
     }
 

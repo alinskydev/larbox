@@ -18,7 +18,7 @@ export default {
                 timePicker: true,
                 timePicker24Hour: true,
                 locale: {
-                    format: 'DD.MM.YYYY HH:mm',
+                    format: 'DD.MM.YYYY HH:mm:ss',
                     firstDay: 1,
                 },
             })

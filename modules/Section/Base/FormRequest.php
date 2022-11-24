@@ -32,6 +32,17 @@ class FormRequest extends BaseFormRequest
         return parent::__construct();
     }
 
+    protected function prepareForValidation()
+    {
+        parent::prepareForValidation();
+
+        if ($this->model->exists && $this->updated_at) {
+            if ($this->updated_at != date(LARBOX_FORMAT_DATETIME, strtotime($this->model->updated_at))) {
+                abort(409, __('Данные были изменены другим источником. Обновите страницу, чтобы увидеть изменения.'));
+            }
+        }
+    }
+
     protected function passedValidation()
     {
         parent::passedValidation();
@@ -45,7 +56,7 @@ class FormRequest extends BaseFormRequest
         }
 
         $this->model->blocks = $data;
-        $this->model->save();
+        $this->model->touch();
     }
 
     public function validated($key = null, $default = null)

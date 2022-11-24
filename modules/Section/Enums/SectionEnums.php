@@ -3,6 +3,7 @@
 namespace Modules\Section\Enums;
 
 use Modules\Section\Base\JsonResource;
+use Modules\Section\Base\EmptyFormRequest;
 
 use Modules\Section\Resources as Resources;
 use Http\Admin\Section\Requests as Requests;
@@ -14,7 +15,7 @@ class SectionEnums
         $result = [
             'boxes' => [
                 'resource' => JsonResource::class,
-                'request' => Requests\EmptyRequest::class,
+                'request' => EmptyFormRequest::class,
             ],
             'contact' => [
                 'resource' => JsonResource::class,

@@ -1,4 +1,6 @@
 <script setup>
+import * as Enums from '@/core/enums';
+
 import Accordion from '@/components/crud/form/Accordion.vue';
 </script>
 
@@ -34,6 +36,16 @@ export default {
                     }
 
                     this.page.init();
+
+                    // Adding updated_at conflict check
+
+                    if (this.model.hasUpdatedAtConflictCheck) {
+                        let firstGroupKey = Object.keys(this.model.form)[0];
+
+                        this.model.form[firstGroupKey].updated_at = {
+                            type: Enums.inputTypes.hidden,
+                        };
+                    }
 
                     // Collecting item groups
 

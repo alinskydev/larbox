@@ -90,9 +90,6 @@ export default new Model({
             name: {
                 type: Enums.inputTypes.text,
             },
-            // updated_at: {
-            //     type: Enums.inputTypes.text,
-            // },
         },
         Компоненты: {
             built_in_component: {

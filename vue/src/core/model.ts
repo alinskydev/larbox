@@ -8,6 +8,9 @@ export class Model {
     show: Record<string, any>;
     form: Record<string, any>;
 
+    hasSeoMeta: boolean;
+    hasUpdatedAtConflictCheck: boolean;
+
     constructor(config: {
         list: Record<string, ModelTypes.valueParams>;
         filters: Record<string, ModelTypes.inputParams>;
@@ -32,6 +35,7 @@ export class Model {
             >
         >;
         hasSeoMeta: boolean;
+        hasUpdatedAtConflictCheck: boolean;
     }) {
         this.list = config.list ?? {};
         this.filters = config.filters ?? {};
@@ -39,7 +43,10 @@ export class Model {
         this.show = config.show ?? {};
         this.form = config.form ?? {};
 
-        if (config.hasSeoMeta) {
+        this.hasSeoMeta = config.hasSeoMeta ?? false;
+        this.hasUpdatedAtConflictCheck = config.hasUpdatedAtConflictCheck ?? true;
+
+        if (this.hasSeoMeta) {
             this.form['SEO meta'] = {
                 seo_meta: {
                     value: (context, item) => {
