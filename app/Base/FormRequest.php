@@ -20,6 +20,7 @@ class FormRequest extends BaseFormRequest
         $attributes = array_combine($attributes, $attributes);
 
         $languages = app('language')->all;
+
         $localizedAttributes = array_keys($this->localizedRules());
 
         if (in_array(SeoMetaFormRequestTrait::class, class_uses_recursive($this))) {
