@@ -16,9 +16,25 @@ class FormRequest extends BaseFormRequest
 
     public function attributes()
     {
-        $rulesKeys = array_keys($this->rules());
+        $attributes = array_keys($this->nonLocalizedRules());
+        $attributes = array_combine($attributes, $attributes);
 
-        $attributes = array_combine($rulesKeys, $rulesKeys);
+        $languages = app('language')->all;
+        $localizedAttributes = array_keys($this->localizedRules());
+
+        if (in_array(SeoMetaFormRequestTrait::class, class_uses_recursive($this))) {
+            $localizedAttributes = array_merge(
+                $localizedAttributes,
+                array_keys($this->seoMetaRules()),
+            );
+        }
+
+        foreach ($localizedAttributes as $l_a) {
+            foreach ($languages as $language) {
+                $attributes[$l_a . '.' . $language['code']] = $l_a;
+            }
+        }
+
         $attributes = array_map(fn ($value) => __("fields.$value"), $attributes);
 
         return $attributes;
@@ -38,13 +54,18 @@ class FormRequest extends BaseFormRequest
     {
         $rules = $this->nonLocalizedRules();
 
-        if (in_array(SeoMetaFormRequestTrait::class, class_uses_recursive($this))) {
-            $rules += $this->seoMetaRules();
-        }
-
         $languages = app('language')->all;
 
-        foreach ($this->localizedRules() as $key => $rule) {
+        $localizedRules = $this->localizedRules();
+
+        if (in_array(SeoMetaFormRequestTrait::class, class_uses_recursive($this))) {
+            $localizedRules = array_merge(
+                $localizedRules,
+                $this->seoMetaRules(),
+            );
+        }
+
+        foreach ($localizedRules as $key => $rule) {
             foreach ($languages as $language) {
                 $rules[$key . '.' . $language['code']] = $rule;
             }

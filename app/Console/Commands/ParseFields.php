@@ -44,24 +44,25 @@ class ParseFields extends Command
 
         $fields = [];
 
-        $files = array_merge([
-            ...glob("$basePath/http/*/Requests/*.php"),
-            ...glob("$basePath/http/*/Requests/*/*.php"),
-            ...glob("$basePath/http/*/*/Requests/*.php"),
-            ...glob("$basePath/http/*/*/Requests/*/*.php"),
-        ]);
+        $files = array_merge(
+            glob("$basePath/http/*/Requests/*.php"),
+            glob("$basePath/http/*/Requests/*/*.php"),
+            glob("$basePath/http/*/*/Requests/*.php"),
+            glob("$basePath/http/*/*/Requests/*/*.php"),
+        );
 
         foreach ($files as $file) {
             $file = str_replace([$basePath, '.php'], '', $file);
             $file = str_replace('/', '\\', $file);
             $file = str_replace('http', 'Http', $file);
 
-            $attributes = array_keys($this->formAttributes($file));
+            $attributes = array_values($this->formAttributes($file));
+            $attributes = array_map(fn($value) => preg_replace('/^fields./', '', $value), $attributes);
 
             $fields = array_merge($fields, $attributes);
         }
 
-        // Parsing tables
+        // Parsing models
 
         $files = glob("$basePath/modules/*/Models/*.php");
 
