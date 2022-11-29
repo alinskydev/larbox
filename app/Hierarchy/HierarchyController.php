@@ -3,7 +3,6 @@
 namespace App\Hierarchy;
 
 use App\Http\Controllers\ResourceController;
-use App\Base\Model;
 use App\Base\Search;
 
 use Illuminate\Support\Facades\DB;
@@ -12,7 +11,7 @@ use Illuminate\Support\Arr;
 class HierarchyController extends ResourceController
 {
     public function __construct(
-        Model $model,
+        HierarchyModel $model,
         ?Search $search = null,
         ?string $resourceClass = null,
         ?string $formRequestClass = null,

@@ -23,12 +23,11 @@ class CategorySearch extends Search
         ],
     ];
 
-    public array $sortings = [
-        'lft' => self::SORT_TYPE_SIMPLE,
-        'name' => self::SORT_TYPE_LOCALIZED,
-    ];
-
-    public function show(array $params): self
+    /**
+     * @param array $params
+     * @return $this
+     */
+    public function show($params)
     {
         parent::show($params);
 

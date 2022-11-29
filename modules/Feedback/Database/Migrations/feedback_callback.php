@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('full_name');
             $table->string('phone');
             $table->string('message')->nullable();
-            $table->enum('status', array_keys(FeedbackEnums::statuses()))->default('unprocessed')->index();
+            $table->enum('status', array_keys(FeedbackEnums::statuses()))->default('unprocessed');
             $table->timestamp('created_at')->index();
             $table->timestamp('updated_at');
             $table->softDeletes();

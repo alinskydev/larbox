@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('auth_code', function (Blueprint $table) {
             $table->string('key')->primary();
-            $table->string('code')->index();
+            $table->string('code');
             $table->tinyInteger('attempts_left');
             $table->timestamp('created_at')->index();
         });

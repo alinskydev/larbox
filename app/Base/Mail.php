@@ -12,7 +12,12 @@ class Mail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public function view($view, array $data = [])
+    /**
+     * @param string  $view
+     * @param array  $data
+     * @return $this
+     */
+    public function view($view, $data = [])
     {
         $calledClass = get_called_class();
         $calledClassReflection = new \ReflectionClass($calledClass);

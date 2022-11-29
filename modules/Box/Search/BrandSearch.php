@@ -22,8 +22,12 @@ class BrandSearch extends Search
         'id' => self::SORT_TYPE_SIMPLE,
         'name' => self::SORT_TYPE_SIMPLE,
     ];
-
-    public function show(array $params): self
+    
+    /**
+     * @param array $params
+     * @return $this
+     */
+    public function show($params)
     {
         parent::show($params);
 

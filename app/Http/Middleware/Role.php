@@ -13,7 +13,7 @@ class Role
 
         $role = auth()->user()->role;
 
-        if (!$role) abort(403);
+        if (!$role) abort(403, __('У вас нет доступа для совершения данного действия'));
 
         // Checking route availability
 
@@ -37,6 +37,6 @@ class Role
             if (in_array($routeName, $role->routes)) return $next($request);
         }
 
-        return abort(403, __('У вас нет доступа для совершения данного действия'));
+        abort(403, __('У вас нет доступа для совершения данного действия'));
     }
 }

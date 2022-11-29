@@ -45,8 +45,12 @@ export default {
                         });
                         break;
 
-                    case 400:
                     case 403:
+                        statusType = 'forbidden';
+                        toastr.warning(body.message);
+                        break;
+
+                    case 400:
                     case 405:
                     case 409:
                     case 429:

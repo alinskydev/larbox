@@ -37,13 +37,21 @@ class Search
     public array $defaultSort = ['-id'];
     public int $pageSize = 50;
 
-    public function setQueryBuilder(Builder $queryBuilder): self
+    /**
+     * @param Builder $queryBuilder
+     * @return $this
+     */
+    public function setQueryBuilder($queryBuilder)
     {
         $this->queryBuilder = $queryBuilder;
         return $this;
     }
 
-    public function with(array $params): self
+    /**
+     * @param array $params
+     * @return $this
+     */
+    public function with($params)
     {
         $params = Arr::flatten($params);
         $params = array_intersect($params, $this->relations);
@@ -53,7 +61,13 @@ class Search
         return $this;
     }
 
-    public function filter(array $params, string $combinedType, ?Builder $query = null): self
+    /**
+     * @param array $params
+     * @param string $combinedType
+     * @param ?Builder $query
+     * @return $this
+     */
+    public function filter($params, $combinedType, $query = null)
     {
         $query = $query ?? $this->queryBuilder;
 
@@ -94,7 +108,11 @@ class Search
         return $this;
     }
 
-    public function combinedFilter(array $params): self
+    /**
+     * @param array $params
+     * @return $this
+     */
+    public function combinedFilter($params)
     {
         foreach ($params as $param => $value) {
             $options = $this->combinedFilters[$param] ?? null;
@@ -113,7 +131,15 @@ class Search
         return $this;
     }
 
-    private function applyFilters(Builder &$query, string $param, string $type, mixed $value, string $combinedType)
+    /**
+     * @param Builder $query
+     * @param string $param
+     * @param string $type
+     * @param mixed $value
+     * @param string $combinedType
+     * @return $this
+     */
+    private function applyFilters(&$query, $param, $type, $value, $combinedType)
     {
         if (in_array($type, [
             self::FILTER_TYPE_BETWEEN_DATE,
@@ -178,7 +204,11 @@ class Search
         }
     }
 
-    public function sort(array $params): self
+    /**
+     * @param array $params
+     * @return $this
+     */
+    public function sort($params)
     {
         $params = $params ?: $this->defaultSort;
         $params = Arr::flatten($params);
@@ -209,7 +239,11 @@ class Search
         return $this;
     }
 
-    public function show(array $params): self
+    /**
+     * @param array $params
+     * @return $this
+     */
+    public function show($params)
     {
         $params = Arr::flatten($params);
 
@@ -230,7 +264,11 @@ class Search
         return $this;
     }
 
-    public function setPageSize(int $pageSize): self
+    /**
+     * @param int $pageSize
+     * @return $this
+     */
+    public function setPageSize($pageSize)
     {
         if ($pageSize > 0 && $pageSize <= $this->pageSize) {
             $this->pageSize = $pageSize;

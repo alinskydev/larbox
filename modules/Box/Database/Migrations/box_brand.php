@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('file')->nullable();
             $table->jsonb('files_list')->default('[]');
-            $table->boolean('show_on_the_home_page')->default(0)->index();
-            $table->boolean('is_active')->default(0)->index();
+            $table->boolean('show_on_the_home_page')->default(0);
+            $table->boolean('is_active')->default(0);
             $table->timestamp('created_at')->index();
             $table->timestamp('updated_at');
             $table->softDeletes();

@@ -6,7 +6,7 @@ use App\Tests\Feature\PostmanTestCase;
 
 class _TestCase extends PostmanTestCase
 {
-    protected array $authHeaders = LARBOX_TEST_WEBSITE_HEADERS;
+    protected array $authHeaders = LARBOX_TEST_AUTH_WEBSITE_HEADERS;
 
     public string $requestUrl = 'website/box/brand';
 }

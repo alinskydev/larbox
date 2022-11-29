@@ -43,7 +43,8 @@ export default {
             </li>
 
             <li v-for="item in items" :class="'page-item ' + (item.active ? 'active' : '')">
-                <a @click="go(item.label)" href="#" class="page-link" v-html="item.label"></a>
+                <a v-if="item.url" @click="go(item.label)" href="#" class="page-link" v-html="item.label"></a>
+                <div v-else class="page-link bg-transparent border-0" v-html="item.label"></div>
             </li>
 
             <li :class="'page-item ' + (meta.current_page === meta.last_page ? 'disabled' : '')">

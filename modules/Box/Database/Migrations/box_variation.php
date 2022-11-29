@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('box_id')->unsigned()->index();
             $table->jsonb('name');
-            $table->integer('sort_index')->index();
+            $table->integer('sort_index');
         });
     }
 

@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('box_category', function (Blueprint $table) {
             $table->id();
-            $table->tinyInteger('tree')->unsigned()->default(1)->index();
+            $table->tinyInteger('tree')->unsigned()->default(1);
             $table->integer('lft')->unsigned();
             $table->integer('rgt')->unsigned();
             $table->integer('depth')->unsigned()->index();

@@ -13,7 +13,7 @@ export default new Model({
                         items: (context) => {
                             let types = context.booted.enums.user_notification.types;
                             types = _.pick(types, ['message', 'announcement']);
-                            return context.booted.helpers.iterator.get(types, '*.label');
+                            return types;
                         },
                     },
                 },

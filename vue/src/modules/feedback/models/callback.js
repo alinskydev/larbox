@@ -17,7 +17,7 @@ export default new Model({
             options: {
                 httpSelect: {
                     path: 'feedback/callback/:id/set-status/:value',
-                    items: (context) => context.booted.helpers.iterator.get(context.booted.enums.feedback.statuses, '*.label'),
+                    items: (context) => context.booted.enums.feedback.statuses,
                 },
             },
         },
@@ -49,7 +49,7 @@ export default new Model({
             type: Enums.inputTypes.select,
             options: {
                 select: {
-                    items: (context) => context.booted.helpers.iterator.get(context.booted.enums.feedback.statuses, '*.label'),
+                    items: (context) => context.booted.enums.feedback.statuses,
                     hasPrompt: true,
                 },
             },
@@ -72,7 +72,7 @@ export default new Model({
             type: Enums.valueTypes.text,
         },
         status: {
-            value: (context, item) => context.booted.enums.feedback.statuses[item.status].label,
+            value: (context, item) => context.booted.enums.feedback.statuses[item.status],
             type: Enums.valueTypes.text,
         },
         created_at: {

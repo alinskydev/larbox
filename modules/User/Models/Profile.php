@@ -9,10 +9,10 @@ class Profile extends Model
 {
     protected $table = 'user_profile';
 
-    public $incrementing = false;
-    public $timestamps = false;
-
     protected $primaryKey = 'user_id';
+    public $incrementing = false;
+
+    public $timestamps = false;
 
     protected $hidden = [
         'user_id',

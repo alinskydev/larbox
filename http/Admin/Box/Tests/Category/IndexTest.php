@@ -20,11 +20,6 @@ class IndexTest extends _TestCase
         ]);
     }
 
-    public function test_available_sortings()
-    {
-        $this->processAvailableSortings();
-    }
-
     public function test_available_showings()
     {
         $this->processAvailableShowings([

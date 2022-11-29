@@ -10,7 +10,7 @@ class Code extends Model
 
     protected $table = 'auth_code';
 
-    public $incrementing = false;
-
     protected $primaryKey = 'key';
+    protected $keyType = 'string';
+    public $incrementing = false;
 }

@@ -7,7 +7,7 @@ export default new Model({
             type: Enums.valueTypes.text,
         },
         type: {
-            value: (context, item) => context.booted.enums.user_notification.types[item.type].label,
+            value: (context, item) => context.booted.enums.user_notification.types[item.type],
             type: Enums.valueTypes.text,
         },
         is_seen: {
@@ -29,7 +29,7 @@ export default new Model({
             type: Enums.inputTypes.select,
             options: {
                 select: {
-                    items: (context) => context.booted.helpers.iterator.get(context.booted.enums.user_notification.types, '*.label'),
+                    items: (context) => context.booted.enums.user_notification.types,
                     hasPrompt: true,
                 },
             },
@@ -57,7 +57,7 @@ export default new Model({
             type: Enums.valueTypes.text,
         },
         type: {
-            value: (context, item) => context.booted.enums.user_notification.types[item.type].label,
+            value: (context, item) => context.booted.enums.user_notification.types[item.type],
             type: Enums.valueTypes.text,
         },
         is_seen: {

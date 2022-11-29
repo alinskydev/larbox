@@ -35,6 +35,12 @@ export default {
                         this.isReady = true;
 
                         $('#preloader').removeClass('active');
+                    } else if (response.statusType === 'forbidden') {
+                        this.booted.helpers.user.logout(this);
+
+                        this.$router.push({
+                            path: '/' + this.booted.locale + '/auth/login',
+                        });
                     }
                 });
         });

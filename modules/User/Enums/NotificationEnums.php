@@ -7,12 +7,8 @@ class NotificationEnums
     public static function types(): array
     {
         return [
-            'message' => [
-                'label' => __('notifications.message.label'),
-            ],
-            'announcement' => [
-                'label' => __('notifications.announcement.label'),
-            ],
+            'message' => __('notifications.message.label'),
+            'announcement' => __('notifications.announcement.label'),
         ];
     }
 }

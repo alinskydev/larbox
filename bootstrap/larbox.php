@@ -11,10 +11,10 @@ if (!defined('LARBOX_FORMAT_DATETIME')) define('LARBOX_FORMAT_DATETIME', 'd.m.Y 
 
 // Tests
 
-if (!defined('LARBOX_TEST_ADMIN_HEADERS')) define('LARBOX_TEST_ADMIN_HEADERS', [
+if (!defined('LARBOX_TEST_AUTH_ADMIN_HEADERS')) define('LARBOX_TEST_AUTH_ADMIN_HEADERS', [
     'Authorization' => 'Basic ' . base64_encode('admin:admin123'),
 ]);
 
-if (!defined('LARBOX_TEST_WEBSITE_HEADERS')) define('LARBOX_TEST_WEBSITE_HEADERS', [
+if (!defined('LARBOX_TEST_AUTH_WEBSITE_HEADERS')) define('LARBOX_TEST_AUTH_WEBSITE_HEADERS', [
     'Authorization' => 'Basic ' . base64_encode('registered_1:user1234'),
 ]);
