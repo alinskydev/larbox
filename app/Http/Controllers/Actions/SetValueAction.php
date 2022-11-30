@@ -8,6 +8,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
 use App\Base\Model;
+use Illuminate\Support\Facades\DB;
 
 class SetValueAction extends Controller
 {
@@ -23,11 +24,16 @@ class SetValueAction extends Controller
 
         $model->$field = $value;
 
+        DB::beginTransaction();
+
         try {
             $model->save();
         } catch (\Throwable $e) {
+            DB::rollBack();
             abort(400, $e->getMessage());
         }
+
+        DB::commit();
 
         return $this->successResponse();
     }
