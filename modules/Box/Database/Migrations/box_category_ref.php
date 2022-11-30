@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('box_category_ref', function (Blueprint $table) {
-            $table->bigInteger('box_id')->unsigned();
-            $table->bigInteger('category_id')->unsigned();
+            $table->bigInteger('box_id');
+            $table->bigInteger('category_id');
 
             $table->primary(['box_id', 'category_id']);
         });

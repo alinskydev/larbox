@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('seo_meta', function (Blueprint $table) {
             $table->id();
             $table->string('seo_metable_type');
-            $table->bigInteger('seo_metable_id')->unsigned();
+            $table->bigInteger('seo_metable_id');
             $table->jsonb('value');
 
             $table->unique(['seo_metable_type', 'seo_metable_id']);

@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('box_brand', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('creator_id')->unsigned()->index();
+            $table->bigInteger('creator_id')->index();
             $table->string('name');
             $table->string('slug')->unique();
             $table->string('file')->nullable();

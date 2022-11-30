@@ -17,8 +17,8 @@ return new class extends Migration
     {
         Schema::create('user_notification', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('creator_id')->unsigned()->index();
-            $table->bigInteger('owner_id')->unsigned()->index();
+            $table->bigInteger('creator_id')->index();
+            $table->bigInteger('owner_id')->index();
             $table->enum('type', array_keys(NotificationEnums::types()));
             $table->jsonb('params');
             $table->boolean('is_seen')->default(0);

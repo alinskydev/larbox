@@ -4,8 +4,6 @@ namespace App\Hierarchy;
 
 use App\Base\FormRequest;
 
-use Illuminate\Validation\Rule;
-
 class HierarchyMoveRequest extends FormRequest
 {
     public HierarchyModel $model;

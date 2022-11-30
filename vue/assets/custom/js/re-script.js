@@ -24,4 +24,20 @@ document.addEventListener('DOMContentLoaded', function () {
     $(document).on('focus', 'input, textarea', function () {
         $(this).attr('autocomplete', 'off');
     });
+
+    // Toggle user control while AJAX requests
+
+    window.fetch = new Proxy(window.fetch, {
+        apply(fetch, that, args) {
+            $('#no-interaction-mask').removeClass('d-none');
+
+            let result = fetch.apply(that, args);
+
+            result.then((response) => {
+                $('#no-interaction-mask').addClass('d-none');
+            });
+
+            return result;
+        },
+    });
 });

@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('box', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('brand_id')->unsigned()->index();
+            $table->bigInteger('brand_id')->index();
             $table->jsonb('name');
             $table->string('slug')->unique();
             $table->jsonb('description')->default('[]');
-            $table->bigInteger('price')->unsigned();
+            $table->bigInteger('price');
             $table->date('date');
             $table->dateTime('datetime');
             $table->string('image')->nullable();

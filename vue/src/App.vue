@@ -19,9 +19,11 @@ export default {
 </script>
 
 <template>
+    <RouterView :key="childKey" />
+
     <div id="preloader" class="active">
         <img class="animation__shake" src="/assets/custom/media/logo.png" />
     </div>
 
-    <RouterView :key="childKey" />
+    <div id="no-interaction-mask" class="d-none"></div>
 </template>

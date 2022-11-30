@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('box_category', function (Blueprint $table) {
             $table->id();
-            $table->tinyInteger('tree')->unsigned()->default(1);
-            $table->integer('lft')->unsigned();
-            $table->integer('rgt')->unsigned();
-            $table->integer('depth')->unsigned()->index();
+            $table->tinyInteger('tree')->default(1);
+            $table->integer('lft');
+            $table->integer('rgt');
+            $table->integer('depth')->index();
             $table->jsonb('name');
             $table->string('slug')->index();
             $table->timestamp('created_at')->index();

@@ -64,7 +64,7 @@ class HierarchyController extends ResourceController
             $nodes = $this->collectSystemFields($tree);
 
             if (isset($nodes[1]) || count($nodes) != $this->model->query()->withTrashed()->count() - 1) {
-                throw new \Exception('Invalid node');
+                throw new \Exception('Invalid tree');
             }
 
             foreach ($nodes as $key => &$node) {
@@ -73,7 +73,7 @@ class HierarchyController extends ResourceController
                 $queryCases['depth'][] = "WHEN id = $key THEN " . $node['depth'];
             }
         } catch (\Throwable $e) {
-            abort(400, 'Invalid node');
+            abort(400, 'Invalid tree');
         }
 
         $this->model->query()->withTrashed()->update([

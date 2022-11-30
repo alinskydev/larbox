@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('box_tag_ref', function (Blueprint $table) {
-            $table->bigInteger('box_id')->unsigned();
-            $table->bigInteger('tag_id')->unsigned();
+            $table->bigInteger('box_id');
+            $table->bigInteger('tag_id');
 
             $table->primary(['box_id', 'tag_id']);
         });

@@ -107,3 +107,14 @@ input[type="checkbox"].checkbox-lg {
 .jstree-default .jstree-search {
     color: #007bff;
 }
+
+#no-interaction-mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999999999;
+    user-select: none;
+    cursor: wait;
+}
