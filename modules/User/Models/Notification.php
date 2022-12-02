@@ -3,6 +3,7 @@
 namespace Modules\User\Models;
 
 use App\Base\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Modules\User\Scopes\UserScope;
 
 class Notification extends Model
@@ -20,17 +21,17 @@ class Notification extends Model
         'params' => 'array',
     ];
 
-    public function creator()
+    public function creator(): BelongsTo
     {
         return $this->belongsTo(User::class, 'creator_id')->withTrashed();
     }
 
-    public function owner()
+    public function owner(): BelongsTo
     {
         return $this->belongsTo(User::class, 'owner_id')->withTrashed();
     }
 
-    protected static function boot()
+    protected static function boot(): void
     {
         parent::boot();
 

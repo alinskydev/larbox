@@ -13,7 +13,7 @@ class BrandRequest extends ActiveFormRequest
 {
     use SeoMetaFormRequestTrait;
 
-    public function nonLocalizedRules()
+    public function nonLocalizedRules(): array
     {
         return [
             'name' => [

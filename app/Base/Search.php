@@ -37,21 +37,13 @@ class Search
     public array $defaultSort = ['-id'];
     public int $pageSize = 50;
 
-    /**
-     * @param Builder $queryBuilder
-     * @return $this
-     */
-    public function setQueryBuilder($queryBuilder)
+    public function setQueryBuilder(Builder $queryBuilder): static
     {
         $this->queryBuilder = $queryBuilder;
         return $this;
     }
 
-    /**
-     * @param array $params
-     * @return $this
-     */
-    public function with($params)
+    public function with(array $params): static
     {
         $params = Arr::flatten($params);
         $params = array_intersect($params, $this->relations);
@@ -61,13 +53,7 @@ class Search
         return $this;
     }
 
-    /**
-     * @param array $params
-     * @param string $combinedType
-     * @param ?Builder $query
-     * @return $this
-     */
-    public function filter($params, $combinedType, $query = null)
+    public function filter(array $params, string $combinedType, ?Builder $query = null): static
     {
         $query = $query ?? $this->queryBuilder;
 
@@ -108,11 +94,7 @@ class Search
         return $this;
     }
 
-    /**
-     * @param array $params
-     * @return $this
-     */
-    public function combinedFilter($params)
+    public function combinedFilter(array $params): static
     {
         foreach ($params as $param => $value) {
             $options = $this->combinedFilters[$param] ?? null;
@@ -131,16 +113,13 @@ class Search
         return $this;
     }
 
-    /**
-     * @param Builder $query
-     * @param string $param
-     * @param string $type
-     * @param mixed $value
-     * @param string $combinedType
-     * @return $this
-     */
-    private function applyFilters(&$query, $param, $type, $value, $combinedType)
-    {
+    private function applyFilters(
+        Builder &$query,
+        string $param,
+        string $type,
+        mixed $value,
+        string $combinedType,
+    ): void {
         if (in_array($type, [
             self::FILTER_TYPE_BETWEEN_DATE,
             self::FILTER_TYPE_BETWEEN_DATETIME,
@@ -204,11 +183,7 @@ class Search
         }
     }
 
-    /**
-     * @param array $params
-     * @return $this
-     */
-    public function sort($params)
+    public function sort(array $params): static
     {
         $params = $params ?: $this->defaultSort;
         $params = Arr::flatten($params);
@@ -239,11 +214,7 @@ class Search
         return $this;
     }
 
-    /**
-     * @param array $params
-     * @return $this
-     */
-    public function show($params)
+    public function show(array $params): static
     {
         $params = Arr::flatten($params);
 
@@ -264,11 +235,7 @@ class Search
         return $this;
     }
 
-    /**
-     * @param int $pageSize
-     * @return $this
-     */
-    public function setPageSize($pageSize)
+    public function setPageSize(int $pageSize): static
     {
         if ($pageSize > 0 && $pageSize <= $this->pageSize) {
             $this->pageSize = $pageSize;

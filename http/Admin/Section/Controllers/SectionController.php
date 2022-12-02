@@ -3,10 +3,11 @@
 namespace Http\Admin\Section\Controllers;
 
 use App\Base\Controller;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Contracts\Validation\ValidatesWhenResolved;
+
 use Modules\Section\Models\Section;
 use Modules\Section\Enums\SectionEnums;
-
-use Illuminate\Contracts\Validation\ValidatesWhenResolved;
 
 class SectionController extends Controller
 {
@@ -23,7 +24,7 @@ class SectionController extends Controller
         app()->bind(ValidatesWhenResolved::class, $this->config['request']);
     }
 
-    public function show()
+    public function show(): JsonResponse
     {
         $response = $this->config['resource']::collection($this->model->blocks)->collection->toArray();
         $response['updated_at'] = $this->model->updated_at->format(LARBOX_FORMAT_DATETIME);
@@ -31,7 +32,7 @@ class SectionController extends Controller
         return response()->json($response, 200);
     }
 
-    public function update(ValidatesWhenResolved $request)
+    public function update(ValidatesWhenResolved $request): JsonResponse
     {
         return $this->successResponse();
     }

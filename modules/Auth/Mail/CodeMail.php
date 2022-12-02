@@ -11,7 +11,7 @@ class CodeMail extends Mail
     ) {
     }
 
-    public function build()
+    public function build(): self
     {
         return $this->subject(__('Код подтверждения'))->view('code');
     }

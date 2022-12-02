@@ -3,11 +3,12 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use Modules\User\Helpers\RoleHelper;
 
 class Role
 {
-    public function handle(Request $request, \Closure $next)
+    public function handle(Request $request, \Closure $next): JsonResponse
     {
         // Cheking role existance
 

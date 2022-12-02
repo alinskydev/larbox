@@ -14,7 +14,7 @@ export default {
     data() {
         return {
             valueOptions: this.item.options.httpSwitcher ?? {},
-            currentValue: this.item.value,
+            currentValue: this.item.value ? 1 : 0,
         };
     },
     mounted() {

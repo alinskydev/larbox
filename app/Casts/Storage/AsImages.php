@@ -20,7 +20,7 @@ class AsImages implements CastsAttributes
         $this->savePath = $savePath;
     }
 
-    public function get($model, $key, $value, $attributes)
+    public function get($model, $key, $value, $attributes): mixed
     {
         if (!$value) return [];
 
@@ -30,7 +30,7 @@ class AsImages implements CastsAttributes
         return array_map(fn ($v) => ImageHelper::populateSizes($v, $this->sizes), $value);
     }
 
-    public function set($model, $key, $value, $attributes)
+    public function set($model, $key, $value, $attributes): mixed
     {
         if (!$value) return '[]';
 

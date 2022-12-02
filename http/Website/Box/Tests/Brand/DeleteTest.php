@@ -7,12 +7,12 @@ namespace Http\Website\Box\Tests\Brand;
  */
 class DeleteTest extends _TestCase
 {
-    public function test_delete()
+    public function test_delete(): void
     {
         $this->processDelete('brand-2');
     }
 
-    public function test_error___Not_your_record()
+    public function test_error___Not_your_record(): void
     {
         $this->processDelete('brand-1', 404);
     }

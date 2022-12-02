@@ -3,33 +3,16 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
 use App\Base\Model;
 use Illuminate\Support\Facades\Schema;
 
 class ParseFields extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'larbox:parse_fields';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Parse fields';
 
-    /**
-     * Execute the console command.
-     *
-     * @return int
-     */
-    public function handle()
+    public function handle(): void
     {
         //  Checking folder existance
 
@@ -37,7 +20,7 @@ class ParseFields extends Command
         $path = "$basePath/storage/larbox/localization";
 
         if (!is_dir($path)) {
-            return $this->error("'$path' doesn't exists");
+            $this->error("'$path' doesn't exists"); die;
         }
 
         // Parsing form requests
@@ -57,7 +40,7 @@ class ParseFields extends Command
             $file = str_replace('http', 'Http', $file);
 
             $attributes = array_values($this->formAttributes($file));
-            $attributes = array_map(fn($value) => preg_replace('/^fields./', '', $value), $attributes);
+            $attributes = array_map(fn ($value) => preg_replace('/^fields./', '', $value), $attributes);
 
             $fields = array_merge($fields, $attributes);
         }
@@ -108,7 +91,7 @@ class ParseFields extends Command
         $this->line($path);
     }
 
-    private function formAttributes(string $formRequestClass)
+    private function formAttributes(string $formRequestClass): array
     {
         try {
             $formRequestReflection = new \ReflectionClass($formRequestClass);

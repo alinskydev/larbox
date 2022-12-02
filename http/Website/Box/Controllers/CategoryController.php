@@ -3,6 +3,8 @@
 namespace Http\Website\Box\Controllers;
 
 use App\Hierarchy\HierarchyController;
+use Illuminate\Http\JsonResponse;
+
 use Modules\Box\Models\Category;
 use Modules\Box\Search\CategorySearch;
 use Modules\Box\Resources\CategoryResource;

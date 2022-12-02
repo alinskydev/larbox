@@ -10,12 +10,7 @@ class HtmlCleanHelper
     public const TYPE_PURIFY = 'purify';
     public const TYPE_STRIP_TAGS = 'stripTags';
 
-    /**
-     * @param array $data
-     * @param string $type
-     * @return array
-     */
-    public static function process($data, $type)
+    public static function process(array $data, string $type): array
     {
         foreach ($data as &$value) {
             if (is_array($value)) {
@@ -34,12 +29,7 @@ class HtmlCleanHelper
         return $data;
     }
 
-    /**
-     * @param ?string $value
-     * @param string $type
-     * @return string
-     */
-    private static function processValue($value, $type)
+    private static function processValue(string $value, string $type): string
     {
         return match ($type) {
             self::TYPE_PURIFY => Purifier::clean($value),

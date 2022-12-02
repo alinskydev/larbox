@@ -4,7 +4,7 @@ namespace Http\Admin\User\Tests\Role;
 
 class UpdateTest extends _TestCase
 {
-    public function test_success()
+    public function test_success(): void
     {
         $this->processUpdate(
             path: '2',

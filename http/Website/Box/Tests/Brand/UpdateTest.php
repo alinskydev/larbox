@@ -4,7 +4,7 @@ namespace Http\Website\Box\Tests\Brand;
 
 class UpdateTest extends _TestCase
 {
-    public function test_success()
+    public function test_success(): void
     {
         $this->processUpdate(
             path: 'brand-2',
@@ -20,7 +20,7 @@ class UpdateTest extends _TestCase
         );
     }
 
-    public function test_error___Not_your_record()
+    public function test_error___Not_your_record(): void
     {
         $this->processUpdate(
             path: 'brand-1',

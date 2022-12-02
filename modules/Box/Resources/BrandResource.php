@@ -7,7 +7,7 @@ use Modules\User\Resources\UserResource;
 
 class BrandResource extends JsonResource
 {
-    public function toArray($request)
+    public function toArray($request): array
     {
         return array_replace_recursive(parent::toArray($request), [
             'creator' => UserResource::make($this->whenLoaded('creator')),

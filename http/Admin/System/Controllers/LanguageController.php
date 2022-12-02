@@ -3,6 +3,7 @@
 namespace Http\Admin\System\Controllers;
 
 use App\Http\Controllers\ResourceController;
+use Illuminate\Http\JsonResponse;
 
 use Modules\System\Models\Language;
 use Modules\System\Search\LanguageSearch;

@@ -9,7 +9,7 @@ use Illuminate\Validation\Rule;
 
 class NotificationRequest extends FormRequest
 {
-    public function nonLocalizedRules()
+    public function nonLocalizedRules(): array
     {
         return [
             'user_query' => 'present|nullable|string|max:1000',
@@ -21,7 +21,7 @@ class NotificationRequest extends FormRequest
         ];
     }
 
-    protected function passedValidation()
+    protected function passedValidation(): void
     {
         parent::passedValidation();
 

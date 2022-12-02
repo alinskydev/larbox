@@ -23,12 +23,14 @@ $app = new Illuminate\Foundation\Application(
 
 // Checking API type and setting database name
 
-$headers = getallheaders();
+// $headers = getallheaders();
 
-$envFile = match (Arr::get($headers, 'ENV')) {
-        // 'debug_key' => '.env.debug',
-    default => '.env',
-};
+// $envFile = match (Arr::get($headers, 'ENV')) {
+//         // 'debug_key' => '.env.debug',
+//     default => '.env',
+// };
+
+$envFile = '.env';
 
 $app->loadEnvironmentFrom($envFile);
 

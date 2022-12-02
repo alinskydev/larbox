@@ -17,10 +17,10 @@ class ActiveFormRequest extends FormRequest
     public function __construct()
     {
         $this->model = $this->model ?? request()->route('model') ?? request()->route()->bindingFieldFor('new_model');
-        return parent::__construct();
+        parent::__construct();
     }
 
-    protected function prepareForValidation()
+    protected function prepareForValidation(): void
     {
         parent::prepareForValidation();
 
@@ -31,7 +31,7 @@ class ActiveFormRequest extends FormRequest
         }
     }
 
-    protected function passedValidation()
+    protected function passedValidation(): void
     {
         parent::passedValidation();
 
@@ -55,7 +55,7 @@ class ActiveFormRequest extends FormRequest
         DB::commit();
     }
 
-    public function validated($key = null, $default = null)
+    public function validated($key = null, $default = null): array
     {
         $data = parent::validated($key, $default);
         $data = $this->assignFiles($data);
@@ -63,7 +63,7 @@ class ActiveFormRequest extends FormRequest
         return $data;
     }
 
-    private function assignFiles($data)
+    private function assignFiles(array $data): array
     {
         $data = Arr::dot($data);
 

@@ -23,8 +23,12 @@ class HierarchyHelper
         return $children;
     }
 
-    public static function appendFullFieldToTree(array &$items, string $field, string $separator, array $prefix = []): array
-    {
+    public static function appendFullFieldToTree(
+        array &$items,
+        string $field,
+        string $separator,
+        array $prefix = [],
+    ): array {
         $fullField = "full_$field";
 
         foreach ($items as &$item) {

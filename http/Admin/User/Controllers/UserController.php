@@ -3,6 +3,8 @@
 namespace Http\Admin\User\Controllers;
 
 use App\Http\Controllers\ResourceController;
+use Illuminate\Http\JsonResponse;
+
 use Modules\User\Models\User;
 use Modules\User\Search\UserSearch;
 use Modules\User\Resources\UserResource;

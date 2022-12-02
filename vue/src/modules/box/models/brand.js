@@ -27,6 +27,7 @@ export default new Model({
             options: {
                 httpSelect: {
                     path: 'box/brand/:id/set-active/:value',
+                    isBoolean: true,
                     items: (context) => {
                         return {
                             0: context.__('Нет'),

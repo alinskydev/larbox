@@ -3,6 +3,8 @@
 namespace Http\Admin\User\Controllers;
 
 use App\Http\Controllers\ResourceController;
+use Illuminate\Http\JsonResponse;
+
 use Modules\User\Models\Role;
 use Modules\User\Search\RoleSearch;
 use Modules\User\Resources\RoleResource;

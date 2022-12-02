@@ -38,32 +38,32 @@ class Model extends BaseModel
             $this->append(['is_deleted']);
         }
 
-        return parent::__construct($attributes);
+        parent::__construct($attributes);
     }
 
-    public function getIsDeletedAttribute()
+    public function getIsDeletedAttribute(): bool
     {
         return (bool)$this->deleted_at;
     }
 
-    protected function serializeDate(DateTimeInterface $date)
+    protected function serializeDate(DateTimeInterface $date): string
     {
         $format = $this->dateFormat ?? LARBOX_FORMAT_DATETIME;
         return $date->format($format);
     }
 
-    public function getRouteKeyName()
+    public function getRouteKeyName(): string
     {
         return $this->routeKeyName ?? $this->getKeyName();
     }
 
-    public function setRouteKeyName(string $name): self
+    public function setRouteKeyName($name): static
     {
         $this->routeKeyName = $name;
         return $this;
     }
 
-    protected static function boot()
+    protected static function boot(): void
     {
         parent::boot();
 

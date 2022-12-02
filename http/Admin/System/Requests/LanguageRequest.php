@@ -10,7 +10,7 @@ use App\Helpers\Validation\FileValidationHelper;
 
 class LanguageRequest extends ActiveFormRequest
 {
-    public function nonLocalizedRules()
+    public function nonLocalizedRules(): array
     {
         return [
             'name' => [

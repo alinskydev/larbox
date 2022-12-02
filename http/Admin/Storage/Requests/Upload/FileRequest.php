@@ -11,14 +11,14 @@ class FileRequest extends FormRequest
 {
     public array $url;
 
-    public function nonLocalizedRules()
+    public function nonLocalizedRules(): array
     {
         return [
             'file' => FileValidationHelper::rules(FileValidationHelper::CONFIG_ALL),
         ];
     }
 
-    protected function passedValidation()
+    protected function passedValidation(): void
     {
         parent::passedValidation();
 

@@ -11,14 +11,14 @@ class AsDatetime implements CastsAttributes
     ) {
     }
 
-    public function get($model, $key, $value, $attributes)
+    public function get($model, $key, $value, $attributes): mixed
     {
         if (!$value) return null;
 
         return date($this->format, strtotime($value));
     }
 
-    public function set($model, $key, $value, $attributes)
+    public function set($model, $key, $value, $attributes): mixed
     {
         if (!$value) return null;
 

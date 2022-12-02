@@ -4,7 +4,7 @@ namespace Http\Common\System\Tests;
 
 class SystemTest extends _TestCase
 {
-    public function test_index()
+    public function test_index(): void
     {
         $this->processShow('');
     }

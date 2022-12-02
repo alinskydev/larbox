@@ -14,7 +14,7 @@ class Language extends Model
         'image' => AsImage::class . ':30|100|500',
     ];
 
-    protected static function boot()
+    protected static function boot(): void
     {
         parent::boot();
 

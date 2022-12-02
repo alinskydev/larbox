@@ -27,7 +27,7 @@ class HomeRequest extends FormRequest
         'relations_2.*.images_list' => [],
     ];
 
-    public function nonLocalizedRules()
+    public function nonLocalizedRules(): array
     {
         return [
             'first_text_1' => 'required|string|max:255',
@@ -50,7 +50,7 @@ class HomeRequest extends FormRequest
         ];
     }
 
-    public function localizedRules()
+    public function localizedRules(): array
     {
         return [
             'first_text_1_localized' => 'required|string|max:255',

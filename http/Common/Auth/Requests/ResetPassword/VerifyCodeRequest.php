@@ -3,13 +3,14 @@
 namespace Http\Common\Auth\Requests\ResetPassword;
 
 use App\Base\FormRequest;
+use Illuminate\Validation\Validator;
 use Modules\Auth\Services\CodeService;
 
 use Illuminate\Validation\Rule;
 
 class VerifyCodeRequest extends FormRequest
 {
-    public function nonLocalizedRules()
+    public function nonLocalizedRules(): array
     {
         return [
             'email' => [
@@ -22,7 +23,7 @@ class VerifyCodeRequest extends FormRequest
         ];
     }
 
-    public function withValidator($validator)
+    public function withValidator(Validator $validator): void
     {
         if (!$validator->fails()) {
             $validator->after(function ($validator) {

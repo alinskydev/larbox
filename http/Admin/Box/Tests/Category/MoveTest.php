@@ -10,7 +10,7 @@ class MoveTest extends _TestCase
     public string $requestUrl = 'admin/box/category-move';
     public string $requestMethod = self::REQUEST_METHOD_PATCH;
 
-    public function test_success()
+    public function test_success(): void
     {
         $model = Category::query()
             ->with(['children' => function ($query) {

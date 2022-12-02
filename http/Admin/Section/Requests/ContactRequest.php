@@ -16,7 +16,7 @@ class ContactRequest extends FormRequest
         'branches.*.phones',
     ];
 
-    public function nonLocalizedRules()
+    public function nonLocalizedRules(): array
     {
         return [
             'socials_facebook' => 'present|nullable|string|max:255',
@@ -30,7 +30,7 @@ class ContactRequest extends FormRequest
         ];
     }
 
-    public function localizedRules()
+    public function localizedRules(): array
     {
         return [
             'branches.*.description' => 'present|nullable|string',

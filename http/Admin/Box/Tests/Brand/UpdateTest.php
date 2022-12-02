@@ -4,7 +4,7 @@ namespace Http\Admin\Box\Tests\Brand;
 
 class UpdateTest extends _TestCase
 {
-    public function test_success()
+    public function test_success(): void
     {
         $this->processUpdate(
             body: [

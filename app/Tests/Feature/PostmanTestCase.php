@@ -60,7 +60,7 @@ abstract class PostmanTestCase extends BaseTestCase
         );
     }
 
-    public function callBeforeApplicationDestroyedCallbacks()
+    public function callBeforeApplicationDestroyedCallbacks(): void
     {
         // Collecting
 
@@ -126,7 +126,7 @@ abstract class PostmanTestCase extends BaseTestCase
         parent::callBeforeApplicationDestroyedCallbacks();
     }
 
-    private function convertDataToSingleDimensionalArray(array $data)
+    private function convertDataToSingleDimensionalArray(array $data): array
     {
         $data = urldecode(http_build_query($data));
         $data = explode('&', $data);

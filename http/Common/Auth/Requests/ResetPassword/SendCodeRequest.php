@@ -8,7 +8,7 @@ use Illuminate\Validation\Rule;
 
 class SendCodeRequest extends FormRequest
 {
-    public function nonLocalizedRules()
+    public function nonLocalizedRules(): array
     {
         return [
             'email' => [

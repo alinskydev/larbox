@@ -13,10 +13,10 @@ class CallbackRequest extends ActiveFormRequest
     public function __construct()
     {
         $this->model = new Callback();
-        return parent::__construct();
+        parent::__construct();
     }
 
-    public function nonLocalizedRules()
+    public function nonLocalizedRules(): array
     {
         return [
             'full_name' => 'required|string|max:255',

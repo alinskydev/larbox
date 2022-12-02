@@ -3,18 +3,14 @@
 namespace App\Http\Controllers\Actions;
 
 use App\Base\Controller;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Http\JsonResponse;
 
 use App\Base\Model;
 use Illuminate\Support\Facades\DB;
 
 class SetValueAction extends Controller
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-
-    public function __invoke(Model $model, mixed $value)
+    public function __invoke(Model $model, string $value): JsonResponse
     {
         $field = request()->route()->bindingFieldFor('field');
 

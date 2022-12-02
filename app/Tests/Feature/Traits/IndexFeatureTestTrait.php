@@ -9,7 +9,7 @@ trait IndexFeatureTestTrait
 {
     protected Search $search;
 
-    public function processAvailableRelations(int $assertStatus = 206)
+    public function processAvailableRelations(int $assertStatus = 206): void
     {
         $this->search = new $this->searchClass();
 
@@ -23,7 +23,7 @@ trait IndexFeatureTestTrait
         $this->response->assertStatus($assertStatus);
     }
 
-    public function processAvailableFilters(array $params, int $assertStatus = 206)
+    public function processAvailableFilters(array $params, int $assertStatus = 206): void
     {
         $this->requestMethod = PostmanTestCase::REQUEST_METHOD_GET;
 
@@ -35,7 +35,7 @@ trait IndexFeatureTestTrait
         $this->response->assertStatus($assertStatus);
     }
 
-    public function processAvailableSortings(int $assertStatus = 206)
+    public function processAvailableSortings(int $assertStatus = 206): void
     {
         $this->search = new $this->searchClass();
 
@@ -53,7 +53,7 @@ trait IndexFeatureTestTrait
         $this->response->assertStatus($assertStatus);
     }
 
-    public function processAvailableShowings(array $params, int $assertStatus = 206)
+    public function processAvailableShowings(array $params, int $assertStatus = 206): void
     {
         $this->requestMethod = PostmanTestCase::REQUEST_METHOD_GET;
 
@@ -65,7 +65,7 @@ trait IndexFeatureTestTrait
         $this->response->assertStatus($assertStatus);
     }
 
-    public function processShowWithDeleted(int $assertStatus = 206)
+    public function processShowWithDeleted(int $assertStatus = 206): void
     {
         $this->requestMethod = PostmanTestCase::REQUEST_METHOD_GET;
 
@@ -77,7 +77,7 @@ trait IndexFeatureTestTrait
         $this->response->assertStatus($assertStatus);
     }
 
-    public function processShowOnlyDeleted(int $assertStatus = 206)
+    public function processShowOnlyDeleted(int $assertStatus = 206): void
     {
         $this->requestMethod = PostmanTestCase::REQUEST_METHOD_GET;
 
@@ -89,7 +89,7 @@ trait IndexFeatureTestTrait
         $this->response->assertStatus($assertStatus);
     }
 
-    public function processPagination(int $assertStatus = 206)
+    public function processPagination(int $assertStatus = 206): void
     {
         $this->search = new $this->searchClass();
 

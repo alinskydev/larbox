@@ -2,24 +2,11 @@
 
 namespace Modules\User\Jobs;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
-
+use App\Base\Job;
 use Modules\User\Models\User;
 
-class NotificationPrepareCreateJob implements ShouldQueue
+class NotificationPrepareCreateJob extends Job
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
-    /**
-     * Create a new job instance.
-     *
-     * @return void
-     */
     public function __construct(
         private array $data,
         private int $creatorId,
@@ -27,12 +14,7 @@ class NotificationPrepareCreateJob implements ShouldQueue
         $this->queue = 'user_notification_prepare_create';
     }
 
-    /**
-     * Execute the job.
-     *
-     * @return void
-     */
-    public function handle()
+    public function handle(): void
     {
         try {
             $usersCount = User::query()->count();
@@ -49,10 +31,5 @@ class NotificationPrepareCreateJob implements ShouldQueue
             $this->release(60 * 30);
             return;
         }
-    }
-
-    public function retryUntil()
-    {
-        return now()->addYear();
     }
 }

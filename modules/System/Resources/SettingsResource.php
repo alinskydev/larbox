@@ -6,7 +6,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class SettingsResource extends JsonResource
 {
-    public function toArray($request)
+    public function toArray($request): mixed
     {
         switch ($this->name) {
             case 'favicon':

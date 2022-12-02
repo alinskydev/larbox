@@ -14,7 +14,7 @@ export default {
     data() {
         return {
             valueOptions: this.item.options.httpSelect ?? {},
-            currentValue: this.item.value,
+            currentValue: this.item.options.httpSelect?.isBoolean ? (this.item.value ? 1 : 0) : this.item.value,
             items: {},
         };
     },

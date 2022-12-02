@@ -9,7 +9,7 @@ class JsonResource extends BaseJsonResource
 {
     protected array $imageGroups = [];
 
-    public function toArray($request)
+    public function toArray($request): mixed
     {
         foreach ($this->imageGroups as $group) {
             $relation = $group['relation'] ?? null;

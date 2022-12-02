@@ -8,7 +8,7 @@ use App\Helpers\Validation\FileValidationHelper;
 
 class LayoutRequest extends FormRequest
 {
-    public function nonLocalizedRules()
+    public function nonLocalizedRules(): array
     {
         return [
             'header_phone' => 'required|string|max:255',
@@ -17,7 +17,7 @@ class LayoutRequest extends FormRequest
         ];
     }
 
-    public function localizedRules()
+    public function localizedRules(): array
     {
         return [
             'footer_copyright' => 'required|string|max:255',

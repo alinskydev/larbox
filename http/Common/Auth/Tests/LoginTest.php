@@ -4,7 +4,7 @@ namespace Http\Common\Auth\Tests;
 
 class LoginTest extends _TestCase
 {
-    public function test_as_admin()
+    public function test_as_admin(): void
     {
         $this->processPost(
             path: 'login',
@@ -15,7 +15,7 @@ class LoginTest extends _TestCase
         );
     }
 
-    public function test_as_registered()
+    public function test_as_registered(): void
     {
         $this->processPost(
             path: 'login',

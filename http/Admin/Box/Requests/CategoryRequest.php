@@ -13,7 +13,7 @@ class CategoryRequest extends ActiveFormRequest
 {
     use SeoMetaFormRequestTrait;
 
-    public function localizedRules()
+    public function localizedRules(): array
     {
         return [
             'name' => [

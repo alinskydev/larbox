@@ -13,8 +13,8 @@ class ImageHelper
         string $sourceUrl,
         string $type,
         array $params,
-        bool $isAbsoluteThumbUrl = true
-    ) {
+        bool $isAbsoluteThumbUrl = true,
+    ): string {
         if (!in_array($type, self::$availableThumbnailTypes)) {
             throw new \Exception("Unavailable 'type'");
         }
@@ -49,7 +49,7 @@ class ImageHelper
         }
     }
 
-    public static function populateSizes(string $url, array $sizes)
+    public static function populateSizes(string $url, array $sizes): array
     {
         $result = [
             'original' => asset($url),
@@ -62,7 +62,7 @@ class ImageHelper
         return $result;
     }
 
-    public static function clearSizes(array $urls)
+    public static function clearSizes(array $urls): string
     {
         $result = $urls['original'];
         return str_replace(asset(''), '/', $result);

@@ -6,7 +6,7 @@ use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 
 class AsBlocks implements CastsAttributes
 {
-    public function get($model, $key, $value, $attributes)
+    public function get($model, $key, $value, $attributes): mixed
     {
         $value = json_decode($value, true);
         $value = collect($value);
@@ -25,7 +25,7 @@ class AsBlocks implements CastsAttributes
         })->sortKeys();
     }
 
-    public function set($model, $key, $value, $attributes)
+    public function set($model, $key, $value, $attributes): mixed
     {
         return json_encode($value, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
     }

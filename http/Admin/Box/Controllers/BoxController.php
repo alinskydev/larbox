@@ -3,6 +3,8 @@
 namespace Http\Admin\Box\Controllers;
 
 use App\Http\Controllers\ResourceController;
+use Illuminate\Http\JsonResponse;
+
 use Modules\Box\Models\Box;
 use Modules\Box\Search\BoxSearch;
 use Modules\Box\Resources\BoxResource;

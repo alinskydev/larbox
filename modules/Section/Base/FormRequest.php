@@ -29,10 +29,10 @@ class FormRequest extends BaseFormRequest
             }
         }
 
-        return parent::__construct();
+        parent::__construct();
     }
 
-    protected function prepareForValidation()
+    protected function prepareForValidation(): void
     {
         parent::prepareForValidation();
 
@@ -43,7 +43,7 @@ class FormRequest extends BaseFormRequest
         }
     }
 
-    protected function passedValidation()
+    protected function passedValidation(): void
     {
         parent::passedValidation();
 
@@ -59,7 +59,7 @@ class FormRequest extends BaseFormRequest
         $this->model->touch();
     }
 
-    public function validated($key = null, $default = null)
+    public function validated($key = null, $default = null): array
     {
         $data = parent::validated($key, $default);
         $data = $this->saveFiles($data);

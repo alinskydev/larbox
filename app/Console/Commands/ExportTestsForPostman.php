@@ -11,32 +11,21 @@ use Symfony\Component\Console\Output\StreamOutput;
 
 class ExportTestsForPostman extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'larbox:export_tests_for_postman';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Export tests for postman';
 
-    /**
-     * Execute the console command.
-     *
-     * @return int
-     */
-    public function handle()
+    public function handle(): void
     {
         // Preparing input file
 
         $collectionName = $this->ask('Enter collectioin name', config('app.name'));
 
         $path = base_path('storage/larbox/tests');
+
+        if (!is_dir($path)) {
+            $this->error("'$path' doesn't exists"); die;
+        }
 
         $inputFileName = "$path/_postman.json";
         File::delete($inputFileName);
@@ -84,7 +73,7 @@ class ExportTestsForPostman extends Command
         $this->line($path);
     }
 
-    private function addItems(array $items)
+    private function addItems(array $items): array
     {
         $data = [];
 

@@ -19,7 +19,7 @@ class CodeService
         $this->model->key = $this->key;
     }
 
-    public function sendCode()
+    public function sendCode(): void
     {
         // $code = Str::random(8);
         $code = 1234;
@@ -31,7 +31,7 @@ class CodeService
         Mail::to($this->key)->send(new CodeMail($code));
     }
 
-    public function checkCode(string $code)
+    public function checkCode(string $code): array
     {
         if (!$this->model->exists) {
             return [
@@ -55,7 +55,7 @@ class CodeService
         ];
     }
 
-    public function delete()
+    public function delete(): void
     {
         $this->model->delete();
     }

@@ -2,13 +2,14 @@
 
 namespace App\Exceptions;
 
-use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Exceptions\ThrottleRequestsException;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Arr;
 use TypeError;
 use Throwable;
@@ -56,7 +57,16 @@ class Handler extends ExceptionHandler
         });
     }
 
-    public function render($request, Throwable $e)
+    /**
+     * Render an exception into an HTTP response.
+     *
+     * @param Request $request
+     * @param Throwable $e
+     * @return Response
+     *
+     * @throws Throwable
+     */
+    public function render($request, $e)
     {
         if (config('app.debug')) {
             return parent::render($request, $e);
@@ -104,6 +114,10 @@ class Handler extends ExceptionHandler
         return response()->json($response['data'], $response['status']);
     }
 
+    /**
+     * @param Throwable $e
+     * @return Response
+     */
     public function handleExceptions($e)
     {
         if ($e instanceof ValidationException) {

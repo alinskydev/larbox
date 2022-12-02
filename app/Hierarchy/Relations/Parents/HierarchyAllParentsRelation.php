@@ -5,16 +5,10 @@ namespace App\Hierarchy\Relations\Parents;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Query\Expression;
 
 class HierarchyAllParentsRelation extends HasMany
 {
-    /**
-     * Set the base constraints on the relation query.
-     *
-     * @return void
-     */
-    public function addConstraints()
+    public function addConstraints(): void
     {
         if (static::$constraints) {
             $query = $this->getRelationQuery();
@@ -28,13 +22,7 @@ class HierarchyAllParentsRelation extends HasMany
         }
     }
 
-    /**
-     * Set the constraints for an eager load of the relation.
-     *
-     * @param  array  $models
-     * @return void
-     */
-    public function addEagerConstraints(array $models)
+    public function addEagerConstraints(array $models): void
     {
         $this->getRelationQuery()
             ->where(function ($query) use ($models) {
@@ -49,16 +37,7 @@ class HierarchyAllParentsRelation extends HasMany
             ->orderBy('lft');
     }
 
-    /**
-     * Match the eagerly loaded results to their many parents.
-     *
-     * @param  array  $models
-     * @param  \Illuminate\Database\Eloquent\Collection  $results
-     * @param  string  $relation
-     * @param  string  $type
-     * @return array
-     */
-    protected function matchOneOrMany(array $models, Collection $results, $relation, $type)
+    protected function matchOneOrMany(array $models, Collection $results, $relation, $type): array
     {
         $dictionary = $this->buildDictionary($results);
 
@@ -72,15 +51,7 @@ class HierarchyAllParentsRelation extends HasMany
         return $models;
     }
 
-    /**
-     * Add the constraints for a relationship query on the same table.
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @param  \Illuminate\Database\Eloquent\Builder  $parentQuery
-     * @param  array|mixed  $columns
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function getRelationExistenceQueryForSelfRelation(Builder $query, Builder $parentQuery, $columns = ['*'])
+    public function getRelationExistenceQueryForSelfRelation(Builder $query, Builder $parentQuery, $columns = ['*']): Builder
     {
         $query->from($query->getModel()->getTable() . ' as ' . $hash = $this->getRelationCountHash());
 

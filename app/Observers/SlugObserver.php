@@ -11,7 +11,7 @@ class SlugObserver
 {
     protected string $sourceField;
 
-    public function saving(Model $model)
+    public function saving(Model $model): void
     {
         $sourceValue = $model->{$this->sourceField};
 

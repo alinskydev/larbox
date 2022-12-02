@@ -3,6 +3,7 @@
 namespace Http\Admin\System\Controllers;
 
 use App\Base\Controller;
+use Illuminate\Http\JsonResponse;
 
 use Modules\System\Models\Settings;
 use Modules\System\Resources\SettingsResource;
@@ -10,7 +11,7 @@ use Http\Admin\System\Requests\SettingsRequest;
 
 class SettingsController extends Controller
 {
-    public function index()
+    public function index(): JsonResponse
     {
         $response = Settings::query()->orderBy('name')->get()->keyBy('name');
         $response = SettingsResource::collection($response);
@@ -18,7 +19,7 @@ class SettingsController extends Controller
         return response()->json($response, 200);
     }
 
-    public function update(SettingsRequest $request)
+    public function update(SettingsRequest $request): JsonResponse
     {
         $data = $request->validated();
 

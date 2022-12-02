@@ -4,12 +4,12 @@ namespace Http\Admin\Box\Tests\Box;
 
 class DeleteFileTest extends _TestCase
 {
-    public function test_image()
+    public function test_image(): void
     {
         $this->processDelete('1/delete-file/image');
     }
 
-    public function test_first_from_images_list()
+    public function test_first_from_images_list(): void
     {
         $this->processDelete('1/delete-file/images_list/0');
     }

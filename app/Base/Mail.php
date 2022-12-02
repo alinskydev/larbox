@@ -2,22 +2,16 @@
 
 namespace App\Base;
 
-use Illuminate\Support\Facades\View;
-
-use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
+use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\View;
 
 class Mail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    /**
-     * @param string  $view
-     * @param array  $data
-     * @return $this
-     */
-    public function view($view, $data = [])
+    public function view($view, array $data = []): static
     {
         $calledClass = get_called_class();
         $calledClassReflection = new \ReflectionClass($calledClass);
@@ -27,6 +21,7 @@ class Mail extends Mailable
         View::addNamespace('Mail', $calledClassDir . '/views');
 
         $view = "Mail::$view." . app()->getLocale();
+
         return parent::view($view, $data);
     }
 }

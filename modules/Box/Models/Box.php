@@ -5,6 +5,9 @@ namespace Modules\Box\Models;
 use App\Base\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Seo\Traits\SeoMetaModelTrait;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Builder;
 
 use App\Casts\Date\AsDate;
@@ -28,27 +31,27 @@ class Box extends Model
         'images_list' => AsImages::class . ':100|500',
     ];
 
-    public function brand()
+    public function brand(): BelongsTo
     {
         return $this->belongsTo(Brand::class, 'brand_id')->withTrashed();
     }
 
-    public function variations()
+    public function variations(): HasMany
     {
         return $this->hasMany(Variation::class, 'box_id')->orderBy('sort_index');
     }
 
-    public function categories()
+    public function categories(): BelongsToMany
     {
         return $this->belongsToMany(Category::class, 'box_category_ref', 'box_id', 'category_id')->withTrashed();
     }
 
-    public function tags()
+    public function tags(): BelongsToMany
     {
         return $this->belongsToMany(Tag::class, 'box_tag_ref', 'box_id', 'tag_id')->withTrashed();
     }
 
-    public function scopePublished(Builder $query)
+    public function scopePublished(Builder $query): void
     {
         $query->where('datetime', '<=', date('Y-m-d'));
     }

@@ -4,7 +4,7 @@ namespace Http\Admin\User\Tests\User;
 
 class UpdateTest extends _TestCase
 {
-    public function test_success()
+    public function test_success(): void
     {
         $this->processUpdate(
             path: '2',
@@ -24,7 +24,7 @@ class UpdateTest extends _TestCase
         );
     }
 
-    public function test_superadmin_role_is_unchangeable()
+    public function test_superadmin_role_is_unchangeable(): void
     {
         $this->processUpdate(
             body: [

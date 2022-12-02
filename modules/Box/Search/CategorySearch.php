@@ -23,11 +23,7 @@ class CategorySearch extends Search
         ],
     ];
 
-    /**
-     * @param array $params
-     * @return $this
-     */
-    public function show($params)
+    public function show(array $params): static
     {
         parent::show($params);
 

@@ -11,7 +11,7 @@ class IndexTest extends _TestCase
 
     public string $searchClass = CategorySearch::class;
 
-    public function test_available_filters()
+    public function test_available_filters(): void
     {
         $this->processAvailableFilters([
             'id' => 3,
@@ -20,14 +20,14 @@ class IndexTest extends _TestCase
         ]);
     }
 
-    public function test_available_showings()
+    public function test_available_showings(): void
     {
         $this->processAvailableShowings([
             'boxes_count',
         ]);
     }
 
-    public function test_pagination()
+    public function test_pagination(): void
     {
         $this->processPagination();
     }

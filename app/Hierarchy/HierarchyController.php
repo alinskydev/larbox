@@ -3,10 +3,10 @@
 namespace App\Hierarchy;
 
 use App\Http\Controllers\ResourceController;
-use App\Base\Search;
-
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Arr;
+use App\Base\Search;
 
 class HierarchyController extends ResourceController
 {
@@ -28,7 +28,7 @@ class HierarchyController extends ResourceController
         }
     }
 
-    public function tree()
+    public function tree(): JsonResponse
     {
         $model = $this->model->query()->with(['children'])->findOrFail(1);
 
@@ -38,7 +38,7 @@ class HierarchyController extends ResourceController
         return response()->json($tree, 200);
     }
 
-    public function showByFullSlug(string $fullSlug)
+    public function showByFullSlug(string $fullSlug): JsonResponse
     {
         $slugs = explode('/', $fullSlug);
         $slugs = array_filter($slugs, fn ($value) => $value);
@@ -55,25 +55,14 @@ class HierarchyController extends ResourceController
         return response()->json($model, 200);
     }
 
-    public function move(HierarchyMoveRequest $request)
+    public function move(HierarchyMoveRequest $request): JsonResponse
     {
-        try {
-            $data = $request->validated();
+        $queryCases = [];
 
-            $tree = json_decode($data['tree'], true);
-            $nodes = $this->collectSystemFields($tree);
-
-            if (isset($nodes[1]) || count($nodes) != $this->model->query()->withTrashed()->count() - 1) {
-                throw new \Exception('Invalid tree');
-            }
-
-            foreach ($nodes as $key => &$node) {
-                $queryCases['lft'][] = "WHEN id = $key THEN " . $node['lft'];
-                $queryCases['rgt'][] = "WHEN id = $key THEN " . $node['rgt'];
-                $queryCases['depth'][] = "WHEN id = $key THEN " . $node['depth'];
-            }
-        } catch (\Throwable $e) {
-            abort(400, 'Invalid tree');
+        foreach ($request->nodes as $key => &$node) {
+            $queryCases['lft'][] = "WHEN id = $key THEN " . $node['lft'];
+            $queryCases['rgt'][] = "WHEN id = $key THEN " . $node['rgt'];
+            $queryCases['depth'][] = "WHEN id = $key THEN " . $node['depth'];
         }
 
         $this->model->query()->withTrashed()->update([
@@ -83,38 +72,5 @@ class HierarchyController extends ResourceController
         ]);
 
         return $this->successResponse();
-    }
-
-    private function collectSystemFields(array $tree, int $lft = 2, int $rgt = 3, int $depth = 1, array $result = [])
-    {
-        foreach ($tree as $node) {
-            $nodeId = $node['id'];
-
-            $result[$nodeId] = [
-                'lft' => $lft,
-                'rgt' => $rgt,
-                'depth' => $depth,
-            ];
-
-            if ($node['children']) {
-                $childrenCount = 0;
-
-                array_walk_recursive($node['children'], function ($value, $key) use (&$childrenCount) {
-                    if ($key == 'id') $childrenCount++;
-                });
-
-                $result[$nodeId]['rgt'] += $childrenCount * 2;
-
-                $result += $this->collectSystemFields($node['children'], $lft + 1, $rgt + 1, $depth + 1, $result);
-
-                $lft = $result[$nodeId]['rgt'] + 1;
-                $rgt = $result[$nodeId]['rgt'] + 2;
-            } else {
-                $lft += 2;
-                $rgt += 2;
-            }
-        }
-
-        return $result;
     }
 }

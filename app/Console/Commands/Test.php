@@ -8,26 +8,11 @@ use Symfony\Component\Console\Output\StreamOutput;
 
 class Test extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'larbox:test';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Migrate and test';
 
-    /**
-     * Execute the console command.
-     *
-     * @return int
-     */
-    public function handle()
+    public function handle(): void
     {
         $stream = fopen('php://output', 'w');
         Artisan::call('larbox:migrate', [], new StreamOutput($stream));

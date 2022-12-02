@@ -4,7 +4,7 @@ namespace Http\Website\Feedback\Tests;
 
 class CallbackTest extends _TestCase
 {
-    public function test_success()
+    public function test_success(): void
     {
         $this->processPost(
             path: 'callback',

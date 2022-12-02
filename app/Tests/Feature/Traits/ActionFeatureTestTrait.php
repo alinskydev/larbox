@@ -9,7 +9,7 @@ trait ActionFeatureTestTrait
 {
     public string $formHelper = FormHelper::class;
 
-    public function processShow(string $path = '1', int $assertStatus = 200)
+    public function processShow(string $path = '1', int $assertStatus = 200): void
     {
         $this->processCall(
             path: $path,
@@ -19,7 +19,7 @@ trait ActionFeatureTestTrait
         );
     }
 
-    public function processUpdate(string $path = '1', array $body = [], int $assertStatus = 200)
+    public function processUpdate(string $path = '1', array $body = [], int $assertStatus = 200): void
     {
         $this->processCall(
             path: $path,
@@ -29,7 +29,7 @@ trait ActionFeatureTestTrait
         );
     }
 
-    public function processDelete(string $path = '2', int $assertStatus = 200)
+    public function processDelete(string $path = '2', int $assertStatus = 200): void
     {
         $this->processCall(
             path: $path,
@@ -39,7 +39,7 @@ trait ActionFeatureTestTrait
         );
     }
 
-    public function processRestore(string $path = '2/restore', int $assertStatus = 200)
+    public function processRestore(string $path = '2/restore', int $assertStatus = 200): void
     {
         $this->processCall(
             path: $path,
@@ -49,7 +49,7 @@ trait ActionFeatureTestTrait
         );
     }
 
-    public function processPost(string $path = '', array $body = [], int $assertStatus = 200)
+    public function processPost(string $path = '', array $body = [], int $assertStatus = 200): void
     {
         $this->processCall(
             path: $path,
@@ -59,7 +59,7 @@ trait ActionFeatureTestTrait
         );
     }
 
-    public function processPatch(string $path, array $body = [], int $assertStatus = 200)
+    public function processPatch(string $path, array $body = [], int $assertStatus = 200): void
     {
         $this->processCall(
             path: $path,
@@ -69,7 +69,7 @@ trait ActionFeatureTestTrait
         );
     }
 
-    public function processCall(string $path, string $method, array $body = [], int $assertStatus = 200)
+    public function processCall(string $path, string $method, array $body = [], int $assertStatus = 200): void
     {
         $this->requestUrl .= $path ? "/$path" : '';
         $this->requestMethod = $method;

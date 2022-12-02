@@ -4,12 +4,12 @@ namespace Http\Admin\Section\Tests;
 
 class HomeTest extends _TestCase
 {
-    public function test_show()
+    public function test_show(): void
     {
         $this->processShow('home');
     }
 
-    public function test_update()
+    public function test_update(): void
     {
         $this->processUpdate(
             path: 'home',

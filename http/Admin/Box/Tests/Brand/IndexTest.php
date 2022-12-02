@@ -11,12 +11,12 @@ class IndexTest extends _TestCase
 
     public string $searchClass = BrandSearch::class;
 
-    public function test_available_relations()
+    public function test_available_relations(): void
     {
         $this->processAvailableRelations();
     }
 
-    public function test_available_filters()
+    public function test_available_filters(): void
     {
         $this->processAvailableFilters([
             'id' => 1,
@@ -27,29 +27,29 @@ class IndexTest extends _TestCase
         ]);
     }
 
-    public function test_available_sortings()
+    public function test_available_sortings(): void
     {
         $this->processAvailableSortings();
     }
 
-    public function test_available_showings()
+    public function test_available_showings(): void
     {
         $this->processAvailableShowings([
             'boxes_count',
         ]);
     }
 
-    public function test_show_with_deleted()
+    public function test_show_with_deleted(): void
     {
         $this->processShowWithDeleted();
     }
 
-    public function test_show_only_deleted()
+    public function test_show_only_deleted(): void
     {
         $this->processShowOnlyDeleted();
     }
 
-    public function test_pagination()
+    public function test_pagination(): void
     {
         $this->processPagination();
     }

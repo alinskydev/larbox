@@ -3,13 +3,14 @@
 namespace Http\Common\Auth\Requests\Auth;
 
 use App\Base\FormRequest;
+use Illuminate\Validation\Validator;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 class LoginRequest extends FormRequest
 {
-    public function nonLocalizedRules()
+    public function nonLocalizedRules(): array
     {
         return [
             'username' => 'required|string|max:100',
@@ -17,7 +18,7 @@ class LoginRequest extends FormRequest
         ];
     }
 
-    public function withValidator($validator)
+    public function withValidator(Validator $validator): void
     {
         if (!$validator->fails()) {
             $validator->after(function ($validator) {

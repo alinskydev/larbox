@@ -13,7 +13,7 @@ use Modules\User\Models\Role;
 
 class UserRequest extends ActiveFormRequest
 {
-    public function nonLocalizedRules()
+    public function nonLocalizedRules(): array
     {
         return [
             'role_id' => [
@@ -52,7 +52,7 @@ class UserRequest extends ActiveFormRequest
         ];
     }
 
-    public function validated($key = null, $default = null)
+    public function validated($key = null, $default = null): array
     {
         $data = parent::validated($key, $default);
 
@@ -69,7 +69,7 @@ class UserRequest extends ActiveFormRequest
         return $data;
     }
 
-    public function messages()
+    public function messages(): array
     {
         return [
             'username.regex' => __("Только латинские символы, цифры и (_-)"),

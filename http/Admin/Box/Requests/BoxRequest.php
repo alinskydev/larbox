@@ -18,7 +18,7 @@ class BoxRequest extends ActiveFormRequest
 {
     use SeoMetaFormRequestTrait;
 
-    public function nonLocalizedRules()
+    public function nonLocalizedRules(): array
     {
         return [
             'brand_id' => [
@@ -53,7 +53,7 @@ class BoxRequest extends ActiveFormRequest
         ];
     }
 
-    public function localizedRules()
+    public function localizedRules(): array
     {
         return [
             'name' => [
@@ -68,7 +68,7 @@ class BoxRequest extends ActiveFormRequest
         ];
     }
 
-    public function validated($key = null, $default = null)
+    public function validated($key = null, $default = null): array
     {
         $data = parent::validated($key, $default);
 

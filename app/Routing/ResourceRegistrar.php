@@ -3,6 +3,7 @@
 namespace App\Routing;
 
 use Illuminate\Routing\ResourceRegistrar as BaseResourceRegistrar;
+use Illuminate\Routing\Route;
 
 class ResourceRegistrar extends BaseResourceRegistrar
 {
@@ -13,7 +14,14 @@ class ResourceRegistrar extends BaseResourceRegistrar
         'restore', 'restoreAll',
     ];
 
-    protected function addResourceCreate($name, $base, $controller, $options)
+    /**
+     * @param string $name
+     * @param string $base
+     * @param string $controller
+     * @param array $options
+     * @return Route
+     */
+    protected function addResourceCreate($name, $base, $controller, $options): Route
     {
         $uri = $this->getResourceUri($name);
 
@@ -24,7 +32,14 @@ class ResourceRegistrar extends BaseResourceRegistrar
         return $this->router->post($uri, $action);
     }
 
-    protected function addResourceDelete($name, $base, $controller, $options)
+    /**
+     * @param string $name
+     * @param string $base
+     * @param string $controller
+     * @param array $options
+     * @return Route
+     */
+    protected function addResourceDelete($name, $base, $controller, $options): Route
     {
         $name = $this->getShallowName($name, $options);
 
@@ -35,7 +50,14 @@ class ResourceRegistrar extends BaseResourceRegistrar
         return $this->router->delete($uri, $action);
     }
 
-    protected function addResourceDeleteAll($name, $base, $controller, $options)
+    /**
+     * @param string $name
+     * @param string $base
+     * @param string $controller
+     * @param array $options
+     * @return Route
+     */
+    protected function addResourceDeleteAll($name, $base, $controller, $options): Route
     {
         $uri = $this->getResourceUri($name) . '/delete/all';
 
@@ -46,7 +68,14 @@ class ResourceRegistrar extends BaseResourceRegistrar
         return $this->router->delete($uri, $action);
     }
 
-    protected function addResourceRestore($name, $base, $controller, $options)
+    /**
+     * @param string $name
+     * @param string $base
+     * @param string $controller
+     * @param array $options
+     * @return Route
+     */
+    protected function addResourceRestore($name, $base, $controller, $options): Route
     {
         $name = $this->getShallowName($name, $options);
 
@@ -57,7 +86,7 @@ class ResourceRegistrar extends BaseResourceRegistrar
         return $this->router->delete($uri, $action);
     }
 
-    protected function addResourceRestoreAll($name, $base, $controller, $options)
+    protected function addResourceRestoreAll($name, $base, $controller, $options): Route
     {
         $uri = $this->getResourceUri($name) . '/restore/all';
 

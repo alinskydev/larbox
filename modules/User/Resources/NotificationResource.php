@@ -6,7 +6,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class NotificationResource extends JsonResource
 {
-    public function toArray($request)
+    public function toArray($request): array
     {
         $data = [];
 

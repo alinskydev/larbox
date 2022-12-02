@@ -4,7 +4,7 @@ namespace Http\Admin\Box\Tests\Box;
 
 class CreateTest extends _TestCase
 {
-    public function test_success()
+    public function test_success(): void
     {
         $this->processPost(
             body: [

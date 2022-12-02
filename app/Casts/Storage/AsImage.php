@@ -19,14 +19,14 @@ class AsImage implements CastsAttributes
         $this->savePath = $savePath;
     }
 
-    public function get($model, $key, $value, $attributes)
+    public function get($model, $key, $value, $attributes): mixed
     {
         if (!$value) return null;
 
         return ImageHelper::populateSizes($value, $this->sizes);
     }
 
-    public function set($model, $key, $value, $attributes)
+    public function set($model, $key, $value, $attributes): mixed
     {
         if (!$value) return null;
 

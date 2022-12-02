@@ -8,12 +8,7 @@ use Modules\System\Singletons\LanguageSingleton;
 
 class SingletonServiceProvider extends ServiceProvider
 {
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
-    public function boot()
+    public function boot(): void
     {
         $this->app->singleton('settings', fn ($app) => new SettingsSingleton());
         $this->app->singleton('language', fn ($app) => new LanguageSingleton());

@@ -4,12 +4,12 @@ namespace Http\Admin\User\Tests\Profile;
 
 class ProfileTest extends _TestCase
 {
-    public function test_show()
+    public function test_show(): void
     {
         $this->processShow('');
     }
 
-    public function test_update()
+    public function test_update(): void
     {
         $this->processUpdate(
             path: '',

@@ -14,10 +14,10 @@ class RegisterRequest extends ActiveFormRequest
     public function __construct()
     {
         $this->model = new User();
-        return parent::__construct();
+        parent::__construct();
     }
 
-    public function nonLocalizedRules()
+    public function nonLocalizedRules(): array
     {
         return [
             'username' => [
@@ -42,7 +42,7 @@ class RegisterRequest extends ActiveFormRequest
         ];
     }
 
-    public function validated($key = null, $default = null)
+    public function validated($key = null, $default = null): array
     {
         $data = parent::validated($key, $default);
 
@@ -57,7 +57,7 @@ class RegisterRequest extends ActiveFormRequest
         return $data;
     }
 
-    public function messages()
+    public function messages(): array
     {
         return [
             'username.regex' => __("Только латинские символы, цифры и (_-)"),

@@ -16,7 +16,7 @@ class ExistsWithOldRule extends Rule
     ) {
     }
 
-    public function passes($attribute, $value)
+    public function passes($attribute, $value): bool
     {
         $oldValue = data_get($this->model, $this->oldValuePath);
 

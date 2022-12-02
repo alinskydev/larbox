@@ -3,6 +3,7 @@
 namespace Modules\Seo\Models;
 
 use App\Base\Model;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Meta extends Model
 {
@@ -18,7 +19,7 @@ class Meta extends Model
         'value' => 'array',
     ];
 
-    public function seo_metable()
+    public function seo_metable(): MorphTo
     {
         return $this->morphTo();
     }

@@ -10,7 +10,7 @@ use App\Helpers\FileHelper;
 
 class SettingsRequest extends FormRequest
 {
-    public function nonLocalizedRules()
+    public function nonLocalizedRules(): array
     {
         return [
             'admin_email' => 'required|email',
@@ -21,7 +21,7 @@ class SettingsRequest extends FormRequest
         ];
     }
 
-    public function validated($key = null, $default = null)
+    public function validated($key = null, $default = null): array
     {
         $data = parent::validated($key, $default);
 

@@ -43,7 +43,7 @@ class FileValidationHelper
         ],
     ];
 
-    public static function rules(array $config, bool $isRequired = false)
+    public static function rules(array $config, bool $isRequired = false): array
     {
         return array_merge(
             [

@@ -6,6 +6,7 @@ use App\Base\Controller;
 use App\Base\Model;
 use App\Base\Search;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Contracts\Validation\ValidatesWhenResolved;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -40,9 +41,7 @@ class ResourceController extends Controller
         }
     }
 
-    // Default actions
-
-    public function index()
+    public function index(): JsonResponse
     {
         $paginator = $this->search->queryBuilder->paginate($this->search->pageSize);
         $paginator->onEachSide = 0;
@@ -50,7 +49,7 @@ class ResourceController extends Controller
         return $this->resourceClass::collection($paginator)->response()->setStatusCode(206);
     }
 
-    public function show(Model $model)
+    public function show(Model $model): JsonResponse
     {
         $model = $this->search->queryBuilder->findOrFail($model->id);
 
@@ -63,17 +62,17 @@ class ResourceController extends Controller
         return response()->json($data, 200);
     }
 
-    public function create(ValidatesWhenResolved $request)
+    public function create(ValidatesWhenResolved $request): JsonResponse
     {
         return $this->successResponse(201);
     }
 
-    public function update(ValidatesWhenResolved $request)
+    public function update(ValidatesWhenResolved $request): JsonResponse
     {
         return $this->successResponse();
     }
 
-    public function delete(Model $model)
+    public function delete(Model $model): JsonResponse
     {
         try {
             $model->delete();
@@ -84,9 +83,7 @@ class ResourceController extends Controller
         return $this->successResponse();
     }
 
-    // Custom actions
-
-    public function deleteAll()
+    public function deleteAll(): JsonResponse
     {
         $selection = (array)request()->get('selection', []);
 
@@ -111,7 +108,7 @@ class ResourceController extends Controller
         return $this->successResponse();
     }
 
-    public function restore(mixed $value)
+    public function restore(string $value): JsonResponse
     {
         if (in_array(SoftDeletes::class, class_uses_recursive($this->model))) {
             try {
@@ -124,7 +121,7 @@ class ResourceController extends Controller
         return $this->successResponse();
     }
 
-    public function restoreAll()
+    public function restoreAll(): JsonResponse
     {
         if (in_array(SoftDeletes::class, class_uses_recursive($this->model))) {
             $selection = (array)request()->get('selection', []);

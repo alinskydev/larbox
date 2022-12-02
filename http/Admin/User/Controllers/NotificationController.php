@@ -3,12 +3,13 @@
 namespace Http\Admin\User\Controllers;
 
 use App\Http\Controllers\ResourceController;
+use Illuminate\Http\JsonResponse;
+use App\Base\Model;
+
 use Modules\User\Models\Notification;
 use Modules\User\Search\NotificationSearch;
 use Modules\User\Resources\NotificationResource;
 use Http\Admin\User\Requests\NotificationRequest;
-
-use App\Base\Model;
 
 class NotificationController extends ResourceController
 {
@@ -22,13 +23,13 @@ class NotificationController extends ResourceController
         );
     }
 
-    public function show(Model $model)
+    public function show(Model $model): JsonResponse
     {
         $model->update(['is_seen' => 1]);
         return parent::show($model);
     }
 
-    public function seeAll()
+    public function seeAll(): JsonResponse
     {
         Notification::query()->update(['is_seen' => 1]);
         return $this->successResponse();

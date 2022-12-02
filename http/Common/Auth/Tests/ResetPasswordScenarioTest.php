@@ -4,7 +4,7 @@ namespace Http\Common\Auth\Tests;
 
 class ResetPasswordScenarioTest extends _TestCase
 {
-    public function test_send_code()
+    public function test_send_code(): void
     {
         $this->processPost(
             path: 'reset-password/send-code',
@@ -14,7 +14,7 @@ class ResetPasswordScenarioTest extends _TestCase
         );
     }
 
-    public function test_verify_code()
+    public function test_verify_code(): void
     {
         $this->processPost(
             path: 'reset-password/verify-code',
@@ -25,7 +25,7 @@ class ResetPasswordScenarioTest extends _TestCase
         );
     }
 
-    public function test_complete()
+    public function test_complete(): void
     {
         $this->processPost(
             path: 'reset-password/complete',

@@ -11,14 +11,14 @@ class MediaRequest extends FormRequest
 {
     public array $url;
 
-    public function nonLocalizedRules()
+    public function nonLocalizedRules(): array
     {
         return [
             'file' => FileValidationHelper::rules(FileValidationHelper::CONFIG_MEDIA),
         ];
     }
 
-    protected function passedValidation()
+    protected function passedValidation(): void
     {
         parent::passedValidation();
 

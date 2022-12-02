@@ -9,26 +9,11 @@ use Symfony\Component\Console\Output\StreamOutput;
 
 class Migrate extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'larbox:migrate';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Migrate base';
 
-    /**
-     * Execute the console command.
-     *
-     * @return int
-     */
-    public function handle()
+    public function handle(): void
     {
         $stream = fopen('php://output', 'w');
 
@@ -51,7 +36,7 @@ class Migrate extends Command
 
 class DBStructureServiceProvider extends ServiceProvider
 {
-    public function boot()
+    public function boot(): void
     {
         $files = glob(base_path('modules/*/Database/Migrations/*.php'));
         $this->loadMigrationsFrom($files);
@@ -60,7 +45,7 @@ class DBStructureServiceProvider extends ServiceProvider
 
 class DBRelationsServiceProvider extends ServiceProvider
 {
-    public function boot()
+    public function boot(): void
     {
         $files = glob(base_path('modules/*/Database/*.php'));
         $this->loadMigrationsFrom($files);

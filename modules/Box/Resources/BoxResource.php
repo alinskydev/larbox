@@ -6,7 +6,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class BoxResource extends JsonResource
 {
-    public function toArray($request)
+    public function toArray($request): array
     {
         return array_replace_recursive(parent::toArray($request), [
             'brand' => BrandResource::make($this->whenLoaded('brand')),

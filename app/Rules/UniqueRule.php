@@ -17,14 +17,14 @@ class UniqueRule extends Rule
     ) {
     }
 
-    public function passes($attribute, $value)
+    public function passes($attribute, $value): bool
     {
         $query = $this->model->query()->whereNot($this->model->getKeyName(), $this->model->getKey());
 
         $attribute = explode('.', $attribute);
 
         if (count($attribute) == 1) {
-            $query->where($attribute[0], $value);
+            $query->where(DB::raw("LOWER($attribute[0])"), mb_strtolower($value));
         } else {
             $fieldKey = $attribute[0];
             $fieldPath = $attribute[1];

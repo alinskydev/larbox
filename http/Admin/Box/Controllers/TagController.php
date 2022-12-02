@@ -3,6 +3,8 @@
 namespace Http\Admin\Box\Controllers;
 
 use App\Http\Controllers\ResourceController;
+use Illuminate\Http\JsonResponse;
+
 use Modules\Box\Models\Tag;
 use Modules\Box\Search\TagSearch;
 use Modules\Box\Resources\TagResource;

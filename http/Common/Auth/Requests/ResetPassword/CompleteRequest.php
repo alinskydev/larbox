@@ -3,6 +3,7 @@
 namespace Http\Common\Auth\Requests\ResetPassword;
 
 use App\Base\FormRequest;
+use Illuminate\Validation\Validator;
 use Modules\Auth\Services\CodeService;
 use Illuminate\Support\Facades\Hash;
 
@@ -10,7 +11,7 @@ use Illuminate\Validation\Rule;
 
 class CompleteRequest extends FormRequest
 {
-    public function nonLocalizedRules()
+    public function nonLocalizedRules(): array
     {
         return [
             'email' => [
@@ -25,7 +26,7 @@ class CompleteRequest extends FormRequest
         ];
     }
 
-    public function withValidator($validator)
+    public function withValidator(Validator $validator): void
     {
         if (!$validator->fails()) {
             $validator->after(function ($validator) {
@@ -39,7 +40,7 @@ class CompleteRequest extends FormRequest
         }
     }
 
-    public function validated($key = null, $default = null)
+    public function validated($key = null, $default = null): array
     {
         $data = parent::validated($key, $default);
 

@@ -3,6 +3,8 @@
 namespace Http\Admin\Feedback\Controllers;
 
 use App\Http\Controllers\ResourceController;
+use Illuminate\Http\JsonResponse;
+
 use Modules\Feedback\Models\Callback;
 use Modules\Feedback\Search\CallbackSearch;
 use Modules\Feedback\Resources\CallbackResource;

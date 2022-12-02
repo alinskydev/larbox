@@ -6,7 +6,7 @@ use App\Hierarchy\HierarchyResource;
 
 class CategoryResource extends HierarchyResource
 {
-    public function toArray($request)
+    public function toArray($request): array
     {
         return array_replace_recursive(parent::toArray($request), [
             'full_slug' => $this->whenLoaded('parents', function () {

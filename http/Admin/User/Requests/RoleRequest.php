@@ -19,7 +19,7 @@ class RoleRequest extends ActiveFormRequest
         }
     }
 
-    public function nonLocalizedRules()
+    public function nonLocalizedRules(): array
     {
         return [
             'routes' => 'array',
@@ -27,7 +27,7 @@ class RoleRequest extends ActiveFormRequest
         ];
     }
 
-    public function localizedRules()
+    public function localizedRules(): array
     {
         return [
             'name' => [
@@ -39,7 +39,7 @@ class RoleRequest extends ActiveFormRequest
         ];
     }
 
-    public function validated($key = null, $default = null)
+    public function validated($key = null, $default = null): array
     {
         $data = parent::validated($key, $default);
 
@@ -60,7 +60,7 @@ class RoleRequest extends ActiveFormRequest
         return $data;
     }
 
-    public function messages()
+    public function messages(): array
     {
         return [
             'routes.*.in' => __('Маршруты обновились, перезагрузите страницу и попробуйте снова'),

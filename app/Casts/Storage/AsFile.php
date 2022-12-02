@@ -15,14 +15,14 @@ class AsFile implements CastsAttributes
         $this->savePath = $savePath;
     }
 
-    public function get($model, $key, $value, $attributes)
+    public function get($model, $key, $value, $attributes): mixed
     {
         if (!$value) return null;
 
         return asset($value);
     }
 
-    public function set($model, $key, $value, $attributes)
+    public function set($model, $key, $value, $attributes): mixed
     {
         if (!$value) return null;
 

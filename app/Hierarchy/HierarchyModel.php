@@ -18,10 +18,10 @@ class HierarchyModel extends Model
     public function __construct(array $attributes = [])
     {
         $this->append(['text', 'state']);
-        return parent::__construct($attributes);
+        parent::__construct($attributes);
     }
 
-    public function getStateAttribute()
+    public function getStateAttribute(): array
     {
         return [
             'disabled' => (bool)$this->deleted_at,
@@ -30,31 +30,39 @@ class HierarchyModel extends Model
         ];
     }
 
-    public function parent()
+    /**
+     * Only for getting relations
+     */
+    public function parent(): HierarchySingleParentRelation
     {
-        // Only for getting relations
         return (new HierarchySingleParentRelation(static::query(), $this, 'tree', 'tree'))->withTrashed();
     }
 
-    public function parents()
+    /**
+     * Only for getting relations
+     */
+    public function parents(): HierarchyAllParentsRelation
     {
-        // Only for getting relations
         return (new HierarchyAllParentsRelation(static::query(), $this, 'tree', 'tree'))->withTrashed();
     }
 
-    public function children()
+    /**
+     * Only for getting relations
+     */
+    public function children(): HierarchyAllChildrenRelation
     {
-        // Only for getting relations
         return (new HierarchyAllChildrenRelation(static::query(), $this, 'tree', 'tree'))->withTrashed();
     }
 
-    public function siblings()
+    /**
+     * Only for getting relations
+     */
+    public function siblings(): HierarchyAllSiblingsRelation
     {
-        // Only for getting relations
         return (new HierarchyAllSiblingsRelation(static::query(), $this, 'tree', 'tree'))->withTrashed();
     }
 
-    protected static function boot()
+    protected static function boot(): void
     {
         parent::boot();
 

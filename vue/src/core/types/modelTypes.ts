@@ -12,6 +12,7 @@ export type valueParams = {
         httpSelect: {
             path: string;
             items: Object | ((context: any) => any);
+            isBoolean: boolean;
             onSuccess: (context: any, value: any) => any;
         };
         httpSwitcher: {

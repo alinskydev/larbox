@@ -14,7 +14,7 @@ class FormRequest extends BaseFormRequest
 {
     protected string $fieldCleanType = HtmlCleanHelper::TYPE_PURIFY;
 
-    public function attributes()
+    public function attributes(): array
     {
         $attributes = array_keys($this->nonLocalizedRules());
         $attributes = array_combine($attributes, $attributes);
@@ -41,12 +41,12 @@ class FormRequest extends BaseFormRequest
         return $attributes;
     }
 
-    protected function nonLocalizedRules()
+    protected function nonLocalizedRules(): array
     {
         return [];
     }
 
-    protected function localizedRules()
+    protected function localizedRules(): array
     {
         return [];
     }
@@ -75,7 +75,7 @@ class FormRequest extends BaseFormRequest
         return $rules;
     }
 
-    protected function prepareForValidation()
+    protected function prepareForValidation(): void
     {
         parent::prepareForValidation();
 

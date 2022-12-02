@@ -4,7 +4,7 @@ namespace Http\Common\Auth\Tests;
 
 class RegisterTest extends _TestCase
 {
-    public function test_success()
+    public function test_success(): void
     {
         $this->processPost(
             path: 'register',
@@ -23,7 +23,7 @@ class RegisterTest extends _TestCase
         );
     }
 
-    public function test_login_as_new_user()
+    public function test_login_as_new_user(): void
     {
         $this->processPost(
             path: 'login',
