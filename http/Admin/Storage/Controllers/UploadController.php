@@ -12,11 +12,11 @@ class UploadController extends Controller
 {
     public function file(FileRequest $request): JsonResponse
     {
-        return response()->json($request->url, 200);
+        return response()->json(['url' => asset($request->validatedData['file'])], 200);
     }
 
     public function media(MediaRequest $request): JsonResponse
     {
-        return response()->json($request->url, 200);
+        return response()->json(['url' => asset($request->validatedData['file'])], 200);
     }
 }

@@ -13,7 +13,10 @@ class ContactRequest extends FormRequest
 
     protected array $relations = [
         'branches',
-        'branches.*.phones',
+    ];
+
+    protected array $defaults = [
+        'branches.*.phones' => [],
     ];
 
     public function nonLocalizedRules(): array

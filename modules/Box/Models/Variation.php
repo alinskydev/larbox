@@ -4,6 +4,8 @@ namespace Modules\Box\Models;
 
 use App\Base\Model;
 
+use App\Casts\Storage\AsImage;
+
 class Variation extends Model
 {
     protected $table = 'box_variation';
@@ -16,5 +18,6 @@ class Variation extends Model
 
     protected $casts = [
         'name' => 'array',
+        'image' => AsImage::class . ':100|500',
     ];
 }

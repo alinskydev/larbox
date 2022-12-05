@@ -9,10 +9,16 @@ use App\Helpers\HtmlCleanHelper;
 use App\Helpers\FileHelper;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 
 class FormRequest extends BaseFormRequest
 {
     protected string $fieldCleanType = HtmlCleanHelper::TYPE_PURIFY;
+
+    protected array $defaults = [];
+    protected array $filesSavePaths = [];
+
+    public array $validatedData;
 
     public function attributes(): array
     {
@@ -79,24 +85,62 @@ class FormRequest extends BaseFormRequest
     {
         parent::prepareForValidation();
 
+        if (
+            property_exists($this, 'model') &&
+            $this->model instanceof Model &&
+            $this->model->exists
+        ) {
+            if (
+                $this->updated_at &&
+                $this->updated_at != date(LARBOX_FORMAT_DATETIME, strtotime($this->model->updated_at))
+            ) {
+                abort(409, __('Данные были изменены другим источником. Обновите страницу, чтобы увидеть изменения.'));
+            }
+        }
+
         $data = parent::validationData();
         $data = HtmlCleanHelper::process($data, $this->fieldCleanType);
 
         $this->merge($data);
     }
 
-    protected function saveFiles(array $data, string $path = 'files'): array
+    protected function passedValidation(): void
     {
-        $data = Arr::dot($data);
+        parent::passedValidation();
 
-        foreach ($data as &$value) {
-            if ($value instanceof UploadedFile) {
-                $value = FileHelper::upload($value, $path);
-            }
+        $this->validatedData = $this->validated();
+        $this->saveFiles();
+
+        foreach ($this->defaults as $field => $value) {
+            data_fill($this->validatedData, $field, $value);
         }
 
-        $data = Arr::undot($data);
+        if (in_array(SeoMetaFormRequestTrait::class, class_uses_recursive($this))) {
+            $this->model->fillableRelations[$this->model::RELATION_TYPE_ONE_ONE]['seo_meta_morph'] = [
+                'value' => Arr::pull($this->validatedData, 'seo_meta'),
+            ];
+        }
+    }
 
-        return $data;
+    protected function saveFiles(): void
+    {
+        $this->validatedData = Arr::dot($this->validatedData);
+
+        foreach ($this->validatedData as $key => &$value) {
+            if (!($value instanceof UploadedFile)) continue;
+
+            $savePath = 'files';
+
+            foreach ($this->filesSavePaths as $field => $fieldPath) {
+                if (Str::is($field, $key)) {
+                    $savePath = $fieldPath;
+                    break;
+                }
+            }
+
+            $value = FileHelper::upload($value, $savePath);
+        }
+
+        $this->validatedData = Arr::undot($this->validatedData);
     }
 }

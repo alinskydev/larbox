@@ -40,12 +40,9 @@ class CompleteRequest extends FormRequest
         }
     }
 
-    public function validated($key = null, $default = null): array
+    protected function passedValidation(): void
     {
-        $data = parent::validated($key, $default);
-
-        $data['password'] = Hash::make($this->new_password);
-
-        return $data;
+        parent::passedValidation();
+        $this->validatedData['password'] = Hash::make($this->new_password);
     }
 }

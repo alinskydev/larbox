@@ -43,13 +43,10 @@ class RoleHelper
         }
 
         $result = array_unique($result);
-
         $result = array_combine($result, $result);
         $result = Arr::undot($result);
 
-        foreach (self::$excludedRoutes as $route) {
-            Arr::forget($result, $route);
-        }
+        Arr::forget($result, self::$excludedRoutes);
 
         $result = Arr::dot($result);
         $result = array_values($result);

@@ -42,19 +42,17 @@ class RegisterRequest extends ActiveFormRequest
         ];
     }
 
-    public function validated($key = null, $default = null): array
+    protected function passedValidation(): void
     {
-        $data = parent::validated($key, $default);
+        parent::passedValidation();
 
-        $data['password'] = Hash::make($this->password);
+        $this->validatedData['password'] = Hash::make($this->password);
 
         $this->model->fillableRelations = [
             $this->model::RELATION_TYPE_ONE_ONE => [
-                'profile' => $data['profile'] ?? [],
+                'profile' => $this->validatedData['profile'] ?? [],
             ],
         ];
-
-        return $data;
     }
 
     public function messages(): array

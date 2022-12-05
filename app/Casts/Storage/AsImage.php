@@ -3,20 +3,17 @@
 namespace App\Casts\Storage;
 
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
-use Illuminate\Support\Arr;
 use App\Helpers\FileHelper;
 use App\Helpers\ImageHelper;
 
 class AsImage implements CastsAttributes
 {
     private array $sizes = [];
-    private string $savePath;
 
-    public function __construct(string $sizes = '', string $savePath = 'images')
+    public function __construct(string $sizes = '')
     {
         $this->sizes = explode('|', $sizes);
         $this->sizes = array_filter($this->sizes, fn ($f_v) => $f_v !== null);
-        $this->savePath = $savePath;
     }
 
     public function get($model, $key, $value, $attributes): mixed
@@ -30,18 +27,10 @@ class AsImage implements CastsAttributes
     {
         if (!$value) return null;
 
-        if ($newFile = Arr::get($value, 'new')) {
-            if ($oldValue = $model->getOriginal($key)) {
-                $oldValue = ImageHelper::clearSizes($oldValue);
-                $oldValue = str_replace(asset(''), '', $oldValue);
-                $oldValue = public_path($oldValue);
+        $oldValue = $model->getRawOriginal($key);
 
-                FileHelper::delete($oldValue);
-            }
+        if ($oldValue) FileHelper::delete(public_path($oldValue));
 
-            return FileHelper::upload($newFile, $this->savePath);
-        }
-
-        return ImageHelper::clearSizes($value);
+        return $value;
     }
 }

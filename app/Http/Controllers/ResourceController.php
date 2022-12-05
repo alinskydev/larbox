@@ -64,11 +64,13 @@ class ResourceController extends Controller
 
     public function create(ValidatesWhenResolved $request): JsonResponse
     {
+        $request->model->saveSafely($request->validatedData);
         return $this->successResponse(201);
     }
 
     public function update(ValidatesWhenResolved $request): JsonResponse
     {
+        $request->model->saveSafely($request->validatedData);
         return $this->successResponse();
     }
 

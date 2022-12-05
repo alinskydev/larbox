@@ -65,7 +65,7 @@ export default {
                                 })
                                 .then((response) => {
                                     if (response.statusType === 'success') {
-                                        callback(response.data.absolute);
+                                        callback(response.data.url);
                                     }
                                 });
                         };
@@ -88,7 +88,7 @@ export default {
                             })
                             .then((response) => {
                                 if (response.statusType === 'success') {
-                                    resolve(response.data.absolute);
+                                    resolve(response.data.url);
                                 } else {
                                     reject({
                                         message: response.data.message,

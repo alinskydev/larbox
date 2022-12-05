@@ -65,7 +65,7 @@ class SystemController extends Controller
         $sections = Section::query()->with(['seo_meta_morph'])->orderBy('name')->get()->keyBy('name');
 
         return $sections->map(function ($value, $key) use ($sectionConfigs) {
-            return $sectionConfigs[$key]['resource']::collection($value->blocks);
+            return $sectionConfigs[$key]['resource']::make($value->blocks);
         })->toArray();
     }
 

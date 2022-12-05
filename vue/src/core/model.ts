@@ -200,7 +200,7 @@ export class Model {
         return result;
     }
 
-    prepareRelationsInputs(context, list, item, namePrefix, relationKey) {
+    prepareRelationsInputs(context, list, item, namePrefix, relationId) {
         let result = this.prepareInputs(context, list, item);
 
         for (let key in result) {
@@ -209,7 +209,8 @@ export class Model {
             name = name.replace('[', '][');
             name = name.replace(new RegExp(']$'), '');
 
-            result[key].name = namePrefix + '[' + relationKey + '][' + name + ']';
+            result[key].name = namePrefix + '[' + relationId + '][' + name + ']';
+            result[key].relationId = relationId;
         }
 
         return result;

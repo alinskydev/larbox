@@ -4,7 +4,6 @@ namespace Modules\Section\Models;
 
 use App\Base\Model;
 use Modules\Seo\Traits\SeoMetaModelTrait;
-use Modules\Section\Casts\AsBlocks;
 
 class Section extends Model
 {
@@ -15,6 +14,6 @@ class Section extends Model
     protected $table = 'section';
 
     protected $casts = [
-        'blocks' => AsBlocks::class,
+        'blocks' => 'array',
     ];
 }

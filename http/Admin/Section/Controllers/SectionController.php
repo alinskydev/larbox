@@ -26,7 +26,7 @@ class SectionController extends Controller
 
     public function show(): JsonResponse
     {
-        $response = $this->config['resource']::collection($this->model->blocks)->collection->toArray();
+        $response = $this->config['resource']::make($this->model->blocks);
         $response['updated_at'] = $this->model->updated_at->format(LARBOX_FORMAT_DATETIME);
 
         return response()->json($response, 200);
@@ -34,6 +34,7 @@ class SectionController extends Controller
 
     public function update(ValidatesWhenResolved $request): JsonResponse
     {
+        $request->model->saveSafely(['blocks' => $request->validatedData]);
         return $this->successResponse();
     }
 }

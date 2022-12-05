@@ -21,7 +21,7 @@ export default {
                 showClose: false,
                 browseOnZoneClick: true,
 
-                overwriteInitial: this.item.options.file?.willOverride ?? false,
+                overwriteInitial: this.item.options.file?.willOverride ?? !this.item.options.isMultiple,
 
                 browseClass: 'btn btn-primary btn-block',
                 browseIcon: '<i class="fas fa-folder-open"></i>',
@@ -59,7 +59,10 @@ export default {
         this.collectItems();
 
         let layoutTemplates = {
-            actions: '{drag}<div class="file-actions">' + '<div class="file-footer-buttons">{zoom} {download} {delete}</div>' + '</div>',
+            actions:
+                '{drag}<div class="file-actions">' +
+                '<div class="file-footer-buttons">{zoom} {download} {delete}</div>' +
+                '</div>',
         };
 
         if (!this.inputOptions.deleteUrl) {
@@ -102,7 +105,7 @@ export default {
                     deleteUrl = this.inputOptions.deleteUrl;
 
                 if (deleteUrl) {
-                    deleteUrl = deleteUrl.replace(':id', this.$route.params.id).replace(':index', key);
+                    deleteUrl = deleteUrl.replace(':id', this.item.relationId ?? this.$route.params.id).replace(':index', key);
                 }
 
                 let downloadUrl = this.inputOptions.downloadPath ? file[this.inputOptions.downloadPath] : file,

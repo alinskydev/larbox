@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('box_id')->index();
             $table->jsonb('name');
+            $table->string('image')->nullable();
             $table->integer('sort_index');
         });
     }

@@ -16,7 +16,7 @@ class HomeRequest extends FormRequest
         'relations_2',
     ];
 
-    protected array $fileFields = [
+    protected array $filesDefaults = [
         'second_image_desktop' => null,
         'second_image_tablet' => null,
         'second_image_mobile' => null,

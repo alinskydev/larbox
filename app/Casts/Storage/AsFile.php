@@ -3,18 +3,10 @@
 namespace App\Casts\Storage;
 
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
-use Illuminate\Support\Arr;
 use App\Helpers\FileHelper;
 
 class AsFile implements CastsAttributes
 {
-    private string $savePath;
-
-    public function __construct(string $savePath = 'files')
-    {
-        $this->savePath = $savePath;
-    }
-
     public function get($model, $key, $value, $attributes): mixed
     {
         if (!$value) return null;
@@ -26,17 +18,10 @@ class AsFile implements CastsAttributes
     {
         if (!$value) return null;
 
-        if ($newFile = Arr::get($value, 'new')) {
-            if ($oldValue = $model->getOriginal($key)) {
-                $oldValue = str_replace(asset(''), '', $oldValue);
-                $oldValue = public_path($oldValue);
+        $oldValue = $model->getRawOriginal($key);
 
-                FileHelper::delete($oldValue);
-            }
+        if ($oldValue) FileHelper::delete(public_path($oldValue));
 
-            return FileHelper::upload($newFile, $this->savePath);
-        }
-
-        return str_replace(asset(''), '/', $value);
+        return $value;
     }
 }

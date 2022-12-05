@@ -6,7 +6,6 @@ use App\Base\FormRequest;
 
 use Illuminate\Validation\Rule;
 use App\Helpers\Validation\FileValidationHelper;
-use App\Helpers\FileHelper;
 
 class SettingsRequest extends FormRequest
 {
@@ -19,23 +18,5 @@ class SettingsRequest extends FormRequest
             'logo' => FileValidationHelper::rules(FileValidationHelper::CONFIG_IMAGE),
             'project_name' => 'required|string|max:255',
         ];
-    }
-
-    public function validated($key = null, $default = null): array
-    {
-        $data = parent::validated($key, $default);
-
-        $fileFields = [
-            'favicon',
-            'logo',
-        ];
-
-        foreach ($fileFields as $field) {
-            if ($file = $this->files->get($field)) {
-                $data[$field] = FileHelper::upload($file, 'images');
-            }
-        }
-
-        return $data;
     }
 }

@@ -11,6 +11,7 @@ use App\Http\Controllers\Actions\SetValueAction;
 
 use Modules\Box\Models\Box;
 use Modules\Box\Models\Brand;
+use Modules\Box\Models\Variation;
 
 Route::prefix('box')
     ->group(function () {
@@ -46,4 +47,13 @@ Route::prefix('box')
         Route::patch('category-move', [CategoryController::class, 'move'])->name('category.move');
 
         Route::apiResource('tag', TagController::class);
+        
+        Route::prefix('variation')
+            ->group(function () {
+                Route::model('variation', Variation::class);
+
+                Route::delete('{variation}/delete-file/{field}/{index?}', DeleteFileAction::class)
+                    ->whereIn('field', ['image'])
+                    ->name('deleteFile');
+            });
     });

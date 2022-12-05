@@ -17,6 +17,7 @@ class ProfileController extends Controller
 
     public function update(ProfileRequest $request): JsonResponse
     {
+        $request->model->saveSafely($request->validatedData);
         return $this->successResponse();
     }
 }

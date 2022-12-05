@@ -21,7 +21,7 @@ class SettingsController extends Controller
 
     public function update(SettingsRequest $request): JsonResponse
     {
-        $data = $request->validated();
+        $data = $request->validatedData;
 
         $data = array_map(fn ($value, $key) => [
             'name' => $key,

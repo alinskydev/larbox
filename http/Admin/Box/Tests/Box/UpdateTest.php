@@ -28,13 +28,7 @@ class UpdateTest extends _TestCase
                     fn ($index) => [
                         'id' => $index,
                         'name' => $this->formHelper::localized("Variation $index"),
-                        'date' => date(LARBOX_FORMAT_DATE),
-                        'datetime' => date(LARBOX_FORMAT_DATETIME),
                         'image' => $this->formHelper::file(),
-                        'images_list' => [
-                            $this->formHelper::file(),
-                            $this->formHelper::file(),
-                        ],
                     ],
                 ),
 

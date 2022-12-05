@@ -33,7 +33,7 @@ class ResetPasswordController extends Controller
         $codeService->delete();
 
         $user = User::query()->where('email', $request->email)->firstOrFail();
-        $user->fill($request->validated());
+        $user->password = $request->validatedData['password'];
         $user->saveQuietly();
 
         return $this->successResponse();

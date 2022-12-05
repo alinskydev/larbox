@@ -63,6 +63,26 @@ class Model extends BaseModel
         return $this;
     }
 
+    public function saveSafely(array $attributes = []): void
+    {
+        DB::beginTransaction();
+
+        try {
+            $this->fill($attributes);
+
+            if ($this->usesTimestamps()) {
+                $this->touch();
+            } else {
+                $this->save();
+            }
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            abort(400, $e->getMessage());
+        }
+
+        DB::commit();
+    }
+
     protected static function boot(): void
     {
         parent::boot();

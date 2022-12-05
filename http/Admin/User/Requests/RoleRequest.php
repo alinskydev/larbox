@@ -39,11 +39,11 @@ class RoleRequest extends ActiveFormRequest
         ];
     }
 
-    public function validated($key = null, $default = null): array
+    protected function passedValidation(): void
     {
-        $data = parent::validated($key, $default);
+        parent::passedValidation();
 
-        $routes = $data['routes'] ?? [];
+        $routes = $this->validatedData['routes'] ?? [];
 
         $asteriskRoutes = array_filter($routes, fn ($value) => str_ends_with($value, '*'));
 
@@ -55,9 +55,7 @@ class RoleRequest extends ActiveFormRequest
             });
         }
 
-        $data['routes'] = array_values($routes);
-
-        return $data;
+        $this->validatedData['routes'] = array_values($routes);
     }
 
     public function messages(): array

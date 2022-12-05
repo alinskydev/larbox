@@ -25,11 +25,17 @@ export default {
         for (let key in this.item.value) {
             this.items[key] = {
                 id: {
-                    name: this.item.name + '[' + key + '][id]',
+                    name: this.item.name + '[' + this.item.value[key].id + '][id]',
                     value: this.item.value[key].id,
                     type: Enums.inputTypes.hidden,
                 },
-                fields: this.model.prepareRelationsInputs(this, this.fields, this.item.value[key], this.item.name, key),
+                fields: this.model.prepareRelationsInputs(
+                    this,
+                    this.fields,
+                    this.item.value[key],
+                    this.item.name,
+                    this.item.value[key].id,
+                ),
             };
         }
     },
@@ -105,7 +111,7 @@ export default {
                                     <td>
                                         <div class="inputs row">
                                             <template v-for="field in relationItem.fields">
-                                                <Input :item="field" />
+                                                <Input :item="field" :recordId="relationItem.id.value" />
                                             </template>
                                         </div>
                                     </td>

@@ -50,6 +50,7 @@ class BoxRequest extends ActiveFormRequest
 
             'variations' => 'array',
             'variations.*.id' => 'integer',
+            'variations.*.image' => FileValidationHelper::rules(FileValidationHelper::CONFIG_IMAGE),
         ];
     }
 
@@ -68,20 +69,18 @@ class BoxRequest extends ActiveFormRequest
         ];
     }
 
-    public function validated($key = null, $default = null): array
+    protected function passedValidation(): void
     {
-        $data = parent::validated($key, $default);
+        parent::passedValidation();
 
         $this->model->fillableRelations = [
             $this->model::RELATION_TYPE_ONE_MANY => [
-                'variations' => $data['variations'] ?? [],
+                'variations' => $this->validatedData['variations'] ?? [],
             ],
             $this->model::RELATION_TYPE_MANY_MANY => [
-                'categories' => $data['categories'] ?? [],
-                'tags' => $data['tags'] ?? [],
+                'categories' => $this->validatedData['categories'] ?? [],
+                'tags' => $this->validatedData['tags'] ?? [],
             ],
         ];
-
-        return $data;
     }
 }

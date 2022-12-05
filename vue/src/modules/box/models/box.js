@@ -335,6 +335,17 @@ export default new Model({
                             },
                             size: Enums.inputSizes.xl,
                         },
+                        image: {
+                            type: Enums.inputTypes.file,
+                            options: {
+                                file: {
+                                    previewPath: 'w_500',
+                                    downloadPath: 'original',
+                                    deleteUrl: 'box/variation/:id/delete-file/image',
+                                },
+                            },
+                            size: Enums.inputSizes.xl,
+                        },
                     },
                 },
             },
