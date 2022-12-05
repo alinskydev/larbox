@@ -7,6 +7,7 @@ use Modules\User\Helpers\RoleHelper;
 
 use Illuminate\Validation\Rule;
 use App\Rules\UniqueRule;
+use Illuminate\Support\Str;
 
 class RoleRequest extends ActiveFormRequest
 {
@@ -47,13 +48,9 @@ class RoleRequest extends ActiveFormRequest
 
         $asteriskRoutes = array_filter($routes, fn ($value) => str_ends_with($value, '*'));
 
-        foreach ($asteriskRoutes as $asteriskRoute) {
-            $asteriskRoute = rtrim($asteriskRoute, '/*/');
-
-            $routes = array_filter($routes, function ($value) use ($asteriskRoute) {
-                return !str_starts_with($value, $asteriskRoute) || str_ends_with($value, '*');
-            });
-        }
+        $routes = array_filter($routes, function ($value) use ($asteriskRoutes) {
+            return in_array($value, $asteriskRoutes) || !Str::is($asteriskRoutes, $value);
+        });
 
         $this->validatedData['routes'] = array_values($routes);
     }
