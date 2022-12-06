@@ -3,11 +3,9 @@
 namespace Http\Admin\User\Requests;
 
 use App\Http\Requests\ActiveFormRequest;
-use Modules\User\Helpers\RoleHelper;
 
 use Illuminate\Validation\Rule;
 use App\Rules\UniqueRule;
-use Illuminate\Support\Str;
 
 class RoleRequest extends ActiveFormRequest
 {
@@ -24,7 +22,7 @@ class RoleRequest extends ActiveFormRequest
     {
         return [
             'routes' => 'array',
-            'routes.*' => Rule::in(RoleHelper::routesList(true)),
+            'routes.*' => 'required|string',
         ];
     }
 
@@ -37,28 +35,6 @@ class RoleRequest extends ActiveFormRequest
                 'max:255',
                 new UniqueRule($this->model),
             ],
-        ];
-    }
-
-    protected function passedValidation(): void
-    {
-        parent::passedValidation();
-
-        $routes = $this->validatedData['routes'] ?? [];
-
-        $asteriskRoutes = array_filter($routes, fn ($value) => str_ends_with($value, '*'));
-
-        $routes = array_filter($routes, function ($value) use ($asteriskRoutes) {
-            return in_array($value, $asteriskRoutes) || !Str::is($asteriskRoutes, $value);
-        });
-
-        $this->validatedData['routes'] = array_values($routes);
-    }
-
-    public function messages(): array
-    {
-        return [
-            'routes.*.in' => __('Маршруты обновились, перезагрузите страницу и попробуйте снова'),
         ];
     }
 }

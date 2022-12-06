@@ -13,4 +13,13 @@ class Code extends Model
     protected $primaryKey = 'key';
     protected $keyType = 'string';
     public $incrementing = false;
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::saved(function (self $model) {
+            if (!$model->attempts_left) $model->delete();
+        });
+    }
 }

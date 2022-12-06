@@ -14,7 +14,7 @@
         "guzzlehttp/guzzle": "^7.4",
         "intervention/image": "^2.7",
         "laravel/framework": "^9.2",
-        "laravel/sanctum": "^2.15",
+        "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "mews/purifier": "^3.3"
     },

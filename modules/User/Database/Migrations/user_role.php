@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('user_role', function (Blueprint $table) {
             $table->id();
             $table->jsonb('name');
-            $table->jsonb('routes')->default('[]');
+            $table->jsonb('routes');
             $table->timestamp('created_at')->index();
             $table->timestamp('updated_at');
         });

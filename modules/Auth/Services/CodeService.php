@@ -21,12 +21,12 @@ class CodeService
 
     public function sendCode(): void
     {
-        // $code = Str::random(8);
+        // $code = Str::random(32);
         $code = 1234;
 
         $this->model->code = $code;
         $this->model->attempts_left = 3;
-        $this->model->touch();
+        $this->model->save();
 
         Mail::to($this->key)->send(new CodeMail($code));
     }
@@ -44,7 +44,7 @@ class CodeService
 
         if (!$isCorrect) {
             $this->model->attempts_left--;
-            $this->model->attempts_left ? $this->model->touch() : $this->model->delete();
+            $this->model->save();
         }
 
         return [

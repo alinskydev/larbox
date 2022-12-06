@@ -47,8 +47,8 @@ class SystemController extends Controller
                 ],
                 'user_role' => [
                     'routes' => [
-                        'list' => RoleHelper::routesList(false),
-                        'tree' => RoleHelper::routesTree(false),
+                        'list' => RoleHelper::routesList(),
+                        'tree' => RoleHelper::routesTree(),
                     ],
                 ],
             ]);
@@ -64,9 +64,11 @@ class SystemController extends Controller
         $sectionConfigs = SectionEnums::config();
         $sections = Section::query()->with(['seo_meta_morph'])->orderBy('name')->get()->keyBy('name');
 
-        return $sections->map(function ($value, $key) use ($sectionConfigs) {
-            return $sectionConfigs[$key]['resource']::make($value->blocks);
-        })->toArray();
+        return $sections
+            ->map(function ($value, $key) use ($sectionConfigs) {
+                return $sectionConfigs[$key]['resource']::make($value->blocks);
+            })
+            ->toArray();
     }
 
     private function translations(): array

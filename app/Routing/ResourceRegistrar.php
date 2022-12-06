@@ -86,6 +86,13 @@ class ResourceRegistrar extends BaseResourceRegistrar
         return $this->router->delete($uri, $action);
     }
 
+    /**
+     * @param string $name
+     * @param string $base
+     * @param string $controller
+     * @param array $options
+     * @return Route
+     */
     protected function addResourceRestoreAll($name, $base, $controller, $options): Route
     {
         $uri = $this->getResourceUri($name) . '/restore/all';
