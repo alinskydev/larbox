@@ -3,6 +3,7 @@
 namespace Modules\Box\Search;
 
 use App\Base\Search;
+use Illuminate\Database\Eloquent\Builder;
 
 class CategorySearch extends Search
 {
@@ -22,6 +23,24 @@ class CategorySearch extends Search
             ],
         ],
     ];
+
+    public function with(array $params): static
+    {
+        parent::with($params);
+
+        $this->queryBuilder->with(['parents']);
+
+        return $this;
+    }
+
+    public function filter(array $params, string $combinedType, ?Builder $query = null): static
+    {
+        parent::filter($params, $combinedType, $query);
+
+        $this->queryBuilder->where('depth', '>', 0);
+
+        return $this;
+    }
 
     public function show(array $params): static
     {

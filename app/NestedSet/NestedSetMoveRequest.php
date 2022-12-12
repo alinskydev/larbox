@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Hierarchy;
+namespace App\NestedSet;
 
 use App\Http\Requests\ActiveFormRequest;
 use Illuminate\Validation\Validator;
 
-class HierarchyMoveRequest extends ActiveFormRequest
+class NestedSetMoveRequest extends ActiveFormRequest
 {
     public array $nodes;
 

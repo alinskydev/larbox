@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Hierarchy;
+namespace App\NestedSet;
 
 use App\Base\Model;
 
-use App\Hierarchy\Relations\Parents\HierarchySingleParentRelation;
-use App\Hierarchy\Relations\Parents\HierarchyAllParentsRelation;
-use App\Hierarchy\Relations\Children\HierarchyAllChildrenRelation;
-use App\Hierarchy\Relations\Siblings\HierarchyAllSiblingsRelation;
+use App\NestedSet\Relations\Parents\NestedSetSingleParentRelation;
+use App\NestedSet\Relations\Parents\NestedSetAllParentsRelation;
+use App\NestedSet\Relations\Children\NestedSetAllChildrenRelation;
+use App\NestedSet\Relations\Siblings\NestedSetAllSiblingsRelation;
 
-class HierarchyModel extends Model
+class NestedSetModel extends Model
 {
     public function __construct(array $attributes = [])
     {
@@ -29,33 +29,33 @@ class HierarchyModel extends Model
     /**
      * Only for getting relations
      */
-    public function parent(): HierarchySingleParentRelation
+    public function parent(): NestedSetSingleParentRelation
     {
-        return (new HierarchySingleParentRelation(static::query(), $this, 'tree', 'tree'))->withTrashed();
+        return (new NestedSetSingleParentRelation(static::query(), $this, 'tree', 'tree'))->withTrashed();
     }
 
     /**
      * Only for getting relations
      */
-    public function parents(): HierarchyAllParentsRelation
+    public function parents(): NestedSetAllParentsRelation
     {
-        return (new HierarchyAllParentsRelation(static::query(), $this, 'tree', 'tree'))->withTrashed();
+        return (new NestedSetAllParentsRelation(static::query(), $this, 'tree', 'tree'))->withTrashed();
     }
 
     /**
      * Only for getting relations
      */
-    public function children(): HierarchyAllChildrenRelation
+    public function children(): NestedSetAllChildrenRelation
     {
-        return (new HierarchyAllChildrenRelation(static::query(), $this, 'tree', 'tree'))->withTrashed();
+        return (new NestedSetAllChildrenRelation(static::query(), $this, 'tree', 'tree'))->withTrashed();
     }
 
     /**
      * Only for getting relations
      */
-    public function siblings(): HierarchyAllSiblingsRelation
+    public function siblings(): NestedSetAllSiblingsRelation
     {
-        return (new HierarchyAllSiblingsRelation(static::query(), $this, 'tree', 'tree'))->withTrashed();
+        return (new NestedSetAllSiblingsRelation(static::query(), $this, 'tree', 'tree'))->withTrashed();
     }
 
     protected static function boot(): void

@@ -5,6 +5,7 @@ namespace App\Tests\Feature;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Testing\TestResponse;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Illuminate\Http\Testing\File;
 
 use App\Tests\Feature\Traits\ActionFeatureTestTrait;
@@ -54,7 +55,7 @@ abstract class PostmanTestCase extends BaseTestCase
 
         return $this->call(
             method: $this->requestMethod,
-            uri: "/$this->requestUrl?$this->requestQueryAsString",
+            uri: $this->requestQueryAsString ? "$this->requestUrl?$this->requestQueryAsString" : $this->requestUrl,
             parameters: $this->requestBody,
             server: $this->transformHeadersToServerVars($this->allRequestHeaders),
         );
@@ -64,14 +65,7 @@ abstract class PostmanTestCase extends BaseTestCase
     {
         // Collecting
 
-        $target = $this->providedTests[0]->getTarget();
-
-        $target = str_replace(['\\', '::'], '.', $target);
-        $target = ltrim($target, 'Http.');
-        $target = str_replace(['Tests.'], '', $target);
-        $target = str_replace(['Test', 'test_'], '', $target);
-        $target = str_replace('___', ' | ', $target);
-
+        $this->requestQuery = Arr::dot($this->requestQuery);
         $this->requestBody = Arr::dot($this->requestBody);
 
         foreach ($this->requestBody as $key => &$value) {
@@ -82,12 +76,22 @@ abstract class PostmanTestCase extends BaseTestCase
         }
 
         $this->requestQuery = $this->convertDataToSingleDimensionalArray($this->requestQuery);
-
-        $this->requestBody = Arr::undot($this->requestBody);
         $this->requestBody = $this->convertDataToSingleDimensionalArray($this->requestBody);
-
-        $this->requestFiles = Arr::undot($this->requestFiles);
         $this->requestFiles = $this->convertDataToSingleDimensionalArray($this->requestFiles);
+
+        // Getting target
+
+        $target = $this->providedTests[0]->getTarget();
+
+        $target = preg_replace('/^Http\\\|Tests\\\|Test|test_/', '', $target);
+        $target = str_replace(['\\', '::'], '.', $target);
+        $target = str_replace('___', ' | ', $target);
+
+        // Saving to file
+
+        $fileName = base_path('storage/larbox/tests/_postman.json');
+        $items = is_file($fileName) ? file_get_contents($fileName) : '[]';
+        $items = json_decode($items, true);
 
         $items[$target] = [
             'is_request' => true,
@@ -112,13 +116,6 @@ abstract class PostmanTestCase extends BaseTestCase
             ],
         ];
 
-        // Storing to file
-
-        $fileName = base_path('storage/larbox/tests/_postman.json');
-        $oldItems = is_file($fileName) ? file_get_contents($fileName) : '[]';
-        $oldItems = json_decode($oldItems, true);
-
-        $items = array_merge($oldItems, $items);
         $items = json_encode($items, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
 
         file_put_contents($fileName, $items);
@@ -128,12 +125,19 @@ abstract class PostmanTestCase extends BaseTestCase
 
     private function convertDataToSingleDimensionalArray(array $data): array
     {
-        $data = urldecode(http_build_query($data));
-        $data = explode('&', $data);
-        $data = array_map(fn ($value) => explode('=', $value), $data);
-        $data = Arr::pluck($data, 1, 0);
-        $data = array_filter($data, fn ($f_v) => $f_v !== null);
+        $result = Arr::map($data, function ($value, $key) {
+            $key = Str::replaceFirst('.', '[', $key);
+            $key = str_replace('.', '][', $key);
+            $key = str_contains($key, '[') ? "$key]" : $key;
 
-        return $data;
+            return [
+                'key' => $key,
+                'value' => (string)$value,
+            ];
+        });
+        
+        $result = Arr::pluck($result, 'value', 'key');
+
+        return $result;
     }
 }

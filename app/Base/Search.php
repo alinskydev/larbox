@@ -77,7 +77,7 @@ class Search
 
                 $query->{$combinedType . 'Has'}(
                     implode('.', $param),
-                    function ($subQuery) use ($lastParam, $type, $value, $combinedType) {
+                    function ($subQuery) use ($lastParam, $type, $value) {
                         $subQuery->select('id');
                         $this->applyFilters(
                             query: $subQuery,

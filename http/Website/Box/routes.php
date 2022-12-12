@@ -11,9 +11,8 @@ Route::prefix('box')
         Route::apiResource('brand', BrandController::class)->except(['deleteAll', 'restore', 'restoreAll']);
 
         Route::apiResource('category', CategoryController::class)->only(['index']);
+        Route::get('category-tree', [CategoryController::class, 'tree'])->name('category.tree');
         Route::get('category/{fullSlug}', [CategoryController::class, 'showByFullSlug'])
             ->where('fullSlug', '(.*)')
             ->name('category.show');
-
-        Route::get('category-tree', [CategoryController::class, 'tree'])->name('category.tree');
     });

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Hierarchy\Relations\Siblings;
+namespace App\NestedSet\Relations\Siblings;
 
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Builder;
 
-class HierarchyAllSiblingsRelation extends HasMany
+class NestedSetAllSiblingsRelation extends HasMany
 {
     public function addConstraints(): void
     {

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Hierarchy;
+namespace App\NestedSet;
 
-class HierarchyHelper
+class NestedSetHelper
 {
-    public static function tree(HierarchyModel $model): array
+    public static function tree(NestedSetModel $model): array
     {
         $children = $model->children->toArray();
         $children = array_reverse($children);
@@ -28,7 +28,7 @@ class HierarchyHelper
         string $field,
         string $separator,
         array $prefix = [],
-    ): array {
+    ): void {
         $fullField = "full_$field";
 
         foreach ($items as &$item) {
@@ -39,7 +39,5 @@ class HierarchyHelper
                 self::appendFullFieldToTree($item['children'], $field, $separator, array_merge($prefix, [$fieldValue]));
             }
         }
-
-        return $items;
     }
 }

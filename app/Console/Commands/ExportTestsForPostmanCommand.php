@@ -24,7 +24,8 @@ class ExportTestsForPostmanCommand extends Command
         $path = base_path('storage/larbox/tests');
 
         if (!is_dir($path)) {
-            $this->error("'$path' doesn't exists"); die;
+            $this->error("'$path' doesn't exists");
+            die;
         }
 
         $inputFileName = "$path/_postman.json";

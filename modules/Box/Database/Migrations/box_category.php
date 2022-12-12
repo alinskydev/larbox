@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('box_category', function (Blueprint $table) {
             $table->id();
             $table->tinyInteger('tree')->default(1);
-            $table->integer('lft');
+            $table->integer('lft')->index();
             $table->integer('rgt');
-            $table->integer('depth')->index();
+            $table->integer('depth');
             $table->jsonb('name');
             $table->string('slug')->index();
             $table->timestamp('created_at')->index();

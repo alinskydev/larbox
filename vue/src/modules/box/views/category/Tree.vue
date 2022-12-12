@@ -5,7 +5,7 @@ import model from '@/modules/box/models/category';
 
 import PageTitle from '@/components/blocks/PageTitle.vue';
 
-import Tree from '@/components/hierarchy/Tree.vue';
+import Tree from '@/components/nestedSet/Tree.vue';
 import Create from './Create.vue';
 import Show from './Show.vue';
 import Update from './Update.vue';

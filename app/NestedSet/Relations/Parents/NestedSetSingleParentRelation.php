@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Hierarchy\Relations\Parents;
+namespace App\NestedSet\Relations\Parents;
 
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Builder;
 
-class HierarchyAllParentsRelation extends HasMany
+class NestedSetSingleParentRelation extends HasOne
 {
     public function addConstraints(): void
     {
@@ -16,8 +16,7 @@ class HierarchyAllParentsRelation extends HasMany
             $this->getRelationQuery()
                 ->where('lft', '<', $parent->lft)
                 ->where('rgt', '>', $parent->rgt)
-                ->where('depth', '>', 0)
-                ->orderBy('lft');
+                ->where('depth', $parent->depth - 1);
         }
     }
 
@@ -28,12 +27,11 @@ class HierarchyAllParentsRelation extends HasMany
                 foreach ($models as $model) {
                     $query->orWhere(function ($q) use ($model) {
                         $q->where('lft', '<', $model->lft)
-                            ->where('rgt', '>', $model->rgt);
+                            ->where('rgt', '>', $model->rgt)
+                            ->where('depth', $model->depth - 1);
                     });
                 }
-            })
-            ->where('depth', '>', 0)
-            ->orderBy('lft');
+            });
     }
 
     protected function matchOneOrMany(array $models, Collection $results, $relation, $type): array
@@ -44,32 +42,13 @@ class HierarchyAllParentsRelation extends HasMany
             if (isset($dictionary[$key = $this->getDictionaryKey($model->getAttribute($this->localKey))])) {
                 $relationValue = $results
                     ->where('lft', '<', $model->lft)
-                    ->where('rgt', '>', $model->rgt);
+                    ->where('rgt', '>', $model->rgt)
+                    ->first();
 
                 $model->setRelation($relation, $relationValue);
             }
         }
 
         return $models;
-    }
-
-    public function getRelationExistenceQueryForSelfRelation(Builder $query, Builder $parentQuery, $columns = ['*']): Builder
-    {
-        $query->from($query->getModel()->getTable() . ' as ' . $hash = $this->getRelationCountHash());
-        $query->getModel()->setTable($hash);
-
-        return $query
-            ->select($columns)
-            ->whereColumn(
-                "$hash.lft",
-                '<',
-                $this->parent->qualifyColumn('lft')
-            )
-            ->whereColumn(
-                "$hash.rgt",
-                '>',
-                $this->parent->qualifyColumn('rgt')
-            )
-            ->where("$hash.depth", '>', 0);
     }
 }

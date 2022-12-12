@@ -2,9 +2,9 @@
 
 namespace Modules\Box\Resources;
 
-use App\Hierarchy\HierarchyResource;
+use App\NestedSet\NestedSetResource;
 
-class CategoryResource extends HierarchyResource
+class CategoryResource extends NestedSetResource
 {
     public function toArray($request): array
     {
@@ -20,8 +20,9 @@ class CategoryResource extends HierarchyResource
             }),
 
             'parents' => $this->whenLoaded('parents', function () {
-                return $this->assignFullFieldToParents($this->parents, 'slug', '/');
-            }) ?: [],
+                $this->appendFullFieldToParents('slug', '/');
+                return $this->parents->values();
+            }),
         ]);
     }
 }

@@ -2,14 +2,14 @@
 
 namespace Modules\Box\Models;
 
-use App\Hierarchy\HierarchyModel;
+use App\NestedSet\NestedSetModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Seo\Traits\SeoMetaModelTrait;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
-class Category extends HierarchyModel
+class Category extends NestedSetModel
 {
     use SoftDeletes;
     use SeoMetaModelTrait;
