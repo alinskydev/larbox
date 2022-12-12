@@ -36,6 +36,7 @@ class Category extends HierarchyModel
 
         static::saving(function (self $model) {
             $locale = app('language')->main['code'];
+
             $slug = Arr::get($model->name, $locale);
             $slug = Str::slug($slug);
 

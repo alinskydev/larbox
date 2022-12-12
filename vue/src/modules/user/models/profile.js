@@ -26,7 +26,7 @@ export default new Model({
                 type: Enums.inputTypes.file,
                 options: {
                     file: {
-                        previewPath: 'w_500',
+                        previewPath: 'widen_500',
                         downloadPath: 'original',
                     },
                 },

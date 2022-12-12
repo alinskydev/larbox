@@ -11,94 +11,69 @@ trait IndexFeatureTestTrait
 
     public function processAvailableRelations(int $assertStatus = 206): void
     {
-        $this->search = new $this->searchClass();
+        $this->search = new ($this->searchClass)();
 
-        $this->requestMethod = PostmanTestCase::REQUEST_METHOD_GET;
-
-        $this->requestQuery = [
-            'with' => $this->search->relations,
-        ];
-
-        $this->response = $this->sendRequest();
-        $this->response->assertStatus($assertStatus);
+        $this->processIndexRequest(
+            requestQuery: ['with' => $this->search->relations],
+            assertStatus: $assertStatus,
+        );
     }
 
     public function processAvailableFilters(array $params, int $assertStatus = 206): void
     {
-        $this->requestMethod = PostmanTestCase::REQUEST_METHOD_GET;
-
-        $this->requestQuery = [
-            'filter' => $params,
-        ];
-
-        $this->response = $this->sendRequest();
-        $this->response->assertStatus($assertStatus);
+        $this->processIndexRequest(
+            requestQuery: ['filter' => $params],
+            assertStatus: $assertStatus,
+        );
     }
 
     public function processAvailableSortings(int $assertStatus = 206): void
     {
-        $this->search = new $this->searchClass();
-
-        $this->requestMethod = PostmanTestCase::REQUEST_METHOD_GET;
+        $this->search = new ($this->searchClass)();
 
         $sortings = array_keys($this->search->sortings);
         $sortings = array_map(fn ($value) => [$value, "-$value"], $sortings);
         $sortings = array_merge(...$sortings);
 
-        $this->requestQuery = [
-            'sort' => $sortings,
-        ];
-
-        $this->response = $this->sendRequest();
-        $this->response->assertStatus($assertStatus);
-    }
-
-    public function processAvailableShowings(array $params, int $assertStatus = 206): void
-    {
-        $this->requestMethod = PostmanTestCase::REQUEST_METHOD_GET;
-
-        $this->requestQuery = [
-            'show' => $params,
-        ];
-
-        $this->response = $this->sendRequest();
-        $this->response->assertStatus($assertStatus);
+        $this->processIndexRequest(
+            requestQuery: ['sort' => $sortings],
+            assertStatus: $assertStatus,
+        );
     }
 
     public function processShowWithDeleted(int $assertStatus = 206): void
     {
-        $this->requestMethod = PostmanTestCase::REQUEST_METHOD_GET;
-
-        $this->requestQuery = [
-            'show' => ['with-deleted'],
-        ];
-
-        $this->response = $this->sendRequest();
-        $this->response->assertStatus($assertStatus);
+        $this->processIndexRequest(
+            requestQuery: ['show' => ['with-deleted']],
+            assertStatus: $assertStatus,
+        );
     }
 
     public function processShowOnlyDeleted(int $assertStatus = 206): void
     {
-        $this->requestMethod = PostmanTestCase::REQUEST_METHOD_GET;
-
-        $this->requestQuery = [
-            'show' => ['only-deleted'],
-        ];
-
-        $this->response = $this->sendRequest();
-        $this->response->assertStatus($assertStatus);
+        $this->processIndexRequest(
+            requestQuery: ['show' => ['only-deleted']],
+            assertStatus: $assertStatus,
+        );
     }
 
     public function processPagination(int $assertStatus = 206): void
     {
-        $this->search = new $this->searchClass();
+        $this->search = new ($this->searchClass)();
 
+        $this->processIndexRequest(
+            requestQuery: [
+                'page-size' => $this->search->pageSize,
+                'page' => 1,
+            ],
+            assertStatus: $assertStatus,
+        );
+    }
+
+    public function processIndexRequest(array $requestQuery, int $assertStatus = 206): void
+    {
         $this->requestMethod = PostmanTestCase::REQUEST_METHOD_GET;
-
-        $this->requestQuery = [
-            'page-size' => $this->search->pageSize,
-            'page' => 1,
-        ];
+        $this->requestQuery = $requestQuery;
 
         $this->response = $this->sendRequest();
         $this->response->assertStatus($assertStatus);

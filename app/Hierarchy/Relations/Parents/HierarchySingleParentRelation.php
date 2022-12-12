@@ -11,11 +11,10 @@ class HierarchySingleParentRelation extends HasOne
     public function addConstraints(): void
     {
         if (static::$constraints) {
-            $query = $this->getRelationQuery();
-
             $parent = $this->getParent();
 
-            $query->where('lft', '<', $parent->lft)
+            $this->getRelationQuery()
+                ->where('lft', '<', $parent->lft)
                 ->where('rgt', '>', $parent->rgt)
                 ->where('depth', $parent->depth - 1);
         }
@@ -41,7 +40,11 @@ class HierarchySingleParentRelation extends HasOne
 
         foreach ($models as $model) {
             if (isset($dictionary[$key = $this->getDictionaryKey($model->getAttribute($this->localKey))])) {
-                $relationValue = $results->where('lft', '<', $model->lft)->where('rgt', '>', $model->rgt)->first();
+                $relationValue = $results
+                    ->where('lft', '<', $model->lft)
+                    ->where('rgt', '>', $model->rgt)
+                    ->first();
+
                 $model->setRelation($relation, $relationValue);
             }
         }

@@ -7,12 +7,12 @@ export default new Model({
     list: {
         image: {
             label: null,
-            value: 'image.w_100',
+            value: 'image.widen_100',
             type: Enums.valueTypes.image,
         },
         images_list: {
             label: null,
-            value: 'images_list.0.w_100',
+            value: 'images_list.0.widen_100',
             type: Enums.valueTypes.image,
         },
         id: {
@@ -152,11 +152,11 @@ export default new Model({
 
     show: {
         image: {
-            value: 'image.w_500',
+            value: 'image.widen_500',
             type: Enums.valueTypes.image,
         },
         images_list: {
-            value: 'images_list.*.w_500',
+            value: 'images_list.*.widen_500',
             type: Enums.valueTypes.image,
         },
         id: {
@@ -293,7 +293,7 @@ export default new Model({
                 type: Enums.inputTypes.file,
                 options: {
                     file: {
-                        previewPath: 'w_500',
+                        previewPath: 'widen_500',
                         downloadPath: 'original',
                         deleteUrl: 'box/box/:id/delete-file/image',
                     },
@@ -305,7 +305,7 @@ export default new Model({
                 options: {
                     isMultiple: true,
                     file: {
-                        previewPath: 'w_500',
+                        previewPath: 'widen_500',
                         downloadPath: 'original',
                         deleteUrl: 'box/box/:id/delete-file/images_list/:index',
                     },
@@ -339,7 +339,7 @@ export default new Model({
                             type: Enums.inputTypes.file,
                             options: {
                                 file: {
-                                    previewPath: 'w_500',
+                                    previewPath: 'widen_500',
                                     downloadPath: 'original',
                                     deleteUrl: 'box/variation/:id/delete-file/image',
                                 },

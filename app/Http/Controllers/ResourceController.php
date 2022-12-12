@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Contracts\Validation\ValidatesWhenResolved;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Seo\Traits\SeoMetaModelTrait;
-use Illuminate\Support\Facades\DB;
 
 class ResourceController extends Controller
 {
@@ -36,7 +35,6 @@ class ResourceController extends Controller
         }
 
         if ($this->formRequestClass !== null) {
-            $request->route()->setBindingFields(['new_model' => $this->model]);
             app()->bind(ValidatesWhenResolved::class, $this->formRequestClass);
         }
     }
@@ -64,24 +62,19 @@ class ResourceController extends Controller
 
     public function create(ValidatesWhenResolved $request): JsonResponse
     {
-        $request->model->saveSafely($request->validatedData);
+        $request->model->safelySave($request->validatedData);
         return $this->successResponse(201);
     }
 
     public function update(ValidatesWhenResolved $request): JsonResponse
     {
-        $request->model->saveSafely($request->validatedData);
+        $request->model->safelySave($request->validatedData);
         return $this->successResponse();
     }
 
     public function delete(Model $model): JsonResponse
     {
-        try {
-            $model->delete();
-        } catch (\Throwable $e) {
-            abort(400, $e->getMessage());
-        }
-
+        $model->safelyDelete();
         return $this->successResponse();
     }
 
@@ -90,63 +83,48 @@ class ResourceController extends Controller
         $selection = (array)request()->get('selection', []);
 
         $models = $this->model->query()
-            ->whereIn('id', $selection)
+            ->whereIn($this->model->getRouteKeyName(), $selection)
             ->limit($this->search->pageSize)
             ->get();
 
-        DB::beginTransaction();
-
-        try {
-            $models->map(function ($value, $key) {
-                $value->delete();
+        $this->model->safelyDBProcess(function () use ($models) {
+            $models->each(function ($model, $key) {
+                $model->delete();
             });
-        } catch (\Throwable $e) {
-            DB::rollBack();
-            abort(400, $e->getMessage());
-        }
-
-        DB::commit();
+        });
 
         return $this->successResponse();
     }
 
     public function restore(string $value): JsonResponse
     {
-        if (in_array(SoftDeletes::class, class_uses_recursive($this->model))) {
-            try {
-                $this->model->query()->onlyTrashed()->findOrFail($value)->restore();
-            } catch (\Throwable $e) {
-                abort(400, $e->getMessage());
-            }
+        if (!in_array(SoftDeletes::class, class_uses_recursive($this->model))) {
+            abort(400, 'Model doesn\'t use soft delete trait');
         }
 
+        $this->model->query()->onlyTrashed()->findOrFail($value)->safelyRestore();
         return $this->successResponse();
     }
 
     public function restoreAll(): JsonResponse
     {
-        if (in_array(SoftDeletes::class, class_uses_recursive($this->model))) {
-            $selection = (array)request()->get('selection', []);
-
-            $models = $this->model->query()
-                ->whereIn('id', $selection)
-                ->limit($this->search->pageSize)
-                ->onlyTrashed()
-                ->get();
-
-            DB::beginTransaction();
-
-            $models->map(function ($value, $key) {
-                try {
-                    $value->restore();
-                } catch (\Throwable $e) {
-                    DB::rollBack();
-                    abort(400, $e->getMessage());
-                }
-            });
-
-            DB::commit();
+        if (!in_array(SoftDeletes::class, class_uses_recursive($this->model))) {
+            abort(400, 'Model doesn\'t use soft delete trait');
         }
+
+        $selection = (array)request()->get('selection', []);
+
+        $models = $this->model->query()
+            ->whereIn($this->model->getRouteKeyName(), $selection)
+            ->limit($this->search->pageSize)
+            ->onlyTrashed()
+            ->get();
+
+        $this->model->safelyDBProcess(function () use ($models) {
+            $models->each(function ($model, $key) {
+                $model->restore();
+            });
+        });
 
         return $this->successResponse();
     }

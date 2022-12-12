@@ -23,10 +23,12 @@ export default {
     },
     created() {
         for (let key in this.item.value) {
+            let idOrKey = this.item.value[key].id ?? key;
+
             this.items[key] = {
                 id: {
-                    name: this.item.name + '[' + this.item.value[key].id + '][id]',
-                    value: this.item.value[key].id,
+                    name: this.item.name + '[' + idOrKey + '][id]',
+                    value: idOrKey,
                     type: Enums.inputTypes.hidden,
                 },
                 fields: this.model.prepareRelationsInputs(
@@ -34,7 +36,7 @@ export default {
                     this.fields,
                     this.item.value[key],
                     this.item.name,
-                    this.item.value[key].id,
+                    idOrKey,
                 ),
             };
         }

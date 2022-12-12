@@ -34,8 +34,8 @@ class IndexTest extends _TestCase
 
     public function test_available_showings(): void
     {
-        $this->processAvailableShowings([
-            'boxes_count',
+        $this->processIndexRequest([
+            'show' => ['boxes_count'],
         ]);
     }
 

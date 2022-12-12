@@ -9,12 +9,8 @@ class ImageHelper
 {
     private static array $availableThumbnailTypes = ['crop', 'fit', 'resize', 'widen'];
 
-    public static function thumbnail(
-        string $sourceUrl,
-        string $type,
-        array $params,
-        bool $isAbsoluteThumbUrl = true,
-    ): string {
+    public static function thumbnail(string $sourceUrl, string $type, array $params): string
+    {
         if (!in_array($type, self::$availableThumbnailTypes)) {
             throw new \Exception("Unavailable 'type'");
         }
@@ -22,9 +18,7 @@ class ImageHelper
         try {
             $sourceFile = public_path($sourceUrl);
 
-            if (!is_file($sourceFile)) {
-                return $isAbsoluteThumbUrl ? asset($sourceUrl) : $sourceUrl;
-            }
+            if (!is_file($sourceFile)) throw new \Exception('File not exists');
 
             $extension = pathinfo($sourceFile, PATHINFO_EXTENSION);
             $extension = mb_strtolower($extension);
@@ -43,9 +37,9 @@ class ImageHelper
                 $image->save($thumbFile);
             }
 
-            return $isAbsoluteThumbUrl ? asset($thumbUrl) : $thumbUrl;
+            return $thumbUrl;
         } catch (\Throwable $e) {
-            return $isAbsoluteThumbUrl ? asset($sourceUrl) : $sourceUrl;
+            return $sourceUrl;
         }
     }
 
@@ -56,7 +50,12 @@ class ImageHelper
         ];
 
         foreach ($sizes as $size) {
-            $result["w_$size"] = ImageHelper::thumbnail($url, 'widen', [$size]);
+            $sizeParams = explode('_', $size);
+
+            $thumb = self::thumbnail($url, array_shift($sizeParams), $sizeParams);
+            $thumb = asset($thumb);
+
+            $result[$size] = asset($thumb);
         }
 
         return $result;
@@ -64,7 +63,6 @@ class ImageHelper
 
     public static function clearSizes(array $urls): string
     {
-        $result = $urls['original'];
-        return str_replace(asset(''), '/', $result);
+        return str_replace(asset(''), '/', $urls['original']);
     }
 }

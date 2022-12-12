@@ -17,7 +17,7 @@ class AuthController extends Controller
 
     public function register(RegisterRequest $request): JsonResponse
     {
-        $request->model->saveSafely($request->validatedData);
+        $request->model->safelySave($request->validatedData);
         return $this->successResponse();
     }
 }

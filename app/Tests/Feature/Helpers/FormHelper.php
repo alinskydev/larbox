@@ -14,23 +14,15 @@ class FormHelper
 
     public static function file(
         string $name = 'image.jpg',
-        int $size = 100,
         string $mime = 'image/jpeg',
+        int $size = 100,
     ): File {
         return UploadedFile::fake()->create($name, $size, $mime);
     }
 
-    public static function localizedFile(
-        string $name = 'image.jpg',
-        int $size = 100,
-        string $mime = 'image/jpeg',
-    ): array {
-        return array_map(fn ($value) => UploadedFile::fake()->create($name, $size, $mime), app('language')->all);
-    }
-
     public static function seoMeta(): array
     {
-        return array_map(fn ($value) => '<meta name="description" content="Meta description" />', app('language')->all);
+        return array_map(fn ($value) => '<meta name="description" content="Description" />', app('language')->all);
     }
 
     public static function multiply(array $indexes, callable $callback): array

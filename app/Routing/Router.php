@@ -19,11 +19,11 @@ class Router extends BaseRouter
         $this->resourceParameters([$name => 'model']);
 
         if (isset($options['except'])) {
-            $only = array_diff($only, (array) $options['except']);
+            $only = array_diff($only, (array)$options['except']);
         }
 
-        return $this->resource($name, $controller, array_merge([
-            'only' => $only,
-        ], $options));
+        $options = array_merge(['only' => $only], $options);
+
+        return $this->resource($name, $controller, $options);
     }
 }

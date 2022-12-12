@@ -14,11 +14,9 @@ class DeleteFileAction extends Controller
     public function __invoke(Model $model, string $field, ?string $index = null): JsonResponse
     {
         $model->timestamps = false;
-
         $value = $model->getRawOriginal($field);
-        $isArray = json_decode($value) !== null;
 
-        if ($isArray) {
+        if (json_decode($value) !== null) {
             if ($index === null) abort(400, "'index' is required");
 
             $value = json_decode($value, true);
@@ -28,8 +26,8 @@ class DeleteFileAction extends Controller
 
                 $value = array_values($value);
                 $value = json_encode($value);
-                $model->setRawAttributes([$field => $value])->save();
 
+                $model->setRawAttributes([$field => $value])->save();
                 FileHelper::delete(public_path($file));
             }
         } else {

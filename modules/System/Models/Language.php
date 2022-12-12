@@ -11,7 +11,7 @@ class Language extends Model
     protected $table = 'system_language';
 
     protected $casts = [
-        'image' => AsImage::class . ':30|100|500',
+        'image' => AsImage::class . ':widen_30|widen_100|widen_500',
     ];
 
     protected static function boot(): void

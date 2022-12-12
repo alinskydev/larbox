@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Hash;
 
 use Illuminate\Validation\Rule;
 use App\Rules\ExistsWithOldRule;
-use App\Helpers\Validation\FileValidationHelper;
+use App\Helpers\Validation\ValidationFileHelper;
 
 use Modules\User\Models\Role;
 
@@ -18,7 +18,10 @@ class UserRequest extends ActiveFormRequest
         return [
             'role_id' => [
                 'nullable',
-                new ExistsWithOldRule($this->model, Role::class, 'role_id'),
+                new ExistsWithOldRule(
+                    model: $this->model,
+                    relationClass: Role::class,
+                ),
                 Rule::prohibitedIf($this->model->id == 1),
             ],
             'username' => [
@@ -48,7 +51,7 @@ class UserRequest extends ActiveFormRequest
 
             'profile.full_name' => 'required|string|max:255',
             'profile.phone' => 'nullable|string|max:255',
-            'profile.image' => FileValidationHelper::rules(FileValidationHelper::CONFIG_IMAGE),
+            'profile.image' => ValidationFileHelper::rules(ValidationFileHelper::CONFIG_IMAGE),
         ];
     }
 
@@ -60,11 +63,11 @@ class UserRequest extends ActiveFormRequest
             $this->validatedData['password'] = Hash::make($this->new_password);
         }
 
-        $this->model->fillableRelations = [
-            $this->model::RELATION_TYPE_ONE_ONE => [
+        $this->model->fillRelations(
+            oneToOne: [
                 'profile' => $this->validatedData['profile'] ?? [],
             ],
-        ];
+        );
     }
 
     public function messages(): array

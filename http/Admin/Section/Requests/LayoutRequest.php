@@ -4,7 +4,7 @@ namespace Http\Admin\Section\Requests;
 
 use Modules\Section\Base\FormRequest;
 
-use App\Helpers\Validation\FileValidationHelper;
+use App\Helpers\Validation\ValidationFileHelper;
 
 class LayoutRequest extends FormRequest
 {

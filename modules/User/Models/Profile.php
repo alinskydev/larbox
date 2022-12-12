@@ -19,6 +19,6 @@ class Profile extends Model
     ];
 
     protected $casts = [
-        'image' => AsImage::class . ':100|500',
+        'image' => AsImage::class . ':widen_100|widen_500',
     ];
 }

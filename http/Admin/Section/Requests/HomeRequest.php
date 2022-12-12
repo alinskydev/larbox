@@ -5,7 +5,7 @@ namespace Http\Admin\Section\Requests;
 use Modules\Section\Base\FormRequest;
 use Modules\Seo\Traits\SeoMetaFormRequestTrait;
 
-use App\Helpers\Validation\FileValidationHelper;
+use App\Helpers\Validation\ValidationFileHelper;
 
 class HomeRequest extends FormRequest
 {
@@ -17,13 +17,7 @@ class HomeRequest extends FormRequest
     ];
 
     protected array $filesDefaults = [
-        'second_image_desktop' => null,
-        'second_image_tablet' => null,
-        'second_image_mobile' => null,
-        'second_images_list' => [],
-
         'relations_1.*.image' => null,
-
         'relations_2.*.images_list' => [],
     ];
 
@@ -34,19 +28,19 @@ class HomeRequest extends FormRequest
             'first_text_2' => 'present|nullable|string',
             'first_text_3' => 'present|nullable|string',
 
-            'second_image_desktop' => FileValidationHelper::rules(FileValidationHelper::CONFIG_IMAGE),
-            'second_image_tablet' => FileValidationHelper::rules(FileValidationHelper::CONFIG_IMAGE),
-            'second_image_mobile' => FileValidationHelper::rules(FileValidationHelper::CONFIG_IMAGE),
+            'second_image_desktop' => ValidationFileHelper::rules(ValidationFileHelper::CONFIG_IMAGE),
+            'second_image_tablet' => ValidationFileHelper::rules(ValidationFileHelper::CONFIG_IMAGE),
+            'second_image_mobile' => ValidationFileHelper::rules(ValidationFileHelper::CONFIG_IMAGE),
             'second_images_list' => 'array',
-            'second_images_list.*' => FileValidationHelper::rules(FileValidationHelper::CONFIG_IMAGE),
+            'second_images_list.*' => ValidationFileHelper::rules(ValidationFileHelper::CONFIG_IMAGE),
 
             'relations_1' => 'required|array',
             'relations_1.*.text' => 'required|string|max:255',
-            'relations_1.*.image' => FileValidationHelper::rules(FileValidationHelper::CONFIG_IMAGE),
+            'relations_1.*.image' => ValidationFileHelper::rules(ValidationFileHelper::CONFIG_IMAGE),
 
             'relations_2' => 'array',
             'relations_2.*.images_list' => 'array',
-            'relations_2.*.images_list.*' => FileValidationHelper::rules(FileValidationHelper::CONFIG_IMAGE),
+            'relations_2.*.images_list.*' => ValidationFileHelper::rules(ValidationFileHelper::CONFIG_IMAGE),
         ];
     }
 

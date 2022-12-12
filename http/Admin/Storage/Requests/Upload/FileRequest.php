@@ -3,14 +3,14 @@
 namespace Http\Admin\Storage\Requests\Upload;
 
 use App\Base\FormRequest;
-use App\Helpers\Validation\FileValidationHelper;
+use App\Helpers\Validation\ValidationFileHelper;
 
 class FileRequest extends FormRequest
 {
     public function nonLocalizedRules(): array
     {
         return [
-            'file' => FileValidationHelper::rules(FileValidationHelper::CONFIG_ALL, true),
+            'file' => ValidationFileHelper::rules(ValidationFileHelper::CONFIG_ALL, true),
         ];
     }
 }

@@ -16,7 +16,7 @@ class JsonResource extends BaseJsonResource
         $result = Arr::dot($this->resource);
 
         foreach ($this->imageGroups as $group) {
-            $sizes = $group['sizes'] ?? [500];
+            $sizes = $group['sizes'] ?? ['widen_500'];
             $fields = $group['fields'] ?? [];
 
             foreach ($result as $key => &$value) {

@@ -6,7 +6,7 @@ use App\Http\Requests\ActiveFormRequest;
 use Modules\Feedback\Models\Callback;
 
 use Illuminate\Validation\Rule;
-use App\Helpers\Validation\FileValidationHelper;
+use App\Helpers\Validation\ValidationFileHelper;
 
 class CallbackRequest extends ActiveFormRequest
 {

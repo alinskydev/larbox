@@ -20,14 +20,19 @@ class CategoryRequest extends ActiveFormRequest
                 'required',
                 'string',
                 'max:255',
-                new UniqueRule($this->model, false, extraQuery: function ($query) {
-                    if ($this->model->exists) {
-                        $siblingsIds = Arr::pluck($this->model->siblings, 'id');
-                        $query->whereIn('id', $siblingsIds);
-                    } else {
-                        $query->where('depth', 1);
-                    }
-                }),
+                new UniqueRule(
+                    model: $this->model,
+                    fieldIsLocalized: true,
+                    showDetailedErrorMessage: false,
+                    extraQuery: function ($query) {
+                        if ($this->model->exists) {
+                            $siblingsIds = Arr::pluck($this->model->siblings, 'id');
+                            $query->whereIn('id', $siblingsIds);
+                        } else {
+                            $query->where('depth', 1);
+                        }
+                    },
+                ),
             ],
         ];
     }

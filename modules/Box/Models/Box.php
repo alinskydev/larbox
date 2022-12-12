@@ -27,8 +27,8 @@ class Box extends Model
         'description' => 'array',
         'date' => AsDate::class,
         'datetime' => AsDatetime::class,
-        'image' => AsImage::class . ':100|500',
-        'images_list' => AsImages::class . ':100|500',
+        'image' => AsImage::class . ':widen_100|widen_500',
+        'images_list' => AsImages::class . ':widen_100|widen_500',
     ];
 
     public function brand(): BelongsTo

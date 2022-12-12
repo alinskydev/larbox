@@ -11,11 +11,10 @@ class HierarchyAllChildrenRelation extends HasMany
     public function addConstraints(): void
     {
         if (static::$constraints) {
-            $query = $this->getRelationQuery();
-
             $parent = $this->getParent();
 
-            $query->where('lft', '>', $parent->lft)
+            $this->getRelationQuery()
+                ->where('lft', '>', $parent->lft)
                 ->where('rgt', '<', $parent->rgt);
         }
     }
@@ -40,7 +39,10 @@ class HierarchyAllChildrenRelation extends HasMany
 
         foreach ($models as $model) {
             if (isset($dictionary[$key = $this->getDictionaryKey($model->getAttribute($this->localKey))])) {
-                $relationValue = $results->where('lft', '>', $model->lft)->where('rgt', '<', $model->rgt);
+                $relationValue = $results
+                    ->where('lft', '>', $model->lft)
+                    ->where('rgt', '<', $model->rgt);
+
                 $model->setRelation($relation, $relationValue);
             }
         }
@@ -51,7 +53,6 @@ class HierarchyAllChildrenRelation extends HasMany
     public function getRelationExistenceQueryForSelfRelation(Builder $query, Builder $parentQuery, $columns = ['*']): Builder
     {
         $query->from($query->getModel()->getTable() . ' as ' . $hash = $this->getRelationCountHash());
-
         $query->getModel()->setTable($hash);
 
         return $query

@@ -47,7 +47,7 @@ Route::prefix('box')
         Route::patch('category-move', [CategoryController::class, 'move'])->name('category.move');
 
         Route::apiResource('tag', TagController::class);
-        
+
         Route::prefix('variation')
             ->group(function () {
                 Route::model('variation', Variation::class);

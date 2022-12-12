@@ -34,7 +34,7 @@ class SectionController extends Controller
 
     public function update(ValidatesWhenResolved $request): JsonResponse
     {
-        $request->model->saveSafely(['blocks' => $request->validatedData]);
+        $request->model->safelySave(['blocks' => $request->validatedData]);
         return $this->successResponse();
     }
 }

@@ -12,7 +12,7 @@ class FeedbackController extends Controller
 {
     public function callback(CallbackRequest $request): JsonResponse
     {
-        $request->model->saveSafely($request->validatedData);
+        $request->model->safelySave($request->validatedData);
         return $this->successResponse();
     }
 }

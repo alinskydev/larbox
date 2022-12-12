@@ -7,7 +7,7 @@ use Modules\Seo\Traits\SeoMetaFormRequestTrait;
 
 use Illuminate\Validation\Rule;
 use App\Rules\UniqueRule;
-use App\Helpers\Validation\FileValidationHelper;
+use App\Helpers\Validation\ValidationFileHelper;
 
 class BrandRequest extends ActiveFormRequest
 {
@@ -20,12 +20,15 @@ class BrandRequest extends ActiveFormRequest
                 'required',
                 'string',
                 'max:255',
-                new UniqueRule($this->model),
+                new UniqueRule(
+                    model: $this->model,
+                    fieldIsLocalized: false,
+                ),
             ],
             'show_on_the_home_page' => 'required|boolean',
-            'file' => FileValidationHelper::rules(FileValidationHelper::CONFIG_ALL),
+            'file' => ValidationFileHelper::rules(ValidationFileHelper::CONFIG_ALL),
             'files_list' => 'array',
-            'files_list.*' => FileValidationHelper::rules(FileValidationHelper::CONFIG_ALL),
+            'files_list.*' => ValidationFileHelper::rules(ValidationFileHelper::CONFIG_ALL),
         ];
     }
 }

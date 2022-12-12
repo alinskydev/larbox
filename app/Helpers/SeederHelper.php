@@ -2,17 +2,18 @@
 
 namespace App\Helpers;
 
-use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
 class SeederHelper
 {
     public static function localized(string $string, bool $hasLanguageSuffix = true): string
     {
-        $class = require(base_path('modules/System/Database/Seeders/system_language.php'));
-        $languages = Arr::keyBy($class->data, 'code');
+        $languages = config('larbox.languages');
 
-        $result = array_map(fn ($value) => $hasLanguageSuffix ?  "$string " . $value['code'] : $string, $languages);
+        $locales = array_keys($languages);
+        $locales = array_combine($locales, $locales);
+
+        $result = array_map(fn ($locale) => $hasLanguageSuffix ? "$string $locale" : $string, $locales);
         return json_encode($result);
     }
 

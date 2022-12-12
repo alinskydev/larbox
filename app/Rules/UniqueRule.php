@@ -11,26 +11,29 @@ use App\Base\Model;
 class UniqueRule extends Rule
 {
     public function __construct(
-        public Model $model,
-        public bool $showPK = true,
-        public ?\Closure $extraQuery = null,
+        private Model $model,
+        private bool $fieldIsLocalized,
+        private bool $showDetailedErrorMessage = true,
+        private ?\Closure $extraQuery = null,
     ) {
     }
 
     public function passes($attribute, $value): bool
     {
-        $query = $this->model->query()->whereNot($this->model->getKeyName(), $this->model->getKey());
+        $attributeArr = explode('.', $attribute);
 
-        $attribute = explode('.', $attribute);
+        if ($this->fieldIsLocalized) {
+            $fieldColumn = $attributeArr[count($attributeArr) - 2];
+            $fieldPath = end($attributeArr);
 
-        if (count($attribute) == 1) {
-            $query->where(DB::raw("LOWER($attribute[0])"), mb_strtolower($value));
+            $field = "$fieldColumn->>'$fieldPath'";
         } else {
-            $fieldKey = $attribute[0];
-            $fieldPath = $attribute[1];
-
-            $query->where(DB::raw("LOWER($fieldKey->>'$fieldPath')"), mb_strtolower($value));
+            $field = end($attributeArr);
         }
+
+        $query = $this->model->query()
+            ->where(DB::raw("LOWER($field)"), mb_strtolower($value))
+            ->whereKeyNot($this->model->getKey());
 
         if (in_array(SoftDeletes::class, class_uses_recursive($this->model))) {
             $query->withTrashed();
@@ -42,21 +45,16 @@ class UniqueRule extends Rule
 
         $modelExists = $query->first();
 
-        if ($modelExists) {
-            $attribute = implode('.', $attribute);
+        if (!$modelExists) return true;
 
-            if ($this->showPK) {
-                $this->errorMessage = __('Данное значение поля :attribute уже используется в записи №:pk', [
-                    'attribute' => __("fields.$attribute"),
-                    'pk' => $modelExists->getKey(),
-                ]);
-            } else {
-                $this->errorMessage = __('validation.unique');
-            }
-
-            return false;
+        if ($this->showDetailedErrorMessage) {
+            $this->errorMessage = __("Данное значение поля уже используется в записи ':pk'", [
+                'pk' => $modelExists->getKey(),
+            ]);
+        } else {
+            $this->errorMessage = __('validation.unique');
         }
 
-        return true;
+        return false;
     }
 }

@@ -4,9 +4,7 @@ namespace App\Http\Controllers\Actions;
 
 use App\Base\Controller;
 use Illuminate\Http\JsonResponse;
-
 use App\Base\Model;
-use Illuminate\Support\Facades\DB;
 
 class SetValueAction extends Controller
 {
@@ -14,22 +12,9 @@ class SetValueAction extends Controller
     {
         $field = request()->route()->bindingFieldFor('field');
 
-        if (!$field) {
-            throw new \Exception("'field' parameter must be binded");
-        }
+        if (!$field) throw new \Exception("'field' parameter must be binded");
 
-        $model->$field = $value;
-
-        DB::beginTransaction();
-
-        try {
-            $model->save();
-        } catch (\Throwable $e) {
-            DB::rollBack();
-            abort(400, $e->getMessage());
-        }
-
-        DB::commit();
+        $model->safelySave([$field => $value]);
 
         return $this->successResponse();
     }

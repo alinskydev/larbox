@@ -33,7 +33,10 @@ class RoleRequest extends ActiveFormRequest
                 'required',
                 'string',
                 'max:255',
-                new UniqueRule($this->model),
+                new UniqueRule(
+                    model: $this->model,
+                    fieldIsLocalized: true,
+                ),
             ],
         ];
     }

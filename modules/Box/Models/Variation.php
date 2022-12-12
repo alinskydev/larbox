@@ -18,6 +18,6 @@ class Variation extends Model
 
     protected $casts = [
         'name' => 'array',
-        'image' => AsImage::class . ':100|500',
+        'image' => AsImage::class . ':widen_100|widen_500',
     ];
 }

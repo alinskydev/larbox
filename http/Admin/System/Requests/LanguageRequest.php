@@ -6,7 +6,7 @@ use App\Http\Requests\ActiveFormRequest;
 
 use Illuminate\Validation\Rule;
 use App\Rules\UniqueRule;
-use App\Helpers\Validation\FileValidationHelper;
+use App\Helpers\Validation\ValidationFileHelper;
 
 class LanguageRequest extends ActiveFormRequest
 {
@@ -17,9 +17,12 @@ class LanguageRequest extends ActiveFormRequest
                 'required',
                 'string',
                 'max:255',
-                new UniqueRule($this->model),
+                new UniqueRule(
+                    model: $this->model,
+                    fieldIsLocalized: false,
+                ),
             ],
-            'image' => FileValidationHelper::rules(FileValidationHelper::CONFIG_IMAGE),
+            'image' => ValidationFileHelper::rules(ValidationFileHelper::CONFIG_IMAGE),
         ];
     }
 }

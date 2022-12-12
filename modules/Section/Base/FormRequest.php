@@ -2,22 +2,13 @@
 
 namespace Modules\Section\Base;
 
-use App\Base\FormRequest as BaseFormRequest;
-use App\Base\Model;
+use App\Http\Requests\ActiveFormRequest;
 use Illuminate\Support\Arr;
 
-class FormRequest extends BaseFormRequest
+class FormRequest extends ActiveFormRequest
 {
-    public Model $model;
-
     protected array $relations = [];
     protected array $filesDefaults = [];
-
-    public function __construct()
-    {
-        $this->model = $this->model ?? request()->route()->controller->model;
-        parent::__construct();
-    }
 
     protected function passedValidation(): void
     {

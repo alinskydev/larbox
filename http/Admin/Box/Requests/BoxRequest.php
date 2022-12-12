@@ -8,7 +8,7 @@ use Modules\Seo\Traits\SeoMetaFormRequestTrait;
 use Illuminate\Validation\Rule;
 use App\Rules\UniqueRule;
 use App\Rules\ExistsWithOldRule;
-use App\Helpers\Validation\FileValidationHelper;
+use App\Helpers\Validation\ValidationFileHelper;
 
 use Modules\Box\Models\Brand;
 use Modules\Box\Models\Category;
@@ -23,34 +23,44 @@ class BoxRequest extends ActiveFormRequest
         return [
             'brand_id' => [
                 'required',
-                new ExistsWithOldRule($this->model, Brand::class, 'brand_id', extraQuery: function ($query) {
-                    $query->where('is_active', 1)
-                        ->whereHas('creator', function ($subQuery) {
-                            $subQuery->where('id', auth()->user()->id);
-                        });
-                }),
+                new ExistsWithOldRule(
+                    model: $this->model,
+                    relationClass: Brand::class,
+                    extraQuery: function ($query) {
+                        $query->where('is_active', 1)
+                            ->whereHas('creator', function ($subQuery) {
+                                $subQuery->where('id', auth()->user()->id);
+                            });
+                    },
+                ),
             ],
             'price' => 'required|integer|min:0',
             'date' => 'required|date|date_format:' . LARBOX_FORMAT_DATE,
             'datetime' => 'required|date|date_format:' . LARBOX_FORMAT_DATETIME,
-            'image' => FileValidationHelper::rules(FileValidationHelper::CONFIG_IMAGE),
+            'image' => ValidationFileHelper::rules(ValidationFileHelper::CONFIG_IMAGE),
             'images_list' => 'array',
-            'images_list.*' => FileValidationHelper::rules(FileValidationHelper::CONFIG_IMAGE),
+            'images_list.*' => ValidationFileHelper::rules(ValidationFileHelper::CONFIG_IMAGE),
 
             'categories' => [
                 'required',
                 'array',
-                new ExistsWithOldRule($this->model, Category::class, 'categories.*.id'),
+                new ExistsWithOldRule(
+                    model: $this->model,
+                    relationClass: Category::class,
+                ),
             ],
 
             'tags' => [
                 'array',
-                new ExistsWithOldRule($this->model, Tag::class, 'tags.*.id'),
+                new ExistsWithOldRule(
+                    model: $this->model,
+                    relationClass: Tag::class,
+                ),
             ],
 
             'variations' => 'array',
             'variations.*.id' => 'integer',
-            'variations.*.image' => FileValidationHelper::rules(FileValidationHelper::CONFIG_IMAGE),
+            'variations.*.image' => ValidationFileHelper::rules(ValidationFileHelper::CONFIG_IMAGE),
         ];
     }
 
@@ -61,7 +71,10 @@ class BoxRequest extends ActiveFormRequest
                 'required',
                 'string',
                 'max:255',
-                new UniqueRule($this->model),
+                new UniqueRule(
+                    model: $this->model,
+                    fieldIsLocalized: true,
+                ),
             ],
             'description' => 'present|nullable|string',
 
@@ -73,14 +86,14 @@ class BoxRequest extends ActiveFormRequest
     {
         parent::passedValidation();
 
-        $this->model->fillableRelations = [
-            $this->model::RELATION_TYPE_ONE_MANY => [
+        $this->model->fillRelations(
+            oneToMany: [
                 'variations' => $this->validatedData['variations'] ?? [],
             ],
-            $this->model::RELATION_TYPE_MANY_MANY => [
+            manyToMany: [
                 'categories' => $this->validatedData['categories'] ?? [],
                 'tags' => $this->validatedData['tags'] ?? [],
             ],
-        ];
+        );
     }
 }

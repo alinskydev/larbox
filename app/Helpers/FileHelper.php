@@ -18,10 +18,10 @@ class FileHelper
         return "/$path/$name.$extension";
     }
 
-    public static function delete(string $url): void
+    public static function delete(string $file): void
     {
         if (app('settings')->delete_old_files) {
-            File::delete($url);
+            File::delete($file);
         }
     }
 }

@@ -5,7 +5,7 @@ export default new Model({
     list: {
         image: {
             label: null,
-            value: 'profile.image.w_100',
+            value: 'profile.image.widen_100',
             type: Enums.valueTypes.image,
         },
         id: {
@@ -72,7 +72,7 @@ export default new Model({
 
     show: {
         image: {
-            value: 'profile.image.w_500',
+            value: 'profile.image.widen_500',
             type: Enums.valueTypes.image,
         },
         id: {
@@ -147,7 +147,7 @@ export default new Model({
                 type: Enums.inputTypes.file,
                 options: {
                     file: {
-                        previewPath: 'w_500',
+                        previewPath: 'widen_500',
                         downloadPath: 'original',
                         deleteUrl: 'user/user/:id/delete-file/image',
                     },

@@ -22,7 +22,9 @@ class SlugObserver
 
         $slug = Str::slug($sourceValue);
 
-        $query = $model->query()->where('slug', $slug)->where('id', '!=', $model->id);
+        $query = $model->query()
+            ->where('slug', $slug)
+            ->whereKeyNot($model->getKey());
 
         if (in_array(SoftDeletes::class, class_uses_recursive($model))) {
             $query->withTrashed();

@@ -11,11 +11,10 @@ class HierarchyAllSiblingsRelation extends HasMany
     public function addConstraints(): void
     {
         if (static::$constraints) {
-            $query = $this->getRelationQuery();
-
             $parent = $this->getParent();
 
-            $query->where('depth', '=', $parent->depth)
+            $query = $this->getRelationQuery()
+                ->where('depth', '=', $parent->depth)
                 ->where('id', '!=', $parent->id);
 
             $parentNode = $parent->parent;

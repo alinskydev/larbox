@@ -2,19 +2,12 @@
 
 namespace App\Hierarchy;
 
-use App\Base\FormRequest;
+use App\Http\Requests\ActiveFormRequest;
 use Illuminate\Validation\Validator;
 
-class HierarchyMoveRequest extends FormRequest
+class HierarchyMoveRequest extends ActiveFormRequest
 {
-    public HierarchyModel $model;
     public array $nodes;
-
-    public function __construct()
-    {
-        $this->model = request()->route()->bindingFieldFor('new_model');
-        parent::__construct();
-    }
 
     public function nonLocalizedRules(): array
     {

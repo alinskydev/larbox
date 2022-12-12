@@ -9,7 +9,7 @@ class AsImages implements CastsAttributes
 {
     private array $sizes = [];
 
-    public function __construct(string $sizes = '')
+    public function __construct(string $sizes)
     {
         $this->sizes = explode('|', $sizes);
         $this->sizes = array_filter($this->sizes, fn ($f_v) => $f_v !== null);
