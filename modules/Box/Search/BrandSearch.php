@@ -28,7 +28,7 @@ class BrandSearch extends Search
         parent::show($params);
 
         if (in_array('boxes_count', $params)) {
-            $this->queryBuilder->withCount('boxes');
+            $this->query->withCount('boxes');
         }
 
         return $this;

@@ -13,7 +13,7 @@ class UserSearch extends Search
 
     public array $combinedFilters = [
         'common' => [
-            'type' => self::COMBINED_TYPE_OR,
+            'type' => self::COMBINED_FILTER_TYPE_ANY,
             'fields' => [
                 'username' => self::FILTER_TYPE_LIKE,
                 'email' => self::FILTER_TYPE_LIKE,

@@ -12,14 +12,14 @@ class CategorySearch extends Search
     public array $filters = [
         'id' => self::FILTER_TYPE_EQUAL_RAW,
         'depth' => self::FILTER_TYPE_EQUAL_RAW,
-        'name' => self::FILTER_TYPE_LOCALIZED,
+        'name' => self::FILTER_TYPE_LOCALIZED_LIKE,
     ];
 
     public array $combinedFilters = [
         'full_text' => [
-            'type' => self::COMBINED_TYPE_OR,
+            'type' => self::COMBINED_FILTER_TYPE_ANY,
             'fields' => [
-                'name' => self::FILTER_TYPE_LOCALIZED,
+                'name' => self::FILTER_TYPE_LOCALIZED_LIKE,
             ],
         ],
     ];
@@ -28,7 +28,7 @@ class CategorySearch extends Search
     {
         parent::with($params);
 
-        $this->queryBuilder->with(['parents']);
+        $this->query->with(['parents']);
 
         return $this;
     }
@@ -37,7 +37,7 @@ class CategorySearch extends Search
     {
         parent::filter($params, $combinedType, $query);
 
-        $this->queryBuilder->where('depth', '>', 0);
+        $this->query->where('depth', '>', 0);
 
         return $this;
     }
@@ -47,7 +47,7 @@ class CategorySearch extends Search
         parent::show($params);
 
         if (in_array('boxes_count', $params)) {
-            $this->queryBuilder
+            $this->query
                 ->with([
                     'children' => function ($query) {
                         $query->withCount('boxes');

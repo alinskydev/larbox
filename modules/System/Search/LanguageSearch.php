@@ -14,7 +14,7 @@ class LanguageSearch extends Search
 
     public array $combinedFilters = [
         'common' => [
-            'type' => self::COMBINED_TYPE_OR,
+            'type' => self::COMBINED_FILTER_TYPE_ANY,
             'fields' => [
                 'name' => self::FILTER_TYPE_LIKE,
                 'code' => self::FILTER_TYPE_EQUAL_STRING,

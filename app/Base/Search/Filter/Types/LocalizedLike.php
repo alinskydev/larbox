@@ -1,0 +1,20 @@
+<?php
+
+namespace App\Base\Search\Filter\Types;
+
+use App\Base\Search\Filter\SearchFilterType;
+use Illuminate\Support\Facades\DB;
+
+class LocalizedLike extends SearchFilterType
+{
+    public function process()
+    {
+        $locale = app()->getLocale();
+
+        $this->query->{$this->condition}(
+            DB::raw("LOWER($this->field->>'$locale'::VARCHAR)"),
+            'LIKE',
+            '%' . mb_strtolower((string)$this->value) . '%'
+        );
+    }
+}

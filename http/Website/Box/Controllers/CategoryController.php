@@ -42,7 +42,7 @@ class CategoryController extends NestedSetController
         $slugs = array_filter($slugs, fn ($value) => $value);
         $lastSlug = array_pop($slugs);
 
-        $possibleModels = $this->search->queryBuilder->where('slug', $lastSlug)->get();
+        $possibleModels = $this->search->query->where('slug', $lastSlug)->get();
         $possibleModels = $this->resourceClass::collection($possibleModels)->resolve();
         $possibleModels = Arr::keyBy($possibleModels, 'full_slug');
 

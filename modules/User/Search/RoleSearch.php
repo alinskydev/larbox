@@ -8,7 +8,7 @@ class RoleSearch extends Search
 {
     public array $filters = [
         'id' => self::FILTER_TYPE_EQUAL_RAW,
-        'name' => self::FILTER_TYPE_LOCALIZED,
+        'name' => self::FILTER_TYPE_LOCALIZED_LIKE,
     ];
 
     public array $sortings = [

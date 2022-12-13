@@ -25,9 +25,9 @@ class ResourceController extends Controller
         Route::model('model', $this->model::class);
 
         if ($this->search !== null) {
-            $this->search->setQueryBuilder($this->model->query())
+            $this->search->setQuery($this->model->query())
                 ->with((array)$request->get('with'))
-                ->filter((array)$request->get('filter'), Search::COMBINED_TYPE_AND)
+                ->filter((array)$request->get('filter'), Search::COMBINED_FILTER_TYPE_ALL)
                 ->combinedFilter((array)$request->get('filter'))
                 ->sort((array)$request->get('sort'))
                 ->show((array)$request->get('show'))
@@ -41,7 +41,7 @@ class ResourceController extends Controller
 
     public function index(): JsonResponse
     {
-        $paginator = $this->search->queryBuilder->paginate($this->search->pageSize);
+        $paginator = $this->search->query->paginate($this->search->pageSize);
         $paginator->onEachSide = 0;
 
         return $this->resourceClass::collection($paginator)->response()->setStatusCode(206);
@@ -49,7 +49,7 @@ class ResourceController extends Controller
 
     public function show(Model $model): JsonResponse
     {
-        $model = $this->search->queryBuilder->findOrFail($model->id);
+        $model = $this->search->query->findOrFail($model->id);
 
         if (in_array(SeoMetaModelTrait::class, class_uses_recursive($model))) {
             $model->append(['seo_meta', 'seo_meta_as_array']);

@@ -13,7 +13,7 @@ class CallbackSearch extends Search
 
     public array $combinedFilters = [
         'common' => [
-            'type' => self::COMBINED_TYPE_OR,
+            'type' => self::COMBINED_FILTER_TYPE_ANY,
             'fields' => [
                 'full_name' => self::FILTER_TYPE_LIKE,
                 'phone' => self::FILTER_TYPE_LIKE,

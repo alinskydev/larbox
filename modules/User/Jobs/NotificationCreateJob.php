@@ -32,12 +32,12 @@ class NotificationCreateJob extends Job
 
             $search = new UserSearch();
 
-            $search->setQueryBuilder($query)
-                ->filter($filter, $search::COMBINED_TYPE_AND)
+            $search->setQuery($query)
+                ->filter($filter, $search::COMBINED_FILTER_TYPE_ALL)
                 ->combinedFilter($filter)
                 ->show($show);
 
-            $ids = $search->queryBuilder->get('id')->pluck('id')->toArray();
+            $ids = $search->query->get('id')->pluck('id')->toArray();
 
             $insertData = array_map(fn ($value) => [
                 'creator_id' => $this->creatorId,
