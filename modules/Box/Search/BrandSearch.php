@@ -11,16 +11,16 @@ class BrandSearch extends Search
     ];
 
     public array $filters = [
-        'id' => self::FILTER_TYPE_EQUAL_RAW,
-        'creator_id' => self::FILTER_TYPE_EQUAL_RAW,
-        'name' => self::FILTER_TYPE_LIKE,
-        'show_on_the_home_page' => self::FILTER_TYPE_EQUAL_RAW,
-        'is_active' => self::FILTER_TYPE_EQUAL_RAW,
+        'id' => self::FILTER_CLASS_EQUAL_RAW,
+        'creator_id' => self::FILTER_CLASS_EQUAL_RAW,
+        'name' => self::FILTER_CLASS_LIKE,
+        'show_on_the_home_page' => self::FILTER_CLASS_EQUAL_RAW,
+        'is_active' => self::FILTER_CLASS_EQUAL_RAW,
     ];
 
     public array $sortings = [
-        'id' => self::SORT_TYPE_SIMPLE,
-        'name' => self::SORT_TYPE_SIMPLE,
+        'id' => self::SORT_TYPE_RAW,
+        'name' => self::SORT_TYPE_RAW,
     ];
 
     public function show(array $params): static

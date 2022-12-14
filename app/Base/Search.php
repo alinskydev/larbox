@@ -2,39 +2,39 @@
 
 namespace App\Base;
 
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Arr;
-
+use App\Base\Search\SearchFilter;
+use App\Base\Search\SearchSort;
+use App\Base\Search\SearchShow;
 use App\Base\Search\Filter\Types as FilterTypes;
+
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Arr;
 
 class Search
 {
-    public const FILTER_TYPE_BETWEEN_DATE = FilterTypes\BetweenDate::class;
-    public const FILTER_TYPE_BETWEEN_DATETIME = FilterTypes\BetweenDatetime::class;
-    public const FILTER_TYPE_BETWEEN_NUMBER = FilterTypes\BetweenNumber::class;
-    public const FILTER_TYPE_DATE = FilterTypes\Date::class;
-    public const FILTER_TYPE_DATETIME = FilterTypes\Datetime::class;
-    public const FILTER_TYPE_EQUAL_RAW = FilterTypes\EqualRaw::class;
-    public const FILTER_TYPE_EQUAL_STRING = FilterTypes\EqualString::class;
-    public const FILTER_TYPE_IN = FilterTypes\In::class;
-    public const FILTER_TYPE_JSON_CONTAINS_ALL = FilterTypes\JsonContainsAll::class;
-    public const FILTER_TYPE_JSON_CONTAINS_ANY = FilterTypes\JsonContainsAny::class;
-    public const FILTER_TYPE_LIKE = FilterTypes\Like::class;
-    public const FILTER_TYPE_LOCALIZED_LIKE = FilterTypes\LocalizedLike::class;
+    public const FILTER_CLASS_BETWEEN_DATE = FilterTypes\BetweenDate::class;
+    public const FILTER_CLASS_BETWEEN_DATETIME = FilterTypes\BetweenDatetime::class;
+    public const FILTER_CLASS_BETWEEN_NUMBER = FilterTypes\BetweenNumber::class;
+    public const FILTER_CLASS_DATE = FilterTypes\Date::class;
+    public const FILTER_CLASS_DATETIME = FilterTypes\Datetime::class;
+    public const FILTER_CLASS_EQUAL_RAW = FilterTypes\EqualRaw::class;
+    public const FILTER_CLASS_EQUAL_STRING = FilterTypes\EqualString::class;
+    public const FILTER_CLASS_IN = FilterTypes\In::class;
+    public const FILTER_CLASS_JSON_CONTAINS_ALL = FilterTypes\JsonContainsAll::class;
+    public const FILTER_CLASS_JSON_CONTAINS_ANY = FilterTypes\JsonContainsAny::class;
+    public const FILTER_CLASS_LIKE = FilterTypes\Like::class;
+    public const FILTER_CLASS_LOCALIZED_LIKE = FilterTypes\LocalizedLike::class;
 
-    public const COMBINED_FILTER_TYPE_ALL = 'where';
-    public const COMBINED_FILTER_TYPE_ANY = 'orWhere';
+    public const FILTER_CONDITION_WHERE = 'where';
+    public const FILTER_CONDITION_OR_WHERE = 'orWhere';
 
-    public const SORT_TYPE_SIMPLE = 'sortTypeSimple';
-    public const SORT_TYPE_LOCALIZED = 'sortTypeLocalized';
+    public const SORT_TYPE_RAW = 'sortRaw';
+    public const SORT_TYPE_LOCALIZED = 'sortLocalized';
 
     public Builder $query;
 
     public array $relations = [];
     public array $filters = [];
-    public array $combinedFilters = [];
     public array $sortings = [];
 
     public array $defaultSort = ['-id'];
@@ -56,95 +56,30 @@ class Search
         return $this;
     }
 
-    public function filter(array $params, string $combinedType, ?Builder $query = null): static
+    public function filter(array $params): static
     {
-        $query = $query ?? $this->query;
+        $filter = new SearchFilter(
+            query: $this->query,
+            filters: $this->filters,
+            params: $params,
+        );
 
-        foreach ($params as $param => $value) {
-            if (!isset($this->filters[$param])) continue;
-
-            $type = $this->filters[$param];
-            $param = explode('.', $param);
-
-            if (count($param) == 1) {
-                $filter = new $type(
-                    query: $query,
-                    condition: $combinedType,
-                    field: $param[0],
-                    value: $value,
-                );
-
-                $filter->process();
-            } else {
-                $field = array_pop($param);
-
-                $query->{$combinedType . 'Has'}(
-                    implode('.', $param),
-                    function ($subQuery) use ($field, $type, $value) {
-                        $subQuery->select('id');
-
-                        $filter = new $type(
-                            query: $subQuery,
-                            condition: self::COMBINED_FILTER_TYPE_ALL,
-                            field: $field,
-                            value: $value,
-                        );
-
-                        $filter->process();
-                    }
-                );
-            }
-        }
-
-        return $this;
-    }
-
-    public function combinedFilter(array $params): static
-    {
-        foreach ($params as $param => $value) {
-            $options = $this->combinedFilters[$param] ?? null;
-
-            if (!$options) continue;
-
-            $fields = array_map(fn ($v) => $value, $options['fields']);
-
-            $this->filters += $options['fields'];
-
-            $this->query->where(function ($query) use ($fields, $options) {
-                $this->filter($fields, $options['type'], $query);
-            });
-        }
+        $filter->process();
 
         return $this;
     }
 
     public function sort(array $params): static
     {
-        $params = $params ?: $this->defaultSort;
-        $params = Arr::flatten($params);
+        $params = Arr::flatten($params) ?: $this->defaultSort;
 
-        foreach ($params as $param) {
-            if (str_starts_with($param, '-')) {
-                $sort_direction = 'DESC';
-                $param = substr($param, 1);
-            } else {
-                $sort_direction = 'ASC';
-            }
+        $sorter = new SearchSort(
+            query: $this->query,
+            sortings: $this->sortings,
+            params: $params,
+        );
 
-            $type = $this->sortings[$param] ?? null;
-
-            if (!$type) continue;
-
-            switch ($type) {
-                case self::SORT_TYPE_SIMPLE:
-                    $this->query->orderBy($param, $sort_direction);
-                    break;
-                case self::SORT_TYPE_LOCALIZED:
-                    $locale = app()->getLocale();
-                    $this->query->orderBy("$param->$locale", $sort_direction);
-                    break;
-            }
-        }
+        $sorter->process();
 
         return $this;
     }
@@ -153,19 +88,12 @@ class Search
     {
         $params = Arr::flatten($params);
 
-        $model = $this->query->getModel();
-        $hasSoftDelete = in_array(SoftDeletes::class, class_uses_recursive($model));
+        $shower = new SearchShow(
+            query: $this->query,
+            params: $params,
+        );
 
-        foreach ($params as $param) {
-            switch ($param) {
-                case 'with-deleted':
-                    if ($hasSoftDelete) $this->query->withTrashed();
-                    break;
-                case 'only-deleted':
-                    if ($hasSoftDelete) $this->query->onlyTrashed();
-                    break;
-            }
-        }
+        $shower->process();
 
         return $this;
     }

@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class BetweenNumber extends SearchFilterType
 {
-    public function process()
+    public function process(): void
     {
         $this->value = (array)$this->value;
 

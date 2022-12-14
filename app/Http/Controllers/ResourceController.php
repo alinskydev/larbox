@@ -27,8 +27,7 @@ class ResourceController extends Controller
         if ($this->search !== null) {
             $this->search->setQuery($this->model->query())
                 ->with((array)$request->get('with'))
-                ->filter((array)$request->get('filter'), Search::COMBINED_FILTER_TYPE_ALL)
-                ->combinedFilter((array)$request->get('filter'))
+                ->filter((array)$request->get('filter'))
                 ->sort((array)$request->get('sort'))
                 ->show((array)$request->get('show'))
                 ->setPageSize((int)$request->get('page-size'));

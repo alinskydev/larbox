@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class Date extends SearchFilterType
 {
-    public function process()
+    public function process(): void
     {
         $this->query->{$this->condition}(function ($query) {
             $query

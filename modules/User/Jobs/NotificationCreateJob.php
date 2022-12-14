@@ -33,8 +33,7 @@ class NotificationCreateJob extends Job
             $search = new UserSearch();
 
             $search->setQuery($query)
-                ->filter($filter, $search::COMBINED_FILTER_TYPE_ALL)
-                ->combinedFilter($filter)
+                ->filter($filter)
                 ->show($show);
 
             $ids = $search->query->get('id')->pluck('id')->toArray();

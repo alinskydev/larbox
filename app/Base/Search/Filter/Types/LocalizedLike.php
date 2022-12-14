@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class LocalizedLike extends SearchFilterType
 {
-    public function process()
+    public function process(): void
     {
         $locale = app()->getLocale();
 

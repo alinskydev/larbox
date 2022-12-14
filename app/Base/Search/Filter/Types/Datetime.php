@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class Datetime extends SearchFilterType
 {
-    public function process()
+    public function process(): void
     {
         $this->query->{$this->condition}(
             $this->field,

@@ -3,23 +3,20 @@
 namespace Modules\Box\Search;
 
 use App\Base\Search;
-use Illuminate\Database\Eloquent\Builder;
 
 class CategorySearch extends Search
 {
     public array $defaultSort = ['lft'];
 
     public array $filters = [
-        'id' => self::FILTER_TYPE_EQUAL_RAW,
-        'depth' => self::FILTER_TYPE_EQUAL_RAW,
-        'name' => self::FILTER_TYPE_LOCALIZED_LIKE,
-    ];
-
-    public array $combinedFilters = [
+        'id' => self::FILTER_CLASS_EQUAL_RAW,
+        'depth' => self::FILTER_CLASS_EQUAL_RAW,
+        'name' => self::FILTER_CLASS_LOCALIZED_LIKE,
+        
         'full_text' => [
-            'type' => self::COMBINED_FILTER_TYPE_ANY,
-            'fields' => [
-                'name' => self::FILTER_TYPE_LOCALIZED_LIKE,
+            'condition' => self::FILTER_CONDITION_OR_WHERE,
+            'filters' => [
+                'name' => self::FILTER_CLASS_LOCALIZED_LIKE,
             ],
         ],
     ];
@@ -33,9 +30,9 @@ class CategorySearch extends Search
         return $this;
     }
 
-    public function filter(array $params, string $combinedType, ?Builder $query = null): static
+    public function filter(array $params): static
     {
-        parent::filter($params, $combinedType, $query);
+        parent::filter($params);
 
         $this->query->where('depth', '>', 0);
 

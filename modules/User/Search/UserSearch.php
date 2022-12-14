@@ -7,24 +7,22 @@ use App\Base\Search;
 class UserSearch extends Search
 {
     public array $filters = [
-        'id' => self::FILTER_TYPE_IN,
-        'role_id' => self::FILTER_TYPE_EQUAL_RAW,
-    ];
+        'id' => self::FILTER_CLASS_IN,
+        'role_id' => self::FILTER_CLASS_EQUAL_RAW,
 
-    public array $combinedFilters = [
         'common' => [
-            'type' => self::COMBINED_FILTER_TYPE_ANY,
-            'fields' => [
-                'username' => self::FILTER_TYPE_LIKE,
-                'email' => self::FILTER_TYPE_LIKE,
-                'profile.full_name' => self::FILTER_TYPE_LIKE,
-                'profile.phone' => self::FILTER_TYPE_LIKE,
+            'condition' => self::FILTER_CONDITION_OR_WHERE,
+            'filters' => [
+                'username' => self::FILTER_CLASS_LIKE,
+                'email' => self::FILTER_CLASS_LIKE,
+                'profile.full_name' => self::FILTER_CLASS_LIKE,
+                'profile.phone' => self::FILTER_CLASS_LIKE,
             ],
         ],
     ];
 
     public array $sortings = [
-        'id' => self::SORT_TYPE_SIMPLE,
-        'username' => self::SORT_TYPE_SIMPLE,
+        'id' => self::SORT_TYPE_RAW,
+        'username' => self::SORT_TYPE_RAW,
     ];
 }

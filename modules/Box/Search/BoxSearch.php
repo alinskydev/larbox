@@ -12,30 +12,28 @@ class BoxSearch extends Search
     ];
 
     public array $filters = [
-        'id' => self::FILTER_TYPE_EQUAL_RAW,
-        'brand_id' => self::FILTER_TYPE_EQUAL_RAW,
-        'name' => self::FILTER_TYPE_LOCALIZED_LIKE,
-        'price' => self::FILTER_TYPE_BETWEEN_NUMBER,
-        'date' => self::FILTER_TYPE_BETWEEN_DATE,
-        'datetime' => self::FILTER_TYPE_DATE,
+        'id' => self::FILTER_CLASS_EQUAL_RAW,
+        'brand_id' => self::FILTER_CLASS_EQUAL_RAW,
+        'name' => self::FILTER_CLASS_LOCALIZED_LIKE,
+        'price' => self::FILTER_CLASS_BETWEEN_NUMBER,
+        'date' => self::FILTER_CLASS_BETWEEN_DATE,
+        'datetime' => self::FILTER_CLASS_DATE,
 
-        'tags.id' => self::FILTER_TYPE_IN,
-    ];
-
-    public array $combinedFilters = [
+        'tags.id' => self::FILTER_CLASS_IN,
+        
         'categories.id' => [
-            'type' => self::COMBINED_FILTER_TYPE_ANY,
-            'fields' => [
-                'categories.id' => self::FILTER_TYPE_EQUAL_RAW,
-                'categories.parents.id' => self::FILTER_TYPE_EQUAL_RAW,
+            'condition' => self::FILTER_CONDITION_OR_WHERE,
+            'filters' => [
+                'categories.id' => self::FILTER_CLASS_EQUAL_RAW,
+                'categories.parents.id' => self::FILTER_CLASS_EQUAL_RAW,
             ],
         ],
     ];
 
     public array $sortings = [
-        'id' => self::SORT_TYPE_SIMPLE,
+        'id' => self::SORT_TYPE_RAW,
         'name' => self::SORT_TYPE_LOCALIZED,
-        'date' => self::SORT_TYPE_SIMPLE,
-        'datetime' => self::SORT_TYPE_SIMPLE,
+        'date' => self::SORT_TYPE_RAW,
+        'datetime' => self::SORT_TYPE_RAW,
     ];
 }
