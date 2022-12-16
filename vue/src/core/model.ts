@@ -2,7 +2,7 @@ import * as Enums from './enums';
 import * as ModelTypes from './types/modelTypes';
 
 export class Model {
-    list: Record<string, ModelTypes.valueParams>;
+    index: Record<string, ModelTypes.valueParams>;
     filters: Record<string, ModelTypes.inputParams>;
     sortings: Array<string>;
     show: Record<string, any>;
@@ -12,7 +12,7 @@ export class Model {
     hasUpdatedAtConflictCheck: boolean;
 
     constructor(config: {
-        list: Record<string, ModelTypes.valueParams>;
+        index: Record<string, ModelTypes.valueParams>;
         filters: Record<string, ModelTypes.inputParams>;
         sortings: Array<string>;
         show: Record<
@@ -37,7 +37,7 @@ export class Model {
         hasSeoMeta: boolean;
         hasUpdatedAtConflictCheck: boolean;
     }) {
-        this.list = config.list ?? {};
+        this.index = config.index ?? {};
         this.filters = config.filters ?? {};
         this.sortings = config.sortings ?? [];
         this.show = config.show ?? {};

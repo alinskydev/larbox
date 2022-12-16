@@ -41,8 +41,6 @@ class ResourceController extends Controller
     public function index(): JsonResponse
     {
         $paginator = $this->search->query->paginate($this->search->pageSize);
-        $paginator->onEachSide = 1;
-
         return $this->resourceClass::collection($paginator)->response()->setStatusCode(206);
     }
 

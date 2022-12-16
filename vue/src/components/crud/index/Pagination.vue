@@ -8,8 +8,17 @@ export default {
     },
     data() {
         return {
-            items: this.meta.links.slice(1, this.meta.links.length - 1),
+            items: [],
         };
+    },
+    created() {
+        let qty = 3,
+            from = this.meta.current_page > qty ? this.meta.current_page - qty : 1,
+            to = this.meta.last_page - qty > this.meta.current_page ? this.meta.current_page + qty : this.meta.last_page;
+
+        for (from; from <= to; from++) {
+            this.items.push(from);
+        }
     },
     methods: {
         go(page) {
@@ -37,19 +46,30 @@ export default {
 
         <ul v-if="items.length > 1" class="pagination m-0">
             <li :class="'page-item ' + (meta.current_page === 1 ? 'disabled' : '')">
+                <a @click="go(1)" href="#" class="page-link">
+                    <i class="fas fa-angle-double-left"></i>
+                </a>
+            </li>
+
+            <li :class="'page-item ' + (meta.current_page === 1 ? 'disabled' : '')">
                 <a @click="go(meta.current_page - 1)" href="#" class="page-link">
                     <i class="fas fa-angle-left"></i>
                 </a>
             </li>
 
-            <li v-for="item in items" :class="'page-item ' + (item.active ? 'active' : '')">
-                <a v-if="item.url" @click="go(item.label)" href="#" class="page-link" v-html="item.label"></a>
-                <div v-else class="page-link bg-transparent border-0" v-html="item.label"></div>
+            <li v-for="item in items" :class="'page-item ' + (item === meta.current_page ? 'active' : '')">
+                <a @click="go(item)" href="#" class="page-link">{{ item }}</a>
             </li>
 
             <li :class="'page-item ' + (meta.current_page === meta.last_page ? 'disabled' : '')">
                 <a @click="go(meta.current_page + 1)" href="#" class="page-link">
                     <i class="fas fa-angle-right"></i>
+                </a>
+            </li>
+
+            <li :class="'page-item ' + (meta.current_page === meta.last_page ? 'disabled' : '')">
+                <a @click="go(meta.last_page)" href="#" class="page-link">
+                    <i class="fas fa-angle-double-right"></i>
                 </a>
             </li>
         </ul>

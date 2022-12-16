@@ -4,7 +4,7 @@ import * as Enums from '@/core/enums';
 import CategoriesTree from '@/modules/box/components/box/CategoriesTree.vue';
 
 export default new Model({
-    list: {
+    index: {
         image: {
             label: null,
             value: 'image.widen_100',

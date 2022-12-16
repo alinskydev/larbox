@@ -2,8 +2,9 @@
 import { pickBy } from 'lodash';
 
 import Input from '@/components/Input.vue';
-import Sort from './index/particles/Sort.vue';
-import SoftDelete from './index/particles/SoftDelete.vue';
+
+import Sort from './index/Sort.vue';
+import SoftDeleteFilter from './index/SoftDeleteFilter.vue';
 import Data from './index/Data.vue';
 </script>
 
@@ -112,7 +113,7 @@ export default {
                         </template>
 
                         <Sort v-if="model.sortings.length > 0" :fields="model.sortings" />
-                        <SoftDelete v-if="config.filter.hasSoftDelete" />
+                        <SoftDeleteFilter v-if="config.filter.hasSoftDelete" />
                     </div>
                 </div>
 

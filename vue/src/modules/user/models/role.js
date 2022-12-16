@@ -4,7 +4,7 @@ import * as Enums from '@/core/enums';
 import Tree from '@/modules/user/components/role/Tree.vue';
 
 export default new Model({
-    list: {
+    index: {
         id: {
             type: Enums.valueTypes.text,
         },

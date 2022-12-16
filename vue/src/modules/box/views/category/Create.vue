@@ -3,7 +3,7 @@ import { Page } from '@/core/page';
 import { CreateConfig } from '@/core/crud/config';
 import model from '@/modules/box/models/category';
 
-import Buttons from '@/components/crud/form/particles/Buttons.vue';
+import Buttons from '@/components/crud/form/Buttons.vue';
 import Create from '@/components/crud/Create.vue';
 </script>
 

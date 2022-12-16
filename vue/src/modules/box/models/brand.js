@@ -2,7 +2,7 @@ import { Model } from '@/core/model';
 import * as Enums from '@/core/enums';
 
 export default new Model({
-    list: {
+    index: {
         id: {
             type: Enums.valueTypes.text,
         },

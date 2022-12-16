@@ -4,7 +4,7 @@ import * as Enums from '@/core/enums';
 import Custom from '@/modules/box/components/Custom.vue';
 
 export default new Model({
-    list: {
+    index: {
         id: {
             type: Enums.valueTypes.text,
         },

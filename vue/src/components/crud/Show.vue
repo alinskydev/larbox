@@ -30,7 +30,10 @@ export default {
                     if (this.config.title) {
                         this.page.title +=
                             ': ' +
-                            this.booted.helpers.iterator.get(response.data, this.config.title.replace(':locale', this.booted.locale));
+                            this.booted.helpers.iterator.get(
+                                response.data,
+                                this.config.title.replace(':locale', this.booted.locale),
+                            );
                     }
 
                     this.page.init();

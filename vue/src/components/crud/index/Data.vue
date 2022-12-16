@@ -3,9 +3,9 @@ import * as Enums from '@/core/enums';
 
 import Value from '@/components/Value.vue';
 
-import Selection from './particles/Selection.vue';
-import Actions from './particles/Actions.vue';
-import Pagination from './particles/Pagination.vue';
+import Actions from './Actions.vue';
+import Selection from './Selection.vue';
+import Pagination from './Pagination.vue';
 </script>
 
 <script>
@@ -31,10 +31,10 @@ export default {
             })
             .then((response) => {
                 if (response.statusType === 'success') {
-                    this.fields = this.model.prepareFields(this, this.model.list);
+                    this.fields = this.model.prepareFields(this, this.model.index);
 
                     for (let dataKey in response.data.data) {
-                        this.items[dataKey] = this.model.prepareValues(this, this.model.list, response.data.data[dataKey]);
+                        this.items[dataKey] = this.model.prepareValues(this, this.model.index, response.data.data[dataKey]);
                         this.items[dataKey]['is_deleted'] = response.data.data[dataKey]['is_deleted'];
                     }
 
