@@ -26,11 +26,11 @@ export default {
                 <table class="table table-hover table-bordered">
                     <tbody>
                         <tr v-for="item in items">
-                            <th>
+                            <th v-if="item.label">
                                 {{ item.label }}
                             </th>
 
-                            <td>
+                            <td :colspan="item.label ? 1 : 2">
                                 <Value :item="item" :id="items.id.value" />
                             </td>
                         </tr>

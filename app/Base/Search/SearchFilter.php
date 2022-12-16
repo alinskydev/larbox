@@ -105,7 +105,7 @@ class SearchFilter
             $relation,
             function ($query) use ($filterClass, $field, $value) {
                 $filter = new $filterClass(
-                    query: $query->select('id'),
+                    query: $query,
                     condition: Search::FILTER_CONDITION_WHERE,
                     field: $field,
                     value: $value,

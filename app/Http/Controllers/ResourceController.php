@@ -46,7 +46,7 @@ class ResourceController extends Controller
 
     public function show(Model $model): JsonResponse
     {
-        $model = $this->search->query->findOrFail($model->id);
+        $model = $this->search->query->findOrFail($model->getKey());
 
         if (in_array(SeoMetaModelTrait::class, class_uses_recursive($model))) {
             $model->append(['seo_meta', 'seo_meta_as_array']);

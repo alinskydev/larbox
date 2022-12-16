@@ -53,7 +53,11 @@ export default {
 
 <template>
     <form @submit.prevent="submit" id="crud-form">
-        <div v-for="(items, key) in itemGroups" class="card card-primary mb-3" :set="(groupId = 'el-' + booted.helpers.string.uniqueId())">
+        <div
+            v-for="(items, key) in itemGroups"
+            class="card card-primary mb-3"
+            :set="(groupId = 'el-' + booted.helpers.string.uniqueId())"
+        >
             <div
                 class="card-header d-flex align-items-center justify-content-between"
                 role="button"
