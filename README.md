@@ -27,7 +27,7 @@ install all required packages
 composer install
 ```
 
-**Configurating:** create **.ENV** file in the root foolder and fill all configuration inside it.
+**Configurating:** create **.env** file from **.env.example** in the root foolder and fill all configurations inside it.
 
 **Migrating DB:** run
 

@@ -20,7 +20,7 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('api')
                 ->group(function () {
                     Route::prefix('admin')
-                        ->middleware(['auth.basic.once', 'role'])
+                        ->middleware(['auth.basic.once', 'user.role'])
                         ->group(glob(base_path('http/Admin/*/routes.php')));
 
                     Route::prefix('common')

@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Modules\User\Helpers\RoleHelper;
 use Illuminate\Support\Str;
 
-class Role
+class UserRole
 {
     public function handle(Request $request, \Closure $next): Response
     {
