@@ -9,7 +9,7 @@ class UploadTest extends _TestCase
         $this->processPost(
             path: 'upload/file',
             body: [
-                'file' => $this->formHelper::file(),
+                'file' => $this->formHelper::files(),
             ],
         );
     }
@@ -19,7 +19,7 @@ class UploadTest extends _TestCase
         $this->processPost(
             path: 'upload/media',
             body: [
-                'file' => $this->formHelper::file(),
+                'file' => $this->formHelper::files(),
             ],
         );
     }

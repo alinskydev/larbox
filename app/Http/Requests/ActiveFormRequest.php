@@ -3,12 +3,18 @@
 namespace App\Http\Requests;
 
 use App\Base\FormRequest;
+use App\Http\Requests\ActiveFormRequest\DeleteableFileFieldsTrait;
 use App\Base\Model;
 use Modules\Seo\Traits\SeoMetaFormRequestTrait;
 use Illuminate\Support\Arr;
 
 class ActiveFormRequest extends FormRequest
 {
+    use DeleteableFileFieldsTrait;
+
+    protected const FILE_FIELDS_TYPE_SINGLE = 'FILE_FIELDS_TYPE_SINGLE';
+    protected const FILE_FIELDS_TYPE_MULTIPLE = 'FILE_FIELDS_TYPE_MULTIPLE';
+
     public Model $model;
 
     public function __construct()
@@ -51,6 +57,8 @@ class ActiveFormRequest extends FormRequest
     protected function passedValidation(): void
     {
         parent::passedValidation();
+
+        $this->deleteableFileFieldsProcess();
 
         if (in_array(SeoMetaFormRequestTrait::class, class_uses_recursive($this))) {
             $this->model->fillRelations(

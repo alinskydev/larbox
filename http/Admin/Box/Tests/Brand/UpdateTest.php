@@ -10,11 +10,10 @@ class UpdateTest extends _TestCase
             body: [
                 'name' => 'Brand 1',
                 'show_on_the_home_page' => 1,
-                'file' => $this->formHelper::file(),
-                'files_list' => [
-                    $this->formHelper::file(),
-                    $this->formHelper::file(),
-                ],
+                'file' => $this->formHelper::files(),
+                'file_old_keys' => '[0]',
+                'files_list' => $this->formHelper::files(quantity: 2),
+                'files_list_old_keys' => '[0, 1]',
 
                 'seo_meta' => $this->formHelper::seoMeta(),
             ],

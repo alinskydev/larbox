@@ -37,9 +37,14 @@ class BoxRequest extends ActiveFormRequest
             'price' => 'required|integer|min:0',
             'date' => 'required|date|date_format:' . LARBOX_FORMAT_DATE,
             'datetime' => 'required|date|date_format:' . LARBOX_FORMAT_DATETIME,
-            'image' => ValidationFileHelper::rules(ValidationFileHelper::CONFIG_IMAGE),
-            'images_list' => 'array',
-            'images_list.*' => ValidationFileHelper::rules(ValidationFileHelper::CONFIG_IMAGE),
+            ...$this->deleteableFileFieldsSingleValidation(
+                field: 'image',
+                config: ValidationFileHelper::CONFIG_IMAGE,
+            ),
+            ...$this->deleteableFileFieldsMultipleValidation(
+                field: 'images_list',
+                config: ValidationFileHelper::CONFIG_IMAGE,
+            ),
 
             'categories' => [
                 'required',
@@ -60,7 +65,10 @@ class BoxRequest extends ActiveFormRequest
 
             'variations' => 'array',
             'variations.*.id' => 'integer',
-            'variations.*.image' => ValidationFileHelper::rules(ValidationFileHelper::CONFIG_IMAGE),
+            ...$this->deleteableFileFieldsSingleValidation(
+                field: 'variations.*.image',
+                config: ValidationFileHelper::CONFIG_IMAGE,
+            ),
         ];
     }
 

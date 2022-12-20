@@ -21,19 +21,16 @@ class HomeTest extends _TestCase
                 'first_text_3' => 'Text 3',
                 'first_text_3_localized' => $this->formHelper::localized('Text 3'),
 
-                'second_image_desktop' => $this->formHelper::file(),
-                'second_image_tablet' => $this->formHelper::file(),
-                'second_image_mobile' => $this->formHelper::file(),
-                'second_images_list' => [
-                    $this->formHelper::file(),
-                    $this->formHelper::file(),
-                ],
+                'second_image_desktop' => $this->formHelper::files(),
+                'second_image_tablet' => $this->formHelper::files(),
+                'second_image_mobile' => $this->formHelper::files(),
+                'second_images_list' => $this->formHelper::files(quantity: 2),
 
                 'relations_1' => $this->formHelper::multiply(
                     range(1, 2),
                     fn ($index) => [
                         'text' => "Text $index",
-                        'image' => $this->formHelper::file(),
+                        'image' => $this->formHelper::files(),
                     ],
                 ),
 
@@ -41,11 +38,7 @@ class HomeTest extends _TestCase
                     range(1, 2),
                     fn ($index) => [
                         'text_localized' => $this->formHelper::localized("Text $index"),
-                        'images_list' => [
-                            $this->formHelper::file(),
-                            $this->formHelper::file(),
-                            $this->formHelper::file(),
-                        ],
+                        'images_list' => $this->formHelper::files(quantity: 2),
                     ],
                 ),
 

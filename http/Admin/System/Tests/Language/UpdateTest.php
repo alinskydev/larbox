@@ -9,7 +9,7 @@ class UpdateTest extends _TestCase
         $this->processUpdate(
             body: [
                 'name' => 'Русский',
-                'image' => $this->formHelper::file(),
+                'image' => $this->formHelper::files(),
             ],
         );
     }

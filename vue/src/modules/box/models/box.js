@@ -295,7 +295,7 @@ export default new Model({
                     file: {
                         previewPath: 'widen_500',
                         downloadPath: 'original',
-                        deleteUrl: 'box/box/:id/delete-file/image',
+                        showDelete: true,
                     },
                 },
                 size: Enums.inputSizes.xl,
@@ -307,7 +307,8 @@ export default new Model({
                     file: {
                         previewPath: 'widen_500',
                         downloadPath: 'original',
-                        deleteUrl: 'box/box/:id/delete-file/images_list/:index',
+                        showDelete: true,
+                        showDrag: true,
                     },
                 },
                 size: Enums.inputSizes.xl,
@@ -341,7 +342,8 @@ export default new Model({
                                 file: {
                                     previewPath: 'widen_500',
                                     downloadPath: 'original',
-                                    deleteUrl: 'box/variation/:id/delete-file/image',
+                                    showDelete: true,
+                                    showDrag: true,
                                 },
                             },
                             size: Enums.inputSizes.xl,

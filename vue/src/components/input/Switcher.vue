@@ -20,7 +20,7 @@ export default {
             type="checkbox"
             v-bind="$attrs"
             value="1"
-            :checked="item.value == 1 ? true : false"
+            :checked="item.value == 1"
             data-bootstrap-switch
             data-on-text="<i class='fas fa-check'></i>"
             data-off-text="<i class='fas fa-times'></i>"

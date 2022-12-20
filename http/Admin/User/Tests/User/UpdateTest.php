@@ -18,7 +18,8 @@ class UpdateTest extends _TestCase
                 'profile' => [
                     'full_name' => 'Moderator 1',
                     'phone' => '+998000000011',
-                    'image' => $this->formHelper::file(),
+                    'image' => $this->formHelper::files(),
+                    'image_old_keys' => '[0]',
                 ],
             ],
         );

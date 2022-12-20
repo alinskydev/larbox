@@ -11,8 +11,8 @@ class UpdateTest extends _TestCase
             body: [
                 'admin_email' => 'info@local.host',
                 'delete_old_files' => 0,
-                'favicon' => $this->formHelper::file(),
-                'logo' => $this->formHelper::file(),
+                'favicon' => $this->formHelper::files(),
+                'logo' => $this->formHelper::files(),
                 'project_name' => 'Larbox',
             ],
         );

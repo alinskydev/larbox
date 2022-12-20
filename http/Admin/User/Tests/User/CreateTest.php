@@ -17,7 +17,8 @@ class CreateTest extends _TestCase
                 'profile' => [
                     'full_name' => 'Moderator 2',
                     'phone' => '+998000000012',
-                    'image' => $this->formHelper::file(),
+                    'image' => $this->formHelper::files(),
+                    'image_old_keys' => '[]',
                 ],
             ],
             assertStatus: 201,

@@ -16,11 +16,9 @@ class AsFile implements CastsAttributes
 
     public function set($model, $key, $value, $attributes): mixed
     {
-        if (!$value) return null;
-
         $oldValue = $model->getRawOriginal($key);
 
-        if ($oldValue) FileHelper::delete(public_path($oldValue));
+        if ($oldValue && $value != $oldValue) FileHelper::delete(public_path($oldValue));
 
         return $value;
     }

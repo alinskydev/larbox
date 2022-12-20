@@ -17,7 +17,7 @@ class RegisterTest extends _TestCase
                 'profile' => [
                     'full_name' => 'Registered 3',
                     'phone' => '+998000000003',
-                    'image' => $this->formHelper::file(),
+                    'image' => $this->formHelper::files(),
                 ],
             ],
         );

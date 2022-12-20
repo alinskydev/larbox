@@ -26,9 +26,14 @@ class BrandRequest extends ActiveFormRequest
                 ),
             ],
             'show_on_the_home_page' => 'required|boolean',
-            'file' => ValidationFileHelper::rules(ValidationFileHelper::CONFIG_ALL),
-            'files_list' => 'array',
-            'files_list.*' => ValidationFileHelper::rules(ValidationFileHelper::CONFIG_ALL),
+            ...$this->deleteableFileFieldsSingleValidation(
+                field: 'file',
+                config: ValidationFileHelper::CONFIG_ALL,
+            ),
+            ...$this->deleteableFileFieldsMultipleValidation(
+                field: 'files_list',
+                config: ValidationFileHelper::CONFIG_ALL,
+            ),
         ];
     }
 }

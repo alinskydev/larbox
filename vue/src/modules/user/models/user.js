@@ -149,7 +149,7 @@ export default new Model({
                     file: {
                         previewPath: 'widen_500',
                         downloadPath: 'original',
-                        deleteUrl: 'user/user/:id/delete-file/image',
+                        showDelete: true,
                     },
                 },
                 size: Enums.inputSizes.xl,

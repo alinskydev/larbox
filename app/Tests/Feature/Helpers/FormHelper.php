@@ -12,12 +12,17 @@ class FormHelper
         return array_map(fn ($value) => "$string " . $value['code'], app('language')->all);
     }
 
-    public static function file(
+    public static function files(
         string $name = 'image.jpg',
         string $mime = 'image/jpeg',
         int $size = 100,
-    ): File {
-        return UploadedFile::fake()->create($name, $size, $mime);
+        int $quantity = 1,
+    ): File|array {
+        if ($quantity == 1) {
+            return UploadedFile::fake()->create($name, $size, $mime);
+        } else {
+            return array_map(fn ($value) => UploadedFile::fake()->create($name, $size, $mime), range(1, $quantity));
+        }
     }
 
     public static function seoMeta(): array

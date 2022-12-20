@@ -14,11 +14,10 @@ class CreateTest extends _TestCase
                 'price' => 9300,
                 'date' => date(LARBOX_FORMAT_DATE),
                 'datetime' => date(LARBOX_FORMAT_DATETIME),
-                'image' => $this->formHelper::file(),
-                'images_list' => [
-                    $this->formHelper::file(),
-                    $this->formHelper::file(),
-                ],
+                'image' => $this->formHelper::files(),
+                'image_old_keys' => '[]',
+                'images_list' => $this->formHelper::files(quantity: 2),
+                'images_list_old_keys' => '[]',
 
                 'categories' => [6, 8],
                 'tags' => [1, 2],
@@ -27,7 +26,8 @@ class CreateTest extends _TestCase
                     range(1, 2),
                     fn ($index) => [
                         'name' => $this->formHelper::localized("Variation $index"),
-                        'image' => $this->formHelper::file(),
+                        'image' => $this->formHelper::files(),
+                        'image_old_keys' => '[]',
                     ],
                 ),
 

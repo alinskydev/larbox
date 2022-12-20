@@ -51,7 +51,10 @@ class UserRequest extends ActiveFormRequest
 
             'profile.full_name' => 'required|string|max:255',
             'profile.phone' => 'nullable|string|max:255',
-            'profile.image' => ValidationFileHelper::rules(ValidationFileHelper::CONFIG_IMAGE),
+            ...$this->deleteableFileFieldsSingleValidation(
+                field: 'profile.image',
+                config: ValidationFileHelper::CONFIG_IMAGE,
+            ),
         ];
     }
 

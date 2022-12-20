@@ -41,7 +41,8 @@ export type inputParams = {
         file: {
             previewPath: string;
             downloadPath: string;
-            deleteUrl: string;
+            showDelete: boolean;
+            showDrag: boolean;
             willOverride: boolean;
         };
         select: {

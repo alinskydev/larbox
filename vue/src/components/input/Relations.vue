@@ -23,21 +23,13 @@ export default {
     },
     created() {
         for (let key in this.item.value) {
-            let idOrKey = this.item.value[key].id ?? key;
-
             this.items[key] = {
                 id: {
-                    name: this.item.name + '[' + idOrKey + '][id]',
-                    value: idOrKey,
+                    name: this.item.name + '[' + key + '][id]',
+                    value: this.item.value[key].id,
                     type: Enums.inputTypes.hidden,
                 },
-                fields: this.model.prepareRelationsInputs(
-                    this,
-                    this.fields,
-                    this.item.value[key],
-                    this.item.name,
-                    idOrKey,
-                ),
+                fields: this.model.prepareRelationsInputs(this, this.fields, this.item.value[key], this.item.name, key),
             };
         }
     },
@@ -113,7 +105,7 @@ export default {
                                     <td>
                                         <div class="inputs row">
                                             <template v-for="field in relationItem.fields">
-                                                <Input :item="field" :recordId="relationItem.id.value" />
+                                                <Input :item="field" />
                                             </template>
                                         </div>
                                     </td>

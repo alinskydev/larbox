@@ -83,7 +83,7 @@ class FormRequest extends BaseFormRequest
         }
     }
 
-    protected function saveFiles(): void
+    private function saveFiles(): void
     {
         $this->validatedData = Arr::dot($this->validatedData);
 

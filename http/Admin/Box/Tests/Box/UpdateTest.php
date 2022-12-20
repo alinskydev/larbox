@@ -14,11 +14,10 @@ class UpdateTest extends _TestCase
                 'price' => 2000,
                 'date' => date(LARBOX_FORMAT_DATE),
                 'datetime' => date(LARBOX_FORMAT_DATETIME),
-                'image' => $this->formHelper::file(),
-                'images_list' => [
-                    $this->formHelper::file(),
-                    $this->formHelper::file(),
-                ],
+                'image' => $this->formHelper::files(),
+                'image_old_keys' => '[0]',
+                'images_list' => $this->formHelper::files(quantity: 2),
+                'images_list_old_keys' => '[0, 1]',
 
                 'categories' => [6, 7],
                 'tags' => [1, 2],
@@ -28,7 +27,8 @@ class UpdateTest extends _TestCase
                     fn ($index) => [
                         'id' => $index,
                         'name' => $this->formHelper::localized("Variation $index"),
-                        'image' => $this->formHelper::file(),
+                        'image' => $this->formHelper::files(),
+                        'image_old_keys' => '[0]',
                     ],
                 ),
 

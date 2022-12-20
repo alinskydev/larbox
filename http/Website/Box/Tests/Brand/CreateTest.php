@@ -10,11 +10,8 @@ class CreateTest extends _TestCase
             body: [
                 'name' => 'Brand 4',
                 'show_on_the_home_page' => 1,
-                'file' => $this->formHelper::file(),
-                'files_list' => [
-                    $this->formHelper::file(),
-                    $this->formHelper::file(),
-                ],
+                'file' => $this->formHelper::files(),
+                'files_list' => $this->formHelper::files(quantity: 2),
             ],
             assertStatus: 201,
         );

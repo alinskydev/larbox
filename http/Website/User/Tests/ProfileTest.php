@@ -22,7 +22,7 @@ class ProfileTest extends _TestCase
                 'profile' => [
                     'full_name' => 'Registered 1',
                     'phone' => '+998000000001',
-                    'image' => $this->formHelper::file(),
+                    'image' => $this->formHelper::files(),
                 ],
             ],
         );

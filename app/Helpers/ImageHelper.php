@@ -11,9 +11,7 @@ class ImageHelper
 
     public static function thumbnail(string $sourceUrl, string $type, array $params): string
     {
-        if (!in_array($type, self::$availableThumbnailTypes)) {
-            throw new \Exception("Unavailable 'type'");
-        }
+        if (!in_array($type, self::$availableThumbnailTypes)) throw new \Exception("Unavailable 'type'");
 
         try {
             $sourceFile = public_path($sourceUrl);

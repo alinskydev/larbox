@@ -154,7 +154,7 @@ export default new Model({
                 type: Enums.inputTypes.file,
                 options: {
                     file: {
-                        deleteUrl: 'box/brand/:id/delete-file/file',
+                        showDelete: true,
                     },
                 },
                 size: Enums.inputSizes.xl,
@@ -164,7 +164,8 @@ export default new Model({
                 options: {
                     isMultiple: true,
                     file: {
-                        deleteUrl: 'box/brand/:id/delete-file/files_list/:index',
+                        showDelete: true,
+                        showDrag: true,
                     },
                 },
                 size: Enums.inputSizes.xl,

@@ -135,7 +135,7 @@ export class Model {
                 value = field.value ?? key;
 
             name = name.replaceAll('[', '][');
-            name = name.replace(new RegExp(']$'), '');
+            name = name.replace(/]$/, '');
             name = 'filter[' + name + ']';
 
             if (typeof value === 'function') {
@@ -200,17 +200,16 @@ export class Model {
         return result;
     }
 
-    prepareRelationsInputs(context, list, item, namePrefix, relationId) {
+    prepareRelationsInputs(context, list, item, namePrefix, relationKey) {
         let result = this.prepareInputs(context, list, item);
 
         for (let key in result) {
             let name = result[key].name;
 
             name = name.replace('[', '][');
-            name = name.replace(new RegExp(']$'), '');
+            name = name.replace(/]$/, '');
 
-            result[key].name = namePrefix + '[' + relationId + '][' + name + ']';
-            result[key].relationId = relationId;
+            result[key].name = namePrefix + '[' + relationKey + '][' + name + ']';
         }
 
         return result;

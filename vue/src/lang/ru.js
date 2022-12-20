@@ -70,7 +70,6 @@ export default {
 
     'routeActions': {
         'create': 'Создание',
-        'deleteFile': 'Удаление файлов',
         'delete': 'Удаление',
         'deleteAll': 'Множественное удаление',
         'file': 'Файл',

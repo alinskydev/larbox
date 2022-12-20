@@ -11,6 +11,8 @@ export default {
             options: this.item.options,
             inputOptions: this.item.options.file ?? {},
             items: [],
+            oldFilesName: null,
+            oldFiles: [],
             fileInputOptions: {
                 initialPreviewAsData: true,
                 showCaption: false,
@@ -29,8 +31,8 @@ export default {
                 removeIcon: '<i class="fas fa-trash-alt"></i>',
 
                 fileActionSettings: {
-                    showDrag: false,
-                    dragClass: 'text-primary',
+                    showDrag: Boolean(this.item.options.file?.showDrag),
+                    dragClass: 'btn text-primary m-0',
                     dragIcon: '<i class="fas fa-arrows-alt"></i>',
                     zoomClass: 'btn btn-info',
                     zoomIcon: '<i class="fas fa-search-plus"></i>',
@@ -48,45 +50,52 @@ export default {
                     close: '<i class="fas fa-times"></i>',
                 },
 
+                layoutTemplates: {
+                    actions: [
+                        '{drag}<div class="file-actions">',
+                        '<div class="file-footer-buttons">{zoom} {download}',
+                        this.item.options.file?.showDelete ? ' {delete}' : '',
+                        '</div></div>',
+                    ].join(''),
+                },
+
                 ajaxDeleteSettings: {
-                    type: 'DELETE',
-                    headers: this.booted.config.http.headers,
+                    type: 'GET',
                 },
             },
         };
     },
+    created() {
+        if (this.item.name.match(/]$/)) {
+            this.oldFilesName = this.item.name.replace(/]$/, '_old_keys]');
+        } else {
+            this.oldFilesName = this.item.name + '_old_keys';
+        }
+
+        if (this.item.value) {
+            this.oldFiles = this.item.options.isMultiple ? Object.keys(this.item.value) : ['0'];
+        } else {
+            this.oldFiles = [];
+        }
+    },
     mounted() {
         this.collectItems();
 
-        let layoutTemplates = {
-            actions:
-                '{drag}<div class="file-actions">' +
-                '<div class="file-footer-buttons">{zoom} {download} {delete}</div>' +
-                '</div>',
-        };
-
-        if (!this.inputOptions.deleteUrl) {
-            layoutTemplates.actions = layoutTemplates.actions.replace('{delete}', '');
-        }
-
-        this.fileInputOptions.layoutTemplates = layoutTemplates;
         this.fileInputOptions.initialPreview = this.items.map((value, key) => value.previewUrl);
         this.fileInputOptions.initialPreviewConfig = this.items;
 
         $('#' + this.item.id).fileinput(this.fileInputOptions);
 
         $('#' + this.item.id).on('filedeleted', (event, key) => {
-            if (this.options.isMultiple) {
-                this.item.value.splice(key, 1);
-                this.collectItems();
+            let oldKey = this.oldFiles.indexOf(key.toString());
+            if (oldKey !== -1) this.oldFiles.splice(oldKey, 1);
 
-                this.fileInputOptions.initialPreview = this.items.map((value, key) => value.previewUrl);
-                this.fileInputOptions.initialPreviewConfig = this.items;
+            this.$forceUpdate();
+        });
 
-                $('#' + this.item.id)
-                    .fileinput('destroy')
-                    .fileinput(this.fileInputOptions);
-            }
+        $('#' + this.item.id).on('filesorted', (event, params) => {
+            this.oldFiles = params.stack.map((value) => value.key);
+            this.$forceUpdate();
         });
     },
     methods: {
@@ -102,13 +111,7 @@ export default {
 
             for (let key in value) {
                 let file = value[key],
-                    deleteUrl = this.inputOptions.deleteUrl;
-
-                if (deleteUrl) {
-                    deleteUrl = deleteUrl.replace(':id', this.item.relationId ?? this.$route.params.id).replace(':index', key);
-                }
-
-                let downloadUrl = this.inputOptions.downloadPath ? file[this.inputOptions.downloadPath] : file,
+                    downloadUrl = this.inputOptions.downloadPath ? file[this.inputOptions.downloadPath] : file,
                     fileInfo = this.booted.helpers.file.info(downloadUrl);
 
                 items[key] = {
@@ -118,7 +121,7 @@ export default {
                     filetype: fileInfo.mimeType,
                     previewUrl: this.inputOptions.previewPath ? file[this.inputOptions.previewPath] : file,
                     downloadUrl: downloadUrl,
-                    url: this.booted.config.http.url + '/' + deleteUrl,
+                    url: this.booted.config.http.url + '/../common/empty',
                 };
             }
 
@@ -129,5 +132,7 @@ export default {
 </script>
 
 <template>
-    <input type="file" :multiple="options.isMultiple" />
+    <input v-bind="$attrs" type="file" :multiple="options.isMultiple" />
+
+    <input type="hidden" :name="oldFilesName" :value="'[' + oldFiles + ']'" />
 </template>
