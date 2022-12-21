@@ -12,6 +12,7 @@ use Modules\Section\Enums\SectionEnums;
 class SectionController extends Controller
 {
     public Section $model;
+
     private array $config;
 
     public function __construct()
@@ -26,8 +27,14 @@ class SectionController extends Controller
 
     public function show(): JsonResponse
     {
-        $response = $this->config['resource']::make($this->model->blocks);
-        $response['updated_at'] = $this->model->updated_at->format(LARBOX_FORMAT_DATETIME);
+        $response = array_merge(
+            $this->config['resource']::make($this->model->blocks)->resolve(),
+            [
+                'updated_at' => $this->model->updated_at->format(LARBOX_FORMAT_DATETIME),
+                'seo_meta' => $this->model->seo_meta,
+                'seo_meta_as_array' => $this->model->seo_meta_as_array,
+            ],
+        );
 
         return response()->json($response, 200);
     }

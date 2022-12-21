@@ -65,8 +65,14 @@ class SystemController extends Controller
         $sections = Section::query()->with(['seo_meta_morph'])->orderBy('name')->get()->keyBy('name');
 
         return $sections
-            ->map(function ($value, $key) use ($sectionConfigs) {
-                return $sectionConfigs[$key]['resource']::make($value->blocks);
+            ->map(function ($section, $key) use ($sectionConfigs) {
+                return array_merge(
+                    $sectionConfigs[$key]['resource']::make($section->blocks)->resolve(),
+                    [
+                        'seo_meta' => $section->seo_meta,
+                        'seo_meta_as_array' => $section->seo_meta_as_array,
+                    ],
+                );
             })
             ->toArray();
     }

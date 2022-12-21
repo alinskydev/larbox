@@ -39,6 +39,7 @@ class UserRequest extends ActiveFormRequest
             ],
             'new_password' => [
                 Rule::requiredIf(!$this->model->exists),
+                'present',
                 'nullable',
                 'string',
                 'min:8',
@@ -46,11 +47,12 @@ class UserRequest extends ActiveFormRequest
             ],
             'new_password_confirmation' => [
                 Rule::requiredIf(strlen($this->new_password) > 0),
+                'present',
                 'same:new_password',
             ],
 
             'profile.full_name' => 'required|string|max:255',
-            'profile.phone' => 'nullable|string|max:255',
+            'profile.phone' => 'present|nullable|string|max:255',
             ...$this->deleteableFileFieldsSingleValidation(
                 field: 'profile.image',
                 config: ValidationFileHelper::CONFIG_IMAGE,

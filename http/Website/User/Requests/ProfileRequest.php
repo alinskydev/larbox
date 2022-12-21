@@ -36,14 +36,14 @@ class ProfileRequest extends ActiveFormRequest
                 'max:255',
                 Rule::unique($this->model->getTable())->ignore($this->model->id),
             ],
-            'new_password' => 'nullable|string|min:8,max:255',
+            'new_password' => 'present|nullable|string|min:8,max:255',
             'new_password_confirmation' => [
                 Rule::requiredIf(strlen($this->new_password) > 0),
                 'same:new_password',
             ],
 
             'profile.full_name' => 'required|string|max:255',
-            'profile.phone' => 'nullable|string|max:255',
+            'profile.phone' => 'present|nullable|string|max:255',
             'profile.image' => ValidationFileHelper::rules(ValidationFileHelper::CONFIG_IMAGE),
         ];
     }
