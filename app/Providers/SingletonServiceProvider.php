@@ -10,12 +10,7 @@ class SingletonServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
-        $this->app->singleton('settings', fn ($app) => new SettingsSingleton());
-        $this->app->singleton('language', fn ($app) => new LanguageSingleton());
-
-        try {
-            app('language');
-        } catch (\Throwable $e) {
-        }
+        $this->app->singleton('language', LanguageSingleton::class);
+        $this->app->singleton('settings', SettingsSingleton::class);
     }
 }

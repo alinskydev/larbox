@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Feature;
+namespace App\Testing\Feature;
 
 use Illuminate\Foundation\Application;
 use Illuminate\Contracts\Console\Kernel;

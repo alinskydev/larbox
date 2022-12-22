@@ -6,7 +6,7 @@ use Illuminate\Support\Str;
 
 class SeederHelper
 {
-    public static function localized(string $string, bool $hasLanguageSuffix = true): string
+    public static function localized(?string $string, bool $hasLanguageSuffix = true): string
     {
         $languages = config('larbox.languages');
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Tests\Feature\Traits;
+namespace App\Testing\Feature\Traits;
 
-use App\Tests\Feature\PostmanTestCase;
+use App\Testing\Feature\PostmanTestCase;
 use App\Base\Search;
 
 trait IndexFeatureTestTrait

@@ -16,7 +16,7 @@ class BrandController extends ResourceController
 {
     public function __construct()
     {
-        app()->bind(Brand::class, fn () => (new Brand())->setRouteKeyName('slug'));
+        Brand::setRouteKeyName('slug');
 
         Brand::addGlobalScope(new UserScope('creator_id'));
 

@@ -2,7 +2,7 @@
 
 namespace Http\Admin\User\Tests\Notification;
 
-use App\Tests\Feature\Traits\IndexFeatureTestTrait;
+use App\Testing\Feature\Traits\IndexFeatureTestTrait;
 use Modules\User\Search\NotificationSearch;
 
 class IndexTest extends _TestCase

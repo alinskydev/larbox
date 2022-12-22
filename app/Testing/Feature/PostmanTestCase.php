@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Feature;
+namespace App\Testing\Feature;
 
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Testing\TestResponse;
@@ -8,7 +8,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Http\Testing\File;
 
-use App\Tests\Feature\Traits\ActionFeatureTestTrait;
+use App\Testing\Feature\Traits\ActionFeatureTestTrait;
 
 abstract class PostmanTestCase extends BaseTestCase
 {

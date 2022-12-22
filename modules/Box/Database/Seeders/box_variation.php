@@ -18,7 +18,7 @@ return new class extends Seeder
             [
                 'box_id' => 1,
                 'name' => SeederHelper::localized('Variation 2'),
-                'image' => '/test_data/images/2.png',
+                'image' => null,
                 'sort_index' => 1,
             ],
         ]);

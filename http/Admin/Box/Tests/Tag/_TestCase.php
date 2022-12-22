@@ -2,7 +2,7 @@
 
 namespace Http\Admin\Box\Tests\Tag;
 
-use App\Tests\Feature\PostmanTestCase;
+use App\Testing\Feature\PostmanTestCase;
 use Modules\Box\Search\TagSearch;
 
 class _TestCase extends PostmanTestCase

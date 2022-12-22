@@ -2,7 +2,7 @@
 
 namespace Http\Website\Box\Tests\Brand;
 
-use App\Tests\Feature\Traits\IndexFeatureTestTrait;
+use App\Testing\Feature\Traits\IndexFeatureTestTrait;
 use Modules\Box\Search\BrandSearch;
 
 class IndexTest extends _TestCase

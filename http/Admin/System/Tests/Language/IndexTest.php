@@ -2,7 +2,7 @@
 
 namespace Http\Admin\System\Tests\Language;
 
-use App\Tests\Feature\Traits\IndexFeatureTestTrait;
+use App\Testing\Feature\Traits\IndexFeatureTestTrait;
 use Modules\System\Search\LanguageSearch;
 
 class IndexTest extends _TestCase

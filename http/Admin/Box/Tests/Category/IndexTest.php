@@ -2,7 +2,7 @@
 
 namespace Http\Admin\Box\Tests\Category;
 
-use App\Tests\Feature\Traits\IndexFeatureTestTrait;
+use App\Testing\Feature\Traits\IndexFeatureTestTrait;
 use Modules\Box\Search\CategorySearch;
 
 class IndexTest extends _TestCase

@@ -2,7 +2,7 @@
 
 namespace Http\Admin\User\Tests\Role;
 
-use App\Tests\Feature\Traits\IndexFeatureTestTrait;
+use App\Testing\Feature\Traits\IndexFeatureTestTrait;
 use Modules\User\Search\RoleSearch;
 
 class IndexTest extends _TestCase

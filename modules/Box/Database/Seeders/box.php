@@ -30,11 +30,11 @@ return new class extends Seeder
                 'brand_id' => 1,
                 'name' => SeederHelper::localized('Box 2'),
                 'slug' => SeederHelper::slug('Box 2'),
-                'description' => SeederHelper::localized('Description 2'),
+                'description' => SeederHelper::localized(null, false),
                 'price' => 5500,
                 'date' => date('Y-m-d'),
                 'datetime' => date('Y-m-d H:i:00'),
-                'image' => '/test_data/images/3.png',
+                'image' => null,
                 'images_list' => json_encode([
                     '/test_data/images/1.png',
                 ]),

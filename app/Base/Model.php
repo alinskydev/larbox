@@ -12,7 +12,7 @@ class Model extends BaseModel
     use ModelSafelyTrait;
     use ModelRelationsTrait;
 
-    protected string $routeKeyName;
+    protected static string $routeKeyName;
 
     public function __construct(array $attributes = [])
     {
@@ -50,12 +50,11 @@ class Model extends BaseModel
 
     public function getRouteKeyName(): string
     {
-        return $this->routeKeyName ?? $this->getKeyName();
+        return static::$routeKeyName ?? parent::getRouteKeyName();
     }
 
-    public function setRouteKeyName(string $name): static
+    public static function setRouteKeyName(string $name): void
     {
-        $this->routeKeyName = $name;
-        return $this;
+        static::$routeKeyName = $name;
     }
 }

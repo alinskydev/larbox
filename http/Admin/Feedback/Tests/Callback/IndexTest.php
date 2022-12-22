@@ -2,7 +2,7 @@
 
 namespace Http\Admin\Feedback\Tests\Callback;
 
-use App\Tests\Feature\Traits\IndexFeatureTestTrait;
+use App\Testing\Feature\Traits\IndexFeatureTestTrait;
 use Modules\Feedback\Search\CallbackSearch;
 
 class IndexTest extends _TestCase

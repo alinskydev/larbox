@@ -23,11 +23,8 @@ class SystemController extends Controller
             'languages' => app('language'),
             'enums' => $this->enums(),
             'sections' => $this->sections(),
+            'translations' => $this->translations(),
         ];
-
-        if (request()->get('show-all')) {
-            $response['translations'] = $this->translations();
-        }
 
         return response()->json($response, 200);
     }

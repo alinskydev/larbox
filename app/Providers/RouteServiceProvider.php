@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Route;
 
 class RouteServiceProvider extends ServiceProvider
 {
-    public const HOME = '/home';
+    public const HOME = '/';
 
     public function boot(): void
     {
@@ -33,8 +33,6 @@ class RouteServiceProvider extends ServiceProvider
 
         Route::pattern('id', '[0-9]+');
         Route::pattern('index', '[0-9]+');
-
-        parent::boot();
     }
 
     protected function configureRateLimiting(): void

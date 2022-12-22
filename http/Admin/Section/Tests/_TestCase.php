@@ -2,7 +2,7 @@
 
 namespace Http\Admin\Section\Tests;
 
-use App\Tests\Feature\PostmanTestCase;
+use App\Testing\Feature\PostmanTestCase;
 
 class _TestCase extends PostmanTestCase
 {

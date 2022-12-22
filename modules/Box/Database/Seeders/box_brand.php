@@ -13,11 +13,11 @@ return new class extends Seeder
                 'creator_id' => 1,
                 'name' => 'Brand 1',
                 'slug' => SeederHelper::slug('Brand 1', false),
-                'file' => '/test_data/images/1.png',
+                'file' => '/test_data/media/webp.webp',
                 'files_list' => json_encode([
                     '/test_data/media/music.mp3',
                     '/test_data/media/video.mp4',
-                    '/test_data/images/2.png',
+                    '/test_data/images/1.png',
                 ]),
                 'show_on_the_home_page' => 1,
                 'is_active' => 1,
@@ -28,7 +28,7 @@ return new class extends Seeder
                 'creator_id' => 3,
                 'name' => 'Brand 2',
                 'slug' => SeederHelper::slug('Brand 2', false),
-                'file' => '/test_data/media/webp.webp',
+                'file' => null,
                 'files_list' => json_encode([
                     '/test_data/media/svg_html.svg',
                     '/test_data/media/svg_image.svg',
