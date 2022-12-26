@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Middleware;
+namespace Modules\User\Middleware;
 
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Modules\User\Helpers\RoleHelper;
 use Illuminate\Support\Str;
 
-class UserRole
+class RoleMiddleware
 {
     public function handle(Request $request, \Closure $next): Response
     {

@@ -63,7 +63,7 @@ class Kernel extends HttpKernel
         'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'user.role' => \App\Http\Middleware\UserRole::class,
+        'user.role' => \Modules\User\Middleware\RoleMiddleware::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
     ];
 
@@ -76,7 +76,7 @@ class Kernel extends HttpKernel
      */
     protected $middlewarePriority = [
         \App\Http\Middleware\AuthenticateOnceWithBasicAuth::class,
-        \App\Http\Middleware\UserRole::class,
+        \Modules\User\Middleware\RoleMiddleware::class,
         \Illuminate\Routing\Middleware\SubstituteBindings::class,
     ];
 }
