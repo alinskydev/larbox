@@ -44,7 +44,7 @@ class ImageHelper
                 if ($method != 'original') $image->{$method}(...$params);
                 if ($asWebp) $image->encode('webp', 100);
 
-                $image->save($thumbFile);
+                $image->save($thumbFile, 100);
             }
 
             return $thumbUrl;
