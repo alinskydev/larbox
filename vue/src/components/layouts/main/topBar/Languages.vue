@@ -29,7 +29,7 @@ export default {
         <div class="dropdown-menu dropdown-menu-right p-0">
             <template v-for="(item, key, index) in items">
                 <a :href="item.url" :class="'dropdown-item py-2 ' + (key === booted.locale ? 'active' : '')">
-                    <img :src="item.image?.widen_30" class="mr-2" />
+                    <img :src="item.image?.widen_30.webp" class="mr-2" />
                     {{ item.name }}
                 </a>
             </template>

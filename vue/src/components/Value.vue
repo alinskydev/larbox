@@ -22,7 +22,12 @@ export default {
     },
     created() {
         this.item.id = 'el-' + this.booted.helpers.string.uniqueId();
-        this.item.attributes = typeof this.item.attributes === 'function' ? this.item.attributes(this, this.item) : this.item.attributes;
+
+        if (typeof this.item.attributes === 'function') {
+            this.item.attributes = this.item.attributes(this, this.item);
+        } else {
+            this.item.attributes = this.item.attributes;
+        }
     },
 };
 </script>
@@ -97,7 +102,9 @@ export default {
 
     <template v-else-if="item.type === Enums.valueTypes.websiteLink">
         <a
-            :href="booted.config.http.websiteUrl + '/' + booted.locale + '/' + item.options.websiteLink.replace(':value', item.value)"
+            :href="
+                booted.config.http.websiteUrl + '/' + booted.locale + '/' + item.options.websiteLink.replace(':value', item.value)
+            "
             target="_blank"
         >
             {{ item.value }}

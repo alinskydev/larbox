@@ -44,8 +44,8 @@ export default new Model({
                 type: Enums.inputTypes.file,
                 options: {
                     file: {
-                        previewPath: 'widen_500',
-                        downloadPath: 'original',
+                        previewPath: 'widen_500.webp',
+                        downloadPath: 'original.raw',
                         willOverride: true,
                     },
                 },
@@ -55,8 +55,8 @@ export default new Model({
                 type: Enums.inputTypes.file,
                 options: {
                     file: {
-                        previewPath: 'widen_500',
-                        downloadPath: 'original',
+                        previewPath: 'widen_500.webp',
+                        downloadPath: 'original.raw',
                         willOverride: true,
                     },
                 },
@@ -66,8 +66,8 @@ export default new Model({
                 type: Enums.inputTypes.file,
                 options: {
                     file: {
-                        previewPath: 'widen_500',
-                        downloadPath: 'original',
+                        previewPath: 'widen_500.webp',
+                        downloadPath: 'original.raw',
                         willOverride: true,
                     },
                 },
@@ -78,8 +78,8 @@ export default new Model({
                 options: {
                     isMultiple: true,
                     file: {
-                        previewPath: 'widen_500',
-                        downloadPath: 'original',
+                        previewPath: 'widen_500.webp',
+                        downloadPath: 'original.raw',
                         willOverride: true,
                     },
                 },
@@ -99,8 +99,8 @@ export default new Model({
                             type: Enums.inputTypes.file,
                             options: {
                                 file: {
-                                    previewPath: 'widen_500',
-                                    downloadPath: 'original',
+                                    previewPath: 'widen_500.webp',
+                                    downloadPath: 'original.raw',
                                     willOverride: true,
                                 },
                             },
@@ -127,8 +127,8 @@ export default new Model({
                             options: {
                                 isMultiple: true,
                                 file: {
-                                    previewPath: 'widen_500',
-                                    downloadPath: 'original',
+                                    previewPath: 'widen_500.webp',
+                                    downloadPath: 'original.raw',
                                     willOverride: true,
                                 },
                             },

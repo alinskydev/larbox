@@ -30,7 +30,7 @@ export default {
                     hasSoftDelete: true,
                 },
                 selection: {
-                    actions: ['deleteAll'],
+                    actions: ['deleteMultiple'],
                 },
             }),
         };

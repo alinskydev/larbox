@@ -7,21 +7,30 @@ use Intervention\Image\ImageManagerStatic;
 
 class ImageHelper
 {
-    private static array $availableThumbnailTypes = ['crop', 'fit', 'resize', 'widen'];
+    private static array $availableThumbnailMethods = ['original', 'crop', 'fit', 'resize', 'widen'];
 
-    public static function thumbnail(string $sourceUrl, string $type, array $params): string
-    {
-        if (!in_array($type, self::$availableThumbnailTypes)) throw new \Exception("Unavailable 'type'");
+    public static function thumbnail(
+        string $sourceUrl,
+        string $method,
+        array $params = [],
+        bool $asWebp = false,
+    ): string {
+        if (!in_array($method, self::$availableThumbnailMethods)) throw new \Exception("Unavailable 'method'");
 
         try {
             $sourceFile = public_path($sourceUrl);
 
             if (!is_file($sourceFile)) throw new \Exception('File not exists');
 
-            $extension = pathinfo($sourceFile, PATHINFO_EXTENSION);
-            $extension = mb_strtolower($extension);
+            if ($asWebp) {
+                $extension = 'webp';
+            } else {
+                $extension = pathinfo($sourceFile, PATHINFO_EXTENSION);
+                $extension = mb_strtolower($extension);
+            }
 
-            $thumbPath = "storage/thumbs/$type/" . implode('x', $params);
+            $thumbPath = "storage/thumbs/$method";
+            $thumbPath .= $params ? '/' . implode('x', $params) : '';
             $thumbName = md5(filemtime($sourceFile) . File::basename($sourceFile)) . ".$extension";
 
             $thumbFile = public_path("$thumbPath/$thumbName");
@@ -31,7 +40,10 @@ class ImageHelper
                 File::makeDirectory(public_path($thumbPath), 0777, true, true);
 
                 $image = ImageManagerStatic::make($sourceFile);
-                $image->{$type}(...$params);
+
+                if ($method != 'original') $image->{$method}(...$params);
+                if ($asWebp) $image->encode('webp', 100);
+
                 $image->save($thumbFile);
             }
 
@@ -44,23 +56,33 @@ class ImageHelper
     public static function populateSizes(string $url, array $sizes): array
     {
         $result = [
-            'original' => asset($url),
+            'original' => [
+                'raw' => asset($url),
+                'webp' => asset(self::thumbnail(
+                    sourceUrl: $url,
+                    method: 'original',
+                    asWebp: true,
+                )),
+            ],
         ];
 
+        $types = ['raw' => false, 'webp' => true];
+
         foreach ($sizes as $size) {
-            $sizeParams = explode('_', $size);
+            foreach ($types as $type => $asWebp) {
+                $sizeParams = explode('_', $size);
 
-            $thumb = self::thumbnail($url, array_shift($sizeParams), $sizeParams);
-            $thumb = asset($thumb);
+                $thumb = self::thumbnail(
+                    sourceUrl: $url,
+                    method: array_shift($sizeParams),
+                    params: $sizeParams,
+                    asWebp: $asWebp,
+                );
 
-            $result[$size] = asset($thumb);
+                $result[$size][$type] = asset($thumb);
+            }
         }
 
         return $result;
-    }
-
-    public static function clearSizes(array $urls): string
-    {
-        return str_replace(asset(''), '/', $urls['original']);
     }
 }

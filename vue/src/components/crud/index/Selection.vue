@@ -34,8 +34,8 @@ export default {
                 $('.crud-index-data .actions').fadeOut(100);
             }
         },
-        deleteAllAction() {
-            this.sendRequest(this.config.http.path + '/delete/all?_method=DELETE', (selection) => {
+        deleteMultipleAction() {
+            this.sendRequest(this.config.http.path + '/delete/multiple?_method=DELETE', (selection) => {
                 for (let key in this.$parent.$data.items) {
                     let item = this.$parent.$data.items[key];
 
@@ -45,8 +45,8 @@ export default {
                 }
             });
         },
-        restoreAllAction() {
-            this.sendRequest(this.config.http.path + '/restore/all?_method=DELETE', (selection) => {
+        restoreMultipleAction() {
+            this.sendRequest(this.config.http.path + '/restore/multiple?_method=DELETE', (selection) => {
                 for (let key in this.$parent.$data.items) {
                     let item = this.$parent.$data.items[key];
 
@@ -58,7 +58,9 @@ export default {
         },
         sendRequest(path, callback) {
             let formData = new FormData(),
-                selection = Array.from(document.querySelectorAll('.crud-index-data tbody .selection:checked'), (e) => parseInt(e.value));
+                selection = Array.from(document.querySelectorAll('.crud-index-data tbody .selection:checked'), (e) =>
+                    parseInt(e.value),
+                );
 
             for (let key in selection) {
                 formData.append('selection[]', selection[key]);
@@ -104,28 +106,28 @@ export default {
                 <template v-for="action in config.selection.actions">
                     <button
                         v-if="
-                            action === 'deleteAll' &&
+                            action === 'deleteMultiple' &&
                             !$route.query['show[deleted]'] &&
-                            booted.helpers.user.checkRoute(booted.components.app, pathPrefix + '/deleteAll')
+                            booted.helpers.user.checkRoute(booted.components.app, pathPrefix + '/deleteMultiple')
                         "
                         class="btn btn-danger btn-block text-left"
-                        @click="deleteAllAction"
+                        @click="deleteMultipleAction"
                     >
                         <i class="fas fa-trash-alt mr-1"></i>
-                        {{ __('routeActions->deleteAll') }}
+                        {{ __('routeActions->deleteMultiple') }}
                     </button>
 
                     <button
                         v-if="
-                            action === 'deleteAll' &&
+                            action === 'deleteMultiple' &&
                             $route.query['show[deleted]'] === 'only-deleted' &&
-                            booted.helpers.user.checkRoute(booted.components.app, pathPrefix + '/restoreAll')
+                            booted.helpers.user.checkRoute(booted.components.app, pathPrefix + '/restoreMultiple')
                         "
                         class="btn btn-success btn-block text-left"
-                        @click="restoreAllAction"
+                        @click="restoreMultipleAction"
                     >
                         <i class="fas fa-trash-restore mr-1"></i>
-                        {{ __('routeActions->restoreAll') }}
+                        {{ __('routeActions->restoreMultiple') }}
                     </button>
                 </template>
             </div>

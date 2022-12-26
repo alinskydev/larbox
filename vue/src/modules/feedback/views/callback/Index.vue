@@ -28,7 +28,7 @@ export default {
                     actions: ['show', 'delete'],
                 },
                 selection: {
-                    actions: ['deleteAll'],
+                    actions: ['deleteMultiple'],
                 },
             }),
         };

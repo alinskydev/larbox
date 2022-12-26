@@ -3,6 +3,7 @@
 namespace Http\Admin\User\Requests;
 
 use App\Base\FormRequest;
+use Modules\User\Models\Notification;
 
 use Illuminate\Validation\Rule;
 
@@ -14,7 +15,10 @@ class NotificationRequest extends FormRequest
             'user_query' => 'present|nullable|string|max:1000',
             'type' => [
                 'required',
-                Rule::in(['message', 'announcement']),
+                Rule::in([
+                    Notification::TYPE_ANNOUNCEMENT,
+                    Notification::TYPE_MESSAGE,
+                ]),
             ],
             'text' => 'required|string',
         ];

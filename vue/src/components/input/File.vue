@@ -84,19 +84,18 @@ export default {
         this.fileInputOptions.initialPreview = this.items.map((value, key) => value.previewUrl);
         this.fileInputOptions.initialPreviewConfig = this.items;
 
-        $('#' + this.item.id).fileinput(this.fileInputOptions);
+        $('#' + this.item.id)
+            .fileinput(this.fileInputOptions)
+            .on('filesorted', (event, params) => {
+                this.oldFiles = params.stack.map((value) => value.key);
+                this.$forceUpdate();
+            })
+            .on('filedeleted', (event, key) => {
+                let oldKey = this.oldFiles.indexOf(key.toString());
+                if (oldKey !== -1) this.oldFiles.splice(oldKey, 1);
 
-        $('#' + this.item.id).on('filedeleted', (event, key) => {
-            let oldKey = this.oldFiles.indexOf(key.toString());
-            if (oldKey !== -1) this.oldFiles.splice(oldKey, 1);
-
-            this.$forceUpdate();
-        });
-
-        $('#' + this.item.id).on('filesorted', (event, params) => {
-            this.oldFiles = params.stack.map((value) => value.key);
-            this.$forceUpdate();
-        });
+                this.$forceUpdate();
+            });
     },
     methods: {
         collectItems() {
@@ -111,7 +110,7 @@ export default {
 
             for (let key in value) {
                 let file = value[key],
-                    downloadUrl = this.inputOptions.downloadPath ? file[this.inputOptions.downloadPath] : file,
+                    downloadUrl = this.booted.helpers.iterator.get(file, this.inputOptions.downloadPath),
                     fileInfo = this.booted.helpers.file.info(downloadUrl);
 
                 items[key] = {
@@ -119,7 +118,7 @@ export default {
                     caption: this.__('Файл №:index', { index: parseInt(key) + 1 }),
                     type: fileInfo.type ?? 'html',
                     filetype: fileInfo.mimeType,
-                    previewUrl: this.inputOptions.previewPath ? file[this.inputOptions.previewPath] : file,
+                    previewUrl: this.booted.helpers.iterator.get(file, this.inputOptions.previewPath),
                     downloadUrl: downloadUrl,
                     url: this.booted.config.http.url + '/../common/empty',
                 };

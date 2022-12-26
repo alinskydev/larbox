@@ -50,7 +50,7 @@ export default {
                     <div :class="'input-wrapper form-group ' + (item.options.size ?? Enums.inputSizes.md)">
                         <label v-if="item.label" :for="inputAttrs['id'].replace(':locale', language.code)" v-html="item.label" />
                         |
-                        <img :src="language.image?.widen_30" class="align-text-bottom ml-1" />
+                        <img :src="language.image?.widen_30.webp" class="align-text-bottom ml-1" />
 
                         <slot
                             :inputAttrs="{

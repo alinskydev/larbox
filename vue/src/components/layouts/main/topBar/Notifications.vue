@@ -16,6 +16,7 @@ export default {
                 path: 'user/notification',
                 query: {
                     'filter[is_seen]': 0,
+                    'page-size': 1,
                 },
             })
             .then((response) => {

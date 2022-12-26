@@ -37,6 +37,8 @@ return new class extends Seeder
                 'image' => null,
                 'images_list' => json_encode([
                     '/test_data/images/1.png',
+                    '/test_data/logo.png',
+                    '/test_data/media/svg_image.svg',
                 ]),
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),

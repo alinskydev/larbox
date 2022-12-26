@@ -26,8 +26,8 @@ export default new Model({
                 type: Enums.inputTypes.file,
                 options: {
                     file: {
-                        previewPath: 'widen_500',
-                        downloadPath: 'original',
+                        previewPath: 'widen_500.webp',
+                        downloadPath: 'original.raw',
                     },
                 },
                 size: Enums.inputSizes.xl,

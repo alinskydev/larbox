@@ -3,8 +3,7 @@
 namespace Modules\User\Jobs;
 
 use App\Base\Job;
-use Illuminate\Support\Facades\DB;
-
+use Modules\User\Helpers\NotificationHelper;
 use Modules\User\Models\User;
 use Modules\User\Search\UserSearch;
 
@@ -36,21 +35,16 @@ class NotificationCreateJob extends Job
                 ->filter($filter)
                 ->show($show);
 
-            $ids = $search->query->get('id')->pluck('id')->toArray();
+            $userIds = $search->query->get('id')->pluck('id')->toArray();
 
-            $insertData = array_map(fn ($value) => [
-                'creator_id' => $this->creatorId,
-                'owner_id' => $value,
-                'type' => $this->data['type'],
-                'params' => json_encode([
+            NotificationHelper::insertMultiple(
+                ownerIds: $userIds,
+                type: $this->data['type'],
+                params: [
                     'text' => $this->data['text'],
-                ]),
-                'created_at' => date('Y-m-d H:i:s'),
-            ], $ids);
-
-            if ($insertData) {
-                DB::table('user_notification')->insert($insertData);
-            }
+                ],
+                creatorId: $this->creatorId,
+            );
         } catch (\Throwable $e) {
             $this->release(60 * 30);
             return;

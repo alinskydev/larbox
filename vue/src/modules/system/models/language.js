@@ -5,7 +5,7 @@ export default new Model({
     index: {
         image: {
             label: null,
-            value: 'image.widen_100',
+            value: 'image.widen_100.webp',
             type: Enums.valueTypes.image,
         },
         id: {
@@ -119,7 +119,7 @@ export default new Model({
             type: Enums.valueTypes.text,
         },
         image: {
-            value: 'image.widen_100',
+            value: 'image.widen_100.webp',
             type: Enums.valueTypes.image,
         },
         is_active: {
@@ -145,8 +145,8 @@ export default new Model({
                 type: Enums.inputTypes.file,
                 options: {
                     file: {
-                        previewPath: 'widen_500',
-                        downloadPath: 'original',
+                        previewPath: 'widen_500.webp',
+                        downloadPath: 'original.raw',
                     },
                 },
                 size: Enums.inputSizes.xl,

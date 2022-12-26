@@ -8,6 +8,10 @@ use Modules\User\Scopes\UserScope;
 
 class Notification extends Model
 {
+    public const TYPE_ANNOUNCEMENT = 'announcement';
+    public const TYPE_FEEDBACK_CALLBACK_CREATED = 'feedback_callback_created';
+    public const TYPE_MESSAGE = 'message';
+
     const UPDATED_AT = null;
 
     protected $table = 'user_notification';
@@ -36,9 +40,5 @@ class Notification extends Model
         parent::boot();
 
         self::addGlobalScope(new UserScope('owner_id'));
-
-        static::creating(function (self $model) {
-            $model->creator_id ??= auth()->user()->id;
-        });
     }
 }

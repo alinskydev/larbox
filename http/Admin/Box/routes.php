@@ -26,7 +26,7 @@ Route::prefix('box')
                     ->name('setActive');
             });
 
-        Route::apiResource('category', CategoryController::class)->except(['deleteAll', 'restoreAll']);
+        Route::apiResource('category', CategoryController::class)->except(['deleteMultiple', 'restoreMultiple']);
         Route::get('category-tree', [CategoryController::class, 'tree'])->name('category.tree');
         Route::patch('category-move', [CategoryController::class, 'move'])->name('category.move');
 

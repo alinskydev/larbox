@@ -75,7 +75,7 @@ class ResourceController extends Controller
         return $this->successResponse();
     }
 
-    public function deleteAll(): JsonResponse
+    public function deleteMultiple(): JsonResponse
     {
         $selection = (array)request()->get('selection', []);
 
@@ -103,7 +103,7 @@ class ResourceController extends Controller
         return $this->successResponse();
     }
 
-    public function restoreAll(): JsonResponse
+    public function restoreMultiple(): JsonResponse
     {
         if (!in_array(SoftDeletes::class, class_uses_recursive($this->model))) {
             abort(400, 'Model doesn\'t use soft delete trait');

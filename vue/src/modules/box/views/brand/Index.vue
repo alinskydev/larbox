@@ -48,7 +48,7 @@ export default {
                     },
                 },
                 selection: {
-                    actions: ['deleteAll'],
+                    actions: ['deleteMultiple'],
                 },
             }),
         };

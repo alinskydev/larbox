@@ -1,5 +1,5 @@
 export default {
-    get(object, path, separator = '.') {
+    get(object, path = '', separator = '.') {
         let paths = path.split(separator),
             current = object;
 

@@ -8,7 +8,7 @@ use Http\Website\Box\Controllers\CategoryController;
 Route::prefix('box')
     ->middleware(['auth.basic.once'])
     ->group(function () {
-        Route::apiResource('brand', BrandController::class)->except(['deleteAll', 'restore', 'restoreAll']);
+        Route::apiResource('brand', BrandController::class)->except(['deleteMultiple', 'restore', 'restoreMultiple']);
 
         Route::apiResource('category', CategoryController::class)->only(['index']);
         Route::get('category-tree', [CategoryController::class, 'tree'])->name('category.tree');
