@@ -9,7 +9,24 @@ class ProfileTest extends _TestCase
         $this->processShow('');
     }
 
-    public function test_update(): void
+    public function test_update_without_new_password(): void
+    {
+        $this->processUpdate(
+            path: '',
+            body: [
+                'username' => 'admin',
+                'email' => 'admin@local.host',
+
+                'profile' => [
+                    'full_name' => 'Administrator',
+                    'phone' => '+998000000001',
+                    'image' => $this->formHelper::files(),
+                ],
+            ],
+        );
+    }
+
+    public function test_update_with_new_password(): void
     {
         $this->processUpdate(
             path: '',

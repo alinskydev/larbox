@@ -22,7 +22,7 @@ export default {
     <RouterView :key="childKey" />
 
     <div id="preloader" class="active">
-        <img class="animation__shake" src="/assets/custom/media/logo.png" />
+        <img class="animation__shake" src="/assets/larbox/media/logo.png" />
     </div>
 
     <div id="no-interaction-mask" class="d-none"></div>

@@ -35,7 +35,7 @@ class NotificationController extends ResourceController
     {
         NotificationPrepareCreateJob::dispatch(
             data: $request->validatedData,
-            creatorId: auth()->user()->id,
+            creatorId: request()->user()->id,
         );
 
         return $this->successResponse(201);

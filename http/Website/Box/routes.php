@@ -6,7 +6,7 @@ use Http\Website\Box\Controllers\BrandController;
 use Http\Website\Box\Controllers\CategoryController;
 
 Route::prefix('box')
-    ->middleware(['auth.basic.once'])
+    ->middleware(['auth:sanctum'])
     ->group(function () {
         Route::apiResource('brand', BrandController::class)->except(['deleteMultiple', 'restore', 'restoreMultiple']);
 

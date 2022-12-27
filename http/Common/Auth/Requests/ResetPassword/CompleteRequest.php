@@ -8,6 +8,7 @@ use Modules\Auth\Services\CodeService;
 use Illuminate\Support\Facades\Hash;
 
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Password;
 
 class CompleteRequest extends FormRequest
 {
@@ -21,8 +22,11 @@ class CompleteRequest extends FormRequest
                 Rule::exists('user')->withoutTrashed(),
             ],
             'code' => 'required|string',
-            'new_password' => 'required|string|min:8|max:100',
-            'new_password_confirmation' => 'required|same:new_password',
+            'new_password' => [
+                'required',
+                Password::defaults(),
+            ],
+            'new_password_confirmation' => 'same:new_password',
         ];
     }
 

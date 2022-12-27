@@ -7,10 +7,6 @@ export default {
     methods: {
         logout() {
             this.booted.helpers.user.logout(this);
-
-            this.$router.push({
-                path: '/' + this.booted.locale + '/auth/login',
-            });
         },
     },
 };

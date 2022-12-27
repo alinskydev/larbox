@@ -6,6 +6,7 @@ use App\Http\Requests\ActiveFormRequest;
 use Modules\User\Models\User;
 
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Password;
 use App\Helpers\Validation\ValidationFileHelper;
 use Illuminate\Support\Facades\Hash;
 
@@ -33,8 +34,11 @@ class RegisterRequest extends ActiveFormRequest
                 'max:255',
                 Rule::unique($this->model->getTable()),
             ],
-            'password' => 'required|string|max:255',
-            'password_confirmation' => 'required|same:password',
+            'password' => [
+                'required',
+                Password::defaults(),
+            ],
+            'password_confirmation' => 'same:password',
 
             'profile.full_name' => 'required|string|max:255',
             'profile.phone' => 'string|max:255',

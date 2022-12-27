@@ -7,14 +7,16 @@ use Illuminate\Auth\Authenticatable;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
+use Laravel\Sanctum\HasApiTokens;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Modules\User\Services\UserService;
 
 class User extends Model implements AuthenticatableContract, AuthorizableContract
 {
-    use Authenticatable, Authorizable;
+    use Authenticatable, Authorizable, HasApiTokens;
     use SoftDeletes;
 
     protected $table = 'user';
@@ -27,6 +29,8 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     protected $hidden = [
         'password',
     ];
+
+    public ?string $newAccessToken = null;
 
     public function profile(): HasOne
     {
@@ -41,6 +45,20 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     protected static function boot(): void
     {
         parent::boot();
+
+        static::created(function (self $model) {
+            $service = new UserService($model);
+            $service->assignNewAccessToken();
+        });
+
+        static::updated(function (self $model) {
+            if ($model->wasChanged('password')) {
+                $model->tokens()->delete();
+
+                $service = new UserService($model);
+                $service->assignNewAccessToken();
+            }
+        });
 
         static::deleting(function (self $model) {
             if ($model->id == 1) {

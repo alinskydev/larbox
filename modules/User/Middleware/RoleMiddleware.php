@@ -11,7 +11,7 @@ class RoleMiddleware
 {
     public function handle(Request $request, \Closure $next): Response
     {
-        if (!($role = auth()->user()->role)) {
+        if (!($role = request()->user()->role)) {
             abort(403, __('У вас нет доступа для совершения данного действия'));
         }
 

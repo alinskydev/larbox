@@ -40,9 +40,7 @@ export default {
 
                     case 401:
                         statusType = 'unauthorized';
-                        context.$router.push({
-                            path: '/' + context.booted.locale + '/auth/login',
-                        });
+                        context.booted.helpers.user.logout(context);
                         break;
 
                     case 403:

@@ -1,5 +1,4 @@
-let authUsername = localStorage.getItem('auth_username') ?? '',
-    authPassword = localStorage.getItem('auth_password') ?? '';
+let authToken = localStorage.getItem('authToken') ?? '';
 
 export default {
     http: {
@@ -7,7 +6,7 @@ export default {
         headers: {
             'Accept': 'application/json',
             'Accept-Language': null,
-            'Authorization': 'Basic ' + window.btoa(authUsername + ':' + authPassword),
+            'Authorization': authToken,
         },
 
         websiteUrl: 'http://larbox.loc',

@@ -4,8 +4,8 @@ namespace Http\Common\Auth\Requests\Auth;
 
 use App\Base\FormRequest;
 use Illuminate\Validation\Validator;
-
 use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Validation\Rule;
 
 class LoginRequest extends FormRequest
@@ -13,7 +13,7 @@ class LoginRequest extends FormRequest
     public function nonLocalizedRules(): array
     {
         return [
-            'username' => 'required|string|max:100',
+            'username' => 'required|string|max:255',
             'password' => 'required|string|max:255',
         ];
     }

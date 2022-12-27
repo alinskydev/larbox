@@ -6,6 +6,7 @@ use App\Http\Requests\ActiveFormRequest;
 use Illuminate\Support\Facades\Hash;
 
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Password;
 use App\Rules\ExistsWithOldRule;
 use App\Helpers\Validation\ValidationFileHelper;
 
@@ -39,17 +40,10 @@ class UserRequest extends ActiveFormRequest
             ],
             'new_password' => [
                 Rule::requiredIf(!$this->model->exists),
-                'present',
                 'nullable',
-                'string',
-                'min:8',
-                'max:255',
+                Password::defaults(),
             ],
-            'new_password_confirmation' => [
-                Rule::requiredIf(strlen($this->new_password) > 0),
-                'present',
-                'same:new_password',
-            ],
+            'new_password_confirmation' => 'same:new_password',
 
             'profile.full_name' => 'required|string|max:255',
             'profile.phone' => 'present|nullable|string|max:255',

@@ -34,7 +34,6 @@
         "psr-4": {
             "App\\": "app/",
             "Http\\": "http/",
-            "Larbox\\": "larbox/",
             "Modules\\": "modules/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"

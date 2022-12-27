@@ -8,6 +8,6 @@ class CreatorObserver
 {
     public function creating(Model $model): void
     {
-        $model->creator_id ??= auth()->user()?->id;
+        $model->creator_id ??= request()->user()?->id;
     }
 }

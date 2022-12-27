@@ -6,6 +6,7 @@ use App\Http\Requests\ActiveFormRequest;
 use Modules\User\Models\User;
 
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Password;
 use App\Helpers\Validation\ValidationFileHelper;
 use Illuminate\Support\Facades\Hash;
 
@@ -13,7 +14,7 @@ class ProfileRequest extends ActiveFormRequest
 {
     public function __construct()
     {
-        if ($model = auth()->user()) {
+        if ($model = request()->user()) {
             $this->model = $model;
         }
 
@@ -36,11 +37,11 @@ class ProfileRequest extends ActiveFormRequest
                 'max:255',
                 Rule::unique($this->model->getTable())->ignore($this->model->id),
             ],
-            'new_password' => 'present|nullable|string|min:8,max:255',
-            'new_password_confirmation' => [
-                Rule::requiredIf(strlen($this->new_password) > 0),
-                'same:new_password',
+            'new_password' => [
+                'nullable',
+                Password::defaults(),
             ],
+            'new_password_confirmation' => 'same:new_password',
 
             'profile.full_name' => 'required|string|max:255',
             'profile.phone' => 'present|nullable|string|max:255',

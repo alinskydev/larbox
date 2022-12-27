@@ -19,7 +19,7 @@ export default {
     created() {
         this.page.init();
 
-        if (localStorage.getItem('auth_username')) {
+        if (localStorage.getItem('authToken')) {
             this.booted.helpers.http
                 .send(this, {
                     method: 'GET',
@@ -55,7 +55,7 @@ export default {
                                 path: '/' + this.booted.locale,
                             })
                             .then(() => {
-                                this.booted.helpers.user.login(this, formData.get('username'), formData.get('password'));
+                                this.booted.helpers.user.login(this, response.data.token);
                             });
                     }
                 });

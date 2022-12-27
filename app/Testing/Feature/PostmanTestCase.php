@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Testing\File;
 
 use App\Testing\Feature\Traits\ActionFeatureTestTrait;
+use Modules\User\Models\User;
 
 abstract class PostmanTestCase extends BaseTestCase
 {
@@ -36,8 +37,8 @@ abstract class PostmanTestCase extends BaseTestCase
     public array $requestBody = [];
     private array $requestFiles = [];
 
+    protected int $userId;
     protected array $requestHeaders = [];
-    protected array $authHeaders = [];
     private array $allRequestHeaders = [];
 
     public TestResponse $response;
@@ -51,7 +52,14 @@ abstract class PostmanTestCase extends BaseTestCase
 
         $this->requestQueryAsString = http_build_query($this->requestQuery);
 
-        $this->allRequestHeaders = array_merge($this->defaultHeaders, $this->requestHeaders, $this->authHeaders);
+        $this->allRequestHeaders = array_merge($this->defaultHeaders, $this->requestHeaders);
+
+        if (isset($this->userId)) {
+            /** @var \Illuminate\Contracts\Auth\Authenticatable */
+            $user = User::query()->findOrFail($this->userId);
+            $this->actingAs($user, 'sanctum');
+            $this->allRequestHeaders['Authorization'] = '<TOKEN>';
+        }
 
         return $this->call(
             method: $this->requestMethod,
@@ -135,7 +143,7 @@ abstract class PostmanTestCase extends BaseTestCase
                 'value' => (string)$value,
             ];
         });
-        
+
         $result = Arr::pluck($result, 'value', 'key');
 
         return $result;

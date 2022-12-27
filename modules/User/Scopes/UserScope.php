@@ -16,7 +16,7 @@ class UserScope implements Scope
 
     public function apply(Builder $builder, Model $model): void
     {
-        $this->id ??= auth()->user()->id;
+        $this->id ??= request()->user()->id;
         $builder->where($this->field, $this->id);
     }
 }

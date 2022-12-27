@@ -39,7 +39,7 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
-            // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+            \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
@@ -75,6 +75,7 @@ class Kernel extends HttpKernel
      * @var string[]
      */
     protected $middlewarePriority = [
+        \App\Http\Middleware\Authenticate::class,
         \App\Http\Middleware\AuthenticateOnceWithBasicAuth::class,
         \Modules\User\Middleware\RoleMiddleware::class,
         \Illuminate\Routing\Middleware\SubstituteBindings::class,

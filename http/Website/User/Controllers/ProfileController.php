@@ -12,12 +12,17 @@ class ProfileController extends Controller
 {
     public function show(): JsonResponse
     {
-        return response()->json(UserResource::make(auth()->user()), 200);
+        return response()->json(UserResource::make(request()->user()), 200);
     }
 
     public function update(ProfileRequest $request): JsonResponse
     {
         $request->model->safelySave($request->validatedData);
-        return $this->successResponse();
+
+        if ($request->model->newAccessToken) {
+            return response()->json(['token' => $request->model->newAccessToken], 200);
+        } else {
+            return $this->successResponse();
+        }
     }
 }

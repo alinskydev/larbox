@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Http\Website\User\Controllers\ProfileController;
 
 Route::prefix('user')
-    ->middleware(['auth.basic.once'])
+    ->middleware(['auth:sanctum'])
     ->group(function () {
         Route::prefix('profile')
             ->group(function () {

@@ -8,7 +8,6 @@ use Illuminate\Http\JsonResponse;
 use Http\Common\Auth\Requests\ResetPassword\SendCodeRequest;
 use Http\Common\Auth\Requests\ResetPassword\VerifyCodeRequest;
 use Http\Common\Auth\Requests\ResetPassword\CompleteRequest;
-
 use Modules\User\Models\User;
 use Modules\Auth\Services\CodeService;
 
@@ -36,6 +35,6 @@ class ResetPasswordController extends Controller
         $user->password = $request->validatedData['password'];
         $user->saveQuietly();
 
-        return $this->successResponse();
+        return response()->json(['token' => $user->newAccessToken], 200);
     }
 }

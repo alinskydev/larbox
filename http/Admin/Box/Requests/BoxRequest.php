@@ -29,7 +29,7 @@ class BoxRequest extends ActiveFormRequest
                     extraQuery: function ($query) {
                         $query->where('is_active', 1)
                             ->whereHas('creator', function ($subQuery) {
-                                $subQuery->where('id', auth()->user()->id);
+                                $subQuery->where('id', request()->user()->id);
                             });
                     },
                 ),

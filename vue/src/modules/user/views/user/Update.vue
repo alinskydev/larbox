@@ -32,9 +32,8 @@ export default {
                     afterSubmit: (formData, response) => {
                         toastr.success(this.__('Сохранение прошло успешно'));
 
-                        if (this.$route.params.id == this.booted.user.id) {
-                            this.booted.helpers.user.login(this, formData.get('username'), formData.get('new_password'));
-                            this.booted.components.app.childKey++;
+                        if (response.data.token) {
+                            this.booted.helpers.user.login(this, response.data.token);
                         }
 
                         this.page.goUp();

@@ -25,8 +25,11 @@ export default {
                     afterSubmit: (formData, response) => {
                         toastr.success(this.__('Сохранение прошло успешно'));
 
-                        this.booted.helpers.user.login(this, formData.get('username'), formData.get('new_password'));
-                        this.booted.components.app.childKey++;
+                        if (response.data.token) {
+                            this.booted.helpers.user.login(this, response.data.token);
+                        }
+
+                        this.$router.push('/');
                     },
                 },
             }),
