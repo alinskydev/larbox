@@ -11,7 +11,7 @@ class UserService extends ActiveService
         $token = $this->model
             ->createToken(
                 name: 'default',
-                expiresAt: now()->addMonth(),
+                expiresAt: now()->addWeek(),
             )
             ->plainTextToken;
 

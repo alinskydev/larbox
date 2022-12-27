@@ -37,7 +37,7 @@ class AppServiceProvider extends ServiceProvider
         Sanctum::authenticateAccessTokensUsing(function ($token, $isValid) {
             if (!$isValid) return false;
 
-            $token->expires_at = now()->addMonth();
+            $token->expires_at = now()->addWeek();
             $token->save();
 
             return true;
