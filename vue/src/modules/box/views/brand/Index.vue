@@ -32,10 +32,8 @@ export default {
                     actions: ['boxes', 'show', 'update', 'delete'],
                     customActions: {
                         boxes: (item) => {
-                            if (!this.booted.helpers.user.checkRoute(this, 'box/box/index')) return null;
-
                             return {
-                                path: 'box/box?filter[brand_id]=' + item.id.value,
+                                path: 'box/box/index?filter[brand_id]=' + item.id.value,
                                 linkAttributes: {
                                     title: this.__('routes->box.box'),
                                     class: 'btn btn-info',

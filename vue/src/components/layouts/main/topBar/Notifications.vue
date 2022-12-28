@@ -30,7 +30,7 @@ export default {
 
 <template>
     <li class="nav-item">
-        <RouterLink to="user/notification" class="nav-link">
+        <RouterLink to="user/notification/index" class="nav-link">
             <i class="far fa-bell"></i>
 
             <span v-if="quantity > 0" class="badge badge-pill badge-danger navbar-badge font-weight-bold">

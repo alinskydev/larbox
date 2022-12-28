@@ -7,7 +7,7 @@ export default {
             component: () => import('@/components/decorators/Empty.vue'),
             children: [
                 {
-                    path: '',
+                    path: 'index',
                     component: () => import('./views/box/Index.vue'),
                 },
                 {
@@ -29,7 +29,7 @@ export default {
             component: () => import('@/components/decorators/Empty.vue'),
             children: [
                 {
-                    path: '',
+                    path: 'index',
                     component: () => import('./views/brand/Index.vue'),
                 },
                 {
@@ -61,7 +61,7 @@ export default {
             component: () => import('@/components/decorators/Empty.vue'),
             children: [
                 {
-                    path: '',
+                    path: 'index',
                     component: () => import('./views/tag/Index.vue'),
                 },
                 {

@@ -18,7 +18,7 @@ export default {
                 breadcrumbs: [
                     {
                         label: this.__('routes->user.role'),
-                        path: 'user/role',
+                        path: 'user/role/index',
                     },
                 ],
             }),

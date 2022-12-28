@@ -17,7 +17,7 @@ export default {
                 breadcrumbs: [
                     {
                         label: this.__('routes->user.notification'),
-                        path: 'user/notification',
+                        path: 'user/notification/index',
                     },
                 ],
             }),

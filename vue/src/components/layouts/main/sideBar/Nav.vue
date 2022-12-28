@@ -21,7 +21,7 @@ export default {
                 for (let itemChildKey in item.children) {
                     let itemChild = item.children[itemChildKey];
 
-                    if (this.booted.helpers.user.checkRoute(this, itemChild.name ?? itemChild.path + '/index')) {
+                    if (this.booted.helpers.user.checkRoute(this, itemChild.name ?? itemChild.path)) {
                         this.items[itemsKey] ??= {
                             label: item.label,
                             icon: item.icon,
@@ -34,7 +34,7 @@ export default {
                     }
                 }
             } else {
-                if (this.booted.helpers.user.checkRoute(this, item.name ?? item.path + '/index')) {
+                if (this.booted.helpers.user.checkRoute(this, item.name ?? item.path)) {
                     this.items[itemsKey] = item;
                 }
             }
@@ -49,8 +49,11 @@ export default {
         matched.shift();
 
         this.activeItems = matched.map((value) => {
-            return value.path.replace(':locale', '').replace('//', '/').replace('/', '');
+            let result = value.path.replace(':locale', '').replace('//', '/').replace('/', '');
+            return [result, result + '/index'];
         });
+
+        this.activeItems = this.activeItems.flat();
     },
     mounted() {},
 };
@@ -73,9 +76,15 @@ export default {
                         </p>
                     </a>
 
-                    <ul :id="'nav-' + key" :class="'nav nav-treeview collapse ' + (activeItems.includes(item.path) ? 'show' : '')">
+                    <ul
+                        :id="'nav-' + key"
+                        :class="'nav nav-treeview collapse ' + (activeItems.includes(item.path) ? 'show' : '')"
+                    >
                         <li v-for="itemChild in item.children" class="nav-item">
-                            <RouterLink :to="itemChild.path" :class="'nav-link ' + (activeItems.includes(itemChild.path) ? 'active' : '')">
+                            <RouterLink
+                                :to="itemChild.path"
+                                :class="'nav-link ' + (activeItems.includes(itemChild.path) ? 'active' : '')"
+                            >
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>{{ __('routes->' + itemChild.label) }}</p>
                             </RouterLink>

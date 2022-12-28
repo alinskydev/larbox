@@ -13,7 +13,6 @@ export default {
     data() {
         return {
             config: this.booted.components.current.config,
-            pathPrefix: this.$route.matched.at(-1).path.replace('/', '').replace(':locale/', ''),
         };
     },
     methods: {
@@ -58,25 +57,29 @@ export default {
         <template v-for="action in config.grid.actions">
             <template v-if="!item.is_deleted">
                 <RouterLink
-                    v-if="action === 'show' && booted.helpers.user.checkRoute(booted.components.app, pathPrefix + '/show')"
+                    v-if="action === 'show' && booted.helpers.user.checkRoute(booted.components.app, config.http.path + '/show')"
                     :title="__('routeActions->show')"
-                    :to="pathPrefix + '/' + item.id.value + '/show'"
+                    :to="config.http.path + '/' + item.id.value + '/show'"
                     class="btn btn-primary"
                 >
                     <i class="fas fa-eye"></i>
                 </RouterLink>
 
                 <RouterLink
-                    v-else-if="action === 'update' && booted.helpers.user.checkRoute(booted.components.app, pathPrefix + '/update')"
+                    v-else-if="
+                        action === 'update' && booted.helpers.user.checkRoute(booted.components.app, config.http.path + '/update')
+                    "
                     :title="__('routeActions->update')"
-                    :to="pathPrefix + '/' + item.id.value + '/update'"
+                    :to="config.http.path + '/' + item.id.value + '/update'"
                     class="btn btn-warning"
                 >
                     <i class="fas fa-edit"></i>
                 </RouterLink>
 
                 <a
-                    v-else-if="action === 'delete' && booted.helpers.user.checkRoute(booted.components.app, pathPrefix + '/delete')"
+                    v-else-if="
+                        action === 'delete' && booted.helpers.user.checkRoute(booted.components.app, config.http.path + '/delete')
+                    "
                     :title="__('routeActions->delete')"
                     @click="deleteAction"
                     class="btn btn-danger"
@@ -87,7 +90,10 @@ export default {
 
             <template v-else>
                 <a
-                    v-if="action === 'delete' && booted.helpers.user.checkRoute(booted.components.app, pathPrefix + '/restore')"
+                    v-if="
+                        action === 'delete' &&
+                        booted.helpers.user.checkRoute(booted.components.app, config.http.path + '/restore')
+                    "
                     :title="__('routeActions->restore')"
                     @click="restoreAction"
                     class="btn btn-success"

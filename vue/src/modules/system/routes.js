@@ -11,7 +11,7 @@ export default {
             component: () => import('@/components/decorators/Empty.vue'),
             children: [
                 {
-                    path: '',
+                    path: 'index',
                     component: () => import('./views/language/Index.vue'),
                 },
                 {

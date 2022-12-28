@@ -17,7 +17,7 @@ export default {
                 breadcrumbs: [
                     {
                         label: this.__('routes->box.brand'),
-                        path: 'box/brand',
+                        path: 'box/brand/index',
                     },
                 ],
             }),

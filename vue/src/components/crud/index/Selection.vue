@@ -12,7 +12,6 @@ export default {
     data() {
         return {
             config: this.booted.components.current.config,
-            pathPrefix: this.$route.matched.at(-1).path.replace('/', '').replace(':locale/', ''),
         };
     },
     methods: {
@@ -108,7 +107,7 @@ export default {
                         v-if="
                             action === 'deleteMultiple' &&
                             !$route.query['show[deleted]'] &&
-                            booted.helpers.user.checkRoute(booted.components.app, pathPrefix + '/deleteMultiple')
+                            booted.helpers.user.checkRoute(booted.components.app, config.http.path + '/deleteMultiple')
                         "
                         class="btn btn-danger btn-block text-left"
                         @click="deleteMultipleAction"
@@ -121,7 +120,7 @@ export default {
                         v-if="
                             action === 'deleteMultiple' &&
                             $route.query['show[deleted]'] === 'only-deleted' &&
-                            booted.helpers.user.checkRoute(booted.components.app, pathPrefix + '/restoreMultiple')
+                            booted.helpers.user.checkRoute(booted.components.app, config.http.path + '/restoreMultiple')
                         "
                         class="btn btn-success btn-block text-left"
                         @click="restoreMultipleAction"

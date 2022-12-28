@@ -7,7 +7,7 @@ export default {
             component: () => import('@/components/decorators/Empty.vue'),
             children: [
                 {
-                    path: '',
+                    path: 'index',
                     component: () => import('./views/user/Index.vue'),
                 },
                 {
@@ -29,7 +29,7 @@ export default {
             component: () => import('@/components/decorators/Empty.vue'),
             children: [
                 {
-                    path: '',
+                    path: 'index',
                     component: () => import('./views/role/Index.vue'),
                 },
                 {
@@ -48,20 +48,14 @@ export default {
         },
         {
             path: 'profile',
-            component: () => import('@/components/decorators/Empty.vue'),
-            children: [
-                {
-                    path: '',
-                    component: () => import('./views/profile/Update.vue'),
-                },
-            ],
+            component: () => import('./views/profile/Update.vue'),
         },
         {
             path: 'notification',
             component: () => import('@/components/decorators/Empty.vue'),
             children: [
                 {
-                    path: '',
+                    path: 'index',
                     component: () => import('./views/notification/Index.vue'),
                 },
                 {

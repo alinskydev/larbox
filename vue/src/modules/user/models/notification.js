@@ -10,6 +10,13 @@ export default new Model({
             value: (context, item) => context.booted.enums.user_notification.types[item.type],
             type: Enums.valueTypes.text,
         },
+        type_raw: {
+            value: 'type',
+            type: Enums.valueTypes.text,
+        },
+        params: {
+            type: Enums.valueTypes.text,
+        },
         is_seen: {
             type: Enums.valueTypes.boolean,
         },

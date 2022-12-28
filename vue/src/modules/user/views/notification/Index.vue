@@ -22,7 +22,34 @@ export default {
                     path: 'user/notification',
                 },
                 grid: {
-                    actions: ['show'],
+                    hiddenFields: ['type_raw', 'params'],
+                    actions: ['link', 'show'],
+                    customActions: {
+                        link: (item) => {
+                            let path;
+
+                            switch (item.type_raw.value) {
+                                case 'feedback_callback_created':
+                                    path = 'feedback/callback/' + item.params.value.id + '/show';
+                                    break;
+
+                                default:
+                                    return null;
+                            }
+
+                            return {
+                                path: path,
+                                linkAttributes: {
+                                    title: this.__('Ссылка'),
+                                    class: 'btn btn-info',
+                                    target: '_blank',
+                                },
+                                iconAttributes: {
+                                    class: 'fas fa-external-link-alt',
+                                },
+                            };
+                        },
+                    },
                     rowAttributes: (context, item) => {
                         if (!item.is_seen.value) {
                             return {

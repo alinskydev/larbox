@@ -17,7 +17,7 @@ export default {
                 breadcrumbs: [
                     {
                         label: this.__('routes->feedback.callback'),
-                        path: 'feedback/callback',
+                        path: 'feedback/callback/index',
                     },
                 ],
             }),

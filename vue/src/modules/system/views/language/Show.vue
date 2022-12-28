@@ -17,7 +17,7 @@ export default {
                 breadcrumbs: [
                     {
                         label: this.__('routes->system.language'),
-                        path: 'system/language',
+                        path: 'system/language/index',
                     },
                 ],
             }),

@@ -11,11 +11,11 @@ export default [
         children: [
             {
                 label: 'user.user',
-                path: 'user/user',
+                path: 'user/user/index',
             },
             {
                 label: 'user.role',
-                path: 'user/role',
+                path: 'user/role/index',
             },
         ],
     },
@@ -26,7 +26,7 @@ export default [
         children: [
             {
                 label: 'feedback.callback',
-                path: 'feedback/callback',
+                path: 'feedback/callback/index',
             },
         ],
     },
@@ -37,11 +37,11 @@ export default [
         children: [
             {
                 label: 'box.box',
-                path: 'box/box',
+                path: 'box/box/index',
             },
             {
                 label: 'box.brand',
-                path: 'box/brand',
+                path: 'box/brand/index',
             },
             {
                 label: 'box.category',
@@ -49,7 +49,7 @@ export default [
             },
             {
                 label: 'box.tag',
-                path: 'box/tag',
+                path: 'box/tag/index',
             },
         ],
     },
@@ -91,7 +91,7 @@ export default [
             },
             {
                 label: 'system.language',
-                path: 'system/language',
+                path: 'system/language/index',
             },
         ],
     },
