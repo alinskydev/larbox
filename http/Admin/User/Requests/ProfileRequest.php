@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Hash;
 
 class ProfileRequest extends ActiveFormRequest
 {
+    protected array $filesSavePaths = [
+        'profile.image' => 'user',
+    ];
+
     public function __construct()
     {
         if ($model = request()->user()) {

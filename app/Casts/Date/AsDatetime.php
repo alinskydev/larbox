@@ -7,7 +7,7 @@ use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 class AsDatetime implements CastsAttributes
 {
     public function __construct(
-        public string $format = LARBOX_FORMAT_DATETIME,
+        public ?string $format = null,
     ) {
     }
 
@@ -15,7 +15,7 @@ class AsDatetime implements CastsAttributes
     {
         if (!$value) return null;
 
-        return date($this->format, strtotime($value));
+        return date($this->format ?? config('larbox.formats.datetime'), strtotime($value));
     }
 
     public function set($model, $key, $value, $attributes): mixed

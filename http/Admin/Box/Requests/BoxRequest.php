@@ -35,8 +35,8 @@ class BoxRequest extends ActiveFormRequest
                 ),
             ],
             'price' => 'required|integer|min:0',
-            'date' => 'required|date|date_format:' . LARBOX_FORMAT_DATE,
-            'datetime' => 'required|date|date_format:' . LARBOX_FORMAT_DATETIME,
+            'date' => 'required|date|date_format:' . config('larbox.formats.date'),
+            'datetime' => 'required|date|date_format:' . config('larbox.formats.datetime'),
             ...$this->deleteableFileFieldsSingleValidation(
                 field: 'image',
                 config: ValidationFileHelper::CONFIG_IMAGE,

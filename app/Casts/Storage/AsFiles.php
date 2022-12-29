@@ -23,27 +23,20 @@ class AsFiles implements CastsAttributes
         $oldValue = json_decode($oldValue, true) ?? [];
 
         if (isset($value['old_keys']) && isset($value['new_files'])) {
+            $undeletedOldValue = Arr::only($oldValue, $value['old_keys']);
+            $undeletedOldValue = array_replace(array_flip($value['old_keys']), $undeletedOldValue);
 
-            // Deleting old files
-
-            $nonDeletedOldValue = Arr::only($oldValue, $value['old_keys']);
-            $nonDeletedOldValue = array_replace(array_flip($value['old_keys']), $nonDeletedOldValue);
-
-            $filesForDelete = array_diff($oldValue, $nonDeletedOldValue);
-            foreach ($filesForDelete as $file) FileHelper::delete(public_path($file));
-
-            // Adding new files
-
-            $newValue = array_merge($nonDeletedOldValue, $value['new_files']);
-            $newValue = array_values($newValue);
-        } else {
-
-            // Merging old and new files
-
-            $newValue = array_merge($oldValue, $value);
-            $newValue = array_values($newValue);
+            $oldValue = array_diff($oldValue, $undeletedOldValue);
+            $value = array_merge($undeletedOldValue, $value['new_files']);
         }
 
-        return json_encode($newValue);
+        foreach ($oldValue as $file) {
+            FileHelper::delete(public_path($file));
+        }
+
+        $value = array_values($value);
+        $value = json_encode($value);
+
+        return $value;
     }
 }

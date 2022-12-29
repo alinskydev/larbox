@@ -13,7 +13,7 @@ trait DeleteableFileFieldsTrait
         'multiple' => [],
     ];
 
-    public function deleteableFileFieldsSingleValidation(
+    protected function deleteableFileFieldsSingleValidation(
         string $field,
         array $config,
         bool $isRequired = false,
@@ -26,7 +26,7 @@ trait DeleteableFileFieldsTrait
         ];
     }
 
-    public function deleteableFileFieldsMultipleValidation(
+    protected function deleteableFileFieldsMultipleValidation(
         string $field,
         array $config,
         bool $isRequired = false,
@@ -34,33 +34,29 @@ trait DeleteableFileFieldsTrait
         $this->deleteableFileFields['multiple'][] = $field;
 
         return [
-            $field => array_merge(
-                [
-                    'required',
-                    'array',
-                ],
-                !$isRequired ? ['sometimes'] : [],
-            ),
-            "$field.*" => ValidationFileHelper::rules($config),
+            $field => [
+                'array',
+                $isRequired ? 'required' : null,
+            ],
+            "$field.*" => ValidationFileHelper::rules($config, $isRequired),
             "{$field}_old_keys" => 'required|json',
         ];
     }
 
-    private function deleteableFileFieldsProcess(): void
+    protected function deleteableFileFieldsProcess(): void
     {
         $this->validatedData = Arr::dot($this->validatedData);
 
-        $single = array_unique($this->deleteableFileFields['single']);
-        $multiple = array_unique($this->deleteableFileFields['multiple']);
-
-        $this->deleteableFileFieldsProcessSingle($single);
-        $this->deleteableFileFieldsProcessMultiple($multiple);
+        $this->deleteableFileFieldsProcessSingle();
+        $this->deleteableFileFieldsProcessMultiple();
 
         $this->validatedData = Arr::undot($this->validatedData);
     }
 
-    private function deleteableFileFieldsProcessSingle(array $fields): void
+    private function deleteableFileFieldsProcessSingle(): void
     {
+        $fields = array_unique($this->deleteableFileFields['single']);
+
         foreach ($fields as $field) {
             $oldKeysField = "{$field}_old_keys";
 
@@ -77,8 +73,10 @@ trait DeleteableFileFieldsTrait
         }
     }
 
-    private function deleteableFileFieldsProcessMultiple(array $fields): void
+    private function deleteableFileFieldsProcessMultiple(): void
     {
+        $fields = array_unique($this->deleteableFileFields['multiple']);
+
         foreach ($fields as $field) {
             $oldKeysField = "{$field}_old_keys";
 

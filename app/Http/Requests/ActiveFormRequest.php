@@ -48,7 +48,7 @@ class ActiveFormRequest extends FormRequest
         if (
             $this->model->exists &&
             $this->updated_at &&
-            $this->updated_at != date(LARBOX_FORMAT_DATETIME, strtotime($this->model->updated_at))
+            $this->updated_at != date(config('larbox.formats.datetime'), strtotime($this->model->updated_at))
         ) {
             abort(409, __('Данные были изменены другим источником. Обновите страницу, чтобы увидеть изменения.'));
         }

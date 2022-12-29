@@ -14,6 +14,10 @@ use Modules\User\Models\Role;
 
 class UserRequest extends ActiveFormRequest
 {
+    protected array $filesSavePaths = [
+        'profile.image' => 'user',
+    ];
+
     public function nonLocalizedRules(): array
     {
         return [

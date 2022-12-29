@@ -27,10 +27,10 @@ class IndexTest extends _TestCase
                 10000,
             ],
             'date' => [
-                date(LARBOX_FORMAT_DATE, strtotime('-1 day')),
-                date(LARBOX_FORMAT_DATE),
+                date(config('larbox.formats.date'), strtotime('-1 day')),
+                date(config('larbox.formats.date')),
             ],
-            'datetime' => date(LARBOX_FORMAT_DATETIME),
+            'datetime' => date(config('larbox.formats.datetime')),
 
             'categories.id' => 3,
             'tags.id' => [1, 2],

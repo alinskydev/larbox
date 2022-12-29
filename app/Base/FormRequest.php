@@ -3,7 +3,7 @@
 namespace App\Base;
 
 use Illuminate\Foundation\Http\FormRequest as BaseFormRequest;
-use App\Helpers\HtmlCleanHelper;
+use App\Helpers\HtmlPurifierHelper;
 use App\Helpers\FileHelper;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Arr;
@@ -12,8 +12,6 @@ use Illuminate\Support\Str;
 class FormRequest extends BaseFormRequest
 {
     public array $validatedData;
-
-    protected string $fieldCleanType = HtmlCleanHelper::TYPE_PURIFY;
 
     protected array $defaults = [];
     protected array $filesSavePaths = [];
@@ -66,7 +64,7 @@ class FormRequest extends BaseFormRequest
         parent::prepareForValidation();
 
         $data = parent::validationData();
-        $data = HtmlCleanHelper::process($data, $this->fieldCleanType);
+        $data = HtmlPurifierHelper::process($data);
 
         $this->merge($data);
     }
