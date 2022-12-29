@@ -19,7 +19,7 @@ class Language extends Model
         parent::boot();
 
         static::saving(function (self $model) {
-            if (Arr::get($model->original, 'is_active') && !$model->is_active) {
+            if ($model->getOriginal('is_active') && !$model->is_active) {
                 if ($model->is_main) {
                     throw new \Exception(__('Невозможно деактивировать основной язык'));
                 }

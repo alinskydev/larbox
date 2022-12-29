@@ -7,16 +7,12 @@ use Intervention\Image\ImageManagerStatic;
 
 class ImageHelper
 {
-    private static array $availableThumbnailMethods = ['original', 'crop', 'fit', 'resize', 'widen'];
-
     public static function thumbnail(
         string $sourceUrl,
         string $method,
         array $params = [],
         bool $asWebp = false,
     ): string {
-        if (!in_array($method, self::$availableThumbnailMethods)) throw new \Exception("Unavailable 'method'");
-
         try {
             $sourceFile = public_path($sourceUrl);
 
@@ -31,7 +27,7 @@ class ImageHelper
 
             $thumbPath = "storage/thumbs/$method";
             $thumbPath .= $params ? '/' . implode('x', $params) : '';
-            $thumbName = md5(filemtime($sourceFile) . File::basename($sourceFile)) . ".$extension";
+            $thumbName = md5(File::basename($sourceFile) . filemtime($sourceFile)) . ".$extension";
 
             $thumbFile = public_path("$thumbPath/$thumbName");
             $thumbUrl = "/$thumbPath/$thumbName";
@@ -42,9 +38,9 @@ class ImageHelper
                 $image = ImageManagerStatic::make($sourceFile);
 
                 if ($method != 'original') $image->{$method}(...$params);
-                if ($asWebp) $image->encode('webp', 100);
+                if ($asWebp) $image->encode('webp');
 
-                $image->save($thumbFile, 100);
+                $image->save($thumbFile);
             }
 
             return $thumbUrl;
