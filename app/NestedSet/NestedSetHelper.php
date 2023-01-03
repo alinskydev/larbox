@@ -11,7 +11,9 @@ class NestedSetHelper
 
         foreach ($children as &$child) {
             $child['children'] = array_filter($children, function ($value) use ($child) {
-                return $value['lft'] > $child['lft'] && $value['rgt'] < $child['rgt'] && $value['depth'] == $child['depth'] + 1;
+                return $value['lft'] > $child['lft'] &&
+                    $value['rgt'] < $child['rgt'] &&
+                    $value['depth'] == $child['depth'] + 1;
             });
 
             $child['children'] = array_reverse($child['children']);

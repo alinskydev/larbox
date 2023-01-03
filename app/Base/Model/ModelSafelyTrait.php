@@ -10,12 +10,7 @@ trait ModelSafelyTrait
     {
         $this->safelyDBProcess(function () use ($attributes) {
             $this->fill($attributes);
-
-            if ($this->usesTimestamps()) {
-                $this->touch();
-            } else {
-                $this->save();
-            }
+            $this->usesTimestamps() ? $this->touch() : $this->save();
         });
     }
 

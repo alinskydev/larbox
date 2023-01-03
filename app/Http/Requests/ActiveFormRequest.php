@@ -46,7 +46,7 @@ class ActiveFormRequest extends FormRequest
         parent::prepareForValidation();
 
         if (
-            $this->model->exists &&
+            $this->model->updated_at &&
             $this->updated_at &&
             $this->updated_at != date(config('larbox.formats.datetime'), strtotime($this->model->updated_at))
         ) {

@@ -2,10 +2,14 @@
 
 namespace Modules\User\Services;
 
-use App\Base\ActiveService;
+use Modules\User\Models\User;
 
-class UserService extends ActiveService
+class UserService
 {
+    public function __construct(private User $model)
+    {
+    }
+
     public function assignNewAccessToken(): void
     {
         $token = $this->model

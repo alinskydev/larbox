@@ -17,14 +17,9 @@ class LanguageSingleton
         $this->active = array_filter($this->all, fn ($value) => $value['is_active']);
         $this->main = Arr::keyBy($this->active, 'is_main')[1];
 
-        // Setting locale
-
         $locale = request()->header('Accept-Language');
+        $locale = isset($this->active[$locale]) ? $locale : $this->main['code'];
 
-        if (isset($this->active[$locale])) {
-            app()->setLocale($locale);
-        } else {
-            app()->setLocale($this->main['code']);
-        }
+        app()->setLocale($locale);
     }
 }

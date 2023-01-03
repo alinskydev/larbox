@@ -19,8 +19,8 @@ class SeederHelper
 
     public static function slug(string $string, bool $hasLanguageSuffix = true): string
     {
-        $slug = Str::slug($string);
-        return $hasLanguageSuffix ? "$slug-" . app()->getLocale() : $slug;
+        $string = $hasLanguageSuffix ? "$string " . app()->getLocale() : $string;
+        return Str::slug($string);
     }
 
     public static function multiply(array $indexes, callable $callback): array
