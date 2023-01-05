@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 use App\Rules\ExistsWithOldRule;
-use App\Helpers\Validation\ValidationFileHelper;
+use App\Helpers\Validation\ValidationFileRulesHelper;
 
 use Modules\User\Models\Role;
 
@@ -53,7 +53,7 @@ class UserRequest extends ActiveFormRequest
             'profile.phone' => 'present|nullable|string|max:255',
             ...$this->deleteableFileFieldsSingleValidation(
                 field: 'profile.image',
-                config: ValidationFileHelper::CONFIG_IMAGE,
+                rules: ValidationFileRulesHelper::image(),
             ),
         ];
     }

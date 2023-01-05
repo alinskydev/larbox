@@ -18,15 +18,14 @@ class SearchShow
         $model = $this->query->getModel();
         $hasSoftDelete = in_array(SoftDeletes::class, class_uses_recursive($model));
 
-        foreach ($this->params as $param) {
-            switch ($param) {
-                case 'with-deleted':
-                    if ($hasSoftDelete) $this->query->withTrashed();
-                    break;
-                case 'only-deleted':
-                    if ($hasSoftDelete) $this->query->onlyTrashed();
-                    break;
-            }
+        if (!$hasSoftDelete) return;
+
+        if (in_array('with-deleted', $this->params)) {
+            $this->query->withTrashed();
+        }
+
+        if (in_array('only-deleted', $this->params)) {
+            $this->query->onlyTrashed();
         }
     }
 }

@@ -1,16 +1,18 @@
 <?php
 
-use Modules\User\Models\Notification;
+use Modules\User\Enums\NotificationTypeEnum;
 
 return [
-    Notification::TYPE_ANNOUNCEMENT => [
+    NotificationTypeEnum::ANNOUNCEMENT->value => [
         'label' => 'Объявление',
+        'text' => ':text',
     ],
-    Notification::TYPE_FEEDBACK_CALLBACK_CREATED => [
+    NotificationTypeEnum::FEEDBACK_CALLBACK_CREATED->value => [
         'label' => 'Новая заявка с сообщением',
         'text' => 'Новая заявка с сообщением №:id',
     ],
-    Notification::TYPE_MESSAGE => [
+    NotificationTypeEnum::MESSAGE->value => [
         'label' => 'Сообщение',
+        'text' => ':text',
     ],
 ];

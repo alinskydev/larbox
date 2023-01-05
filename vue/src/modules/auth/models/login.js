@@ -9,6 +9,7 @@ export default new Model({
             attributes: {
                 autofocus: true,
             },
+            value: (context, item) => import.meta.env.VITE_CREDENTIALS_USERNAME,
         },
         password: {
             type: Enums.inputTypes.text,
@@ -16,6 +17,7 @@ export default new Model({
             attributes: {
                 type: 'password',
             },
+            value: (context, item) => import.meta.env.VITE_CREDENTIALS_PASSWORD,
         },
     },
 });

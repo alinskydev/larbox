@@ -26,12 +26,7 @@ class UserController extends ResourceController
 
     public function update(ValidatesWhenResolved $request): JsonResponse
     {
-        $response = parent::update($request);
-
-        if ($request->model->newAccessToken && $request->model->id == request()->user()->id) {
-            return response()->json(['token' => $request->model->newAccessToken], 200);
-        } else {
-            return $response;
-        }
+        parent::update($request);
+        return $this->successResponseWithAccessToken($request->model);
     }
 }

@@ -35,6 +35,6 @@ class ResetPasswordController extends Controller
         $user->password = $request->validatedData['password'];
         $user->saveQuietly();
 
-        return response()->json(['token' => $user->newAccessToken], 200);
+        return $this->successResponseWithAccessToken($user);
     }
 }

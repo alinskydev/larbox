@@ -38,6 +38,7 @@ class ExportTestsForPostmanCommand extends Command
 
         $inputData = file_get_contents($inputFileName);
         $inputData = json_decode($inputData, true);
+        $inputData = Arr::undot($inputData);
 
         $outputData = [
             'info' => [
@@ -51,13 +52,8 @@ class ExportTestsForPostmanCommand extends Command
                     'type' => 'string',
                 ],
             ],
+            'item' => $this->addItems($inputData),
         ];
-
-        // Parsing data
-
-        $inputData = Arr::undot($inputData);
-
-        $outputData['item'] = $this->addItems($inputData);
 
         // Saving data
 

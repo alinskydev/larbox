@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\ActiveFormRequest;
 
-use App\Helpers\Validation\ValidationFileHelper;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
@@ -15,30 +14,28 @@ trait DeleteableFileFieldsTrait
 
     protected function deleteableFileFieldsSingleValidation(
         string $field,
-        array $config,
-        bool $isRequired = false,
+        array $rules,
     ): array {
         $this->deleteableFileFields['single'][] = $field;
 
         return [
-            $field => ValidationFileHelper::rules($config, $isRequired),
+            $field => $rules,
             "{$field}_old_keys" => 'required|json',
         ];
     }
 
     protected function deleteableFileFieldsMultipleValidation(
         string $field,
-        array $config,
-        bool $isRequired = false,
+        array $rules,
     ): array {
         $this->deleteableFileFields['multiple'][] = $field;
 
         return [
             $field => [
                 'array',
-                $isRequired ? 'required' : null,
+                in_array('required', $rules) ? 'required' : null,
             ],
-            "$field.*" => ValidationFileHelper::rules($config, $isRequired),
+            "$field.*" => $rules,
             "{$field}_old_keys" => 'required|json',
         ];
     }

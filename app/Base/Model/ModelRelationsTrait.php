@@ -3,7 +3,6 @@
 namespace App\Base\Model;
 
 use App\Base\Model;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Arr;
 
 trait ModelRelationsTrait
@@ -26,7 +25,7 @@ trait ModelRelationsTrait
         ];
     }
 
-    public static function bootModelRelationsTrait()
+    protected static function bootModelRelationsTrait()
     {
         static::saved(function (self $model) {
             foreach ($model->filledRelations as $type => $relations) {
@@ -71,32 +70,7 @@ trait ModelRelationsTrait
 
     private static function saveRelationsManyToMany(Model $model, string $name, array $ids)
     {
-        $relation = $model->$name();
-
-        $relatedKeyName = $relation->getRelatedKeyName(); // E.g.: box_category.id
-        $foreignPivotKeyName = $relation->getForeignPivotKeyName(); // E.g.: box_category_ref.box_id
-        $relationPivotKeyName = $relation->getRelatedPivotKeyName(); // E.g.: box_category_ref.category_id
-
-        $pivotTable = $relation->getTable();
-
-        $oldRelationIds = $model->$name->pluck($relatedKeyName)->toArray();
-
-        // Deleting old relations
-
-        DB::table($pivotTable)
-            ->where($foreignPivotKeyName, $model->getKey())
-            ->whereNotIn($relationPivotKeyName, $ids)
-            ->delete();
-
-        // Saving new relations
-
-        $ids = array_diff($ids, $oldRelationIds);
-
-        $ids = array_map(fn ($id) => [
-            $foreignPivotKeyName => $model->getKey(),
-            $relationPivotKeyName => $id,
-        ], $ids);
-
-        DB::table($pivotTable)->insert($ids);
+        $model->$name()->detach();
+        $model->$name()->attach($ids);
     }
 }

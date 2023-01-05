@@ -25,7 +25,7 @@ class SearchSort
 
             if (!isset($this->sortings[$param])) continue;
 
-            $sortType = $this->sortings[$param];
+            $sortType = $this->sortings[$param]->value;
 
             $this->$sortType(
                 field: $param,

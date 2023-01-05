@@ -3,26 +3,29 @@
 namespace Modules\User\Search;
 
 use App\Base\Search;
+use App\Base\Search\Enums\SearchFilterConditionEnum;
+use App\Base\Search\Enums\SearchFilterTypeEnum;
+use App\Base\Search\Enums\SearchSortTypeEnum;
 
 class UserSearch extends Search
 {
     public array $filters = [
-        'id' => self::FILTER_CLASS_IN,
-        'role_id' => self::FILTER_CLASS_EQUAL_RAW,
+        'id' => SearchFilterTypeEnum::IN,
+        'role_id' => SearchFilterTypeEnum::EQUAL_RAW,
 
         'common' => [
-            'condition' => self::FILTER_CONDITION_OR_WHERE,
+            'condition' => SearchFilterConditionEnum::OR_WHERE,
             'filters' => [
-                'username' => self::FILTER_CLASS_LIKE,
-                'email' => self::FILTER_CLASS_LIKE,
-                'profile.full_name' => self::FILTER_CLASS_LIKE,
-                'profile.phone' => self::FILTER_CLASS_LIKE,
+                'username' => SearchFilterTypeEnum::LIKE,
+                'email' => SearchFilterTypeEnum::LIKE,
+                'profile.full_name' => SearchFilterTypeEnum::LIKE,
+                'profile.phone' => SearchFilterTypeEnum::LIKE,
             ],
         ],
     ];
 
     public array $sortings = [
-        'id' => self::SORT_TYPE_RAW,
-        'username' => self::SORT_TYPE_RAW,
+        'id' => SearchSortTypeEnum::RAW,
+        'username' => SearchSortTypeEnum::RAW,
     ];
 }

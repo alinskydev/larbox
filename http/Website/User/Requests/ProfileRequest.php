@@ -7,7 +7,7 @@ use Modules\User\Models\User;
 
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
-use App\Helpers\Validation\ValidationFileHelper;
+use App\Helpers\Validation\ValidationFileRulesHelper;
 use Illuminate\Support\Facades\Hash;
 
 class ProfileRequest extends ActiveFormRequest
@@ -49,7 +49,7 @@ class ProfileRequest extends ActiveFormRequest
 
             'profile.full_name' => 'required|string|max:255',
             'profile.phone' => 'present|nullable|string|max:255',
-            'profile.image' => ValidationFileHelper::rules(ValidationFileHelper::CONFIG_IMAGE),
+            'profile.image' => ValidationFileRulesHelper::image(),
         ];
     }
 

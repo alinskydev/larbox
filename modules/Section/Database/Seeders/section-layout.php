@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\SeederHelper;
+use Modules\Section\Enums\SectionEnum;
 
 return new class extends Seeder
 {
@@ -10,7 +11,7 @@ return new class extends Seeder
     {
         DB::table('section')->insert([
             [
-                'name' => 'layout',
+                'name' => SectionEnum::LAYOUT->value,
                 'blocks' => json_encode([
                     'header_phone' => '+998 00 000 00 01',
 

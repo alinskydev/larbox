@@ -16,14 +16,6 @@ abstract class PostmanTestCase extends BaseTestCase
     use CreatesApplicationTrait;
     use ActionFeatureTestTrait;
 
-    public const REQUEST_METHOD_GET = 'GET';
-    public const REQUEST_METHOD_POST = 'POST';
-    public const REQUEST_METHOD_PUT = 'PUT';
-    public const REQUEST_METHOD_PATCH = 'PATCH';
-    public const REQUEST_METHOD_DELETE = 'DELETE';
-    public const REQUEST_METHOD_OPTIONS = 'OPTIONS';
-    public const REQUEST_METHOD_HEAD = 'HEAD';
-
     protected $defaultHeaders = [
         'Accept' => 'application/json',
         'Accept-Language' => 'ru',
@@ -45,9 +37,9 @@ abstract class PostmanTestCase extends BaseTestCase
 
     public function sendRequest(): TestResponse
     {
-        if (in_array($this->requestMethod, [self::REQUEST_METHOD_PUT, self::REQUEST_METHOD_PATCH])) {
+        if (in_array($this->requestMethod, ['PUT', 'PATCH'])) {
             $this->requestQuery['_method'] = $this->requestMethod;
-            $this->requestMethod = self::REQUEST_METHOD_POST;
+            $this->requestMethod = 'POST';
         }
 
         $this->requestQueryAsString = http_build_query($this->requestQuery);

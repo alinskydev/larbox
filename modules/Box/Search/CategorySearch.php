@@ -3,20 +3,22 @@
 namespace Modules\Box\Search;
 
 use App\Base\Search;
+use App\Base\Search\Enums\SearchFilterConditionEnum;
+use App\Base\Search\Enums\SearchFilterTypeEnum;
 
 class CategorySearch extends Search
 {
     public array $defaultSort = ['lft'];
 
     public array $filters = [
-        'id' => self::FILTER_CLASS_EQUAL_RAW,
-        'depth' => self::FILTER_CLASS_EQUAL_RAW,
-        'name' => self::FILTER_CLASS_LOCALIZED_LIKE,
+        'id' => SearchFilterTypeEnum::EQUAL_RAW,
+        'depth' => SearchFilterTypeEnum::EQUAL_RAW,
+        'name' => SearchFilterTypeEnum::LOCALIZED_LIKE,
         
         'full_text' => [
-            'condition' => self::FILTER_CONDITION_OR_WHERE,
+            'condition' => SearchFilterConditionEnum::OR_WHERE,
             'filters' => [
-                'name' => self::FILTER_CLASS_LOCALIZED_LIKE,
+                'name' => SearchFilterTypeEnum::LOCALIZED_LIKE,
             ],
         ],
     ];

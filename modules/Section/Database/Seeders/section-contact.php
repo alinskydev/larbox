@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\SeederHelper;
+use Modules\Section\Enums\SectionEnum;
 
 return new class extends Seeder
 {
@@ -10,7 +11,7 @@ return new class extends Seeder
     {
         DB::table('section')->insert([
             [
-                'name' => 'contact',
+                'name' => SectionEnum::CONTACT->value,
                 'blocks' => json_encode([
                     'socials_facebook' => '',
                     'socials_instagram' => '',

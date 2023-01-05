@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('seo_metable_type');
             $table->bigInteger('seo_metable_id');
             $table->jsonb('value');
+            $table->jsonb('value_as_array');
 
             $table->unique(['seo_metable_type', 'seo_metable_id']);
         });

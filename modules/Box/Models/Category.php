@@ -2,17 +2,19 @@
 
 namespace Modules\Box\Models;
 
-use App\NestedSet\NestedSetModel;
+use App\Base\Model;
+use App\NestedSet\NestedSetModelTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Modules\Seo\Traits\SeoMetaModelTrait;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
+use Modules\Box\Observers\CategoryObserver;
+use Modules\Seo\Traits\SeoMetaModelTrait;
 
-class Category extends NestedSetModel
+class Category extends Model
 {
     use SoftDeletes;
     use SeoMetaModelTrait;
+    use NestedSetModelTrait;
 
     protected $table = 'box_category';
 
@@ -30,17 +32,10 @@ class Category extends NestedSetModel
         return $this->belongsToMany(Box::class, 'box_category_ref', 'category_id', 'box_id')->withTrashed();
     }
 
-    protected static function boot(): void
+    protected static function booted(): void
     {
-        parent::boot();
-
-        static::saving(function (self $model) {
-            $locale = app('language')->main['code'];
-
-            $slug = Arr::get($model->name, $locale);
-            $slug = Str::slug($slug);
-
-            $model->slug = $slug;
-        });
+        self::observe([
+            CategoryObserver::class,
+        ]);
     }
 }

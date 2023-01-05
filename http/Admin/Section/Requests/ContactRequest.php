@@ -5,7 +5,7 @@ namespace Http\Admin\Section\Requests;
 use Modules\Section\Base\FormRequest;
 use Modules\Seo\Traits\SeoMetaFormRequestTrait;
 
-use App\Helpers\Validation\ValidationFileHelper;
+use App\Helpers\Validation\ValidationFileRulesHelper;
 
 class ContactRequest extends FormRequest
 {

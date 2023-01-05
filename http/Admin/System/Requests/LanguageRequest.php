@@ -6,7 +6,7 @@ use App\Http\Requests\ActiveFormRequest;
 
 use Illuminate\Validation\Rule;
 use App\Rules\UniqueRule;
-use App\Helpers\Validation\ValidationFileHelper;
+use App\Helpers\Validation\ValidationFileRulesHelper;
 
 class LanguageRequest extends ActiveFormRequest
 {
@@ -22,7 +22,7 @@ class LanguageRequest extends ActiveFormRequest
                     fieldIsLocalized: false,
                 ),
             ],
-            'image' => ValidationFileHelper::rules(ValidationFileHelper::CONFIG_IMAGE),
+            'image' => ValidationFileRulesHelper::image(),
         ];
     }
 }

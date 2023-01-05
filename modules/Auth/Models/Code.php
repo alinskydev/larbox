@@ -3,6 +3,7 @@
 namespace Modules\Auth\Models;
 
 use App\Base\Model;
+use Modules\Auth\Observers\CodeObserver;
 
 class Code extends Model
 {
@@ -14,12 +15,10 @@ class Code extends Model
     protected $keyType = 'string';
     public $incrementing = false;
 
-    protected static function boot(): void
+    protected static function booted(): void
     {
-        parent::boot();
-
-        static::saved(function (self $model) {
-            if (!$model->attempts_left) $model->delete();
-        });
+        self::observe([
+            CodeObserver::class,
+        ]);
     }
 }

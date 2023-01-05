@@ -2,21 +2,13 @@
 
 namespace App\NestedSet;
 
-use App\Base\Model;
-
 use App\NestedSet\Relations\Parents\NestedSetSingleParentRelation;
 use App\NestedSet\Relations\Parents\NestedSetAllParentsRelation;
 use App\NestedSet\Relations\Children\NestedSetAllChildrenRelation;
 use App\NestedSet\Relations\Siblings\NestedSetAllSiblingsRelation;
 
-class NestedSetModel extends Model
+trait NestedSetModelTrait
 {
-    public function __construct(array $attributes = [])
-    {
-        $this->append(['text', 'state']);
-        parent::__construct($attributes);
-    }
-
     public function getStateAttribute(): array
     {
         return [
@@ -58,12 +50,15 @@ class NestedSetModel extends Model
         return (new NestedSetAllSiblingsRelation(static::query(), $this, 'tree', 'tree'))->withTrashed();
     }
 
-    protected static function boot(): void
+
+    protected static function bootNestedSetModelTrait()
     {
-        parent::boot();
+        static::retrieved(function (self $model) {
+            $model->append(['text', 'state']);
+        });
 
         static::creating(function (self $model) {
-            $root = self::query()->findOrFail(1);
+            $root = $model->newQuery()->findOrFail(1);
 
             $model->lft = $root->rgt;
             $model->rgt = $root->rgt + 1;
@@ -79,7 +74,6 @@ class NestedSetModel extends Model
 
         static::restoring(function (self $model) {
             $parent = $model->parents()->onlyTrashed()->first();
-            
             if ($parent) throw new \Exception(__('Восстановление записи без родителя невозможно'));
         });
 

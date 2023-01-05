@@ -2,8 +2,8 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use App\Helpers\DataHelper;
+use Modules\User\Enums\NotificationTypeEnum;
 
 return new class extends Seeder
 {
@@ -13,7 +13,7 @@ return new class extends Seeder
             [
                 'creator_id' => 1,
                 'owner_id' => 1,
-                'type' => 'message',
+                'type' => NotificationTypeEnum::MESSAGE->value,
                 'params' => json_encode([
                     'text' => 'Text 1',
                 ]),
@@ -22,7 +22,7 @@ return new class extends Seeder
             [
                 'creator_id' => 1,
                 'owner_id' => 1,
-                'type' => 'message',
+                'type' => NotificationTypeEnum::MESSAGE->value,
                 'params' => json_encode([
                     'text' => 'Text 2',
                 ]),
@@ -31,7 +31,7 @@ return new class extends Seeder
             [
                 'creator_id' => 1,
                 'owner_id' => 2,
-                'type' => 'message',
+                'type' => NotificationTypeEnum::MESSAGE->value,
                 'params' => json_encode([
                     'text' => 'Text 3',
                 ]),

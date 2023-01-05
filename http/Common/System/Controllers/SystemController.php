@@ -9,10 +9,10 @@ use Modules\System\Resources\SettingsResource;
 use Modules\User\Helpers\RoleHelper;
 
 use Modules\Section\Models\Section;
-use Modules\Section\Enums\SectionEnums;
+use Modules\Section\Enums\SectionEnum;
 
-use Modules\Feedback\Enums\FeedbackEnums;
-use Modules\User\Enums\NotificationEnums;
+use Modules\Feedback\Enums\FeedbackStatusEnum;
+use Modules\User\Enums\NotificationTypeEnum;
 
 class SystemController extends Controller
 {
@@ -33,14 +33,14 @@ class SystemController extends Controller
     {
         $result = [
             'user_notification' => [
-                'types' => NotificationEnums::types(),
+                'types' => NotificationTypeEnum::labels(),
             ],
         ];
 
         if (request()->get('show-all')) {
             $result = array_replace_recursive($result, [
                 'feedback' => [
-                    'statuses' => FeedbackEnums::statuses(),
+                    'statuses' => FeedbackStatusEnum::labels(),
                 ],
                 'user_role' => [
                     'routes' => [
@@ -58,13 +58,12 @@ class SystemController extends Controller
 
     private function sections(): array
     {
-        $sectionConfigs = SectionEnums::config();
         $sections = Section::query()->with(['seo_meta_morph'])->orderBy('name')->get()->keyBy('name');
 
         return $sections
-            ->map(function ($section, $key) use ($sectionConfigs) {
+            ->map(function ($section, $key) {
                 return array_merge(
-                    $sectionConfigs[$key]['resource']::make($section->blocks)->resolve(),
+                    SectionEnum::classByPath("$key.resource")::make($section->blocks)->resolve(),
                     [
                         'seo_meta' => $section->seo_meta,
                         'seo_meta_as_array' => $section->seo_meta_as_array,

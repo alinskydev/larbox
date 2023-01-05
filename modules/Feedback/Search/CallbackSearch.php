@@ -3,23 +3,26 @@
 namespace Modules\Feedback\Search;
 
 use App\Base\Search;
+use App\Base\Search\Enums\SearchFilterConditionEnum;
+use App\Base\Search\Enums\SearchFilterTypeEnum;
+use App\Base\Search\Enums\SearchSortTypeEnum;
 
 class CallbackSearch extends Search
 {
     public array $filters = [
-        'id' => self::FILTER_CLASS_EQUAL_RAW,
-        'status' => self::FILTER_CLASS_EQUAL_RAW,
+        'id' => SearchFilterTypeEnum::EQUAL_RAW,
+        'status' => SearchFilterTypeEnum::EQUAL_RAW,
         
         'common' => [
-            'condition' => self::FILTER_CONDITION_OR_WHERE,
+            'condition' => SearchFilterConditionEnum::OR_WHERE,
             'filters' => [
-                'full_name' => self::FILTER_CLASS_LIKE,
-                'phone' => self::FILTER_CLASS_LIKE,
+                'full_name' => SearchFilterTypeEnum::LIKE,
+                'phone' => SearchFilterTypeEnum::LIKE,
             ],
         ],
     ];
 
     public array $sortings = [
-        'id' => self::SORT_TYPE_RAW,
+        'id' => SearchSortTypeEnum::RAW,
     ];
 }

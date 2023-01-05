@@ -21,6 +21,7 @@ return [
 
     'allowed_origins' => [
         'http://larbox.loc:3000',
+        'http://vue.loc',
     ],
 
     'allowed_origins_patterns' => [],

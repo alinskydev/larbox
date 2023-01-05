@@ -3,12 +3,13 @@
 namespace Modules\User\Helpers;
 
 use Illuminate\Support\Facades\DB;
+use Modules\User\Enums\NotificationTypeEnum;
 
 class NotificationHelper
 {
     public static function insertMultiple(
         array $ownerIds,
-        string $type,
+        NotificationTypeEnum $type,
         array $params = [],
         ?int $creatorId = null,
     ): void {
@@ -17,7 +18,7 @@ class NotificationHelper
         $notifications = array_map(fn ($id) => [
             'creator_id' => $creatorId,
             'owner_id' => $id,
-            'type' => $type,
+            'type' => $type->value,
             'params' => json_encode($params),
             'created_at' => $createdAt,
         ], $ownerIds);

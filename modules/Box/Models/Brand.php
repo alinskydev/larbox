@@ -7,11 +7,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Seo\Traits\SeoMetaModelTrait;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-
-use Modules\User\Models\User;
-
+use App\Observers\Slug\SlugNameObserver;
+use App\Observers\ActivateObserver;
+use App\Observers\CreatorObserver;
 use App\Casts\Storage\AsFile;
 use App\Casts\Storage\AsFiles;
+
+use Modules\User\Models\User;
 
 class Brand extends Model
 {
@@ -33,5 +35,14 @@ class Brand extends Model
     public function boxes(): HasMany
     {
         return $this->hasMany(Box::class, 'brand_id');
+    }
+
+    protected static function booted(): void
+    {
+        self::observe([
+            SlugNameObserver::class,
+            ActivateObserver::class,
+            CreatorObserver::class,
+        ]);
     }
 }

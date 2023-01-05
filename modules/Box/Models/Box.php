@@ -8,13 +8,16 @@ use Modules\Seo\Traits\SeoMetaModelTrait;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Builder;
-
+use Modules\Box\Query\BoxQuery;
+use App\Observers\Slug\SlugNameObserver;
 use App\Casts\Date\AsDate;
 use App\Casts\Date\AsDatetime;
 use App\Casts\Storage\AsImage;
 use App\Casts\Storage\AsImages;
 
+/**
+ * @method static BoxQuery query()
+ */
 class Box extends Model
 {
     use SoftDeletes;
@@ -51,8 +54,15 @@ class Box extends Model
         return $this->belongsToMany(Tag::class, 'box_tag_ref', 'box_id', 'tag_id')->withTrashed();
     }
 
-    public function scopePublished(Builder $query): void
+    public function newEloquentBuilder($query): BoxQuery
     {
-        $query->where('datetime', '<=', date('Y-m-d'));
+        return new BoxQuery($query);
+    }
+
+    protected static function booted(): void
+    {
+        self::observe([
+            SlugNameObserver::class,
+        ]);
     }
 }

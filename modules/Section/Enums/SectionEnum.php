@@ -2,35 +2,44 @@
 
 namespace Modules\Section\Enums;
 
+use Illuminate\Support\Arr;
 use Modules\Section\Base\JsonResource;
 use Modules\Section\Base\EmptyFormRequest;
 
 use Modules\Section\Resources as Resources;
 use Http\Admin\Section\Requests as Requests;
 
-class SectionEnums
+enum SectionEnum: string
 {
-    public static function config(?string $name = null): array
+    case BOXES = 'boxes';
+    case CONTACT = 'contact';
+    case HOME = 'home';
+    case LAYOUT = 'layout';
+
+    public static function classes(): array
     {
-        $result = [
-            'boxes' => [
+        return [
+            self::BOXES->value => [
                 'resource' => JsonResource::class,
                 'request' => EmptyFormRequest::class,
             ],
-            'contact' => [
+            self::CONTACT->value => [
                 'resource' => JsonResource::class,
                 'request' => Requests\ContactRequest::class,
             ],
-            'home' => [
+            self::HOME->value => [
                 'resource' => Resources\HomeResource::class,
                 'request' => Requests\HomeRequest::class,
             ],
-            'layout' => [
+            self::LAYOUT->value => [
                 'resource' => JsonResource::class,
                 'request' => Requests\LayoutRequest::class,
             ],
         ];
+    }
 
-        return $name ? $result[$name] : $result;
+    public static function classByPath(string $path): string
+    {
+        return Arr::get(self::classes(), $path);
     }
 }

@@ -6,7 +6,7 @@ use App\Http\Requests\ActiveFormRequest;
 
 use Illuminate\Validation\Rule;
 use App\Rules\UniqueRule;
-use App\Helpers\Validation\ValidationFileHelper;
+use App\Helpers\Validation\ValidationFileRulesHelper;
 
 class BrandRequest extends ActiveFormRequest
 {
@@ -24,9 +24,9 @@ class BrandRequest extends ActiveFormRequest
                 ),
             ],
             'show_on_the_home_page' => 'required|boolean',
-            'file' => ValidationFileHelper::rules(ValidationFileHelper::CONFIG_ALL),
+            'file' => ValidationFileRulesHelper::media(),
             'files_list' => 'array',
-            'files_list.*' => ValidationFileHelper::rules(ValidationFileHelper::CONFIG_ALL),
+            'files_list.*' => ValidationFileRulesHelper::media(),
         ];
     }
 }

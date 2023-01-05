@@ -8,7 +8,7 @@ use Modules\Seo\Traits\SeoMetaFormRequestTrait;
 use Illuminate\Validation\Rule;
 use App\Rules\UniqueRule;
 use App\Rules\ExistsWithOldRule;
-use App\Helpers\Validation\ValidationFileHelper;
+use App\Helpers\Validation\ValidationFileRulesHelper;
 
 use Modules\Box\Models\Brand;
 use Modules\Box\Models\Category;
@@ -39,11 +39,11 @@ class BoxRequest extends ActiveFormRequest
             'datetime' => 'required|date|date_format:' . config('larbox.formats.datetime'),
             ...$this->deleteableFileFieldsSingleValidation(
                 field: 'image',
-                config: ValidationFileHelper::CONFIG_IMAGE,
+                rules: ValidationFileRulesHelper::image(!$this->model->exists),
             ),
             ...$this->deleteableFileFieldsMultipleValidation(
                 field: 'images_list',
-                config: ValidationFileHelper::CONFIG_IMAGE,
+                rules: ValidationFileRulesHelper::image(!$this->model->exists),
             ),
 
             'categories' => [
@@ -67,7 +67,7 @@ class BoxRequest extends ActiveFormRequest
             'variations.*.id' => 'integer',
             ...$this->deleteableFileFieldsSingleValidation(
                 field: 'variations.*.image',
-                config: ValidationFileHelper::CONFIG_IMAGE,
+                rules: ValidationFileRulesHelper::image(),
             ),
         ];
     }

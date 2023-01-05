@@ -7,7 +7,7 @@ use Modules\Seo\Traits\SeoMetaFormRequestTrait;
 
 use Illuminate\Validation\Rule;
 use App\Rules\UniqueRule;
-use App\Helpers\Validation\ValidationFileHelper;
+use App\Helpers\Validation\ValidationFileRulesHelper;
 
 class BrandRequest extends ActiveFormRequest
 {
@@ -28,11 +28,11 @@ class BrandRequest extends ActiveFormRequest
             'show_on_the_home_page' => 'required|boolean',
             ...$this->deleteableFileFieldsSingleValidation(
                 field: 'file',
-                config: ValidationFileHelper::CONFIG_ALL,
+                rules: ValidationFileRulesHelper::media(),
             ),
             ...$this->deleteableFileFieldsMultipleValidation(
                 field: 'files_list',
-                config: ValidationFileHelper::CONFIG_ALL,
+                rules: ValidationFileRulesHelper::media(),
             ),
         ];
     }

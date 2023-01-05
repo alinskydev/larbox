@@ -20,7 +20,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->bootCommon();
-        $this->bootSanctrum();
         $this->bootDev();
     }
 
@@ -29,19 +28,7 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(255);
         ImageManagerStatic::configure(['driver' => 'gd']);
         Password::defaults(fn () => Password::min(8));
-    }
-
-    private function bootSanctrum()
-    {
         Sanctum::usePersonalAccessTokenModel(AccessToken::class);
-        Sanctum::authenticateAccessTokensUsing(function ($token, $isValid) {
-            if (!$isValid) return false;
-
-            $token->expires_at = now()->addWeek();
-            $token->save();
-
-            return true;
-        });
     }
 
     private function bootDev()

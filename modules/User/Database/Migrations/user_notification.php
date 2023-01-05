@@ -3,8 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-
-use Modules\User\Enums\NotificationEnums;
+use Modules\User\Enums\NotificationTypeEnum;
 
 return new class extends Migration
 {
@@ -19,7 +18,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('creator_id')->nullable()->index();
             $table->bigInteger('owner_id')->index();
-            $table->enum('type', array_keys(NotificationEnums::types()));
+            $table->enum('type', NotificationTypeEnum::values());
             $table->jsonb('params');
             $table->boolean('is_seen')->default(0);
             $table->timestamp('created_at')->index();

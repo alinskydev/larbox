@@ -3,6 +3,7 @@
 namespace Modules\User\Jobs;
 
 use App\Base\Job;
+use Modules\User\Enums\NotificationTypeEnum;
 use Modules\User\Helpers\NotificationHelper;
 use Modules\User\Models\User;
 use Modules\User\Search\UserSearch;
@@ -17,7 +18,7 @@ class NotificationCreateJob extends Job
     ) {
         $this->queue = 'user_notification_create';
     }
-
+    
     public function handle(): void
     {
         try {
@@ -39,7 +40,7 @@ class NotificationCreateJob extends Job
 
             NotificationHelper::insertMultiple(
                 ownerIds: $userIds,
-                type: $this->data['type'],
+                type: NotificationTypeEnum::caseByValue($this->data['type']),
                 params: [
                     'text' => $this->data['text'],
                 ],

@@ -3,16 +3,18 @@
 namespace Modules\Box\Search;
 
 use App\Base\Search;
+use App\Base\Search\Enums\SearchFilterTypeEnum;
+use App\Base\Search\Enums\SearchSortTypeEnum;
 
 class TagSearch extends Search
 {
     public array $filters = [
-        'id' => self::FILTER_CLASS_IN,
-        'name' => self::FILTER_CLASS_LIKE,
+        'id' => SearchFilterTypeEnum::IN,
+        'name' => SearchFilterTypeEnum::LIKE,
     ];
 
     public array $sortings = [
-        'id' => self::SORT_TYPE_RAW,
-        'name' => self::SORT_TYPE_RAW,
+        'id' => SearchSortTypeEnum::RAW,
+        'name' => SearchSortTypeEnum::RAW,
     ];
 }

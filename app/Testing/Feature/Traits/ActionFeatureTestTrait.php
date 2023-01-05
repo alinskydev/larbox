@@ -2,7 +2,6 @@
 
 namespace App\Testing\Feature\Traits;
 
-use App\Testing\Feature\PostmanTestCase;
 use App\Testing\Feature\Helpers\FormHelper;
 
 trait ActionFeatureTestTrait
@@ -13,7 +12,7 @@ trait ActionFeatureTestTrait
     {
         $this->processCall(
             path: $path,
-            method: PostmanTestCase::REQUEST_METHOD_GET,
+            method: 'GET',
             body: [],
             assertStatus: $assertStatus,
         );
@@ -23,7 +22,7 @@ trait ActionFeatureTestTrait
     {
         $this->processCall(
             path: $path,
-            method: PostmanTestCase::REQUEST_METHOD_PUT,
+            method: 'PUT',
             body: $body,
             assertStatus: $assertStatus,
         );
@@ -33,7 +32,7 @@ trait ActionFeatureTestTrait
     {
         $this->processCall(
             path: $path,
-            method: PostmanTestCase::REQUEST_METHOD_DELETE,
+            method: 'DELETE',
             body: [],
             assertStatus: $assertStatus,
         );
@@ -43,7 +42,7 @@ trait ActionFeatureTestTrait
     {
         $this->processCall(
             path: $path,
-            method: PostmanTestCase::REQUEST_METHOD_DELETE,
+            method: 'DELETE',
             body: [],
             assertStatus: $assertStatus,
         );
@@ -53,7 +52,7 @@ trait ActionFeatureTestTrait
     {
         $this->processCall(
             path: $path,
-            method: PostmanTestCase::REQUEST_METHOD_POST,
+            method: 'POST',
             body: $body,
             assertStatus: $assertStatus,
         );
@@ -63,7 +62,7 @@ trait ActionFeatureTestTrait
     {
         $this->processCall(
             path: $path,
-            method: PostmanTestCase::REQUEST_METHOD_PATCH,
+            method: 'PATCH',
             body: $body,
             assertStatus: $assertStatus,
         );

@@ -18,11 +18,6 @@ class ProfileController extends Controller
     public function update(ProfileRequest $request): JsonResponse
     {
         $request->model->safelySave($request->validatedData);
-
-        if ($request->model->newAccessToken) {
-            return response()->json(['token' => $request->model->newAccessToken], 200);
-        } else {
-            return $this->successResponse();
-        }
+        return $this->successResponseWithAccessToken($request->model);
     }
 }

@@ -12,9 +12,6 @@ class ActiveFormRequest extends FormRequest
 {
     use DeleteableFileFieldsTrait;
 
-    protected const FILE_FIELDS_TYPE_SINGLE = 'FILE_FIELDS_TYPE_SINGLE';
-    protected const FILE_FIELDS_TYPE_MULTIPLE = 'FILE_FIELDS_TYPE_MULTIPLE';
-
     public Model $model;
 
     public function __construct()

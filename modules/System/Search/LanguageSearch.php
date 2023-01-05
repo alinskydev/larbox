@@ -3,26 +3,29 @@
 namespace Modules\System\Search;
 
 use App\Base\Search;
+use App\Base\Search\Enums\SearchFilterConditionEnum;
+use App\Base\Search\Enums\SearchFilterTypeEnum;
+use App\Base\Search\Enums\SearchSortTypeEnum;
 
 class LanguageSearch extends Search
 {
     public array $filters = [
-        'id' => self::FILTER_CLASS_EQUAL_RAW,
-        'is_active' => self::FILTER_CLASS_EQUAL_RAW,
-        'is_main' => self::FILTER_CLASS_EQUAL_RAW,
+        'id' => SearchFilterTypeEnum::EQUAL_RAW,
+        'is_active' => SearchFilterTypeEnum::EQUAL_RAW,
+        'is_main' => SearchFilterTypeEnum::EQUAL_RAW,
         
         'common' => [
-            'condition' => self::FILTER_CONDITION_OR_WHERE,
+            'condition' => SearchFilterConditionEnum::OR_WHERE,
             'filters' => [
-                'name' => self::FILTER_CLASS_LIKE,
-                'code' => self::FILTER_CLASS_EQUAL_STRING,
+                'name' => SearchFilterTypeEnum::LIKE,
+                'code' => SearchFilterTypeEnum::EQUAL_STRING,
             ],
         ],
     ];
 
     public array $sortings = [
-        'id' => self::SORT_TYPE_RAW,
-        'name' => self::SORT_TYPE_RAW,
-        'code' => self::SORT_TYPE_RAW,
+        'id' => SearchSortTypeEnum::RAW,
+        'name' => SearchSortTypeEnum::RAW,
+        'code' => SearchSortTypeEnum::RAW,
     ];
 }

@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\SeederHelper;
+use Modules\Section\Enums\SectionEnum;
 
 return new class extends Seeder
 {
@@ -10,7 +11,7 @@ return new class extends Seeder
     {
         DB::table('section')->insert([
             [
-                'name' => 'home',
+                'name' => SectionEnum::HOME->value,
                 'blocks' => json_encode([
                     'first_text_1' => 'Text 1',
                     'first_text_1_localized' => json_decode(SeederHelper::localized('Text 1')),

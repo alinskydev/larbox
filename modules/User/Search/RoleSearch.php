@@ -3,16 +3,18 @@
 namespace Modules\User\Search;
 
 use App\Base\Search;
+use App\Base\Search\Enums\SearchFilterTypeEnum;
+use App\Base\Search\Enums\SearchSortTypeEnum;
 
 class RoleSearch extends Search
 {
     public array $filters = [
-        'id' => self::FILTER_CLASS_EQUAL_RAW,
-        'name' => self::FILTER_CLASS_LOCALIZED_LIKE,
+        'id' => SearchFilterTypeEnum::EQUAL_RAW,
+        'name' => SearchFilterTypeEnum::LOCALIZED_LIKE,
     ];
 
     public array $sortings = [
-        'id' => self::SORT_TYPE_RAW,
-        'name' => self::SORT_TYPE_LOCALIZED,
+        'id' => SearchSortTypeEnum::RAW,
+        'name' => SearchSortTypeEnum::LOCALIZED,
     ];
 }

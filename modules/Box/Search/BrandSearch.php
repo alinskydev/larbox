@@ -3,6 +3,8 @@
 namespace Modules\Box\Search;
 
 use App\Base\Search;
+use App\Base\Search\Enums\SearchFilterTypeEnum;
+use App\Base\Search\Enums\SearchSortTypeEnum;
 
 class BrandSearch extends Search
 {
@@ -11,16 +13,16 @@ class BrandSearch extends Search
     ];
 
     public array $filters = [
-        'id' => self::FILTER_CLASS_EQUAL_RAW,
-        'creator_id' => self::FILTER_CLASS_EQUAL_RAW,
-        'name' => self::FILTER_CLASS_LIKE,
-        'show_on_the_home_page' => self::FILTER_CLASS_EQUAL_RAW,
-        'is_active' => self::FILTER_CLASS_EQUAL_RAW,
+        'id' => SearchFilterTypeEnum::EQUAL_RAW,
+        'creator_id' => SearchFilterTypeEnum::EQUAL_RAW,
+        'name' => SearchFilterTypeEnum::LIKE,
+        'show_on_the_home_page' => SearchFilterTypeEnum::EQUAL_RAW,
+        'is_active' => SearchFilterTypeEnum::EQUAL_RAW,
     ];
 
     public array $sortings = [
-        'id' => self::SORT_TYPE_RAW,
-        'name' => self::SORT_TYPE_RAW,
+        'id' => SearchSortTypeEnum::RAW,
+        'name' => SearchSortTypeEnum::RAW,
     ];
 
     public function show(array $params): static

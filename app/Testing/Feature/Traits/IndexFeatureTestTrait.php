@@ -2,7 +2,6 @@
 
 namespace App\Testing\Feature\Traits;
 
-use App\Testing\Feature\PostmanTestCase;
 use App\Base\Search;
 
 trait IndexFeatureTestTrait
@@ -72,7 +71,7 @@ trait IndexFeatureTestTrait
 
     public function processIndexRequest(array $requestQuery, int $assertStatus = 206): void
     {
-        $this->requestMethod = PostmanTestCase::REQUEST_METHOD_GET;
+        $this->requestMethod = 'GET';
         $this->requestQuery = $requestQuery;
 
         $this->response = $this->sendRequest();

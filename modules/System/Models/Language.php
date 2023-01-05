@@ -4,7 +4,7 @@ namespace Modules\System\Models;
 
 use App\Base\Model;
 use App\Casts\Storage\AsImage;
-use Illuminate\Support\Arr;
+use Modules\System\Observers\LanguageObserver;
 
 class Language extends Model
 {
@@ -14,25 +14,10 @@ class Language extends Model
         'image' => AsImage::class . ':widen_30|widen_100|widen_500',
     ];
 
-    protected static function boot(): void
+    protected static function booted(): void
     {
-        parent::boot();
-
-        static::saving(function (self $model) {
-            if ($model->getOriginal('is_active') && !$model->is_active) {
-                if ($model->is_main) {
-                    throw new \Exception(__('Невозможно деактивировать основной язык'));
-                }
-
-                if ($model->code == app()->getLocale()) {
-                    throw new \Exception(__('Невозможно деактивировать текущий язык'));
-                }
-            }
-
-            if ($model->is_main) {
-                $model->is_active = 1;
-                $model->newQuery()->where('id', '!=', $model->id)->update(['is_main' => 0]);
-            }
-        });
+        self::observe([
+            LanguageObserver::class,
+        ]);
     }
 }

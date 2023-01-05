@@ -3,7 +3,7 @@
 namespace Http\Admin\User\Requests;
 
 use App\Base\FormRequest;
-use Modules\User\Models\Notification;
+use Modules\User\Enums\NotificationTypeEnum;
 
 use Illuminate\Validation\Rule;
 
@@ -16,8 +16,8 @@ class NotificationRequest extends FormRequest
             'type' => [
                 'required',
                 Rule::in([
-                    Notification::TYPE_ANNOUNCEMENT,
-                    Notification::TYPE_MESSAGE,
+                    NotificationTypeEnum::ANNOUNCEMENT->value,
+                    NotificationTypeEnum::MESSAGE->value,
                 ]),
             ],
             'text' => 'required|string',

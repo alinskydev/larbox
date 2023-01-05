@@ -75,43 +75,33 @@ class Handler extends ExceptionHandler
         switch (get_class($e)) {
             case NotFoundHttpException::class:
             case ModelNotFoundException::class:
-                $response = [
-                    'status' => 404,
-                    'data' => ['message' => 'Not found'],
-                ];
-                break;
+                return response()->json(['message' => 'Not found'], 404);
 
             case TypeError::class:
             case QueryException::class:
-                $response = [
-                    'status' => 400,
-                    'data' => ['message' => 'Invalid input data type'],
-                ];
-                break;
+                return response()->json(['message' => 'Invalid input data type'], 400);
 
             case ValidationException::class:
                 return $this->invalidJson($request, $e);
 
             case ThrottleRequestsException::class:
                 /** @var ThrottleRequestsException $e */
-
-                $response = [
-                    'status' => $e->getStatusCode(),
-                    'data' => [
+                return response()->json(
+                    [
                         'message' => $e->getMessage(),
                         'seconds_left' => Arr::get($e->getHeaders(), 'Retry-After', 0),
                     ],
-                ];
-                break;
+                    $e->getStatusCode(),
+                );
 
             default:
-                $response = [
-                    'status' => method_exists($e, 'getStatusCode') ? $e->getStatusCode() : 500,
-                    'data' => ['message' => $e->getMessage() ?: 'An unhandled exception'],
-                ];
+                return response()->json(
+                    [
+                        'message' => $e->getMessage() ?: 'An error occurred',
+                    ],
+                    method_exists($e, 'getStatusCode') ? $e->getStatusCode() : 500,
+                );
         }
-
-        return response()->json($response['data'], $response['status']);
     }
 
     /**

@@ -3,6 +3,9 @@
 namespace Modules\Box\Search;
 
 use App\Base\Search;
+use App\Base\Search\Enums\SearchFilterConditionEnum;
+use App\Base\Search\Enums\SearchFilterTypeEnum;
+use App\Base\Search\Enums\SearchSortTypeEnum;
 
 class BoxSearch extends Search
 {
@@ -12,28 +15,28 @@ class BoxSearch extends Search
     ];
 
     public array $filters = [
-        'id' => self::FILTER_CLASS_EQUAL_RAW,
-        'brand_id' => self::FILTER_CLASS_EQUAL_RAW,
-        'name' => self::FILTER_CLASS_LOCALIZED_LIKE,
-        'price' => self::FILTER_CLASS_BETWEEN_NUMBER,
-        'date' => self::FILTER_CLASS_BETWEEN_DATE,
-        'datetime' => self::FILTER_CLASS_DATE,
+        'id' => SearchFilterTypeEnum::EQUAL_RAW,
+        'brand_id' => SearchFilterTypeEnum::EQUAL_RAW,
+        'name' => SearchFilterTypeEnum::LOCALIZED_LIKE,
+        'price' => SearchFilterTypeEnum::BETWEEN_NUMBER,
+        'date' => SearchFilterTypeEnum::BETWEEN_DATE,
+        'datetime' => SearchFilterTypeEnum::DATE,
 
-        'tags.id' => self::FILTER_CLASS_IN,
+        'tags.id' => SearchFilterTypeEnum::IN,
         
         'categories.id' => [
-            'condition' => self::FILTER_CONDITION_OR_WHERE,
+            'condition' => SearchFilterConditionEnum::OR_WHERE,
             'filters' => [
-                'categories.id' => self::FILTER_CLASS_EQUAL_RAW,
-                'categories.parents.id' => self::FILTER_CLASS_EQUAL_RAW,
+                'categories.id' => SearchFilterTypeEnum::EQUAL_RAW,
+                'categories.parents.id' => SearchFilterTypeEnum::EQUAL_RAW,
             ],
         ],
     ];
 
     public array $sortings = [
-        'id' => self::SORT_TYPE_RAW,
-        'name' => self::SORT_TYPE_LOCALIZED,
-        'date' => self::SORT_TYPE_RAW,
-        'datetime' => self::SORT_TYPE_RAW,
+        'id' => SearchSortTypeEnum::RAW,
+        'name' => SearchSortTypeEnum::LOCALIZED,
+        'date' => SearchSortTypeEnum::RAW,
+        'datetime' => SearchSortTypeEnum::RAW,
     ];
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-use Modules\Feedback\Enums\FeedbackEnums;
+use Modules\Feedback\Enums\FeedbackStatusEnum;
 
 return new class extends Migration
 {
@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('full_name');
             $table->string('phone');
             $table->string('message')->nullable();
-            $table->enum('status', array_keys(FeedbackEnums::statuses()))->default('unprocessed');
+            $table->enum('status', FeedbackStatusEnum::values())->default(FeedbackStatusEnum::UNPROCESSED->value);
             $table->timestamp('created_at')->index();
             $table->timestamp('updated_at');
             $table->softDeletes();

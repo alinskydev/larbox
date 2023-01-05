@@ -2,9 +2,11 @@
 
 namespace App\NestedSet;
 
+use App\Base\Model;
+
 class NestedSetHelper
 {
-    public static function tree(NestedSetModel $model): array
+    public static function tree(Model $model): array
     {
         $children = $model->children->toArray();
         $children = array_reverse($children);
