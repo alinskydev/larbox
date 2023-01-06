@@ -15,9 +15,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Modules\User\Observers\UserObserver;
 use Modules\User\Services\UserService;
 
-/**
- * @method UserService service()
- */
 class User extends Model implements AuthenticatableContract, AuthorizableContract
 {
     use Authenticatable, Authorizable, HasApiTokens;
@@ -44,6 +41,11 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class, 'role_id');
+    }
+
+    public function getService(): UserService
+    {
+        return new UserService($this);
     }
 
     protected static function booted(): void

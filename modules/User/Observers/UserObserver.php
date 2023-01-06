@@ -8,14 +8,14 @@ class UserObserver
 {
     public function created(User $model): void
     {
-        $model->service()->createNewAccessToken();
+        $model->getService()->createNewAccessToken();
     }
 
     public function updated(User $model): void
     {
         if ($model->wasChanged('password')) {
             $model->tokens()->delete();
-            $model->service()->createNewAccessToken();
+            $model->getService()->createNewAccessToken();
         }
     }
 

@@ -50,7 +50,6 @@ trait NestedSetModelTrait
         return (new NestedSetAllSiblingsRelation(static::query(), $this, 'tree', 'tree'))->withTrashed();
     }
 
-
     protected static function bootNestedSetModelTrait()
     {
         static::retrieved(function (self $model) {

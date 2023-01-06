@@ -12,7 +12,7 @@ class AuthController extends Controller
 {
     public function login(LoginRequest $request): JsonResponse
     {
-        request()->user()->service()->createNewAccessToken();
+        request()->user()->getService()->createNewAccessToken();
         return $this->successResponseWithAccessToken(request()->user());
     }
 

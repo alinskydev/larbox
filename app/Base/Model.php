@@ -37,12 +37,6 @@ class Model extends BaseModel
         parent::__construct($attributes);
     }
 
-    public function service(): ActiveService
-    {
-        $serviceClass = preg_replace('/(\w+)(\\\Models\\\)(\w+)/', '${1}\\\Services\\\${3}Service', static::class);
-        return new $serviceClass($this);
-    }
-
     public function getIsDeletedAttribute(): bool
     {
         return (bool)$this->deleted_at;
