@@ -25,7 +25,7 @@ export default {
                     path: 'box/category',
                 },
             }),
-            id: 'el-' + this.booted.helpers.string.uniqueId(),
+            elementId: this.booted.helpers.string.uniqueElementId(),
             formType: 'create',
             formKey: 0,
             treeKey: 0,
@@ -36,7 +36,7 @@ export default {
             this.formType = 'create';
             this.formKey++;
 
-            $('#' + this.id).modal('show');
+            $('#modal-' + this.elementId).modal('show');
         },
     },
 };
@@ -62,15 +62,15 @@ export default {
         </div>
 
         <div class="card-body">
-            <Tree httpPath="box/category" :id="id" :key="treeKey" />
+            <Tree httpPath="box/category" :elementId="elementId" :key="treeKey" />
         </div>
 
-        <div class="modal fade" :id="id">
+        <div class="modal fade" :id="'modal-' + elementId">
             <div class="modal-dialog modal-xl">
                 <div class="modal-content" :key="formKey">
-                    <Create v-if="formType === 'create'" :id="id" />
-                    <Show v-else-if="formType === 'show'" :id="id" />
-                    <Update v-else-if="formType === 'update'" :id="id" />
+                    <Create v-if="formType === 'create'" :elementId="elementId" />
+                    <Show v-else-if="formType === 'show'" :elementId="elementId" />
+                    <Update v-else-if="formType === 'update'" :elementId="elementId" />
                 </div>
             </div>
         </div>

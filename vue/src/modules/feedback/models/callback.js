@@ -16,7 +16,7 @@ export default new Model({
             type: Enums.valueTypes.httpSelect,
             options: {
                 httpSelect: {
-                    path: 'feedback/callback/:id/set-status/:value',
+                    path: 'feedback/callback/:pk/set-status/:value',
                     items: (context) => context.booted.enums.feedback.statuses,
                 },
             },
@@ -59,27 +59,29 @@ export default new Model({
     sortings: ['id'],
 
     show: {
-        id: {
-            type: Enums.valueTypes.text,
-        },
-        full_name: {
-            type: Enums.valueTypes.text,
-        },
-        phone: {
-            type: Enums.valueTypes.text,
-        },
-        message: {
-            type: Enums.valueTypes.text,
-        },
-        status: {
-            value: (context, item) => context.booted.enums.feedback.statuses[item.status],
-            type: Enums.valueTypes.text,
-        },
-        created_at: {
-            type: Enums.valueTypes.text,
-        },
-        updated_at: {
-            type: Enums.valueTypes.text,
+        Информация: {
+            id: {
+                type: Enums.valueTypes.text,
+            },
+            full_name: {
+                type: Enums.valueTypes.text,
+            },
+            phone: {
+                type: Enums.valueTypes.text,
+            },
+            message: {
+                type: Enums.valueTypes.text,
+            },
+            status: {
+                value: (context, item) => context.booted.enums.feedback.statuses[item.status],
+                type: Enums.valueTypes.text,
+            },
+            created_at: {
+                type: Enums.valueTypes.text,
+            },
+            updated_at: {
+                type: Enums.valueTypes.text,
+            },
         },
     },
 });

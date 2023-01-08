@@ -71,36 +71,38 @@ export default new Model({
     sortings: ['id', 'username'],
 
     show: {
-        image: {
-            value: 'profile.image.widen_500.webp',
-            type: Enums.valueTypes.image,
-        },
-        id: {
-            type: Enums.valueTypes.text,
-        },
-        username: {
-            type: Enums.valueTypes.text,
-        },
-        email: {
-            type: Enums.valueTypes.text,
-        },
-        role_id: {
-            value: 'role.name.:locale',
-            type: Enums.valueTypes.text,
-        },
-        full_name: {
-            value: 'profile.full_name',
-            type: Enums.valueTypes.text,
-        },
-        phone: {
-            value: 'profile.phone',
-            type: Enums.valueTypes.text,
-        },
-        created_at: {
-            type: Enums.valueTypes.text,
-        },
-        updated_at: {
-            type: Enums.valueTypes.text,
+        Информация: {
+            image: {
+                value: 'profile.image.widen_500.webp',
+                type: Enums.valueTypes.image,
+            },
+            id: {
+                type: Enums.valueTypes.text,
+            },
+            username: {
+                type: Enums.valueTypes.text,
+            },
+            email: {
+                type: Enums.valueTypes.text,
+            },
+            role_id: {
+                value: 'role.name.:locale',
+                type: Enums.valueTypes.text,
+            },
+            full_name: {
+                value: 'profile.full_name',
+                type: Enums.valueTypes.text,
+            },
+            phone: {
+                value: 'profile.phone',
+                type: Enums.valueTypes.text,
+            },
+            created_at: {
+                type: Enums.valueTypes.text,
+            },
+            updated_at: {
+                type: Enums.valueTypes.text,
+            },
         },
     },
 
@@ -115,10 +117,10 @@ export default new Model({
             role_id: {
                 type: Enums.inputTypes.select2Ajax,
                 options: {
-                    initValue: 'role.name.:locale',
                     select2Ajax: {
                         path: 'user/role',
                         field: 'name.:locale',
+                        initValue: 'role.name.:locale',
                         hasPrompt: true,
                     },
                 },

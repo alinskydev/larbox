@@ -8,7 +8,7 @@ export default {
         },
     },
     mounted() {
-        $('#' + this.item.id).bootstrapSwitch('state', $('#' + this.item.id).prop('checked'));
+        $('#' + this.item.elementId).bootstrapSwitch('state', $('#' + this.item.elementId).prop('checked'));
     },
 };
 </script>

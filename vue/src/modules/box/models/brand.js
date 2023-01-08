@@ -2,6 +2,8 @@ import { Model } from '@/core/model';
 import * as Enums from '@/core/enums';
 
 export default new Model({
+    hasSeoMeta: true,
+
     index: {
         id: {
             type: Enums.valueTypes.text,
@@ -26,7 +28,7 @@ export default new Model({
             type: Enums.valueTypes.httpSelect,
             options: {
                 httpSelect: {
-                    path: 'box/brand/:id/set-active/:value',
+                    path: 'box/brand/:pk/set-active/:value',
                     isBoolean: true,
                     items: (context) => {
                         return {
@@ -103,42 +105,44 @@ export default new Model({
     sortings: ['id', 'name'],
 
     show: {
-        id: {
-            type: Enums.valueTypes.text,
-        },
-        creator_id: {
-            value: 'creator.username',
-            type: Enums.valueTypes.text,
-        },
-        name: {
-            type: Enums.valueTypes.text,
-        },
-        slug: {
-            type: Enums.valueTypes.websiteLink,
-            options: {
-                websiteLink: 'box/brand/:value',
+        Информация: {
+            id: {
+                type: Enums.valueTypes.text,
             },
-        },
-        file: {
-            type: Enums.valueTypes.link,
-        },
-        files_list: {
-            type: Enums.valueTypes.link,
-        },
-        show_on_the_home_page: {
-            type: Enums.valueTypes.boolean,
-        },
-        is_active: {
-            type: Enums.valueTypes.boolean,
-        },
-        boxes_count: {
-            type: Enums.valueTypes.text,
-        },
-        created_at: {
-            type: Enums.valueTypes.text,
-        },
-        updated_at: {
-            type: Enums.valueTypes.text,
+            creator_id: {
+                value: 'creator.username',
+                type: Enums.valueTypes.text,
+            },
+            name: {
+                type: Enums.valueTypes.text,
+            },
+            slug: {
+                type: Enums.valueTypes.websiteLink,
+                options: {
+                    websiteLink: 'box/brand/:value',
+                },
+            },
+            file: {
+                type: Enums.valueTypes.link,
+            },
+            files_list: {
+                type: Enums.valueTypes.link,
+            },
+            show_on_the_home_page: {
+                type: Enums.valueTypes.boolean,
+            },
+            is_active: {
+                type: Enums.valueTypes.boolean,
+            },
+            boxes_count: {
+                type: Enums.valueTypes.text,
+            },
+            created_at: {
+                type: Enums.valueTypes.text,
+            },
+            updated_at: {
+                type: Enums.valueTypes.text,
+            },
         },
     },
 
@@ -172,6 +176,4 @@ export default new Model({
             },
         },
     },
-
-    hasSeoMeta: true,
 });

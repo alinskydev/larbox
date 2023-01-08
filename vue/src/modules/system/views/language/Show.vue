@@ -25,7 +25,7 @@ export default {
                 model: model,
                 title: 'name',
                 http: {
-                    path: 'system/language/:id',
+                    path: 'system/language/:pk',
                 },
             }),
         };

@@ -9,13 +9,13 @@ export default {
             page: this.booted.components.current.page,
             config: this.booted.components.current.config,
             model: this.booted.components.current.config.model,
-            items: {},
+            itemGroups: {},
         };
     },
     created() {
         let http = this.config.http;
 
-        http.path = http.path.replace(':id', this.$route.params.id).replace(':slug', this.$route.params.slug);
+        http.path = http.path.replace(':pk', this.$route.params.pk).replace(':slug', this.$route.params.slug);
 
         this.booted.helpers.http
             .send(this, {
@@ -38,9 +38,11 @@ export default {
 
                     this.page.init();
 
-                    // Collecting items
+                    // Collecting item groups
 
-                    this.items = this.model.prepareValues(this, this.model.show, response.data);
+                    for (let key in this.model.show) {
+                        this.itemGroups[key] = this.model.prepareValues(this, this.model.show[key], response.data);
+                    }
                 } else {
                     this.$router.back();
                 }
@@ -50,5 +52,5 @@ export default {
 </script>
 
 <template>
-    <Data :items="items" />
+    <Data :itemGroups="itemGroups" />
 </template>

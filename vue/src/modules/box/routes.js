@@ -11,7 +11,7 @@ export default {
                     component: () => import('./views/box/Index.vue'),
                 },
                 {
-                    path: ':id/show',
+                    path: ':pk/show',
                     component: () => import('./views/box/Show.vue'),
                 },
                 {
@@ -19,7 +19,7 @@ export default {
                     component: () => import('./views/box/Create.vue'),
                 },
                 {
-                    path: ':id/update',
+                    path: ':pk/update',
                     component: () => import('./views/box/Update.vue'),
                 },
             ],
@@ -33,7 +33,7 @@ export default {
                     component: () => import('./views/brand/Index.vue'),
                 },
                 {
-                    path: ':id/show',
+                    path: ':pk/show',
                     component: () => import('./views/brand/Show.vue'),
                 },
                 {
@@ -41,7 +41,7 @@ export default {
                     component: () => import('./views/brand/Create.vue'),
                 },
                 {
-                    path: ':id/update',
+                    path: ':pk/update',
                     component: () => import('./views/brand/Update.vue'),
                 },
             ],
@@ -65,7 +65,7 @@ export default {
                     component: () => import('./views/tag/Index.vue'),
                 },
                 {
-                    path: ':id/show',
+                    path: ':pk/show',
                     component: () => import('./views/tag/Show.vue'),
                 },
                 {
@@ -73,7 +73,7 @@ export default {
                     component: () => import('./views/tag/Create.vue'),
                 },
                 {
-                    path: ':id/update',
+                    path: ':pk/update',
                     component: () => import('./views/tag/Update.vue'),
                 },
             ],

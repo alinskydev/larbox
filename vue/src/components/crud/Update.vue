@@ -17,7 +17,7 @@ export default {
     created() {
         let http = this.config.http;
 
-        http.path = http.path.replace(':id', this.$route.params.id).replace(':slug', this.$route.params.slug);
+        http.path = http.path.replace(':pk', this.$route.params.pk).replace(':slug', this.$route.params.slug);
 
         this.booted.helpers.http
             .send(this, {
@@ -32,7 +32,10 @@ export default {
                     if (this.config.title) {
                         this.page.title +=
                             ': ' +
-                            this.booted.helpers.iterator.get(response.data, this.config.title.replace(':locale', this.booted.locale));
+                            this.booted.helpers.iterator.get(
+                                response.data,
+                                this.config.title.replace(':locale', this.booted.locale),
+                            );
                     }
 
                     this.page.init();

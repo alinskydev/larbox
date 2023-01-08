@@ -6,10 +6,6 @@ export default {
             type: Object,
             required: true,
         },
-        id: {
-            type: Number,
-            required: true,
-        },
     },
     data() {
         return {
@@ -27,8 +23,8 @@ export default {
     },
     methods: {
         send() {
-            let value = $('#' + this.item.id).val(),
-                path = this.valueOptions.path.replace(':id', this.id).replace(':value', value);
+            let value = $('#' + this.item.elementId).val(),
+                path = this.valueOptions.path.replace(':pk', this.item.pk).replace(':value', value);
 
             this.booted.helpers.http
                 .send(this, {
@@ -45,7 +41,7 @@ export default {
                             toastr.success(this.__('Успешно изменено'));
                         }
                     } else {
-                        $('#' + this.item.id).val(this.currentValue);
+                        $('#' + this.item.elementId).val(this.currentValue);
                     }
                 });
         },
@@ -54,7 +50,7 @@ export default {
 </script>
 
 <template>
-    <select @change="send" class="form-control" :id="item.id" :value="currentValue" v-bind="item.attributes">
+    <select @change="send" class="form-control" :id="item.elementId" :value="currentValue" v-bind="item.attributes">
         <option v-for="(selectItem, key) in items" :value="key">
             {{ selectItem }}
         </option>

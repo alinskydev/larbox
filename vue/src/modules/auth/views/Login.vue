@@ -12,7 +12,7 @@ export default {
                 context: this,
                 title: this.__('routes->auth.login'),
             }),
-            inputs: model.prepareInputs(this, model.form),
+            inputs: model.prepareInputs(this, model.form[0]),
             isReady: false,
         };
     },

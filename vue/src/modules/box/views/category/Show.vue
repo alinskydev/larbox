@@ -9,7 +9,7 @@ import Show from '@/components/crud/Show.vue';
 <script>
 export default {
     props: {
-        id: {
+        elementId: {
             type: String,
             required: true,
         },
@@ -23,7 +23,7 @@ export default {
             config: new ShowConfig({
                 model: model,
                 http: {
-                    path: 'box/category/:id',
+                    path: 'box/category/:pk',
                 },
             }),
         };

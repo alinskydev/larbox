@@ -11,7 +11,7 @@ export default {
                     component: () => import('./views/callback/Index.vue'),
                 },
                 {
-                    path: ':id/show',
+                    path: ':pk/show',
                     component: () => import('./views/callback/Show.vue'),
                 },
             ],

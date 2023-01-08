@@ -26,7 +26,7 @@ export default {
                 model: model,
                 title: 'name.:locale',
                 http: {
-                    path: 'box/box/:id',
+                    path: 'box/box/:pk',
                     query: {
                         'with[0]': 'brand',
                         'with[1]': 'categories',

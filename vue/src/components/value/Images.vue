@@ -7,7 +7,7 @@ export default {
         },
     },
     mounted() {
-        $('#' + this.item.id).owlCarousel({
+        $('#' + this.item.elementId).owlCarousel({
             loop: false,
             responsiveClass: true,
             autoHeight: false,
@@ -29,7 +29,7 @@ export default {
 </script>
 
 <template>
-    <div :id="item.id" class="owl-carousel">
+    <div :id="item.elementId" class="owl-carousel">
         <img v-for="value in item.value" :src="value" v-bind="item.attributes" />
     </div>
 </template>

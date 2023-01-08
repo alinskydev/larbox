@@ -7,7 +7,7 @@ import Input from '@/components/Input.vue';
 export default {
     data() {
         return {
-            id: 'el-' + this.booted.helpers.string.uniqueId(),
+            id: this.booted.helpers.string.uniqueElementId(),
             inputs: form.prepareInputs(this, form.form[0]),
         };
     },

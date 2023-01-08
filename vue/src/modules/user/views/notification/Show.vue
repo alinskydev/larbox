@@ -25,7 +25,7 @@ export default {
                 model: model,
                 title: 'id',
                 http: {
-                    path: 'user/notification/:id',
+                    path: 'user/notification/:pk',
                 },
             }),
         };

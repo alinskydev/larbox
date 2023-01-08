@@ -14,7 +14,7 @@ export default {
         return {
             config: this.booted.components.current.config,
             model: this.booted.components.current.config.model,
-            filterId: 'el-' + this.booted.helpers.string.uniqueId(),
+            filterId: this.booted.helpers.string.uniqueElementId(),
             items: {},
             dataKey: 0,
         };

@@ -2,6 +2,8 @@ import { Model } from '@/core/model';
 import * as Enums from '@/core/enums';
 
 export default new Model({
+    hasSeoMeta: true,
+
     form: {
         First: {
             first_text_1: {
@@ -139,6 +141,4 @@ export default new Model({
             },
         },
     },
-
-    hasSeoMeta: true,
 });

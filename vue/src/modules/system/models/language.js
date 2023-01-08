@@ -21,7 +21,7 @@ export default new Model({
         //     type: Enums.valueTypes.httpSwitcher,
         //     options: {
         //         httpSwitcher: {
-        //             path: 'system/language/:id/set-active/:value',
+        //             path: 'system/language/:pk/set-active/:value',
         //             onSuccess: (context, value) => {
         //                 toastr.success(context.__('Успешно изменено'));
         //                 context.booted.components.app.childKey++;
@@ -33,7 +33,7 @@ export default new Model({
         //     type: Enums.valueTypes.httpSwitcher,
         //     options: {
         //         httpSwitcher: {
-        //             path: 'system/language/:id/set-main/:value',
+        //             path: 'system/language/:pk/set-main/:value',
         //             onSuccess: (context, value) => {
         //                 toastr.success(context.__('Успешно изменено'));
         //                 context.booted.components.app.childKey++;
@@ -109,30 +109,32 @@ export default new Model({
     sortings: ['id', 'name'],
 
     show: {
-        id: {
-            type: Enums.valueTypes.text,
-        },
-        name: {
-            type: Enums.valueTypes.text,
-        },
-        code: {
-            type: Enums.valueTypes.text,
-        },
-        image: {
-            value: 'image.widen_100.webp',
-            type: Enums.valueTypes.image,
-        },
-        is_active: {
-            type: Enums.valueTypes.boolean,
-        },
-        is_main: {
-            type: Enums.valueTypes.boolean,
-        },
-        created_at: {
-            type: Enums.valueTypes.text,
-        },
-        updated_at: {
-            type: Enums.valueTypes.text,
+        Информация: {
+            id: {
+                type: Enums.valueTypes.text,
+            },
+            name: {
+                type: Enums.valueTypes.text,
+            },
+            code: {
+                type: Enums.valueTypes.text,
+            },
+            image: {
+                value: 'image.widen_100.webp',
+                type: Enums.valueTypes.image,
+            },
+            is_active: {
+                type: Enums.valueTypes.boolean,
+            },
+            is_main: {
+                type: Enums.valueTypes.boolean,
+            },
+            created_at: {
+                type: Enums.valueTypes.text,
+            },
+            updated_at: {
+                type: Enums.valueTypes.text,
+            },
         },
     },
 

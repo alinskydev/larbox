@@ -60,21 +60,23 @@ export default new Model({
     sortings: ['id'],
 
     show: {
-        id: {
-            type: Enums.valueTypes.text,
-        },
-        type: {
-            value: (context, item) => context.booted.enums.user_notification.types[item.type],
-            type: Enums.valueTypes.text,
-        },
-        is_seen: {
-            type: Enums.valueTypes.boolean,
-        },
-        created_at: {
-            type: Enums.valueTypes.text,
-        },
-        text: {
-            type: Enums.valueTypes.text,
+        Информация: {
+            id: {
+                type: Enums.valueTypes.text,
+            },
+            type: {
+                value: (context, item) => context.booted.enums.user_notification.types[item.type],
+                type: Enums.valueTypes.text,
+            },
+            is_seen: {
+                type: Enums.valueTypes.boolean,
+            },
+            created_at: {
+                type: Enums.valueTypes.text,
+            },
+            text: {
+                type: Enums.valueTypes.text,
+            },
         },
     },
 });

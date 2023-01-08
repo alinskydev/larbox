@@ -6,10 +6,6 @@ export default {
             type: Object,
             required: true,
         },
-        id: {
-            type: Number,
-            required: true,
-        },
     },
     data() {
         return {
@@ -18,30 +14,30 @@ export default {
         };
     },
     mounted() {
-        $('#' + this.item.id).bootstrapSwitch('state', $('#' + this.item.id).prop('checked'));
+        $('#' + this.item.elementId)
+            .bootstrapSwitch('state', $('#' + this.item.elementId).prop('checked'))
+            .on('switchChange.bootstrapSwitch', (event, state) => {
+                let path = this.valueOptions.path.replace(':pk', this.item.pk).replace(':value', Number(state));
 
-        $('#' + this.item.id).on('switchChange.bootstrapSwitch', (event, state) => {
-            let path = this.valueOptions.path.replace(':id', this.id).replace(':value', Number(state));
+                this.booted.helpers.http
+                    .send(this, {
+                        method: 'PATCH',
+                        path: path,
+                    })
+                    .then((response) => {
+                        if (response.statusType === 'success') {
+                            this.currentValue = state;
 
-            this.booted.helpers.http
-                .send(this, {
-                    method: 'PATCH',
-                    path: path,
-                })
-                .then((response) => {
-                    if (response.statusType === 'success') {
-                        this.currentValue = state;
-
-                        if (this.valueOptions.onSuccess) {
-                            this.valueOptions.onSuccess(this, this.currentValue);
+                            if (this.valueOptions.onSuccess) {
+                                this.valueOptions.onSuccess(this, this.currentValue);
+                            } else {
+                                toastr.success(this.__('Успешно изменено'));
+                            }
                         } else {
-                            toastr.success(this.__('Успешно изменено'));
+                            $('#' + this.item.elementId).bootstrapSwitch('state', this.currentValue, true);
                         }
-                    } else {
-                        $('#' + this.item.id).bootstrapSwitch('state', this.currentValue, true);
-                    }
-                });
-        });
+                    });
+            });
     },
 };
 </script>
@@ -50,7 +46,7 @@ export default {
     <input
         type="checkbox"
         v-bind="item.attributes"
-        :id="item.id"
+        :id="item.elementId"
         :checked="currentValue"
         data-bootstrap-switch
         data-on-text="<i class='fas fa-check'></i>"

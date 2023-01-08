@@ -52,10 +52,10 @@ export default {
             };
         }
 
-        $('#' + this.item.id)
+        $('#' + this.item.elementId)
             .select2(select2Options)
             .on('select2:open', () => {
-                $('.select2-search__field[aria-controls="select2-' + this.item.id + '-results"]')
+                $('.select2-search__field[aria-controls="select2-' + this.item.elementId + '-results"]')
                     .get(0)
                     .focus();
             });

@@ -5,7 +5,7 @@ import lodash from 'lodash';
 <script>
 export default {
     props: {
-        id: {
+        elementId: {
             type: String,
             required: true,
         },
@@ -21,7 +21,7 @@ export default {
         };
     },
     mounted() {
-        this.treeView = $('#tree-' + this.id);
+        this.treeView = $('#tree-' + this.elementId);
 
         this.booted.helpers.http
             .send(this, {
@@ -56,24 +56,24 @@ export default {
                                             label: this.__('routeActions->show'),
                                             icon: 'fas fa-eye',
                                             action: (obj) => {
-                                                this.$route.params.id = node.id;
+                                                this.$route.params.pk = node.id;
 
                                                 this.$parent.$data.formType = 'show';
                                                 this.$parent.$data.formKey++;
 
-                                                $('#' + this.id).modal('show');
+                                                $('#modal-' + this.elementId).modal('show');
                                             },
                                         },
                                         update: {
                                             label: this.__('routeActions->update'),
                                             icon: 'fas fa-edit',
                                             action: (obj) => {
-                                                this.$route.params.id = node.id;
+                                                this.$route.params.pk = node.id;
 
                                                 this.$parent.$data.formType = 'update';
                                                 this.$parent.$data.formKey++;
 
-                                                $('#' + this.id).modal('show');
+                                                $('#modal-' + this.elementId).modal('show');
                                             },
                                         },
                                         delete: {
@@ -96,7 +96,9 @@ export default {
                                                                         this.treeView.jstree(true).hide_node(value);
                                                                     });
 
-                                                                this.nodes = this.treeView.jstree(true).get_json('#', { flat: true });
+                                                                this.nodes = this.treeView
+                                                                    .jstree(true)
+                                                                    .get_json('#', { flat: true });
                                                             }
                                                         });
                                                 }
@@ -122,7 +124,9 @@ export default {
                                                                         this.treeView.jstree(true).show_node(value);
                                                                     });
 
-                                                                this.nodes = this.treeView.jstree(true).get_json('#', { flat: true });
+                                                                this.nodes = this.treeView
+                                                                    .jstree(true)
+                                                                    .get_json('#', { flat: true });
                                                             }
                                                         });
                                                 }
@@ -206,5 +210,5 @@ export default {
         </div>
     </div>
 
-    <div :id="'tree-' + this.id" class="mt-3"></div>
+    <div :id="'tree-' + elementId" class="mt-3"></div>
 </template>

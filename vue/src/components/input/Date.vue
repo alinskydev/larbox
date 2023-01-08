@@ -7,7 +7,7 @@ export default {
         },
     },
     mounted() {
-        $('#' + this.item.id)
+        $('#' + this.item.elementId)
             .daterangepicker({
                 autoUpdateInput: false,
                 singleDatePicker: true,

@@ -27,13 +27,17 @@ export default {
 
         if (value === undefined || value === null || value.length === 0) return;
 
-        if (this.options.initValue) {
+        if (this.inputOptions.initValue) {
+            let initValue = this.inputOptions.initValue.replace(':locale', this.booted.locale);
+
+            initValue = this.booted.helpers.iterator.get(this.item.record, initValue);
+
             if (this.options.isMultiple) {
                 for (let key in value) {
-                    this.items[value[key]] = this.options.initValue[key];
+                    this.items[value[key]] = initValue[key];
                 }
             } else {
-                this.items[value] = this.options.initValue;
+                this.items[value] = initValue;
             }
         } else {
             let query = Object.assign({}, this.inputOptions.query ?? {});
@@ -74,7 +78,7 @@ export default {
         }
     },
     mounted() {
-        $('#' + this.item.id)
+        $('#' + this.item.elementId)
             .select2({
                 allowClear: true,
                 placeholder: this.$attrs.placeholder ?? '',
@@ -122,7 +126,7 @@ export default {
                 },
             })
             .on('select2:open', () => {
-                $('.select2-search__field[aria-controls="select2-' + this.item.id + '-results"]')
+                $('.select2-search__field[aria-controls="select2-' + this.item.elementId + '-results"]')
                     .get(0)
                     .focus();
             });

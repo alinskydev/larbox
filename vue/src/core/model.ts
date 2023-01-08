@@ -2,26 +2,33 @@ import * as Enums from './enums';
 import * as ModelTypes from './types/modelTypes';
 
 export class Model {
+    primaryKey: string;
+    hasSeoMeta: boolean;
+    hasUpdatedAtConflictCheck: boolean;
+
     index: Record<string, ModelTypes.valueParams>;
     filters: Record<string, ModelTypes.inputParams>;
     sortings: Array<string>;
     show: Record<string, any>;
     form: Record<string, any>;
 
-    hasSeoMeta: boolean;
-    hasUpdatedAtConflictCheck: boolean;
-
     constructor(config: {
+        primaryKey: string;
+        hasSeoMeta: boolean;
+        hasUpdatedAtConflictCheck: boolean;
         index: Record<string, ModelTypes.valueParams>;
         filters: Record<string, ModelTypes.inputParams>;
         sortings: Array<string>;
         show: Record<
             string,
-            ModelTypes.valueParams & {
-                options: {
-                    relations: Record<string, ModelTypes.valueParams>;
-                };
-            }
+            Record<
+                string,
+                ModelTypes.valueParams & {
+                    options: {
+                        relations: Record<string, ModelTypes.valueParams>;
+                    };
+                }
+            >
         >;
         form: Record<
             string,
@@ -34,17 +41,16 @@ export class Model {
                 }
             >
         >;
-        hasSeoMeta: boolean;
-        hasUpdatedAtConflictCheck: boolean;
     }) {
+        this.primaryKey = config.primaryKey ?? 'id';
+        this.hasSeoMeta = config.hasSeoMeta ?? false;
+        this.hasUpdatedAtConflictCheck = config.hasUpdatedAtConflictCheck ?? true;
+
         this.index = config.index ?? {};
         this.filters = config.filters ?? {};
         this.sortings = config.sortings ?? [];
         this.show = config.show ?? {};
         this.form = config.form ?? {};
-
-        this.hasSeoMeta = config.hasSeoMeta ?? false;
-        this.hasUpdatedAtConflictCheck = config.hasUpdatedAtConflictCheck ?? true;
 
         if (this.hasSeoMeta) {
             this.form['SEO meta'] = {
@@ -81,11 +87,11 @@ export class Model {
         }
     }
 
-    prepareFields(context, list) {
+    prepareFields(context, fields) {
         let result = {};
 
-        for (let key in list) {
-            let field = list[key],
+        for (let key in fields) {
+            let field = fields[key],
                 label = field.label !== undefined ? field.label : 'fields->' + key;
 
             result[key] = {
@@ -97,11 +103,11 @@ export class Model {
         return result;
     }
 
-    prepareValues(context, list, item = {}) {
+    prepareValues(context, fields, item = {}) {
         let result = {};
 
-        for (let key in list) {
-            let field = list[key],
+        for (let key in fields) {
+            let field = fields[key],
                 label = field.label !== undefined ? field.label : 'fields->' + key,
                 value = field.value ?? key;
 
@@ -113,22 +119,24 @@ export class Model {
             }
 
             result[key] = {
-                label: typeof label === 'function' ? label(context) : context.__(label),
-                value: value,
-                type: field.type,
-                options: field.options ?? {},
                 attributes: field.attributes ?? {},
+                label: typeof label === 'function' ? label(context) : context.__(label),
+                options: field.options ?? {},
+                pk: item[this.primaryKey],
+                record: item,
+                type: field.type,
+                value: value,
             };
         }
 
         return result;
     }
 
-    prepareFilters(context, list, item = {}) {
+    prepareFilters(context, fields, item = {}) {
         let result = {};
 
-        for (let key in list) {
-            let field = list[key],
+        for (let key in fields) {
+            let field = fields[key],
                 label = field.label !== undefined ? field.label : 'fields->' + key,
                 hint = field.hint !== undefined ? field.hint : null,
                 name = field.name ?? key,
@@ -146,30 +154,28 @@ export class Model {
             }
 
             result[key] = {
-                label: typeof label === 'function' ? label(context) : context.__(label),
-                hint: typeof hint === 'function' ? hint(context) : context.__(hint),
-                name: name,
-                value: value,
-                type: field.type,
-                options: field.options ?? {},
                 attributes: field.attributes ?? {},
+                hint: typeof hint === 'function' ? hint(context) : context.__(hint),
+                label: typeof label === 'function' ? label(context) : context.__(label),
+                name: name,
+                options: field.options ?? {},
                 size: field.size ?? Enums.inputSizes.sm,
+                type: field.type,
+                value: value,
             };
         }
 
         return result;
     }
 
-    prepareInputs(context, list, item = {}) {
+    prepareInputs(context, fields, item = {}) {
         let result = {};
 
-        for (let key in list) {
-            let field = list[key],
+        for (let key in fields) {
+            let field = fields[key],
                 label = field.label !== undefined ? field.label : 'fields->' + key,
                 hint = field.hint !== undefined ? field.hint : null,
-                value = field.value ?? key,
-                options = field.options ?? {},
-                initValue = null;
+                value = field.value ?? key;
 
             if (typeof value === 'function') {
                 value = value(context, item);
@@ -177,31 +183,25 @@ export class Model {
                 value = context.booted.helpers.iterator.get(item, value);
             }
 
-            if (options.initValue) {
-                initValue = options.initValue.replace(':locale', context.booted.locale);
-                initValue = context.booted.helpers.iterator.get(item, initValue);
-            }
-
             result[key] = {
-                label: typeof label === 'function' ? label(context) : context.__(label),
-                hint: typeof hint === 'function' ? hint(context) : context.__(hint),
-                name: field.name ?? key,
-                value: value,
-                type: field.type,
-                options: {
-                    ...options,
-                    ...{ initValue: initValue },
-                },
                 attributes: field.attributes ?? {},
+                hint: typeof hint === 'function' ? hint(context) : context.__(hint),
+                label: typeof label === 'function' ? label(context) : context.__(label),
+                name: field.name ?? key,
+                options: field.options ?? {},
+                pk: item[this.primaryKey],
+                record: item,
                 size: field.size ?? Enums.inputSizes.lg,
+                type: field.type,
+                value: value,
             };
         }
 
         return result;
     }
 
-    prepareRelationsInputs(context, list, item, namePrefix, relationKey) {
-        let result = this.prepareInputs(context, list, item);
+    prepareRelationsInputs(context, fields, item, namePrefix, relationKey) {
+        let result = this.prepareInputs(context, fields, item);
 
         for (let key in result) {
             let name = result[key].name;

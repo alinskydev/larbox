@@ -25,7 +25,7 @@ export default {
                 model: model,
                 title: 'name.:locale',
                 http: {
-                    path: 'user/role/:id',
+                    path: 'user/role/:pk',
                 },
             }),
         };

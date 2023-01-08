@@ -4,6 +4,8 @@ import * as Enums from '@/core/enums';
 import CategoriesTree from '@/modules/box/components/box/CategoriesTree.vue';
 
 export default new Model({
+    hasSeoMeta: true,
+
     index: {
         image: {
             label: null,
@@ -151,68 +153,70 @@ export default new Model({
     sortings: ['id', 'name', 'date', 'datetime'],
 
     show: {
-        image: {
-            value: 'image.widen_500.webp',
-            type: Enums.valueTypes.image,
-        },
-        images_list: {
-            value: 'images_list.*.widen_500.webp',
-            type: Enums.valueTypes.image,
-        },
-        id: {
-            type: Enums.valueTypes.text,
-        },
-        name: {
-            value: 'name.:locale',
-            type: Enums.valueTypes.text,
-        },
-        slug: {
-            type: Enums.valueTypes.websiteLink,
-            options: {
-                websiteLink: 'box/box/:value',
+        Информация: {
+            image: {
+                value: 'image.widen_500.webp',
+                type: Enums.valueTypes.image,
             },
-        },
-        price: {
-            type: Enums.valueTypes.price,
-        },
-        date: {
-            type: Enums.valueTypes.text,
-        },
-        datetime: {
-            type: Enums.valueTypes.text,
-        },
-        brand_id: {
-            value: 'brand.name',
-            type: Enums.valueTypes.text,
-        },
-        categories: {
-            value: 'categories.*.full_text',
-            type: Enums.valueTypes.array,
-        },
-        tags: {
-            value: 'tags.*.name',
-            type: Enums.valueTypes.array,
-        },
-        description: {
-            value: 'description.:locale',
-            type: Enums.valueTypes.html,
-        },
-        variations: {
-            type: Enums.valueTypes.relations,
-            options: {
-                relations: {
-                    name: {
-                        value: 'name.:locale',
-                        type: Enums.valueTypes.text,
+            images_list: {
+                value: 'images_list.*.widen_500.webp',
+                type: Enums.valueTypes.image,
+            },
+            id: {
+                type: Enums.valueTypes.text,
+            },
+            name: {
+                value: 'name.:locale',
+                type: Enums.valueTypes.text,
+            },
+            slug: {
+                type: Enums.valueTypes.websiteLink,
+                options: {
+                    websiteLink: 'box/box/:value',
+                },
+            },
+            price: {
+                type: Enums.valueTypes.price,
+            },
+            date: {
+                type: Enums.valueTypes.text,
+            },
+            datetime: {
+                type: Enums.valueTypes.text,
+            },
+            brand_id: {
+                value: 'brand.name',
+                type: Enums.valueTypes.text,
+            },
+            categories: {
+                value: 'categories.*.full_text',
+                type: Enums.valueTypes.array,
+            },
+            tags: {
+                value: 'tags.*.name',
+                type: Enums.valueTypes.array,
+            },
+            description: {
+                value: 'description.:locale',
+                type: Enums.valueTypes.html,
+            },
+            variations: {
+                type: Enums.valueTypes.relations,
+                options: {
+                    relations: {
+                        name: {
+                            value: 'name.:locale',
+                            type: Enums.valueTypes.text,
+                        },
                     },
                 },
             },
-        },
-        created_at: {
-            type: Enums.valueTypes.text,
-        },
-        updated_at: {
-            type: Enums.valueTypes.text,
+            created_at: {
+                type: Enums.valueTypes.text,
+            },
+            updated_at: {
+                type: Enums.valueTypes.text,
+            },
         },
     },
 
@@ -259,7 +263,6 @@ export default new Model({
             brand_id: {
                 type: Enums.inputTypes.select2Ajax,
                 options: {
-                    initValue: 'brand.name',
                     select2Ajax: {
                         path: 'box/brand',
                         query: (context, item) => {
@@ -269,6 +272,7 @@ export default new Model({
                             };
                         },
                         field: 'name',
+                        initValue: 'brand.name',
                     },
                 },
                 attributes: {
@@ -281,11 +285,11 @@ export default new Model({
                 value: 'tags.*.id',
                 type: Enums.inputTypes.select2Ajax,
                 options: {
-                    initValue: 'tags.*.name',
                     isMultiple: true,
                     select2Ajax: {
                         path: 'box/tag',
                         field: 'name',
+                        initValue: 'tags.*.name',
                     },
                 },
             },
@@ -353,6 +357,4 @@ export default new Model({
             },
         },
     },
-
-    hasSeoMeta: true,
 });

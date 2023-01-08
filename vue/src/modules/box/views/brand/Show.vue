@@ -25,7 +25,7 @@ export default {
                 model: model,
                 title: 'name',
                 http: {
-                    path: 'box/brand/:id',
+                    path: 'box/brand/:pk',
                     query: {
                         'show[0]': 'boxes_count',
                         'with[0]': 'creator',

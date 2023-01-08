@@ -26,7 +26,7 @@ export default {
                 model: model,
                 title: 'name',
                 http: {
-                    path: 'box/brand/:id',
+                    path: 'box/brand/:pk',
                 },
             }),
         };

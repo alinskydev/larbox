@@ -56,7 +56,7 @@ export default {
         <div
             v-for="(items, key) in itemGroups"
             class="card card-primary mb-3"
-            :set="(groupId = 'el-' + booted.helpers.string.uniqueId())"
+            :set="(groupId = booted.helpers.string.uniqueElementId())"
         >
             <div
                 class="card-header d-flex align-items-center justify-content-between"
@@ -67,7 +67,6 @@ export default {
                 <h3 class="card-title w-100">
                     {{ __(key) }}
                 </h3>
-
                 <i class="fas fa-angle-down"></i>
             </div>
 

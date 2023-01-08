@@ -84,7 +84,7 @@ export default {
         this.fileInputOptions.initialPreview = this.items.map((value, key) => value.previewUrl);
         this.fileInputOptions.initialPreviewConfig = this.items;
 
-        $('#' + this.item.id)
+        $('#' + this.item.elementId)
             .fileinput(this.fileInputOptions)
             .on('filesorted', (event, params) => {
                 this.oldFiles = params.stack.map((value) => value.key);

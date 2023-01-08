@@ -28,13 +28,16 @@ export default {
                     name: this.item.name + '[' + key + '][id]',
                     value: this.item.value[key].id,
                     type: Enums.inputTypes.hidden,
+                    options: {},
                 },
                 fields: this.model.prepareRelationsInputs(this, this.fields, this.item.value[key], this.item.name, key),
             };
         }
+
+        console.log(this.items);
     },
     mounted() {
-        $('#' + this.item.id + ' tbody').sortable({
+        $('#' + this.item.elementId + ' tbody').sortable({
             handle: '.table-sorter',
             placeholder: 'sortable-placeholder',
             start: function (event, ui) {
@@ -51,6 +54,7 @@ export default {
                     name: this.item.name + '[' + uniqueId + '][id]',
                     value: 0,
                     type: Enums.inputTypes.hidden,
+                    options: {},
                 },
                 fields: this.model.prepareRelationsInputs(this, this.fields, {}, this.item.name, uniqueId),
             });
@@ -59,9 +63,9 @@ export default {
             $(event.target).closest('tr').remove();
         },
         toggleSort(isEnabled) {
-            $('#' + this.item.id + ' .btn-sort-toggler').toggleClass('d-none');
+            $('#' + this.item.elementId + ' .btn-sort-toggler').toggleClass('d-none');
 
-            $('#' + this.item.id + ' .inputs').each(function () {
+            $('#' + this.item.elementId + ' .inputs').each(function () {
                 let $els = $(this).children().not(':first');
                 isEnabled ? $els.addClass('d-none') : $els.removeClass('d-none');
             });
@@ -71,7 +75,7 @@ export default {
 </script>
 
 <template>
-    <div class="col-12" :id="item.id">
+    <div class="col-12" :id="item.elementId">
         <div class="card card-info mb-3">
             <div class="card-header d-flex align-items-center justify-content-between">
                 <h3 class="card-title w-100">

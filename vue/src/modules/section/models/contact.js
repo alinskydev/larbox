@@ -2,6 +2,8 @@ import { Model } from '@/core/model';
 import * as Enums from '@/core/enums';
 
 export default new Model({
+    hasSeoMeta: true,
+
     form: {
         Social: {
             socials_facebook: {
@@ -44,6 +46,4 @@ export default new Model({
             },
         },
     },
-
-    hasSeoMeta: true,
 });

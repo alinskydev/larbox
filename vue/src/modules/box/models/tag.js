@@ -34,51 +34,55 @@ export default new Model({
     sortings: ['id', 'name'],
 
     show: {
-        id: {
-            type: Enums.valueTypes.text,
+        Информация: {
+            id: {
+                type: Enums.valueTypes.text,
+            },
+            name: {
+                type: Enums.valueTypes.text,
+            },
+            created_at: {
+                type: Enums.valueTypes.text,
+            },
+            updated_at: {
+                type: Enums.valueTypes.text,
+            },
         },
-        name: {
-            type: Enums.valueTypes.text,
-        },
-        created_at: {
-            type: Enums.valueTypes.text,
-        },
-        updated_at: {
-            type: Enums.valueTypes.text,
-        },
-        built_in_component: {
-            label: null,
-            type: Enums.valueTypes.component,
-            options: {
-                component: {
-                    resolve: (context, item) => {
-                        return {
-                            component: 'h3',
-                            params: [
-                                {
-                                    class: 'text-primary m-0',
-                                    innerHTML: context.__('Встроенный компонент'),
-                                },
-                            ],
-                        };
+        Компоненты: {
+            built_in_component: {
+                label: null,
+                type: Enums.valueTypes.component,
+                options: {
+                    component: {
+                        resolve: (context, item) => {
+                            return {
+                                component: 'h3',
+                                params: [
+                                    {
+                                        class: 'text-primary m-0',
+                                        innerHTML: context.__('Встроенный компонент'),
+                                    },
+                                ],
+                            };
+                        },
                     },
                 },
             },
-        },
-        custom_component: {
-            label: null,
-            type: Enums.valueTypes.component,
-            options: {
-                component: {
-                    resolve: (context, item) => {
-                        return {
-                            component: Custom,
-                            params: [
-                                {
-                                    text: context.__('Кастомный компонент'),
-                                },
-                            ],
-                        };
+            custom_component: {
+                label: null,
+                type: Enums.valueTypes.component,
+                options: {
+                    component: {
+                        resolve: (context, item) => {
+                            return {
+                                component: Custom,
+                                params: [
+                                    {
+                                        text: context.__('Кастомный компонент'),
+                                    },
+                                ],
+                            };
+                        },
                     },
                 },
             },

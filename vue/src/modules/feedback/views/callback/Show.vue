@@ -25,7 +25,7 @@ export default {
                 model: model,
                 title: 'id',
                 http: {
-                    path: 'feedback/callback/:id',
+                    path: 'feedback/callback/:pk',
                 },
             }),
         };

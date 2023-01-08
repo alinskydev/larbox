@@ -11,7 +11,7 @@ export default {
                     component: () => import('./views/user/Index.vue'),
                 },
                 {
-                    path: ':id/show',
+                    path: ':pk/show',
                     component: () => import('./views/user/Show.vue'),
                 },
                 {
@@ -19,7 +19,7 @@ export default {
                     component: () => import('./views/user/Create.vue'),
                 },
                 {
-                    path: ':id/update',
+                    path: ':pk/update',
                     component: () => import('./views/user/Update.vue'),
                 },
             ],
@@ -33,7 +33,7 @@ export default {
                     component: () => import('./views/role/Index.vue'),
                 },
                 {
-                    path: ':id/show',
+                    path: ':pk/show',
                     component: () => import('./views/role/Show.vue'),
                 },
                 {
@@ -41,7 +41,7 @@ export default {
                     component: () => import('./views/role/Create.vue'),
                 },
                 {
-                    path: ':id/update',
+                    path: ':pk/update',
                     component: () => import('./views/role/Update.vue'),
                 },
             ],
@@ -59,7 +59,7 @@ export default {
                     component: () => import('./views/notification/Index.vue'),
                 },
                 {
-                    path: ':id/show',
+                    path: ':pk/show',
                     component: () => import('./views/notification/Show.vue'),
                 },
             ],

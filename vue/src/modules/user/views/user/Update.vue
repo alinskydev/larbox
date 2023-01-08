@@ -26,7 +26,7 @@ export default {
                 model: model,
                 title: 'username',
                 http: {
-                    path: 'user/user/:id',
+                    path: 'user/user/:pk',
                 },
                 events: {
                     afterSubmit: (formData, response) => {

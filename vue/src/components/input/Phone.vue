@@ -7,7 +7,7 @@ export default {
         },
     },
     mounted() {
-        intlTelInput(document.getElementById(this.item.id), {
+        intlTelInput(document.getElementById(this.item.elementId), {
             preferredCountries: [],
             onlyCountries: ['gb', 'ru', 'uz'],
             initialCountry: 'uz',

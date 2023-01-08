@@ -21,11 +21,11 @@ export default {
     },
     created() {
         this.inputAttrs = {
-            name: this.item.name,
+            'name': this.item.name,
+            'value': this.item.value,
             'data-error-key': this.item.name.replaceAll('[', '.').replaceAll(']', ''),
-            value: this.item.value,
-            id: this.item.id,
-            class: 'form-control',
+            'id': this.item.elementId,
+            'class': 'form-control',
         };
 
         if (this.item.options.isLocalized) {
@@ -43,7 +43,14 @@ export default {
 </script>
 
 <template>
-    <div :class="item.size">
+    <div
+        v-if="
+            item.type !== Enums.inputTypes.component &&
+            item.type !== Enums.inputTypes.hidden &&
+            item.type !== Enums.inputTypes.relations
+        "
+        :class="item.size"
+    >
         <template v-if="item.options.isLocalized">
             <div class="row">
                 <template v-for="language in booted.languages.all">
@@ -55,11 +62,11 @@ export default {
                         <slot
                             :inputAttrs="{
                                 ...{
-                                    name: inputAttrs['name'].replace(':locale', language.code),
+                                    'name': inputAttrs['name'].replace(':locale', language.code),
+                                    'value': inputAttrs['value'] ? inputAttrs['value'][language.code] : '',
                                     'data-error-key': inputAttrs['data-error-key'].replace(':locale', language.code),
-                                    value: inputAttrs['value'] ? inputAttrs['value'][language.code] : '',
-                                    id: inputAttrs['id'].replace(':locale', language.code),
-                                    class: inputAttrs['class'],
+                                    'id': inputAttrs['id'].replace(':locale', language.code),
+                                    'class': inputAttrs['class'],
                                 },
                                 ...extraAttrs,
                             }"
@@ -88,4 +95,12 @@ export default {
             </div>
         </template>
     </div>
+
+    <slot
+        v-else
+        :inputAttrs="{
+            ...inputAttrs,
+            ...extraAttrs,
+        }"
+    />
 </template>

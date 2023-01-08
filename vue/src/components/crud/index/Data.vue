@@ -81,7 +81,7 @@ export default {
                                     <template v-if="!config.grid.hiddenFields.includes(key)">
                                         <template v-if="item[key].type === Enums.valueTypes.image">
                                             <td style="width: 130px">
-                                                <Value :item="item[key]" :id="item.id.value" />
+                                                <Value :item="item[key]" />
                                             </td>
                                         </template>
 
@@ -92,13 +92,13 @@ export default {
                                             "
                                         >
                                             <td :set="(item[key].attributes['disabled'] = item.is_deleted === true)">
-                                                <Value :item="item[key]" :id="item.id.value" />
+                                                <Value :item="item[key]" />
                                             </td>
                                         </template>
 
                                         <template v-else>
                                             <td>
-                                                <Value :item="item[key]" :id="item.id.value" />
+                                                <Value :item="item[key]" />
                                             </td>
                                         </template>
                                     </template>

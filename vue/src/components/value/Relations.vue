@@ -10,10 +10,6 @@ export default {
             type: Object,
             required: true,
         },
-        id: {
-            type: Number,
-            required: true,
-        },
     },
     data() {
         return {
@@ -49,7 +45,7 @@ export default {
                     <td>{{ parseInt(relationItemKey) + 1 }}</td>
 
                     <td v-for="(field, fieldKey) in fields">
-                        <Value :item="relationItem[fieldKey]" :id="id" />
+                        <Value :item="relationItem[fieldKey]" />
                     </td>
                 </tr>
             </tbody>

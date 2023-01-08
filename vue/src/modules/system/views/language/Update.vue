@@ -26,7 +26,7 @@ export default {
                 model: model,
                 title: 'name',
                 http: {
-                    path: 'system/language/:id',
+                    path: 'system/language/:pk',
                     query: {
                         'with[0]': 'brand',
                         'with[1]': 'tags',

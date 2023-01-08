@@ -34,7 +34,6 @@ export type inputParams = {
         isLocalized: boolean;
         size: Enums.inputSizes;
         isMultiple: boolean;
-        initValue: string;
         component: {
             resolve: (context: any, item: Object) => any;
         };
@@ -53,6 +52,7 @@ export type inputParams = {
             path: string;
             query: Object | ((context: any, item: Object) => any);
             field: string;
+            initValue: string;
             hasPrompt: boolean;
         };
     };

@@ -35,18 +35,20 @@ export default new Model({
     sortings: ['id', 'name'],
 
     show: {
-        id: {
-            type: Enums.valueTypes.text,
-        },
-        name: {
-            value: 'name.:locale',
-            type: Enums.valueTypes.text,
-        },
-        created_at: {
-            type: Enums.valueTypes.text,
-        },
-        updated_at: {
-            type: Enums.valueTypes.text,
+        Информация: {
+            id: {
+                type: Enums.valueTypes.text,
+            },
+            name: {
+                value: 'name.:locale',
+                type: Enums.valueTypes.text,
+            },
+            created_at: {
+                type: Enums.valueTypes.text,
+            },
+            updated_at: {
+                type: Enums.valueTypes.text,
+            },
         },
     },
 

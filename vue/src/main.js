@@ -15,7 +15,8 @@ const app = createApp(App);
 app.config.globalProperties = {
     booted: {
         config: config,
-        components: [],
+        components: {},
+        data: {},
         helpers: {
             file: fileHelper,
             http: httpHelper,

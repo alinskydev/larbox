@@ -15,11 +15,11 @@ export default {
                     component: () => import('./views/language/Index.vue'),
                 },
                 {
-                    path: ':id/show',
+                    path: ':pk/show',
                     component: () => import('./views/language/Show.vue'),
                 },
                 {
-                    path: ':id/update',
+                    path: ':pk/update',
                     component: () => import('./views/language/Update.vue'),
                 },
             ],

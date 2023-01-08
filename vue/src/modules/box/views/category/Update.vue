@@ -10,7 +10,7 @@ import Update from '@/components/crud/Update.vue';
 <script>
 export default {
     props: {
-        id: {
+        elementId: {
             type: String,
             required: true,
         },
@@ -24,14 +24,17 @@ export default {
             config: new UpdateConfig({
                 model: model,
                 http: {
-                    path: 'box/category/:id',
+                    path: 'box/category/:pk',
                 },
                 events: {
                     afterSubmit: (formData, response) => {
                         let text = formData.get('name[' + this.booted.locale + ']');
 
-                        $('#tree-' + this.id).jstree(true).rename_node(this.$route.params.id, text);
-                        $('#' + this.id).modal('hide');
+                        $('#tree-' + this.elementId)
+                            .jstree(true)
+                            .rename_node(this.$route.params.id, text);
+
+                        $('#modal-' + this.elementId).modal('hide');
 
                         toastr.success(this.__('Сохранение прошло успешно'));
                     },

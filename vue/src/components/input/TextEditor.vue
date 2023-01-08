@@ -111,13 +111,13 @@ export default {
             for (let key in this.booted.languages.all) {
                 tinymce.init({
                     ...this.pluginOptions,
-                    ...{ selector: '#' + this.item.id + '-' + key },
+                    ...{ selector: '#' + this.item.elementId + '-' + key },
                 });
             }
         } else {
             tinymce.init({
                 ...this.pluginOptions,
-                ...{ selector: '#' + this.item.id },
+                ...{ selector: '#' + this.item.elementId },
             });
         }
     },
