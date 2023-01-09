@@ -7,7 +7,7 @@ import Input from '@/components/Input.vue';
 export default {
     data() {
         return {
-            id: this.booted.helpers.string.uniqueElementId(),
+            elementId: this.booted.helpers.string.uniqueElementId(),
             inputs: form.prepareInputs(this, form.form[0]),
         };
     },
@@ -27,7 +27,7 @@ export default {
                     if (response.statusType === 'success') {
                         toastr.success(this.__('Уведомление будет отправлено в ближайшее время'));
 
-                        $('#' + this.id).modal('hide');
+                        $('#' + this.elementId).modal('hide');
                         $('#user-notification-create-form [name="text"]').val('');
                     }
                 });
@@ -37,11 +37,11 @@ export default {
 </script>
 
 <template>
-    <button type="button" class="btn btn-warning" data-toggle="modal" :data-target="'#' + id">
+    <button type="button" class="btn btn-warning" data-toggle="modal" :data-target="'#' + elementId">
         {{ __('Отправка уведомления') }}
     </button>
 
-    <div class="modal fade" :id="id">
+    <div class="modal fade" :id="elementId">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <form @submit.prevent="submit" id="user-notification-create-form">

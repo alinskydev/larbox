@@ -33,7 +33,7 @@ export default {
                     customActions: {
                         boxes: (item) => {
                             return {
-                                path: 'box/box/index?filter[brand_id]=' + item.id.value,
+                                path: 'box/box/index?filter[brand_id]=' + item.id,
                                 linkAttributes: {
                                     title: this.__('routes->box.box'),
                                     class: 'btn btn-info',

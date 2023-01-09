@@ -52,6 +52,7 @@ export type inputParams = {
             path: string;
             query: Object | ((context: any, item: Object) => any);
             field: string;
+            pk: string;
             initValue: string;
             hasPrompt: boolean;
         };

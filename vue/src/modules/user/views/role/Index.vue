@@ -26,10 +26,10 @@ export default {
                     customActions: {
                         updateAlt: (item) => {
                             return {
-                                path: 'user/role/' + item.id.value + '/update',
+                                path: 'user/role/' + item.id + '/update',
                                 linkAttributes: {
                                     'title': this.__('routeActions->update'),
-                                    'class': 'btn btn-warning' + (item.id.value === 1 ? ' disabled' : ''),
+                                    'class': 'btn btn-warning' + (item.id === 1 ? ' disabled' : ''),
                                 },
                                 iconAttributes: {
                                     'class': 'fas fa-edit',

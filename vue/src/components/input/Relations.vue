@@ -33,8 +33,6 @@ export default {
                 fields: this.model.prepareRelationsInputs(this, this.fields, this.item.value[key], this.item.name, key),
             };
         }
-
-        console.log(this.items);
     },
     mounted() {
         $('#' + this.item.elementId + ' tbody').sortable({

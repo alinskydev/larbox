@@ -10,7 +10,6 @@ export class IndexConfig {
         hasSoftDelete: boolean;
     };
     grid: {
-        hiddenFields: Array<string>;
         actions: Array<string>;
         customActions: Record<string, (item: object) => any>;
         rowAttributes: (context: any, item: object) => any;
@@ -29,7 +28,6 @@ export class IndexConfig {
         this.filter.hasSoftDelete ??= false;
 
         this.grid = config.grid ?? {};
-        this.grid.hiddenFields ??= [];
         this.grid.actions ??= ['show', 'update', 'delete'];
         this.grid.customActions ??= {};
         this.grid.rowAttributes ??= (context, item) => {};

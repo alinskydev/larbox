@@ -32,7 +32,7 @@ export default {
 
                         $('#tree-' + this.elementId)
                             .jstree(true)
-                            .rename_node(this.$route.params.id, text);
+                            .rename_node(this.$route.params.pk, text);
 
                         $('#modal-' + this.elementId).modal('hide');
 

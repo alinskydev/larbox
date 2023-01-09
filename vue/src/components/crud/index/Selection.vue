@@ -5,13 +5,14 @@ export default {
             type: String,
             required: true,
         },
-        id: {
-            type: Number,
+        pk: {
+            type: [Number, String],
         },
     },
     data() {
         return {
             config: this.booted.components.current.config,
+            model: this.booted.components.current.config.model,
         };
     },
     methods: {
@@ -38,7 +39,7 @@ export default {
                 for (let key in this.$parent.$data.items) {
                     let item = this.$parent.$data.items[key];
 
-                    if (selection.includes(item.id.value)) {
+                    if (selection.includes(item[this.model.pk].value)) {
                         item.is_deleted = true;
                     }
                 }
@@ -49,7 +50,7 @@ export default {
                 for (let key in this.$parent.$data.items) {
                     let item = this.$parent.$data.items[key];
 
-                    if (selection.includes(item.id.value)) {
+                    if (selection.includes(item[this.model.pk].value)) {
                         item.is_deleted = false;
                     }
                 }
@@ -93,7 +94,7 @@ export default {
         </th>
 
         <th v-if="type === 'tableBody'">
-            <input type="checkbox" :value="id" class="selection checkbox-lg" @change="toggleBody" />
+            <input type="checkbox" :value="pk" class="selection checkbox-lg" @change="toggleBody" />
         </th>
 
         <div v-if="type === 'actions'" class="actions card card-light" style="display: none">

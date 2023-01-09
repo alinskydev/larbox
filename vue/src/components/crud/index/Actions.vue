@@ -13,7 +13,12 @@ export default {
     data() {
         return {
             config: this.booted.components.current.config,
+            model: this.booted.components.current.config.model,
+            itemPk: null,
         };
+    },
+    created() {
+        this.basePath = this.config.http.path + '/' + this.item[this.model.pk].value;
     },
     methods: {
         deleteAction() {
@@ -21,7 +26,7 @@ export default {
                 this.booted.helpers.http
                     .send(this, {
                         method: 'DELETE',
-                        path: this.config.http.path + '/' + this.item.id.value,
+                        path: this.basePath,
                     })
                     .then((response) => {
                         if (response.statusType === 'success') {
@@ -39,7 +44,7 @@ export default {
                 this.booted.helpers.http
                     .send(this, {
                         method: 'DELETE',
-                        path: this.config.http.path + '/' + this.item.id.value + '/restore',
+                        path: this.basePath + '/restore',
                     })
                     .then((response) => {
                         if (response.statusType === 'success' && this.config.filter.hasSoftDelete) {
@@ -59,7 +64,7 @@ export default {
                 <RouterLink
                     v-if="action === 'show' && booted.helpers.user.checkRoute(booted.components.app, config.http.path + '/show')"
                     :title="__('routeActions->show')"
-                    :to="config.http.path + '/' + item.id.value + '/show'"
+                    :to="basePath + '/show'"
                     class="btn btn-primary"
                 >
                     <i class="fas fa-eye"></i>
@@ -70,7 +75,7 @@ export default {
                         action === 'update' && booted.helpers.user.checkRoute(booted.components.app, config.http.path + '/update')
                     "
                     :title="__('routeActions->update')"
-                    :to="config.http.path + '/' + item.id.value + '/update'"
+                    :to="basePath + '/update'"
                     class="btn btn-warning"
                 >
                     <i class="fas fa-edit"></i>
@@ -103,9 +108,9 @@ export default {
             </template>
 
             <template v-if="config.grid.customActions[action]">
-                <div :set="(ea = config.grid.customActions[action](item))">
-                    <RouterLink v-if="ea" :to="ea.path" v-bind="ea.linkAttributes">
-                        <i v-bind="ea.iconAttributes"></i>
+                <div :set="(customAction = config.grid.customActions[action](item[model.pk].item))">
+                    <RouterLink v-if="customAction" :to="customAction.path" v-bind="customAction.linkAttributes">
+                        <i v-bind="customAction.iconAttributes"></i>
                     </RouterLink>
                 </div>
             </template>

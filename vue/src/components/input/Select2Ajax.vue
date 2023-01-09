@@ -11,11 +11,14 @@ export default {
             options: this.item.options,
             inputOptions: this.item.options.select2Ajax ?? {},
             items: {},
+            pk: null,
             field: null,
             isLocalized: false,
         };
     },
     created() {
+        this.pk = this.inputOptions.pk ?? 'id';
+
         if (this.inputOptions.field.includes(':locale')) {
             this.isLocalized = true;
             this.field = this.inputOptions.field.replace('.:locale', '');
@@ -30,7 +33,7 @@ export default {
         if (this.inputOptions.initValue) {
             let initValue = this.inputOptions.initValue.replace(':locale', this.booted.locale);
 
-            initValue = this.booted.helpers.iterator.get(this.item.record, initValue);
+            initValue = this.booted.helpers.iterator.get(this.item.item, initValue);
 
             if (this.options.isMultiple) {
                 for (let key in value) {
@@ -46,14 +49,12 @@ export default {
                 query = query(this, this.item);
             }
 
-            query['show[]'] = 'with-deleted';
-
             if (typeof value === 'object') {
                 for (let key in value) {
-                    query['filter[id][' + key + ']'] = value[key];
+                    query['filter[' + this.pk + '][' + key + ']'] = value[key];
                 }
             } else {
-                query['filter[id]'] = value;
+                query['filter[' + this.pk + ']'] = value;
             }
 
             this.booted.helpers.http
@@ -65,12 +66,13 @@ export default {
                 .then((response) => {
                     if (response.statusType === 'success') {
                         for (let key in response.data.data) {
-                            let dataItem = response.data.data[key];
+                            let dataItem = response.data.data[key],
+                                dataItemPk = dataItem[this.pk];
 
                             if (this.isLocalized) {
-                                this.items[dataItem.id] = dataItem[this.field][this.booted.locale];
+                                this.items[dataItemPk] = dataItem[this.field][this.booted.locale];
                             } else {
-                                this.items[dataItem.id] = dataItem[this.field];
+                                this.items[dataItemPk] = dataItem[this.field];
                             }
                         }
                     }
@@ -111,7 +113,7 @@ export default {
                     processResults: (data, params) => {
                         let results = data.data.map((value) => {
                             return {
-                                id: value.id,
+                                id: value[this.pk],
                                 text: this.isLocalized ? value[this.field][this.booted.locale] : value[this.field],
                             };
                         });

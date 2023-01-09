@@ -4,7 +4,6 @@ import { IndexConfig } from '@/core/crud/config';
 import model from '@/modules/user/models/notification';
 
 import PageTitle from '@/components/blocks/PageTitle.vue';
-import RouterLink from '@/components/blocks/RouterLink.vue';
 import Index from '@/components/crud/Index.vue';
 </script>
 
@@ -22,15 +21,14 @@ export default {
                     path: 'user/notification',
                 },
                 grid: {
-                    hiddenFields: ['type_raw', 'params'],
                     actions: ['link', 'show'],
                     customActions: {
                         link: (item) => {
                             let path;
 
-                            switch (item.type_raw.value) {
+                            switch (item.type) {
                                 case 'feedback_callback_created':
-                                    path = 'feedback/callback/' + item.params.value.id + '/show';
+                                    path = 'feedback/callback/' + item.params.id + '/show';
                                     break;
 
                                 default:

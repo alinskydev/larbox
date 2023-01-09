@@ -62,7 +62,7 @@ export default {
                                 <Selection type="tableHead" />
 
                                 <template v-for="(field, key) in fields">
-                                    <th v-if="!config.grid.hiddenFields.includes(key)">
+                                    <th>
                                         {{ field.label }}
                                     </th>
                                 </template>
@@ -74,33 +74,34 @@ export default {
                         </thead>
 
                         <tbody>
-                            <tr v-for="item in items" v-bind="config.grid.rowAttributes(booted.components.current, item)">
-                                <Selection type="tableBody" :id="item.id.value" />
+                            <tr
+                                v-for="item in items"
+                                v-bind="config.grid.rowAttributes(booted.components.current, item[model.pk].item)"
+                            >
+                                <Selection type="tableBody" :pk="item[model.pk].value" />
 
                                 <template v-for="(field, key) in fields">
-                                    <template v-if="!config.grid.hiddenFields.includes(key)">
-                                        <template v-if="item[key].type === Enums.valueTypes.image">
-                                            <td style="width: 130px">
-                                                <Value :item="item[key]" />
-                                            </td>
-                                        </template>
+                                    <template v-if="item[key].type === Enums.valueTypes.image">
+                                        <td style="width: 130px">
+                                            <Value :item="item[key]" />
+                                        </td>
+                                    </template>
 
-                                        <template
-                                            v-else-if="
-                                                item[key].type === Enums.valueTypes.httpSelect ||
-                                                item[key].type === Enums.valueTypes.httpSwitcher
-                                            "
-                                        >
-                                            <td :set="(item[key].attributes['disabled'] = item.is_deleted === true)">
-                                                <Value :item="item[key]" />
-                                            </td>
-                                        </template>
+                                    <template
+                                        v-else-if="
+                                            item[key].type === Enums.valueTypes.httpSelect ||
+                                            item[key].type === Enums.valueTypes.httpSwitcher
+                                        "
+                                    >
+                                        <td :set="(item[key].attributes['disabled'] = item.is_deleted === true)">
+                                            <Value :item="item[key]" />
+                                        </td>
+                                    </template>
 
-                                        <template v-else>
-                                            <td>
-                                                <Value :item="item[key]" />
-                                            </td>
-                                        </template>
+                                    <template v-else>
+                                        <td>
+                                            <Value :item="item[key]" />
+                                        </td>
                                     </template>
                                 </template>
 

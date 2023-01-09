@@ -2,7 +2,7 @@ import * as Enums from './enums';
 import * as ModelTypes from './types/modelTypes';
 
 export class Model {
-    primaryKey: string;
+    pk: string;
     hasSeoMeta: boolean;
     hasUpdatedAtConflictCheck: boolean;
 
@@ -13,7 +13,7 @@ export class Model {
     form: Record<string, any>;
 
     constructor(config: {
-        primaryKey: string;
+        pk: string;
         hasSeoMeta: boolean;
         hasUpdatedAtConflictCheck: boolean;
         index: Record<string, ModelTypes.valueParams>;
@@ -42,7 +42,7 @@ export class Model {
             >
         >;
     }) {
-        this.primaryKey = config.primaryKey ?? 'id';
+        this.pk = config.pk ?? 'id';
         this.hasSeoMeta = config.hasSeoMeta ?? false;
         this.hasUpdatedAtConflictCheck = config.hasUpdatedAtConflictCheck ?? true;
 
@@ -120,10 +120,10 @@ export class Model {
 
             result[key] = {
                 attributes: field.attributes ?? {},
+                item: item,
                 label: typeof label === 'function' ? label(context) : context.__(label),
                 options: field.options ?? {},
-                pk: item[this.primaryKey],
-                record: item,
+                pk: item[this.pk],
                 type: field.type,
                 value: value,
             };
@@ -186,11 +186,11 @@ export class Model {
             result[key] = {
                 attributes: field.attributes ?? {},
                 hint: typeof hint === 'function' ? hint(context) : context.__(hint),
+                item: item,
                 label: typeof label === 'function' ? label(context) : context.__(label),
                 name: field.name ?? key,
                 options: field.options ?? {},
-                pk: item[this.primaryKey],
-                record: item,
+                pk: item[this.pk],
                 size: field.size ?? Enums.inputSizes.lg,
                 type: field.type,
                 value: value,
