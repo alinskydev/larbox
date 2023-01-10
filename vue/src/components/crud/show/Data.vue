@@ -17,7 +17,7 @@ export default {
     <div
         v-for="(items, key) in model.data.show"
         class="card card-primary mb-3"
-        :set="(groupId = booted.helpers.string.uniqueId())"
+        :set="(groupId = booted.helpers.string.uniqueElementId())"
     >
         <div
             class="card-header d-flex align-items-center justify-content-between"

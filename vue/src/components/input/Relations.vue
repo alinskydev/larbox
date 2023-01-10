@@ -1,6 +1,4 @@
 <script setup>
-import * as Enums from '@/core/enums';
-
 import { Model } from '@/core/model';
 import Input from '@/components/Input.vue';
 </script>
@@ -16,7 +14,6 @@ export default {
     },
     data() {
         return {
-            model: new Model({}),
             fields: this.item.options.relations,
             items: this.item.value,
         };
@@ -34,34 +31,15 @@ export default {
     },
     methods: {
         add() {
-            console.log(this.fields);
-            let uniqueId = this.booted.helpers.string.uniqueId();
+            let newItem = new Model({}).prepareRelationalInputs(
+                this,
+                this.item.options.relations,
+                { id: 0 },
+                this.item.name,
+                this.booted.helpers.string.uniqueId(),
+            );
 
-            let model = new Model({
-                hasUpdatedAtConflictCheck: false,
-                config: {
-                    form: {
-                        0: {
-                            relations: {
-                                name: this.item.name,
-                                type: Enums.inputTypes.relations,
-                                options: {
-                                    relations: this.item.options.relations,
-                                },
-                            },
-                        },
-                    },
-                },
-            });
-
-            let newData = { relations: [{ id: uniqueId }] };
-
-            model.fillData(this, newData);
-
-            this.items.push(model.data.form[0].relations.value[0]);
-
-            // console.log(this.items);
-            console.log(model.data.form[0]);
+            this.items.push(newItem);
         },
         remove(event) {
             $(event.target).closest('tr').remove();

@@ -202,7 +202,16 @@ export default new Model({
                     value: 'description.:locale',
                     type: Enums.valueTypes.html,
                 },
+                created_at: {
+                    type: Enums.valueTypes.text,
+                },
+                updated_at: {
+                    type: Enums.valueTypes.text,
+                },
+            },
+            Variations: {
                 variations: {
+                    label: null,
                     type: Enums.valueTypes.relations,
                     options: {
                         relations: {
@@ -211,50 +220,16 @@ export default new Model({
                                 type: Enums.valueTypes.text,
                             },
                             image: {
-                                value: 'image.original.raw',
-                                type: Enums.valueTypes.link,
+                                value: 'image.widen_500.webp',
+                                type: Enums.valueTypes.image,
                             },
                         },
                     },
-                },
-                created_at: {
-                    type: Enums.valueTypes.text,
-                },
-                updated_at: {
-                    type: Enums.valueTypes.text,
                 },
             },
         },
 
         form: {
-            Variations: {
-                variations: {
-                    type: Enums.inputTypes.relations,
-                    options: {
-                        relations: {
-                            name: {
-                                type: Enums.inputTypes.text,
-                                options: {
-                                    isLocalized: true,
-                                },
-                                size: Enums.inputSizes.xl,
-                            },
-                            image: {
-                                type: Enums.inputTypes.file,
-                                options: {
-                                    file: {
-                                        previewPath: 'widen_500.webp',
-                                        downloadPath: 'original.raw',
-                                        showDelete: true,
-                                        showDrag: true,
-                                    },
-                                },
-                                size: Enums.inputSizes.xl,
-                            },
-                        },
-                    },
-                },
-            },
             Categories: {
                 categories: {
                     label: null,
@@ -360,6 +335,34 @@ export default new Model({
                         size: Enums.inputSizes.xl,
                     },
                     size: Enums.inputSizes.xl,
+                },
+            },
+            Variations: {
+                variations: {
+                    type: Enums.inputTypes.relations,
+                    options: {
+                        relations: {
+                            name: {
+                                type: Enums.inputTypes.text,
+                                options: {
+                                    isLocalized: true,
+                                },
+                                size: Enums.inputSizes.xl,
+                            },
+                            image: {
+                                type: Enums.inputTypes.file,
+                                options: {
+                                    file: {
+                                        previewPath: 'widen_500.webp',
+                                        downloadPath: 'original.raw',
+                                        showDelete: true,
+                                        showDrag: true,
+                                    },
+                                },
+                                size: Enums.inputSizes.xl,
+                            },
+                        },
+                    },
                 },
             },
         },

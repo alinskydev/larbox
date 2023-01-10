@@ -221,13 +221,10 @@ export class Model {
 
             if (field.type === Enums.inputTypes.relations) {
                 field.options.relations.id = {
-                    type: Enums.inputTypes.text,
-                    attributes: {
-                        'disabled': Boolean(!value),
-                    },
+                    type: Enums.inputTypes.hidden,
                 };
 
-                value = value?.map((v) => this.prepareRelationsInputs(context, field.options.relations, v, name, v.id));
+                value = value?.map((v) => this.prepareRelationalInputs(context, field.options.relations, v, name, v.id));
             }
 
             result[key] = {
@@ -247,7 +244,7 @@ export class Model {
         return result;
     }
 
-    private prepareRelationsInputs(context, fields, record, namePrefix, relationKey) {
+    prepareRelationalInputs(context, fields, record, namePrefix, relationKey) {
         let result = this.prepareInputs(context, fields, record);
 
         for (let key in result) {
