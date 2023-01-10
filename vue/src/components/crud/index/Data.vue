@@ -13,9 +13,7 @@ export default {
     data() {
         return {
             config: this.booted.components.current.config,
-            model: this.booted.components.current.config.model,
-            fields: {},
-            items: [],
+            models: [],
             meta: {},
         };
     },
@@ -31,11 +29,8 @@ export default {
             })
             .then((response) => {
                 if (response.statusType === 'success') {
-                    this.fields = this.model.prepareFields(this, this.model.index);
-
                     for (let dataKey in response.data.data) {
-                        this.items[dataKey] = this.model.prepareValues(this, this.model.index, response.data.data[dataKey]);
-                        this.items[dataKey]['is_deleted'] = response.data.data[dataKey]['is_deleted'];
+                        this.models[dataKey] = Object.assign({}, this.config.model.fillData(this, response.data.data[dataKey]));
                     }
 
                     this.meta = response.data.meta;
@@ -54,16 +49,16 @@ export default {
         </div>
 
         <div class="card-body">
-            <template v-if="items.length > 0">
+            <template v-if="models.length > 0">
                 <div class="table-responsive">
                     <table class="table table-hover table-bordered">
                         <thead>
                             <tr>
                                 <Selection type="tableHead" />
 
-                                <template v-for="(field, key) in fields">
+                                <template v-for="item in models[0].data.index">
                                     <th>
-                                        {{ field.label }}
+                                        {{ item.label }}
                                     </th>
                                 </template>
 
@@ -75,39 +70,39 @@ export default {
 
                         <tbody>
                             <tr
-                                v-for="item in items"
-                                v-bind="config.grid.rowAttributes(booted.components.current, item[model.pk].item)"
+                                v-for="model in models"
+                                v-bind="config.grid.rowAttributes(booted.components.current, model.data.record)"
                             >
-                                <Selection type="tableBody" :pk="item[model.pk].value" />
+                                <Selection type="tableBody" :pk="model.data.pk" />
 
-                                <template v-for="(field, key) in fields">
-                                    <template v-if="item[key].type === Enums.valueTypes.image">
+                                <template v-for="data in model.data.index">
+                                    <template v-if="data.type === Enums.valueTypes.image">
                                         <td style="width: 130px">
-                                            <Value :item="item[key]" />
+                                            <Value :item="data" />
                                         </td>
                                     </template>
 
                                     <template
                                         v-else-if="
-                                            item[key].type === Enums.valueTypes.httpSelect ||
-                                            item[key].type === Enums.valueTypes.httpSwitcher
+                                            data.type === Enums.valueTypes.httpSelect ||
+                                            data.type === Enums.valueTypes.httpSwitcher
                                         "
                                     >
-                                        <td :set="(item[key].attributes['disabled'] = item.is_deleted === true)">
-                                            <Value :item="item[key]" />
+                                        <td :set="(data.attributes['disabled'] = model.data.record.is_deleted === true)">
+                                            <Value :item="data" />
                                         </td>
                                     </template>
 
                                     <template v-else>
                                         <td>
-                                            <Value :item="item[key]" />
+                                            <Value :item="data" />
                                         </td>
                                     </template>
                                 </template>
 
                                 <template v-if="config.grid.actions.length > 0">
                                     <td class="text-right" style="width: 50px">
-                                        <Actions :item="item" />
+                                        <Actions :model="model" />
                                     </td>
                                 </template>
                             </tr>
@@ -126,7 +121,7 @@ export default {
         </div>
 
         <div class="card-footer">
-            <template v-if="items.length > 0">
+            <template v-if="models.length > 0">
                 <Pagination :meta="meta" />
             </template>
         </div>

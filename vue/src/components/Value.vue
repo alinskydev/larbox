@@ -20,12 +20,6 @@ export default {
     },
     created() {
         this.item.elementId = this.booted.helpers.string.uniqueElementId();
-
-        if (typeof this.item.attributes === 'function') {
-            this.item.attributes = this.item.attributes(this, this.item);
-        } else {
-            this.item.attributes = this.item.attributes;
-        }
     },
 };
 </script>
@@ -43,7 +37,7 @@ export default {
         </template>
 
         <template v-else-if="item.type === Enums.valueTypes.component">
-            <ComponentResolver :resolve="item.options.component.resolve(booted.components.app, item)" />
+            <ComponentResolver :resolve="item.options.component.resolve(booted.components.app, item.record)" />
         </template>
 
         <template v-else-if="item.type === Enums.valueTypes.fields">

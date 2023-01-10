@@ -25,15 +25,12 @@ export default {
                         'with[0]': 'creator',
                     },
                 },
-                filter: {
-                    hasSoftDelete: true,
-                },
                 grid: {
                     actions: ['boxes', 'show', 'update', 'delete'],
                     customActions: {
-                        boxes: (item) => {
+                        boxes: (record) => {
                             return {
-                                path: 'box/box/index?filter[brand_id]=' + item.id,
+                                path: 'box/box/index?filter[brand_id]=' + record.id,
                                 linkAttributes: {
                                     title: this.__('routes->box.box'),
                                     class: 'btn btn-info',

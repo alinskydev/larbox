@@ -1,6 +1,4 @@
 <script setup>
-import * as Enums from '@/core/enums';
-
 import Accordion from '@/components/crud/form/Accordion.vue';
 </script>
 
@@ -10,8 +8,7 @@ export default {
         return {
             page: this.booted.components.current.page,
             config: this.booted.components.current.config,
-            model: this.booted.components.current.config.model,
-            itemGroups: {},
+            model: null,
         };
     },
     created() {
@@ -27,8 +24,6 @@ export default {
             })
             .then((response) => {
                 if (response.statusType === 'success') {
-                    // Page init
-
                     if (this.config.title) {
                         this.page.title +=
                             ': ' +
@@ -40,21 +35,7 @@ export default {
 
                     this.page.init();
 
-                    // Adding updated_at conflict check
-
-                    if (this.model.hasUpdatedAtConflictCheck) {
-                        let firstGroupKey = Object.keys(this.model.form)[0];
-
-                        this.model.form[firstGroupKey].updated_at = {
-                            type: Enums.inputTypes.hidden,
-                        };
-                    }
-
-                    // Collecting item groups
-
-                    for (let key in this.model.form) {
-                        this.itemGroups[key] = this.model.prepareInputs(this, this.model.form[key], response.data);
-                    }
+                    this.model = Object.assign({}, this.config.model.fillData(this, response.data));
                 } else {
                     this.$router.back();
                 }
@@ -64,5 +45,5 @@ export default {
 </script>
 
 <template>
-    <Accordion :itemGroups="itemGroups" />
+    <Accordion v-if="model" :model="model" />
 </template>

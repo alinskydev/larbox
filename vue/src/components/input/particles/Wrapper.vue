@@ -16,7 +16,6 @@ export default {
     data() {
         return {
             inputAttrs: {},
-            extraAttrs: typeof this.item.attributes === 'function' ? this.item.attributes(this, this.item) : this.item.attributes,
         };
     },
     created() {
@@ -68,7 +67,7 @@ export default {
                                     'id': inputAttrs['id'].replace(':locale', language.code),
                                     'class': inputAttrs['class'],
                                 },
-                                ...extraAttrs,
+                                ...item.attributes,
                             }"
                         ></slot>
 
@@ -86,7 +85,7 @@ export default {
                 <slot
                     :inputAttrs="{
                         ...inputAttrs,
-                        ...extraAttrs,
+                        ...item.attributes,
                     }"
                 ></slot>
 
@@ -96,11 +95,5 @@ export default {
         </template>
     </div>
 
-    <slot
-        v-else
-        :inputAttrs="{
-            ...inputAttrs,
-            ...extraAttrs,
-        }"
-    />
+    <slot v-else />
 </template>

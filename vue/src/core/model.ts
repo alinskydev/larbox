@@ -3,60 +3,75 @@ import * as ModelTypes from './types/modelTypes';
 
 export class Model {
     pk: string;
+
+    hasSoftDelete: boolean;
     hasSeoMeta: boolean;
     hasUpdatedAtConflictCheck: boolean;
 
-    index: Record<string, ModelTypes.valueParams>;
-    filters: Record<string, ModelTypes.inputParams>;
-    sortings: Array<string>;
-    show: Record<string, any>;
-    form: Record<string, any>;
-
-    constructor(config: {
-        pk: string;
-        hasSeoMeta: boolean;
-        hasUpdatedAtConflictCheck: boolean;
+    config: {
         index: Record<string, ModelTypes.valueParams>;
         filters: Record<string, ModelTypes.inputParams>;
         sortings: Array<string>;
-        show: Record<
-            string,
-            Record<
-                string,
-                ModelTypes.valueParams & {
-                    options: {
-                        relations: Record<string, ModelTypes.valueParams>;
-                    };
-                }
-            >
-        >;
-        form: Record<
-            string,
-            Record<
-                string,
-                ModelTypes.inputParams & {
-                    options: {
-                        relations: Record<string, ModelTypes.inputParams>;
-                    };
-                }
-            >
-        >;
-    }) {
-        this.pk = config.pk ?? 'id';
-        this.hasSeoMeta = config.hasSeoMeta ?? false;
-        this.hasUpdatedAtConflictCheck = config.hasUpdatedAtConflictCheck ?? true;
+        show: Record<string, any>;
+        form: Record<string, any>;
+    };
 
-        this.index = config.index ?? {};
-        this.filters = config.filters ?? {};
-        this.sortings = config.sortings ?? [];
-        this.show = config.show ?? {};
-        this.form = config.form ?? {};
+    data: Record<string, any>;
+
+    constructor(params: {
+        pk: string;
+
+        hasSoftDelete: boolean;
+        hasSeoMeta: boolean;
+        hasUpdatedAtConflictCheck: boolean;
+
+        config: {
+            index: Record<string, ModelTypes.valueParams>;
+            filters: Record<string, ModelTypes.inputParams>;
+            sortings: Array<string>;
+            show: Record<
+                string,
+                Record<
+                    string,
+                    ModelTypes.valueParams & {
+                        options: {
+                            relations: Record<string, ModelTypes.valueParams>;
+                        };
+                    }
+                >
+            >;
+            form: Record<
+                string,
+                Record<
+                    string,
+                    ModelTypes.inputParams & {
+                        options: {
+                            relations: Record<string, ModelTypes.inputParams>;
+                        };
+                    }
+                >
+            >;
+        };
+    }) {
+        this.pk = params.pk ?? 'id';
+
+        this.hasSoftDelete = params.hasSoftDelete ?? false;
+        this.hasSeoMeta = params.hasSeoMeta ?? false;
+        this.hasUpdatedAtConflictCheck = params.hasUpdatedAtConflictCheck ?? true;
+
+        this.config = {
+            index: params.config?.index ?? {},
+            filters: params.config?.filters ?? {},
+            sortings: params.config?.sortings ?? [],
+            show: params.config?.show ?? {},
+            form: params.config?.form ?? {},
+        };
 
         if (this.hasSeoMeta) {
-            this.form['SEO meta'] = {
+            this.config.form['SEO meta'] = {
                 seo_meta: {
-                    value: (context, item) => {
-                        let value = item.seo_meta,
+                    value: (context, record) => {
+                        let value = record.seo_meta,
                             result = [];
 
                         if (!value) return null;
@@ -87,43 +102,59 @@ export class Model {
         }
     }
 
-    prepareFields(context, fields) {
-        let result = {};
+    fillData(context, record = {}) {
+        this.data = {
+            record: record,
+            pk: record[this.pk],
+            index: this.prepareValues(context, this.config.index, record),
+            filters: this.prepareFilters(context, this.config.filters, record),
+            show: {},
+            form: {},
+        };
 
-        for (let key in fields) {
-            let field = fields[key],
-                label = field.label !== undefined ? field.label : 'fields->' + key;
-
-            result[key] = {
-                label: typeof label === 'function' ? label(context) : context.__(label),
-                options: field.options ?? {},
-            };
+        for (let key in this.config.show) {
+            this.data.show[key] = this.prepareValues(context, this.config.show[key], record);
         }
 
-        return result;
+        for (let key in this.config.form) {
+            if (this.hasUpdatedAtConflictCheck) {
+                this.config.form[key].updated_at = {
+                    type: Enums.inputTypes.hidden,
+                };
+            }
+
+            this.data.form[key] = this.prepareInputs(context, this.config.form[key], record);
+        }
+
+        return this;
     }
 
-    prepareValues(context, fields, item = {}) {
+    private prepareValues(context, fields, record) {
         let result = {};
 
         for (let key in fields) {
             let field = fields[key],
                 label = field.label !== undefined ? field.label : 'fields->' + key,
-                value = field.value ?? key;
+                value = field.value ?? key,
+                attributes = field.attributes ?? {};
 
             if (typeof value === 'function') {
-                value = value(context, item);
+                value = value(context, record);
             } else {
                 value = value.replace(':locale', context.booted.locale);
-                value = context.booted.helpers.iterator.get(item, value);
+                value = context.booted.helpers.iterator.get(record, value);
+            }
+
+            if (field.type === Enums.valueTypes.relations) {
+                value = value?.map((v) => this.prepareValues(context, field.options.relations, v));
             }
 
             result[key] = {
-                attributes: field.attributes ?? {},
-                item: item,
+                attributes: typeof attributes === 'function' ? attributes(context, record) : attributes,
                 label: typeof label === 'function' ? label(context) : context.__(label),
                 options: field.options ?? {},
-                pk: item[this.pk],
+                pk: record[this.pk],
+                record: record,
                 type: field.type,
                 value: value,
             };
@@ -132,7 +163,7 @@ export class Model {
         return result;
     }
 
-    prepareFilters(context, fields, item = {}) {
+    private prepareFilters(context, fields, record) {
         let result = {};
 
         for (let key in fields) {
@@ -140,25 +171,28 @@ export class Model {
                 label = field.label !== undefined ? field.label : 'fields->' + key,
                 hint = field.hint !== undefined ? field.hint : null,
                 name = field.name ?? key,
-                value = field.value ?? key;
+                value = field.value ?? key,
+                attributes = field.attributes ?? {};
 
             name = name.replaceAll('[', '][');
             name = name.replace(/]$/, '');
             name = 'filter[' + name + ']';
 
             if (typeof value === 'function') {
-                value = value(context, item);
+                value = value(context, record);
             } else {
                 value = value.replace(':locale', context.booted.locale);
-                value = context.booted.helpers.iterator.get(item, value, '->');
+                value = context.booted.helpers.iterator.get(record, value, '->');
             }
 
             result[key] = {
-                attributes: field.attributes ?? {},
+                attributes: typeof attributes === 'function' ? attributes(context, record) : attributes,
                 hint: typeof hint === 'function' ? hint(context) : context.__(hint),
                 label: typeof label === 'function' ? label(context) : context.__(label),
                 name: name,
                 options: field.options ?? {},
+                pk: record[this.pk],
+                record: record,
                 size: field.size ?? Enums.inputSizes.sm,
                 type: field.type,
                 value: value,
@@ -168,29 +202,42 @@ export class Model {
         return result;
     }
 
-    prepareInputs(context, fields, item = {}) {
+    private prepareInputs(context, fields, record) {
         let result = {};
 
         for (let key in fields) {
             let field = fields[key],
                 label = field.label !== undefined ? field.label : 'fields->' + key,
+                name = field.name ?? key,
                 hint = field.hint !== undefined ? field.hint : null,
-                value = field.value ?? key;
+                value = field.value ?? key,
+                attributes = field.attributes ?? {};
 
             if (typeof value === 'function') {
-                value = value(context, item);
+                value = value(context, record);
             } else {
-                value = context.booted.helpers.iterator.get(item, value);
+                value = context.booted.helpers.iterator.get(record, value);
+            }
+
+            if (field.type === Enums.inputTypes.relations) {
+                field.options.relations.id = {
+                    type: Enums.inputTypes.text,
+                    attributes: {
+                        'disabled': Boolean(!value),
+                    },
+                };
+
+                value = value?.map((v) => this.prepareRelationsInputs(context, field.options.relations, v, name, v.id));
             }
 
             result[key] = {
-                attributes: field.attributes ?? {},
+                attributes: typeof attributes === 'function' ? attributes(context, record) : attributes,
                 hint: typeof hint === 'function' ? hint(context) : context.__(hint),
-                item: item,
                 label: typeof label === 'function' ? label(context) : context.__(label),
-                name: field.name ?? key,
+                name: name,
                 options: field.options ?? {},
-                pk: item[this.pk],
+                pk: record[this.pk],
+                record: record,
                 size: field.size ?? Enums.inputSizes.lg,
                 type: field.type,
                 value: value,
@@ -200,8 +247,8 @@ export class Model {
         return result;
     }
 
-    prepareRelationsInputs(context, fields, item, namePrefix, relationKey) {
-        let result = this.prepareInputs(context, fields, item);
+    private prepareRelationsInputs(context, fields, record, namePrefix, relationKey) {
+        let result = this.prepareInputs(context, fields, record);
 
         for (let key in result) {
             let name = result[key].name;

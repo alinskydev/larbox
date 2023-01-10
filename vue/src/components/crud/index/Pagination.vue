@@ -8,7 +8,7 @@ export default {
     },
     data() {
         return {
-            items: [],
+            pages: [],
         };
     },
     created() {
@@ -17,7 +17,7 @@ export default {
             to = this.meta.last_page - qty > this.meta.current_page ? this.meta.current_page + qty : this.meta.last_page;
 
         for (from; from <= to; from++) {
-            this.items.push(from);
+            this.pages.push(from);
         }
     },
     methods: {
@@ -44,7 +44,7 @@ export default {
             {{ __('Показано с :from по :to записи из :total', meta) }}
         </div>
 
-        <ul v-if="items.length > 1" class="pagination m-0">
+        <ul v-if="pages.length > 1" class="pagination m-0">
             <li :class="'page-item ' + (meta.current_page === 1 ? 'disabled' : '')">
                 <a @click="go(1)" href="#" class="page-link">
                     <i class="fas fa-angle-double-left"></i>
@@ -57,8 +57,8 @@ export default {
                 </a>
             </li>
 
-            <li v-for="item in items" :class="'page-item ' + (item === meta.current_page ? 'active' : '')">
-                <a @click="go(item)" href="#" class="page-link">{{ item }}</a>
+            <li v-for="page in pages" :class="'page-item ' + (page === meta.current_page ? 'active' : '')">
+                <a @click="go(page)" href="#" class="page-link">{{ page }}</a>
             </li>
 
             <li :class="'page-item ' + (meta.current_page === meta.last_page ? 'disabled' : '')">

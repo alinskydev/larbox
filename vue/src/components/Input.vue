@@ -38,7 +38,7 @@ export default {
 <template>
     <Wrapper :item="item" v-slot="wrapper">
         <template v-if="item.type === Enums.inputTypes.component">
-            <ComponentResolver :resolve="item.options.component.resolve(booted.components.app, item)" />
+            <ComponentResolver :resolve="item.options.component.resolve(booted.components.app, item.record)" />
         </template>
 
         <template v-else-if="item.type === Enums.inputTypes.date">
@@ -54,7 +54,7 @@ export default {
         </template>
 
         <template v-else-if="item.type === Enums.inputTypes.hidden">
-            <Hidden :item="item" v-bind="wrapper.inputAttrs" />
+            <Hidden :item="item" />
         </template>
 
         <template v-else-if="item.type === Enums.inputTypes.phone">
@@ -62,7 +62,7 @@ export default {
         </template>
 
         <template v-else-if="item.type === Enums.inputTypes.relations">
-            <Relations :item="item" v-bind="wrapper.inputAttrs" />
+            <Relations :item="item" />
         </template>
 
         <template v-else-if="item.type === Enums.inputTypes.select">

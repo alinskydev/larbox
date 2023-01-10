@@ -6,13 +6,10 @@ export class IndexConfig {
         path: string;
         query: object;
     };
-    filter: {
-        hasSoftDelete: boolean;
-    };
     grid: {
         actions: Array<string>;
-        customActions: Record<string, (item: object) => any>;
-        rowAttributes: (context: any, item: object) => any;
+        customActions: Record<string, (record: object) => any>;
+        rowAttributes: (context: any, record: object) => any;
     };
     selection: {
         actions: Array<string>;
@@ -24,13 +21,10 @@ export class IndexConfig {
         this.http = config.http;
         this.http.query ??= {};
 
-        this.filter = config.filter ?? {};
-        this.filter.hasSoftDelete ??= false;
-
         this.grid = config.grid ?? {};
         this.grid.actions ??= ['show', 'update', 'delete'];
         this.grid.customActions ??= {};
-        this.grid.rowAttributes ??= (context, item) => {};
+        this.grid.rowAttributes ??= (context, record) => {};
 
         this.selection = config.selection ?? {};
         this.selection.actions ??= [];

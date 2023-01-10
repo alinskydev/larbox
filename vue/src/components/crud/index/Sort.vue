@@ -18,13 +18,13 @@ export default {
         };
     },
     created() {
-        let items = {};
+        let sortings = {};
 
         for (let key in this.fields) {
             let field = this.fields[key];
 
-            items[field] = this.__('fields->' + field) + ' ↑';
-            items['-' + field] = this.__('fields->' + field) + ' ↓';
+            sortings[field] = this.__('fields->' + field) + ' ↑';
+            sortings['-' + field] = this.__('fields->' + field) + ' ↓';
         }
 
         this.item = {
@@ -34,7 +34,7 @@ export default {
             type: Enums.inputTypes.select,
             options: {
                 select: {
-                    items: items,
+                    items: sortings,
                     hasPrompt: true,
                 },
             },

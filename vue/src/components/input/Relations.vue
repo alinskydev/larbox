@@ -18,23 +18,12 @@ export default {
         return {
             model: new Model({}),
             fields: this.item.options.relations,
-            items: [],
+            items: this.item.value,
         };
     },
-    created() {
-        for (let key in this.item.value) {
-            this.items[key] = {
-                id: {
-                    name: this.item.name + '[' + key + '][id]',
-                    value: this.item.value[key].id,
-                    type: Enums.inputTypes.hidden,
-                    options: {},
-                },
-                fields: this.model.prepareRelationsInputs(this, this.fields, this.item.value[key], this.item.name, key),
-            };
-        }
-    },
     mounted() {
+        this.fields.id;
+
         $('#' + this.item.elementId + ' tbody').sortable({
             handle: '.table-sorter',
             placeholder: 'sortable-placeholder',
@@ -45,17 +34,34 @@ export default {
     },
     methods: {
         add() {
+            console.log(this.fields);
             let uniqueId = this.booted.helpers.string.uniqueId();
 
-            this.items.push({
-                id: {
-                    name: this.item.name + '[' + uniqueId + '][id]',
-                    value: 0,
-                    type: Enums.inputTypes.hidden,
-                    options: {},
+            let model = new Model({
+                hasUpdatedAtConflictCheck: false,
+                config: {
+                    form: {
+                        0: {
+                            relations: {
+                                name: this.item.name,
+                                type: Enums.inputTypes.relations,
+                                options: {
+                                    relations: this.item.options.relations,
+                                },
+                            },
+                        },
+                    },
                 },
-                fields: this.model.prepareRelationsInputs(this, this.fields, {}, this.item.name, uniqueId),
             });
+
+            let newData = { relations: [{ id: uniqueId }] };
+
+            model.fillData(this, newData);
+
+            this.items.push(model.data.form[0].relations.value[0]);
+
+            // console.log(this.items);
+            console.log(model.data.form[0]);
         },
         remove(event) {
             $(event.target).closest('tr').remove();
@@ -100,13 +106,11 @@ export default {
                                         <div class="btn btn-primary table-sorter">
                                             <i class="fas fa-arrows-alt"></i>
                                         </div>
-
-                                        <Input :item="relationItem.id" />
                                     </td>
 
                                     <td>
                                         <div class="inputs row">
-                                            <template v-for="field in relationItem.fields">
+                                            <template v-for="field in relationItem">
                                                 <Input :item="field" />
                                             </template>
                                         </div>

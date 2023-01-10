@@ -33,7 +33,7 @@ export default {
         if (this.inputOptions.initValue) {
             let initValue = this.inputOptions.initValue.replace(':locale', this.booted.locale);
 
-            initValue = this.booted.helpers.iterator.get(this.item.item, initValue);
+            initValue = this.booted.helpers.iterator.get(this.item.record, initValue);
 
             if (this.options.isMultiple) {
                 for (let key in value) {
@@ -43,10 +43,10 @@ export default {
                 this.items[value] = initValue;
             }
         } else {
-            let query = Object.assign({}, this.inputOptions.query ?? {});
+            let query = this.inputOptions.query ?? {};
 
             if (typeof query === 'function') {
-                query = query(this, this.item);
+                query = query(this, this.item.record);
             }
 
             if (typeof value === 'object') {
@@ -91,7 +91,7 @@ export default {
                             query = this.inputOptions.query ?? {};
 
                         if (typeof query === 'function') {
-                            query = query(this, this.item);
+                            query = query(this, this.item.record);
                         }
 
                         for (let key in query) {

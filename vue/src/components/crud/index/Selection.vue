@@ -12,7 +12,6 @@ export default {
     data() {
         return {
             config: this.booted.components.current.config,
-            model: this.booted.components.current.config.model,
         };
     },
     methods: {
@@ -36,24 +35,20 @@ export default {
         },
         deleteMultipleAction() {
             this.sendRequest(this.config.http.path + '/delete/multiple?_method=DELETE', (selection) => {
-                for (let key in this.$parent.$data.items) {
-                    let item = this.$parent.$data.items[key];
-
-                    if (selection.includes(item[this.model.pk].value)) {
-                        item.is_deleted = true;
+                this.$parent.$data.models.forEach((model) => {
+                    if (selection.includes(model.data.pk)) {
+                        model.data.record.is_deleted = true;
                     }
-                }
+                });
             });
         },
         restoreMultipleAction() {
             this.sendRequest(this.config.http.path + '/restore/multiple?_method=DELETE', (selection) => {
-                for (let key in this.$parent.$data.items) {
-                    let item = this.$parent.$data.items[key];
-
-                    if (selection.includes(item[this.model.pk].value)) {
-                        item.is_deleted = false;
+                this.$parent.$data.models.forEach((model) => {
+                    if (selection.includes(model.data.pk)) {
+                        model.data.record.is_deleted = false;
                     }
-                }
+                });
             });
         },
         sendRequest(path, callback) {

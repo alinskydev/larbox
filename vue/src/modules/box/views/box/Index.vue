@@ -26,9 +26,6 @@ export default {
                         'with[2]': 'tags',
                     },
                 },
-                filter: {
-                    hasSoftDelete: true,
-                },
                 selection: {
                     actions: ['deleteMultiple'],
                 },

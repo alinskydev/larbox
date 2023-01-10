@@ -8,7 +8,7 @@ export default {
     data() {
         return {
             elementId: this.booted.helpers.string.uniqueElementId(),
-            inputs: form.prepareInputs(this, form.form[0]),
+            inputs: form.fillData(this).data.form[0],
         };
     },
     methods: {

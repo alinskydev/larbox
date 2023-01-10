@@ -24,12 +24,12 @@ export default {
                 grid: {
                     actions: ['show', 'updateAlt', 'delete'],
                     customActions: {
-                        updateAlt: (item) => {
+                        updateAlt: (record) => {
                             return {
-                                path: 'user/role/' + item.id + '/update',
+                                path: 'user/role/' + record.id + '/update',
                                 linkAttributes: {
                                     'title': this.__('routeActions->update'),
-                                    'class': 'btn btn-warning' + (item.id === 1 ? ' disabled' : ''),
+                                    'class': 'btn btn-warning' + (record.id === 1 ? ' disabled' : ''),
                                 },
                                 iconAttributes: {
                                     'class': 'fas fa-edit',

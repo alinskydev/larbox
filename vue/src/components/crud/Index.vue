@@ -15,7 +15,7 @@ export default {
             config: this.booted.components.current.config,
             model: this.booted.components.current.config.model,
             filterId: this.booted.helpers.string.uniqueElementId(),
-            items: {},
+            filters: {},
             dataKey: 0,
         };
     },
@@ -47,9 +47,7 @@ export default {
             }
         }
 
-        // Collecting items
-
-        this.items = this.model.prepareFilters(this, this.model.filters, values);
+        this.filters = this.model.fillData(this, values).data.filters;
     },
     methods: {
         submit(event) {
@@ -90,7 +88,7 @@ export default {
 </script>
 
 <template>
-    <div class="card card-primary mb-3" v-if="items.length > 0 || model.sortings.length > 0 || config.filter.hasSoftDelete">
+    <div class="card card-primary mb-3" v-if="filters.length > 0 || model.config.sortings.length > 0 || model.hasSoftDelete">
         <div
             class="card-header d-flex align-items-center justify-content-between"
             role="button"
@@ -108,12 +106,12 @@ export default {
             <form @submit.prevent="submit" @reset.prevent="reset">
                 <div class="card-body">
                     <div class="row">
-                        <template v-for="(item, key) in items">
-                            <Input :item="item" />
+                        <template v-for="filter in filters">
+                            <Input :item="filter" />
                         </template>
 
-                        <Sort v-if="model.sortings.length > 0" :fields="model.sortings" />
-                        <SoftDeleteFilter v-if="config.filter.hasSoftDelete" />
+                        <Sort v-if="model.config.sortings.length > 0" :fields="model.config.sortings" />
+                        <SoftDeleteFilter v-if="model.hasSoftDelete" />
                     </div>
                 </div>
 

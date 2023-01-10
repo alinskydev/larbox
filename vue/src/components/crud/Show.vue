@@ -8,8 +8,7 @@ export default {
         return {
             page: this.booted.components.current.page,
             config: this.booted.components.current.config,
-            model: this.booted.components.current.config.model,
-            itemGroups: {},
+            model: null,
         };
     },
     created() {
@@ -25,8 +24,6 @@ export default {
             })
             .then((response) => {
                 if (response.statusType === 'success') {
-                    // Page init
-
                     if (this.config.title) {
                         this.page.title +=
                             ': ' +
@@ -38,11 +35,7 @@ export default {
 
                     this.page.init();
 
-                    // Collecting item groups
-
-                    for (let key in this.model.show) {
-                        this.itemGroups[key] = this.model.prepareValues(this, this.model.show[key], response.data);
-                    }
+                    this.model = Object.assign({}, this.config.model.fillData(this, response.data));
                 } else {
                     this.$router.back();
                 }
@@ -52,5 +45,5 @@ export default {
 </script>
 
 <template>
-    <Data :itemGroups="itemGroups" />
+    <Data v-if="model" :model="model" />
 </template>

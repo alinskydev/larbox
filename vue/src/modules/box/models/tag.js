@@ -4,37 +4,10 @@ import * as Enums from '@/core/enums';
 import Custom from '@/modules/box/components/Custom.vue';
 
 export default new Model({
-    index: {
-        id: {
-            type: Enums.valueTypes.text,
-        },
-        name: {
-            type: Enums.valueTypes.text,
-        },
-        created_at: {
-            type: Enums.valueTypes.text,
-        },
-        updated_at: {
-            type: Enums.valueTypes.text,
-        },
-    },
+    hasSoftDelete: true,
 
-    filters: {
-        id: {
-            type: Enums.inputTypes.text,
-            attributes: {
-                type: 'number',
-            },
-        },
-        name: {
-            type: Enums.inputTypes.text,
-        },
-    },
-
-    sortings: ['id', 'name'],
-
-    show: {
-        Информация: {
+    config: {
+        index: {
             id: {
                 type: Enums.valueTypes.text,
             },
@@ -48,86 +21,117 @@ export default new Model({
                 type: Enums.valueTypes.text,
             },
         },
-        Компоненты: {
-            built_in_component: {
-                label: null,
-                type: Enums.valueTypes.component,
-                options: {
-                    component: {
-                        resolve: (context, item) => {
-                            return {
-                                component: 'h3',
-                                params: [
-                                    {
-                                        class: 'text-primary m-0',
-                                        innerHTML: context.__('Встроенный компонент'),
-                                    },
-                                ],
-                            };
-                        },
-                    },
-                },
-            },
-            custom_component: {
-                label: null,
-                type: Enums.valueTypes.component,
-                options: {
-                    component: {
-                        resolve: (context, item) => {
-                            return {
-                                component: Custom,
-                                params: [
-                                    {
-                                        text: context.__('Кастомный компонент'),
-                                    },
-                                ],
-                            };
-                        },
-                    },
-                },
-            },
-        },
-    },
 
-    form: {
-        Информация: {
+        filters: {
+            id: {
+                type: Enums.inputTypes.text,
+                attributes: {
+                    type: 'number',
+                },
+            },
             name: {
                 type: Enums.inputTypes.text,
             },
         },
-        Компоненты: {
-            built_in_component: {
-                label: null,
-                type: Enums.inputTypes.component,
-                options: {
-                    component: {
-                        resolve: (context, item) => {
-                            return {
-                                component: 'h3',
-                                params: [
-                                    {
-                                        class: 'w-100 text-primary',
-                                        innerHTML: context.__('Встроенный компонент'),
-                                    },
-                                ],
-                            };
+
+        sortings: ['id', 'name'],
+
+        show: {
+            Информация: {
+                id: {
+                    type: Enums.valueTypes.text,
+                },
+                name: {
+                    type: Enums.valueTypes.text,
+                },
+                created_at: {
+                    type: Enums.valueTypes.text,
+                },
+                updated_at: {
+                    type: Enums.valueTypes.text,
+                },
+            },
+            Компоненты: {
+                built_in_component: {
+                    label: null,
+                    type: Enums.valueTypes.component,
+                    options: {
+                        component: {
+                            resolve: (context, record) => {
+                                return {
+                                    component: 'h3',
+                                    params: [
+                                        {
+                                            class: 'text-primary m-0',
+                                            innerHTML: context.__('Встроенный компонент'),
+                                        },
+                                    ],
+                                };
+                            },
+                        },
+                    },
+                },
+                custom_component: {
+                    label: null,
+                    type: Enums.valueTypes.component,
+                    options: {
+                        component: {
+                            resolve: (context, record) => {
+                                return {
+                                    component: Custom,
+                                    params: [
+                                        {
+                                            text: context.__('Кастомный компонент'),
+                                        },
+                                    ],
+                                };
+                            },
                         },
                     },
                 },
             },
-            custom_component: {
-                type: Enums.inputTypes.component,
-                options: {
-                    component: {
-                        resolve: (context, item) => {
-                            return {
-                                component: Custom,
-                                params: [
-                                    {
-                                        text: context.__('Кастомный компонент'),
-                                    },
-                                ],
-                            };
+        },
+
+        form: {
+            Информация: {
+                name: {
+                    type: Enums.inputTypes.text,
+                },
+            },
+            Компоненты: {
+                built_in_component: {
+                    label: null,
+                    type: Enums.inputTypes.component,
+                    options: {
+                        component: {
+                            resolve: (context, record) => {
+                                return {
+                                    component: 'h3',
+                                    params: [
+                                        {
+                                            class: 'w-100 text-primary',
+                                            innerHTML: context.__('Встроенный компонент'),
+                                        },
+                                    ],
+                                };
+                            },
+                        },
+                    },
+                },
+                custom_component: {
+                    type: Enums.inputTypes.component,
+                    options: {
+                        component: {
+                            resolve: (context, record) => {
+                                return {
+                                    component: Custom,
+                                    params: [
+                                        {
+                                            text: context.__('Кастомный компонент'),
+                                        },
+                                    ],
+                                };
+                            },
                         },
                     },
                 },

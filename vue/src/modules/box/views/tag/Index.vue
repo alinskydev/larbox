@@ -21,9 +21,6 @@ export default {
                 http: {
                     path: 'box/tag',
                 },
-                filter: {
-                    hasSoftDelete: true,
-                },
                 selection: {
                     actions: ['deleteMultiple'],
                 },

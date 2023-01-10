@@ -5,7 +5,7 @@ import Input from '@/components/Input.vue';
 <script>
 export default {
     props: {
-        itemGroups: {
+        model: {
             type: Object,
             required: true,
         },
@@ -54,7 +54,7 @@ export default {
 <template>
     <form @submit.prevent="submit" id="crud-form">
         <div
-            v-for="(items, key) in itemGroups"
+            v-for="(items, key) in model.data.form"
             class="card card-primary mb-3"
             :set="(groupId = booted.helpers.string.uniqueElementId())"
         >

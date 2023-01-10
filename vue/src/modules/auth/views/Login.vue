@@ -1,6 +1,6 @@
 <script setup>
 import { Page } from '@/core/page';
-import model from '@/modules/auth/models/login';
+import form from '@/modules/auth/forms/login';
 import Input from '@/components/Input.vue';
 </script>
 
@@ -12,11 +12,12 @@ export default {
                 context: this,
                 title: this.__('routes->auth.login'),
             }),
-            inputs: model.prepareInputs(this, model.form[0]),
+            inputs: form.fillData(this).data.form[0],
             isReady: false,
         };
     },
     created() {
+
         this.page.init();
 
         if (localStorage.getItem('authToken')) {

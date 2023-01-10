@@ -1,5 +1,4 @@
 <script setup>
-import { Model } from '@/core/model';
 import Value from '@/components/Value.vue';
 </script>
 
@@ -11,41 +10,27 @@ export default {
             required: true,
         },
     },
-    data() {
-        return {
-            model: new Model({}),
-            fields: {},
-            items: {},
-        };
-    },
-    created() {
-        this.fields = this.model.prepareFields(this, this.item.options.relations);
-
-        for (let key in this.item.value) {
-            this.items[key] = this.model.prepareValues(this, this.item.options.relations, this.item.value[key]);
-        }
-    },
 };
 </script>
 
 <template>
-    <div class="table-responsive">
+    <div v-if="item.value.length > 0" class="table-responsive">
         <table class="table table-bordered table-hover">
             <thead>
                 <tr class="bg-info">
                     <th style="width: 30px">№</th>
-                    <th v-for="field in fields">
-                        {{ field.label }}
+                    <th v-for="relationItem in item.value[0]">
+                        {{ relationItem.label }}
                     </th>
                 </tr>
             </thead>
 
             <tbody>
-                <tr v-for="(relationItem, relationItemKey) in items">
-                    <td>{{ parseInt(relationItemKey) + 1 }}</td>
+                <tr v-for="(relationItem, key) in item.value">
+                    <td>{{ parseInt(key) + 1 }}</td>
 
-                    <td v-for="(field, fieldKey) in fields">
-                        <Value :item="relationItem[fieldKey]" />
+                    <td v-for="relationField in relationItem">
+                        <Value :item="relationField" />
                     </td>
                 </tr>
             </tbody>

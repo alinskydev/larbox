@@ -21,9 +21,6 @@ export default {
                 http: {
                     path: 'feedback/callback',
                 },
-                filter: {
-                    hasSoftDelete: true,
-                },
                 grid: {
                     actions: ['show', 'delete'],
                 },

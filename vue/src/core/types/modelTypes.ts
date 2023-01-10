@@ -2,11 +2,11 @@ import * as Enums from '../enums';
 
 export type valueParams = {
     label: string | ((context: any) => any);
-    value: string | ((context: any, item: Object) => any);
+    value: string | ((context: any, record: Object) => any);
     type: Enums.valueTypes;
     options: {
         component: {
-            resolve: (context: any, item: Object) => any;
+            resolve: (context: any, record: Object) => any;
         };
         fields: Array<string>;
         httpSelect: {
@@ -21,21 +21,21 @@ export type valueParams = {
         };
         websiteLink: string;
     };
-    attributes: Object | ((context: any, item: Object) => any);
+    attributes: Object | ((context: any, record: Object) => any);
 };
 
 export type inputParams = {
     label: string | ((context: any) => any);
     hint: string | ((context: any) => any);
     name: string;
-    value: string | ((context: any, item: Object) => any);
+    value: string | ((context: any, record: Object) => any);
     type: Enums.inputTypes;
     options: {
         isLocalized: boolean;
         size: Enums.inputSizes;
         isMultiple: boolean;
         component: {
-            resolve: (context: any, item: Object) => any;
+            resolve: (context: any, record: Object) => any;
         };
         file: {
             previewPath: string;
@@ -57,6 +57,6 @@ export type inputParams = {
             hasPrompt: boolean;
         };
     };
-    attributes: Object | ((context: any, item: Object) => any);
+    attributes: Object | ((context: any, record: Object) => any);
     size: Enums.inputSizes;
 };

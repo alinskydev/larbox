@@ -6,24 +6,18 @@ import Accordion from '@/components/crud/form/Accordion.vue';
 export default {
     data() {
         return {
-            model: this.booted.components.current.config.model,
-            itemGroups: {},
+            page: this.booted.components.current.page,
+            config: this.booted.components.current.config,
+            model: null,
         };
     },
     created() {
-        // Page init
-
-        this.booted.components.current.page.init();
-
-        // Collecting item groups
-
-        for (let key in this.model.form) {
-            this.itemGroups[key] = this.model.prepareInputs(this, this.model.form[key]);
-        }
+        this.page.init();
+        this.model = Object.assign({}, this.config.model.fillData(this));
     },
 };
 </script>
 
 <template>
-    <Accordion :itemGroups="itemGroups" />
+    <Accordion v-if="model" :model="model" />
 </template>

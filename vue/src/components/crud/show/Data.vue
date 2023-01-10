@@ -5,7 +5,7 @@ import Value from '@/components/Value.vue';
 <script>
 export default {
     props: {
-        itemGroups: {
+        model: {
             type: Object,
             required: true,
         },
@@ -15,7 +15,7 @@ export default {
 
 <template>
     <div
-        v-for="(items, key) in itemGroups"
+        v-for="(items, key) in model.data.show"
         class="card card-primary mb-3"
         :set="(groupId = booted.helpers.string.uniqueId())"
     >

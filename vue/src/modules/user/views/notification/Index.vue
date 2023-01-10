@@ -23,12 +23,12 @@ export default {
                 grid: {
                     actions: ['link', 'show'],
                     customActions: {
-                        link: (item) => {
+                        link: (record) => {
                             let path;
 
-                            switch (item.type) {
+                            switch (record.type) {
                                 case 'feedback_callback_created':
-                                    path = 'feedback/callback/' + item.params.id + '/show';
+                                    path = 'feedback/callback/' + record.params.id + '/show';
                                     break;
 
                                 default:
@@ -48,8 +48,8 @@ export default {
                             };
                         },
                     },
-                    rowAttributes: (context, item) => {
-                        if (!item.is_seen.value) {
+                    rowAttributes: (context, record) => {
+                        if (!record.is_seen) {
                             return {
                                 class: 'table-warning',
                             };
