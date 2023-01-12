@@ -15,12 +15,9 @@ export class LocalizationHelper {
 }
 
 export function __(sourceMessage, replacements = {}) {
-    let locale = LocalizationHelper.locale;
-    let message = iteratorHelper.get(LocalizationHelper.messages, locale + '->' + sourceMessage, '->');
+    let message = iteratorHelper.get(LocalizationHelper.messages, LocalizationHelper.locale + '->' + sourceMessage, '->');
 
-    if (message === undefined) {
-        return sourceMessage;
-    }
+    if (message === undefined) return sourceMessage;
 
     for (let key in replacements) {
         message = message.replace(':' + key, replacements[key]);

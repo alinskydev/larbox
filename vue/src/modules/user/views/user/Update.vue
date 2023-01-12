@@ -1,6 +1,6 @@
 <script setup>
 import { Page } from '@/core/page';
-import { UpdateConfig } from '@/core/crud/config';
+import { UpdateConfig } from '@/core/crud/configs';
 import model from '@/modules/user/models/user';
 
 import PageTitle from '@/components/blocks/PageTitle.vue';
@@ -12,23 +12,26 @@ import Update from '@/components/crud/Update.vue';
 export default {
     data() {
         return {
-            page: new Page({
-                context: this,
-                title: this.__('routeActions->update'),
-                breadcrumbs: [
-                    {
-                        label: this.__('routes->user.user'),
-                        path: 'user/user/index',
-                    },
-                ],
-            }),
+            title: this.__('routeActions->update'),
             config: new UpdateConfig({
                 model: model,
-                title: 'username',
                 http: {
                     path: 'user/user/:pk',
                 },
                 events: {
+                    afterResponse: (data) => {
+                        this.title += ': ' + data.username;
+
+                        new Page({
+                            context: this,
+                            breadcrumbs: [
+                                {
+                                    label: this.__('routes->user.user'),
+                                    path: 'user/user/index',
+                                },
+                            ],
+                        });
+                    },
                     afterSubmit: (formData, response) => {
                         toastr.success(this.__('Сохранение прошло успешно'));
 
@@ -36,7 +39,7 @@ export default {
                             this.booted.helpers.user.login(this, response.data.token);
                         }
 
-                        this.page.goUp();
+                        this.booted.page.goUp();
                     },
                 },
             }),
@@ -46,9 +49,9 @@ export default {
 </script>
 
 <template>
-    <PageTitle :text="page.title">
+    <PageTitle :text="title">
         <Buttons />
     </PageTitle>
 
-    <Update />
+    <Update :config="config" />
 </template>

@@ -1,6 +1,6 @@
 <script setup>
 import { Page } from '@/core/page';
-import { ShowConfig } from '@/core/crud/config';
+import { ShowConfig } from '@/core/crud/configs';
 import model from '@/modules/feedback/models/callback';
 
 import PageTitle from '@/components/blocks/PageTitle.vue';
@@ -11,21 +11,26 @@ import Show from '@/components/crud/Show.vue';
 export default {
     data() {
         return {
-            page: new Page({
-                context: this,
-                title: this.__('routeActions->show'),
-                breadcrumbs: [
-                    {
-                        label: this.__('routes->feedback.callback'),
-                        path: 'feedback/callback/index',
-                    },
-                ],
-            }),
+            title: this.__('routeActions->show'),
             config: new ShowConfig({
                 model: model,
-                title: 'id',
                 http: {
                     path: 'feedback/callback/:pk',
+                },
+                events: {
+                    afterResponse: (data) => {
+                        this.title += ': ' + data.id;
+
+                        new Page({
+                            context: this,
+                            breadcrumbs: [
+                                {
+                                    label: this.__('routes->feedback.callback'),
+                                    path: 'feedback/callback/index',
+                                },
+                            ],
+                        });
+                    },
                 },
             }),
         };
@@ -34,6 +39,6 @@ export default {
 </script>
 
 <template>
-    <PageTitle :text="page.title" />
-    <Show />
+    <PageTitle :text="title" />
+    <Show :config="config" />
 </template>

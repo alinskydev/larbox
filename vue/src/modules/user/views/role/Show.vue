@@ -1,6 +1,6 @@
 <script setup>
 import { Page } from '@/core/page';
-import { ShowConfig } from '@/core/crud/config';
+import { ShowConfig } from '@/core/crud/configs';
 import model from '@/modules/user/models/role';
 
 import PageTitle from '@/components/blocks/PageTitle.vue';
@@ -11,21 +11,26 @@ import Show from '@/components/crud/Show.vue';
 export default {
     data() {
         return {
-            page: new Page({
-                context: this,
-                title: this.__('routeActions->show'),
-                breadcrumbs: [
-                    {
-                        label: this.__('routes->user.role'),
-                        path: 'user/role/index',
-                    },
-                ],
-            }),
+            title: this.__('routeActions->show'),
             config: new ShowConfig({
                 model: model,
-                title: 'name.:locale',
                 http: {
                     path: 'user/role/:pk',
+                },
+                events: {
+                    afterResponse: (data) => {
+                        this.title += ': ' + data.name[this.booted.locale];
+
+                        new Page({
+                            context: this,
+                            breadcrumbs: [
+                                {
+                                    label: this.__('routes->user.role'),
+                                    path: 'user/role/index',
+                                },
+                            ],
+                        });
+                    },
                 },
             }),
         };
@@ -34,6 +39,6 @@ export default {
 </script>
 
 <template>
-    <PageTitle :text="page.title" />
-    <Show />
+    <PageTitle :text="title" />
+    <Show :config="config" />
 </template>

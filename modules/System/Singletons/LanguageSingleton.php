@@ -13,7 +13,7 @@ class LanguageSingleton
 
     public function __construct()
     {
-        $this->all = Language::query()->get()->keyBy('code')->toArray();
+        $this->all = Language::query()->orderBy('id')->get()->keyBy('code')->toArray();
         $this->active = array_filter($this->all, fn ($value) => $value['is_active']);
         $this->main = Arr::keyBy($this->active, 'is_main')[1];
 

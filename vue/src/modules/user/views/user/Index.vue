@@ -1,6 +1,6 @@
 <script setup>
 import { Page } from '@/core/page';
-import { IndexConfig } from '@/core/crud/config';
+import { IndexConfig } from '@/core/crud/configs';
 import model from '@/modules/user/models/user';
 
 import PageTitle from '@/components/blocks/PageTitle.vue';
@@ -14,10 +14,7 @@ import NotificationCreate from '@/modules/user/components/notification/Create.vu
 export default {
     data() {
         return {
-            page: new Page({
-                context: this,
-                title: this.__('routes->user.user'),
-            }),
+            title: this.__('routes->user.user'),
             config: new IndexConfig({
                 model: model,
                 http: {
@@ -26,11 +23,16 @@ export default {
             }),
         };
     },
+    created() {
+        new Page({
+            context: this,
+        });
+    },
 };
 </script>
 
 <template>
-    <PageTitle :text="page.title">
+    <PageTitle :text="title">
         <NotificationCreate />
 
         <RouterLink to="user/user/create" class="btn btn-success">
@@ -38,5 +40,5 @@ export default {
         </RouterLink>
     </PageTitle>
 
-    <Index />
+    <Index :config="config" />
 </template>

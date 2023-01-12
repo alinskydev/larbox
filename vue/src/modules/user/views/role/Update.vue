@@ -1,6 +1,6 @@
 <script setup>
 import { Page } from '@/core/page';
-import { UpdateConfig } from '@/core/crud/config';
+import { UpdateConfig } from '@/core/crud/configs';
 import model from '@/modules/user/models/role';
 
 import PageTitle from '@/components/blocks/PageTitle.vue';
@@ -12,21 +12,26 @@ import Update from '@/components/crud/Update.vue';
 export default {
     data() {
         return {
-            page: new Page({
-                context: this,
-                title: this.__('routeActions->update'),
-                breadcrumbs: [
-                    {
-                        label: this.__('routes->user.role'),
-                        path: 'user/role/index',
-                    },
-                ],
-            }),
+            title: this.__('routeActions->update'),
             config: new UpdateConfig({
                 model: model,
-                title: 'name.:locale',
                 http: {
                     path: 'user/role/:pk',
+                },
+                events: {
+                    afterResponse: (data) => {
+                        this.title += ': ' + data.name[this.booted.locale];
+
+                        new Page({
+                            context: this,
+                            breadcrumbs: [
+                                {
+                                    label: this.__('routes->user.role'),
+                                    path: 'user/role/index',
+                                },
+                            ],
+                        });
+                    },
                 },
             }),
         };
@@ -35,9 +40,9 @@ export default {
 </script>
 
 <template>
-    <PageTitle :text="page.title">
+    <PageTitle :text="title">
         <Buttons />
     </PageTitle>
 
-    <Update />
+    <Update :config="config" />
 </template>

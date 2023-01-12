@@ -6,7 +6,7 @@ import RouterLink from '@/components/blocks/RouterLink.vue';
 export default {
     data() {
         return {
-            items: this.booted.components.current?.page.breadcrumbs ?? [],
+            items: this.booted.page?.breadcrumbs ?? [],
         };
     },
 };

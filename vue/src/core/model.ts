@@ -9,8 +9,8 @@ export class Model {
     hasUpdatedAtConflictCheck: boolean;
 
     config: {
-        index: Record<string, ModelTypes.valueParams>;
-        filters: Record<string, ModelTypes.inputParams>;
+        index: Record<string, ModelTypes.ValueParams>;
+        filters: Record<string, ModelTypes.InputParams>;
         sortings: Array<string>;
         show: Record<string, any>;
         form: Record<string, any>;
@@ -26,16 +26,16 @@ export class Model {
         hasUpdatedAtConflictCheck: boolean;
 
         config: {
-            index: Record<string, ModelTypes.valueParams>;
-            filters: Record<string, ModelTypes.inputParams>;
+            index: Record<string, ModelTypes.ValueParams>;
+            filters: Record<string, ModelTypes.InputParams>;
             sortings: Array<string>;
             show: Record<
                 string,
                 Record<
                     string,
-                    ModelTypes.valueParams & {
+                    ModelTypes.ValueParams & {
                         options: {
-                            relations: Record<string, ModelTypes.valueParams>;
+                            relations: Record<string, ModelTypes.ValueParams>;
                         };
                     }
                 >
@@ -44,9 +44,9 @@ export class Model {
                 string,
                 Record<
                     string,
-                    ModelTypes.inputParams & {
+                    ModelTypes.InputParams & {
                         options: {
-                            relations: Record<string, ModelTypes.inputParams>;
+                            relations: Record<string, ModelTypes.InputParams>;
                         };
                     }
                 >

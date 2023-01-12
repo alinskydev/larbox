@@ -1,10 +1,15 @@
 <script setup>
+import { IndexConfig } from '@/core/crud/configs';
 import RouterLink from '@/components/blocks/RouterLink.vue';
 </script>
 
 <script>
 export default {
     props: {
+        config: {
+            type: IndexConfig,
+            required: true,
+        },
         model: {
             type: Object,
             required: true,
@@ -12,12 +17,8 @@ export default {
     },
     data() {
         return {
-            config: this.booted.components.current.config,
-            basePath: null,
+            basePath: this.config.http.path + '/' + this.model.data.pk,
         };
-    },
-    created() {
-        this.basePath = this.config.http.path + '/' + this.model.data.pk;
     },
     methods: {
         deleteAction() {

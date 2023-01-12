@@ -1,7 +1,7 @@
-import { Model } from '@/core/model';
-import * as Enums from '@/core/enums';
+import lodash from 'lodash';
 
-import _ from 'lodash';
+import * as Enums from '@/core/enums';
+import { Model } from '@/core/model';
 
 export default new Model({
     config: {
@@ -13,7 +13,7 @@ export default new Model({
                         select: {
                             items: (context) => {
                                 let types = context.booted.enums.user_notification.types;
-                                types = _.pick(types, ['message', 'announcement']);
+                                types = lodash.pick(types, ['message', 'announcement']);
                                 return types;
                             },
                         },

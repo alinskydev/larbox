@@ -11,7 +11,7 @@ export default {
 
 <template>
     <template v-for="action in actions">
-        <button v-if="action === 'cancel'" type="button" @click="booted.components.current.page.goUp()" class="btn btn-danger">
+        <button v-if="action === 'cancel'" type="button" @click="booted.page.goUp()" class="btn btn-danger">
             {{ __('Отменить') }}
         </button>
 

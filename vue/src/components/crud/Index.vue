@@ -1,29 +1,31 @@
 <script setup>
 import { pickBy } from 'lodash';
 
-import Input from '@/components/Input.vue';
-
+import { IndexConfig } from '@/core/crud/configs';
 import Sort from './index/Sort.vue';
 import SoftDeleteFilter from './index/SoftDeleteFilter.vue';
 import Data from './index/Data.vue';
+
+import Input from '@/components/Input.vue';
 </script>
 
 <script>
 export default {
+    props: {
+        config: {
+            type: IndexConfig,
+            required: true,
+        },
+    },
     data() {
         return {
-            config: this.booted.components.current.config,
-            model: this.booted.components.current.config.model,
+            model: this.config.model,
             filterId: this.booted.helpers.string.uniqueElementId(),
             filters: {},
             dataKey: 0,
         };
     },
     created() {
-        // Page init
-
-        this.booted.components.current.page.init();
-
         // Collecting active filters
 
         let query = this.$route.query,
@@ -130,5 +132,5 @@ export default {
         </div>
     </div>
 
-    <Data :key="dataKey" />
+    <Data :config="config" :key="dataKey" />
 </template>

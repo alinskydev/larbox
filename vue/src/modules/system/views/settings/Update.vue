@@ -1,6 +1,6 @@
 <script setup>
 import { Page } from '@/core/page';
-import { UpdateConfig } from '@/core/crud/config';
+import { UpdateConfig } from '@/core/crud/configs';
 import model from '@/modules/system/models/settings';
 
 import PageTitle from '@/components/blocks/PageTitle.vue';
@@ -12,10 +12,7 @@ import Update from '@/components/crud/Update.vue';
 export default {
     data() {
         return {
-            page: new Page({
-                context: this,
-                title: this.__('routes->system.settings'),
-            }),
+            title: this.__('routes->system.settings'),
             config: new UpdateConfig({
                 model: model,
                 http: {
@@ -30,13 +27,18 @@ export default {
             }),
         };
     },
+    created() {
+        new Page({
+            context: this,
+        });
+    },
 };
 </script>
 
 <template>
-    <PageTitle :text="page.title">
+    <PageTitle :text="title">
         <Buttons :actions="['save']" />
     </PageTitle>
 
-    <Update />
+    <Update :config="config" />
 </template>

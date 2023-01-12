@@ -1,6 +1,5 @@
 <script setup>
-import { Page } from '@/core/page';
-import { ShowConfig } from '@/core/crud/config';
+import { ShowConfig } from '@/core/crud/configs';
 import model from '@/modules/box/models/category';
 
 import Show from '@/components/crud/Show.vue';
@@ -16,14 +15,16 @@ export default {
     },
     data() {
         return {
-            page: new Page({
-                context: this,
-                title: this.__('routes->box.category'),
-            }),
+            title: this.__('routeActions->show'),
             config: new ShowConfig({
                 model: model,
                 http: {
                     path: 'box/category/:pk',
+                },
+                events: {
+                    afterResponse: (data) => {
+                        this.title += ': ' + data.name[this.booted.locale];
+                    },
                 },
             }),
         };
@@ -34,12 +35,12 @@ export default {
 <template>
     <div class="modal-header">
         <h4 class="modal-title">
-            {{ __('routeActions->show') }}
+            {{ title }}
         </h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
     </div>
 
     <div class="modal-body">
-        <Show />
+        <Show :config="config" />
     </div>
 </template>

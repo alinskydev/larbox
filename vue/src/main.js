@@ -2,6 +2,8 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import config from '@/app/config';
 import router from '@/app/router';
+import Larbox from '@/core/larbox';
+
 import { __ } from '@/core/helpers/localizationHelper';
 
 import fileHelper from '@/core/helpers/fileHelper';
@@ -16,7 +18,6 @@ app.config.globalProperties = {
     booted: {
         config: config,
         components: {},
-        data: {},
         helpers: {
             file: fileHelper,
             http: httpHelper,
@@ -25,7 +26,7 @@ app.config.globalProperties = {
             user: userHelper,
         },
     },
-    __: __,
+    __: Larbox.__,
 };
 
 app.use(router);

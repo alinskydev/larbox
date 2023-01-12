@@ -1,6 +1,14 @@
+<script setup>
+import { IndexConfig } from '@/core/crud/configs';
+</script>
+
 <script>
 export default {
     props: {
+        config: {
+            type: IndexConfig,
+            required: true,
+        },
         type: {
             type: String,
             required: true,
@@ -8,11 +16,6 @@ export default {
         pk: {
             type: [Number, String],
         },
-    },
-    data() {
-        return {
-            config: this.booted.components.current.config,
-        };
     },
     methods: {
         toggleHead(event) {

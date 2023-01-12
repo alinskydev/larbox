@@ -1,6 +1,6 @@
 <script setup>
 import { Page } from '@/core/page';
-import { CreateConfig } from '@/core/crud/config';
+import { CreateConfig } from '@/core/crud/configs';
 import model from '@/modules/box/models/box';
 
 import PageTitle from '@/components/blocks/PageTitle.vue';
@@ -12,16 +12,7 @@ import Create from '@/components/crud/Create.vue';
 export default {
     data() {
         return {
-            page: new Page({
-                context: this,
-                title: this.__('routeActions->create'),
-                breadcrumbs: [
-                    {
-                        label: this.__('routes->box.box'),
-                        path: 'box/box/index',
-                    },
-                ],
-            }),
+            title: this.__('routeActions->create'),
             config: new CreateConfig({
                 model: model,
                 http: {
@@ -39,13 +30,24 @@ export default {
             }),
         };
     },
+    created() {
+        new Page({
+            context: this,
+            breadcrumbs: [
+                {
+                    label: this.__('routes->box.box'),
+                    path: 'box/box/index',
+                },
+            ],
+        });
+    },
 };
 </script>
 
 <template>
-    <PageTitle :text="page.title">
+    <PageTitle :text="title">
         <Buttons />
     </PageTitle>
 
-    <Create />
+    <Create :config="config" />
 </template>

@@ -1,6 +1,6 @@
 <script setup>
 import { Page } from '@/core/page';
-import { IndexConfig } from '@/core/crud/config';
+import { IndexConfig } from '@/core/crud/configs';
 import model from '@/modules/user/models/role';
 
 import PageTitle from '@/components/blocks/PageTitle.vue';
@@ -12,10 +12,7 @@ import Index from '@/components/crud/Index.vue';
 export default {
     data() {
         return {
-            page: new Page({
-                context: this,
-                title: this.__('routes->user.role'),
-            }),
+            title: this.__('routes->user.role'),
             config: new IndexConfig({
                 model: model,
                 http: {
@@ -41,15 +38,20 @@ export default {
             }),
         };
     },
+    created() {
+        new Page({
+            context: this,
+        });
+    },
 };
 </script>
 
 <template>
-    <PageTitle :text="page.title">
+    <PageTitle :text="title">
         <RouterLink to="user/role/create" class="btn btn-success">
             {{ __('routeActions->create') }}
         </RouterLink>
     </PageTitle>
 
-    <Index />
+    <Index :config="config" />
 </template>

@@ -1,43 +1,40 @@
+import Larbox from '@/core/larbox';
 import { LocalizationHelper } from '@/core/helpers/localizationHelper';
 import lodash from 'lodash';
 
 export default function (context) {
-    // Setting options
+    return context.booted.helpers.http
+        .send(context, {
+            method: 'GET',
+            path: '../common/system?show-all=1',
+        })
+        .then((response) => {
+            if (response.statusType === 'success') {
+                let data = response.data;
 
-    let locale,
-        url = context.booted.config.http.url;
+                context.booted.languages = data.languages;
+                context.booted.settings = data.settings;
+                context.booted.enums = data.enums;
 
-    let requestOptions = {
-        method: 'GET',
-        headers: context.booted.config.http.headers,
-    };
+                // Setting locale
 
-    // Sending system request
+                let mainLocale = context.booted.languages.main.code,
+                    routeLocale = context.$route.params.locale;
 
-    return fetch(url + '/../common/system?show-all=1', requestOptions)
-        .then((response) => response.json())
-        .then((data) => {
-            context.booted.languages = data.languages;
-            context.booted.settings = data.settings;
-            context.booted.enums = data.enums;
+                if (routeLocale !== undefined && routeLocale in context.booted.languages.active) {
+                    context.booted.locale = routeLocale;
+                } else {
+                    context.booted.locale = mainLocale;
+                }
 
-            // Setting locale
+                context.booted.config.http.headers['Accept-Language'] = context.booted.locale;
 
-            let mainLocale = context.booted.languages.main.code,
-                routeLocale = context.$route.params.locale;
+                Larbox.locale = context.booted.locale;
 
-            if (routeLocale !== undefined && routeLocale in context.booted.languages.active) {
-                locale = routeLocale;
-            } else {
-                locale = mainLocale;
+                // Setting locale
+
+                LocalizationHelper.locale = context.booted.locale;
+                LocalizationHelper.messages = lodash.merge(LocalizationHelper.messages, data.translations);
             }
-
-            context.booted.locale = locale;
-            context.booted.config.http.headers['Accept-Language'] = locale;
-
-            // Setting locale
-
-            LocalizationHelper.locale = locale;
-            LocalizationHelper.messages = lodash.merge(LocalizationHelper.messages, data.translations);
         });
 }

@@ -1,13 +1,18 @@
 <script setup>
+import { UpdateConfig } from '@/core/crud/configs';
 import Accordion from '@/components/crud/form/Accordion.vue';
 </script>
 
 <script>
 export default {
+    props: {
+        config: {
+            type: UpdateConfig,
+            required: true,
+        },
+    },
     data() {
         return {
-            page: this.booted.components.current.page,
-            config: this.booted.components.current.config,
             model: null,
         };
     },
@@ -24,16 +29,9 @@ export default {
             })
             .then((response) => {
                 if (response.statusType === 'success') {
-                    if (this.config.title) {
-                        this.page.title +=
-                            ': ' +
-                            this.booted.helpers.iterator.get(
-                                response.data,
-                                this.config.title.replace(':locale', this.booted.locale),
-                            );
+                    if (this.config.events.afterResponse) {
+                        this.config.events.afterResponse(response.data);
                     }
-
-                    this.page.init();
 
                     this.model = Object.assign({}, this.config.model.fillData(this, response.data));
                 } else {
@@ -45,5 +43,5 @@ export default {
 </script>
 
 <template>
-    <Accordion v-if="model" :model="model" />
+    <Accordion v-if="model" :config="config" :model="model" />
 </template>

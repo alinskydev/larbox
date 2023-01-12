@@ -8,17 +8,15 @@ import Input from '@/components/Input.vue';
 export default {
     data() {
         return {
-            page: new Page({
-                context: this,
-                title: this.__('routes->auth.login'),
-            }),
+            title: this.__('routes->auth.login'),
             inputs: form.fillData(this).data.form[0],
             isReady: false,
         };
     },
     created() {
-
-        this.page.init();
+        new Page({
+            context: this,
+        });
 
         if (localStorage.getItem('authToken')) {
             this.booted.helpers.http
@@ -70,7 +68,7 @@ export default {
         <div class="login-page">
             <div class="login-box">
                 <div class="login-logo">
-                    <b>{{ page.title }}</b>
+                    <b>{{ title }}</b>
                 </div>
 
                 <div class="card">

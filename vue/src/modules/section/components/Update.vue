@@ -1,7 +1,6 @@
 <script setup>
 import { Page } from '@/core/page';
-import { UpdateConfig } from '@/core/crud/config';
-
+import { UpdateConfig } from '@/core/crud/configs';
 import { Model } from '@/core/model';
 
 import PageTitle from '@/components/blocks/PageTitle.vue';
@@ -24,10 +23,7 @@ export default {
     },
     data() {
         return {
-            page: new Page({
-                context: this,
-                title: this.__('routeActions->update') + ': ' + this.__('routes->section.' + this.name),
-            }),
+            title: this.__('routeActions->update') + ': ' + this.__('routes->section.' + this.name),
             config: new UpdateConfig({
                 model: this.model,
                 http: {
@@ -42,13 +38,18 @@ export default {
             }),
         };
     },
+    created() {
+        new Page({
+            context: this,
+        });
+    },
 };
 </script>
 
 <template>
-    <PageTitle :text="page.title">
+    <PageTitle :text="title">
         <Buttons v-if="booted.helpers.user.checkRoute(booted.components.app, 'section/update')" :actions="['save']" />
     </PageTitle>
 
-    <Update />
+    <Update :config="config" />
 </template>

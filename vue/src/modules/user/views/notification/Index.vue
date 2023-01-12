@@ -1,6 +1,6 @@
 <script setup>
 import { Page } from '@/core/page';
-import { IndexConfig } from '@/core/crud/config';
+import { IndexConfig } from '@/core/crud/configs';
 import model from '@/modules/user/models/notification';
 
 import PageTitle from '@/components/blocks/PageTitle.vue';
@@ -11,10 +11,7 @@ import Index from '@/components/crud/Index.vue';
 export default {
     data() {
         return {
-            page: new Page({
-                context: this,
-                title: this.__('routes->user.notification'),
-            }),
+            title: this.__('routes->user.notification'),
             config: new IndexConfig({
                 model: model,
                 http: {
@@ -59,6 +56,11 @@ export default {
             }),
         };
     },
+    created() {
+        new Page({
+            context: this,
+        });
+    },
     methods: {
         seeAll() {
             if (confirm(this.__('Вы уверены?'))) {
@@ -80,11 +82,11 @@ export default {
 </script>
 
 <template>
-    <PageTitle :text="page.title">
+    <PageTitle :text="title">
         <button type="button" @click="seeAll" class="btn btn-warning">
             {{ __('Отметить все как просмотренные') }}
         </button>
     </PageTitle>
 
-    <Index />
+    <Index :config="config" />
 </template>

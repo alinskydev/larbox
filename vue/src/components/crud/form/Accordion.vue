@@ -5,15 +5,14 @@ import Input from '@/components/Input.vue';
 <script>
 export default {
     props: {
+        config: {
+            type: Object,
+            required: true,
+        },
         model: {
             type: Object,
             required: true,
         },
-    },
-    data() {
-        return {
-            config: this.booted.components.current.config,
-        };
     },
     methods: {
         submit(event) {
@@ -42,7 +41,7 @@ export default {
                             this.config.events.afterSubmit(formData, response);
                         } else {
                             toastr.success(this.__('Сохранение прошло успешно'));
-                            this.booted.components.current.page.goUp();
+                            this.booted.page.goUp();
                         }
                     }
                 });

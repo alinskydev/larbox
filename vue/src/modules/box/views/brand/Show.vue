@@ -1,6 +1,6 @@
 <script setup>
 import { Page } from '@/core/page';
-import { ShowConfig } from '@/core/crud/config';
+import { ShowConfig } from '@/core/crud/configs';
 import model from '@/modules/box/models/brand';
 
 import PageTitle from '@/components/blocks/PageTitle.vue';
@@ -11,24 +11,29 @@ import Show from '@/components/crud/Show.vue';
 export default {
     data() {
         return {
-            page: new Page({
-                context: this,
-                title: this.__('routeActions->show'),
-                breadcrumbs: [
-                    {
-                        label: this.__('routes->box.brand'),
-                        path: 'box/brand/index',
-                    },
-                ],
-            }),
+            title: this.__('routeActions->show'),
             config: new ShowConfig({
                 model: model,
-                title: 'name',
                 http: {
                     path: 'box/brand/:pk',
                     query: {
                         'show[0]': 'boxes_count',
                         'with[0]': 'creator',
+                    },
+                },
+                events: {
+                    afterResponse: (data) => {
+                        this.title += ': ' + data.name;
+
+                        new Page({
+                            context: this,
+                            breadcrumbs: [
+                                {
+                                    label: this.__('routes->box.brand'),
+                                    path: 'box/brand/index',
+                                },
+                            ],
+                        });
                     },
                 },
             }),
@@ -38,6 +43,6 @@ export default {
 </script>
 
 <template>
-    <PageTitle :text="page.title" />
-    <Show />
+    <PageTitle :text="title" />
+    <Show :config="config" />
 </template>

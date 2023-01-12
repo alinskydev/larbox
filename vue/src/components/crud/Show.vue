@@ -1,13 +1,18 @@
 <script setup>
+import { ShowConfig } from '@/core/crud/configs';
 import Data from '@/components/crud/show/Data.vue';
 </script>
 
 <script>
 export default {
+    props: {
+        config: {
+            type: ShowConfig,
+            required: true,
+        },
+    },
     data() {
         return {
-            page: this.booted.components.current.page,
-            config: this.booted.components.current.config,
             model: null,
         };
     },
@@ -24,16 +29,9 @@ export default {
             })
             .then((response) => {
                 if (response.statusType === 'success') {
-                    if (this.config.title) {
-                        this.page.title +=
-                            ': ' +
-                            this.booted.helpers.iterator.get(
-                                response.data,
-                                this.config.title.replace(':locale', this.booted.locale),
-                            );
+                    if (this.config.events.afterResponse) {
+                        this.config.events.afterResponse(response.data);
                     }
-
-                    this.page.init();
 
                     this.model = Object.assign({}, this.config.model.fillData(this, response.data));
                 } else {

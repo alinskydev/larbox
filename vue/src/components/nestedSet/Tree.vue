@@ -58,8 +58,8 @@ export default {
                                             action: (obj) => {
                                                 this.$route.params.pk = node.id;
 
-                                                this.$parent.$data.formType = 'show';
-                                                this.$parent.$data.formKey++;
+                                                this.$parent.$data.modalView = 'show';
+                                                this.$parent.$data.modalKey++;
 
                                                 $('#modal-' + this.elementId).modal('show');
                                             },
@@ -70,8 +70,8 @@ export default {
                                             action: (obj) => {
                                                 this.$route.params.pk = node.id;
 
-                                                this.$parent.$data.formType = 'update';
-                                                this.$parent.$data.formKey++;
+                                                this.$parent.$data.modalView = 'update';
+                                                this.$parent.$data.modalKey++;
 
                                                 $('#modal-' + this.elementId).modal('show');
                                             },

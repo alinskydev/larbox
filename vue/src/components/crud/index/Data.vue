@@ -1,18 +1,24 @@
 <script setup>
 import * as Enums from '@/core/enums';
 
-import Value from '@/components/Value.vue';
-
+import { IndexConfig } from '@/core/crud/configs';
 import Actions from './Actions.vue';
 import Selection from './Selection.vue';
 import Pagination from './Pagination.vue';
+
+import Value from '@/components/Value.vue';
 </script>
 
 <script>
 export default {
+    props: {
+        config: {
+            type: IndexConfig,
+            required: true,
+        },
+    },
     data() {
         return {
-            config: this.booted.components.current.config,
             models: [],
             meta: {},
         };
@@ -54,7 +60,7 @@ export default {
                     <table class="table table-hover table-bordered">
                         <thead>
                             <tr>
-                                <Selection type="tableHead" />
+                                <Selection :config="config" type="tableHead" />
 
                                 <template v-for="item in models[0].data.index">
                                     <th>
@@ -71,9 +77,9 @@ export default {
                         <tbody>
                             <tr
                                 v-for="model in models"
-                                v-bind="config.grid.rowAttributes(booted.components.current, model.data.record)"
+                                v-bind="config.grid.rowAttributes(booted.components.app, model.data.record)"
                             >
-                                <Selection type="tableBody" :pk="model.data.pk" />
+                                <Selection :config="config" type="tableBody" :pk="model.data.pk" />
 
                                 <template v-for="data in model.data.index">
                                     <template v-if="data.type === Enums.valueTypes.image">
@@ -88,7 +94,7 @@ export default {
                                             data.type === Enums.valueTypes.httpSwitcher
                                         "
                                     >
-                                        <td :set="(data.attributes['disabled'] = model.data.record.is_deleted === true)">
+                                        <td :set="(data.attributes['disabled'] = model.data.record.is_deleted)">
                                             <Value :item="data" />
                                         </td>
                                     </template>
@@ -102,7 +108,7 @@ export default {
 
                                 <template v-if="config.grid.actions.length > 0">
                                     <td class="text-right" style="width: 50px">
-                                        <Actions :model="model" />
+                                        <Actions :config="config" :model="model" />
                                     </td>
                                 </template>
                             </tr>
@@ -110,7 +116,7 @@ export default {
                     </table>
                 </div>
 
-                <Selection type="actions" />
+                <Selection :config="config" type="actions" />
             </template>
 
             <template v-else>

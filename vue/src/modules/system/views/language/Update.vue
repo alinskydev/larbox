@@ -1,6 +1,6 @@
 <script setup>
 import { Page } from '@/core/page';
-import { UpdateConfig } from '@/core/crud/config';
+import { UpdateConfig } from '@/core/crud/configs';
 import model from '@/modules/system/models/language';
 
 import PageTitle from '@/components/blocks/PageTitle.vue';
@@ -12,19 +12,9 @@ import Update from '@/components/crud/Update.vue';
 export default {
     data() {
         return {
-            page: new Page({
-                context: this,
-                title: this.__('routeActions->update'),
-                breadcrumbs: [
-                    {
-                        label: this.__('routes->system.language'),
-                        path: 'system/language/index',
-                    },
-                ],
-            }),
+            title: this.__('routeActions->update'),
             config: new UpdateConfig({
                 model: model,
-                title: 'name',
                 http: {
                     path: 'system/language/:pk',
                     query: {
@@ -34,10 +24,23 @@ export default {
                     },
                 },
                 events: {
+                    afterResponse: (data) => {
+                        this.title += ': ' + data.name;
+
+                        new Page({
+                            context: this,
+                            breadcrumbs: [
+                                {
+                                    label: this.__('routes->system.language'),
+                                    path: 'system/language/index',
+                                },
+                            ],
+                        });
+                    },
                     afterSubmit: (formData, response) => {
                         toastr.success(this.__('Сохранение прошло успешно'));
                         this.booted.components.app.childKey++;
-                        this.page.goUp();
+                        this.booted.page.goUp();
                     },
                 },
             }),
@@ -47,9 +50,9 @@ export default {
 </script>
 
 <template>
-    <PageTitle :text="page.title">
+    <PageTitle :text="title">
         <Buttons />
     </PageTitle>
 
-    <Update />
+    <Update :config="config" />
 </template>

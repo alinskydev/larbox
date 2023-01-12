@@ -1,6 +1,6 @@
 <script setup>
 import { Page } from '@/core/page';
-import { IndexConfig } from '@/core/crud/config';
+import { IndexConfig } from '@/core/crud/configs';
 import model from '@/modules/box/models/category';
 
 import PageTitle from '@/components/blocks/PageTitle.vue';
@@ -15,10 +15,7 @@ import Update from './Update.vue';
 export default {
     data() {
         return {
-            page: new Page({
-                context: this,
-                title: this.__('routes->box.category'),
-            }),
+            title: this.__('routes->box.category'),
             config: new IndexConfig({
                 model: model,
                 http: {
@@ -26,15 +23,20 @@ export default {
                 },
             }),
             elementId: this.booted.helpers.string.uniqueElementId(),
-            formType: 'create',
-            formKey: 0,
+            modalView: 'create',
+            modalKey: 0,
             treeKey: 0,
         };
     },
+    created() {
+        new Page({
+            context: this,
+        });
+    },
     methods: {
         create() {
-            this.formType = 'create';
-            this.formKey++;
+            this.modalView = 'create';
+            this.modalKey++;
 
             $('#modal-' + this.elementId).modal('show');
         },
@@ -43,7 +45,7 @@ export default {
 </script>
 
 <template>
-    <PageTitle :text="page.title">
+    <PageTitle :text="title">
         <button
             v-if="booted.helpers.user.checkRoute(booted.components.app, 'box/category/create')"
             type="button"
@@ -67,10 +69,10 @@ export default {
 
         <div class="modal fade" :id="'modal-' + elementId">
             <div class="modal-dialog modal-xl">
-                <div class="modal-content" :key="formKey">
-                    <Create v-if="formType === 'create'" :elementId="elementId" />
-                    <Show v-else-if="formType === 'show'" :elementId="elementId" />
-                    <Update v-else-if="formType === 'update'" :elementId="elementId" />
+                <div class="modal-content" :key="modalKey">
+                    <Create v-if="modalView === 'create'" :elementId="elementId" />
+                    <Show v-else-if="modalView === 'show'" :elementId="elementId" />
+                    <Update v-else-if="modalView === 'update'" :elementId="elementId" />
                 </div>
             </div>
         </div>

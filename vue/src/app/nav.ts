@@ -1,4 +1,17 @@
-export default [
+type NavItem = {
+    label: string;
+    path: string;
+    name?: string;
+    icon?: string;
+};
+
+type NavItems = Array<
+    NavItem & {
+        children?: Array<NavItem>;
+    }
+>;
+
+let nav: NavItems = [
     {
         label: 'home',
         path: '',
@@ -96,3 +109,5 @@ export default [
         ],
     },
 ];
+
+export default nav;

@@ -1,6 +1,6 @@
-import * as Enums from '../enums';
+import * as Enums from '@/core/enums';
 
-export type valueParams = {
+export type ValueParams = {
     label: string | ((context: any) => any);
     value: string | ((context: any, record: Object) => any);
     type: Enums.valueTypes;
@@ -24,7 +24,7 @@ export type valueParams = {
     attributes: Object | ((context: any, record: Object) => any);
 };
 
-export type inputParams = {
+export type InputParams = {
     label: string | ((context: any) => any);
     hint: string | ((context: any) => any);
     name: string;

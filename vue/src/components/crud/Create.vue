@@ -1,23 +1,24 @@
 <script setup>
+import { CreateConfig } from '@/core/crud/configs';
 import Accordion from '@/components/crud/form/Accordion.vue';
 </script>
 
 <script>
 export default {
+    props: {
+        config: {
+            type: CreateConfig,
+            required: true,
+        },
+    },
     data() {
         return {
-            page: this.booted.components.current.page,
-            config: this.booted.components.current.config,
-            model: null,
+            model: Object.assign({}, this.config.model.fillData(this)),
         };
-    },
-    created() {
-        this.page.init();
-        this.model = Object.assign({}, this.config.model.fillData(this));
     },
 };
 </script>
 
 <template>
-    <Accordion v-if="model" :model="model" />
+    <Accordion v-if="model" :config="config" :model="model" />
 </template>

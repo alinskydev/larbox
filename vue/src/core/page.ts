@@ -1,25 +1,31 @@
+import Larbox from '@/core/larbox';
+
 export class Page {
     context: any;
-    title: string;
     breadcrumbs: Array<{
         label: string;
         path?: string | null;
     }>;
     showBreadcrumbs: boolean;
 
-    constructor(config: Page) {
-        this.context = config.context;
-        this.title = config.title;
-        this.breadcrumbs = config.breadcrumbs ?? [];
-        this.showBreadcrumbs = config.showBreadcrumbs ?? true;
+    constructor(params: Page) {
+        this.context = params.context;
+        this.breadcrumbs = params.breadcrumbs ?? [];
+        this.showBreadcrumbs = params.showBreadcrumbs ?? true;
 
-        this.context.booted.components.current = this.context;
+        this.context.booted.page = this;
+
+        this.init();
+
+        console.log(this.context.booted);
     }
 
-    init() {
-        if (this.title !== undefined) {
-            document.title = this.title;
-            this.breadcrumbs.push({ label: this.title });
+    private init() {
+        let title = this.context.title;
+
+        if (title !== undefined) {
+            document.title = title;
+            this.breadcrumbs.push({ label: title });
         }
 
         if (!this.showBreadcrumbs) this.breadcrumbs = [];

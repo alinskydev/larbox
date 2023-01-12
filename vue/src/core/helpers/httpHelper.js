@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import lodash from 'lodash';
 
 export default {
     send(context, options = {}) {
@@ -10,7 +10,7 @@ export default {
             }
         }
 
-        let requestOptions = _.merge(
+        let requestOptions = lodash.merge(
             {
                 headers: context.booted.config.http.headers,
             },
