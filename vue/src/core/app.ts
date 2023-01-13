@@ -39,7 +39,7 @@ class App {
         user: new UserHelper(),
     };
 
-    static t(sourceMessage: string, replacements: Object = {}): string {
+    static t(sourceMessage: string, replacements: Object = {}) {
         let message = App.helpers.iterator.get(App.localization.translations, App.locale + '->' + sourceMessage, '->');
 
         message ??= sourceMessage;
