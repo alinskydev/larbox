@@ -1,4 +1,5 @@
-import { Model } from '@/core/model';
+import App from '@/core/app';
+import Model from '@/core/model';
 import * as Enums from '@/core/enums';
 
 export default new Model({
@@ -20,7 +21,7 @@ export default new Model({
                 options: {
                     httpSelect: {
                         path: 'feedback/callback/:pk/set-status/:value',
-                        items: (context) => context.booted.enums.feedback.statuses,
+                        items: App.enums.feedback.statuses,
                     },
                 },
             },
@@ -31,14 +32,10 @@ export default new Model({
 
         filters: {
             common: {
-                label: 'Общий поиск',
-                hint: (context) => {
-                    let fields = ['full_name', 'phone'];
-
-                    return context.__('Поиск по полям: :fields', {
-                        fields: fields.map((value) => context.__('fields->' + value)).join(' | '),
-                    });
-                },
+                label: App.t('Общий поиск'),
+                hint: App.t('Поиск по полям: :fields', {
+                    fields: ['full_name', 'phone'].map((value) => App.t('fields->' + value)).join(' | '),
+                }),
                 type: Enums.inputTypes.text,
                 size: Enums.inputSizes.xl,
             },
@@ -52,7 +49,7 @@ export default new Model({
                 type: Enums.inputTypes.select,
                 options: {
                     select: {
-                        items: (context) => context.booted.enums.feedback.statuses,
+                        items: App.enums.feedback.statuses,
                         hasPrompt: true,
                     },
                 },
@@ -76,7 +73,7 @@ export default new Model({
                     type: Enums.valueTypes.text,
                 },
                 status: {
-                    value: (context, record) => context.booted.enums.feedback.statuses[record.status],
+                    value: (record) => App.enums.feedback.statuses[record.status],
                     type: Enums.valueTypes.text,
                 },
                 created_at: {

@@ -7,6 +7,9 @@ export default {
             required: true,
         },
     },
+    data() {
+        return {};
+    },
     mounted() {
         $('#' + this.item.elementId).bootstrapSwitch('state', $('#' + this.item.elementId).prop('checked'));
     },

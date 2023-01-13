@@ -1,3 +1,7 @@
+<script setup>
+import App from '@/core/app';
+</script>
+
 <script>
 export default {
     props: {
@@ -41,7 +45,7 @@ export default {
 <template>
     <div class="d-flex align-items-center justify-content-between">
         <div class="dataTables_info" role="status" aria-live="polite">
-            {{ __('Показано с :from по :to записи из :total', meta) }}
+            {{ App.t('Показано с :from по :to записи из :total', meta) }}
         </div>
 
         <ul v-if="pages.length > 1" class="pagination m-0">

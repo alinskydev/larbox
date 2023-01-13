@@ -1,7 +1,8 @@
 <script setup>
-import { pickBy } from 'lodash';
-
+import App from '@/core/app';
+import Lodash from 'lodash';
 import { IndexConfig } from '@/core/crud/configs';
+
 import Sort from './index/Sort.vue';
 import SoftDeleteFilter from './index/SoftDeleteFilter.vue';
 import Data from './index/Data.vue';
@@ -20,7 +21,7 @@ export default {
     data() {
         return {
             model: this.config.model,
-            filterId: this.booted.helpers.string.uniqueElementId(),
+            filterId: App.helpers.string.uniqueElementId(),
             filters: {},
             dataKey: 0,
         };
@@ -49,7 +50,7 @@ export default {
             }
         }
 
-        this.filters = this.model.fillData(this, values).data.filters;
+        this.filters = this.model.fillData(values).data.filters;
     },
     methods: {
         submit(event) {
@@ -69,7 +70,7 @@ export default {
             this.$router
                 .push({
                     path: this.$route.path,
-                    query: pickBy(query),
+                    query: Lodash.pickBy(query),
                 })
                 .then(() => {
                     this.dataKey++;
@@ -98,7 +99,7 @@ export default {
             :data-target="'#' + filterId"
         >
             <h3 class="card-title w-100">
-                {{ __('Фильтр') }}
+                {{ App.t('Фильтр') }}
             </h3>
 
             <i class="fas fa-angle-down"></i>
@@ -120,11 +121,11 @@ export default {
                 <div class="card-footer text-right">
                     <div class="btn-group">
                         <button type="reset" class="btn btn-danger">
-                            {{ __('Сбросить') }}
+                            {{ App.t('Сбросить') }}
                         </button>
 
                         <button type="submit" class="btn btn-primary">
-                            {{ __('Применить') }}
+                            {{ App.t('Применить') }}
                         </button>
                     </div>
                 </div>

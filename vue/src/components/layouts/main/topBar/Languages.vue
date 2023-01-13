@@ -1,8 +1,12 @@
+<script setup>
+import App from '@/core/app';
+</script>
+
 <script>
 export default {
     data() {
         return {
-            items: this.booted.languages.active,
+            items: App.languages.active,
         };
     },
     created() {
@@ -28,7 +32,7 @@ export default {
 
         <div class="dropdown-menu dropdown-menu-right p-0">
             <template v-for="(item, key) in items">
-                <a :href="item.url" :class="'dropdown-item py-2 ' + (key === booted.locale ? 'active' : '')">
+                <a :href="item.url" :class="'dropdown-item py-2 ' + (key === App.locale ? 'active' : '')">
                     <img :src="item.image?.widen_30.webp" class="mr-2" />
                     {{ item.name }}
                 </a>

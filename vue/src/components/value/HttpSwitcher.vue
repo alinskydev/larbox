@@ -1,3 +1,7 @@
+<script setup>
+import App from '@/core/app';
+</script>
+
 <script>
 export default {
     inheritAttrs: false,
@@ -19,8 +23,8 @@ export default {
             .on('switchChange.bootstrapSwitch', (event, state) => {
                 let path = this.valueOptions.path.replace(':pk', this.item.pk).replace(':value', Number(state));
 
-                this.booted.helpers.http
-                    .send(this, {
+                App.helpers.http
+                    .send({
                         method: 'PATCH',
                         path: path,
                     })
@@ -29,9 +33,9 @@ export default {
                             this.currentValue = state;
 
                             if (this.valueOptions.onSuccess) {
-                                this.valueOptions.onSuccess(this, this.currentValue);
+                                this.valueOptions.onSuccess(this.currentValue);
                             } else {
-                                toastr.success(this.__('Успешно изменено'));
+                                toastr.success(App.t('Успешно изменено'));
                             }
                         } else {
                             $('#' + this.item.elementId).bootstrapSwitch('state', this.currentValue, true);

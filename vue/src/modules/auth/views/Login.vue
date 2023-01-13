@@ -1,6 +1,8 @@
 <script setup>
-import { Page } from '@/core/page';
-import form from '@/modules/auth/forms/login';
+import App from '@/core/app';
+import Page from '@/core/page';
+import Form from '@/modules/auth/forms/login';
+
 import Input from '@/components/Input.vue';
 </script>
 
@@ -8,29 +10,27 @@ import Input from '@/components/Input.vue';
 export default {
     data() {
         return {
-            title: this.__('routes->auth.login'),
-            inputs: form.fillData(this).data.form[0],
+            title: App.t('routes->auth.login'),
+            inputs: Form.fillData().data.form[0],
             isReady: false,
         };
     },
     created() {
-        new Page({
-            context: this,
+        Page.init({
+            title: this.title,
         });
 
         if (localStorage.getItem('authToken')) {
-            this.booted.helpers.http
-                .send(this, {
+            App.helpers.http
+                .send({
                     method: 'GET',
                     path: 'user/profile',
                 })
                 .then((response) => {
                     if (response.statusType === 'success') {
-                        this.$router.push({
-                            path: '/' + this.booted.locale,
-                        });
+                        this.$router.push('/' + App.locale);
                     } else {
-                        this.isReady = true;
+                        App.helpers.user.logout();
                     }
                 });
         } else {
@@ -41,21 +41,19 @@ export default {
         submit(event) {
             let formData = new FormData(event.target);
 
-            this.booted.helpers.http
-                .send(this, {
+            App.helpers.http
+                .send({
                     method: 'POST',
                     path: '../common/auth/login',
                     body: formData,
                 })
                 .then((response) => {
                     if (response.statusType === 'success') {
-                        this.$router
-                            .push({
-                                path: '/' + this.booted.locale,
-                            })
-                            .then(() => {
-                                this.booted.helpers.user.login(this, response.data.token);
-                            });
+                        App.helpers.user.login(response.data.token);
+
+                        this.$router.push('/' + App.locale).then(() => {
+                            App.components.app.refresh();
+                        });
                     }
                 });
         },
@@ -78,7 +76,7 @@ export default {
                             <Input :item="inputs.password" />
 
                             <button type="submit" class="btn btn-primary btn-block mt-4">
-                                {{ __('Авторизоваться') }}
+                                {{ App.t('Авторизоваться') }}
                             </button>
                         </form>
                     </div>

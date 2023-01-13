@@ -21,7 +21,7 @@ export default {
         }
 
         if (this.inputOptions.items) {
-            this.items = typeof this.inputOptions.items === 'function' ? this.inputOptions.items(this) : this.inputOptions.items;
+            this.items = this.inputOptions.items;
         } else {
             if (this.options.isMultiple) {
                 this.items = this.value.reduce((obj, key, index) => ({ ...obj, [key]: this.value[index] }), {});

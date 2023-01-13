@@ -1,6 +1,7 @@
 <script setup>
+import App from '@/core/app';
+import Model from '@/modules/box/models/category';
 import { ShowConfig } from '@/core/crud/configs';
-import model from '@/modules/box/models/category';
 
 import Show from '@/components/crud/Show.vue';
 </script>
@@ -15,15 +16,15 @@ export default {
     },
     data() {
         return {
-            title: this.__('routeActions->show'),
+            title: App.t('routeActions->show'),
             config: new ShowConfig({
-                model: model,
+                model: Model,
                 http: {
                     path: 'box/category/:pk',
                 },
                 events: {
                     afterResponse: (data) => {
-                        this.title += ': ' + data.name[this.booted.locale];
+                        this.title += ': ' + data.name[App.locale];
                     },
                 },
             }),

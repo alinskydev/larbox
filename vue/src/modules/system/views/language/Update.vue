@@ -1,7 +1,8 @@
 <script setup>
-import { Page } from '@/core/page';
+import App from '@/core/app';
+import Page from '@/core/page';
+import Model from '@/modules/system/models/language';
 import { UpdateConfig } from '@/core/crud/configs';
-import model from '@/modules/system/models/language';
 
 import PageTitle from '@/components/blocks/PageTitle.vue';
 import Buttons from '@/components/crud/form/Buttons.vue';
@@ -12,9 +13,9 @@ import Update from '@/components/crud/Update.vue';
 export default {
     data() {
         return {
-            title: this.__('routeActions->update'),
+            title: App.t('routeActions->update'),
             config: new UpdateConfig({
-                model: model,
+                model: Model,
                 http: {
                     path: 'system/language/:pk',
                     query: {
@@ -27,20 +28,20 @@ export default {
                     afterResponse: (data) => {
                         this.title += ': ' + data.name;
 
-                        new Page({
-                            context: this,
+                        Page.init({
+                            title: this.title,
                             breadcrumbs: [
                                 {
-                                    label: this.__('routes->system.language'),
+                                    label: App.t('routes->system.language'),
                                     path: 'system/language/index',
                                 },
                             ],
                         });
                     },
                     afterSubmit: (formData, response) => {
-                        toastr.success(this.__('Сохранение прошло успешно'));
-                        this.booted.components.app.childKey++;
-                        this.booted.page.goUp();
+                        toastr.success(App.t('Сохранение прошло успешно'));
+                        App.components.app.refresh();
+                        App.page.goUp();
                     },
                 },
             }),

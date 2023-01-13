@@ -1,3 +1,7 @@
+<script setup>
+import App from '@/core/app';
+</script>
+
 <script>
 export default {
     props: {
@@ -31,9 +35,9 @@ export default {
         if (value === undefined || value === null || value.length === 0) return;
 
         if (this.inputOptions.initValue) {
-            let initValue = this.inputOptions.initValue.replace(':locale', this.booted.locale);
+            let initValue = this.inputOptions.initValue.replace(':locale', App.locale);
 
-            initValue = this.booted.helpers.iterator.get(this.item.record, initValue);
+            initValue = App.helpers.iterator.get(this.item.record, initValue);
 
             if (this.options.isMultiple) {
                 for (let key in value) {
@@ -46,7 +50,7 @@ export default {
             let query = this.inputOptions.query ?? {};
 
             if (typeof query === 'function') {
-                query = query(this, this.item.record);
+                query = query(this.item.record);
             }
 
             if (typeof value === 'object') {
@@ -57,8 +61,8 @@ export default {
                 query['filter[' + this.pk + ']'] = value;
             }
 
-            this.booted.helpers.http
-                .send(this, {
+            App.helpers.http
+                .send({
                     method: 'GET',
                     path: this.inputOptions.path,
                     query: query,
@@ -70,7 +74,7 @@ export default {
                                 dataItemPk = dataItem[this.pk];
 
                             if (this.isLocalized) {
-                                this.items[dataItemPk] = dataItem[this.field][this.booted.locale];
+                                this.items[dataItemPk] = dataItem[this.field][App.locale];
                             } else {
                                 this.items[dataItemPk] = dataItem[this.field];
                             }
@@ -85,13 +89,13 @@ export default {
                 allowClear: true,
                 placeholder: this.$attrs.placeholder ?? '',
                 ajax: {
-                    headers: this.booted.config.http.headers,
+                    headers: App.config.http.headers,
                     url: () => {
-                        let url = new URL(this.booted.config.http.url + '/' + this.inputOptions.path),
+                        let url = new URL(App.config.http.url + '/' + this.inputOptions.path),
                             query = this.inputOptions.query ?? {};
 
                         if (typeof query === 'function') {
-                            query = query(this, this.item.record);
+                            query = query(this.item.record);
                         }
 
                         for (let key in query) {
@@ -114,7 +118,7 @@ export default {
                         let results = data.data.map((value) => {
                             return {
                                 id: value[this.pk],
-                                text: this.isLocalized ? value[this.field][this.booted.locale] : value[this.field],
+                                text: this.isLocalized ? value[this.field][App.locale] : value[this.field],
                             };
                         });
 

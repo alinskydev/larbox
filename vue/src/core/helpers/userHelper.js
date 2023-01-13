@@ -1,22 +1,25 @@
-export default {
-    login(context, token) {
-        context.booted.config.http.headers['Authorization'] = token;
+import App from '@/core/app';
+
+export default class {
+    login(token) {
+        App.config.http.headers['Authorization'] = token;
         localStorage.setItem('authToken', token);
-    },
-    logout(context) {
-        context.booted.config.http.headers['Authorization'] = null;
+    }
+
+    logout() {
+        App.config.http.headers['Authorization'] = null;
         localStorage.removeItem('authToken');
 
-        context.$router.push({
-            path: '/' + context.booted.locale + '/auth/login',
+        App.components.app.$router.push('/' + App.locale + '/auth/login').then(() => {
+            App.components.app.refresh();
         });
-    },
+    }
 
-    checkRoute(context, routeName) {
+    checkRoute(routeName) {
         // Checking route availability
 
-        let routes = context.booted.enums.user_role.routes.list,
-            userRoutes = context.booted.user.role.routes;
+        let routes = App.enums.user_role.routes.list,
+            userRoutes = App.user.role.routes;
 
         routeName = 'admin.' + routeName.replaceAll('/', '.');
 
@@ -34,5 +37,5 @@ export default {
         }
 
         return false;
-    },
-};
+    }
+}

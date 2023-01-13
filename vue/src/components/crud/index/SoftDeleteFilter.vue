@@ -1,4 +1,5 @@
 <script setup>
+import App from '@/core/app';
 import * as Enums from '@/core/enums';
 
 import Input from '@/components/Input.vue';
@@ -9,16 +10,16 @@ export default {
     data() {
         return {
             item: {
-                label: this.__('Отображать'),
+                label: App.t('Отображать'),
                 name: 'show[deleted]',
                 value: this.$route.query['show[deleted]'],
                 type: Enums.inputTypes.select,
                 options: {
                     select: {
                         items: {
-                            '': this.__('Только действующие'),
-                            'only-deleted': this.__('Только удалённые'),
-                            'with-deleted': this.__('Все'),
+                            '': App.t('Только действующие'),
+                            'only-deleted': App.t('Только удалённые'),
+                            'with-deleted': App.t('Все'),
                         },
                     },
                 },

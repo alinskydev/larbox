@@ -1,7 +1,8 @@
 <script setup>
+import App from '@/core/app';
+import { IndexConfig } from '@/core/crud/configs';
 import * as Enums from '@/core/enums';
 
-import { IndexConfig } from '@/core/crud/configs';
 import Actions from './Actions.vue';
 import Selection from './Selection.vue';
 import Pagination from './Pagination.vue';
@@ -24,8 +25,8 @@ export default {
         };
     },
     created() {
-        this.booted.helpers.http
-            .send(this, {
+        App.helpers.http
+            .send({
                 method: 'GET',
                 path: this.config.http.path,
                 query: {
@@ -36,7 +37,7 @@ export default {
             .then((response) => {
                 if (response.statusType === 'success') {
                     for (let dataKey in response.data.data) {
-                        this.models[dataKey] = Object.assign({}, this.config.model.fillData(this, response.data.data[dataKey]));
+                        this.models[dataKey] = Object.assign({}, this.config.model.fillData(response.data.data[dataKey]));
                     }
 
                     this.meta = response.data.meta;
@@ -50,7 +51,7 @@ export default {
     <div class="card card-primary crud-index-data">
         <div class="card-header">
             <h3 class="card-title">
-                {{ __('Данные') }}
+                {{ App.t('Данные') }}
             </h3>
         </div>
 
@@ -75,10 +76,7 @@ export default {
                         </thead>
 
                         <tbody>
-                            <tr
-                                v-for="model in models"
-                                v-bind="config.grid.rowAttributes(booted.components.app, model.data.record)"
-                            >
+                            <tr v-for="model in models" v-bind="config.grid.rowAttributes(model.data.record)">
                                 <Selection :config="config" type="tableBody" :pk="model.data.pk" />
 
                                 <template v-for="data in model.data.index">
@@ -121,7 +119,7 @@ export default {
 
             <template v-else>
                 <h5 class="m-0">
-                    {{ __('Нет данных') }}
+                    {{ App.t('Нет данных') }}
                 </h5>
             </template>
         </div>

@@ -1,4 +1,4 @@
-export default {
+export default class {
     info(url = '') {
         let extension = url.slice(url.lastIndexOf('.') + 1, url.length),
             type = null;
@@ -25,5 +25,5 @@ export default {
             type: type,
             mimeType: type ? type + '/' + extension : type,
         };
-    },
-};
+    }
+}

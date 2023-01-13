@@ -1,4 +1,5 @@
 <script setup>
+import App from '@/core/app';
 import { IndexConfig } from '@/core/crud/configs';
 </script>
 
@@ -16,6 +17,9 @@ export default {
         pk: {
             type: [Number, String],
         },
+    },
+    data() {
+        return {};
     },
     methods: {
         toggleHead(event) {
@@ -64,9 +68,9 @@ export default {
                 formData.append('selection[]', selection[key]);
             }
 
-            if (confirm(this.__('Вы уверены?'))) {
-                this.booted.helpers.http
-                    .send(this, {
+            if (confirm(App.t('Вы уверены?'))) {
+                App.helpers.http
+                    .send({
                         method: 'POST',
                         path: path,
                         body: formData,
@@ -97,7 +101,7 @@ export default {
 
         <div v-if="type === 'actions'" class="actions card card-light" style="display: none">
             <div class="card-header">
-                {{ __('Действия') }}
+                {{ App.t('Действия') }}
             </div>
 
             <div class="card-body">
@@ -106,26 +110,26 @@ export default {
                         v-if="
                             action === 'deleteMultiple' &&
                             !$route.query['show[deleted]'] &&
-                            booted.helpers.user.checkRoute(booted.components.app, config.http.path + '/deleteMultiple')
+                            App.helpers.user.checkRoute(config.http.path + '/deleteMultiple')
                         "
                         class="btn btn-danger btn-block text-left"
                         @click="deleteMultipleAction"
                     >
                         <i class="fas fa-trash-alt mr-1"></i>
-                        {{ __('routeActions->deleteMultiple') }}
+                        {{ App.t('routeActions->deleteMultiple') }}
                     </button>
 
                     <button
                         v-if="
                             action === 'deleteMultiple' &&
                             $route.query['show[deleted]'] === 'only-deleted' &&
-                            booted.helpers.user.checkRoute(booted.components.app, config.http.path + '/restoreMultiple')
+                            App.helpers.user.checkRoute(config.http.path + '/restoreMultiple')
                         "
                         class="btn btn-success btn-block text-left"
                         @click="restoreMultipleAction"
                     >
                         <i class="fas fa-trash-restore mr-1"></i>
-                        {{ __('routeActions->restoreMultiple') }}
+                        {{ App.t('routeActions->restoreMultiple') }}
                     </button>
                 </template>
             </div>

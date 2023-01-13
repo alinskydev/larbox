@@ -1,3 +1,7 @@
+<script setup>
+import App from '@/core/app';
+</script>
+
 <script>
 export default {
     props: {
@@ -9,7 +13,7 @@ export default {
     data() {
         return {
             pluginOptions: {
-                language: this.booted.locale,
+                language: App.locale,
                 height: '500px',
 
                 relative_urls: false,
@@ -57,8 +61,8 @@ export default {
                             let formData = new FormData();
                             formData.append('file', file, file.name);
 
-                            this.booted.helpers.http
-                                .send(this, {
+                            App.helpers.http
+                                .send({
                                     method: 'POST',
                                     path: 'storage/upload/media',
                                     body: formData,
@@ -80,8 +84,8 @@ export default {
                         let formData = new FormData();
                         formData.append('file', blobInfo.blob(), blobInfo.filename());
 
-                        this.booted.helpers.http
-                            .send(this, {
+                        App.helpers.http
+                            .send({
                                 method: 'POST',
                                 path: 'storage/upload/media',
                                 body: formData,
@@ -108,7 +112,7 @@ export default {
     },
     mounted() {
         if (this.item.options.isLocalized) {
-            for (let key in this.booted.languages.all) {
+            for (let key in App.languages.all) {
                 tinymce.init({
                     ...this.pluginOptions,
                     ...{ selector: '#' + this.item.elementId + '-' + key },

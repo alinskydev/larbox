@@ -6,6 +6,9 @@ export default {
             required: true,
         },
     },
+    data() {
+        return {};
+    },
     mounted() {
         $('#' + this.item.elementId).owlCarousel({
             loop: false,

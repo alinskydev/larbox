@@ -1,4 +1,5 @@
-import { Model } from '@/core/model';
+import App from '@/core/app';
+import Model from '@/core/model';
 import * as Enums from '@/core/enums';
 
 import CategoriesTree from '@/modules/box/components/box/CategoriesTree.vue';
@@ -36,7 +37,7 @@ export default new Model({
                 type: Enums.valueTypes.price,
             },
             dates: {
-                value: (context, record) => record,
+                value: (record) => record,
                 type: Enums.valueTypes.fields,
                 options: {
                     fields: ['date', 'datetime'],
@@ -47,7 +48,7 @@ export default new Model({
                 type: Enums.valueTypes.html,
             },
             // categories: {
-            //     value: (context, record) => {
+            //     value: (record) => {
             //         let result = item.categories.map((value, index) => {
             //             return '<div title="' + value.full_text + '">' + value.text + '</div>';
             //         });
@@ -123,7 +124,7 @@ export default new Model({
             categories: {
                 name: 'categories.id',
                 value: 'categories.id',
-                hint: 'Поиск произвонится только по самому нижнему уровню',
+                hint: App.t('Поиск произвонится только по самому нижнему уровню'),
                 type: Enums.inputTypes.select2Ajax,
                 options: {
                     select2Ajax: {
@@ -236,7 +237,7 @@ export default new Model({
                     type: Enums.inputTypes.component,
                     options: {
                         component: {
-                            resolve: (context, record) => {
+                            resolve: (record) => {
                                 return {
                                     component: CategoriesTree,
                                     params: [
@@ -274,9 +275,9 @@ export default new Model({
                     options: {
                         select2Ajax: {
                             path: 'box/brand',
-                            query: (context, record) => {
+                            query: (record) => {
                                 return {
-                                    'filter[creator_id]': context.booted.user.id,
+                                    'filter[creator_id]': App.user.id,
                                     'filter[is_active]': 1,
                                 };
                             },

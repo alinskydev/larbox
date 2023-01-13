@@ -1,3 +1,7 @@
+<script setup>
+import App from '@/core/app';
+</script>
+
 <script>
 export default {
     inheritAttrs: false,
@@ -15,19 +19,15 @@ export default {
         };
     },
     created() {
-        if (typeof this.valueOptions.items === 'function') {
-            this.items = this.valueOptions.items(this);
-        } else {
-            this.items = this.valueOptions.items;
-        }
+        this.items = this.valueOptions.items ?? {};
     },
     methods: {
         send() {
             let value = $('#' + this.item.elementId).val(),
                 path = this.valueOptions.path.replace(':pk', this.item.pk).replace(':value', value);
 
-            this.booted.helpers.http
-                .send(this, {
+            App.helpers.http
+                .send({
                     method: 'PATCH',
                     path: path,
                 })
@@ -36,9 +36,9 @@ export default {
                         this.currentValue = value;
 
                         if (this.valueOptions.onSuccess) {
-                            this.valueOptions.onSuccess(this, this.currentValue);
+                            this.valueOptions.onSuccess(this.currentValue);
                         } else {
-                            toastr.success(this.__('Успешно изменено'));
+                            toastr.success(App.t('Успешно изменено'));
                         }
                     } else {
                         $('#' + this.item.elementId).val(this.currentValue);

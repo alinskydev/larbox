@@ -1,8 +1,9 @@
 <script setup>
-import * as Enums from '@/core/enums';
-
+import App from '@/core/app';
 import Hint from '@/components/input/particles/Hint.vue';
 import Error from '@/components/input/particles/Error.vue';
+
+import * as Enums from '@/core/enums';
 </script>
 
 <script>
@@ -52,7 +53,7 @@ export default {
     >
         <template v-if="item.options.isLocalized">
             <div class="row">
-                <template v-for="language in booted.languages.all">
+                <template v-for="language in App.languages.all">
                     <div :class="'input-wrapper form-group ' + (item.options.size ?? Enums.inputSizes.md)">
                         <label v-if="item.label" :for="inputAttrs['id'].replace(':locale', language.code)" v-html="item.label" />
                         |

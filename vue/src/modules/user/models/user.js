@@ -1,4 +1,5 @@
-import { Model } from '@/core/model';
+import App from '@/core/app';
+import Model from '@/core/model';
 import * as Enums from '@/core/enums';
 
 export default new Model({
@@ -42,14 +43,12 @@ export default new Model({
 
         filters: {
             common: {
-                label: 'Общий поиск',
-                hint: (context) => {
-                    let fields = ['username', 'email', 'profile.full_name', 'profile.phone'];
-
-                    return context.__('Поиск по полям: :fields', {
-                        fields: fields.map((value) => context.__('fields->' + value)).join(' | '),
-                    });
-                },
+                label: App.t('Общий поиск'),
+                hint: App.t('Поиск по полям: :fields', {
+                    fields: ['username', 'email', 'profile.full_name', 'profile.phone']
+                        .map((value) => App.t('fields->' + value))
+                        .join(' | '),
+                }),
                 type: Enums.inputTypes.text,
                 size: Enums.inputSizes.xl,
             },
@@ -127,7 +126,7 @@ export default new Model({
                             hasPrompt: true,
                         },
                     },
-                    attributes: (context, record) => {
+                    attributes: (record) => {
                         return {
                             disabled: record.id === 1,
                         };

@@ -1,4 +1,5 @@
 <script setup>
+import App from '@/core/app';
 import Routes from './Tree/Routes.vue';
 </script>
 
@@ -16,7 +17,7 @@ export default {
     },
     data() {
         return {
-            routes: this.booted.enums.user_role.routes.tree.admin,
+            routes: App.enums.user_role.routes.tree.admin,
         };
     },
 };
@@ -30,7 +31,7 @@ export default {
                     <tr class="table-info">
                         <th colspan="3">
                             <h6 class="text-center font-weight-bold m-0">
-                                {{ __('routes->' + routes1Key) }}
+                                {{ App.t('routes->' + routes1Key) }}
                             </h6>
                         </th>
                     </tr>
@@ -41,7 +42,7 @@ export default {
                         <tr v-for="(routes2, routes2Key) in routes1">
                             <Routes
                                 :routeAll="prefix + '.' + routes1Key + '.' + routes2Key + '.*'"
-                                :label="__('routes->' + routes1Key + '.' + routes2Key)"
+                                :label="App.t('routes->' + routes1Key + '.' + routes2Key)"
                                 :routes="routes2"
                                 :value="value"
                             />
@@ -52,7 +53,7 @@ export default {
                         <tr>
                             <Routes
                                 :routeAll="prefix + '.' + routes1Key + '.*'"
-                                :label="__('routes->' + routes1Key)"
+                                :label="App.t('routes->' + routes1Key)"
                                 :routes="routes1"
                                 :value="value"
                             />

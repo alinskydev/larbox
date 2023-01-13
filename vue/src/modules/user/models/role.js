@@ -1,4 +1,5 @@
-import { Model } from '@/core/model';
+import App from '@/core/app';
+import Model from '@/core/model';
 import * as Enums from '@/core/enums';
 
 import Tree from '@/modules/user/components/role/Tree.vue';
@@ -68,7 +69,7 @@ export default new Model({
                     type: Enums.inputTypes.component,
                     options: {
                         component: {
-                            resolve: (context, record) => {
+                            resolve: (record) => {
                                 return {
                                     component: Tree,
                                     params: [

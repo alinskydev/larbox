@@ -1,5 +1,6 @@
 <script setup>
-import lodash from 'lodash';
+import Lodash from 'lodash';
+import App from '@/core/app';
 </script>
 
 <script>
@@ -23,8 +24,8 @@ export default {
     mounted() {
         this.treeView = $('#tree-' + this.elementId);
 
-        this.booted.helpers.http
-            .send(this, {
+        App.helpers.http
+            .send({
                 method: 'GET',
                 path: this.httpPath + '-tree',
             })
@@ -32,7 +33,7 @@ export default {
                 if (response.statusType === 'success') {
                     let plugins = ['search', 'contextmenu'];
 
-                    if (this.booted.helpers.user.checkRoute(this, this.httpPath + '.move')) plugins.push('dnd');
+                    if (App.helpers.user.checkRoute(this.httpPath + '.move')) plugins.push('dnd');
 
                     this.treeView
                         .jstree({
@@ -53,7 +54,7 @@ export default {
                                 items: (node) => {
                                     let allActions = {
                                         show: {
-                                            label: this.__('routeActions->show'),
+                                            label: App.t('routeActions->show'),
                                             icon: 'fas fa-eye',
                                             action: (obj) => {
                                                 this.$route.params.pk = node.id;
@@ -65,7 +66,7 @@ export default {
                                             },
                                         },
                                         update: {
-                                            label: this.__('routeActions->update'),
+                                            label: App.t('routeActions->update'),
                                             icon: 'fas fa-edit',
                                             action: (obj) => {
                                                 this.$route.params.pk = node.id;
@@ -77,12 +78,12 @@ export default {
                                             },
                                         },
                                         delete: {
-                                            label: this.__('routeActions->delete'),
+                                            label: App.t('routeActions->delete'),
                                             icon: 'fas fa-trash-alt',
                                             action: (obj) => {
-                                                if (confirm(this.__('Вы уверены?'))) {
-                                                    this.booted.helpers.http
-                                                        .send(this, {
+                                                if (confirm(App.t('Вы уверены?'))) {
+                                                    App.helpers.http
+                                                        .send({
                                                             method: 'DELETE',
                                                             path: this.httpPath + '/' + node.id,
                                                         })
@@ -105,12 +106,12 @@ export default {
                                             },
                                         },
                                         restore: {
-                                            label: this.__('routeActions->restore'),
+                                            label: App.t('routeActions->restore'),
                                             icon: 'fas fa-trash-restore',
                                             action: (obj) => {
-                                                if (confirm(this.__('Вы уверены?'))) {
-                                                    this.booted.helpers.http
-                                                        .send(this, {
+                                                if (confirm(App.t('Вы уверены?'))) {
+                                                    App.helpers.http
+                                                        .send({
                                                             method: 'DELETE',
                                                             path: this.httpPath + '/' + node.id + '/restore',
                                                         })
@@ -137,10 +138,10 @@ export default {
                                     let availableActions = node.state.disabled ? ['restore'] : ['show', 'update', 'delete'];
 
                                     availableActions = availableActions.filter((value) => {
-                                        return this.booted.helpers.user.checkRoute(this, this.httpPath + '/' + value);
+                                        return App.helpers.user.checkRoute(this.httpPath + '/' + value);
                                     });
 
-                                    return lodash.pick(allActions, availableActions);
+                                    return Lodash.pick(allActions, availableActions);
                                 },
                             },
                             dnd: {
@@ -158,8 +159,8 @@ export default {
 
                             formData.append('tree', JSON.stringify(nodes));
 
-                            this.booted.helpers.http
-                                .send(this, {
+                            App.helpers.http
+                                .send({
                                     method: 'POST',
                                     path: this.httpPath + '-move?_method=PATCH',
                                     body: formData,
@@ -194,17 +195,17 @@ export default {
     <div class="row">
         <div class="col-sm-3">
             <div class="form-group">
-                <label> {{ __('Поиск') }} </label>
+                <label> {{ App.t('Поиск') }} </label>
                 <input type="text" @keyup="search" class="form-control" />
             </div>
         </div>
 
         <div class="col-sm-3">
             <div class="form-group">
-                <label>{{ __('Отображать') }}</label>
+                <label>{{ App.t('Отображать') }}</label>
                 <select @change="toggle" class="form-control">
-                    <option value="0">{{ __('Только действующие') }}</option>
-                    <option value="1">{{ __('Все') }}</option>
+                    <option value="0">{{ App.t('Только действующие') }}</option>
+                    <option value="1">{{ App.t('Все') }}</option>
                 </select>
             </div>
         </div>

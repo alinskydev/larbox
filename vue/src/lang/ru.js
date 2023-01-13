@@ -72,7 +72,6 @@ export default {
         'create': 'Создание',
         'delete': 'Удаление',
         'deleteMultiple': 'Множественное удаление',
-        'file': 'Файл',
         'index': 'Список',
         'media': 'Медиа',
         'move': 'Перенос',

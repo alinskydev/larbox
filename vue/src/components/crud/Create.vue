@@ -13,7 +13,7 @@ export default {
     },
     data() {
         return {
-            model: Object.assign({}, this.config.model.fillData(this)),
+            model: Object.assign({}, this.config.model.fillData()),
         };
     },
 };

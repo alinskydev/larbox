@@ -1,43 +1,36 @@
-import Larbox from '@/core/larbox';
+import App from '@/core/app';
 
-export class Page {
-    context: any;
+class Page {
+    title: string;
     breadcrumbs: Array<{
         label: string;
         path?: string | null;
     }>;
     showBreadcrumbs: boolean;
 
-    constructor(params: Page) {
-        this.context = params.context;
-        this.breadcrumbs = params.breadcrumbs ?? [];
-        this.showBreadcrumbs = params.showBreadcrumbs ?? true;
+    static init(params: Page) {
+        let instance = new Page();
 
-        this.context.booted.page = this;
+        instance.title = params.title;
+        instance.breadcrumbs = params.breadcrumbs ?? [];
+        instance.showBreadcrumbs = params.showBreadcrumbs ?? true;
 
-        this.init();
-
-        console.log(this.context.booted);
-    }
-
-    private init() {
-        let title = this.context.title;
-
-        if (title !== undefined) {
-            document.title = title;
-            this.breadcrumbs.push({ label: title });
+        if (instance.title !== undefined) {
+            document.title = instance.title;
+            instance.breadcrumbs.push({ label: instance.title });
         }
 
-        if (!this.showBreadcrumbs) this.breadcrumbs = [];
+        if (!instance.showBreadcrumbs) instance.breadcrumbs = [];
 
-        if (this.context.booted.components.layout) {
-            this.context.booted.components.layout.templateKey++;
-        }
+        App.components.layout?.refresh();
+        App.page = instance;
     }
 
     goUp() {
-        this.context.$router.push({
-            path: '/' + this.context.booted.locale + '/' + this.breadcrumbs[this.breadcrumbs.length - 2].path,
+        App.components.app.$router.push({
+            path: '/' + App.locale + '/' + this.breadcrumbs[this.breadcrumbs.length - 2].path,
         });
     }
 }
+
+export default Page;

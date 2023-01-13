@@ -1,7 +1,8 @@
 <script setup>
-import { Page } from '@/core/page';
+import App from '@/core/app';
+import Page from '@/core/page';
+import Model from '@/modules/user/models/role';
 import { IndexConfig } from '@/core/crud/configs';
-import model from '@/modules/user/models/role';
 
 import PageTitle from '@/components/blocks/PageTitle.vue';
 import RouterLink from '@/components/blocks/RouterLink.vue';
@@ -12,9 +13,9 @@ import Index from '@/components/crud/Index.vue';
 export default {
     data() {
         return {
-            title: this.__('routes->user.role'),
+            title: App.t('routes->user.role'),
             config: new IndexConfig({
-                model: model,
+                model: Model,
                 http: {
                     path: 'user/role',
                 },
@@ -25,7 +26,7 @@ export default {
                             return {
                                 path: 'user/role/' + record.id + '/update',
                                 linkAttributes: {
-                                    'title': this.__('routeActions->update'),
+                                    'title': App.t('routeActions->update'),
                                     'class': 'btn btn-warning' + (record.id === 1 ? ' disabled' : ''),
                                 },
                                 iconAttributes: {
@@ -39,8 +40,8 @@ export default {
         };
     },
     created() {
-        new Page({
-            context: this,
+        Page.init({
+            title: this.title,
         });
     },
 };
@@ -49,7 +50,7 @@ export default {
 <template>
     <PageTitle :text="title">
         <RouterLink to="user/role/create" class="btn btn-success">
-            {{ __('routeActions->create') }}
+            {{ App.t('routeActions->create') }}
         </RouterLink>
     </PageTitle>
 

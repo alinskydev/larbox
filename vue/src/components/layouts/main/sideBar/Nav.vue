@@ -1,5 +1,7 @@
 <script setup>
+import App from '@/core/app';
 import allItems from '@/app/nav';
+
 import RouterLink from '@/components/blocks/RouterLink.vue';
 </script>
 
@@ -21,7 +23,7 @@ export default {
                 for (let itemChildKey in item.children) {
                     let itemChild = item.children[itemChildKey];
 
-                    if (this.booted.helpers.user.checkRoute(this, itemChild.name ?? itemChild.path)) {
+                    if (App.helpers.user.checkRoute(itemChild.name ?? itemChild.path)) {
                         this.items[itemsKey] ??= {
                             label: item.label,
                             icon: item.icon,
@@ -34,7 +36,7 @@ export default {
                     }
                 }
             } else {
-                if (this.booted.helpers.user.checkRoute(this, item.name ?? item.path)) {
+                if (App.helpers.user.checkRoute(item.name ?? item.path)) {
                     this.items[itemsKey] = item;
                 }
             }
@@ -71,7 +73,7 @@ export default {
                     >
                         <i :class="'nav-icon ' + item.icon"></i>
                         <p>
-                            {{ __('routes->' + item.label) }}
+                            {{ App.t('routes->' + item.label) }}
                             <i class="right fas fa-caret-right nav-icon-caret"></i>
                         </p>
                     </a>
@@ -86,7 +88,7 @@ export default {
                                 :class="'nav-link ' + (activeItems.includes(itemChild.path) ? 'active' : '')"
                             >
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>{{ __('routes->' + itemChild.label) }}</p>
+                                <p>{{ App.t('routes->' + itemChild.label) }}</p>
                             </RouterLink>
                         </li>
                     </ul>
@@ -95,7 +97,7 @@ export default {
                 <template v-else>
                     <RouterLink :to="item.path" :class="'nav-link ' + (activeItems.includes(item.path) ? 'active' : '')">
                         <i :class="'nav-icon ' + item.icon"></i>
-                        <p>{{ __('routes->' + item.label) }}</p>
+                        <p>{{ App.t('routes->' + item.label) }}</p>
                     </RouterLink>
                 </template>
             </li>

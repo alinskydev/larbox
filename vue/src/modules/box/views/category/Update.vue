@@ -1,6 +1,7 @@
 <script setup>
+import App from '@/core/app';
+import Model from '@/modules/box/models/category';
 import { UpdateConfig } from '@/core/crud/configs';
-import model from '@/modules/box/models/category';
 
 import Buttons from '@/components/crud/form/Buttons.vue';
 import Update from '@/components/crud/Update.vue';
@@ -16,18 +17,18 @@ export default {
     },
     data() {
         return {
-            title: this.__('routeActions->update'),
+            title: App.t('routeActions->update'),
             config: new UpdateConfig({
-                model: model,
+                model: Model,
                 http: {
                     path: 'box/category/:pk',
                 },
                 events: {
                     afterResponse: (data) => {
-                        this.title += ': ' + data.name[this.booted.locale];
+                        this.title += ': ' + data.name[App.locale];
                     },
                     afterSubmit: (formData, response) => {
-                        let text = formData.get('name[' + this.booted.locale + ']');
+                        let text = formData.get('name[' + App.locale + ']');
 
                         $('#tree-' + this.elementId)
                             .jstree(true)
@@ -35,7 +36,7 @@ export default {
 
                         $('#modal-' + this.elementId).modal('hide');
 
-                        toastr.success(this.__('Сохранение прошло успешно'));
+                        toastr.success(App.t('Сохранение прошло успешно'));
                     },
                 },
             }),

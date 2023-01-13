@@ -1,10 +1,11 @@
 <script setup>
-import { Page } from '@/core/page';
+import App from '@/core/app';
+import Page from '@/core/page';
+import Model from '@/modules/box/models/tag';
 import { IndexConfig } from '@/core/crud/configs';
-import model from '@/modules/box/models/tag';
 
 import PageTitle from '@/components/blocks/PageTitle.vue';
-import RouterLink from "@/components/blocks/RouterLink.vue";
+import RouterLink from '@/components/blocks/RouterLink.vue';
 import Index from '@/components/crud/Index.vue';
 </script>
 
@@ -12,9 +13,9 @@ import Index from '@/components/crud/Index.vue';
 export default {
     data() {
         return {
-            title: this.__('routes->box.tag'),
+            title: App.t('routes->box.tag'),
             config: new IndexConfig({
-                model: model,
+                model: Model,
                 http: {
                     path: 'box/tag',
                 },
@@ -25,8 +26,8 @@ export default {
         };
     },
     created() {
-        new Page({
-            context: this,
+        Page.init({
+            title: this.title,
         });
     },
 };
@@ -35,7 +36,7 @@ export default {
 <template>
     <PageTitle :text="title">
         <RouterLink to="box/tag/create" class="btn btn-success">
-            {{ __('routeActions->create') }}
+            {{ App.t('routeActions->create') }}
         </RouterLink>
     </PageTitle>
 

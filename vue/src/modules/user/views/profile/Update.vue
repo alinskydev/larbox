@@ -1,7 +1,8 @@
 <script setup>
-import { Page } from '@/core/page';
+import App from '@/core/app';
+import Page from '@/core/page';
+import Model from '@/modules/user/models/profile';
 import { UpdateConfig } from '@/core/crud/configs';
-import model from '@/modules/user/models/profile';
 
 import PageTitle from '@/components/blocks/PageTitle.vue';
 import Buttons from '@/components/crud/form/Buttons.vue';
@@ -12,29 +13,29 @@ import Update from '@/components/crud/Update.vue';
 export default {
     data() {
         return {
-            title: this.__('routes->user.profile'),
+            title: App.t('routes->user.profile'),
             config: new UpdateConfig({
-                model: model,
+                model: Model,
                 http: {
                     path: 'user/profile',
                 },
                 events: {
                     afterSubmit: (formData, response) => {
-                        toastr.success(this.__('Сохранение прошло успешно'));
+                        toastr.success(App.t('Сохранение прошло успешно'));
 
                         if (response.data.token) {
-                            this.booted.helpers.user.login(this, response.data.token);
+                            App.helpers.user.login(response.data.token);
                         }
 
-                        this.$router.push('/');
+                        App.components.app.refresh();
                     },
                 },
             }),
         };
     },
     created() {
-        new Page({
-            context: this,
+        Page.init({
+            title: this.title,
         });
     },
 };

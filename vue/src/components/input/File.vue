@@ -1,3 +1,7 @@
+<script setup>
+import App from '@/core/app';
+</script>
+
 <script>
 export default {
     props: {
@@ -110,17 +114,17 @@ export default {
 
             for (let key in value) {
                 let file = value[key],
-                    downloadUrl = this.booted.helpers.iterator.get(file, this.inputOptions.downloadPath),
-                    fileInfo = this.booted.helpers.file.info(downloadUrl);
+                    downloadUrl = App.helpers.iterator.get(file, this.inputOptions.downloadPath),
+                    fileInfo = App.helpers.file.info(downloadUrl);
 
                 items[key] = {
                     key: key,
-                    caption: this.__('Файл №:index', { index: parseInt(key) + 1 }),
+                    caption: App.t('Файл №:index', { index: parseInt(key) + 1 }),
                     type: fileInfo.type ?? 'html',
                     filetype: fileInfo.mimeType,
-                    previewUrl: this.booted.helpers.iterator.get(file, this.inputOptions.previewPath),
+                    previewUrl: App.helpers.iterator.get(file, this.inputOptions.previewPath),
                     downloadUrl: downloadUrl,
-                    url: this.booted.config.http.url + '/../common/empty',
+                    url: App.config.http.url + '/../common/empty',
                 };
             }
 

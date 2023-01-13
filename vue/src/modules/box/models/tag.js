@@ -1,4 +1,5 @@
-import { Model } from '@/core/model';
+import App from '@/core/app';
+import Model from '@/core/model';
 import * as Enums from '@/core/enums';
 
 import Custom from '@/modules/box/components/Custom.vue';
@@ -57,13 +58,13 @@ export default new Model({
                     type: Enums.valueTypes.component,
                     options: {
                         component: {
-                            resolve: (context, record) => {
+                            resolve: (record) => {
                                 return {
                                     component: 'h3',
                                     params: [
                                         {
                                             class: 'text-primary m-0',
-                                            innerHTML: context.__('Встроенный компонент'),
+                                            innerHTML: App.t('Встроенный компонент'),
                                         },
                                     ],
                                 };
@@ -76,12 +77,12 @@ export default new Model({
                     type: Enums.valueTypes.component,
                     options: {
                         component: {
-                            resolve: (context, record) => {
+                            resolve: (record) => {
                                 return {
                                     component: Custom,
                                     params: [
                                         {
-                                            text: context.__('Кастомный компонент'),
+                                            text: App.t('Кастомный компонент'),
                                         },
                                     ],
                                 };
@@ -104,13 +105,13 @@ export default new Model({
                     type: Enums.inputTypes.component,
                     options: {
                         component: {
-                            resolve: (context, record) => {
+                            resolve: (record) => {
                                 return {
                                     component: 'h3',
                                     params: [
                                         {
                                             class: 'w-100 text-primary',
-                                            innerHTML: context.__('Встроенный компонент'),
+                                            innerHTML: App.t('Встроенный компонент'),
                                         },
                                     ],
                                 };
@@ -122,12 +123,12 @@ export default new Model({
                     type: Enums.inputTypes.component,
                     options: {
                         component: {
-                            resolve: (context, record) => {
+                            resolve: (record) => {
                                 return {
                                     component: Custom,
                                     params: [
                                         {
-                                            text: context.__('Кастомный компонент'),
+                                            text: App.t('Кастомный компонент'),
                                         },
                                     ],
                                 };

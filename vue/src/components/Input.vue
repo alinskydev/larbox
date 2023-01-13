@@ -1,4 +1,5 @@
 <script setup>
+import App from '@/core/app';
 import * as Enums from '@/core/enums';
 
 import Wrapper from '@/components/input/particles/Wrapper.vue';
@@ -29,8 +30,11 @@ export default {
             required: true,
         },
     },
+    data() {
+        return {};
+    },
     created() {
-        this.item.elementId = this.booted.helpers.string.uniqueElementId();
+        this.item.elementId = App.helpers.string.uniqueElementId();
     },
 };
 </script>
@@ -38,7 +42,7 @@ export default {
 <template>
     <Wrapper :item="item" v-slot="wrapper">
         <template v-if="item.type === Enums.inputTypes.component">
-            <ComponentResolver :resolve="item.options.component.resolve(booted.components.app, item.record)" />
+            <ComponentResolver :resolve="item.options.component.resolve(item.record)" />
         </template>
 
         <template v-else-if="item.type === Enums.inputTypes.date">

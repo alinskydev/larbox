@@ -1,5 +1,7 @@
 <script setup>
-import form from '@/modules/user/forms/notification';
+import App from '@/core/app';
+import Form from '@/modules/user/forms/notification';
+
 import Input from '@/components/Input.vue';
 </script>
 
@@ -7,8 +9,8 @@ import Input from '@/components/Input.vue';
 export default {
     data() {
         return {
-            elementId: this.booted.helpers.string.uniqueElementId(),
-            inputs: form.fillData(this).data.form[0],
+            elementId: App.helpers.string.uniqueElementId(),
+            inputs: Form.fillData().data.form[0],
         };
     },
     methods: {
@@ -17,15 +19,15 @@ export default {
 
             formData.append('user_query', location.search);
 
-            this.booted.helpers.http
-                .send(this, {
+            App.helpers.http
+                .send({
                     method: 'POST',
                     path: 'user/notification',
                     body: formData,
                 })
                 .then((response) => {
                     if (response.statusType === 'success') {
-                        toastr.success(this.__('Уведомление будет отправлено в ближайшее время'));
+                        toastr.success(App.t('Уведомление будет отправлено в ближайшее время'));
 
                         $('#' + this.elementId).modal('hide');
                         $('#user-notification-create-form [name="text"]').val('');
@@ -38,7 +40,7 @@ export default {
 
 <template>
     <button type="button" class="btn btn-warning" data-toggle="modal" :data-target="'#' + elementId">
-        {{ __('Отправка уведомления') }}
+        {{ App.t('Отправка уведомления') }}
     </button>
 
     <div class="modal fade" :id="elementId">
@@ -47,7 +49,7 @@ export default {
                 <form @submit.prevent="submit" id="user-notification-create-form">
                     <div class="modal-header">
                         <h4 class="modal-title">
-                            {{ __('Отправка уведомления') }}
+                            {{ App.t('Отправка уведомления') }}
                         </h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
@@ -59,7 +61,7 @@ export default {
 
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-success btn-block" form="user-notification-create-form">
-                            {{ __('Отправить') }}
+                            {{ App.t('Отправить') }}
                         </button>
                     </div>
                 </form>

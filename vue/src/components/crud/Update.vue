@@ -1,4 +1,5 @@
 <script setup>
+import App from '@/core/app';
 import { UpdateConfig } from '@/core/crud/configs';
 import Accordion from '@/components/crud/form/Accordion.vue';
 </script>
@@ -21,8 +22,8 @@ export default {
 
         http.path = http.path.replace(':pk', this.$route.params.pk).replace(':slug', this.$route.params.slug);
 
-        this.booted.helpers.http
-            .send(this, {
+        App.helpers.http
+            .send({
                 method: 'GET',
                 path: http.path,
                 query: http.query,
@@ -33,7 +34,7 @@ export default {
                         this.config.events.afterResponse(response.data);
                     }
 
-                    this.model = Object.assign({}, this.config.model.fillData(this, response.data));
+                    this.model = Object.assign({}, this.config.model.fillData(response.data));
                 } else {
                     this.$router.back();
                 }

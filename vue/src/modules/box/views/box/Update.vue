@@ -1,7 +1,8 @@
 <script setup>
-import { Page } from '@/core/page';
+import App from '@/core/app';
+import Page from '@/core/page';
+import Model from '@/modules/box/models/box';
 import { UpdateConfig } from '@/core/crud/configs';
-import model from '@/modules/box/models/box';
 
 import PageTitle from '@/components/blocks/PageTitle.vue';
 import Buttons from '@/components/crud/form/Buttons.vue';
@@ -12,9 +13,9 @@ import Update from '@/components/crud/Update.vue';
 export default {
     data() {
         return {
-            title: this.__('routeActions->update'),
+            title: App.t('routeActions->update'),
             config: new UpdateConfig({
-                model: model,
+                model: Model,
                 http: {
                     path: 'box/box/:pk',
                     query: {
@@ -26,13 +27,13 @@ export default {
                 },
                 events: {
                     afterResponse: (data) => {
-                        this.title += ': ' + data.name[this.booted.locale];
+                        this.title += ': ' + data.name[App.locale];
 
-                        new Page({
-                            context: this,
+                        Page.init({
+                            title: this.title,
                             breadcrumbs: [
                                 {
-                                    label: this.__('routes->box.box'),
+                                    label: App.t('routes->box.box'),
                                     path: 'box/box/index',
                                 },
                             ],

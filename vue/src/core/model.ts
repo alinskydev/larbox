@@ -1,7 +1,9 @@
+import App from '@/core/app';
+
 import * as Enums from './enums';
 import * as ModelTypes from './types/modelTypes';
 
-export class Model {
+class Model {
     pk: string;
 
     hasSoftDelete: boolean;
@@ -16,7 +18,14 @@ export class Model {
         form: Record<string, any>;
     };
 
-    data: Record<string, any>;
+    data: {
+        record: any;
+        pk: any;
+        index: any;
+        filters: any;
+        show: any;
+        form: any;
+    };
 
     constructor(params: {
         pk: string;
@@ -70,13 +79,13 @@ export class Model {
         if (this.hasSeoMeta) {
             this.config.form['SEO meta'] = {
                 seo_meta: {
-                    value: (context, record) => {
+                    value: (record) => {
                         let value = record.seo_meta,
                             result = [];
 
                         if (!value) return null;
 
-                        for (let language in context.booted.languages.all) {
+                        for (let language in App.languages.all) {
                             result[language] =
                                 value[language] ??
                                 [
@@ -102,18 +111,18 @@ export class Model {
         }
     }
 
-    fillData(context, record = {}) {
+    fillData(record: Object = {}) {
         this.data = {
             record: record,
             pk: record[this.pk],
-            index: this.prepareValues(context, this.config.index, record),
-            filters: this.prepareFilters(context, this.config.filters, record),
+            index: this.prepareValues(this.config.index, record),
+            filters: this.prepareFilters(this.config.filters, record),
             show: {},
             form: {},
         };
 
         for (let key in this.config.show) {
-            this.data.show[key] = this.prepareValues(context, this.config.show[key], record);
+            this.data.show[key] = this.prepareValues(this.config.show[key], record);
         }
 
         for (let key in this.config.form) {
@@ -123,35 +132,34 @@ export class Model {
                 };
             }
 
-            this.data.form[key] = this.prepareInputs(context, this.config.form[key], record);
+            this.data.form[key] = this.prepareInputs(this.config.form[key], record);
         }
 
         return this;
     }
 
-    private prepareValues(context, fields, record) {
+    private prepareValues(fields: Object, record: Object) {
         let result = {};
 
         for (let key in fields) {
             let field = fields[key],
-                label = field.label !== undefined ? field.label : 'fields->' + key,
                 value = field.value ?? key,
                 attributes = field.attributes ?? {};
 
             if (typeof value === 'function') {
-                value = value(context, record);
+                value = value(record);
             } else {
-                value = value.replace(':locale', context.booted.locale);
-                value = context.booted.helpers.iterator.get(record, value);
+                value = value.replace(':locale', App.locale);
+                value = App.helpers.iterator.get(record, value);
             }
 
             if (field.type === Enums.valueTypes.relations) {
-                value = value?.map((v) => this.prepareValues(context, field.options.relations, v));
+                value = value?.map((v) => this.prepareValues(field.options.relations, v));
             }
 
             result[key] = {
-                attributes: typeof attributes === 'function' ? attributes(context, record) : attributes,
-                label: typeof label === 'function' ? label(context) : context.__(label),
+                attributes: typeof attributes === 'function' ? attributes(record) : attributes,
+                label: field.label !== undefined ? field.label : App.t('fields->' + key),
                 options: field.options ?? {},
                 pk: record[this.pk],
                 record: record,
@@ -163,13 +171,11 @@ export class Model {
         return result;
     }
 
-    private prepareFilters(context, fields, record) {
+    private prepareFilters(fields: Object, record: Object) {
         let result = {};
 
         for (let key in fields) {
             let field = fields[key],
-                label = field.label !== undefined ? field.label : 'fields->' + key,
-                hint = field.hint !== undefined ? field.hint : null,
                 name = field.name ?? key,
                 value = field.value ?? key,
                 attributes = field.attributes ?? {};
@@ -179,16 +185,16 @@ export class Model {
             name = 'filter[' + name + ']';
 
             if (typeof value === 'function') {
-                value = value(context, record);
+                value = value(record);
             } else {
-                value = value.replace(':locale', context.booted.locale);
-                value = context.booted.helpers.iterator.get(record, value, '->');
+                value = value.replace(':locale', App.locale);
+                value = App.helpers.iterator.get(record, value, '->');
             }
 
             result[key] = {
-                attributes: typeof attributes === 'function' ? attributes(context, record) : attributes,
-                hint: typeof hint === 'function' ? hint(context) : context.__(hint),
-                label: typeof label === 'function' ? label(context) : context.__(label),
+                attributes: typeof attributes === 'function' ? attributes(record) : attributes,
+                hint: field.hint,
+                label: field.label !== undefined ? field.label : App.t('fields->' + key),
                 name: name,
                 options: field.options ?? {},
                 pk: record[this.pk],
@@ -202,21 +208,19 @@ export class Model {
         return result;
     }
 
-    private prepareInputs(context, fields, record) {
+    private prepareInputs(fields: Object, record: Object) {
         let result = {};
 
         for (let key in fields) {
             let field = fields[key],
-                label = field.label !== undefined ? field.label : 'fields->' + key,
                 name = field.name ?? key,
-                hint = field.hint !== undefined ? field.hint : null,
                 value = field.value ?? key,
                 attributes = field.attributes ?? {};
 
             if (typeof value === 'function') {
-                value = value(context, record);
+                value = value(record);
             } else {
-                value = context.booted.helpers.iterator.get(record, value);
+                value = App.helpers.iterator.get(record, value);
             }
 
             if (field.type === Enums.inputTypes.relations) {
@@ -224,13 +228,13 @@ export class Model {
                     type: Enums.inputTypes.hidden,
                 };
 
-                value = value?.map((v) => this.prepareRelationalInputs(context, field.options.relations, v, name, v.id));
+                value = value?.map((v) => this.prepareRelationalInputs(field.options.relations, v, name, v.id));
             }
 
             result[key] = {
-                attributes: typeof attributes === 'function' ? attributes(context, record) : attributes,
-                hint: typeof hint === 'function' ? hint(context) : context.__(hint),
-                label: typeof label === 'function' ? label(context) : context.__(label),
+                attributes: typeof attributes === 'function' ? attributes(record) : attributes,
+                hint: field.hint,
+                label: field.label !== undefined ? field.label : App.t('fields->' + key),
                 name: name,
                 options: field.options ?? {},
                 pk: record[this.pk],
@@ -244,8 +248,8 @@ export class Model {
         return result;
     }
 
-    prepareRelationalInputs(context, fields, record, namePrefix, relationKey) {
-        let result = this.prepareInputs(context, fields, record);
+    prepareRelationalInputs(fields: Object, record: Object, namePrefix: string, relationKey: string) {
+        let result = this.prepareInputs(fields, record);
 
         for (let key in result) {
             let name = result[key].name;
@@ -259,3 +263,5 @@ export class Model {
         return result;
     }
 }
+
+export default Model;

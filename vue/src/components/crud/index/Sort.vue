@@ -1,4 +1,5 @@
 <script setup>
+import App from '@/core/app';
 import * as Enums from '@/core/enums';
 
 import Input from '@/components/Input.vue';
@@ -23,12 +24,12 @@ export default {
         for (let key in this.fields) {
             let field = this.fields[key];
 
-            sortings[field] = this.__('fields->' + field) + ' ↑';
-            sortings['-' + field] = this.__('fields->' + field) + ' ↓';
+            sortings[field] = App.t('fields->' + field) + ' ↑';
+            sortings['-' + field] = App.t('fields->' + field) + ' ↓';
         }
 
         this.item = {
-            label: this.__('Сортировка'),
+            label: App.t('Сортировка'),
             name: 'sort',
             value: this.$route.query.sort,
             type: Enums.inputTypes.select,

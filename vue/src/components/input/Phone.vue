@@ -6,6 +6,9 @@ export default {
             required: true,
         },
     },
+    data() {
+        return {};
+    },
     mounted() {
         intlTelInput(document.getElementById(this.item.elementId), {
             preferredCountries: [],

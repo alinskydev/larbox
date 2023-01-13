@@ -1,4 +1,5 @@
 <script setup>
+import App from '@/core/app';
 import { IndexConfig } from '@/core/crud/configs';
 import RouterLink from '@/components/blocks/RouterLink.vue';
 </script>
@@ -22,9 +23,9 @@ export default {
     },
     methods: {
         deleteAction() {
-            if (confirm(this.__('Вы уверены?'))) {
-                this.booted.helpers.http
-                    .send(this, {
+            if (confirm(App.t('Вы уверены?'))) {
+                App.helpers.http
+                    .send({
                         method: 'DELETE',
                         path: this.basePath,
                     })
@@ -40,9 +41,9 @@ export default {
             }
         },
         restoreAction() {
-            if (confirm(this.__('Вы уверены?'))) {
-                this.booted.helpers.http
-                    .send(this, {
+            if (confirm(App.t('Вы уверены?'))) {
+                App.helpers.http
+                    .send({
                         method: 'DELETE',
                         path: this.basePath + '/restore',
                     })
@@ -62,8 +63,8 @@ export default {
         <template v-for="action in config.grid.actions">
             <template v-if="!model.data.record.is_deleted">
                 <RouterLink
-                    v-if="action === 'show' && booted.helpers.user.checkRoute(booted.components.app, config.http.path + '/show')"
-                    :title="__('routeActions->show')"
+                    v-if="action === 'show' && App.helpers.user.checkRoute(config.http.path + '/show')"
+                    :title="App.t('routeActions->show')"
                     :to="basePath + '/show'"
                     class="btn btn-primary"
                 >
@@ -71,10 +72,8 @@ export default {
                 </RouterLink>
 
                 <RouterLink
-                    v-else-if="
-                        action === 'update' && booted.helpers.user.checkRoute(booted.components.app, config.http.path + '/update')
-                    "
-                    :title="__('routeActions->update')"
+                    v-else-if="action === 'update' && App.helpers.user.checkRoute(config.http.path + '/update')"
+                    :title="App.t('routeActions->update')"
                     :to="basePath + '/update'"
                     class="btn btn-warning"
                 >
@@ -82,10 +81,8 @@ export default {
                 </RouterLink>
 
                 <a
-                    v-else-if="
-                        action === 'delete' && booted.helpers.user.checkRoute(booted.components.app, config.http.path + '/delete')
-                    "
-                    :title="__('routeActions->delete')"
+                    v-else-if="action === 'delete' && App.helpers.user.checkRoute(config.http.path + '/delete')"
+                    :title="App.t('routeActions->delete')"
                     @click="deleteAction"
                     class="btn btn-danger"
                 >
@@ -95,11 +92,8 @@ export default {
 
             <template v-else>
                 <a
-                    v-if="
-                        action === 'delete' &&
-                        booted.helpers.user.checkRoute(booted.components.app, config.http.path + '/restore')
-                    "
-                    :title="__('routeActions->restore')"
+                    v-if="action === 'delete' && App.helpers.user.checkRoute(config.http.path + '/restore')"
+                    :title="App.t('routeActions->restore')"
                     @click="restoreAction"
                     class="btn btn-success"
                 >

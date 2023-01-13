@@ -1,4 +1,6 @@
 <script setup>
+import App from '@/core/app';
+
 import Nav from './sideBar/Nav.vue';
 import RouterLink from '@/components/blocks/RouterLink.vue';
 </script>
@@ -11,16 +13,19 @@ export default {
             required: true,
         },
     },
+    data() {
+        return {};
+    },
 };
 </script>
 
 <template>
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <RouterLink to="" class="brand-link">
-            <img :src="booted.settings.logo" class="brand-image elevation-3" style="opacity: 0.8" />
+            <img :src="App.settings.logo" class="brand-image elevation-3" style="opacity: 0.8" />
 
             <span class="brand-text font-weight-light">
-                {{ booted.settings.project_name }}
+                {{ App.settings.project_name }}
             </span>
         </RouterLink>
 

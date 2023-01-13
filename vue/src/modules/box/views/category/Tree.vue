@@ -1,7 +1,8 @@
 <script setup>
-import { Page } from '@/core/page';
+import App from '@/core/app';
+import Page from '@/core/page';
+import Model from '@/modules/box/models/category';
 import { IndexConfig } from '@/core/crud/configs';
-import model from '@/modules/box/models/category';
 
 import PageTitle from '@/components/blocks/PageTitle.vue';
 
@@ -15,22 +16,22 @@ import Update from './Update.vue';
 export default {
     data() {
         return {
-            title: this.__('routes->box.category'),
+            title: App.t('routes->box.category'),
             config: new IndexConfig({
-                model: model,
+                model: Model,
                 http: {
                     path: 'box/category',
                 },
             }),
-            elementId: this.booted.helpers.string.uniqueElementId(),
+            elementId: App.helpers.string.uniqueElementId(),
             modalView: 'create',
             modalKey: 0,
             treeKey: 0,
         };
     },
     created() {
-        new Page({
-            context: this,
+        Page.init({
+            title: this.title,
         });
     },
     methods: {
@@ -47,19 +48,19 @@ export default {
 <template>
     <PageTitle :text="title">
         <button
-            v-if="booted.helpers.user.checkRoute(booted.components.app, 'box/category/create')"
+            v-if="App.helpers.user.checkRoute('box/category/create')"
             type="button"
             class="btn btn-success"
             @click="create"
         >
-            {{ __('routeActions->create') }}
+            {{ App.t('routeActions->create') }}
         </button>
     </PageTitle>
 
     <div class="card card-primary">
         <div class="card-header">
             <h3 class="card-title">
-                {{ __('Данные') }}
+                {{ App.t('Данные') }}
             </h3>
         </div>
 

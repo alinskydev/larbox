@@ -1,4 +1,5 @@
 <script setup>
+import App from '@/core/app';
 import Input from '@/components/Input.vue';
 </script>
 
@@ -14,6 +15,9 @@ export default {
             required: true,
         },
     },
+    data() {
+        return {};
+    },
     methods: {
         submit(event) {
             let http = this.config.http,
@@ -23,8 +27,8 @@ export default {
                 this.config.events.beforeSubmit(formData);
             }
 
-            this.booted.helpers.http
-                .send(this, {
+            App.helpers.http
+                .send({
                     method: 'POST',
                     path: http.path,
                     query: {
@@ -40,8 +44,8 @@ export default {
                         if (this.config.events.afterSubmit) {
                             this.config.events.afterSubmit(formData, response);
                         } else {
-                            toastr.success(this.__('Сохранение прошло успешно'));
-                            this.booted.page.goUp();
+                            toastr.success(App.t('Сохранение прошло успешно'));
+                            App.page.goUp();
                         }
                     }
                 });
@@ -55,7 +59,7 @@ export default {
         <div
             v-for="(items, key) in model.data.form"
             class="card card-primary mb-3"
-            :set="(groupId = booted.helpers.string.uniqueElementId())"
+            :set="(groupId = App.helpers.string.uniqueElementId())"
         >
             <div
                 class="card-header d-flex align-items-center justify-content-between"
@@ -64,7 +68,7 @@ export default {
                 :data-target="'#' + groupId"
             >
                 <h3 class="card-title w-100">
-                    {{ __(key) }}
+                    {{ App.t(key) }}
                 </h3>
                 <i class="fas fa-angle-down"></i>
             </div>

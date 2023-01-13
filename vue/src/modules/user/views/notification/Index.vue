@@ -1,7 +1,8 @@
 <script setup>
-import { Page } from '@/core/page';
+import App from '@/core/app';
+import Page from '@/core/page';
+import Model from '@/modules/user/models/notification';
 import { IndexConfig } from '@/core/crud/configs';
-import model from '@/modules/user/models/notification';
 
 import PageTitle from '@/components/blocks/PageTitle.vue';
 import Index from '@/components/crud/Index.vue';
@@ -11,9 +12,9 @@ import Index from '@/components/crud/Index.vue';
 export default {
     data() {
         return {
-            title: this.__('routes->user.notification'),
+            title: App.t('routes->user.notification'),
             config: new IndexConfig({
-                model: model,
+                model: Model,
                 http: {
                     path: 'user/notification',
                 },
@@ -35,7 +36,7 @@ export default {
                             return {
                                 path: path,
                                 linkAttributes: {
-                                    title: this.__('Ссылка'),
+                                    title: App.t('Ссылка'),
                                     class: 'btn btn-info',
                                     target: '_blank',
                                 },
@@ -45,7 +46,7 @@ export default {
                             };
                         },
                     },
-                    rowAttributes: (context, record) => {
+                    rowAttributes: (record) => {
                         if (!record.is_seen) {
                             return {
                                 class: 'table-warning',
@@ -57,22 +58,22 @@ export default {
         };
     },
     created() {
-        new Page({
-            context: this,
+        Page.init({
+            title: this.title,
         });
     },
     methods: {
         seeAll() {
-            if (confirm(this.__('Вы уверены?'))) {
-                this.booted.helpers.http
-                    .send(this, {
+            if (confirm(App.t('Вы уверены?'))) {
+                App.helpers.http
+                    .send({
                         method: 'PATCH',
                         path: 'user/notification/see-all',
                     })
                     .then((response) => {
                         if (response.statusType === 'success') {
-                            toastr.success(this.__('Операция прошла успешно'));
-                            this.booted.components.app.childKey++;
+                            toastr.success(App.t('Операция прошла успешно'));
+                            App.components.app.refresh();
                         }
                     });
             }
@@ -84,7 +85,7 @@ export default {
 <template>
     <PageTitle :text="title">
         <button type="button" @click="seeAll" class="btn btn-warning">
-            {{ __('Отметить все как просмотренные') }}
+            {{ App.t('Отметить все как просмотренные') }}
         </button>
     </PageTitle>
 

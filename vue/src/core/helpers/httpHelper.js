@@ -1,8 +1,9 @@
-import lodash from 'lodash';
+import Lodash from 'lodash';
+import App from '@/core/app';
 
-export default {
-    send(context, options = {}) {
-        let url = new URL(context.booted.config.http.url + '/' + options.path);
+export default class {
+    send(options = {}) {
+        let url = new URL(App.config.http.url + '/' + options.path);
 
         if (options.query) {
             for (let key in options.query) {
@@ -10,9 +11,9 @@ export default {
             }
         }
 
-        let requestOptions = lodash.merge(
+        let requestOptions = Lodash.merge(
             {
-                headers: context.booted.config.http.headers,
+                headers: App.config.http.headers,
             },
             options,
         );
@@ -40,7 +41,7 @@ export default {
 
                     case 401:
                         statusType = 'unauthorized';
-                        context.booted.helpers.user.logout(context);
+                        App.helpers.user.logout();
                         break;
 
                     case 403:
@@ -98,5 +99,5 @@ export default {
                 };
             });
         });
-    },
-};
+    }
+}

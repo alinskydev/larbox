@@ -1,4 +1,5 @@
 <script setup>
+import App from '@/core/app';
 import * as Enums from '@/core/enums';
 </script>
 
@@ -21,6 +22,9 @@ export default {
             type: Array,
             default: [],
         },
+    },
+    data() {
+        return {};
     },
     methods: {
         toggle(event) {
@@ -78,7 +82,7 @@ export default {
                             @change="toggle"
                         />
 
-                        {{ __('routeActions->' + key) }}
+                        {{ App.t('routeActions->' + key) }}
                     </label>
                 </div>
             </div>

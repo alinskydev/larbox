@@ -1,4 +1,5 @@
 <script setup>
+import App from '@/core/app';
 import Value from '@/components/Value.vue';
 </script>
 
@@ -10,6 +11,9 @@ export default {
             required: true,
         },
     },
+    data() {
+        return {};
+    },
 };
 </script>
 
@@ -17,7 +21,7 @@ export default {
     <div
         v-for="(items, key) in model.data.show"
         class="card card-primary mb-3"
-        :set="(groupId = booted.helpers.string.uniqueElementId())"
+        :set="(groupId = App.helpers.string.uniqueElementId())"
     >
         <div
             class="card-header d-flex align-items-center justify-content-between"
@@ -26,7 +30,7 @@ export default {
             :data-target="'#' + groupId"
         >
             <h3 class="card-title w-100">
-                {{ __(key) }}
+                {{ App.t(key) }}
             </h3>
             <i class="fas fa-angle-down"></i>
         </div>

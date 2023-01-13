@@ -1,4 +1,5 @@
-import { Model } from '@/core/model';
+import App from '@/core/app';
+import Model from '@/core/model';
 import * as Enums from '@/core/enums';
 
 export default new Model({
@@ -11,7 +12,7 @@ export default new Model({
                     attributes: {
                         autofocus: true,
                     },
-                    value: (context, record) => import.meta.env.VITE_CREDENTIALS_USERNAME,
+                    value: (record) => import.meta.env.VITE_CREDENTIALS_USERNAME,
                 },
                 password: {
                     type: Enums.inputTypes.text,
@@ -19,7 +20,7 @@ export default new Model({
                     attributes: {
                         type: 'password',
                     },
-                    value: (context, record) => import.meta.env.VITE_CREDENTIALS_PASSWORD,
+                    value: (record) => import.meta.env.VITE_CREDENTIALS_PASSWORD,
                 },
             },
         },

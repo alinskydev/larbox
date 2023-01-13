@@ -1,7 +1,8 @@
 <script setup>
-import { Page } from '@/core/page';
+import App from '@/core/app';
+import Page from '@/core/page';
+import Model from '@/core/model';
 import { UpdateConfig } from '@/core/crud/configs';
-import { Model } from '@/core/model';
 
 import PageTitle from '@/components/blocks/PageTitle.vue';
 import Buttons from '@/components/crud/form/Buttons.vue';
@@ -23,7 +24,7 @@ export default {
     },
     data() {
         return {
-            title: this.__('routeActions->update') + ': ' + this.__('routes->section.' + this.name),
+            title: App.t('routeActions->update') + ': ' + App.t('routes->section.' + this.name),
             config: new UpdateConfig({
                 model: this.model,
                 http: {
@@ -31,16 +32,16 @@ export default {
                 },
                 events: {
                     afterSubmit: (formData, response) => {
-                        toastr.success(this.__('Сохранение прошло успешно'));
-                        this.booted.components.app.childKey++;
+                        toastr.success(App.t('Сохранение прошло успешно'));
+                        App.components.app.refresh();
                     },
                 },
             }),
         };
     },
     created() {
-        new Page({
-            context: this,
+        Page.init({
+            title: this.title,
         });
     },
 };
@@ -48,7 +49,7 @@ export default {
 
 <template>
     <PageTitle :text="title">
-        <Buttons v-if="booted.helpers.user.checkRoute(booted.components.app, 'section/update')" :actions="['save']" />
+        <Buttons v-if="App.helpers.user.checkRoute('section/update')" :actions="['save']" />
     </PageTitle>
 
     <Update :config="config" />

@@ -1,4 +1,4 @@
-export default {
+export default class {
     get(object, path = '', separator = '.') {
         let paths = path.split(separator),
             current = object;
@@ -20,7 +20,7 @@ export default {
                                 Object.entries(current).map((entry) => {
                                     entry[1] = this.get(entry[1], newPath);
                                     return entry;
-                                })
+                                }),
                             );
                     }
                 } else {
@@ -30,5 +30,5 @@ export default {
         }
 
         return current;
-    },
-};
+    }
+}

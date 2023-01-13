@@ -1,3 +1,7 @@
+<script setup>
+import App from '@/core/app';
+</script>
+
 <script>
 export default {
     props: {
@@ -5,6 +9,9 @@ export default {
             type: String,
             required: true,
         },
+    },
+    data() {
+        return {};
     },
 };
 </script>

@@ -1,7 +1,8 @@
 <script setup>
-import { Page } from '@/core/page';
+import App from '@/core/app';
+import Page from '@/core/page';
+import Model from '@/modules/box/models/brand';
 import { CreateConfig } from '@/core/crud/configs';
-import model from '@/modules/box/models/brand';
 
 import PageTitle from '@/components/blocks/PageTitle.vue';
 import Buttons from '@/components/crud/form/Buttons.vue';
@@ -12,9 +13,9 @@ import Create from '@/components/crud/Create.vue';
 export default {
     data() {
         return {
-            title: this.__('routeActions->create'),
+            title: App.t('routeActions->create'),
             config: new CreateConfig({
-                model: model,
+                model: Model,
                 http: {
                     path: 'box/brand',
                 },
@@ -22,11 +23,11 @@ export default {
         };
     },
     created() {
-        new Page({
-            context: this,
+        Page.init({
+            title: this.title,
             breadcrumbs: [
                 {
-                    label: this.__('routes->box.brand'),
+                    label: App.t('routes->box.brand'),
                     path: 'box/brand/index',
                 },
             ],

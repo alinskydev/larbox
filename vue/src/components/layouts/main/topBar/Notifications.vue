@@ -1,4 +1,5 @@
 <script setup>
+import App from '@/core/app';
 import RouterLink from '@/components/blocks/RouterLink.vue';
 </script>
 
@@ -10,8 +11,8 @@ export default {
         };
     },
     created() {
-        this.booted.helpers.http
-            .send(this, {
+        App.helpers.http
+            .send({
                 method: 'GET',
                 path: 'user/notification',
                 query: {

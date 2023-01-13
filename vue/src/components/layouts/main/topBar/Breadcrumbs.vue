@@ -1,4 +1,5 @@
 <script setup>
+import App from '@/core/app';
 import RouterLink from '@/components/blocks/RouterLink.vue';
 </script>
 
@@ -6,7 +7,7 @@ import RouterLink from '@/components/blocks/RouterLink.vue';
 export default {
     data() {
         return {
-            items: this.booted.page?.breadcrumbs ?? [],
+            items: App.page?.breadcrumbs ?? [],
         };
     },
 };
@@ -25,7 +26,7 @@ export default {
         <template v-if="items.length > 0">
             <li class="nav-item d-none d-sm-inline-block">
                 <RouterLink to="" class="nav-link">
-                    {{ __('routes->home') }}
+                    {{ App.t('routes->home') }}
                 </RouterLink>
             </li>
 

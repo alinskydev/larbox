@@ -1,4 +1,4 @@
-import { Model } from '@/core/model';
+import Model from '@/core/model';
 
 export class IndexConfig {
     model: Model;
@@ -9,7 +9,7 @@ export class IndexConfig {
     grid: {
         actions?: Array<string>;
         customActions?: Record<string, (record: object) => any>;
-        rowAttributes?: (context: any, record: object) => any;
+        rowAttributes?: (record: object) => any;
     };
     selection: {
         actions?: Array<string>;
@@ -24,7 +24,7 @@ export class IndexConfig {
         this.grid = params.grid ?? {};
         this.grid.actions ??= ['show', 'update', 'delete'];
         this.grid.customActions ??= {};
-        this.grid.rowAttributes ??= (context, record) => {};
+        this.grid.rowAttributes ??= (record) => {};
 
         this.selection = params.selection ?? {};
         this.selection.actions ??= [];
@@ -46,7 +46,7 @@ export class ShowConfig {
 
         this.http = params.http;
         this.http.query ??= {};
-        
+
         this.events = params.events ?? {};
     }
 }

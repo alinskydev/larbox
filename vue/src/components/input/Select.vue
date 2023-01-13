@@ -14,7 +14,7 @@ export default {
         };
     },
     created() {
-        this.items = typeof this.inputOptions.items === 'function' ? this.inputOptions.items(this) : this.inputOptions.items;
+        this.items = this.inputOptions.items ?? {};
     },
 };
 </script>

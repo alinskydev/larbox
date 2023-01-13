@@ -1,4 +1,5 @@
 <script setup>
+import App from '@/core/app';
 import * as Enums from '@/core/enums';
 
 import ComponentResolver from '@/components/decorators/ComponentResolver.vue';
@@ -16,8 +17,11 @@ export default {
             required: true,
         },
     },
+    data() {
+        return {};
+    },
     created() {
-        this.item.elementId = this.booted.helpers.string.uniqueElementId();
+        this.item.elementId = App.helpers.string.uniqueElementId();
     },
 };
 </script>
@@ -31,17 +35,17 @@ export default {
 
     <template v-else-if="item.type === Enums.valueTypes.boolean">
         <span v-bind="item.attributes">
-            {{ item.value ? __('Да') : __('Нет') }}
+            {{ item.value ? App.t('Да') : App.t('Нет') }}
         </span>
     </template>
 
     <template v-else-if="item.type === Enums.valueTypes.component">
-        <ComponentResolver :resolve="item.options.component.resolve(booted.components.app, item.record)" />
+        <ComponentResolver :resolve="item.options.component.resolve(item.record)" />
     </template>
 
     <template v-else-if="item.type === Enums.valueTypes.fields">
         <div v-for="field in item.options.fields" v-bind="item.attributes">
-            {{ __('fields->' + field) + ': ' + item.value[field] }}
+            {{ App.t('fields->' + field) + ': ' + item.value[field] }}
         </div>
     </template>
 
@@ -69,12 +73,12 @@ export default {
     <template v-else-if="item.type === Enums.valueTypes.link">
         <template v-if="typeof item.value === 'object'" v-for="(link, key) in item.value">
             <a :href="link" target="_blank" class="d-block" v-bind="item.attributes">
-                {{ __('Ссылка №:index', { index: key + 1 }) }}
+                {{ App.t('Ссылка №:index', { index: key + 1 }) }}
             </a>
         </template>
 
         <a v-else :href="item.value" target="_blank" v-bind="item.attributes">
-            {{ __('Ссылка') }}
+            {{ App.t('Ссылка') }}
         </a>
     </template>
 
@@ -96,9 +100,7 @@ export default {
 
     <template v-else-if="item.type === Enums.valueTypes.websiteLink">
         <a
-            :href="
-                booted.config.http.websiteUrl + '/' + booted.locale + '/' + item.options.websiteLink.replace(':value', item.value)
-            "
+            :href="App.config.http.websiteUrl + '/' + App.locale + '/' + item.options.websiteLink.replace(':value', item.value)"
             target="_blank"
             v-bind="item.attributes"
         >

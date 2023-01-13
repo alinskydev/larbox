@@ -1,4 +1,6 @@
-<script setup></script>
+<script setup>
+import App from '@/core/app';
+</script>
 
 <script>
 export default {
@@ -21,8 +23,8 @@ export default {
     mounted() {
         this.treeView = $('#box-categories-tree');
 
-        this.booted.helpers.http
-            .send(this, {
+        App.helpers.http
+            .send({
                 method: 'GET',
                 path: this.httpPath,
             })
@@ -78,17 +80,17 @@ export default {
         <div class="row">
             <div class="col-sm-3">
                 <div class="form-group">
-                    <label> {{ __('Поиск') }} </label>
+                    <label> {{ App.t('Поиск') }} </label>
                     <input type="text" @keyup="search" class="form-control" />
                 </div>
             </div>
 
             <div class="col-sm-3">
                 <div class="form-group">
-                    <label>{{ __('Отображать') }}</label>
+                    <label>{{ App.t('Отображать') }}</label>
                     <select @change="toggle" class="form-control">
-                        <option value="0">{{ __('Только действующие') }}</option>
-                        <option value="1">{{ __('Все') }}</option>
+                        <option value="0">{{ App.t('Только действующие') }}</option>
+                        <option value="1">{{ App.t('Все') }}</option>
                     </select>
                 </div>
             </div>

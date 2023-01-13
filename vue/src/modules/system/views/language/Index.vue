@@ -1,7 +1,8 @@
 <script setup>
-import { Page } from '@/core/page';
+import App from '@/core/app';
+import Page from '@/core/page';
+import Model from '@/modules/system/models/language';
 import { IndexConfig } from '@/core/crud/configs';
-import model from '@/modules/system/models/language';
 
 import PageTitle from '@/components/blocks/PageTitle.vue';
 import Index from '@/components/crud/Index.vue';
@@ -11,9 +12,9 @@ import Index from '@/components/crud/Index.vue';
 export default {
     data() {
         return {
-            title: this.__('routes->system.language'),
+            title: App.t('routes->system.language'),
             config: new IndexConfig({
-                model: model,
+                model: Model,
                 http: {
                     path: 'system/language',
                 },
@@ -24,8 +25,8 @@ export default {
         };
     },
     created() {
-        new Page({
-            context: this,
+        Page.init({
+            title: this.title,
         });
     },
 };

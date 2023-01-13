@@ -1,5 +1,6 @@
 <script setup>
 import { RouterLink } from 'vue-router';
+import App from '@/core/app';
 </script>
 
 <script>
@@ -12,14 +13,14 @@ export default {
     },
     data() {
         return {
-            isAllowed: this.booted.helpers.user.checkRoute(this, this.to.split('?')[0]),
+            isAllowed: App.helpers.user.checkRoute(this.to.split('?')[0]),
         };
     },
 };
 </script>
 
 <template>
-    <RouterLink v-if="isAllowed" :to="'/' + booted.locale + '/' + to">
+    <RouterLink v-if="isAllowed" :to="'/' + App.locale + '/' + to">
         <slot></slot>
     </RouterLink>
 </template>

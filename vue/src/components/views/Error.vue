@@ -1,8 +1,12 @@
+<script setup>
+import App from '@/core/app';
+</script>
+
 <script>
 export default {
     data() {
         return {
-            title: this.__('Ошибка'),
+            title: App.t('Ошибка'),
         };
     },
     created() {
@@ -18,11 +22,11 @@ export default {
         <div class="ml-5">
             <h3>
                 <i class="fas fa-exclamation-triangle text-warning"></i>
-                {{ __('Страница не найдена') }}
+                {{ App.t('Страница не найдена') }}
             </h3>
 
             <a href="/" class="btn btn-warning">
-                {{ __('На главную') }}
+                {{ App.t('На главную') }}
             </a>
         </div>
     </div>

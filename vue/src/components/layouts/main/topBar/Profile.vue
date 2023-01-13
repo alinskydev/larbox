@@ -1,4 +1,5 @@
 <script setup>
+import App from '@/core/app';
 import RouterLink from '@/components/blocks/RouterLink.vue';
 </script>
 
@@ -6,7 +7,7 @@ import RouterLink from '@/components/blocks/RouterLink.vue';
 export default {
     methods: {
         logout() {
-            this.booted.helpers.user.logout(this);
+            App.helpers.user.logout();
         },
     },
 };
@@ -20,21 +21,21 @@ export default {
 
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
             <h5 class="dropdown-item text-center">
-                {{ booted.user.username }}
+                {{ App.user.username }}
             </h5>
 
             <div class="dropdown-divider"></div>
 
             <RouterLink :to="'user/profile'" class="dropdown-item">
                 <i class="fas fa-edit mr-2"></i>
-                {{ __('routes->user.profile') }}
+                {{ App.t('routes->user.profile') }}
             </RouterLink>
 
             <div class="dropdown-divider"></div>
 
             <a role="button" @click="logout" class="dropdown-item">
                 <i class="fas fa-power-off mr-2"></i>
-                {{ __('Выйти') }}
+                {{ App.t('Выйти') }}
             </a>
         </div>
     </li>

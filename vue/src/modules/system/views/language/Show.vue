@@ -1,7 +1,8 @@
 <script setup>
-import { Page } from '@/core/page';
+import App from '@/core/app';
+import Page from '@/core/page';
+import Model from '@/modules/system/models/language';
 import { ShowConfig } from '@/core/crud/configs';
-import model from '@/modules/system/models/language';
 
 import PageTitle from '@/components/blocks/PageTitle.vue';
 import Show from '@/components/crud/Show.vue';
@@ -11,9 +12,9 @@ import Show from '@/components/crud/Show.vue';
 export default {
     data() {
         return {
-            title: this.__('routeActions->show'),
+            title: App.t('routeActions->show'),
             config: new ShowConfig({
-                model: model,
+                model: Model,
                 http: {
                     path: 'system/language/:pk',
                 },
@@ -21,11 +22,11 @@ export default {
                     afterResponse: (data) => {
                         this.title += ': ' + data.name;
 
-                        new Page({
-                            context: this,
+                        Page.init({
+                            title: this.title,
                             breadcrumbs: [
                                 {
-                                    label: this.__('routes->system.language'),
+                                    label: App.t('routes->system.language'),
                                     path: 'system/language/index',
                                 },
                             ],

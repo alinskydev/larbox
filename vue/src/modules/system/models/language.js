@@ -1,4 +1,5 @@
-import { Model } from '@/core/model';
+import App from '@/core/app';
+import Model from '@/core/model';
 import * as Enums from '@/core/enums';
 
 export default new Model({
@@ -23,9 +24,9 @@ export default new Model({
             //     options: {
             //         httpSwitcher: {
             //             path: 'system/language/:pk/set-active/:value',
-            //             onSuccess: (context, value) => {
-            //                 toastr.success(context.__('Успешно изменено'));
-            //                 context.booted.components.app.childKey++;
+            //             onSuccess: (value) => {
+            //                 toastr.success(App.t('Успешно изменено'));
+            //                 App.components.app.refresh();
             //             },
             //         },
             //     },
@@ -35,13 +36,13 @@ export default new Model({
             //     options: {
             //         httpSwitcher: {
             //             path: 'system/language/:pk/set-main/:value',
-            //             onSuccess: (context, value) => {
-            //                 toastr.success(context.__('Успешно изменено'));
-            //                 context.booted.components.app.childKey++;
+            //             onSuccess: (value) => {
+            //                 toastr.success(App.t('Успешно изменено'));
+            //                 App.components.app.refresh();
             //             },
             //         },
             //     },
-            //     attributes: (context, record) => {
+            //     attributes: (record) => {
             //         return {
             //             readonly: record.is_main,
             //         };
@@ -60,14 +61,10 @@ export default new Model({
 
         filters: {
             common: {
-                label: 'Общий поиск',
-                hint: (context) => {
-                    let fields = ['name', 'code'];
-
-                    return context.__('Поиск по полям: :fields', {
-                        fields: fields.map((value) => context.__('fields->' + value)).join(' | '),
-                    });
-                },
+                label: App.t('Общий поиск'),
+                hint: App.t('Поиск по полям: :fields', {
+                    fields: ['name', 'code'].map((value) => App.t('fields->' + value)).join(' | '),
+                }),
                 type: Enums.inputTypes.text,
                 size: Enums.inputSizes.xl,
             },
@@ -81,11 +78,9 @@ export default new Model({
                 type: Enums.inputTypes.select,
                 options: {
                     select: {
-                        items: (context) => {
-                            return {
-                                0: context.__('Нет'),
-                                1: context.__('Да'),
-                            };
+                        items: {
+                            0: App.t('Нет'),
+                            1: App.t('Да'),
                         },
                         hasPrompt: true,
                     },
@@ -95,11 +90,9 @@ export default new Model({
                 type: Enums.inputTypes.select,
                 options: {
                     select: {
-                        items: (context) => {
-                            return {
-                                0: context.__('Нет'),
-                                1: context.__('Да'),
-                            };
+                        items: {
+                            0: App.t('Нет'),
+                            1: App.t('Да'),
                         },
                         hasPrompt: true,
                     },

@@ -1,7 +1,8 @@
 <script setup>
-import { Page } from '@/core/page';
+import App from '@/core/app';
+import Page from '@/core/page';
+import Model from '@/modules/feedback/models/callback';
 import { IndexConfig } from '@/core/crud/configs';
-import model from '@/modules/feedback/models/callback';
 
 import PageTitle from '@/components/blocks/PageTitle.vue';
 import Index from '@/components/crud/Index.vue';
@@ -11,9 +12,9 @@ import Index from '@/components/crud/Index.vue';
 export default {
     data() {
         return {
-            title: this.__('routes->feedback.callback'),
+            title: App.t('routes->feedback.callback'),
             config: new IndexConfig({
-                model: model,
+                model: Model,
                 http: {
                     path: 'feedback/callback',
                 },
@@ -27,8 +28,8 @@ export default {
         };
     },
     created() {
-        new Page({
-            context: this,
+        Page.init({
+            title: this.title,
         });
     },
 };

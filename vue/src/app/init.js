@@ -1,40 +1,25 @@
-import Larbox from '@/core/larbox';
-import { LocalizationHelper } from '@/core/helpers/localizationHelper';
-import lodash from 'lodash';
+import App from '@/core/app';
+import Lodash from 'lodash';
 
-export default function (context) {
-    return context.booted.helpers.http
-        .send(context, {
+export default function () {
+    return App.helpers.http
+        .send({
             method: 'GET',
             path: '../common/system?show-all=1',
         })
         .then((response) => {
             if (response.statusType === 'success') {
-                let data = response.data;
+                let data = response.data,
+                    urlLocale = location.pathname.split('/')[1];
 
-                context.booted.languages = data.languages;
-                context.booted.settings = data.settings;
-                context.booted.enums = data.enums;
+                App.enums = data.enums;
+                App.languages = data.languages;
+                App.settings = data.settings;
 
-                // Setting locale
+                App.locale = urlLocale in App.languages.active ? urlLocale : App.languages.main.code;
+                App.localization.translations = Lodash.merge(App.localization.translations, data.translations);
 
-                let mainLocale = context.booted.languages.main.code,
-                    routeLocale = context.$route.params.locale;
-
-                if (routeLocale !== undefined && routeLocale in context.booted.languages.active) {
-                    context.booted.locale = routeLocale;
-                } else {
-                    context.booted.locale = mainLocale;
-                }
-
-                context.booted.config.http.headers['Accept-Language'] = context.booted.locale;
-
-                Larbox.locale = context.booted.locale;
-
-                // Setting locale
-
-                LocalizationHelper.locale = context.booted.locale;
-                LocalizationHelper.messages = lodash.merge(LocalizationHelper.messages, data.translations);
+                App.config.http.headers['Accept-Language'] = App.locale;
             }
         });
 }

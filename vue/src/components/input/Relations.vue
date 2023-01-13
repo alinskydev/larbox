@@ -1,5 +1,6 @@
 <script setup>
-import { Model } from '@/core/model';
+import App from '@/core/app';
+import Model from '@/core/model';
 import Input from '@/components/Input.vue';
 </script>
 
@@ -32,11 +33,10 @@ export default {
     methods: {
         add() {
             let newItem = new Model({}).prepareRelationalInputs(
-                this,
                 this.item.options.relations,
                 { id: 0 },
                 this.item.name,
-                this.booted.helpers.string.uniqueId(),
+                App.helpers.string.uniqueId(),
             );
 
             this.items.push(newItem);

@@ -1,5 +1,6 @@
 <script setup>
-import { Page } from '@/core/page';
+import App from '@/core/app';
+import Page from '@/core/page';
 import PageTitle from '@/components/blocks/PageTitle.vue';
 </script>
 
@@ -7,12 +8,12 @@ import PageTitle from '@/components/blocks/PageTitle.vue';
 export default {
     data() {
         return {
-            title: this.__('routes->home'),
+            title: App.t('routes->home'),
         };
     },
     created() {
-        new Page({
-            context: this,
+        Page.init({
+            title: this.title,
             showBreadcrumbs: false,
         });
     },
