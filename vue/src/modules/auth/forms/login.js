@@ -12,7 +12,7 @@ export default new Model({
                     attributes: {
                         autofocus: true,
                     },
-                    value: (record) => import.meta.env.VITE_CREDENTIALS_USERNAME,
+                    value: (record) => import.meta.env.VITE_USER_ADMIN_USERNAME,
                 },
                 password: {
                     type: Enums.inputTypes.text,
@@ -20,7 +20,7 @@ export default new Model({
                     attributes: {
                         type: 'password',
                     },
-                    value: (record) => import.meta.env.VITE_CREDENTIALS_PASSWORD,
+                    value: (record) => import.meta.env.VITE_USER_ADMIN_PASSWORD,
                 },
             },
         },
