@@ -1,5 +1,5 @@
 <script setup>
-import Lodash from 'lodash';
+import * as Lodash from 'lodash';
 import App from '@/core/app';
 </script>
 

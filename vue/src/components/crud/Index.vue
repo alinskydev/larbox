@@ -1,6 +1,6 @@
 <script setup>
+import * as Lodash from 'lodash';
 import App from '@/core/app';
-import Lodash from 'lodash';
 import { IndexConfig } from '@/core/crud/configs';
 
 import Sort from './index/Sort.vue';

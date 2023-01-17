@@ -3,6 +3,7 @@
         "allowJs": true,
         "noEmit": true,
         "jsx": "preserve",
+        "target": "es2022",
         "baseUrl": ".",
         "paths": {
             "@/*": [

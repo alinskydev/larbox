@@ -1,5 +1,6 @@
 export default {
     http: {
+        // @ts-ignore
         url: import.meta.env.VITE_HTTP_URL,
         headers: {
             'Accept': 'application/json',

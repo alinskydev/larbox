@@ -1,5 +1,5 @@
+import * as Lodash from 'lodash';
 import App from '@/core/app';
-import Lodash from 'lodash';
 
 export default function () {
     return App.helpers.http
@@ -7,7 +7,7 @@ export default function () {
             method: 'GET',
             path: '../common/system?show-all=1',
         })
-        .then((response) => {
+        .then((response: any) => {
             if (response.statusType === 'success') {
                 let data = response.data,
                     urlLocale = location.pathname.split('/')[1];

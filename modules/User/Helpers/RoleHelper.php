@@ -13,6 +13,9 @@ class RoleHelper
         'admin.user.notification.show',
         'admin.user.notification.seeAll',
         'admin.user.profile.*',
+
+        'common.*',
+        'website.*',
     ];
 
     public static function routesList(): array

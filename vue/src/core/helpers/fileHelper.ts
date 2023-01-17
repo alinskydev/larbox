@@ -1,19 +1,18 @@
 export default class {
-    info(url = '') {
+    info(url: string = '') {
         let extension = url.slice(url.lastIndexOf('.') + 1, url.length),
             type = null;
 
         switch (extension) {
-            case 'jpg':
-            case 'jpeg':
-            case 'png':
             case 'gif':
-            case 'webp':
+            case 'jpg':
+            case 'png':
             case 'svg':
+            case 'webp':
                 type = 'image';
                 break;
-            case 'mp3':
             case 'ogg':
+            case 'mp3':
                 type = 'audio';
                 break;
             case 'mp4':

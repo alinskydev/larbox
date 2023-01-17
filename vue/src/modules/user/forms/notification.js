@@ -1,4 +1,4 @@
-import Lodash from 'lodash';
+import * as Lodash from 'lodash';
 import App from '@/core/app';
 import Model from '@/core/model';
 import * as Enums from '@/core/enums';

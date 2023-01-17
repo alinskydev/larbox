@@ -1,8 +1,14 @@
-import Lodash from 'lodash';
+import * as Lodash from 'lodash';
 import App from '@/core/app';
 
 export default class {
-    send(options = {}) {
+    send(
+        options: {
+            method: string;
+            path: string;
+            query?: Object;
+        } & RequestInit,
+    ) {
         let url = new URL(App.config.http.url + '/' + options.path);
 
         if (options.query) {
@@ -18,7 +24,7 @@ export default class {
             options,
         );
 
-        return fetch(url, requestOptions).then((response) => {
+        return fetch(url, requestOptions).then((response): Object => {
             if (response.status === 204) {
                 return {
                     ...response,
@@ -29,7 +35,9 @@ export default class {
             }
 
             return response.json().then((body) => {
-                let statusType;
+                // @ts-ignore
+                let toastrPlugin = toastr,
+                    statusType;
 
                 switch (response.status) {
                     case 200:
@@ -46,7 +54,7 @@ export default class {
 
                     case 403:
                         statusType = 'forbidden';
-                        toastr.warning(body.message);
+                        toastrPlugin.warning(body.message);
                         break;
 
                     case 400:
@@ -54,19 +62,18 @@ export default class {
                     case 409:
                     case 429:
                         statusType = 'notAllowed';
-                        toastr.warning(body.message);
+                        toastrPlugin.warning(body.message);
                         break;
 
                     case 404:
                     case 500:
                         statusType = 'error';
-                        toastr.error(body.message);
+                        toastrPlugin.error(body.message);
                         break;
 
                     case 422:
                         statusType = 'validationFailed';
-
-                        toastr.warning(body.message);
+                        toastrPlugin.warning(body.message);
 
                         $('.input-error').addClass('d-none');
 
