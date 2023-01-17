@@ -3,7 +3,10 @@
         "allowJs": true,
         "noEmit": true,
         "jsx": "preserve",
-        "lib": ["es2022"],
+        "lib": [
+            "DOM",
+            "es2022"
+        ],
         "baseUrl": ".",
         "paths": {
             "@/*": [
