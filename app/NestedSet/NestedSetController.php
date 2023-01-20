@@ -18,19 +18,30 @@ class NestedSetController extends ResourceController
 
     public function move(NestedSetMoveRequest $request): JsonResponse
     {
-        $queryCases = [];
+        $queryCases = array_map(fn ($value) => "WHEN id = ? THEN ?", $request->nodes);
+
+        $bindings = [];
 
         foreach ($request->nodes as $key => $node) {
-            $queryCases['lft'][] = "WHEN id = $key THEN " . $node['lft'];
-            $queryCases['rgt'][] = "WHEN id = $key THEN " . $node['rgt'];
-            $queryCases['depth'][] = "WHEN id = $key THEN " . $node['depth'];
+            $bindings['lft'][] = $key;
+            $bindings['lft'][] = $node['lft'];
+            $bindings['rgt'][] = $key;
+            $bindings['rgt'][] = $node['rgt'];
+            $bindings['depth'][] = $key;
+            $bindings['depth'][] = $node['depth'];
         }
-        
-        $this->model->query()->withTrashed()->update([
-            'lft' => DB::raw('CASE ' . implode(' ', $queryCases['lft']) . ' ELSE lft END'),
-            'rgt' => DB::raw('CASE ' . implode(' ', $queryCases['rgt']) . ' ELSE rgt END'),
-            'depth' => DB::raw('CASE ' . implode(' ', $queryCases['depth']) . ' ELSE depth END'),
-        ]);
+
+        $bindings = array_merge(...array_values($bindings));
+
+        $this->model->query()
+            ->setBindings($bindings)
+            ->where('id', '!=', 1)
+            ->getQuery()
+            ->update([
+                'lft' => DB::raw('CASE ' . implode(' ', $queryCases) . ' ELSE lft END'),
+                'rgt' => DB::raw('CASE ' . implode(' ', $queryCases) . ' ELSE rgt END'),
+                'depth' => DB::raw('CASE ' . implode(' ', $queryCases) . ' ELSE depth END'),
+            ]);
 
         return $this->successResponse();
     }
