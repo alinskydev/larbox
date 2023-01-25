@@ -27,4 +27,4 @@ coverage
 *.sln
 *.sw?
 
-AdminLTE
+_html
