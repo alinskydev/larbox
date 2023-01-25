@@ -20,14 +20,14 @@ export default {
 <template>
     <div
         v-for="(items, key) in model.data.show"
-        class="card card-primary mb-3"
+        class="card card-primary mb-4"
         :set="(groupId = App.helpers.string.uniqueElementId())"
     >
         <div
             class="card-header d-flex align-items-center justify-content-between"
             role="button"
-            data-toggle="collapse"
-            :data-target="'#' + groupId"
+            data-bs-toggle="collapse"
+            :data-bs-target="'#' + groupId"
         >
             <h3 class="card-title w-100">
                 {{ App.t(key) }}

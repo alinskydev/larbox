@@ -14,7 +14,7 @@ export default {
 </script>
 
 <template>
-    <div class="content-header d-flex align-items-center justify-content-between mb-3">
+    <div class="content-header d-flex align-items-center justify-content-between mb-4">
         <h1 v-bind="$attrs">
             {{ text }}
         </h1>

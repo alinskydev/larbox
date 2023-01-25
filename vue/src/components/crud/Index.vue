@@ -91,12 +91,12 @@ export default {
 </script>
 
 <template>
-    <div class="card card-primary mb-3" v-if="filters.length > 0 || model.config.sortings.length > 0 || model.hasSoftDelete">
+    <div class="card card-primary mb-4" v-if="filters.length > 0 || model.config.sortings.length > 0 || model.hasSoftDelete">
         <div
             class="card-header d-flex align-items-center justify-content-between"
             role="button"
-            data-toggle="collapse"
-            :data-target="'#' + filterId"
+            data-bs-toggle="collapse"
+            :data-bs-target="'#' + filterId"
         >
             <h3 class="card-title w-100">
                 {{ App.t('Фильтр') }}
@@ -118,7 +118,7 @@ export default {
                     </div>
                 </div>
 
-                <div class="card-footer text-right">
+                <div class="card-footer text-end">
                     <div class="btn-group">
                         <button type="reset" class="btn btn-danger">
                             {{ App.t('Сбросить') }}

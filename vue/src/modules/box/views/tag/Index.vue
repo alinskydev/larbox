@@ -35,7 +35,7 @@ export default {
 
 <template>
     <PageTitle :text="title">
-        <RouterLink to="box/tag/create" class="btn btn-success">
+        <RouterLink to="box/tag/create" class="btn btn-primary">
             {{ App.t('routeActions->create') }}
         </RouterLink>
     </PageTitle>

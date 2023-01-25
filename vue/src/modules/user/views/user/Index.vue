@@ -35,7 +35,7 @@ export default {
     <PageTitle :text="title">
         <NotificationCreate />
 
-        <RouterLink to="user/user/create" class="btn btn-success">
+        <RouterLink to="user/user/create" class="btn btn-primary">
             {{ App.t('routeActions->create') }}
         </RouterLink>
     </PageTitle>

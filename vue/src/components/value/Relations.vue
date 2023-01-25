@@ -18,9 +18,9 @@ export default {
 
 <template>
     <div v-if="item.value.length > 0" class="table-responsive">
-        <table class="table table-bordered table-hover">
+        <table class="table table-bordered table-striped">
             <thead>
-                <tr class="bg-info">
+                <tr class="bg-primary text-white">
                     <th style="width: 30px">№</th>
                     <th v-for="relationItem in item.value[0]">
                         {{ relationItem.label }}

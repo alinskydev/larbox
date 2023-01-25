@@ -110,7 +110,7 @@ export default new Model({
                                     component: 'h3',
                                     params: [
                                         {
-                                            class: 'w-100 text-primary',
+                                            class: 'text-primary',
                                             innerHTML: App.t('Встроенный компонент'),
                                         },
                                     ],

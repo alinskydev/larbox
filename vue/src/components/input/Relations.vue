@@ -58,7 +58,7 @@ export default {
 
 <template>
     <div class="col-12" :id="item.elementId">
-        <div class="card card-info mb-3">
+        <div class="card card-info mb-4">
             <div class="card-header d-flex align-items-center justify-content-between">
                 <h3 class="card-title w-100">
                     {{ item.label }}

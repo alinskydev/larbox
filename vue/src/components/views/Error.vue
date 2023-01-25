@@ -16,18 +16,27 @@ export default {
 </script>
 
 <template>
-    <div class="error-page">
-        <h2 class="headline text-warning">404</h2>
+    <div class="account-pages my-5 pt-sm-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-6 col-xl-5">
+                    <div class="card overflow-hidden">
+                        <div class="card-body pt-0">
+                            <div class="ex-page-content text-center">
+                                <h1 class="text-dark">404!</h1>
+                                <h3 class="mb-4">
+                                    {{ App.t('Страница не найдена') }}
+                                </h3>
 
-        <div class="ml-5">
-            <h3>
-                <i class="fas fa-exclamation-triangle text-warning"></i>
-                {{ App.t('Страница не найдена') }}
-            </h3>
-
-            <a href="/" class="btn btn-warning">
-                {{ App.t('На главную') }}
-            </a>
+                                <a href="/" class="btn btn-primary mb-4 waves-effect waves-light">
+                                    <i class="mdi mdi-home"></i>
+                                    {{ App.t('На главную') }}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>

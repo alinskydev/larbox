@@ -27,4 +27,4 @@ coverage
 *.sln
 *.sw?
 
-_html
+_template

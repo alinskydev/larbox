@@ -50,7 +50,7 @@ export default {
         <button
             v-if="App.helpers.user.checkRoute('box/category/create')"
             type="button"
-            class="btn btn-success"
+            class="btn btn-primary"
             @click="create"
         >
             {{ App.t('routeActions->create') }}

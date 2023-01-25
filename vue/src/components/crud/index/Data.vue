@@ -92,7 +92,7 @@ export default {
                                             data.type === Enums.valueTypes.httpSwitcher
                                         "
                                     >
-                                        <td :set="(data.attributes['disabled'] = model.data.record.is_deleted)">
+                                        <td :set="(data.attributes['disabled'] = Boolean(model.data.record.is_deleted))">
                                             <Value :item="data" />
                                         </td>
                                     </template>
@@ -105,7 +105,7 @@ export default {
                                 </template>
 
                                 <template v-if="config.grid.actions.length > 0">
-                                    <td class="text-right" style="width: 50px">
+                                    <td style="width: 50px">
                                         <Actions :config="config" :model="model" />
                                     </td>
                                 </template>

@@ -40,7 +40,7 @@ export default {
                     dragIcon: '<i class="fas fa-arrows-alt"></i>',
                     zoomClass: 'btn btn-info',
                     zoomIcon: '<i class="fas fa-search-plus"></i>',
-                    downloadClass: 'btn btn-primary pull-left',
+                    downloadClass: 'btn btn-primary',
                     downloadIcon: '<i class="fas fa-cloud-download-alt"></i>',
                     removeClass: 'btn btn-danger',
                     removeIcon: '<i class="fas fa-trash-alt"></i>',

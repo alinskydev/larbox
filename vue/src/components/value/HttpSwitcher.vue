@@ -18,44 +18,36 @@ export default {
         };
     },
     mounted() {
-        $('#' + this.item.elementId)
-            .bootstrapSwitch('state', $('#' + this.item.elementId).prop('checked'))
-            .on('switchChange.bootstrapSwitch', (event, state) => {
-                let path = this.valueOptions.path.replace(':pk', this.item.pk).replace(':value', Number(state));
+        $('#' + this.item.elementId).on('change', (event) => {
+            let value = event.target.checked,
+                path = this.valueOptions.path.replace(':pk', this.item.pk).replace(':value', Number(value));
 
-                App.helpers.http
-                    .send({
-                        method: 'PATCH',
-                        path: path,
-                    })
-                    .then((response) => {
-                        if (response.statusType === 'success') {
-                            this.currentValue = state;
+            App.helpers.http
+                .send({
+                    method: 'PATCH',
+                    path: path,
+                })
+                .then((response) => {
+                    if (response.statusType === 'success') {
+                        this.currentValue = value;
 
-                            if (this.valueOptions.onSuccess) {
-                                this.valueOptions.onSuccess(this.currentValue);
-                            } else {
-                                toastr.success(App.t('Успешно изменено'));
-                            }
+                        if (this.valueOptions.onSuccess) {
+                            this.valueOptions.onSuccess(this.currentValue);
                         } else {
-                            $('#' + this.item.elementId).bootstrapSwitch('state', this.currentValue, true);
+                            toastr.success(App.t('Успешно изменено'));
                         }
-                    });
-            });
+                    } else {
+                        event.target.checked = this.currentValue;
+                    }
+                });
+        });
     },
 };
 </script>
 
 <template>
-    <input
-        type="checkbox"
-        v-bind="item.attributes"
-        :id="item.elementId"
-        :checked="currentValue"
-        data-bootstrap-switch
-        data-on-text="<i class='fas fa-check'></i>"
-        data-off-text="<i class='fas fa-times'></i>"
-        data-on-color="success"
-        data-off-color="danger"
-    />
+    <span>
+        <input type="checkbox" v-bind="item.attributes" :id="item.elementId" switch="none" :checked="currentValue" />
+        <label :for="item.elementId" data-on-label="On" data-off-label="Off"></label>
+    </span>
 </template>

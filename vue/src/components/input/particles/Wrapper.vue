@@ -54,10 +54,10 @@ export default {
         <template v-if="item.options.isLocalized">
             <div class="row">
                 <template v-for="language in App.languages.all">
-                    <div :class="'input-wrapper form-group ' + (item.options.size ?? Enums.inputSizes.md)">
+                    <div :class="'input-wrapper mb-3 ' + (item.options.size ?? Enums.inputSizes.md)">
                         <label v-if="item.label" :for="inputAttrs['id'].replace(':locale', language.code)" v-html="item.label" />
                         |
-                        <img :src="language.image?.widen_30.webp" class="align-text-bottom ml-1" />
+                        <img :src="language.image.widen_25.webp" class="align-text-bottom ms-1" />
 
                         <slot
                             :inputAttrs="{
@@ -80,7 +80,7 @@ export default {
         </template>
 
         <template v-else>
-            <div class="input-wrapper form-group">
+            <div class="input-wrapper mb-3">
                 <label v-if="item.label" :for="inputAttrs['id']" v-html="item.label" />
 
                 <slot

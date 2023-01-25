@@ -104,7 +104,7 @@ export default {
                 {{ App.t('Действия') }}
             </div>
 
-            <div class="card-body">
+            <div class="card-body d-grid gap-2">
                 <template v-for="action in config.selection.actions">
                     <button
                         v-if="
@@ -112,10 +112,10 @@ export default {
                             !$route.query['show[deleted]'] &&
                             App.helpers.user.checkRoute(config.http.path + '/deleteMultiple')
                         "
-                        class="btn btn-danger btn-block text-left"
+                        class="btn btn-danger text-start"
                         @click="deleteMultipleAction"
                     >
-                        <i class="fas fa-trash-alt mr-1"></i>
+                        <i class="fas fa-trash-alt me-1"></i>
                         {{ App.t('routeActions->deleteMultiple') }}
                     </button>
 
@@ -125,10 +125,10 @@ export default {
                             $route.query['show[deleted]'] === 'only-deleted' &&
                             App.helpers.user.checkRoute(config.http.path + '/restoreMultiple')
                         "
-                        class="btn btn-success btn-block text-left"
+                        class="btn btn-success text-start"
                         @click="restoreMultipleAction"
                     >
-                        <i class="fas fa-trash-restore mr-1"></i>
+                        <i class="fas fa-trash-restore me-1"></i>
                         {{ App.t('routeActions->restoreMultiple') }}
                     </button>
                 </template>

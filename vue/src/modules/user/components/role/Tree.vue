@@ -28,7 +28,7 @@ export default {
         <table class="table table-bordered">
             <template v-for="(routes1, routes1Key) in routes">
                 <thead>
-                    <tr class="table-info">
+                    <tr class="bg-primary text-white">
                         <th colspan="3">
                             <h6 class="text-center font-weight-bold m-0">
                                 {{ App.t('routes->' + routes1Key) }}

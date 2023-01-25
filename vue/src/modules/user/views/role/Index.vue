@@ -49,7 +49,7 @@ export default {
 
 <template>
     <PageTitle :text="title">
-        <RouterLink to="user/role/create" class="btn btn-success">
+        <RouterLink to="user/role/create" class="btn btn-primary">
             {{ App.t('routeActions->create') }}
         </RouterLink>
     </PageTitle>

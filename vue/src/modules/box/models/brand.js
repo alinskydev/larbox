@@ -32,7 +32,6 @@ export default new Model({
                 options: {
                     httpSelect: {
                         path: 'box/brand/:pk/set-active/:value',
-                        isBoolean: true,
                         items: {
                             0: App.t('Нет'),
                             1: App.t('Да'),

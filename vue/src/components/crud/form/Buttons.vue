@@ -22,7 +22,7 @@ export default {
             {{ App.t('Отменить') }}
         </button>
 
-        <button v-if="action === 'save'" type="submit" form="crud-form" class="btn btn-success">
+        <button v-if="action === 'save'" type="submit" form="crud-form" class="btn btn-primary">
             {{ App.t('Сохранить') }}
         </button>
     </template>

@@ -14,7 +14,7 @@ export default {
     },
     created() {
         // Resolve conflict in jQuery UI tooltip with Bootstrap tooltip
-        $.widget.bridge('uibutton', $.ui.button);
+        // $.widget.bridge('uibutton', $.ui.button);
 
         document.documentElement.setAttribute('lang', App.locale);
         document.getElementById('favicon').href = App.settings.favicon;
@@ -45,7 +45,16 @@ export default {
     <RouterView :key="childKey" />
 
     <div id="preloader" :class="preloaderIsActive ? 'active' : ''">
-        <img class="animation__shake" src="/assets/larbox/media/logo.png" />
+        <div id="status">
+            <div class="spinner-chase">
+                <div class="chase-dot"></div>
+                <div class="chase-dot"></div>
+                <div class="chase-dot"></div>
+                <div class="chase-dot"></div>
+                <div class="chase-dot"></div>
+                <div class="chase-dot"></div>
+            </div>
+        </div>
     </div>
 
     <div id="no-interaction-mask" class="d-none"></div>

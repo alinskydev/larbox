@@ -63,22 +63,32 @@ export default {
 
 <template>
     <template v-if="isReady">
-        <div class="login-page">
-            <div class="login-box">
-                <div class="login-logo">
-                    <b>{{ title }}</b>
-                </div>
+        <div class="account-pages my-5 pt-sm-5">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-8 col-lg-6 col-xl-5">
+                        <div class="card overflow-hidden">
+                            <div class="card-body p-5">
+                                <div class="text-center">
+                                    <img src="/assets/media/logo.png" alt="" height="50" class="auth-logo-dark" />
+                                </div>
 
-                <div class="card">
-                    <div class="card-body login-card-body">
-                        <form @submit.prevent="submit">
-                            <Input :item="inputs.username" />
-                            <Input :item="inputs.password" />
+                                <h4 class="text-muted font-size-18 text-center my-4">
+                                    {{ title }}
+                                </h4>
 
-                            <button type="submit" class="btn btn-primary btn-block mt-4">
-                                {{ App.t('Авторизоваться') }}
-                            </button>
-                        </form>
+                                <form @submit.prevent="submit" class="form-horizontal">
+                                    <Input :item="inputs.username" />
+                                    <Input :item="inputs.password" />
+
+                                    <div class="text-end mt-4">
+                                        <button type="submit" class="btn btn-primary w-md waves-effect waves-light">
+                                            {{ App.t('Авторизоваться') }}
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

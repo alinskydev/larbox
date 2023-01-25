@@ -21,5 +21,5 @@ export default {
 </script>
 
 <template>
-    <PageTitle :text="title" />
+    <PageTitle text="Welcome" />
 </template>
