@@ -63,6 +63,8 @@ class ParseFieldsCommand extends Command
             $file = ClassHelper::classByFile($file);
 
             $formRequestReflection = new \ReflectionClass($file);
+
+            /** @var object */
             $formRequest = $formRequestReflection->newInstanceWithoutConstructor();
             $formRequest->model = $emptyModel;
             $formRequest->__construct();

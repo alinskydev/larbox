@@ -51,7 +51,7 @@ export default {
                         <h4 class="modal-title">
                             {{ App.t('Отправка уведомления') }}
                         </h4>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
 
                     <div class="modal-body">
@@ -60,7 +60,7 @@ export default {
                     </div>
 
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary w-100" form="user-notification-create-form">
+                        <button type="submit" form="user-notification-create-form" class="btn btn-primary w-100">
                             {{ App.t('Отправить') }}
                         </button>
                     </div>

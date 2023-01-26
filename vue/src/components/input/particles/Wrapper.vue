@@ -2,6 +2,7 @@
 import App from '@/core/app';
 import Hint from '@/components/input/particles/Hint.vue';
 import Error from '@/components/input/particles/Error.vue';
+import DisabledMask from '@/components/input/particles/DisabledMask.vue';
 
 import * as Enums from '@/core/enums';
 </script>
@@ -74,6 +75,7 @@ export default {
 
                         <Hint v-if="item.hint" :text="item.hint" />
                         <Error />
+                        <DisabledMask :attributes="item.attributes" />
                     </div>
                 </template>
             </div>
@@ -92,6 +94,7 @@ export default {
 
                 <Hint v-if="item.hint" :text="item.hint" />
                 <Error />
+                <DisabledMask :attributes="item.attributes" />
             </div>
         </template>
     </div>

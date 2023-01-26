@@ -20,13 +20,12 @@ export default {
         };
     },
     mounted() {
-        this.fields.id;
-
         $('#' + this.item.elementId + ' tbody').sortable({
             handle: '.table-sorter',
             placeholder: 'sortable-placeholder',
-            start: function (event, ui) {
-                ui.placeholder.height(ui.helper.outerHeight());
+            start: (event, ui) => {
+                // ui.placeholder.height(ui.helper.outerHeight());
+                ui.placeholder.html(ui.item.html());
             },
         });
     },
@@ -58,9 +57,9 @@ export default {
 
 <template>
     <div class="col-12" :id="item.elementId">
-        <div class="card card-info mb-4">
-            <div class="card-header d-flex align-items-center justify-content-between">
-                <h3 class="card-title w-100">
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white d-flex align-items-center justify-content-between">
+                <h3 class="card-title m-0">
                     {{ item.label }}
                 </h3>
 
@@ -106,7 +105,7 @@ export default {
                         <tfoot>
                             <tr>
                                 <td colspan="3">
-                                    <button type="button" @click="add" class="btn btn-success btn-block">
+                                    <button type="button" @click="add" class="btn btn-success w-100">
                                         <i class="fas fa-plus"></i>
                                     </button>
                                 </td>

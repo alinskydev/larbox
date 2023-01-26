@@ -14,7 +14,7 @@ export default {
     },
     created() {
         // Resolve conflict in jQuery UI tooltip with Bootstrap tooltip
-        // $.widget.bridge('uibutton', $.ui.button);
+        $.widget.bridge('uibutton', $.ui.button);
 
         document.documentElement.setAttribute('lang', App.locale);
         document.getElementById('favicon').href = App.settings.favicon;

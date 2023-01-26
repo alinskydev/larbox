@@ -32,6 +32,11 @@ export default {
                 $(this).val(value);
             });
     },
+    beforeUnmount() {
+        $('#' + this.item.elementId)
+            .data('daterangepicker')
+            .remove();
+    },
 };
 </script>
 

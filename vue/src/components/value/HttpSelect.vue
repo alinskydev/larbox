@@ -1,5 +1,6 @@
 <script setup>
 import App from '@/core/app';
+import DisabledMask from '@/components/input/particles/DisabledMask.vue';
 </script>
 
 <script>
@@ -50,9 +51,13 @@ export default {
 </script>
 
 <template>
-    <select @change="send" class="form-control" :id="item.elementId" :value="currentValue" v-bind="item.attributes">
-        <option v-for="(selectItem, key) in items" :value="key">
-            {{ selectItem }}
-        </option>
-    </select>
+    <div class="input-wrapper">
+        <select @change="send" class="form-control" :id="item.elementId" :value="currentValue" v-bind="item.attributes">
+            <option v-for="(selectItem, key) in items" :value="key">
+                {{ selectItem }}
+            </option>
+        </select>
+
+        <DisabledMask :attributes="item.attributes" />
+    </div>
 </template>

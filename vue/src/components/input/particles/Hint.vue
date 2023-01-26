@@ -13,7 +13,7 @@ export default {
 </script>
 
 <template>
-    <div class="input-hint text-secondary mt-1">
+    <div class="input-hint text-black-50 mt-1">
         {{ text }}
     </div>
 </template>

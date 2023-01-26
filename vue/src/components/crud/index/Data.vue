@@ -3,9 +3,9 @@ import App from '@/core/app';
 import { IndexConfig } from '@/core/crud/configs';
 import * as Enums from '@/core/enums';
 
-import Actions from './Actions.vue';
-import Selection from './Selection.vue';
-import Pagination from './Pagination.vue';
+import Selection from './data/Selection.vue';
+import Actions from './data/Actions.vue';
+import Pagination from './data/Pagination.vue';
 
 import Value from '@/components/Value.vue';
 </script>
@@ -20,6 +20,7 @@ export default {
     },
     data() {
         return {
+            elementId: App.helpers.string.uniqueElementId(),
             models: [],
             meta: {},
         };
@@ -48,86 +49,86 @@ export default {
 </script>
 
 <template>
-    <div class="card card-primary crud-index-data">
-        <div class="card-header">
-            <h3 class="card-title">
-                {{ App.t('Данные') }}
-            </h3>
-        </div>
+    <div class="crud-index-data accordion card">
+        <button class="accordion-button card-header" type="button" data-bs-toggle="collapse" :data-bs-target="'#' + elementId">
+            {{ App.t('Данные') }}
+        </button>
 
-        <div class="card-body">
-            <template v-if="models.length > 0">
-                <div class="table-responsive">
-                    <table class="table table-hover table-bordered">
-                        <thead>
-                            <tr>
-                                <Selection :config="config" type="tableHead" />
+        <div :id="elementId" class="collapse show">
+            <div class="card-body">
+                <template v-if="models.length > 0">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                    <Selection :config="config" type="tableHead" />
 
-                                <template v-for="item in models[0].data.index">
-                                    <th>
-                                        {{ item.label }}
-                                    </th>
-                                </template>
-
-                                <template v-if="config.grid.actions.length > 0">
-                                    <th></th>
-                                </template>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <tr v-for="model in models" v-bind="config.grid.rowAttributes(model.data.record)">
-                                <Selection :config="config" type="tableBody" :pk="model.data.pk" />
-
-                                <template v-for="data in model.data.index">
-                                    <template v-if="data.type === Enums.valueTypes.image">
-                                        <td style="width: 130px">
-                                            <Value :item="data" />
-                                        </td>
+                                    <template v-for="item in models[0].data.index">
+                                        <th>
+                                            {{ item.label }}
+                                        </th>
                                     </template>
 
-                                    <template
-                                        v-else-if="
-                                            data.type === Enums.valueTypes.httpSelect ||
-                                            data.type === Enums.valueTypes.httpSwitcher
-                                        "
-                                    >
-                                        <td :set="(data.attributes['disabled'] = Boolean(model.data.record.is_deleted))">
-                                            <Value :item="data" />
-                                        </td>
+                                    <template v-if="config.grid.actions.length > 0">
+                                        <th></th>
+                                    </template>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr v-for="model in models" v-bind="config.grid.rowAttributes(model.data.record)">
+                                    <Selection :config="config" type="tableBody" :pk="model.data.pk" />
+
+                                    <template v-for="data in model.data.index">
+                                        <template v-if="data.type === Enums.valueTypes.image">
+                                            <td style="width: 130px">
+                                                <Value :item="data" />
+                                            </td>
+                                        </template>
+
+                                        <template
+                                            v-else-if="
+                                                data.type === Enums.valueTypes.httpSelect ||
+                                                data.type === Enums.valueTypes.httpSwitcher
+                                            "
+                                        >
+                                            <td :set="(data.attributes['disabled'] = Boolean(model.data.record.is_deleted))">
+                                                <Value :item="data" />
+                                            </td>
+                                        </template>
+
+                                        <template v-else>
+                                            <td>
+                                                <Value :item="data" />
+                                            </td>
+                                        </template>
                                     </template>
 
-                                    <template v-else>
-                                        <td>
-                                            <Value :item="data" />
+                                    <template v-if="config.grid.actions.length > 0">
+                                        <td style="width: 50px">
+                                            <Actions :config="config" :model="model" />
                                         </td>
                                     </template>
-                                </template>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
-                                <template v-if="config.grid.actions.length > 0">
-                                    <td style="width: 50px">
-                                        <Actions :config="config" :model="model" />
-                                    </td>
-                                </template>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                    <Selection :config="config" type="actions" />
+                </template>
 
-                <Selection :config="config" type="actions" />
-            </template>
+                <template v-else>
+                    <h5 class="m-0">
+                        {{ App.t('Нет данных') }}
+                    </h5>
+                </template>
+            </div>
 
-            <template v-else>
-                <h5 class="m-0">
-                    {{ App.t('Нет данных') }}
-                </h5>
-            </template>
-        </div>
-
-        <div class="card-footer">
-            <template v-if="models.length > 0">
-                <Pagination :meta="meta" />
-            </template>
+            <div class="card-footer">
+                <template v-if="models.length > 0">
+                    <Pagination :meta="meta" />
+                </template>
+            </div>
         </div>
     </div>
 </template>

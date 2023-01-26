@@ -20,20 +20,12 @@ export default {
 <template>
     <div
         v-for="(items, key) in model.data.show"
-        class="card card-primary mb-4"
+        class="accordion card mb-4"
         :set="(groupId = App.helpers.string.uniqueElementId())"
     >
-        <div
-            class="card-header d-flex align-items-center justify-content-between"
-            role="button"
-            data-bs-toggle="collapse"
-            :data-bs-target="'#' + groupId"
-        >
-            <h3 class="card-title w-100">
-                {{ App.t(key) }}
-            </h3>
-            <i class="fas fa-angle-down"></i>
-        </div>
+        <button class="accordion-button card-header" type="button" data-bs-toggle="collapse" :data-bs-target="'#' + groupId">
+            {{ App.t(key) }}
+        </button>
 
         <div :id="groupId" class="collapse show">
             <div class="card-body">

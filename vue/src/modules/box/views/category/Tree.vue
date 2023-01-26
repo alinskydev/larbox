@@ -57,9 +57,9 @@ export default {
         </button>
     </PageTitle>
 
-    <div class="card card-primary">
-        <div class="card-header">
-            <h3 class="card-title">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h3 class="card-title m-0">
                 {{ App.t('Данные') }}
             </h3>
         </div>

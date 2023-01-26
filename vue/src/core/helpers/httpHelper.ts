@@ -54,7 +54,7 @@ export default class {
 
                     case 403:
                         statusType = 'forbidden';
-                        toastrPlugin.warning(body.message);
+                        toastrPlugin.error(body.message);
                         break;
 
                     case 400:
@@ -62,7 +62,7 @@ export default class {
                     case 409:
                     case 429:
                         statusType = 'notAllowed';
-                        toastrPlugin.warning(body.message);
+                        toastrPlugin.error(body.message);
                         break;
 
                     case 404:
@@ -73,7 +73,7 @@ export default class {
 
                     case 422:
                         statusType = 'validationFailed';
-                        toastrPlugin.warning(body.message);
+                        toastrPlugin.error(body.message);
 
                         $('.input-error').addClass('d-none');
 

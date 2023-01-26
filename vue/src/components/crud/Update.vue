@@ -1,7 +1,7 @@
 <script setup>
 import App from '@/core/app';
 import { UpdateConfig } from '@/core/crud/configs';
-import Accordion from '@/components/crud/form/Accordion.vue';
+import Data from '@/components/crud/form/Data.vue';
 </script>
 
 <script>
@@ -44,5 +44,5 @@ export default {
 </script>
 
 <template>
-    <Accordion v-if="model" :config="config" :model="model" />
+    <Data v-if="model" :config="config" :model="model" />
 </template>

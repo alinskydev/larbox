@@ -1,5 +1,6 @@
 <script setup>
 import App from '@/core/app';
+import DisabledMask from '@/components/input/particles/DisabledMask.vue';
 </script>
 
 <script>
@@ -46,8 +47,10 @@ export default {
 </script>
 
 <template>
-    <span>
+    <div class="input-wrapper">
         <input type="checkbox" v-bind="item.attributes" :id="item.elementId" switch="none" :checked="currentValue" />
         <label :for="item.elementId" data-on-label="On" data-off-label="Off"></label>
-    </span>
+
+        <DisabledMask :attributes="item.attributes" />
+    </div>
 </template>

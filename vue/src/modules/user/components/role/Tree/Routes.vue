@@ -50,15 +50,17 @@ export default {
 
 <template>
     <th style="width: 30px">
-        <input
-            type="checkbox"
-            name="routes[]"
-            :value="routeAll"
-            :checked="value.includes(routeAll)"
-            class="checkbox-lg"
-            data-level="2"
-            @change="toggle"
-        />
+        <div class="form-check">
+            <input
+                type="checkbox"
+                name="routes[]"
+                :value="routeAll"
+                :checked="value.includes(routeAll)"
+                class="form-check-input"
+                data-level="2"
+                @change="toggle"
+            />
+        </div>
     </th>
 
     <th>
@@ -71,19 +73,19 @@ export default {
         <div class="row">
             <div v-for="(route, key) in routes" :class="Enums.inputSizes.xs + ' py-1'">
                 <div class="form-check">
-                    <label class="form-check-label">
-                        <input
-                            type="checkbox"
-                            name="routes[]"
-                            :value="route"
-                            class="form-check-input"
-                            :checked="value.includes(route) || value.includes(routeAll)"
-                            data-level="3"
-                            @change="toggle"
-                        />
+                    <input
+                        type="checkbox"
+                        name="routes[]"
+                        :value="route"
+                        class="form-check-input"
+                        :checked="value.includes(route) || value.includes(routeAll)"
+                        data-level="3"
+                        @change="toggle"
+                    />
 
+                    <span class="ms-2">
                         {{ App.t('routeActions->' + key) }}
-                    </label>
+                    </span>
                 </div>
             </div>
         </div>

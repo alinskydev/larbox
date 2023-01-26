@@ -22,6 +22,7 @@ export default {
     },
     created() {
         this.pk = this.inputOptions.pk ?? 'id';
+        this.inputOptions.query ??= {};
 
         if (this.inputOptions.field.includes(':locale')) {
             this.isLocalized = true;
@@ -47,7 +48,7 @@ export default {
                 this.items[value] = initValue;
             }
         } else {
-            let query = this.inputOptions.query ?? {};
+            let query = Object.assign({}, this.inputOptions.query);
 
             if (typeof query === 'function') {
                 query = query(this.item.record);
@@ -92,7 +93,7 @@ export default {
                     headers: App.config.http.headers,
                     url: () => {
                         let url = new URL(App.config.http.url + '/' + this.inputOptions.path),
-                            query = this.inputOptions.query ?? {};
+                            query = Object.assign({}, this.inputOptions.query);
 
                         if (typeof query === 'function') {
                             query = query(this.item.record);

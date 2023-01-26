@@ -29,14 +29,13 @@ export default {
 
                 overwriteInitial: this.item.options.file?.willOverride ?? !this.item.options.isMultiple,
 
-                browseClass: 'btn btn-primary btn-block',
+                browseClass: 'btn btn-primary w-100',
                 browseIcon: '<i class="fas fa-folder-open"></i>',
-                removeClass: 'btn btn-danger btn-block float-right mt-1 mb-2',
-                removeIcon: '<i class="fas fa-trash-alt"></i>',
+                browseLabel: App.t('Выбрать файл'),
 
                 fileActionSettings: {
                     showDrag: Boolean(this.item.options.file?.showDrag),
-                    dragClass: 'btn text-primary m-0',
+                    dragClass: 'btn btn-outline-primary w-auto h-auto m-0',
                     dragIcon: '<i class="fas fa-arrows-alt"></i>',
                     zoomClass: 'btn btn-info',
                     zoomIcon: '<i class="fas fa-search-plus"></i>',
@@ -44,6 +43,10 @@ export default {
                     downloadIcon: '<i class="fas fa-cloud-download-alt"></i>',
                     removeClass: 'btn btn-danger',
                     removeIcon: '<i class="fas fa-trash-alt"></i>',
+                },
+                previewZoomButtonClasses: {
+                    prev: 'btn btn-navigate btn-secondary',
+                    next: 'btn btn-navigate btn-secondary',
                 },
                 previewZoomButtonIcons: {
                     prev: '<i class="fas fa-caret-left"></i>',
@@ -114,6 +117,7 @@ export default {
 
             for (let key in value) {
                 let file = value[key],
+                    previewUrl = App.helpers.iterator.get(file, this.inputOptions.previewPath),
                     downloadUrl = App.helpers.iterator.get(file, this.inputOptions.downloadPath),
                     fileInfo = App.helpers.file.info(downloadUrl);
 
@@ -122,7 +126,7 @@ export default {
                     caption: App.t('Файл №:index', { index: parseInt(key) + 1 }),
                     type: fileInfo.type ?? 'html',
                     filetype: fileInfo.mimeType,
-                    previewUrl: App.helpers.iterator.get(file, this.inputOptions.previewPath),
+                    previewUrl: previewUrl,
                     downloadUrl: downloadUrl,
                     url: App.config.http.url + '/../common/empty',
                 };
@@ -136,6 +140,5 @@ export default {
 
 <template>
     <input v-bind="$attrs" type="file" :multiple="options.isMultiple" />
-
     <input type="hidden" :name="oldFilesName" :value="'[' + oldFiles + ']'" />
 </template>

@@ -1,5 +1,7 @@
 export default class {
-    get(object: Object | Array<any> = {}, path = '', separator = '.'): any {
+    get(object: Object | Array<any>, path: any, separator = '.'): any {
+        if (!path) return object;
+
         let pathArr = path.split(separator);
 
         for (let i = 0; i < pathArr.length; ++i) {
