@@ -18,26 +18,28 @@ export default {
     data() {
         return {
             inputAttrs: {},
+            errorKey: this.item.name.replaceAll('[', '.').replaceAll(']', ''),
         };
     },
     created() {
         this.inputAttrs = {
             'name': this.item.name,
             'value': this.item.value,
-            'data-error-key': this.item.name.replaceAll('[', '.').replaceAll(']', ''),
             'id': this.item.elementId,
             'class': 'form-control',
         };
 
         if (this.item.options.isLocalized) {
             this.inputAttrs['name'] += '[:locale]';
-            this.inputAttrs['data-error-key'] += '.:locale';
             this.inputAttrs['id'] += '-:locale';
+
+            this.errorKey += '.:locale';
         }
 
         if (this.item.options.isMultiple) {
             this.inputAttrs['name'] += '[]';
-            this.inputAttrs['data-error-key'] += '.*';
+
+            this.errorKey += '.*';
         }
     },
 };
@@ -65,7 +67,6 @@ export default {
                                 ...{
                                     'name': inputAttrs['name'].replace(':locale', language.code),
                                     'value': inputAttrs['value'] ? inputAttrs['value'][language.code] : '',
-                                    'data-error-key': inputAttrs['data-error-key'].replace(':locale', language.code),
                                     'id': inputAttrs['id'].replace(':locale', language.code),
                                     'class': inputAttrs['class'],
                                 },
@@ -74,7 +75,7 @@ export default {
                         ></slot>
 
                         <Hint v-if="item.hint" :text="item.hint" />
-                        <Error />
+                        <Error :errorKey="errorKey.replace(':locale', language.code)" />
                         <DisabledMask :attributes="item.attributes" />
                     </div>
                 </template>
@@ -93,7 +94,7 @@ export default {
                 ></slot>
 
                 <Hint v-if="item.hint" :text="item.hint" />
-                <Error />
+                <Error :errorKey="errorKey" />
                 <DisabledMask :attributes="item.attributes" />
             </div>
         </template>

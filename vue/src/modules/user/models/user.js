@@ -73,7 +73,7 @@ export default new Model({
         sortings: ['id', 'username'],
 
         show: {
-            Информация: {
+            'Информация': {
                 image: {
                     value: 'profile.image.widen_500.webp',
                     type: Enums.valueTypes.image,
@@ -109,7 +109,7 @@ export default new Model({
         },
 
         form: {
-            Информация: {
+            'Информация': {
                 username: {
                     type: Enums.inputTypes.text,
                 },

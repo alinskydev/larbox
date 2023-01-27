@@ -126,7 +126,7 @@ class Model {
         }
 
         for (let key in this.config.form) {
-            if (this.hasUpdatedAtConflictCheck) {
+            if (this.hasUpdatedAtConflictCheck && key === Object.keys(this.config.form)[0]) {
                 this.config.form[key].updated_at = {
                     type: Enums.inputTypes.hidden,
                 };
@@ -228,7 +228,7 @@ class Model {
                     type: Enums.inputTypes.hidden,
                 };
 
-                value = value?.map((v) => this.prepareRelationalInputs(field.options.relations, v, name, v.id));
+                value = value?.map((v, k) => this.prepareRelationalInputs(field.options.relations, v, name, k)) ?? [];
             }
 
             result[key] = {

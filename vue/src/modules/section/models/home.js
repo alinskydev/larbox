@@ -7,7 +7,7 @@ export default new Model({
 
     config: {
         form: {
-            First: {
+            'First': {
                 first_text_1: {
                     type: Enums.inputTypes.text,
                     size: Enums.inputSizes.xl,
@@ -43,7 +43,7 @@ export default new Model({
                     size: Enums.inputSizes.xl,
                 },
             },
-            Second: {
+            'Second': {
                 second_image_desktop: {
                     type: Enums.inputTypes.file,
                     options: {

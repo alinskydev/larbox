@@ -8,7 +8,7 @@ export default new Model({
 
     config: {
         show: {
-            Информация: {
+            'Информация': {
                 id: {
                     type: Enums.valueTypes.text,
                 },
@@ -26,7 +26,7 @@ export default new Model({
         },
 
         form: {
-            Информация: {
+            'Информация': {
                 name: {
                     type: Enums.inputTypes.text,
                     options: {

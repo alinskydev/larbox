@@ -5,6 +5,7 @@ import Model from '@/modules/box/models/category';
 import { IndexConfig } from '@/core/crud/configs';
 
 import PageTitle from '@/components/blocks/PageTitle.vue';
+import PageTitleButtons from '@/components/blocks/PageTitleButtons.vue';
 
 import Tree from '@/components/nestedSet/Tree.vue';
 import Create from './Create.vue';
@@ -46,7 +47,9 @@ export default {
 </script>
 
 <template>
-    <PageTitle :text="title">
+    <PageTitle :text="title" />
+
+    <PageTitleButtons>
         <button
             v-if="App.helpers.user.checkRoute('box/category/create')"
             type="button"
@@ -55,7 +58,7 @@ export default {
         >
             {{ App.t('routeActions->create') }}
         </button>
-    </PageTitle>
+    </PageTitleButtons>
 
     <div class="card">
         <div class="card-header bg-primary text-white">

@@ -28,7 +28,7 @@ export default {
                                     {{ App.t('Страница не найдена') }}
                                 </h3>
 
-                                <a href="/" class="btn btn-primary mb-4 waves-effect waves-light">
+                                <a href="/" class="btn btn-primary mb-4">
                                     <i class="mdi mdi-home"></i>
                                     {{ App.t('На главную') }}
                                 </a>

@@ -38,7 +38,7 @@ export default new Model({
         sortings: ['id', 'name'],
 
         show: {
-            Информация: {
+            'Информация': {
                 id: {
                     type: Enums.valueTypes.text,
                 },
@@ -52,7 +52,7 @@ export default new Model({
                     type: Enums.valueTypes.text,
                 },
             },
-            Компоненты: {
+            'Components': {
                 built_in_component: {
                     label: null,
                     type: Enums.valueTypes.component,
@@ -94,12 +94,12 @@ export default new Model({
         },
 
         form: {
-            Информация: {
+            'Информация': {
                 name: {
                     type: Enums.inputTypes.text,
                 },
             },
-            Компоненты: {
+            'Components': {
                 built_in_component: {
                     label: null,
                     type: Enums.inputTypes.component,

@@ -53,12 +53,6 @@ export default {
     </div>
 
     <div class="modal-body">
-        <Update :config="config" />
-    </div>
-
-    <div class="modal-footer">
-        <button type="submit" form="crud-form" class="btn btn-primary w-100">
-            {{ App.t('Сохранить') }}
-        </button>
+        <Update :config="config" :actions="['save']" layout="accordions" />
     </div>
 </template>

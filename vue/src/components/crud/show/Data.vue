@@ -12,22 +12,25 @@ export default {
         },
     },
     data() {
-        return {};
+        return {
+            elementId: App.helpers.string.uniqueElementId(),
+        };
     },
 };
 </script>
 
 <template>
-    <div
-        v-for="(items, key) in model.data.show"
-        class="accordion card mb-4"
-        :set="(groupId = App.helpers.string.uniqueElementId())"
-    >
-        <button class="accordion-button card-header" type="button" data-bs-toggle="collapse" :data-bs-target="'#' + groupId">
+    <div v-for="(items, key, index) in model.data.show" class="accordion card">
+        <button
+            class="accordion-button card-header"
+            type="button"
+            data-bs-toggle="collapse"
+            :data-bs-target="'#accordion-' + elementId + '-' + index"
+        >
             {{ App.t(key) }}
         </button>
 
-        <div :id="groupId" class="collapse show">
+        <div :id="'accordion-' + elementId + '-' + index" class="collapse show">
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-hover table-bordered">

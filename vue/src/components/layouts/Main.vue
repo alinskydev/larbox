@@ -74,12 +74,8 @@ export default {
 
         <footer class="footer">
             <div class="container-fluid">
-                <div class="row">
-                    <div class="col-sm-12">
-                        Copyright &copy; {{ new Date().getFullYear() }}
-                        <span class="d-none d-sm-inline-block"> All rights reserved </span>
-                    </div>
-                </div>
+                Copyright &copy; {{ new Date().getFullYear() }}.
+                <span class="d-none d-sm-inline-block"> All rights reserved </span>
             </div>
         </footer>
     </template>

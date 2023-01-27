@@ -87,7 +87,10 @@ export default {
 </script>
 
 <template>
-    <div v-if="filters.length > 0 || model.config.sortings.length > 0 || model.hasSoftDelete" class="accordion card mb-4">
+    <div
+        v-if="filters.length > 0 || model.config.sortings.length > 0 || model.hasSoftDelete"
+        class="accordion card"
+    >
         <button class="accordion-button card-header" type="button" data-bs-toggle="collapse" :data-bs-target="'#' + elementId">
             {{ App.t('Фильтр') }}
         </button>

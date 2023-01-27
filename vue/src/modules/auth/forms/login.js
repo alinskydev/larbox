@@ -3,6 +3,8 @@ import Model from '@/core/model';
 import * as Enums from '@/core/enums';
 
 export default new Model({
+    hasUpdatedAtConflictCheck: false,
+
     config: {
         form: {
             0: {

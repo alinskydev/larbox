@@ -75,7 +75,7 @@ export default class {
                         statusType = 'validationFailed';
                         toastrPlugin.error(body.message);
 
-                        $('.input-error').addClass('d-none');
+                        $('[data-error-key]').addClass('d-none');
 
                         for (let key in body.errors) {
                             let error = body.errors[key].join('\n'),
@@ -88,10 +88,32 @@ export default class {
                             }
 
                             $('[data-error-key="' + key + '"], [data-error-key="' + altKey + '"]')
-                                .closest('.input-wrapper')
-                                .find('.input-error')
                                 .text(error)
                                 .removeClass('d-none');
+                        }
+
+                        let $firstErrorEl = $('[data-error-key]:not(.d-none)').eq(0);
+
+                        if ($firstErrorEl.length > 0) {
+                            let tabId = $firstErrorEl.closest('.tab-pane').attr('id');
+
+                            // @ts-ignore
+                            $('.nav-pills a[href="#' + tabId + '"]').tab('show');
+
+                            setTimeout(() => {
+                                let extraOffset = 50;
+
+                                if ($('.page-content > *').length > 0) {
+                                    extraOffset += $('.page-content > *').eq(0).offset().top;
+                                }
+
+                                $([document.documentElement, document.body]).animate(
+                                    {
+                                        scrollTop: $firstErrorEl.offset().top - extraOffset,
+                                    },
+                                    200,
+                                );
+                            }, 200);
                         }
 
                         break;

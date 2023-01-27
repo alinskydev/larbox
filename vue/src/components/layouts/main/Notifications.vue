@@ -65,24 +65,14 @@ export default {
                 <template v-for="notification in notifications">
                     <RouterLink :to="'user/notification/' + notification.id + '/show'" class="text-reset notification-item">
                         <div class="d-flex">
-                            <div class="flex-shrink-0 me-3">
-                                <div class="avatar-xs">
-                                    <span class="avatar-title border-dark rounded-circle">
-                                        <i class="fas fa-bell"></i>
-                                    </span>
-                                </div>
+                            <div class="avatar-xs">
+                                <span class="avatar-title border-dark rounded-circle">
+                                    <i class="fas fa-bell"></i>
+                                </span>
                             </div>
 
-                            <div class="flex-grow-1">
-                                <h6 class="mb-1">
-                                    {{ App.enums.user_notification.types[notification.type] }}
-                                </h6>
-
-                                <div class="text-muted">
-                                    <p class="ws-pre-wrap mb-1">
-                                        {{ notification.text }}
-                                    </p>
-                                </div>
+                            <div class="align-self-center ms-3">
+                                {{ App.enums.user_notification.types[notification.type] + ' №' + notification.id }}
                             </div>
                         </div>
                     </RouterLink>

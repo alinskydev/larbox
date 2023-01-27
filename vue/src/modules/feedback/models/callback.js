@@ -59,7 +59,7 @@ export default new Model({
         sortings: ['id'],
 
         show: {
-            Информация: {
+            'Информация': {
                 id: {
                     type: Enums.valueTypes.text,
                 },

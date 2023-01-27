@@ -5,7 +5,7 @@ import * as Enums from '@/core/enums';
 export default new Model({
     config: {
         form: {
-            Информация: {
+            'Информация': {
                 username: {
                     type: Enums.inputTypes.text,
                 },

@@ -5,6 +5,7 @@ import Model from '@/modules/user/models/role';
 import { IndexConfig } from '@/core/crud/configs';
 
 import PageTitle from '@/components/blocks/PageTitle.vue';
+import PageTitleButtons from '@/components/blocks/PageTitleButtons.vue';
 import RouterLink from '@/components/blocks/RouterLink.vue';
 import Index from '@/components/crud/Index.vue';
 </script>
@@ -48,11 +49,13 @@ export default {
 </script>
 
 <template>
-    <PageTitle :text="title">
+    <PageTitle :text="title" />
+
+    <PageTitleButtons>
         <RouterLink to="user/role/create" class="btn btn-primary">
             {{ App.t('routeActions->create') }}
         </RouterLink>
-    </PageTitle>
+    </PageTitleButtons>
 
     <Index :config="config" />
 </template>

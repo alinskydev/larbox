@@ -5,6 +5,7 @@ import Model from '@/modules/user/models/notification';
 import { IndexConfig } from '@/core/crud/configs';
 
 import PageTitle from '@/components/blocks/PageTitle.vue';
+import PageTitleButtons from '@/components/blocks/PageTitleButtons.vue';
 import Index from '@/components/crud/Index.vue';
 </script>
 
@@ -83,11 +84,13 @@ export default {
 </script>
 
 <template>
-    <PageTitle :text="title">
+    <PageTitle :text="title" />
+
+    <PageTitleButtons>
         <button type="button" @click="seeAll" class="btn btn-warning">
             {{ App.t('Отметить все как просмотренные') }}
         </button>
-    </PageTitle>
+    </PageTitleButtons>
 
     <Index :config="config" />
 </template>

@@ -40,6 +40,12 @@ select {
     position: relative;
 }
 
+.card {
+    display: inline-block;
+    width: 100%;
+    margin: 1.5rem 0 0;
+}
+
 .input-disabled-mask {
     position: absolute;
     top: 0;
@@ -70,6 +76,7 @@ select {
 
 body[data-layout=horizontal] .page-content {
     margin-top: 40px;
+    margin-bottom: 40px;
 }
 
 .daterangepicker .calendar-table th,

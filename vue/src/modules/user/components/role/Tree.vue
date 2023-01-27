@@ -30,9 +30,9 @@ export default {
                 <thead>
                     <tr class="bg-primary text-white">
                         <th colspan="3">
-                            <h6 class="text-center font-weight-bold m-0">
+                            <div class="text-center font-size-16 font-weight-bold m-0">
                                 {{ App.t('routes->' + routes1Key) }}
-                            </h6>
+                            </div>
                         </th>
                     </tr>
                 </thead>

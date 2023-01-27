@@ -5,7 +5,6 @@ import Model from '@/modules/user/models/user';
 import { CreateConfig } from '@/core/crud/configs';
 
 import PageTitle from '@/components/blocks/PageTitle.vue';
-import Buttons from '@/components/crud/form/Buttons.vue';
 import Create from '@/components/crud/Create.vue';
 </script>
 
@@ -37,9 +36,6 @@ export default {
 </script>
 
 <template>
-    <PageTitle :text="title">
-        <Buttons />
-    </PageTitle>
-
+    <PageTitle :text="title" />
     <Create :config="config" />
 </template>

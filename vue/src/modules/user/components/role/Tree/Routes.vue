@@ -49,7 +49,7 @@ export default {
 </script>
 
 <template>
-    <th style="width: 30px">
+    <th class="p-3 align-middle" style="width: 30px">
         <div class="form-check">
             <input
                 type="checkbox"
@@ -63,15 +63,13 @@ export default {
         </div>
     </th>
 
-    <th>
-        <label>
-            {{ label }}
-        </label>
+    <th class="p-3 text-center align-middle">
+        {{ label }}
     </th>
 
-    <td>
+    <td class="py-0">
         <div class="row">
-            <div v-for="(route, key) in routes" :class="Enums.inputSizes.xs + ' py-1'">
+            <div v-for="(route, key) in routes" :class="Enums.inputSizes.sm + ' p-3'">
                 <div class="form-check">
                     <input
                         type="checkbox"

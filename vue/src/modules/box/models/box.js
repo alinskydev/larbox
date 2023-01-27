@@ -156,7 +156,7 @@ export default new Model({
         sortings: ['id', 'name', 'date', 'datetime'],
 
         show: {
-            Информация: {
+            'Информация': {
                 image: {
                     value: 'image.widen_500.webp',
                     type: Enums.valueTypes.image,
@@ -210,7 +210,7 @@ export default new Model({
                     type: Enums.valueTypes.text,
                 },
             },
-            Variations: {
+            'Variations': {
                 variations: {
                     label: null,
                     type: Enums.valueTypes.relations,
@@ -231,28 +231,7 @@ export default new Model({
         },
 
         form: {
-            Categories: {
-                categories: {
-                    label: null,
-                    type: Enums.inputTypes.component,
-                    options: {
-                        component: {
-                            resolve: (record) => {
-                                return {
-                                    component: CategoriesTree,
-                                    params: [
-                                        {
-                                            value: record.categories ? record.categories.map((value) => value.id) : [],
-                                            httpPath: 'box/category-tree',
-                                        },
-                                    ],
-                                };
-                            },
-                        },
-                    },
-                },
-            },
-            Информация: {
+            'Информация': {
                 name: {
                     type: Enums.inputTypes.text,
                     options: {
@@ -338,7 +317,28 @@ export default new Model({
                     size: Enums.inputSizes.xl,
                 },
             },
-            Variations: {
+            'Categories': {
+                categories: {
+                    label: null,
+                    type: Enums.inputTypes.component,
+                    options: {
+                        component: {
+                            resolve: (record) => {
+                                return {
+                                    component: CategoriesTree,
+                                    params: [
+                                        {
+                                            value: record.categories ? record.categories.map((value) => value.id) : [],
+                                            httpPath: 'box/category-tree',
+                                        },
+                                    ],
+                                };
+                            },
+                        },
+                    },
+                },
+            },
+            'Variations': {
                 variations: {
                     type: Enums.inputTypes.relations,
                     options: {

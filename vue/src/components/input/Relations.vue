@@ -1,7 +1,9 @@
 <script setup>
 import App from '@/core/app';
 import Model from '@/core/model';
+
 import Input from '@/components/Input.vue';
+import Error from '@/components/input/particles/Error.vue';
 </script>
 
 <script>
@@ -24,7 +26,6 @@ export default {
             handle: '.table-sorter',
             placeholder: 'sortable-placeholder',
             start: (event, ui) => {
-                // ui.placeholder.height(ui.helper.outerHeight());
                 ui.placeholder.html(ui.item.html());
             },
         });
@@ -57,7 +58,7 @@ export default {
 
 <template>
     <div class="col-12" :id="item.elementId">
-        <div class="card mb-4">
+        <div class="card mt-0 mb-4">
             <div class="card-header bg-primary text-white d-flex align-items-center justify-content-between">
                 <h3 class="card-title m-0">
                     {{ item.label }}
@@ -115,5 +116,7 @@ export default {
                 </div>
             </div>
         </div>
+
+        <Error :errorKey="item.name.replaceAll('[', '.').replaceAll(']', '')" />
     </div>
 </template>

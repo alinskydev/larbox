@@ -1,7 +1,8 @@
 <script setup>
 import App from '@/core/app';
 import { ShowConfig } from '@/core/crud/configs';
-import Data from '@/components/crud/show/Data.vue';
+
+import Data from './show/Data.vue';
 </script>
 
 <script>

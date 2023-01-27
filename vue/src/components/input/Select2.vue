@@ -64,14 +64,14 @@ export default {
 </script>
 
 <template>
-    <select v-if="options.isMultiple" :multiple="true" v-bind="$attrs">
+    <select v-if="options.isMultiple" :multiple="true" v-bind="$attrs" style="width: 100%;">
         <option v-if="inputOptions.hasPrompt"></option>
         <option v-for="(selectItem, key) in items" :value="key" :selected="value.includes(key)">
             {{ selectItem }}
         </option>
     </select>
 
-    <select v-else v-bind="$attrs">
+    <select v-else v-bind="$attrs" style="width: 100%;">
         <option v-if="inputOptions.hasPrompt"></option>
         <option v-for="(selectItem, key) in items" :value="key" :selected="key === value">
             {{ selectItem }}

@@ -1,6 +1,8 @@
 <script setup>
 import App from '@/core/app';
-import Input from '@/components/Input.vue';
+
+import AccordionsLayout from './accordions/Layout.vue';
+import TabsLayout from './tabs/Layout.vue';
 </script>
 
 <script>
@@ -14,74 +16,53 @@ export default {
             type: Object,
             required: true,
         },
+        layout: {
+            type: String,
+        },
+        elementId: {
+            type: String,
+            required: true,
+        },
     },
     data() {
-        return {};
-    },
-    methods: {
-        submit(event) {
-            let http = this.config.http,
-                formData = new FormData(event.target);
+        return {
+            submit: (event) => {
+                let http = this.config.http,
+                    formData = new FormData(event.target);
 
-            if (this.config.events.beforeSubmit) {
-                this.config.events.beforeSubmit(formData);
-            }
+                if (this.config.events.beforeSubmit) {
+                    this.config.events.beforeSubmit(formData);
+                }
 
-            App.helpers.http
-                .send({
-                    method: 'POST',
-                    path: http.path,
-                    query: {
-                        ...http.query,
-                        ...{
-                            _method: http.method,
+                App.helpers.http
+                    .send({
+                        method: 'POST',
+                        path: http.path,
+                        query: {
+                            ...http.query,
+                            ...{
+                                _method: http.method,
+                            },
                         },
-                    },
-                    body: formData,
-                })
-                .then((response) => {
-                    if (response.statusType === 'success') {
-                        if (this.config.events.afterSubmit) {
-                            this.config.events.afterSubmit(formData, response);
-                        } else {
-                            toastr.success(App.t('Сохранение прошло успешно'));
-                            App.page.goUp();
+                        body: formData,
+                    })
+                    .then((response) => {
+                        if (response.statusType === 'success') {
+                            if (this.config.events.afterSubmit) {
+                                this.config.events.afterSubmit(formData, response);
+                            } else {
+                                toastr.success(App.t('Сохранение прошло успешно'));
+                                App.page.goUp();
+                            }
                         }
-                    }
-                });
-        },
+                    });
+            },
+        };
     },
 };
 </script>
 
 <template>
-    <form @submit.prevent="submit" id="crud-form">
-        <div
-            v-for="(items, key) in model.data.form"
-            class="card card-primary mb-4"
-            :set="(groupId = App.helpers.string.uniqueElementId())"
-        >
-            <div
-                class="card-header d-flex align-items-center justify-content-between"
-                role="button"
-                data-bs-toggle="collapse"
-                :data-bs-target="'#' + groupId"
-            >
-                <h3 class="card-title w-100">
-                    {{ App.t(key) }}
-                </h3>
-                <i class="fas fa-angle-down"></i>
-            </div>
-
-            <div :id="groupId" class="collapse show">
-                <div class="card-body">
-                    <div class="row">
-                        <template v-for="item in items">
-                            <Input :item="item" />
-                        </template>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
+    <AccordionsLayout v-if="layout === 'accordions'" :model="model" :elementId="elementId" />
+    <TabsLayout v-if="layout === 'tabs'" :model="model" :elementId="elementId" />
 </template>

@@ -194,22 +194,18 @@ export default {
 <template>
     <div class="row">
         <div class="col-sm-3">
-            <div class="mb-3">
-                <label> {{ App.t('Поиск') }} </label>
-                <input type="text" @keyup="search" class="form-control" />
-            </div>
+            <label> {{ App.t('Поиск') }} </label>
+            <input type="text" @keyup="search" class="form-control" />
         </div>
 
         <div class="col-sm-3">
-            <div class="mb-3">
-                <label>{{ App.t('Отображать') }}</label>
-                <select @change="toggle" class="form-control">
-                    <option value="0">{{ App.t('Только действующие') }}</option>
-                    <option value="1">{{ App.t('Все') }}</option>
-                </select>
-            </div>
+            <label>{{ App.t('Отображать') }}</label>
+            <select @change="toggle" class="form-control">
+                <option value="0">{{ App.t('Только действующие') }}</option>
+                <option value="1">{{ App.t('Все') }}</option>
+            </select>
         </div>
     </div>
 
-    <div :id="'tree-' + elementId" class="mt-3"></div>
+    <div :id="'tree-' + elementId" class="mt-4"></div>
 </template>

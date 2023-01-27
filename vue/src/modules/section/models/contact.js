@@ -7,7 +7,7 @@ export default new Model({
 
     config: {
         form: {
-            Social: {
+            'Social': {
                 socials_facebook: {
                     type: Enums.inputTypes.text,
                     size: Enums.inputSizes.md,
@@ -21,7 +21,7 @@ export default new Model({
                     size: Enums.inputSizes.md,
                 },
             },
-            Branches: {
+            'Branches': {
                 branches: {
                     type: Enums.inputTypes.relations,
                     options: {
