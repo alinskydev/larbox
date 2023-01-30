@@ -61,7 +61,7 @@ export default {
                         <table class="table table-hover table-bordered">
                             <thead>
                                 <tr>
-                                    <Selection :config="config" type="tableHead" />
+                                    <Selection :config="config" type="tableHead" :elementId="elementId" />
 
                                     <template v-for="item in models[0].data.index">
                                         <th>
@@ -77,7 +77,7 @@ export default {
 
                             <tbody>
                                 <tr v-for="model in models" v-bind="config.grid.rowAttributes(model.data.record)">
-                                    <Selection :config="config" type="tableBody" :pk="model.data.pk" />
+                                    <Selection :config="config" type="tableBody" :elementId="elementId" :pk="model.data.pk" />
 
                                     <template v-for="data in model.data.index">
                                         <template v-if="data.type === Enums.valueTypes.image">
@@ -114,7 +114,7 @@ export default {
                         </table>
                     </div>
 
-                    <Selection :config="config" type="actions" />
+                    <Selection :config="config" type="actions" :elementId="elementId" />
                 </template>
 
                 <template v-else>

@@ -1,11 +1,5 @@
 <?php
 
-use App\Routing\Router;
-use Illuminate\Routing\ResourceRegistrar as BaseResourceRegistar;
-use App\Routing\ResourceRegistrar;
-
-use Illuminate\Support\Arr;
-
 /*
 |--------------------------------------------------------------------------
 | Create The Application
@@ -17,22 +11,9 @@ use Illuminate\Support\Arr;
 |
 */
 
-$app = new Illuminate\Foundation\Application(
+$app = new \App\Base\Application(
     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
 );
-
-// Checking API type and setting database name
-
-// $headers = getallheaders();
-
-// $envFile = match (Arr::get($headers, 'ENV')) {
-//         // 'debug_key' => '.env.debug',
-//     default => '.env',
-// };
-
-$envFile = '.env';
-
-$app->loadEnvironmentFrom($envFile);
 
 /*
 |--------------------------------------------------------------------------
@@ -59,16 +40,6 @@ $app->singleton(
     Illuminate\Contracts\Debug\ExceptionHandler::class,
     App\Exceptions\Handler::class
 );
-
-//  Binding router
-
-$app->singleton('router', function ($app) {
-    return new Router($app['events'], $app);
-});
-
-$app->bind(BaseResourceRegistar::class, function ($app) {
-    return new ResourceRegistrar($app['router']);
-});
 
 /*
 |--------------------------------------------------------------------------

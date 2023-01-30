@@ -1,8 +1,9 @@
 <script setup>
 import App from '@/core/app';
+import * as Enums from '@/core/enums';
 
-import AccordionsLayout from './accordions/Layout.vue';
-import TabsLayout from './tabs/Layout.vue';
+import Accordions from './data/Accordions.vue';
+import Tabs from './data/Tabs.vue';
 </script>
 
 <script>
@@ -17,7 +18,8 @@ export default {
             required: true,
         },
         layout: {
-            type: String,
+            type: Number,
+            required: true,
         },
         elementId: {
             type: String,
@@ -63,6 +65,6 @@ export default {
 </script>
 
 <template>
-    <AccordionsLayout v-if="layout === 'accordions'" :model="model" :elementId="elementId" />
-    <TabsLayout v-if="layout === 'tabs'" :model="model" :elementId="elementId" />
+    <Accordions v-if="layout === Enums.crudFormDataLayouts.accordions" :model="model" :elementId="elementId" />
+    <Tabs v-if="layout === Enums.crudFormDataLayouts.tabs" :model="model" :elementId="elementId" />
 </template>

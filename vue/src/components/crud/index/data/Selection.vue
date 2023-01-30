@@ -17,6 +17,10 @@ export default {
         pk: {
             type: [Number, String],
         },
+        elementId: {
+            type: String,
+            required: true,
+        },
     },
     data() {
         return {};
@@ -35,9 +39,9 @@ export default {
             $('.crud-index-data thead .selection').prop('checked', checkedCount === totalCount);
 
             if (checkedCount > 0) {
-                $('.crud-index-data .actions').slideDown(300);
+                $('#selection-buttons-' + this.elementId).slideDown(300);
             } else {
-                $('.crud-index-data .actions').slideUp(300);
+                $('#selection-buttons-' + this.elementId).slideUp(300);
             }
         },
         deleteMultipleAction() {
@@ -103,39 +107,46 @@ export default {
             </div>
         </th>
 
-        <div v-if="type === 'actions'" class="actions card" style="display: none">
-            <div class="card-header">
-                {{ App.t('Действия') }}
-            </div>
+        <div
+            v-if="type === 'actions'"
+            class="crud-fixed-bottom-buttons"
+            :id="'selection-buttons-' + elementId"
+            style="display: none"
+        >
+            <div class="card m-0">
+                <div class="card-header">
+                    {{ App.t('Действия') }}
+                </div>
 
-            <div class="card-body d-grid gap-2">
-                <template v-for="action in config.selection.actions">
-                    <button
-                        v-if="
-                            action === 'deleteMultiple' &&
-                            !$route.query['show[deleted]'] &&
-                            App.helpers.user.checkRoute(config.http.path + '/deleteMultiple')
-                        "
-                        class="btn btn-danger text-start"
-                        @click="deleteMultipleAction"
-                    >
-                        <i class="fas fa-trash-alt me-1"></i>
-                        {{ App.t('routeActions->deleteMultiple') }}
-                    </button>
+                <div class="card-body d-flex gap-2">
+                    <template v-for="action in config.selection.actions">
+                        <button
+                            v-if="
+                                action === 'deleteMultiple' &&
+                                !$route.query['show[deleted]'] &&
+                                App.helpers.user.checkRoute(config.http.path + '/deleteMultiple')
+                            "
+                            class="btn btn-danger text-start"
+                            @click="deleteMultipleAction"
+                        >
+                            <i class="fas fa-trash-alt me-1"></i>
+                            {{ App.t('routeActions->deleteMultiple') }}
+                        </button>
 
-                    <button
-                        v-if="
-                            action === 'deleteMultiple' &&
-                            $route.query['show[deleted]'] === 'only-deleted' &&
-                            App.helpers.user.checkRoute(config.http.path + '/restoreMultiple')
-                        "
-                        class="btn btn-success text-start"
-                        @click="restoreMultipleAction"
-                    >
-                        <i class="fas fa-trash-restore me-1"></i>
-                        {{ App.t('routeActions->restoreMultiple') }}
-                    </button>
-                </template>
+                        <button
+                            v-if="
+                                action === 'deleteMultiple' &&
+                                $route.query['show[deleted]'] === 'only-deleted' &&
+                                App.helpers.user.checkRoute(config.http.path + '/restoreMultiple')
+                            "
+                            class="btn btn-success text-start"
+                            @click="restoreMultipleAction"
+                        >
+                            <i class="fas fa-trash-restore me-1"></i>
+                            {{ App.t('routeActions->restoreMultiple') }}
+                        </button>
+                    </template>
+                </div>
             </div>
         </div>
     </template>

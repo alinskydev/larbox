@@ -2,7 +2,6 @@
 
 namespace App\Base\Search;
 
-use App\Base\Search;
 use App\Base\Search\Enums\SearchFilterConditionEnum;
 use App\Base\Search\Enums\SearchFilterTypeEnum;
 use Illuminate\Database\Eloquent\Builder;

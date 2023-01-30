@@ -2,6 +2,7 @@
 import App from '@/core/app';
 import Model from '@/modules/box/models/category';
 import { UpdateConfig } from '@/core/crud/configs';
+import * as Enums from '@/core/enums';
 
 import Update from '@/components/crud/Update.vue';
 </script>
@@ -53,6 +54,11 @@ export default {
     </div>
 
     <div class="modal-body">
-        <Update :config="config" :actions="['save']" layout="accordions" />
+        <Update
+            :config="config"
+            :actions="['save']"
+            :dataLayout="Enums.crudFormDataLayouts.accordions"
+            :buttons-layout="Enums.crudFormButtonsLayouts.bottomStatic"
+        />
     </div>
 </template>

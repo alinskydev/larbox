@@ -40,3 +40,14 @@ export enum inputSizes {
     lg = 'col-xl-6',
     xl = 'col-12',
 }
+
+export enum crudFormDataLayouts {
+    accordions,
+    tabs,
+}
+
+export enum crudFormButtonsLayouts {
+    top,
+    bottomStatic,
+    bottomFixed,
+}

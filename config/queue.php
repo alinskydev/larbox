@@ -39,7 +39,6 @@ return [
             'table' => 'job',
             'queue' => implode(',', [
                 'default',
-                'user_notification_prepare_create', 'user_notification_create',
             ]),
             'retry_after' => 90,
             'after_commit' => false,

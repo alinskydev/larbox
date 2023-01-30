@@ -2,6 +2,7 @@
 import App from '@/core/app';
 import Model from '@/modules/box/models/category';
 import { CreateConfig } from '@/core/crud/configs';
+import * as Enums from '@/core/enums';
 
 import Create from '@/components/crud/Create.vue';
 </script>
@@ -44,6 +45,11 @@ export default {
     </div>
 
     <div class="modal-body">
-        <Create :config="config" :actions="['save']" layout="accordions" />
+        <Create
+            :config="config"
+            :actions="['save']"
+            :data-layout="Enums.crudFormDataLayouts.accordions"
+            :buttons-layout="Enums.crudFormButtonsLayouts.bottomStatic"
+        />
     </div>
 </template>

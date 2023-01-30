@@ -11,7 +11,7 @@ class NotificationPrepareCreateJob extends Job
         private array $data,
         private int $creatorId,
     ) {
-        $this->queue = 'user_notification_prepare_create';
+        $this->queue = 'default';
     }
 
     public function handle(): void

@@ -29,13 +29,6 @@ select {
     white-space: pre-wrap;
 }
 
-.crud-index-data .actions {
-    position: fixed;
-    bottom: 0px;
-    right: 20px;
-    z-index: 1;
-}
-
 .input-wrapper {
     position: relative;
 }
@@ -119,7 +112,7 @@ select.select2-hidden-accessible,
     width: 100%;
     height: 100%;
     z-index: 9999999999;
-    pointer-events: none;
+    user-select: none;
     cursor: wait;
 }
 
@@ -130,4 +123,13 @@ select.select2-hidden-accessible,
 
 .jstree-default .jstree-search {
     color: var(--bs-primary);
+}
+
+.crud-fixed-bottom-buttons {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    z-index: 1;
 }
