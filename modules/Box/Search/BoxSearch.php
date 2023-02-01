@@ -23,7 +23,7 @@ class BoxSearch extends Search
         'datetime' => SearchFilterTypeEnum::DATE,
 
         'tags.id' => SearchFilterTypeEnum::IN,
-        
+
         'categories.id' => [
             'condition' => SearchFilterConditionEnum::OR_WHERE,
             'filters' => [

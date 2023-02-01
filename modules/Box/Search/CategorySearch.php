@@ -14,7 +14,7 @@ class CategorySearch extends Search
         'id' => SearchFilterTypeEnum::EQUAL_RAW,
         'depth' => SearchFilterTypeEnum::EQUAL_RAW,
         'name' => SearchFilterTypeEnum::LOCALIZED_LIKE,
-        
+
         'full_text' => [
             'condition' => SearchFilterConditionEnum::OR_WHERE,
             'filters' => [
