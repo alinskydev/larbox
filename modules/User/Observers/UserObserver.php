@@ -21,6 +21,6 @@ class UserObserver
 
     public function deleting(User $model): void
     {
-        if ($model->id == 1) throw new \Exception(__('Данная запись не подлежит удалению'));
+        if ($model->id === 1) throw new \Exception(__('Данная запись не подлежит удалению'));
     }
 }

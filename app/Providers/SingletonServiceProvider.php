@@ -12,5 +12,8 @@ class SingletonServiceProvider extends ServiceProvider
     {
         $this->app->singleton('language', LanguageSingleton::class);
         $this->app->singleton('settings', SettingsSingleton::class);
+
+        app('language');
+        app('settings');
     }
 }

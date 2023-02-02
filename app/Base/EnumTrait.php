@@ -19,7 +19,7 @@ trait EnumTrait
         $cases = self::cases();
 
         foreach ($cases as $case) {
-            if ($case->value == $value) return $case;
+            if ($case->value === $value) return $case;
         }
 
         throw new \Exception("Case doesn't exist");

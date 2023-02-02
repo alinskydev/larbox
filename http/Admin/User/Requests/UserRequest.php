@@ -27,7 +27,7 @@ class UserRequest extends ActiveFormRequest
                     model: $this->model,
                     relationClass: Role::class,
                 ),
-                Rule::prohibitedIf($this->model->id == 1),
+                Rule::prohibitedIf($this->model->id === 1),
             ],
             'username' => [
                 'required',

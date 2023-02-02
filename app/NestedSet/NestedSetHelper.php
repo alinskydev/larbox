@@ -15,13 +15,13 @@ class NestedSetHelper
             $child['children'] = array_filter($children, function ($value) use ($child) {
                 return $value['lft'] > $child['lft'] &&
                     $value['rgt'] < $child['rgt'] &&
-                    $value['depth'] == $child['depth'] + 1;
+                    $value['depth'] === $child['depth'] + 1;
             });
 
             $child['children'] = array_reverse($child['children']);
         }
 
-        $children = array_filter($children, fn ($value) => $value['depth'] == $model->depth + 1);
+        $children = array_filter($children, fn ($value) => $value['depth'] === $model->depth + 1);
         $children = array_reverse($children);
 
         return $children;

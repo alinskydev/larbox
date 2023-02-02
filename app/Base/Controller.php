@@ -21,7 +21,7 @@ class Controller extends BaseController
 
     protected function successResponseWithAccessToken(User $user, int $status = 200): JsonResponse
     {
-        if (isset($user->newAccessToken) && (!request()->user() || $user->id == request()->user()->id)) {
+        if (isset($user->newAccessToken) && (!request()->user() || $user->id === request()->user()->id)) {
             return response()->json(['token' => $user->newAccessToken], $status);
         } else {
             return $this->successResponse($status);

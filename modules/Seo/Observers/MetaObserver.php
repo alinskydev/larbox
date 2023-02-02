@@ -10,7 +10,7 @@ class MetaObserver
     {
         if ($model->value) {
             $model->value_as_array = array_map(function ($value) {
-                if ($value == strip_tags($value)) return [];
+                if (!$value || $value === strip_tags($value)) return [];
 
                 $result = [];
 

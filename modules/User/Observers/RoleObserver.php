@@ -23,7 +23,7 @@ class RoleObserver
 
     public function deleting(Role $model): void
     {
-        if ($model->id == 1) throw new \Exception(__('Данная запись не подлежит удалению'));
+        if ($model->id === 1) throw new \Exception(__('Данная запись не подлежит удалению'));
 
         $user = User::query()->where('role_id', $model->id)->first();
 

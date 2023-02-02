@@ -18,7 +18,7 @@ class FormHelper
         int $size = 100,
         int $quantity = 1,
     ): File|array {
-        if ($quantity == 1) {
+        if ($quantity === 1) {
             return UploadedFile::fake()->create($name, $size, $mime);
         } else {
             return array_map(fn ($value) => UploadedFile::fake()->create($name, $size, $mime), range(1, $quantity));

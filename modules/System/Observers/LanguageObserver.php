@@ -13,7 +13,7 @@ class LanguageObserver
                 throw new \Exception(__('Невозможно деактивировать основной язык'));
             }
 
-            if ($model->code == app()->getLocale()) {
+            if ($model->code === app()->getLocale()) {
                 throw new \Exception(__('Невозможно деактивировать текущий язык'));
             }
         }

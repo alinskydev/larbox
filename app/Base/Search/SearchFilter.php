@@ -40,7 +40,7 @@ class SearchFilter
 
     private function processSingle(SearchFilterTypeEnum $filterType, array $param, mixed $value): void
     {
-        if (count($param) == 1) {
+        if (count($param) === 1) {
             $filter = new $filterType->value(
                 query: $this->query,
                 condition: SearchFilterConditionEnum::WHERE,
@@ -69,7 +69,7 @@ class SearchFilter
             foreach ($filterGroup['filters'] as $param => $filterType) {
                 $param = explode('.', $param);
 
-                if (count($param) == 1) {
+                if (count($param) === 1) {
                     $filter = new $filterType->value(
                         query: $query,
                         condition: $filterGroup['condition'],

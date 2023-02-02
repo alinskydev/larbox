@@ -52,7 +52,7 @@ class NestedSetMoveRequest extends ActiveFormRequest
                 $childrenCount = 0;
 
                 array_walk_recursive($node['children'], function ($value, $key) use (&$childrenCount) {
-                    if ($key == 'id') $childrenCount++;
+                    if ($key === 'id') $childrenCount++;
                 });
 
                 $result[$nodeId]['rgt'] += $childrenCount * 2;
