@@ -105,7 +105,7 @@ export default {
                                     </template>
 
                                     <template v-if="config.grid.actions.length > 0">
-                                        <td style="width: 50px">
+                                        <td class="text-end" style="width: 50px">
                                             <Actions :config="config" :model="model" />
                                         </td>
                                     </template>

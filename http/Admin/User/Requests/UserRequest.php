@@ -25,7 +25,7 @@ class UserRequest extends ActiveFormRequest
                 'nullable',
                 new ExistsWithOldRule(
                     model: $this->model,
-                    relationClass: Role::class,
+                    query: Role::query(),
                 ),
                 Rule::prohibitedIf($this->model->id === 1),
             ],

@@ -5,44 +5,33 @@ namespace App\Rules;
 use App\Base\Rule;
 use App\Base\Model;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Builder;
 
 class ExistsWithOldRule extends Rule
 {
     public function __construct(
         private Model $model,
-        private string $relationClass,
-        private string $relationField = 'id',
-        private ?\Closure $extraQuery = null,
+        private Builder $query,
+        private ?string $pk = null,
     ) {
+        $this->pk ??= $this->query->getModel()->getKeyName();
     }
 
     public function passes($attribute, $value): bool
     {
         $oldValue = data_get($this->model, $attribute);
+        $oldValue = $oldValue instanceof Collection ? $oldValue->pluck($this->pk)->toArray() : (array)$oldValue;
 
-        if ($value == $oldValue) return true;
+        $newValue = array_diff((array)$value, $oldValue);
 
-        $query = $this->relationClass::query();
+        if (!$newValue) return true;
 
-        if ($oldValue instanceof Collection) {
-            $oldValue = data_get($oldValue, "*.$this->relationField");
+        $this->query->whereIn($this->pk, $newValue);
 
-            $value = array_diff($value, $oldValue);
-            $query->whereIn($this->relationField, $value);
-        } else {
-            $query->where($this->relationField, $value);
-        }
-
-        if ($this->extraQuery) {
-            ($this->extraQuery)($query);
-        }
-
-        $relationsCount = $query->count();
-
-        if ($relationsCount < count((array)$value)) {
+        if ($this->query->count() < count($newValue)) {
             $attribute = preg_replace('/.*\./', '', $attribute);
 
-            $this->errorMessage = __(':attribute с данным значением не существует', [
+            $this->errorMessage = __('validation.exists', [
                 'attribute' => __("fields.$attribute"),
             ]);
 

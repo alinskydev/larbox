@@ -32,7 +32,7 @@ export default {
                                 path: 'box/box/index?filter[brand_id]=' + record.id,
                                 linkAttributes: {
                                     title: App.t('routes->box.box'),
-                                    class: 'btn btn-info',
+                                    class: 'btn btn-info' + (record.is_deleted ? ' d-none' : ''),
                                 },
                                 iconAttributes: {
                                     class: 'fas fa-boxes',

@@ -25,13 +25,10 @@ class BoxRequest extends ActiveFormRequest
                 'required',
                 new ExistsWithOldRule(
                     model: $this->model,
-                    relationClass: Brand::class,
-                    extraQuery: function ($query) {
-                        $query->where('is_active', 1)
-                            ->whereHas('creator', function ($subQuery) {
-                                $subQuery->where('id', request()->user()->id);
-                            });
-                    },
+                    query: Brand::query()->where('is_active', 1)
+                        ->whereHas('creator', function ($query) {
+                            $query->where('id', request()->user()->id);
+                        }),
                 ),
             ],
             'price' => 'required|integer|min:0',
@@ -51,7 +48,7 @@ class BoxRequest extends ActiveFormRequest
                 'array',
                 new ExistsWithOldRule(
                     model: $this->model,
-                    relationClass: Category::class,
+                    query: Category::query(),
                 ),
             ],
 
@@ -59,7 +56,7 @@ class BoxRequest extends ActiveFormRequest
                 'array',
                 new ExistsWithOldRule(
                     model: $this->model,
-                    relationClass: Tag::class,
+                    query: Tag::query(),
                 ),
             ],
 
