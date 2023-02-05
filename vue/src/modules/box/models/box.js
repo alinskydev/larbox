@@ -66,7 +66,7 @@ export default new Model({
                 type: Enums.valueTypes.array,
             },
             updated_at: {
-                type: Enums.valueTypes.text,
+                type: Enums.valueTypes.datetime,
             },
         },
 
@@ -182,10 +182,10 @@ export default new Model({
                     type: Enums.valueTypes.price,
                 },
                 date: {
-                    type: Enums.valueTypes.text,
+                    type: Enums.valueTypes.date,
                 },
                 datetime: {
-                    type: Enums.valueTypes.text,
+                    type: Enums.valueTypes.datetime,
                 },
                 brand_id: {
                     value: 'brand.name',
@@ -204,10 +204,10 @@ export default new Model({
                     type: Enums.valueTypes.html,
                 },
                 created_at: {
-                    type: Enums.valueTypes.text,
+                    type: Enums.valueTypes.datetime,
                 },
                 updated_at: {
-                    type: Enums.valueTypes.text,
+                    type: Enums.valueTypes.datetime,
                 },
             },
             'Variations': {

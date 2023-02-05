@@ -33,7 +33,7 @@ class SectionController extends Controller
         $response = array_merge(
             $this->resourceClass::make($this->model->blocks)->resolve(),
             [
-                'updated_at' => $this->model->updated_at->format(config('larbox.formats.datetime')),
+                'updated_at' => $this->model->updated_at->format('Y-m-d H:i:s'),
                 'seo_meta' => $this->model->seo_meta,
                 'seo_meta_as_array' => $this->model->seo_meta_as_array,
             ],

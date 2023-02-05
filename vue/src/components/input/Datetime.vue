@@ -1,3 +1,7 @@
+<script setup>
+import App from '@/core/app';
+</script>
+
 <script>
 export default {
     props: {
@@ -7,7 +11,9 @@ export default {
         },
     },
     data() {
-        return {};
+        return {
+            moment: moment,
+        };
     },
     mounted() {
         $('#' + this.item.elementId)
@@ -21,13 +27,16 @@ export default {
                 timePicker: true,
                 timePicker24Hour: true,
                 locale: {
-                    format: 'DD.MM.YYYY HH:mm:ss',
+                    format: App.config.formats.datetime,
                     firstDay: 1,
                 },
             })
-            .on('apply.daterangepicker', function (ev, picker) {
-                let value = picker.startDate.format(picker.locale.format);
-                $(this).val(value);
+            .on('apply.daterangepicker', function (event, picker) {
+                let pickerValue = picker.startDate.format(picker.locale.format),
+                    hiddenValue = picker.startDate.format('YYYY-MM-DD HH:mm:ss');
+
+                $(this).val(pickerValue);
+                $(this).next().val(hiddenValue);
             });
     },
     beforeUnmount() {
@@ -39,5 +48,12 @@ export default {
 </script>
 
 <template>
-    <input type="text" />
+    <input
+        type="text"
+        v-bind="$attrs"
+        :name="null"
+        :value="$attrs.value ? moment($attrs.value).format(App.config.formats.datetime) : null"
+    />
+
+    <input type="hidden" :name="$attrs.name" :value="$attrs.value" />
 </template>

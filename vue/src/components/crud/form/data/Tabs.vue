@@ -22,7 +22,7 @@ export default {
 </script>
 
 <template>
-    <form @submit.prevent="$parent.$data.submit" :id="elementId" class="d-inline-block w-100 mt-4">
+    <form @submit.prevent="$parent.$data.submit" :id="elementId" class="crud-form d-inline-block w-100 mt-4">
         <div class="row">
             <div class="col-xxl-2 col-xl-3">
                 <div class="card m-0">

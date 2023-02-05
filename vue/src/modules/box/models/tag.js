@@ -16,10 +16,10 @@ export default new Model({
                 type: Enums.valueTypes.text,
             },
             created_at: {
-                type: Enums.valueTypes.text,
+                type: Enums.valueTypes.datetime,
             },
             updated_at: {
-                type: Enums.valueTypes.text,
+                type: Enums.valueTypes.datetime,
             },
         },
 
@@ -46,10 +46,10 @@ export default new Model({
                     type: Enums.valueTypes.text,
                 },
                 created_at: {
-                    type: Enums.valueTypes.text,
+                    type: Enums.valueTypes.datetime,
                 },
                 updated_at: {
-                    type: Enums.valueTypes.text,
+                    type: Enums.valueTypes.datetime,
                 },
             },
             'Components': {

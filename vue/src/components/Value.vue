@@ -18,7 +18,9 @@ export default {
         },
     },
     data() {
-        return {};
+        return {
+            moment: moment,
+        };
     },
     created() {
         this.item.elementId = App.helpers.string.uniqueElementId();
@@ -41,6 +43,18 @@ export default {
 
     <template v-else-if="item.type === Enums.valueTypes.component">
         <ComponentResolver :resolve="item.options.component.resolve(item.record)" />
+    </template>
+
+    <template v-else-if="item.type === Enums.valueTypes.date">
+        <span v-bind="item.attributes">
+            {{ moment(item.value).format(App.config.formats.date) }}
+        </span>
+    </template>
+
+    <template v-else-if="item.type === Enums.valueTypes.datetime">
+        <span v-bind="item.attributes">
+            {{ moment(item.value).format(App.config.formats.datetime) }}
+        </span>
     </template>
 
     <template v-else-if="item.type === Enums.valueTypes.fields">

@@ -34,10 +34,10 @@ export default new Model({
                 type: Enums.valueTypes.text,
             },
             created_at: {
-                type: Enums.valueTypes.text,
+                type: Enums.valueTypes.datetime,
             },
             updated_at: {
-                type: Enums.valueTypes.text,
+                type: Enums.valueTypes.datetime,
             },
         },
 
@@ -100,10 +100,10 @@ export default new Model({
                     type: Enums.valueTypes.text,
                 },
                 created_at: {
-                    type: Enums.valueTypes.text,
+                    type: Enums.valueTypes.datetime,
                 },
                 updated_at: {
-                    type: Enums.valueTypes.text,
+                    type: Enums.valueTypes.datetime,
                 },
             },
         },
@@ -133,21 +133,18 @@ export default new Model({
                     },
                     size: Enums.inputSizes.md,
                 },
-                full_name: {
+                'profile.full_name': {
                     name: 'profile[full_name]',
-                    value: 'profile.full_name',
                     type: Enums.inputTypes.text,
                     size: Enums.inputSizes.md,
                 },
-                phone: {
+                'profile.phone': {
                     name: 'profile[phone]',
-                    value: 'profile.phone',
                     type: Enums.inputTypes.phone,
                     size: Enums.inputSizes.md,
                 },
-                image: {
+                'profile.image': {
                     name: 'profile[image]',
-                    value: 'profile.image',
                     type: Enums.inputTypes.file,
                     options: {
                         file: {

@@ -12,19 +12,16 @@ export default new Model({
                 email: {
                     type: Enums.inputTypes.text,
                 },
-                full_name: {
+                'profile.full_name': {
                     name: 'profile[full_name]',
-                    value: 'profile.full_name',
                     type: Enums.inputTypes.text,
                 },
-                phone: {
+                'profile.phone': {
                     name: 'profile[phone]',
-                    value: 'profile.phone',
                     type: Enums.inputTypes.phone,
                 },
-                image: {
+                'profile.image': {
                     name: 'profile[image]',
-                    value: 'profile.image',
                     type: Enums.inputTypes.file,
                     options: {
                         file: {

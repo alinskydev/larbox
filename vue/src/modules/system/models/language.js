@@ -55,7 +55,7 @@ export default new Model({
                 type: Enums.valueTypes.boolean,
             },
             updated_at: {
-                type: Enums.valueTypes.text,
+                type: Enums.valueTypes.datetime,
             },
         },
 
@@ -124,10 +124,10 @@ export default new Model({
                     type: Enums.valueTypes.boolean,
                 },
                 created_at: {
-                    type: Enums.valueTypes.text,
+                    type: Enums.valueTypes.datetime,
                 },
                 updated_at: {
-                    type: Enums.valueTypes.text,
+                    type: Enums.valueTypes.datetime,
                 },
             },
         },

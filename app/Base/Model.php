@@ -44,7 +44,7 @@ class Model extends BaseModel
 
     protected function serializeDate(\DateTimeInterface $date): string
     {
-        $format = $this->dateFormat ?? config('larbox.formats.datetime');
+        $format = $this->dateFormat ?? 'Y-m-d H:i:s';
         return $date->format($format);
     }
 

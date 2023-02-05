@@ -22,7 +22,7 @@ export default {
 </script>
 
 <template>
-    <form @submit.prevent="$parent.$data.submit" :id="elementId" class="d-inline-block w-100">
+    <form @submit.prevent="$parent.$data.submit" :id="elementId" class="crud-form d-inline-block w-100">
         <div
             v-for="(items, key, index) in model.data.form"
             class="accordion card"

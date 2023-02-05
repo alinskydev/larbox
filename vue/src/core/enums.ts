@@ -2,6 +2,8 @@ export enum valueTypes {
     array,
     boolean,
     component,
+    date,
+    datetime,
     fields,
     html,
     httpSelect,
