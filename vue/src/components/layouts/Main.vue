@@ -30,8 +30,6 @@ export default {
                 if (response.statusType === 'success') {
                     App.user = response.data;
                     this.isReady = true;
-                } else if (response.statusType === 'forbidden') {
-                    App.helpers.user.logout();
                 }
             });
     },

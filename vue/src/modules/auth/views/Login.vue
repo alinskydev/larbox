@@ -29,8 +29,6 @@ export default {
                 .then((response) => {
                     if (response.statusType === 'success') {
                         this.$router.push('/' + App.locale);
-                    } else {
-                        App.helpers.user.logout();
                     }
                 });
         } else {
