@@ -10,7 +10,7 @@ class LoginTest extends _TestCase
             path: 'login',
             body: [
                 'username' => 'admin',
-                'password' => env('USER_ADMIN_PASSWORD'),
+                'password' => 'admin123',
             ],
         );
     }

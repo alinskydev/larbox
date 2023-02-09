@@ -33,8 +33,8 @@ class ProfileTest extends _TestCase
             body: [
                 'username' => 'admin',
                 'email' => 'admin@local.host',
-                'new_password' => env('USER_ADMIN_PASSWORD'),
-                'new_password_confirmation' => env('USER_ADMIN_PASSWORD'),
+                'new_password' => 'admin123',
+                'new_password_confirmation' => 'admin123',
 
                 'profile' => [
                     'full_name' => 'Administrator',

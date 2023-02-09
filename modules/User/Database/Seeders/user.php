@@ -14,7 +14,7 @@ return new class extends Seeder
                 'role_id' => 1,
                 'username' => 'admin',
                 'email' => 'admin@local.host',
-                'password' => Hash::make(env('USER_ADMIN_PASSWORD')),
+                'password' => Hash::make('admin123'),
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
