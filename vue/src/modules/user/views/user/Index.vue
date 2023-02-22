@@ -37,7 +37,7 @@ export default {
     <PageTitle :text="title" />
 
     <PageTitleButtons>
-        <NotificationCreate />
+        <NotificationCreate v-if="App.helpers.user.checkRoute('user/notification/create')" />
 
         <RouterLink to="user/user/create" class="btn btn-primary">
             {{ App.t('routeActions->create') }}

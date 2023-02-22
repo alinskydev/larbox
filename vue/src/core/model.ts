@@ -159,6 +159,7 @@ class Model {
 
             result[key] = {
                 attributes: typeof attributes === 'function' ? attributes(record) : attributes,
+                isHidden: field.isHidden !== undefined ? field.isHidden(record) : false,
                 label: field.label !== undefined ? field.label : App.t('fields->' + key),
                 options: field.options ?? {},
                 pk: record[this.pk],
@@ -194,6 +195,7 @@ class Model {
             result[key] = {
                 attributes: typeof attributes === 'function' ? attributes(record) : attributes,
                 hint: field.hint,
+                isHidden: field.isHidden !== undefined ? field.isHidden(record) : false,
                 label: field.label !== undefined ? field.label : App.t('fields->' + key),
                 name: name,
                 options: field.options ?? {},
@@ -234,6 +236,7 @@ class Model {
             result[key] = {
                 attributes: typeof attributes === 'function' ? attributes(record) : attributes,
                 hint: field.hint,
+                isHidden: field.isHidden !== undefined ? field.isHidden(record) : false,
                 label: field.label !== undefined ? field.label : App.t('fields->' + key),
                 name: name,
                 options: field.options ?? {},

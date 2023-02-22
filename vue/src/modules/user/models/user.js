@@ -123,7 +123,6 @@ export default new Model({
                             path: 'user/role',
                             field: 'name.:locale',
                             initValue: 'role.name.:locale',
-                            hasPrompt: true,
                         },
                     },
                     attributes: (record) => {

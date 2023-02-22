@@ -143,7 +143,7 @@ export default {
 
 <template>
     <select :multiple="options.isMultiple" style="width: 100%;">
-        <option v-if="inputOptions.hasPrompt"></option>
+        <option v-if="!options.isMultiple"></option>
         <option v-for="(selectItem, key) in items" :value="key" selected>
             {{ selectItem }}
         </option>

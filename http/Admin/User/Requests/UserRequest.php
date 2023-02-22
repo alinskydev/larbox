@@ -23,11 +23,11 @@ class UserRequest extends ActiveFormRequest
         return [
             'role_id' => [
                 'nullable',
+                Rule::prohibitedIf($this->model->id === 1),
                 new ExistsWithOldRule(
                     model: $this->model,
                     query: Role::query(),
                 ),
-                Rule::prohibitedIf($this->model->id === 1),
             ],
             'username' => [
                 'required',

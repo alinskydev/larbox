@@ -21,6 +21,7 @@ export type ValueParams = {
         websiteLink: string;
     };
     attributes: Object | ((record: Object) => any);
+    isHidden: (record: Object) => any;
 };
 
 export type InputParams = {
@@ -53,9 +54,9 @@ export type InputParams = {
             field: string;
             pk: string;
             initValue: string;
-            hasPrompt: boolean;
         };
     };
     attributes: Object | ((record: Object) => any);
     size: Enums.inputSizes;
+    isHidden: (record: Object) => any;
 };

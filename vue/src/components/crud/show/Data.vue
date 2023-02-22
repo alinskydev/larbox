@@ -35,15 +35,17 @@ export default {
                 <div class="table-responsive">
                     <table class="table table-hover table-bordered">
                         <tbody>
-                            <tr v-for="item in items">
-                                <th v-if="item.label">
-                                    {{ item.label }}
-                                </th>
+                            <template v-for="item in items">
+                                <tr v-if="!item.isHidden">
+                                    <th v-if="item.label">
+                                        {{ item.label }}
+                                    </th>
 
-                                <td :colspan="item.label ? 1 : 2">
-                                    <Value :item="item" />
-                                </td>
-                            </tr>
+                                    <td :colspan="item.label ? 1 : 2">
+                                        <Value :item="item" />
+                                    </td>
+                                </tr>
+                            </template>
                         </tbody>
                     </table>
                 </div>

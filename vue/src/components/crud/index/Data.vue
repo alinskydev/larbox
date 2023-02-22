@@ -64,7 +64,7 @@ export default {
                                     <Selection :config="config" type="tableHead" :elementId="elementId" />
 
                                     <template v-for="item in models[0].data.index">
-                                        <th>
+                                        <th v-if="!item.isHidden">
                                             {{ item.label }}
                                         </th>
                                     </template>
@@ -79,28 +79,30 @@ export default {
                                 <tr v-for="model in models" v-bind="config.grid.rowAttributes(model.data.record)">
                                     <Selection :config="config" type="tableBody" :elementId="elementId" :pk="model.data.pk" />
 
-                                    <template v-for="data in model.data.index">
-                                        <template v-if="data.type === Enums.valueTypes.image">
-                                            <td style="width: 130px">
-                                                <Value :item="data" />
-                                            </td>
-                                        </template>
+                                    <template v-for="item in model.data.index">
+                                        <template v-if="!item.isHidden">
+                                            <template v-if="item.type === Enums.valueTypes.image">
+                                                <td style="width: 130px">
+                                                    <Value :item="item" />
+                                                </td>
+                                            </template>
 
-                                        <template
-                                            v-else-if="
-                                                data.type === Enums.valueTypes.httpSelect ||
-                                                data.type === Enums.valueTypes.httpSwitcher
-                                            "
-                                        >
-                                            <td :set="(data.attributes['disabled'] = Boolean(model.data.record.is_deleted))">
-                                                <Value :item="data" />
-                                            </td>
-                                        </template>
+                                            <template
+                                                v-else-if="
+                                                    item.type === Enums.valueTypes.httpSelect ||
+                                                    item.type === Enums.valueTypes.httpSwitcher
+                                                "
+                                            >
+                                                <td :set="(item.attributes['disabled'] = Boolean(model.data.record.is_deleted))">
+                                                    <Value :item="item" />
+                                                </td>
+                                            </template>
 
-                                        <template v-else>
-                                            <td>
-                                                <Value :item="data" />
-                                            </td>
+                                            <template v-else>
+                                                <td>
+                                                    <Value :item="item" />
+                                                </td>
+                                            </template>
                                         </template>
                                     </template>
 

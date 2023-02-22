@@ -40,7 +40,7 @@ export default {
 </script>
 
 <template>
-    <Wrapper :item="item" v-slot="wrapper">
+    <Wrapper v-if="!item.isHidden" :item="item" v-slot="wrapper">
         <template v-if="item.type === Enums.inputTypes.component">
             <ComponentResolver :resolve="item.options.component.resolve(item.record)" />
         </template>
