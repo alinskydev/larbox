@@ -19,10 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => [
-        'http://larbox.loc:3000',
-        'http://vue.loc',
-    ],
+    'allowed_origins' => explode(',', env('CORS_ALLOWED_ORIGINS')),
 
     'allowed_origins_patterns' => [],
 

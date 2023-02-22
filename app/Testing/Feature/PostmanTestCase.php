@@ -68,7 +68,7 @@ abstract class PostmanTestCase extends BaseTestCase
         $this->requestQuery = Arr::dot($this->requestQuery);
         $this->requestBody = Arr::dot($this->requestBody);
 
-        foreach ($this->requestBody as $key => &$value) {
+        foreach ($this->requestBody as $key => $value) {
             if ($value instanceof File) {
                 $this->requestFiles[$key] = $value->name;
                 unset($this->requestBody[$key]);

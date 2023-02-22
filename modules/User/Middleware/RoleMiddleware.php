@@ -11,9 +11,9 @@ class RoleMiddleware
 {
     public function handle(Request $request, \Closure $next): Response
     {
-        if (!($role = request()->user()->role)) {
-            abort(403, __('У вас нет доступа для совершения данного действия'));
-        }
+        $role = request()->user()->role;
+
+        if (!$role) abort(401);
 
         $routePrefix = str_replace('/', '.', request()->route()->getPrefix());
         $routeName = request()->route()->getName();

@@ -2,6 +2,7 @@
 import App from '@/core/app';
 import { IndexConfig } from '@/core/crud/configs';
 import RouterLink from '@/components/blocks/RouterLink.vue';
+import ComponentResolver from '@/components/decorators/ComponentResolver.vue';
 </script>
 
 <script>
@@ -19,15 +20,33 @@ export default {
     data() {
         return {
             basePath: this.config.http.path + '/' + this.model.data.pk,
+            record: this.model.data.record,
+            customActions: {},
         };
     },
+    watch: {
+        record: {
+            handler(newValue, oldValue) {
+                this.refreshCustomActions();
+            },
+            deep: true,
+        },
+    },
+    created() {
+        this.refreshCustomActions();
+    },
     mounted() {
-        $(this.$el).find('a').tooltip();
+        $(this.$el).find('a, button').not('[data-has-tooltip="false"]').tooltip();
     },
     beforeUnmount() {
-        $(this.$el).find('a').tooltip('dispose');
+        $(this.$el).find('a, button').not('[data-has-tooltip="false"]').tooltip('dispose');
     },
     methods: {
+        refreshCustomActions() {
+            for (let key in this.config.grid.customActions) {
+                this.customActions[key] = this.config.grid.customActions[key](this.record);
+            }
+        },
         deleteAction() {
             if (confirm(App.t('Вы уверены?'))) {
                 App.helpers.http
@@ -38,7 +57,7 @@ export default {
                     .then((response) => {
                         if (response.statusType === 'success') {
                             if (this.model.hasSoftDelete) {
-                                this.model.data.record.is_deleted = true;
+                                this.record.is_deleted = true;
                             } else {
                                 this.$parent.$parent.$data.dataKey++;
                             }
@@ -54,8 +73,8 @@ export default {
                         path: this.basePath + '/restore',
                     })
                     .then((response) => {
-                        if (response.statusType === 'success' && this.model.hasSoftDelete) {
-                            this.model.data.record.is_deleted = false;
+                        if (response.statusType === 'success') {
+                            this.record.is_deleted = false;
                         }
                     });
             }
@@ -67,7 +86,7 @@ export default {
 <template>
     <div class="btn-group">
         <template v-for="action in config.grid.actions">
-            <template v-if="!model.data.record.is_deleted">
+            <template v-if="!record.is_deleted">
                 <RouterLink
                     v-if="action === 'show' && App.helpers.user.checkRoute(config.http.path + '/show')"
                     :title="App.t('routeActions->show')"
@@ -107,12 +126,16 @@ export default {
                 </a>
             </template>
 
-            <template v-if="config.grid.customActions[action]">
-                <div :set="(customAction = config.grid.customActions[action](model.data.record))">
-                    <RouterLink v-if="customAction" :to="customAction.path" v-bind="customAction.linkAttributes">
-                        <i v-bind="customAction.iconAttributes"></i>
-                    </RouterLink>
-                </div>
+            <template v-if="customActions[action]">
+                <RouterLink
+                    v-if="customActions[action].path"
+                    :to="customActions[action].path"
+                    v-bind="customActions[action].linkAttributes"
+                >
+                    <i v-bind="customActions[action].iconAttributes"></i>
+                </RouterLink>
+
+                <ComponentResolver v-else :resolve="config.grid.customActions[action](record)" />
             </template>
         </template>
     </div>

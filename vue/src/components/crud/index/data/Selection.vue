@@ -45,24 +45,12 @@ export default {
             }
         },
         deleteMultipleAction() {
-            this.sendRequest(this.config.http.path + '/delete/multiple?_method=DELETE', (selection) => {
-                this.$parent.$data.models.forEach((model) => {
-                    if (selection.includes(model.data.pk)) {
-                        model.data.record.is_deleted = true;
-                    }
-                });
-            });
+            this.sendRequest(this.config.http.path + '/delete/multiple?_method=DELETE', true);
         },
         restoreMultipleAction() {
-            this.sendRequest(this.config.http.path + '/restore/multiple?_method=DELETE', (selection) => {
-                this.$parent.$data.models.forEach((model) => {
-                    if (selection.includes(model.data.pk)) {
-                        model.data.record.is_deleted = false;
-                    }
-                });
-            });
+            this.sendRequest(this.config.http.path + '/restore/multiple?_method=DELETE', false);
         },
-        sendRequest(path, callback) {
+        sendRequest(path, isDeletedState) {
             let formData = new FormData(),
                 selection = Array.from(document.querySelectorAll('.crud-index-data tbody .selection:checked'), (e) =>
                     parseInt(e.value),
@@ -81,7 +69,15 @@ export default {
                     })
                     .then((response) => {
                         if (response.statusType === 'success') {
-                            callback(selection);
+                            if (this.config.model.hasSoftDelete) {
+                                this.$parent.$data.models.forEach((model) => {
+                                    if (selection.includes(model.data.pk)) {
+                                        model.data.record.is_deleted = isDeletedState;
+                                    }
+                                });
+                            } else {
+                                this.$parent.$parent.$data.dataKey++;
+                            }
 
                             $('.crud-index-data .selection').prop('checked', false);
                             this.toggleBody();

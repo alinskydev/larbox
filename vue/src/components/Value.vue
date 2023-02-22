@@ -47,13 +47,13 @@ export default {
 
     <template v-else-if="item.type === Enums.valueTypes.date">
         <span v-bind="item.attributes">
-            {{ moment(item.value).format(App.config.formats.date) }}
+            {{ item.value ? moment(item.value).format(App.config.formats.date) : null }}
         </span>
     </template>
 
     <template v-else-if="item.type === Enums.valueTypes.datetime">
         <span v-bind="item.attributes">
-            {{ moment(item.value).format(App.config.formats.datetime) }}
+            {{ item.value ? moment(item.value).format(App.config.formats.datetime) : null }}
         </span>
     </template>
 

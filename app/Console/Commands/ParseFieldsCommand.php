@@ -23,10 +23,10 @@ class ParseFieldsCommand extends Command
             die;
         }
 
-        $fields = [];
-
-        $this->parseFormRequestsAttributes($fields);
-        $this->parseDatabaseColumns($fields);
+        $fields = [
+            ...$this->parseFormRequestsAttributes(),
+            ...$this->parseDatabaseColumns(),
+        ];
 
         $fields = array_unique($fields);
         sort($fields);
@@ -46,7 +46,7 @@ class ParseFieldsCommand extends Command
         $this->line("File: $outputFileName");
     }
 
-    private function parseFormRequestsAttributes(array &$fields): void
+    private function parseFormRequestsAttributes(): array
     {
         $emptyModel = new Model();
 
@@ -59,9 +59,8 @@ class ParseFieldsCommand extends Command
             glob("$basePath/http/*/*/Requests/*/*.php"),
         );
 
-        foreach ($files as $file) {
+        $fields = array_map(function ($file) use ($emptyModel) {
             $file = ClassHelper::classByFile($file);
-
             $formRequestReflection = new \ReflectionClass($file);
 
             /** @var object */
@@ -72,17 +71,19 @@ class ParseFieldsCommand extends Command
             $attributes = array_values($formRequest->attributes());
             $attributes = array_map(fn ($value) => preg_replace('/^fields\./', '', $value), $attributes);
 
-            $fields = array_merge($fields, $attributes);
-        }
+            return $attributes;
+        }, $files);
+
+        return array_merge(...$fields);
     }
 
-    private function parseDatabaseColumns(array &$fields): void
+    private function parseDatabaseColumns(): array
     {
         $tables = Schema::getAllTables();
         $tables = Arr::pluck($tables, 'tablename');
 
-        $columns = array_map(fn ($table) => Schema::getColumnListing($table), $tables);
+        $fields = array_map(fn ($table) => Schema::getColumnListing($table), $tables);
 
-        $fields = array_merge($fields, ...$columns);
+        return array_merge(...$fields);
     }
 }
