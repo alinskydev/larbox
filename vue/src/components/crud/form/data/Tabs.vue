@@ -27,11 +27,7 @@ export default {
             <div class="col-xxl-2 col-xl-3">
                 <div class="card m-0">
                     <ul class="nav nav-pills flex-column" role="tablist">
-                        <li
-                            v-for="(items, key, index) in model.data.form"
-                            class="nav-item"
-                            :set="(groupId = App.helpers.string.uniqueElementId())"
-                        >
+                        <li v-for="(items, key, index) in model.data.form" class="nav-item">
                             <a
                                 data-bs-toggle="tab"
                                 :href="'#tab-' + elementId + '-' + index"

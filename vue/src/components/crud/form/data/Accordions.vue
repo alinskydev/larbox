@@ -23,11 +23,7 @@ export default {
 
 <template>
     <form @submit.prevent="$parent.$data.submit" :id="elementId" class="crud-form d-inline-block w-100">
-        <div
-            v-for="(items, key, index) in model.data.form"
-            class="accordion card"
-            :set="(groupId = App.helpers.string.uniqueElementId())"
-        >
+        <div v-for="(items, key, index) in model.data.form" class="accordion card">
             <button
                 class="accordion-button card-header"
                 type="button"

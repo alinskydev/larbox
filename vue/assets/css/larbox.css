@@ -133,3 +133,11 @@ select.select2-hidden-accessible,
     background: #fff;
     z-index: 1;
 }
+
+.select2-container--open {
+    z-index: 9999999
+}
+
+.tab-pane>*:first-child {
+    margin-top: 0;
+}
