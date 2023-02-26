@@ -5,37 +5,37 @@ Larbox is a starter kit based on [Laravel framework](https://laravel.com). It is
 ## Requirements
 
 -   PHP version >= PHP 8.1
--   PostgreSQL version >= 14 **(I haven't tested on earlier versions... but also I haven't used any modern syntax; MySQL needs some adaptation fixes to convert PostgreSQL syntax... RUN TESTS AFTER INSTALL)**
+-   PostgreSQL version >= 14 **(I haven't tested on earlier versions... but also I haven't used any modern syntax; MySQL needs some adaptation fixes... RUN TESTS AFTER INSTALL)**
 
-## Installation
+## Installation (backend)
 
-**Downloading:** clone repository
-
-```
-git clone https://github.com/alinskydev/larbox.git {your-project-name}
-```
-
-open your project folder
-
-```
-cd {your-project-name}
-```
-
-install all required packages
-
+1. Download repository: [Link](https://github.com/alinskydev/larbox/archive/refs/heads/main.zip)
+2. Open your project folder
+3. Install all required packages
 ```
 composer install
 ```
-
-**Configurating:** create **.env** file from **.env.example** in the root foolder and fill all configurations inside it.
-
-**Migrating DB:** run
-
+4. Create **.env** file from **.env.example** in the root folder and fill all configurations inside it (APP_, DB_, etc.).
+5. Generate new application key
+```
+php artisan key:generate
+```
+6. Run to import all DB migrations and fill DB with test data
 ```
 php artisan larbox:migrate
 ```
 
-to import all migrations and fill DB with test data.
+## Installation (admin panel frontend)
+
+1. Open {your_project_folder}/vue and run
+```
+npm install
+```
+2. Fill **.env.development** and **.env.production**
+3. Now you can run
+```
+npm run dev
+```
 
 ## Folders structure
 
