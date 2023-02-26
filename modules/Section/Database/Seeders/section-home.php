@@ -29,16 +29,15 @@ return new class extends Seeder
                         '/test_data/images/3.png',
                     ],
 
-                    'relations_1' => SeederHelper::multiply(
-                        range(1, 2),
+                    'relations_1' => array_map(
                         fn ($index) => [
                             'text' => "Text $index",
                             'image' => "/test_data/images/$index.png",
                         ],
+                        range(1, 2),
                     ),
 
-                    'relations_2' => SeederHelper::multiply(
-                        range(1, 2),
+                    'relations_2' => array_map(
                         fn ($index) => [
                             'text_localized' => json_decode(SeederHelper::localized("Text $index")),
                             'images_list' => [
@@ -47,6 +46,7 @@ return new class extends Seeder
                                 '/test_data/images/3.png',
                             ],
                         ],
+                        range(1, 2),
                     ),
                 ]),
                 'updated_at' => date('Y-m-d H:i:s'),

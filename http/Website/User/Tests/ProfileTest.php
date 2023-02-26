@@ -2,17 +2,21 @@
 
 namespace Http\Website\User\Tests;
 
+use App\Testing\Feature\Helpers\FormHelper;
+
 class ProfileTest extends _TestCase
 {
+    public string $requestUrl = 'website/user/profile';
+
     public function test_show(): void
     {
-        $this->processShow('profile');
+        $this->sendRequest();
     }
 
     public function test_update_without_new_password(): void
     {
-        $this->processUpdate(
-            path: 'profile',
+        $this->sendRequest(
+            method: 'PUT',
             body: [
                 'username' => 'registered_1',
                 'email' => 'registered_1@local.host',
@@ -20,7 +24,7 @@ class ProfileTest extends _TestCase
                 'profile' => [
                     'full_name' => 'Registered 1',
                     'phone' => '+998000000001',
-                    'image' => $this->formHelper::files(),
+                    'image' => FormHelper::files(),
                 ],
             ],
         );
@@ -28,8 +32,8 @@ class ProfileTest extends _TestCase
 
     public function test_update_with_new_password(): void
     {
-        $this->processUpdate(
-            path: 'profile',
+        $this->sendRequest(
+            method: 'PUT',
             body: [
                 'username' => 'registered_1',
                 'email' => 'registered_1@local.host',
@@ -39,7 +43,7 @@ class ProfileTest extends _TestCase
                 'profile' => [
                     'full_name' => 'Registered 1',
                     'phone' => '+998000000001',
-                    'image' => $this->formHelper::files(),
+                    'image' => FormHelper::files(),
                 ],
             ],
         );

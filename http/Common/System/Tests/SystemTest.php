@@ -6,6 +6,6 @@ class SystemTest extends _TestCase
 {
     public function test_index(): void
     {
-        $this->processShow('');
+        $this->sendRequest();
     }
 }

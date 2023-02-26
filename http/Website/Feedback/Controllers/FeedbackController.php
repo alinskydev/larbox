@@ -6,7 +6,6 @@ use App\Base\Controller;
 use Illuminate\Http\JsonResponse;
 
 use Http\Website\Feedback\Requests\CallbackRequest;
-use Modules\Feedback\Models\Callback;
 
 class FeedbackController extends Controller
 {

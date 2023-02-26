@@ -2,20 +2,29 @@
 
 namespace Http\Admin\Box\Tests\Brand;
 
+use App\Testing\Feature\Helpers\FormHelper;
+
 class CreateTest extends _TestCase
 {
     public function test_success(): void
     {
-        $this->processPost(
+        $this->sendRequest(
+            method: 'POST',
             body: [
                 'name' => 'Brand 3',
                 'show_on_the_home_page' => 1,
-                'file' => $this->formHelper::files(),
-                'file_old_keys' => '[]',
-                'files_list' => $this->formHelper::files(quantity: 2),
-                'files_list_old_keys' => '[]',
+                ...FormHelper::deleteableFiles(
+                    field: 'file',
+                    files: FormHelper::files(),
+                    oldKeys: [],
+                ),
+                ...FormHelper::deleteableFiles(
+                    field: 'files_list',
+                    files: FormHelper::files(quantity: 2),
+                    oldKeys: [],
+                ),
 
-                'seo_meta' => $this->formHelper::seoMeta(),
+                ...FormHelper::seoMeta(),
             ],
             assertStatus: 201,
         );

@@ -2,16 +2,19 @@
 
 namespace Http\Admin\Box\Tests\Category;
 
+use App\Testing\Feature\Helpers\FormHelper;
+
 class UpdateTest extends _TestCase
 {
     public function test_success(): void
     {
-        $this->processUpdate(
+        $this->sendRequest(
+            method: 'PUT',
             path: '2',
             body: [
-                'name' => $this->formHelper::localized('Category 1'),
+                'name' => FormHelper::localized('Category 1'),
 
-                'seo_meta' => $this->formHelper::seoMeta(),
+                ...FormHelper::seoMeta(),
             ],
         );
     }

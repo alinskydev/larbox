@@ -2,13 +2,16 @@
 
 namespace Http\Admin\User\Tests\Role;
 
+use App\Testing\Feature\Helpers\FormHelper;
+
 class CreateTest extends _TestCase
 {
     public function test_success(): void
     {
-        $this->processPost(
+        $this->sendRequest(
+            method: 'POST',
             body: [
-                'name' => $this->formHelper::localized('Role 3'),
+                'name' => FormHelper::localized('Role 3'),
                 'routes' => [
                     'admin.section.show',
                 ],

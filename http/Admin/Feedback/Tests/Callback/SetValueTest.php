@@ -9,6 +9,10 @@ class SetValueTest extends _TestCase
     public function test_change_status(): void
     {
         $status = FeedbackStatusEnum::IN_PROGRESS->value;
-        $this->processPatch("1/set-status/$status");
+
+        $this->sendRequest(
+            method: 'PATCH',
+            path: "1/set-status/$status",
+        );
     }
 }

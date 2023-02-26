@@ -2,11 +2,14 @@
 
 namespace Http\Admin\User\Tests\User;
 
+use App\Testing\Feature\Helpers\FormHelper;
+
 class CreateTest extends _TestCase
 {
     public function test_success(): void
     {
-        $this->processPost(
+        $this->sendRequest(
+            method: 'POST',
             body: [
                 'role_id' => 2,
                 'username' => 'moderator_2',
@@ -17,8 +20,11 @@ class CreateTest extends _TestCase
                 'profile' => [
                     'full_name' => 'Moderator 2',
                     'phone' => '+998000000012',
-                    'image' => $this->formHelper::files(),
-                    'image_old_keys' => '[]',
+                    ...FormHelper::deleteableFiles(
+                        field: 'image',
+                        files: FormHelper::files(),
+                        oldKeys: [],
+                    ),
                 ],
             ],
             assertStatus: 201,

@@ -2,14 +2,17 @@
 
 namespace Http\Admin\Storage\Tests;
 
+use App\Testing\Feature\Helpers\FormHelper;
+
 class UploadTest extends _TestCase
 {
     public function test_media(): void
     {
-        $this->processPost(
+        $this->sendRequest(
+            method: 'POST',
             path: 'upload/media',
             body: [
-                'file' => $this->formHelper::files(),
+                'file' => FormHelper::files(),
             ],
         );
     }

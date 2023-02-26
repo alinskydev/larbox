@@ -2,36 +2,48 @@
 
 namespace Http\Admin\Box\Tests\Box;
 
+use App\Testing\Feature\Helpers\FormHelper;
+
 class CreateTest extends _TestCase
 {
     public function test_success(): void
     {
-        $this->processPost(
+        $this->sendRequest(
+            method: 'POST',
             body: [
                 'brand_id' => 1,
-                'name' => $this->formHelper::localized('Box 3'),
-                'description' => $this->formHelper::localized('Description 3'),
+                'name' => FormHelper::localized('Box 3'),
+                'description' => FormHelper::localized('Description 3'),
                 'price' => 9300,
                 'date' => date('Y-m-d'),
                 'datetime' => date('Y-m-d H:i:s'),
-                'image' => $this->formHelper::files(),
-                'image_old_keys' => '[]',
-                'images_list' => $this->formHelper::files(quantity: 2),
-                'images_list_old_keys' => '[]',
+                ...FormHelper::deleteableFiles(
+                    field: 'image',
+                    files: FormHelper::files(),
+                    oldKeys: [],
+                ),
+                ...FormHelper::deleteableFiles(
+                    field: 'images_list',
+                    files: FormHelper::files(quantity: 2),
+                    oldKeys: [],
+                ),
 
                 'categories' => [6, 8],
                 'tags' => [1, 2],
 
-                'variations' => $this->formHelper::multiply(
-                    range(1, 2),
+                'variations' => array_map(
                     fn ($index) => [
-                        'name' => $this->formHelper::localized("Variation $index"),
-                        'image' => $this->formHelper::files(),
-                        'image_old_keys' => '[]',
+                        'name' => FormHelper::localized("Variation $index"),
+                        ...FormHelper::deleteableFiles(
+                            field: 'image',
+                            files: FormHelper::files(),
+                            oldKeys: [],
+                        ),
                     ],
+                    range(1, 2),
                 ),
 
-                'seo_meta' => $this->formHelper::seoMeta(),
+                ...FormHelper::seoMeta(),
             ],
             assertStatus: 201,
         );

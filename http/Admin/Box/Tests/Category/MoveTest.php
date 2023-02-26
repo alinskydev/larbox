@@ -8,7 +8,6 @@ use App\NestedSet\NestedSetHelper;
 class MoveTest extends _TestCase
 {
     public string $requestUrl = 'admin/box/category-move';
-    public string $requestMethod = 'PATCH';
 
     public function test_success(): void
     {
@@ -23,13 +22,11 @@ class MoveTest extends _TestCase
         $tree = json_encode($tree);
         $tree = htmlspecialchars($tree);
 
-        $this->requestBody = [
-            'tree' => $tree,
-
-            'seo_meta' => $this->formHelper::seoMeta(),
-        ];
-
-        $this->response = $this->sendRequest();
-        $this->response->assertStatus(200);
+        $this->sendRequest(
+            method: 'PATCH',
+            body: [
+                'tree' => $tree,
+            ],
+        );
     }
 }

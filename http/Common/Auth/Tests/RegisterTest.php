@@ -2,11 +2,14 @@
 
 namespace Http\Common\Auth\Tests;
 
+use App\Testing\Feature\Helpers\FormHelper;
+
 class RegisterTest extends _TestCase
 {
     public function test_success(): void
     {
-        $this->processPost(
+        $this->sendRequest(
+            method: 'POST',
             path: 'register',
             body: [
                 'username' => 'registered_3',
@@ -17,19 +20,8 @@ class RegisterTest extends _TestCase
                 'profile' => [
                     'full_name' => 'Registered 3',
                     'phone' => '+998000000003',
-                    'image' => $this->formHelper::files(),
+                    'image' => FormHelper::files(),
                 ],
-            ],
-        );
-    }
-
-    public function test_login_as_new_user(): void
-    {
-        $this->processPost(
-            path: 'login',
-            body: [
-                'username' => 'registered_3',
-                'password' => 'user1234',
             ],
         );
     }

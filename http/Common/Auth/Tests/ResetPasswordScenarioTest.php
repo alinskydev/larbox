@@ -2,11 +2,14 @@
 
 namespace Http\Common\Auth\Tests;
 
+use App\Testing\Feature\Helpers\FormHelper;
+
 class ResetPasswordScenarioTest extends _TestCase
 {
     public function test_send_code(): void
     {
-        $this->processPost(
+        $this->sendRequest(
+            method: 'POST',
             path: 'reset-password/send-code',
             body: [
                 'email' => 'registered_1@local.host',
@@ -16,8 +19,9 @@ class ResetPasswordScenarioTest extends _TestCase
 
     public function test_verify_code(): void
     {
-        $this->processPost(
-            path: 'reset-password/verify-code',
+        $this->sendRequest(
+            method: 'POST',
+            path: 'reset-password/send-code',
             body: [
                 'email' => 'registered_1@local.host',
                 'code' => '1234',
@@ -27,8 +31,9 @@ class ResetPasswordScenarioTest extends _TestCase
 
     public function test_complete(): void
     {
-        $this->processPost(
-            path: 'reset-password/complete',
+        $this->sendRequest(
+            method: 'POST',
+            path: 'reset-password/send-code',
             body: [
                 'email' => 'registered_1@local.host',
                 'code' => '1234',

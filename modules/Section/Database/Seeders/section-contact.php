@@ -17,8 +17,7 @@ return new class extends Seeder
                     'socials_instagram' => '',
                     'socials_youtube' => '',
 
-                    'branches' => SeederHelper::multiply(
-                        range(1, 2),
+                    'branches' => array_map(
                         fn ($index) => [
                             'name' => "Name $index",
                             'phones' => [
@@ -27,6 +26,7 @@ return new class extends Seeder
                             ],
                             'description' => json_decode(SeederHelper::localized("Description $index")),
                         ],
+                        range(1, 2),
                     ),
                 ]),
                 'updated_at' => date('Y-m-d H:i:s'),

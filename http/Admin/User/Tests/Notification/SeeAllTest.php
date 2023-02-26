@@ -6,6 +6,9 @@ class SeeAllTest extends _TestCase
 {
     public function test_success(): void
     {
-        $this->processPatch('see-all');
+        $this->sendRequest(
+            method: 'PATCH',
+            path: 'see-all',
+        );
     }
 }

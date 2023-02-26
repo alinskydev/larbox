@@ -2,41 +2,23 @@
 
 namespace Http\Admin\Feedback\Tests\Callback;
 
-use App\Testing\Feature\Traits\IndexFeatureTestTrait;
+use App\Testing\Feature\Traits\SearchFeatureTestTrait;
 use Modules\Feedback\Search\CallbackSearch;
 
 class IndexTest extends _TestCase
 {
-    use IndexFeatureTestTrait;
+    use SearchFeatureTestTrait {
+        test_available_relations as private;
+    }
 
     public string $searchClass = CallbackSearch::class;
 
     public function test_available_filters(): void
     {
-        $this->processAvailableFilters([
+        $this->sendRequestWithFilters([
             'id' => 1,
             'status' => 'unprocessed',
             'common' => 'full name',
         ]);
-    }
-
-    public function test_available_sortings(): void
-    {
-        $this->processAvailableSortings();
-    }
-
-    public function test_show_with_deleted(): void
-    {
-        $this->processShowWithDeleted();
-    }
-
-    public function test_show_only_deleted(): void
-    {
-        $this->processShowOnlyDeleted();
-    }
-
-    public function test_pagination(): void
-    {
-        $this->processPagination();
     }
 }

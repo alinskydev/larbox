@@ -2,15 +2,18 @@
 
 namespace Http\Admin\Box\Tests\Category;
 
+use App\Testing\Feature\Helpers\FormHelper;
+
 class CreateTest extends _TestCase
 {
     public function test_success(): void
     {
-        $this->processPost(
+        $this->sendRequest(
+            method: 'POST',
             body: [
-                'name' => $this->formHelper::localized('Category 3'),
+                'name' => FormHelper::localized('Category 3'),
 
-                'seo_meta' => $this->formHelper::seoMeta(),
+                ...FormHelper::seoMeta(),
             ],
             assertStatus: 201,
         );

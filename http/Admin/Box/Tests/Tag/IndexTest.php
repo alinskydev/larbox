@@ -2,40 +2,22 @@
 
 namespace Http\Admin\Box\Tests\Tag;
 
-use App\Testing\Feature\Traits\IndexFeatureTestTrait;
+use App\Testing\Feature\Traits\SearchFeatureTestTrait;
 use Modules\Box\Search\TagSearch;
 
 class IndexTest extends _TestCase
 {
-    use IndexFeatureTestTrait;
+    use SearchFeatureTestTrait {
+        test_available_relations as private;
+    }
 
     public string $searchClass = TagSearch::class;
 
     public function test_available_filters(): void
     {
-        $this->processAvailableFilters([
+        $this->sendRequestWithFilters([
             'id' => 1,
             'name' => 'tag',
         ]);
-    }
-
-    public function test_available_sortings(): void
-    {
-        $this->processAvailableSortings();
-    }
-
-    public function test_show_with_deleted(): void
-    {
-        $this->processShowWithDeleted();
-    }
-
-    public function test_show_only_deleted(): void
-    {
-        $this->processShowOnlyDeleted();
-    }
-
-    public function test_pagination(): void
-    {
-        $this->processPagination();
     }
 }

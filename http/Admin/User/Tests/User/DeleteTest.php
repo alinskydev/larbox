@@ -6,16 +6,26 @@ class DeleteTest extends _TestCase
 {
     public function test_delete(): void
     {
-        $this->processDelete();
+        $this->sendRequest(
+            method: 'DELETE',
+            path: '2',
+        );
     }
 
     public function test_restore(): void
     {
-        $this->processRestore();
+        $this->sendRequest(
+            method: 'DELETE',
+            path: '2/restore',
+        );
     }
 
     public function test_error___Undeletable(): void
     {
-        $this->processDelete('1', 400);
+        $this->sendRequest(
+            method: 'DELETE',
+            path: '1',
+            assertStatus: 400,
+        );
     }
 }

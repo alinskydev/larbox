@@ -2,11 +2,14 @@
 
 namespace Http\Admin\User\Tests\User;
 
+use App\Testing\Feature\Helpers\FormHelper;
+
 class UpdateTest extends _TestCase
 {
     public function test_success(): void
     {
-        $this->processUpdate(
+        $this->sendRequest(
+            method: 'PUT',
             path: '2',
             body: [
                 'role_id' => 2,
@@ -18,8 +21,11 @@ class UpdateTest extends _TestCase
                 'profile' => [
                     'full_name' => 'Moderator 1',
                     'phone' => '+998000000011',
-                    'image' => $this->formHelper::files(),
-                    'image_old_keys' => '[0]',
+                    ...FormHelper::deleteableFiles(
+                        field: 'image',
+                        files: FormHelper::files(),
+                        oldKeys: [0],
+                    ),
                 ],
             ],
         );
@@ -27,7 +33,9 @@ class UpdateTest extends _TestCase
 
     public function test_superadmin_role_is_unchangeable(): void
     {
-        $this->processUpdate(
+        $this->sendRequest(
+            method: 'PUT',
+            path: '1',
             body: [
                 'role_id' => 2,
             ],

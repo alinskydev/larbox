@@ -25,13 +25,24 @@ class FormHelper
         }
     }
 
-    public static function seoMeta(): array
-    {
-        return array_map(fn ($value) => '<meta name="description" content="Description" />', app('language')->all);
+    public static function deleteableFiles(
+        string $field,
+        File|array $files,
+        array $oldKeys = [],
+    ): array {
+        return [
+            $field => $files,
+            "{$field}_old_keys" => json_encode($oldKeys),
+        ];
     }
 
-    public static function multiply(array $indexes, callable $callback): array
+    public static function seoMeta(): array
     {
-        return array_map($callback, $indexes);
+        return [
+            'seo_meta' => array_map(
+                fn ($value) => '<meta name="description" content="Description" />',
+                app('language')->all,
+            ),
+        ];
     }
 }

@@ -2,19 +2,24 @@
 
 namespace Http\Admin\Section\Tests;
 
+use App\Testing\Feature\Helpers\FormHelper;
+
 class BoxesTest extends _TestCase
 {
     public function test_show(): void
     {
-        $this->processShow('boxes');
+        $this->sendRequest(
+            path: 'boxes',
+        );
     }
 
     public function test_update(): void
     {
-        $this->processUpdate(
+        $this->sendRequest(
+            method: 'PUT',
             path: 'boxes',
             body: [
-                'seo_meta' => $this->formHelper::seoMeta(),
+                ...FormHelper::seoMeta(),
             ],
         );
     }

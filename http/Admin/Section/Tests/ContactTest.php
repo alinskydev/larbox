@@ -2,35 +2,40 @@
 
 namespace Http\Admin\Section\Tests;
 
+use App\Testing\Feature\Helpers\FormHelper;
+
 class ContactTest extends _TestCase
 {
     public function test_show(): void
     {
-        $this->processShow('contact');
+        $this->sendRequest(
+            path: 'contact',
+        );
     }
 
     public function test_update(): void
     {
-        $this->processUpdate(
+        $this->sendRequest(
+            method: 'PUT',
             path: 'contact',
             body: [
                 'socials_facebook' => '',
                 'socials_instagram' => '',
                 'socials_youtube' => '',
 
-                'branches' => $this->formHelper::multiply(
-                    range(1, 2),
+                'branches' => array_map(
                     fn ($index) => [
                         'name' => "Name $index",
                         'phones' => [
                             "+998 00 000 00 {$index}1",
                             "+998 00 000 00 {$index}2",
                         ],
-                        'description' => $this->formHelper::localized("Description $index"),
+                        'description' => FormHelper::localized("Description $index"),
                     ],
+                    range(1, 2),
                 ),
 
-                'seo_meta' => $this->formHelper::seoMeta(),
+                ...FormHelper::seoMeta(),
             ],
         );
     }

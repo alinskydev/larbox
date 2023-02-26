@@ -22,9 +22,4 @@ class SeederHelper
         $string = $hasLanguageSuffix ? "$string " . app()->getLocale() : $string;
         return Str::slug($string);
     }
-
-    public static function multiply(array $indexes, callable $callback): array
-    {
-        return array_map($callback, $indexes);
-    }
 }

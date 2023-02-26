@@ -2,11 +2,14 @@
 
 namespace Http\Website\Feedback\Tests;
 
+use App\Testing\Feature\Helpers\FormHelper;
+
 class CallbackTest extends _TestCase
 {
     public function test_success(): void
     {
-        $this->processPost(
+        $this->sendRequest(
+            method: 'POST',
             path: 'callback',
             body: [
                 'full_name' => 'Full name 3',

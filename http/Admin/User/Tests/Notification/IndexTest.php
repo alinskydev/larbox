@@ -2,31 +2,25 @@
 
 namespace Http\Admin\User\Tests\Notification;
 
-use App\Testing\Feature\Traits\IndexFeatureTestTrait;
+use App\Testing\Feature\Traits\SearchFeatureTestTrait;
 use Modules\User\Search\NotificationSearch;
 
 class IndexTest extends _TestCase
 {
-    use IndexFeatureTestTrait;
+    use SearchFeatureTestTrait {
+        test_available_relations as private;
+        test_show_with_deleted as private;
+        test_show_only_deleted as private;
+    }
 
     public string $searchClass = NotificationSearch::class;
 
     public function test_available_filters(): void
     {
-        $this->processAvailableFilters([
+        $this->sendRequestWithFilters([
             'id' => 1,
             'type' => 'message',
             'is_seen' => 0,
         ]);
-    }
-
-    public function test_available_sortings(): void
-    {
-        $this->processAvailableSortings();
-    }
-
-    public function test_pagination(): void
-    {
-        $this->processPagination();
     }
 }

@@ -8,13 +8,11 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Http\Testing\File;
 
-use App\Testing\Feature\Traits\ActionFeatureTestTrait;
 use Modules\User\Models\User;
 
 abstract class PostmanTestCase extends BaseTestCase
 {
     use CreatesApplicationTrait;
-    use ActionFeatureTestTrait;
 
     protected $defaultHeaders = [
         'Accept' => 'application/json',
@@ -35,7 +33,23 @@ abstract class PostmanTestCase extends BaseTestCase
 
     public TestResponse $response;
 
-    public function sendRequest(): TestResponse
+    public function sendRequest(
+        string $method = 'GET',
+        string $path = '',
+        array $query = [],
+        array $body = [],
+        int $assertStatus = 200,
+    ): void {
+        $this->requestMethod = $method;
+        $this->requestUrl .= $path ? "/$path" : '';
+        $this->requestQuery = $query;
+        $this->requestBody = $body;
+
+        $this->response = $this->sendRequestAndPrepareData();
+        $this->response->assertStatus($assertStatus);
+    }
+
+    private function sendRequestAndPrepareData(): TestResponse
     {
         if (in_array($this->requestMethod, ['PUT', 'PATCH'])) {
             $this->requestQuery['_method'] = $this->requestMethod;
