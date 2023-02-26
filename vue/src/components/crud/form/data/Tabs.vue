@@ -10,7 +10,7 @@ export default {
             type: Object,
             required: true,
         },
-        elementId: {
+        parentId: {
             type: String,
             required: true,
         },
@@ -22,7 +22,7 @@ export default {
 </script>
 
 <template>
-    <form @submit.prevent="$parent.$data.submit" :id="elementId" class="crud-form d-inline-block w-100 mt-4">
+    <form @submit.prevent="$parent.$data.submit" :id="parentId" class="crud-form d-inline-block w-100 mt-4">
         <div class="row">
             <div class="col-xxl-2 col-xl-3">
                 <div class="card m-0">
@@ -30,7 +30,7 @@ export default {
                         <li v-for="(items, key, index) in model.data.form" class="nav-item">
                             <a
                                 data-bs-toggle="tab"
-                                :href="'#tab-' + elementId + '-' + index"
+                                :href="'#tab-' + parentId + '-' + index"
                                 :class="'nav-link font-size-16' + (!index ? ' active' : '')"
                                 role="tab"
                             >
@@ -46,7 +46,7 @@ export default {
                     <div class="tab-content">
                         <div
                             v-for="(items, key, index) in model.data.form"
-                            :id="'tab-' + elementId + '-' + index"
+                            :id="'tab-' + parentId + '-' + index"
                             :class="'tab-pane card-body' + (!index ? ' active' : '')"
                             role="tabpanel"
                         >

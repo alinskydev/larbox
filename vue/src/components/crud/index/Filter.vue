@@ -19,7 +19,6 @@ export default {
     },
     data() {
         return {
-            elementId: App.helpers.string.uniqueElementId(),
             model: this.config.model,
             filters: {},
         };

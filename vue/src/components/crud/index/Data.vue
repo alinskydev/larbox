@@ -20,7 +20,6 @@ export default {
     },
     data() {
         return {
-            elementId: App.helpers.string.uniqueElementId(),
             models: [],
             meta: {},
         };
@@ -61,7 +60,7 @@ export default {
                         <table class="table table-hover table-bordered">
                             <thead>
                                 <tr>
-                                    <Selection :config="config" type="tableHead" :elementId="elementId" />
+                                    <Selection :config="config" type="tableHead" :parentId="elementId" />
 
                                     <template v-for="item in models[0].data.index">
                                         <th v-if="!item.isHidden">
@@ -77,7 +76,7 @@ export default {
 
                             <tbody>
                                 <tr v-for="model in models" v-bind="config.grid.rowAttributes(model.data.record)">
-                                    <Selection :config="config" type="tableBody" :elementId="elementId" :pk="model.data.pk" />
+                                    <Selection :config="config" type="tableBody" :parentId="elementId" :pk="model.data.pk" />
 
                                     <template v-for="item in model.data.index">
                                         <template v-if="!item.isHidden">
@@ -116,7 +115,7 @@ export default {
                         </table>
                     </div>
 
-                    <Selection :config="config" type="actions" :elementId="elementId" />
+                    <Selection :config="config" type="actions" :parentId="elementId" />
                 </template>
 
                 <template v-else>

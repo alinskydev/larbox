@@ -10,7 +10,7 @@ import Update from '@/components/crud/Update.vue';
 <script>
 export default {
     props: {
-        elementId: {
+        parentId: {
             type: String,
             required: true,
         },
@@ -30,11 +30,11 @@ export default {
                     afterSubmit: (formData, response) => {
                         let text = formData.get('name[' + App.locale + ']');
 
-                        $('#tree-' + this.elementId)
+                        $('#tree-' + this.parentId)
                             .jstree(true)
                             .rename_node(this.$route.params.pk, text);
 
-                        $('#modal-' + this.elementId).modal('hide');
+                        $('#modal-' + this.parentId).modal('hide');
 
                         toastr.success(App.t('Сохранение прошло успешно'));
                     },

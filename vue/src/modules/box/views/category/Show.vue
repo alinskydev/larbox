@@ -9,7 +9,7 @@ import Show from '@/components/crud/Show.vue';
 <script>
 export default {
     props: {
-        elementId: {
+        parentId: {
             type: String,
             required: true,
         },

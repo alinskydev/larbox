@@ -21,7 +21,7 @@ export default {
             type: Number,
             required: true,
         },
-        elementId: {
+        parentId: {
             type: String,
             required: true,
         },
@@ -65,6 +65,6 @@ export default {
 </script>
 
 <template>
-    <Accordions v-if="layout === Enums.crudFormDataLayouts.accordions" :model="model" :elementId="elementId" />
-    <Tabs v-if="layout === Enums.crudFormDataLayouts.tabs" :model="model" :elementId="elementId" />
+    <Accordions v-if="layout === Enums.crudFormDataLayouts.accordions" :model="model" :parentId="parentId" />
+    <Tabs v-if="layout === Enums.crudFormDataLayouts.tabs" :model="model" :parentId="parentId" />
 </template>

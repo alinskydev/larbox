@@ -10,7 +10,7 @@ export default {
             type: Array,
             default: ['cancel', 'save'],
         },
-        elementId: {
+        parentId: {
             type: String,
             required: true,
         },
@@ -28,7 +28,7 @@ export default {
                 {{ App.t('Отменить') }}
             </button>
 
-            <button v-if="action === 'save'" type="submit" :form="elementId" class="btn btn-primary">
+            <button v-if="action === 'save'" type="submit" :form="parentId" class="btn btn-primary">
                 {{ App.t('Сохранить') }}
             </button>
         </template>

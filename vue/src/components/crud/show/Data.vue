@@ -12,9 +12,7 @@ export default {
         },
     },
     data() {
-        return {
-            elementId: App.helpers.string.uniqueElementId(),
-        };
+        return {};
     },
 };
 </script>

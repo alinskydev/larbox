@@ -1,6 +1,6 @@
 <script setup>
 import App from '@/core/app';
-import Form from '@/modules/user/forms/notification';
+import Form from '@/modules/user/forms/notificationCreate';
 
 import Input from '@/components/Input.vue';
 </script>
@@ -9,7 +9,6 @@ import Input from '@/components/Input.vue';
 export default {
     data() {
         return {
-            elementId: App.helpers.string.uniqueElementId(),
             inputs: Form.fillData().data.form[0],
         };
     },

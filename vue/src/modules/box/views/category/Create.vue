@@ -10,7 +10,7 @@ import Create from '@/components/crud/Create.vue';
 <script>
 export default {
     props: {
-        elementId: {
+        parentId: {
             type: String,
             required: true,
         },
@@ -26,7 +26,7 @@ export default {
                 events: {
                     afterSubmit: (formData, response) => {
                         this.$parent.$data.treeKey++;
-                        $('#modal-' + this.elementId).modal('hide');
+                        $('#modal-' + this.parentId).modal('hide');
                         toastr.success(App.t('Сохранение прошло успешно'));
                     },
                 },

@@ -31,26 +31,25 @@ export default {
     data() {
         return {
             model: Object.assign({}, this.config.model.fillData()),
-            elementId: App.helpers.string.uniqueElementId(),
         };
     },
 };
 </script>
 
 <template>
-    <TopButtons v-if="buttonsLayout === Enums.crudFormButtonsLayouts.top" :actions="actions" :elementId="elementId" />
+    <TopButtons v-if="buttonsLayout === Enums.crudFormButtonsLayouts.top" :actions="actions" :parentId="elementId" />
 
-    <Data v-if="model" :config="config" :model="model" :layout="dataLayout" :elementId="elementId" />
+    <Data v-if="model" :config="config" :model="model" :layout="dataLayout" :parentId="elementId" />
 
     <BottomStaticButtons
         v-if="buttonsLayout === Enums.crudFormButtonsLayouts.bottomStatic"
         :actions="actions"
-        :elementId="elementId"
+        :parentId="elementId"
     />
 
     <BottomFixedButtons
         v-if="buttonsLayout === Enums.crudFormButtonsLayouts.bottomFixed"
         :actions="actions"
-        :elementId="elementId"
+        :parentId="elementId"
     />
 </template>

@@ -24,7 +24,6 @@ export default {
                     path: 'box/category',
                 },
             }),
-            elementId: App.helpers.string.uniqueElementId(),
             modalView: 'create',
             modalKey: 0,
             treeKey: 0,
@@ -68,15 +67,15 @@ export default {
         </div>
 
         <div class="card-body">
-            <Tree httpPath="box/category" :elementId="elementId" :key="treeKey" />
+            <Tree httpPath="box/category" :parentId="elementId" :key="treeKey" />
         </div>
 
         <div class="modal fade" :id="'modal-' + elementId">
             <div class="modal-dialog modal-xl">
                 <div class="modal-content" :key="modalKey">
-                    <Create v-if="modalView === 'create'" :elementId="elementId" />
-                    <Show v-else-if="modalView === 'show'" :elementId="elementId" />
-                    <Update v-else-if="modalView === 'update'" :elementId="elementId" />
+                    <Create v-if="modalView === 'create'" :parentId="elementId" />
+                    <Show v-else-if="modalView === 'show'" :parentId="elementId" />
+                    <Update v-else-if="modalView === 'update'" :parentId="elementId" />
                 </div>
             </div>
         </div>

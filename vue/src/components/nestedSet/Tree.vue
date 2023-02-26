@@ -6,7 +6,7 @@ import App from '@/core/app';
 <script>
 export default {
     props: {
-        elementId: {
+        parentId: {
             type: String,
             required: true,
         },
@@ -22,7 +22,7 @@ export default {
         };
     },
     mounted() {
-        this.treeView = $('#tree-' + this.elementId);
+        this.treeView = $('#tree-' + this.parentId);
 
         App.helpers.http
             .send({
@@ -62,7 +62,7 @@ export default {
                                                 this.$parent.$data.modalView = 'show';
                                                 this.$parent.$data.modalKey++;
 
-                                                $('#modal-' + this.elementId).modal('show');
+                                                $('#modal-' + this.parentId).modal('show');
                                             },
                                         },
                                         update: {
@@ -74,7 +74,7 @@ export default {
                                                 this.$parent.$data.modalView = 'update';
                                                 this.$parent.$data.modalKey++;
 
-                                                $('#modal-' + this.elementId).modal('show');
+                                                $('#modal-' + this.parentId).modal('show');
                                             },
                                         },
                                         delete: {
@@ -207,5 +207,5 @@ export default {
         </div>
     </div>
 
-    <div :id="'tree-' + elementId" class="mt-4"></div>
+    <div :id="'tree-' + parentId" class="mt-4"></div>
 </template>

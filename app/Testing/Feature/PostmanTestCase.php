@@ -2,6 +2,7 @@
 
 namespace App\Testing\Feature;
 
+use Exception;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Testing\TestResponse;
 use Illuminate\Support\Arr;
@@ -46,7 +47,19 @@ abstract class PostmanTestCase extends BaseTestCase
         $this->requestBody = $body;
 
         $this->response = $this->sendRequestAndPrepareData();
-        $this->response->assertStatus($assertStatus);
+
+        try {
+            $this->response->assertStatus($assertStatus);
+        } catch (\Throwable $e) {
+            $response = $this->response->baseResponse;
+
+            $content = $response->getContent();
+            $content = json_encode(json_decode($content), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+            
+            $response->setContent($content);
+
+            throw new \Exception($response);
+        }
     }
 
     private function sendRequestAndPrepareData(): TestResponse

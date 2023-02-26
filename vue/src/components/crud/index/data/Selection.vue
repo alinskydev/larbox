@@ -17,7 +17,7 @@ export default {
         pk: {
             type: [Number, String],
         },
-        elementId: {
+        parentId: {
             type: String,
             required: true,
         },
@@ -39,9 +39,9 @@ export default {
             $('.crud-index-data thead .selection').prop('checked', checkedCount === totalCount);
 
             if (checkedCount > 0) {
-                $('#selection-buttons-' + this.elementId).slideDown(300);
+                $('#selection-buttons-' + this.parentId).slideDown(300);
             } else {
-                $('#selection-buttons-' + this.elementId).slideUp(300);
+                $('#selection-buttons-' + this.parentId).slideUp(300);
             }
         },
         deleteMultipleAction() {
@@ -106,7 +106,7 @@ export default {
         <div
             v-if="type === 'actions'"
             class="crud-fixed-bottom-buttons"
-            :id="'selection-buttons-' + elementId"
+            :id="'selection-buttons-' + parentId"
             style="display: none"
         >
             <div class="card m-0">
