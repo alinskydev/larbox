@@ -2,18 +2,18 @@ import { createApp } from 'vue';
 import router from '@/app/router';
 import init from '@/app/init';
 
-import App from './App.vue';
-import CoreApp from '@/core/app';
+import App from '@/core/app';
+import AppVue from './App.vue';
 
 init().then(() => {
-    const app = createApp(App);
+    const app = createApp(AppVue);
 
     app.use(router);
 
     app.mixin({
         data() {
             return {
-                elementId: CoreApp.helpers.string.uniqueElementId(),
+                elementId: App.helpers.string.uniqueElementId(),
             };
         },
     });

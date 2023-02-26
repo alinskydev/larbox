@@ -55,7 +55,7 @@ abstract class PostmanTestCase extends BaseTestCase
 
             $content = $response->getContent();
             $content = json_encode(json_decode($content), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-            
+
             $response->setContent($content);
 
             throw new \Exception($response);
@@ -108,8 +108,7 @@ abstract class PostmanTestCase extends BaseTestCase
 
         // Getting target
 
-        $target = $this->providedTests[0]->getTarget();
-
+        $target = $this->provides()[0]->getTarget();
         $target = preg_replace('/^Http\\\|Tests\\\|Test|test_/', '', $target);
         $target = str_replace(['\\', '::'], '.', $target);
         $target = str_replace('___', ' | ', $target);
