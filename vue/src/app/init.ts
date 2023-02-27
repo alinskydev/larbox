@@ -1,4 +1,3 @@
-import * as Lodash from 'lodash';
 import App from '@/core/app';
 
 export default function () {
@@ -17,7 +16,7 @@ export default function () {
                 App.settings = data.settings;
 
                 App.locale = urlLocale in App.languages.active ? urlLocale : App.languages.main.code;
-                App.localization.translations = Lodash.merge(App.localization.translations, data.translations);
+                App.localization.translations = App.helpers.lodash.merge(App.localization.translations, data.translations);
 
                 App.config.http.headers['Accept-Language'] = App.locale;
             }

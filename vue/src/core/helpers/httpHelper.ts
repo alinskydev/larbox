@@ -1,4 +1,3 @@
-import * as Lodash from 'lodash';
 import App from '@/core/app';
 
 export default class {
@@ -17,7 +16,7 @@ export default class {
             }
         }
 
-        let requestOptions = Lodash.merge(
+        let requestOptions = App.helpers.lodash.merge(
             {
                 headers: App.config.http.headers,
             },

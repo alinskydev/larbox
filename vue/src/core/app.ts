@@ -6,6 +6,7 @@ import Page from '@/core/page';
 import FileHelper from '@/core/helpers/fileHelper';
 import HttpHelper from '@/core/helpers/httpHelper';
 import IteratorHelper from '@/core/helpers/iteratorHelper';
+import * as Lodash from 'lodash';
 import StringHelper from '@/core/helpers/stringHelper';
 import UserHelper from '@/core/helpers/userHelper';
 
@@ -29,12 +30,14 @@ class App {
         file: FileHelper;
         http: HttpHelper;
         iterator: IteratorHelper;
+        lodash: Lodash.__;
         string: StringHelper;
         user: UserHelper;
     } = {
         file: new FileHelper(),
         http: new HttpHelper(),
         iterator: new IteratorHelper(),
+        lodash: Lodash,
         string: new StringHelper(),
         user: new UserHelper(),
     };

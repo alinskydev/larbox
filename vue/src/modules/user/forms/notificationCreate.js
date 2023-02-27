@@ -1,4 +1,3 @@
-import * as Lodash from 'lodash';
 import App from '@/core/app';
 import Model from '@/core/model';
 import * as Enums from '@/core/enums';
@@ -11,7 +10,7 @@ export default new Model({
                     type: Enums.inputTypes.select,
                     options: {
                         select: {
-                            items: Lodash.pick(App.enums.user_notification.types, ['message', 'announcement']),
+                            items: App.helpers.lodash.pick(App.enums.user_notification.types, ['message', 'announcement']),
                         },
                     },
                     size: Enums.inputSizes.xl,

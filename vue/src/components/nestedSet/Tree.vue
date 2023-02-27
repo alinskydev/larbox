@@ -1,5 +1,4 @@
 <script setup>
-import * as Lodash from 'lodash';
 import App from '@/core/app';
 </script>
 
@@ -141,7 +140,7 @@ export default {
                                         return App.helpers.user.checkRoute(this.httpPath + '/' + value);
                                     });
 
-                                    return Lodash.pick(allActions, availableActions);
+                                    return App.helpers.lodash.pick(allActions, availableActions);
                                 },
                             },
                             dnd: {

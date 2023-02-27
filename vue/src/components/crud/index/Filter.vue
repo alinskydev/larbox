@@ -1,5 +1,4 @@
 <script setup>
-import * as Lodash from 'lodash';
 import App from '@/core/app';
 import { IndexConfig } from '@/core/crud/configs';
 
@@ -65,7 +64,7 @@ export default {
             this.$router
                 .push({
                     path: this.$route.path,
-                    query: Lodash.pickBy(query),
+                    query: App.helpers.lodash.pickBy(query),
                 })
                 .then(() => {
                     this.$parent.$data.dataKey++;
