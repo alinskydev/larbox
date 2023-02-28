@@ -3,6 +3,7 @@
 namespace Http\Admin\User\Tests\Notification;
 
 use App\Testing\Feature\Traits\SearchFeatureTestTrait;
+use Modules\User\Enums\NotificationTypeEnum;
 use Modules\User\Search\NotificationSearch;
 
 class IndexTest extends _TestCase
@@ -19,7 +20,7 @@ class IndexTest extends _TestCase
     {
         $this->sendRequestWithFilters([
             'id' => 1,
-            'type' => 'message',
+            'type' => NotificationTypeEnum::MESSAGE->value,
             'is_seen' => 0,
         ]);
     }

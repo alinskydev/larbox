@@ -9,7 +9,7 @@ class NotificationResource extends JsonResource
     public function toArray($request): array
     {
         return array_replace_recursive(parent::toArray($request), [
-            'text' => __("notifications.$this->type.text", $this->params),
+            'text' => __("user_notifications.$this->type.text", $this->params),
         ]);
     }
 }
