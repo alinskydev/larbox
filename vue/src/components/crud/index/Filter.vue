@@ -32,10 +32,9 @@ export default {
             key = key.replace('filter[', '', key);
 
             if (key.includes('][')) {
-                let keyArr = key.split('][');
-
-                let firstKey = keyArr[0];
-                let lastKey = keyArr[1].replace(']', '');
+                let keyArr = key.split(']['),
+                    firstKey = keyArr[0],
+                    lastKey = keyArr[1].replace(']', '');
 
                 values[firstKey] ??= {};
                 values[firstKey][lastKey] = query['filter[' + key];
@@ -85,10 +84,7 @@ export default {
 </script>
 
 <template>
-    <div
-        v-if="Object.keys(filters).length > 0 || model.config.sortings.length > 0 || model.hasSoftDelete"
-        class="accordion card"
-    >
+    <div v-if="Object.keys(filters).length > 0 || model.config.sortings.length > 0 || model.hasSoftDelete" class="accordion card">
         <button class="accordion-button card-header" type="button" data-bs-toggle="collapse" :data-bs-target="'#' + elementId">
             {{ App.t('Фильтр') }}
         </button>

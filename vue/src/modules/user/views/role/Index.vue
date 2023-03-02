@@ -21,21 +21,7 @@ export default {
                     path: 'user/role',
                 },
                 grid: {
-                    actions: ['show', 'updateAlt', 'delete'],
-                    customActions: {
-                        updateAlt: (record) => {
-                            return {
-                                path: 'user/role/' + record.id + '/update',
-                                linkAttributes: {
-                                    'title': App.t('routeActions->update'),
-                                    'class': 'btn btn-warning' + (record.id === 1 ? ' disabled' : ''),
-                                },
-                                iconAttributes: {
-                                    'class': 'fas fa-edit',
-                                },
-                            };
-                        },
-                    },
+                    actions: (record) => record.id !== 1 ? ['show', 'update', 'delete'] : [],
                 },
             }),
         };

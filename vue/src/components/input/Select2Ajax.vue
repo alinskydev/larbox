@@ -142,7 +142,7 @@ export default {
 </script>
 
 <template>
-    <select :multiple="options.isMultiple" style="width: 100%;">
+    <select :multiple="options.isMultiple" style="width: 100%">
         <option v-if="!options.isMultiple"></option>
         <option v-for="(selectItem, key) in items" :value="key" selected>
             {{ selectItem }}

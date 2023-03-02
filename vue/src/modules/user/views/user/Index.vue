@@ -22,6 +22,9 @@ export default {
                 http: {
                     path: 'user/user',
                 },
+                grid: {
+                    actions: (record) => ['show', 'update', record.id !== 1 ? 'delete' : ''],
+                },
             }),
         };
     },

@@ -7,7 +7,7 @@ export class IndexConfig {
         query: object;
     };
     grid: {
-        actions?: Array<string>;
+        actions?: Array<string> | ((record: Object) => any);
         customActions?: Record<string, (record: object) => any>;
         rowAttributes?: (record: object) => any;
     };

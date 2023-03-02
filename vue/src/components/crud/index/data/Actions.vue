@@ -21,19 +21,20 @@ export default {
         return {
             basePath: this.config.http.path + '/' + this.model.data.pk,
             record: this.model.data.record,
+            actions: this.config.grid.actions,
             customActions: {},
         };
     },
     watch: {
         record: {
             handler(newValue, oldValue) {
-                this.refreshCustomActions();
+                this.refreshActions();
             },
             deep: true,
         },
     },
     created() {
-        this.refreshCustomActions();
+        this.refreshActions();
     },
     mounted() {
         $(this.$el).find('a, button').not('[data-has-tooltip="false"]').tooltip();
@@ -42,7 +43,11 @@ export default {
         $(this.$el).find('a, button').not('[data-has-tooltip="false"]').tooltip('dispose');
     },
     methods: {
-        refreshCustomActions() {
+        refreshActions() {
+            if (typeof this.actions === 'function') {
+                this.actions = this.actions(this.record);
+            }
+
             for (let key in this.config.grid.customActions) {
                 this.customActions[key] = this.config.grid.customActions[key](this.record);
             }
@@ -85,7 +90,7 @@ export default {
 
 <template>
     <div class="btn-group">
-        <template v-for="action in config.grid.actions">
+        <template v-for="action in actions">
             <template v-if="!record.is_deleted">
                 <RouterLink
                     v-if="action === 'show' && App.helpers.user.checkRoute(config.http.path + '/show')"
