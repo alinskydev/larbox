@@ -100,7 +100,7 @@ let nav: NavItems = [
         children: [
             {
                 label: 'system.settings',
-                path: 'system/settings',
+                path: 'system/settings/update',
             },
             {
                 label: 'system.language',

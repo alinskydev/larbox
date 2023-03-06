@@ -3,7 +3,7 @@ export default {
     component: () => import('@/components/decorators/Empty.vue'),
     children: [
         {
-            path: 'settings',
+            path: 'settings/update',
             component: () => import('./views/settings/Update.vue'),
         },
         {
