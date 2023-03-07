@@ -20,7 +20,7 @@ class UniqueRule extends Rule
 
     public function passes($attribute, $value): bool
     {
-        if (gettype($value) != 'string') return false;
+        if (gettype($value) !== 'string') return false;
 
         $attributeArr = explode('.', $attribute);
 

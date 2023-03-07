@@ -48,7 +48,7 @@ class BoxRequest extends ActiveFormRequest
                 'array',
                 new ExistsWithOldRule(
                     model: $this->model,
-                    query: Category::query(),
+                    query: Category::query()->where('depth', '>', 0),
                 ),
             ],
 

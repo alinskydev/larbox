@@ -23,7 +23,7 @@ class NestedSetMoveRequest extends ActiveFormRequest
                 $tree = json_decode($this->tree, true);
                 $nodes = $this->collectSystemFields($tree);
 
-                if (isset($nodes[1]) || count($nodes) != $this->model->query()->withTrashed()->count() - 1) {
+                if (isset($nodes[1]) || count($nodes) !== $this->model->query()->withTrashed()->count() - 1) {
                     $validator->errors()->add('tree', 'Invalid tree');
                 }
 

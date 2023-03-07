@@ -2,8 +2,8 @@
 
 namespace App\Testing\Feature;
 
-use Exception;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use App\Testing\CreatesApplicationTrait;
 use Illuminate\Testing\TestResponse;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
@@ -11,7 +11,7 @@ use Illuminate\Http\Testing\File;
 
 use Modules\User\Models\User;
 
-abstract class PostmanTestCase extends BaseTestCase
+class PostmanTestCase extends BaseTestCase
 {
     use CreatesApplicationTrait;
 

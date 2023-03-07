@@ -33,7 +33,7 @@ class AppServiceProvider extends ServiceProvider
 
     private function bootDev()
     {
-        if (request()->ip() != env('DEBUGBAR_ALLOWED_IP')) {
+        if (request()->ip() !== env('DEBUGBAR_ALLOWED_IP')) {
             Debugbar::disable();
         }
     }

@@ -37,7 +37,7 @@ class ImageHelper
 
                 $image = ImageManagerStatic::make($sourceFile);
 
-                if ($method != 'original') $image->{$method}(...$params);
+                if ($method !== 'original') $image->{$method}(...$params);
                 if ($asWebp) $image->encode('webp');
 
                 $image->save($thumbFile);

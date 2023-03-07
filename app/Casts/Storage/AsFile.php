@@ -18,7 +18,7 @@ class AsFile implements CastsAttributes
     {
         $oldValue = $model->getRawOriginal($key);
 
-        if ($oldValue && $value != $oldValue) {
+        if ($oldValue && $value !== $oldValue) {
             FileHelper::delete(public_path($oldValue));
         }
 
