@@ -45,7 +45,7 @@ class ActiveFormRequest extends FormRequest
         if (
             $this->model->updated_at &&
             $this->updated_at &&
-            $this->updated_at !== $this->model->updated_at
+            $this->updated_at !== $this->model->updated_at->format('Y-m-d H:i:s')
         ) {
             abort(409, __('Данные были изменены другим источником. Обновите страницу, чтобы увидеть изменения.'));
         }

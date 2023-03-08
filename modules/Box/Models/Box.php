@@ -10,8 +10,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Modules\Box\Query\BoxQuery;
 use App\Observers\Slug\SlugNameObserver;
-use App\Casts\Date\AsDate;
-use App\Casts\Date\AsDatetime;
 use App\Casts\Storage\AsImage;
 use App\Casts\Storage\AsImages;
 
@@ -28,8 +26,6 @@ class Box extends Model
     protected $casts = [
         'name' => 'array',
         'description' => 'array',
-        'date' => AsDate::class,
-        'datetime' => AsDatetime::class,
         'image' => AsImage::class . ':widen_100|widen_500',
         'images_list' => AsImages::class . ':widen_100|widen_500',
     ];
