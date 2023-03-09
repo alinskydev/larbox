@@ -10,7 +10,10 @@ class MediaRequest extends FormRequest
     public function nonLocalizedRules(): array
     {
         return [
-            'file' => ValidationFileRulesHelper::media(true),
+            'file' => [
+                'required',
+                ...ValidationFileRulesHelper::media(),
+            ],
         ];
     }
 }

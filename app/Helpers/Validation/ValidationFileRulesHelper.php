@@ -4,16 +4,15 @@ namespace App\Helpers\Validation;
 
 class ValidationFileRulesHelper
 {
-    public static function image(bool $isRequired = false): array
+    public static function image(): array
     {
         return self::generate(
             max: 1024 * 2,
             mimes: ['jpg', 'png', 'webp', 'svg'],
-            isRequired: $isRequired,
         );
     }
 
-    public static function media(bool $isRequired = false): array
+    public static function media(): array
     {
         return self::generate(
             max: 1024 * 100,
@@ -22,26 +21,23 @@ class ValidationFileRulesHelper
                 'mp3', 'ogg',
                 'mp4',
             ],
-            isRequired: $isRequired,
         );
     }
 
-    public static function document(bool $isRequired = false): array
+    public static function document(): array
     {
         return self::generate(
             max: 1024 * 10,
             mimes: ['doc', 'docx', 'xls', 'xlsx', 'pdf'],
-            isRequired: $isRequired,
         );
     }
 
-    private static function generate(int $max, array $mimes, bool $isRequired): array
+    private static function generate(int $max, array $mimes): array
     {
         return [
             'file',
             'mimes:' . implode(',', $mimes),
             "max:$max",
-            $isRequired ? 'required' : null,
         ];
     }
 }

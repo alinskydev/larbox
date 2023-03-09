@@ -5,8 +5,8 @@
             <!-- <directory suffix="Test.php">./app/Testing/Unit/Tests</directory> -->
         </testsuite>
         <testsuite name="Feature">
-            <!-- <directory suffix="Test.php">./http</directory> -->
-            <directory suffix="Test.php">./http/Admin/Box/Tests/Box</directory>
+            <directory suffix="Test.php">./http</directory>
+            <!-- <directory suffix="Test.php">./http/Admin/Box/Tests/Box</directory> -->
             <!-- <directory suffix="Test.php">./http/Common</directory> -->
             <!-- <directory suffix="Test.php">./http/Website/Box</directory> -->
         </testsuite>

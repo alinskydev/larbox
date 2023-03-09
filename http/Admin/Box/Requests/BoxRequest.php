@@ -36,11 +36,17 @@ class BoxRequest extends ActiveFormRequest
             'datetime' => 'required|date|date_format:Y-m-d H:i:s',
             ...$this->deleteableFileFieldsSingleValidation(
                 field: 'image',
-                rules: ValidationFileRulesHelper::image(!$this->model->exists),
+                rules: [
+                    Rule::requiredIf(!$this->model->exists),
+                    ...ValidationFileRulesHelper::image(),
+                ],
             ),
             ...$this->deleteableFileFieldsMultipleValidation(
                 field: 'images_list',
-                rules: ValidationFileRulesHelper::image(!$this->model->exists),
+                rules: [
+                    Rule::requiredIf(!$this->model->exists),
+                    ...ValidationFileRulesHelper::image(),
+                ],
             ),
 
             'categories' => [

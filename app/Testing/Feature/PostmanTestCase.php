@@ -15,22 +15,23 @@ class PostmanTestCase extends BaseTestCase
 {
     use CreatesApplicationTrait;
 
+    protected int $userId;
+
+    protected array $requestHeaders = [];
     protected $defaultHeaders = [
         'Accept' => 'application/json',
         'Accept-Language' => 'ru',
     ];
 
+    private array $allRequestHeaders = [];
+
+    private string $requestMethod;
     public string $requestUrl;
-    public string $requestMethod;
-    public array $requestQuery = [];
+    private array $requestQuery = [];
     private string $requestQueryAsString;
 
-    public array $requestBody = [];
+    private array $requestBody = [];
     private array $requestFiles = [];
-
-    protected int $userId;
-    protected array $requestHeaders = [];
-    private array $allRequestHeaders = [];
 
     public TestResponse $response;
 
