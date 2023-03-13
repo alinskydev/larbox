@@ -30,7 +30,8 @@ class ResourceController extends Controller
                 ->filter((array)$request->get('filter'))
                 ->sort((array)$request->get('sort'))
                 ->show((array)$request->get('show'))
-                ->setPageSize((int)$request->get('page-size'));
+                ->setPageSize((int)$request->get('page-size'))
+                ->extraQuery();
         }
 
         if ($this->formRequestClass !== null) {

@@ -86,4 +86,9 @@ class Search
 
         return $this;
     }
+
+    public function extraQuery(): static
+    {
+        return $this;
+    }
 }

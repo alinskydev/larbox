@@ -34,7 +34,8 @@ class NotificationCreateJob extends Job
 
             $search->setQuery($query)
                 ->filter($filter)
-                ->show($show);
+                ->show($show)
+                ->extraQuery();
 
             $userIds = $search->query->get('id')->pluck('id')->toArray();
 

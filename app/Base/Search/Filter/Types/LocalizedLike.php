@@ -12,9 +12,9 @@ class LocalizedLike extends SearchFilterType
         $locale = app()->getLocale();
 
         $this->query->{$this->condition}(
-            DB::raw("LOWER($this->field->>'$locale'::VARCHAR)"),
+            DB::raw("LOWER($this->field->>'$locale')"),
             'LIKE',
-            '%' . mb_strtolower((string)$this->value) . '%'
+            mb_strtolower((string)$this->value) . '%'
         );
     }
 }

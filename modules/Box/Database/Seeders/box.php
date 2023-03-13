@@ -44,5 +44,33 @@ return new class extends Seeder
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
         ]);
+
+        // for ($a = 1; $a <= 10; $a++) {
+        //     $data = [];
+
+        //     for ($i = 1; $i <= 1000; $i++) {
+        //         $index = $a * 1000 + $i;
+
+        //         $data[] = [
+        //             'brand_id' => 1,
+        //             'name' => SeederHelper::localized("Box $index"),
+        //             'slug' => SeederHelper::slug("Box $index"),
+        //             'description' => SeederHelper::localized("Description $index"),
+        //             'price' => $index * 2,
+        //             'date' => date('Y-m-d'),
+        //             'datetime' => date('Y-m-d H:i:00'),
+        //             'image' => '/test_data/images/2.png',
+        //             'images_list' => json_encode([
+        //                 '/test_data/images/1.png',
+        //                 '/test_data/images/2.png',
+        //                 '/test_data/images/3.png',
+        //             ]),
+        //             'created_at' => date("Y-$a-$a H:i:s"),
+        //             'updated_at' => date('Y-m-d H:i:s'),
+        //         ];
+        //     }
+
+        //     DB::table('box')->insert($data);
+        // }
     }
 };
