@@ -8,12 +8,15 @@ use Illuminate\Testing\TestResponse;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Http\Testing\File;
+use Illuminate\Support\Facades\Artisan;
 
 use Modules\User\Models\User;
 
 class PostmanTestCase extends BaseTestCase
 {
     use CreatesApplicationTrait;
+
+    private static bool $isFirstClassTest = true;
 
     protected int $userId;
 
@@ -87,6 +90,21 @@ class PostmanTestCase extends BaseTestCase
             parameters: $this->requestBody,
             server: $this->transformHeadersToServerVars($this->allRequestHeaders),
         );
+    }
+
+    public static function setUpBeforeClass(): void
+    {
+        self::$isFirstClassTest = true;
+    }
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        if (self::$isFirstClassTest) {
+            Artisan::call('larbox:migrate --hide-info');
+            self::$isFirstClassTest = false;
+        }
     }
 
     public function callBeforeApplicationDestroyedCallbacks(): void

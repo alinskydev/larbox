@@ -9,7 +9,7 @@ use Symfony\Component\Console\Output\StreamOutput;
 
 class MigrateCommand extends Command
 {
-    protected $signature = 'larbox:migrate';
+    protected $signature = 'larbox:migrate {--hide-info}';
 
     protected $description = 'Migrate base';
 
@@ -20,7 +20,12 @@ class MigrateCommand extends Command
         // Migrating structure
 
         app()->register(DBStructureServiceProvider::class);
-        Artisan::call('migrate:fresh', [], new StreamOutput($stream));
+
+        if ($this->option('hide-info')) {
+            Artisan::call('migrate:fresh');
+        } else {
+            Artisan::call('migrate:fresh', [], new StreamOutput($stream));
+        }
 
         // Seeding
 
@@ -30,7 +35,12 @@ class MigrateCommand extends Command
         // Setting foreign keys
 
         app()->register(DBRelationsServiceProvider::class);
-        Artisan::call('migrate', [], new StreamOutput($stream));
+
+        if ($this->option('hide-info')) {
+            Artisan::call('migrate');
+        } else {
+            Artisan::call('migrate', [], new StreamOutput($stream));
+        }
     }
 }
 
