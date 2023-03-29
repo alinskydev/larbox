@@ -25,7 +25,7 @@ php artisan key:generate
 php artisan larbox:migrate
 ```
 
-## Installation (admin panel frontend)
+# Installation (admin panel frontend)
 
 1. Open {your_project_folder}/vue and run
 ```
