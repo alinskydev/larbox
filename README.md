@@ -25,7 +25,7 @@ php artisan key:generate
 php artisan larbox:migrate
 ```
 
-### Installation (admin panel frontend)
+## Installation (admin panel frontend)
 
 1. Open {your_project_folder}/vue and run
 ```
@@ -37,12 +37,13 @@ npm install
 npm run dev
 ```
 
-3.1. If you'll get error in console, remove **type="module"** from **<script ...** tags in {your_project_folder}/vue/index_prod.html.
-3.2. Rerun
+### Installation erorrs
+1. If you'll get error in console, remove **type="module"** from **<script ...** tags in {your_project_folder}/vue/index_prod.html.
+2. Rerun
 ```
 npm run dev
 ```
-3.3. Revert all changes in {your_project_folder}/vue/index_prod.html
+3. Revert all changes in {your_project_folder}/vue/index_prod.html
 
 ## Folders structure
 
