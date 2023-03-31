@@ -111,7 +111,6 @@ class PostmanTestCase extends BaseTestCase
     {
         // Collecting
 
-        $this->requestQuery = Arr::dot($this->requestQuery);
         $this->requestBody = Arr::dot($this->requestBody);
 
         foreach ($this->requestBody as $key => $value) {
@@ -121,7 +120,7 @@ class PostmanTestCase extends BaseTestCase
             }
         }
 
-        $this->requestQuery = $this->convertDataToSingleDimensionalArray($this->requestQuery);
+        $this->requestQuery = $this->prepareHttpQuery($this->requestQuery);
         $this->requestBody = $this->convertDataToSingleDimensionalArray($this->requestBody);
         $this->requestFiles = $this->convertDataToSingleDimensionalArray($this->requestFiles);
 
@@ -166,6 +165,28 @@ class PostmanTestCase extends BaseTestCase
         file_put_contents($fileName, $items);
 
         parent::callBeforeApplicationDestroyedCallbacks();
+    }
+
+    private function prepareHttpQuery(array $query): array
+    {
+        if (!$query) return [];
+
+        $query = http_build_query($query);
+        $query = urldecode($query);
+        $query = explode('&', $query);
+
+        $query = array_map(function ($value) {
+            $value = explode('=', $value);
+
+            return [
+                'key' => $value[0],
+                'value' => $value[1],
+            ];
+        }, $query);
+
+        $query = Arr::pluck($query, 'value', 'key');
+
+        return $query;
     }
 
     private function convertDataToSingleDimensionalArray(array $data): array

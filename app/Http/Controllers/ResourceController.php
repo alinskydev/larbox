@@ -20,23 +20,25 @@ class ResourceController extends Controller
         protected ?string $resourceClass = null,
         protected ?string $formRequestClass = null,
     ) {
-        $request = request();
-
         Route::model('model', $this->model::class);
 
-        if ($this->search !== null) {
-            $this->search->setQuery($this->model->query())
-                ->with((array)$request->get('with'))
-                ->filter((array)$request->get('filter'))
-                ->sort((array)$request->get('sort'))
-                ->show((array)$request->get('show'))
-                ->setPageSize((int)$request->get('page-size'))
-                ->extraQuery();
-        }
+        $this->middleware(function ($request, $next) {
+            if ($this->search !== null) {
+                $this->search->setQuery($this->model->query())
+                    ->with((array)$request->get('with'))
+                    ->filter((array)$request->get('filter'))
+                    ->sort((array)$request->get('sort'))
+                    ->show((array)$request->get('show'))
+                    ->setPageSize((int)$request->get('page-size'))
+                    ->extraQuery();
+            }
 
-        if ($this->formRequestClass !== null) {
-            app()->bind(ValidatesWhenResolved::class, $this->formRequestClass);
-        }
+            if ($this->formRequestClass !== null) {
+                app()->bind(ValidatesWhenResolved::class, $this->formRequestClass);
+            }
+
+            return $next($request);
+        });
     }
 
     public function index(): JsonResponse
