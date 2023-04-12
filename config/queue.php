@@ -36,7 +36,7 @@ return [
 
         'database' => [
             'driver' => 'database',
-            'table' => 'job',
+            'table' => 'job_active',
             'queue' => implode(',', [
                 'default',
             ]),

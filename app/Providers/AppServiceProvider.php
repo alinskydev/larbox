@@ -8,19 +8,20 @@ use Intervention\Image\ImageManagerStatic;
 use Laravel\Sanctum\Sanctum;
 use Modules\User\Models\AccessToken;
 use Illuminate\Validation\Rules\Password;
-use Barryvdh\Debugbar\Facades\Debugbar;
+use Laravel\Telescope\Telescope;
 
 class AppServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
         Sanctum::ignoreMigrations();
+        Telescope::ignoreMigrations();
     }
 
     public function boot(): void
     {
         $this->bootCommon();
-        $this->bootDev();
+        // $this->bootLocal();
     }
 
     private function bootCommon()
@@ -31,10 +32,7 @@ class AppServiceProvider extends ServiceProvider
         Sanctum::usePersonalAccessTokenModel(AccessToken::class);
     }
 
-    private function bootDev()
+    private function bootLocal()
     {
-        if (request()->ip() !== env('DEBUGBAR_ALLOWED_IP')) {
-            Debugbar::disable();
-        }
     }
 }

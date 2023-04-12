@@ -16,6 +16,11 @@ class RoleHelper
 
         'common.*',
         'website.*',
+        
+        '_ignition.*',
+        'telescope',
+        'telescope.*',
+        'sanctum.*',
     ];
 
     public static function routesList(): array
