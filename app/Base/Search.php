@@ -2,9 +2,9 @@
 
 namespace App\Base;
 
-use App\Base\Search\SearchFilter;
-use App\Base\Search\SearchSort;
-use App\Base\Search\SearchShow;
+use App\Search\SearchFilter;
+use App\Search\SearchSort;
+use App\Search\SearchShow;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;

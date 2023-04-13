@@ -17,9 +17,9 @@ class NotificationPrepareCreateJob extends Job
     public function handle(): void
     {
         try {
-            $usersCount = User::query()->count();
+            $maxId = User::query()->max('id');
 
-            for ($i = 1; $i <= $usersCount; $i += 1000) {
+            for ($i = 1; $i <= $maxId; $i += 1000) {
                 NotificationCreateJob::dispatch(
                     data: $this->data,
                     from: $i,

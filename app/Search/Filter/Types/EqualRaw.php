@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Base\Search\Filter\Types;
+namespace App\Search\Filter\Types;
 
-use App\Base\Search\Filter\SearchFilterType;
+use App\Search\Filter\SearchFilterType;
 use Illuminate\Support\Facades\DB;
 
 class EqualRaw extends SearchFilterType

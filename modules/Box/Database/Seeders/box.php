@@ -46,6 +46,9 @@ return new class extends Seeder
         ]);
 
         // for ($a = 1; $a <= 10; $a++) {
+        //     $date = date('Y-m-d');
+        //     $datetime = date('Y-m-d H:i:00');
+
         //     $data = [];
 
         //     for ($i = 1; $i <= 1000; $i++) {
@@ -57,16 +60,16 @@ return new class extends Seeder
         //             'slug' => SeederHelper::slug("Box $index"),
         //             'description' => SeederHelper::localized("Description $index"),
         //             'price' => $index * 2,
-        //             'date' => date('Y-m-d'),
-        //             'datetime' => date('Y-m-d H:i:00'),
+        //             'date' => $date,
+        //             'datetime' => $datetime,
         //             'image' => '/test_data/images/2.png',
         //             'images_list' => json_encode([
         //                 '/test_data/images/1.png',
         //                 '/test_data/images/2.png',
         //                 '/test_data/images/3.png',
         //             ]),
-        //             'created_at' => date("Y-$a-$a H:i:s"),
-        //             'updated_at' => date('Y-m-d H:i:s'),
+        //             'created_at' => $datetime,
+        //             'updated_at' => $datetime,
         //         ];
         //     }
 

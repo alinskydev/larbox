@@ -2,6 +2,7 @@
 
 use Laravel\Telescope\Http\Middleware\Authorize;
 use Laravel\Telescope\Watchers;
+use App\Telescope\Watchers as LarboxWatchers;
 
 return [
 
@@ -124,7 +125,7 @@ return [
 
         Watchers\ClientRequestWatcher::class => env('TELESCOPE_CLIENT_REQUEST_WATCHER', true),
 
-        Watchers\CommandWatcher::class => [
+        LarboxWatchers\CommandWatcher::class => [
             'enabled' => env('TELESCOPE_COMMAND_WATCHER', true),
             'ignore' => [],
         ],
@@ -148,7 +149,7 @@ return [
             'ignore_paths' => [],
         ],
 
-        Watchers\JobWatcher::class => env('TELESCOPE_JOB_WATCHER', true),
+        LarboxWatchers\JobWatcher::class => env('TELESCOPE_JOB_WATCHER', true),
 
         Watchers\LogWatcher::class => [
             'enabled' => env('TELESCOPE_LOG_WATCHER', true),

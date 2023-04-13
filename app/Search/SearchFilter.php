@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Base\Search;
+namespace App\Search;
 
-use App\Base\Search\Enums\SearchFilterConditionEnum;
-use App\Base\Search\Enums\SearchFilterTypeEnum;
+use App\Search\Enums\SearchFilterConditionEnum;
+use App\Search\Enums\SearchFilterTypeEnum;
 use Illuminate\Database\Eloquent\Builder;
 
 class SearchFilter

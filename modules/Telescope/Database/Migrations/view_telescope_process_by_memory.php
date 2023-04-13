@@ -12,25 +12,29 @@ return new class extends Migration
      */
     public function up()
     {
-        $link = env('APP_URL') . '/telescope/requests/';
+        $link = env('APP_URL') . '/telescope/';
 
         DB::statement("
-            CREATE OR REPLACE VIEW view_telescope_requests
+            CREATE OR REPLACE VIEW view_telescope_process_by_memory
             AS
             SELECT
-                CONCAT('$link', telescope_entries.uuid::text) as link,
+                CONCAT(
+                    '$link',
+                    telescope_entries.type,
+                    's/',
+                    telescope_entries.uuid
+                ) as link,
                 (telescope_entries.content->>'duration')::integer AS duration,
                 (telescope_entries.content->>'memory')::integer AS memory,
-                telescope_entries.content->>'method' AS method,
-                (telescope_entries.content->>'response_status')::integer AS status,
-                telescope_entries.content->>'uri' AS url,
+ 	            telescope_entries.type,
                 telescope_entries.content,
                 telescope_entries.created_at
             FROM
                 telescope_entries
             WHERE
-                telescope_entries.type = 'request' AND
-                telescope_entries.content->>'method' != 'OPTIONS';
+                telescope_entries.content->>'memory' IS NOT NULL
+            ORDER BY
+                memory DESC;
         ");
     }
 
@@ -41,6 +45,6 @@ return new class extends Migration
      */
     public function down()
     {
-        DB::statement('DROP VIEW IF EXISTS view_telescope_requests');
+        DB::statement('DROP VIEW IF EXISTS view_telescope_process_by_memory');
     }
 };

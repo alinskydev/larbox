@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Base\Search\Enums;
+namespace App\Search\Enums;
 
-use App\Base\Search\Filter\Types as FilterTypes;
+use App\Search\Filter\Types as FilterTypes;
 
 enum SearchFilterTypeEnum: string
 {

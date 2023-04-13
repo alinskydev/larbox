@@ -3,8 +3,8 @@
 namespace Modules\Box\Search;
 
 use App\Base\Search;
-use App\Base\Search\Enums\SearchFilterConditionEnum;
-use App\Base\Search\Enums\SearchFilterTypeEnum;
+use App\Search\Enums\SearchFilterConditionEnum;
+use App\Search\Enums\SearchFilterTypeEnum;
 
 class CategorySearch extends Search
 {

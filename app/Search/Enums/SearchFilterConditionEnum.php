@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Base\Search\Enums;
+namespace App\Search\Enums;
 
 enum SearchFilterConditionEnum: string
 {

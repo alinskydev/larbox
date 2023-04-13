@@ -3,9 +3,9 @@
 namespace Modules\User\Search;
 
 use App\Base\Search;
-use App\Base\Search\Enums\SearchFilterConditionEnum;
-use App\Base\Search\Enums\SearchFilterTypeEnum;
-use App\Base\Search\Enums\SearchSortTypeEnum;
+use App\Search\Enums\SearchFilterConditionEnum;
+use App\Search\Enums\SearchFilterTypeEnum;
+use App\Search\Enums\SearchSortTypeEnum;
 
 class UserSearch extends Search
 {

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Base\Search\Filter\Types;
+namespace App\Search\Filter\Types;
 
-use App\Base\Search\Filter\SearchFilterType;
+use App\Search\Filter\SearchFilterType;
 use Illuminate\Support\Facades\DB;
 
-class BetweenDatetime extends SearchFilterType
+class BetweenDate extends SearchFilterType
 {
     public function process(): void
     {
@@ -15,7 +15,7 @@ class BetweenDatetime extends SearchFilterType
             $this->query->{$this->condition}(
                 $this->field,
                 '>=',
-                date('Y-m-d H:i:s', strtotime($this->value[0]))
+                date('Y-m-d 00:00:00', strtotime($this->value[0]))
             );
         }
 
@@ -23,7 +23,7 @@ class BetweenDatetime extends SearchFilterType
             $this->query->{$this->condition}(
                 $this->field,
                 '<=',
-                date('Y-m-d H:i:s', strtotime($this->value[1]))
+                date('Y-m-d 23:59:59', strtotime($this->value[1]))
             );
         }
     }

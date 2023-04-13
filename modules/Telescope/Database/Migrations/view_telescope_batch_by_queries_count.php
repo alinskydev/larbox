@@ -12,21 +12,21 @@ return new class extends Migration
      */
     public function up()
     {
-        $link = env('APP_URL') . '/telescope/';
+        $link = env('APP_URL') . '/telescope/queries/';
 
         DB::statement("
-            CREATE OR REPLACE VIEW view_telescope_largest_batches
+            CREATE OR REPLACE VIEW view_telescope_batch_by_queries_count
             AS
             SELECT
-                CONCAT('$link', telescope_entries.type,  's/', MIN(telescope_entries.uuid::text)) as link,
+                CONCAT('$link', MIN(telescope_entries.uuid::text)) as link,
  	            telescope_entries.batch_id,
- 	            telescope_entries.type,
-                count(telescope_entries.*) as total_count
+                COUNT(telescope_entries.*) as total_count
             FROM
                 telescope_entries
+            WHERE
+                type = 'query'
             GROUP BY
-                batch_id,
-                type
+                batch_id
             ORDER BY
                 total_count DESC;
         ");
@@ -39,6 +39,6 @@ return new class extends Migration
      */
     public function down()
     {
-        DB::statement('DROP VIEW IF EXISTS view_telescope_largest_batches');
+        DB::statement('DROP VIEW IF EXISTS view_telescope_batch_by_queries_count');
     }
 };

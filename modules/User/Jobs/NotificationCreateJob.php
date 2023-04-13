@@ -18,7 +18,7 @@ class NotificationCreateJob extends Job
     ) {
         $this->queue = 'default';
     }
-    
+
     public function handle(): void
     {
         try {
