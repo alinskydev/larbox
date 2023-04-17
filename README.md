@@ -24,6 +24,10 @@ php artisan key:generate
 ```
 php artisan larbox:migrate
 ```
+7. Install Telescope
+```
+php artisan telescope:install
+```
 
 ## Installation (admin panel frontend)
 
