@@ -35,6 +35,7 @@ return [
     'date'                 => 'Значение поля :attribute не является датой.',
     'date_equals'          => 'Значение поля :attribute должно быть датой равной :date.',
     'date_format'          => 'Значение поля :attribute не соответствует формату даты :format.',
+    'decimal'              => 'Поле :attribute должно иметь :decimal десятичных знаков.',
     'declined'             => 'Поле :attribute должно быть отклонено.',
     'declined_if'          => 'Поле :attribute должно быть отклонено, когда :other равно :value.',
     'different'            => 'Значения полей :attribute и :other должны различаться.',

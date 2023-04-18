@@ -35,6 +35,7 @@ return [
     'date'                 => ':attribute sana emas.',
     'date_equals'          => ':attribute sana :date ga teng bo‘lishi kerak.',
     'date_format'          => ':attribute maydoni :format formatga mos kelmadi.',
+    'decimal'              => ':attribute maydonida :decimal kasrlar bo\'lishi kerak.',
     'declined'             => ':attribute maydoni rad etilishi kerak.',
     'declined_if'          => ":other :value ga teng bo'lganida :attribute maydoni rad etilishi kerak.",
     'different'            => ':attribute va :other maydonlari farqli bo‘lishi kerak.',
