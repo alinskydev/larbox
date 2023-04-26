@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Telescope\IncomingEntry;
 use Laravel\Telescope\Telescope;
@@ -19,9 +20,8 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
         $this->hideSensitiveRequestDetails();
 
         Telescope::filter(function (IncomingEntry $entry) {
-            if ($this->app->environment('local')) {
-                return true;
-            }
+            if (App::environment('local')) return true;
+            if (App::environment('testing')) return true;
 
             return $entry->isReportableException() ||
                 $entry->isFailedRequest() ||
@@ -36,9 +36,7 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
      */
     protected function hideSensitiveRequestDetails(): void
     {
-        if ($this->app->environment('local')) {
-            return;
-        }
+        if (App::environment('local')) return;
 
         Telescope::hideRequestParameters(['_token']);
 
@@ -59,7 +57,7 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
         $this->gate();
 
         Telescope::auth(function ($request) {
-            if ($this->app->environment('local')) return true;
+            if (App::environment('local')) return true;
 
             $userKey = $_COOKIE['telescope_secret_key'] ?? null;
             $systemKey = env('TELESCOPE_SECRET_KEY');
