@@ -198,7 +198,7 @@ class PostmanTestCase extends BaseTestCase
 
             return [
                 'key' => $key,
-                'value' => (string)$value,
+                'value' => is_array($value) ? '{{empty_array}}' : (string)$value,
             ];
         });
 

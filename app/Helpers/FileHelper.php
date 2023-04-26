@@ -2,6 +2,7 @@
 
 namespace App\Helpers;
 
+use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Illuminate\Support\Facades\File;
 
@@ -10,7 +11,7 @@ class FileHelper
     public static function upload(UploadedFile $file, string $path): string
     {
         $path = "storage/uploads/$path/" . date('Y-m-d');
-        $name = md5(uniqid());
+        $name = uniqid() . '_' . Str::uuid();
         $extension = $file->getClientOriginalExtension();
 
         $file->move($path, "$name.$extension");
