@@ -10,8 +10,8 @@ class ResourceRegistrar extends BaseResourceRegistrar
     protected $resourceDefaults = [
         'index', 'show',
         'create', 'update',
-        'delete', 'deleteMultiple',
-        'restore', 'restoreMultiple',
+        'delete', 'restore',
+        'deleteMultiple', 'restoreMultiple',
     ];
 
     /**
@@ -57,13 +57,13 @@ class ResourceRegistrar extends BaseResourceRegistrar
      * @param array $options
      * @return Route
      */
-    protected function addResourceDeleteMultiple($name, $base, $controller, $options): Route
+    protected function addResourceRestore($name, $base, $controller, $options): Route
     {
-        $uri = $this->getResourceUri($name) . '/delete/multiple';
+        $name = $this->getShallowName($name, $options);
 
-        unset($options['missing']);
+        $uri = $this->getResourceUri($name) . '/{value}/restore';
 
-        $action = $this->getResourceAction($name, $controller, 'deleteMultiple', $options);
+        $action = $this->getResourceAction($name, $controller, 'restore', $options);
 
         return $this->router->delete($uri, $action);
     }
@@ -75,13 +75,13 @@ class ResourceRegistrar extends BaseResourceRegistrar
      * @param array $options
      * @return Route
      */
-    protected function addResourceRestore($name, $base, $controller, $options): Route
+    protected function addResourceDeleteMultiple($name, $base, $controller, $options): Route
     {
-        $name = $this->getShallowName($name, $options);
+        $uri = $this->getResourceUri($name) . '/delete/multiple';
 
-        $uri = $this->getResourceUri($name) . '/{value}/restore';
+        unset($options['missing']);
 
-        $action = $this->getResourceAction($name, $controller, 'restore', $options);
+        $action = $this->getResourceAction($name, $controller, 'deleteMultiple', $options);
 
         return $this->router->delete($uri, $action);
     }

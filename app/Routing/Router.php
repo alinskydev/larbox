@@ -12,8 +12,8 @@ class Router extends BaseRouter
         $only = [
             'index', 'show',
             'create', 'update',
-            'delete', 'deleteMultiple',
-            'restore', 'restoreMultiple',
+            'delete', 'restore',
+            'deleteMultiple', 'restoreMultiple',
         ];
 
         $this->resourceParameters([$name => 'model']);

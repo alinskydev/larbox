@@ -8,6 +8,8 @@ class UserObserver
 {
     public function created(User $model): void
     {
+        $model->profile()->create();
+
         $model->getService()->createNewAccessToken();
     }
 
@@ -22,5 +24,6 @@ class UserObserver
     public function deleting(User $model): void
     {
         if ($model->id === 1) throw new \Exception(__('Данная запись не подлежит удалению'));
+        if ($model->id === request()->user()->id) throw new \Exception(__('Вы не можете удалить себя'));
     }
 }
