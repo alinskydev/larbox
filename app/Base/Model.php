@@ -12,8 +12,6 @@ class Model extends BaseModel
     use ModelSafelyTrait;
     use ModelRelationsTrait;
 
-    protected static string $routeKeyName;
-
     public function __construct(array $attributes = [])
     {
         $this->mergeGuarded([
@@ -46,15 +44,5 @@ class Model extends BaseModel
     {
         $format = $this->dateFormat ?? 'Y-m-d H:i:s';
         return $date->format($format);
-    }
-
-    public function getRouteKeyName(): string
-    {
-        return static::$routeKeyName ?? parent::getRouteKeyName();
-    }
-
-    public static function setRouteKeyName(string $name): void
-    {
-        static::$routeKeyName = $name;
     }
 }

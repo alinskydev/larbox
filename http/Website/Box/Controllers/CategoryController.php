@@ -15,15 +15,16 @@ class CategoryController extends NestedSetController
 {
     public function __construct()
     {
-        Category::addGlobalScope(function ($query) {
-            $query->withoutTrashed();
-        });
-
         parent::__construct(
             model: new Category(),
             search: new CategorySearch(),
             resourceClass: CategoryResource::class,
         );
+
+        $this->middleware(function ($request, $next) {
+            $this->search->query->withoutTrashed();
+            return $next($request);
+        });
     }
 
     public function tree(): JsonResponse
