@@ -64,7 +64,7 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
 
             if ($systemKey && $userKey === $systemKey) return true;
 
-            return false;
+            abort(404);
         });
     }
 }
