@@ -30,6 +30,11 @@ trait ModelSafelyTrait
 
     public function safelyDBProcess(callable $callback): void
     {
+        if (DB::transactionLevel() > 0) {
+            $callback();
+            return;
+        }
+
         DB::beginTransaction();
 
         try {
