@@ -45,7 +45,10 @@ class ProfileRequest extends ActiveFormRequest
                 'nullable',
                 Password::defaults(),
             ],
-            'new_password_confirmation' => 'same:new_password',
+            'new_password_confirmation' => [
+                'required_with:new_password',
+                'same:new_password',
+            ],
 
             'profile.full_name' => 'required|string|max:255',
             'profile.phone' => 'present|nullable|string|max:255',

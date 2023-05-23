@@ -9,7 +9,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 use App\Rules\ExistsWithOldRule;
 use App\Helpers\Validation\ValidationFileRulesHelper;
-
+use Illuminate\Support\Arr;
 use Modules\User\Models\Role;
 
 class UserRequest extends ActiveFormRequest
@@ -23,7 +23,6 @@ class UserRequest extends ActiveFormRequest
         return [
             'role_id' => [
                 'nullable',
-                Rule::prohibitedIf($this->model->id === 1),
                 new ExistsWithOldRule(
                     model: $this->model,
                     query: Role::query(),
@@ -47,7 +46,10 @@ class UserRequest extends ActiveFormRequest
                 'nullable',
                 Password::defaults(),
             ],
-            'new_password_confirmation' => 'same:new_password',
+            'new_password_confirmation' => [
+                'required_with:new_password',
+                'same:new_password',
+            ],
 
             'profile.full_name' => 'required|string|max:255',
             'profile.phone' => 'present|nullable|string|max:255',
@@ -61,6 +63,10 @@ class UserRequest extends ActiveFormRequest
     protected function passedValidation(): void
     {
         parent::passedValidation();
+
+        if ($this->model->id === 1) {
+            Arr::forget($this->validatedData, 'mko_id');
+        }
 
         if ($this->new_password) {
             $this->validatedData['password'] = Hash::make($this->new_password);

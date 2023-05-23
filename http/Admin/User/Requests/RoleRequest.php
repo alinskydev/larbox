@@ -14,7 +14,7 @@ class RoleRequest extends ActiveFormRequest
         parent::__construct();
 
         if ($this->model->exists && $this->model->id === 1) {
-            abort(403, __('Редактирование данной записи запрещено'));
+            abort(400, __('Редактирование данной записи запрещено'));
         }
     }
 

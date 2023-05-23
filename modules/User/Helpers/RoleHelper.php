@@ -9,6 +9,11 @@ use Illuminate\Support\Str;
 class RoleHelper
 {
     private static array $excludedRoutes = [
+        '_ignition.*',
+        'telescope',
+        'telescope.*',
+        'sanctum.*',
+
         'admin.user.notification.index',
         'admin.user.notification.show',
         'admin.user.notification.seeAll',
@@ -16,11 +21,6 @@ class RoleHelper
 
         'common.*',
         'website.*',
-        
-        '_ignition.*',
-        'telescope',
-        'telescope.*',
-        'sanctum.*',
     ];
 
     public static function routesList(): array
