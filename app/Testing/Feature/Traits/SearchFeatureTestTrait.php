@@ -18,7 +18,7 @@ trait SearchFeatureTestTrait
 
         $this->sendRequest(
             query: ['sort' => $sortings],
-            assertStatus: 206,
+            assertStatus: 200,
         );
     }
 
@@ -28,7 +28,7 @@ trait SearchFeatureTestTrait
 
         $this->sendRequest(
             query: ['with' => $this->search->relations],
-            assertStatus: 206,
+            assertStatus: 200,
         );
     }
 
@@ -36,7 +36,7 @@ trait SearchFeatureTestTrait
     {
         $this->sendRequest(
             query: ['show' => ['with-deleted']],
-            assertStatus: 206,
+            assertStatus: 200,
         );
     }
 
@@ -44,7 +44,7 @@ trait SearchFeatureTestTrait
     {
         $this->sendRequest(
             query: ['show' => ['only-deleted']],
-            assertStatus: 206,
+            assertStatus: 200,
         );
     }
 
@@ -57,7 +57,7 @@ trait SearchFeatureTestTrait
                 'page-size' => $this->search->pageSize,
                 'page' => 1,
             ],
-            assertStatus: 206,
+            assertStatus: 200,
         );
     }
 
@@ -65,7 +65,7 @@ trait SearchFeatureTestTrait
     {
         $this->sendRequest(
             query: ['filter' => $params],
-            assertStatus: 206,
+            assertStatus: 200,
         );
     }
 }

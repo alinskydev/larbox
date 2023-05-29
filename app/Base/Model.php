@@ -7,6 +7,9 @@ use App\Base\Model\ModelSafelyTrait;
 use App\Base\Model\ModelRelationsTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @method static QueryBuilder query()
+ */
 class Model extends BaseModel
 {
     use ModelSafelyTrait;
@@ -44,5 +47,10 @@ class Model extends BaseModel
     {
         $format = $this->dateFormat ?? 'Y-m-d H:i:s';
         return $date->format($format);
+    }
+
+    public function newEloquentBuilder($query)
+    {
+        return new QueryBuilder($query);
     }
 }

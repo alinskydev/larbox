@@ -25,10 +25,9 @@ class BoxRequest extends ActiveFormRequest
                 'required',
                 new ExistsWithOldRule(
                     model: $this->model,
-                    query: Brand::query()->where('is_active', 1)
-                        ->whereHas('creator', function ($query) {
-                            $query->where('id', request()->user()->id);
-                        }),
+                    query: Brand::query()
+                        ->filterByUser('creator_id')
+                        ->where('is_active', 1),
                 ),
             ],
             'price' => 'required|integer|min:0',

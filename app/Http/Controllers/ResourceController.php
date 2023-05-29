@@ -44,7 +44,7 @@ class ResourceController extends Controller
     public function index(): JsonResponse
     {
         $paginator = $this->search->query->paginate($this->search->pageSize);
-        return $this->resourceClass::collection($paginator)->response()->setStatusCode(206);
+        return $this->resourceClass::collection($paginator)->response()->setStatusCode(200);
     }
 
     public function show(Model $model): JsonResponse
@@ -84,7 +84,7 @@ class ResourceController extends Controller
             abort(400, 'Model doesn\'t use soft delete trait');
         }
 
-        $this->model->query()->onlyTrashed()->findOrFail($value)->safelyRestore();
+        $this->search->query->onlyTrashed()->findOrFail($value)->safelyRestore();
         return $this->successResponse();
     }
 
@@ -92,7 +92,7 @@ class ResourceController extends Controller
     {
         $selection = (array)request()->get('selection', []);
 
-        $models = $this->model->query()
+        $models = $this->search->query
             ->whereIn($this->model->getRouteKeyName(), $selection)
             ->limit($this->search->pageSize)
             ->get();
@@ -114,7 +114,7 @@ class ResourceController extends Controller
 
         $selection = (array)request()->get('selection', []);
 
-        $models = $this->model->query()
+        $models = $this->search->query
             ->whereIn($this->model->getRouteKeyName(), $selection)
             ->limit($this->search->pageSize)
             ->onlyTrashed()

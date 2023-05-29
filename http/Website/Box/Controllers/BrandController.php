@@ -23,15 +23,15 @@ class BrandController extends ResourceController
         );
 
         Route::bind('model', function ($value) {
-            return Brand::query()
-                ->where('creator_id', request()->user()->id)
+            return $this->model->query()
+                ->filterByUser('creator_id')
                 ->where('slug', $value)
                 ->firstOrFail();
         });
 
         $this->middleware(function ($request, $next) {
             $this->search->query
-                ->where('creator_id', request()->user()->id)
+                ->filterByUser('creator_id')
                 ->withoutTrashed();
 
             return $next($request);

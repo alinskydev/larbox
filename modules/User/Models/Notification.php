@@ -5,7 +5,6 @@ namespace Modules\User\Models;
 use App\Base\Model;
 use App\Observers\CreatorObserver;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Modules\User\Scopes\UserScope;
 
 class Notification extends Model
 {
@@ -34,7 +33,9 @@ class Notification extends Model
 
     protected static function booted(): void
     {
-        self::addGlobalScope(new UserScope('owner_id'));
+        self::addGlobalScope(function ($query) {
+            $query->filterByUser('owner_id');
+        });
 
         self::observe([
             CreatorObserver::class,

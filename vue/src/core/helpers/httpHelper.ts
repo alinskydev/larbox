@@ -42,6 +42,7 @@ export default class {
                     case 200:
                     case 201:
                     case 202:
+                    case 204:
                     case 206:
                         statusType = 'success';
                         break;

@@ -2,9 +2,9 @@
 
 namespace Modules\Box\Query;
 
-use Illuminate\Database\Eloquent\Builder;
+use App\Base\QueryBuilder;
 
-class BoxQuery extends Builder
+class BoxQueryBuilder extends QueryBuilder
 {
     public function published(): self
     {
