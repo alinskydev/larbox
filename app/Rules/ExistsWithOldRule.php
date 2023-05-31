@@ -4,14 +4,14 @@ namespace App\Rules;
 
 use App\Base\Rule;
 use App\Base\Model;
+use App\Base\QueryBuilder;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Builder;
 
 class ExistsWithOldRule extends Rule
 {
     public function __construct(
         private Model $model,
-        private Builder $query,
+        private QueryBuilder $query,
         private ?string $pk = null,
     ) {
         $this->pk ??= $this->query->getModel()->getKeyName();

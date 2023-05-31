@@ -2,7 +2,7 @@
 
 namespace App\Search\Filter;
 
-use Illuminate\Database\Eloquent\Builder;
+use App\Base\QueryBuilder;
 use App\Search\Enums\SearchFilterConditionEnum;
 
 abstract class SearchFilterType
@@ -10,7 +10,7 @@ abstract class SearchFilterType
     protected string $condition;
 
     public function __construct(
-        protected Builder $query,
+        protected QueryBuilder $query,
         protected string $field,
         protected mixed $value,
         SearchFilterConditionEnum $condition,
