@@ -6,6 +6,11 @@ use Modules\User\Models\AccessToken;
 
 class AccessTokenObserver
 {
+    public function saving(AccessToken $model): void
+    {
+        $model->expires_at = now()->addWeek();
+    }
+
     // public function created(AccessToken $model): void
     // {
     //     // Setting tokens limit
@@ -15,9 +20,4 @@ class AccessTokenObserver
     //     $ids = $user->tokens()->orderBy('id', 'DESC')->offset(3)->get()->pluck('id');
     //     $user->tokens()->whereIn('id', $ids)->delete();
     // }
-
-    public function saving(AccessToken $model): void
-    {
-        $model->expires_at = now()->addWeek();
-    }
 }
