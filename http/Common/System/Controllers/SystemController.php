@@ -4,22 +4,20 @@ namespace Http\Common\System\Controllers;
 
 use App\Base\Controller;
 use Illuminate\Http\JsonResponse;
-
-use Modules\System\Resources\SettingsResource;
-use Modules\User\Helpers\RoleHelper;
-
-use Modules\Section\Models\Section;
-use Modules\Section\Enums\SectionEnum;
-
+use Illuminate\Support\Arr;
 use Modules\Feedback\Enums\FeedbackStatusEnum;
+use Modules\Section\Enums\SectionEnum;
+use Modules\Section\Models\Section;
+use Modules\System\Resources\SettingsResource;
 use Modules\User\Enums\NotificationTypeEnum;
+use Modules\User\Helpers\RoleHelper;
 
 class SystemController extends Controller
 {
     public function index(): JsonResponse
     {
         $response = [
-            'settings' => SettingsResource::collection(app('settings')->items),
+            'settings' => $this->settings(),
             'languages' => app('language'),
             'enums' => $this->enums(),
             'sections' => $this->sections(),
@@ -27,6 +25,14 @@ class SystemController extends Controller
         ];
 
         return response()->json($response, 200);
+    }
+
+    private function settings()
+    {
+        return Arr::only(
+            SettingsResource::collection(app('settings')->items)->resolve(),
+            ['favicon', 'logo', 'project_name'],
+        );
     }
 
     private function enums(): array

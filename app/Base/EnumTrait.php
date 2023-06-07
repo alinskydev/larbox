@@ -2,6 +2,8 @@
 
 namespace App\Base;
 
+use Illuminate\Support\Arr;
+
 trait EnumTrait
 {
     public static function names(): array
@@ -12,6 +14,11 @@ trait EnumTrait
     public static function values(): array
     {
         return array_column(self::cases(), 'value');
+    }
+
+    public static function pluck(): array
+    {
+        return Arr::pluck(self::cases(), 'value', 'name');
     }
 
     public static function caseByValue(mixed $value): self
