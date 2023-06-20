@@ -9,6 +9,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Http\Testing\File;
 use Illuminate\Support\Facades\Artisan;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 use Modules\User\Models\User;
 
@@ -18,7 +19,7 @@ class PostmanTestCase extends BaseTestCase
 
     private static bool $isFirstClassTest = true;
 
-    protected int $userId;
+    public int $userId;
 
     protected array $requestHeaders = [];
     protected $defaultHeaders = [
@@ -131,11 +132,33 @@ class PostmanTestCase extends BaseTestCase
         $target = str_replace(['\\', '::'], '.', $target);
         $target = str_replace('___', ' | ', $target);
 
-        // Saving to file
+        // Preparing data
 
         $fileName = base_path('storage/larbox/tests/_postman.json');
         $items = is_file($fileName) ? file_get_contents($fileName) : '[]';
         $items = json_decode($items, true);
+
+        $baseResponse = $this->response->baseResponse;
+
+        if ($baseResponse instanceof BinaryFileResponse) {
+            $responseData = [
+                'headers' => $baseResponse->headers->allPreserveCase(),
+                'body' => 'Binary data',
+                'status' => [
+                    'code' => 200,
+                    'text' => 'OK',
+                ],
+            ];
+        } else {
+            $responseData = [
+                'headers' => $baseResponse->headers->allPreserveCase(),
+                'body' => json_decode($baseResponse->content(), true),
+                'status' => [
+                    'code' => $baseResponse->status(),
+                    'text' => $baseResponse->statusText(),
+                ],
+            ];
+        }
 
         $items[$target] = [
             'is_request' => true,
@@ -150,15 +173,10 @@ class PostmanTestCase extends BaseTestCase
                     'raw' => $this->requestQueryAsString ? "$this->requestUrl?$this->requestQueryAsString" : $this->requestUrl,
                 ],
             ],
-            'response' => [
-                'headers' => $this->response->baseResponse->headers->allPreserveCase(),
-                'body' => json_decode($this->response->baseResponse->content(), true),
-                'status' => [
-                    'code' => $this->response->baseResponse->status(),
-                    'text' => $this->response->baseResponse->statusText(),
-                ],
-            ],
+            'response' => $responseData,
         ];
+
+        // Saving to file
 
         $items = json_encode($items, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
 
