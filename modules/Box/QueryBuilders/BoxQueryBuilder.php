@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Box\Query;
+namespace Modules\Box\QueryBuilders;
 
 use App\Base\QueryBuilder;
 

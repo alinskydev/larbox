@@ -8,13 +8,13 @@ use Modules\Seo\Traits\SeoMetaModelTrait;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Modules\Box\Query\BoxQuery;
+use Modules\Box\QueryBuilders\BoxQueryBuilder;
 use App\Observers\Slug\SlugNameObserver;
 use App\Casts\Storage\AsImage;
 use App\Casts\Storage\AsImages;
 
 /**
- * @method static BoxQuery query()
+ * @method static BoxQueryBuilder query()
  */
 class Box extends Model
 {
@@ -50,9 +50,9 @@ class Box extends Model
         return $this->belongsToMany(Tag::class, 'box_tag_ref', 'box_id', 'tag_id')->withTrashed();
     }
 
-    public function newEloquentBuilder($query): BoxQuery
+    public function newEloquentBuilder($query): BoxQueryBuilder
     {
-        return new BoxQuery($query);
+        return new BoxQueryBuilder($query);
     }
 
     protected static function booted(): void

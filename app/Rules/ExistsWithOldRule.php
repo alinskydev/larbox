@@ -29,12 +29,7 @@ class ExistsWithOldRule extends Rule
         $this->query->whereIn($this->pk, $newValue);
 
         if ($this->query->count() < count($newValue)) {
-            $attribute = preg_replace('/.*\./', '', $attribute);
-
-            $this->errorMessage = __('validation.exists', [
-                'attribute' => __("fields.$attribute"),
-            ]);
-
+            $this->errorMessage = __('Данная запись не существует или вам не принадлежит');
             return false;
         }
 
