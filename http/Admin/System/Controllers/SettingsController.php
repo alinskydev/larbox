@@ -8,6 +8,7 @@ use Illuminate\Http\JsonResponse;
 use Modules\System\Models\Settings;
 use Modules\System\Resources\SettingsResource;
 use Http\Admin\System\Requests\SettingsRequest;
+use Illuminate\Support\Facades\Cache;
 
 class SettingsController extends Controller
 {
@@ -29,6 +30,7 @@ class SettingsController extends Controller
         ], $data, array_keys($data));
 
         Settings::upsert($data, 'name');
+        Cache::forget('app_settings');
 
         return $this->successResponse();
     }

@@ -2,7 +2,6 @@
 
 namespace App\Telescope\Watchers;
 
-use App\Telescope\Helpers\TelescopeHelper;
 use Laravel\Telescope\Watchers\JobWatcher as BaseJobWatcher;
 use Illuminate\Queue\Events\JobFailed;
 use Illuminate\Queue\Events\JobProcessed;
@@ -30,7 +29,7 @@ class JobWatcher extends BaseJobWatcher
             EntryType::JOB,
             [
                 'status' => 'processed',
-                ...TelescopeHelper::extraData(),
+                'memory' => round(memory_get_peak_usage(true) / 1024 / 1024, 1),
             ]
         ));
 
@@ -60,7 +59,7 @@ class JobWatcher extends BaseJobWatcher
                     'line' => $event->exception->getLine(),
                     'line_preview' => ExceptionContext::get($event->exception),
                 ],
-                ...TelescopeHelper::extraData(),
+                'memory' => round(memory_get_peak_usage(true) / 1024 / 1024, 1),
             ]
         )->addTags(['failed']));
 

@@ -9,7 +9,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Http\Testing\File;
 use Illuminate\Support\Facades\Artisan;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 use Modules\User\Models\User;
 
@@ -140,7 +140,7 @@ class PostmanTestCase extends BaseTestCase
 
         $baseResponse = $this->response->baseResponse;
 
-        if ($baseResponse instanceof BinaryFileResponse) {
+        if ($baseResponse instanceof StreamedResponse) {
             $responseData = [
                 'headers' => $baseResponse->headers->allPreserveCase(),
                 'body' => 'Binary data',

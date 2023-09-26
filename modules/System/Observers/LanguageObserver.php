@@ -2,6 +2,7 @@
 
 namespace Modules\System\Observers;
 
+use Illuminate\Support\Facades\Cache;
 use Modules\System\Models\Language;
 
 class LanguageObserver
@@ -22,5 +23,10 @@ class LanguageObserver
             $model->is_active = 1;
             $model->newQuery()->where('id', '!=', $model->id)->update(['is_main' => 0]);
         }
+    }
+
+    public function saved(Language $model): void
+    {
+        Cache::forget('app_language');
     }
 }

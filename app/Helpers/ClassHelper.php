@@ -8,7 +8,8 @@ class ClassHelper
     {
         $basePath = base_path();
 
-        $file = str_replace($basePath . DIRECTORY_SEPARATOR, '', $file);
+        $file = str_replace($basePath, '', $file);
+        $file = mb_substr($file, 1);
         $file = preg_replace("/\.php$/", '', $file);
 
         $file = str_replace('/', '\\', $file);

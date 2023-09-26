@@ -10,6 +10,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Contracts\Validation\ValidatesWhenResolved;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Modules\Seo\Traits\SeoMetaModelTrait;
 
 class ResourceController extends Controller
@@ -17,7 +18,7 @@ class ResourceController extends Controller
     public function __construct(
         public Model $model,
         protected ?Search $search = null,
-        protected ?string $resourceClass = null,
+        protected ?string $resourceClass = JsonResource::class,
         protected ?string $formRequestClass = null,
     ) {
         Route::model('model', $this->model::class);

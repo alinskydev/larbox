@@ -18,7 +18,7 @@ class Mail extends Mailable
         $calledClassFile = $calledClassReflection->getFileName();
         $calledClassDir = dirname($calledClassFile);
 
-        $viewNamespace = 'Mail_' . uniqid();
+        $viewNamespace = 'mail_' . uniqid();
 
         View::addNamespace($viewNamespace, $calledClassDir . '/views');
         $view = "$viewNamespace::$view." . app()->getLocale();

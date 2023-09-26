@@ -3,9 +3,7 @@
 namespace Http\Common\Auth\Requests\Auth;
 
 use App\Base\FormRequest;
-use Illuminate\Validation\Validator;
 use Illuminate\Support\Facades\Auth;
-
 use Illuminate\Validation\Rule;
 
 class LoginRequest extends FormRequest
@@ -18,16 +16,13 @@ class LoginRequest extends FormRequest
         ];
     }
 
-    public function withValidator(Validator $validator): void
+    protected function additionalValidation(): void
     {
-        if (!$validator->fails()) {
-            $validator->after(function ($validator) {
-                $credentials = $this->only('username', 'password');
+        $credentials = $this->only('username', 'password');
 
-                if (!Auth::attempt($credentials)) {
-                    $validator->errors()->add('password', __('Неправильный :field', ['field' => __('fields.password')]));
-                }
-            });
+        if (!Auth::attempt($credentials)) {
+            $this->validator->errors()->add('password', __('Неправильный :field', ['field' => __('fields.password')]));
+            return;
         }
     }
 }

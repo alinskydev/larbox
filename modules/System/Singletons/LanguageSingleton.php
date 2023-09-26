@@ -3,6 +3,7 @@
 namespace Modules\System\Singletons;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Cache;
 use Modules\System\Models\Language;
 
 class LanguageSingleton
@@ -13,7 +14,10 @@ class LanguageSingleton
 
     public function __construct()
     {
-        $this->all = Language::query()->orderBy('id')->get()->keyBy('code')->toArray();
+        $this->all = Cache::remember('app_language', 86400, function() {
+            return Language::query()->orderBy('id')->get()->keyBy('code')->toArray();
+        });
+
         $this->active = array_filter($this->all, fn ($value) => $value['is_active']);
         $this->main = Arr::keyBy($this->active, 'is_main')[1];
 

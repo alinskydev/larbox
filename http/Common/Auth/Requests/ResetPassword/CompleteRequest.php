@@ -3,7 +3,6 @@
 namespace Http\Common\Auth\Requests\ResetPassword;
 
 use App\Base\FormRequest;
-use Illuminate\Validation\Validator;
 use Modules\Auth\Services\CodeService;
 use Illuminate\Support\Facades\Hash;
 
@@ -30,17 +29,14 @@ class CompleteRequest extends FormRequest
         ];
     }
 
-    public function withValidator(Validator $validator): void
+    protected function additionalValidation(): void
     {
-        if (!$validator->fails()) {
-            $validator->after(function ($validator) {
-                $codeService = new CodeService($this->email);
-                $checkedInfo = $codeService->checkCode($this->code);
+        $codeService = new CodeService($this->email);
+        $checkedInfo = $codeService->checkCode($this->code);
 
-                if (!$checkedInfo['is_correct']) {
-                    return $validator->errors()->add('code', $checkedInfo['error']);
-                }
-            });
+        if (!$checkedInfo['is_correct']) {
+            $this->validator->errors()->add('code', $checkedInfo['error']);
+            return;
         }
     }
 

@@ -7,6 +7,7 @@ use App\Helpers\ClassHelper;
 use App\Base\Model;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Arr;
+use Modules\User\Models\User;
 
 class ParseFieldsCommand extends Command
 {
@@ -60,18 +61,25 @@ class ParseFieldsCommand extends Command
         );
 
         $fields = array_map(function ($file) use ($emptyModel) {
-            $file = ClassHelper::classByFile($file);
-            $formRequestReflection = new \ReflectionClass($file);
+            request()->setUserResolver(fn () => User::query()->find(1));
 
-            /** @var object */
-            $formRequest = $formRequestReflection->newInstanceWithoutConstructor();
-            $formRequest->model = $emptyModel;
-            $formRequest->__construct();
+            try {
+                $file = ClassHelper::classByFile($file);
+                $formRequestReflection = new \ReflectionClass($file);
 
-            $attributes = array_values($formRequest->attributes());
-            $attributes = array_map(fn ($value) => preg_replace('/^fields\./', '', $value), $attributes);
+                /** @var object */
+                $formRequest = $formRequestReflection->newInstanceWithoutConstructor();
+                $formRequest->model = $emptyModel;
+                $formRequest->__construct();
 
-            return $attributes;
+                $attributes = array_values($formRequest->attributes());
+                $attributes = array_map(fn ($value) => preg_replace('/^fields\./', '', $value), $attributes);
+
+                return $attributes;
+            } catch (\Throwable $e) {
+                echo 'Error: ' . $e->getMessage() . " ($file)" . "\n";
+                return [];
+            }
         }, $files);
 
         return array_merge(...$fields);

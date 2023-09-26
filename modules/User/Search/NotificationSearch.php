@@ -8,6 +8,8 @@ use App\Search\Enums\SearchSortTypeEnum;
 
 class NotificationSearch extends Search
 {
+    public int $pageSize = 10;
+
     public array $filters = [
         'id' => SearchFilterTypeEnum::EQUAL_RAW,
         'type' => SearchFilterTypeEnum::EQUAL_RAW,

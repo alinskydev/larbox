@@ -3,7 +3,6 @@
 namespace App\NestedSet;
 
 use App\Http\Requests\ActiveFormRequest;
-use Illuminate\Validation\Validator;
 
 class NestedSetMoveRequest extends ActiveFormRequest
 {
@@ -16,20 +15,17 @@ class NestedSetMoveRequest extends ActiveFormRequest
         ];
     }
 
-    public function withValidator(Validator $validator): void
+    protected function additionalValidation(): void
     {
-        if (!$validator->fails()) {
-            $validator->after(function ($validator) {
-                $tree = json_decode($this->tree, true);
-                $nodes = $this->collectSystemFields($tree);
+        $tree = json_decode($this->tree, true);
+        $nodes = $this->collectSystemFields($tree);
 
-                if (isset($nodes[1]) || count($nodes) !== $this->model->query()->withTrashed()->count() - 1) {
-                    $validator->errors()->add('tree', 'Invalid tree');
-                }
-
-                $this->nodes = $nodes;
-            });
+        if (isset($nodes[1]) || count($nodes) !== $this->model->query()->withTrashed()->count() - 1) {
+            $this->validator->errors()->add('tree', 'Invalid tree');
+            return;
         }
+
+        $this->nodes = $nodes;
     }
 
     private function collectSystemFields(

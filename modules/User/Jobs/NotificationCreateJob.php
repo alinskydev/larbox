@@ -3,6 +3,7 @@
 namespace Modules\User\Jobs;
 
 use App\Base\Job;
+use Illuminate\Support\Facades\Log;
 use Modules\User\Enums\NotificationTypeEnum;
 use Modules\User\Helpers\NotificationHelper;
 use Modules\User\Models\User;
@@ -48,6 +49,7 @@ class NotificationCreateJob extends Job
                 creatorId: $this->creatorId,
             );
         } catch (\Throwable $e) {
+            Log::error($e->__toString());
             $this->release(60 * 30);
             return;
         }

@@ -73,6 +73,14 @@ class FormRequest extends BaseFormRequest
     {
         parent::passedValidation();
 
+        if (method_exists($this, 'additionalValidation')) {
+            $this->additionalValidation();
+
+            if ($this->validator->errors()->messages()) {
+                $this->failedValidation($this->validator);
+            }
+        }
+
         $this->validatedData = $this->validated();
         $this->saveFiles();
 
