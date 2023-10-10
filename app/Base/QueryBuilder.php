@@ -26,6 +26,16 @@ use Illuminate\Database\Eloquent\Builder;
  */
 class QueryBuilder extends Builder
 {
+    public function cloneForSummary(): static
+    {
+        $query = clone $this;
+        $query->getQuery()->orders = [];
+        $query->getQuery()->limit = null;
+        $query->getQuery()->offset = null;
+
+        return $query;
+    }
+
     public function filterByUser($field): static
     {
         return $this->where($field, request()->user()->id);

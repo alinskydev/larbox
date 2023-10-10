@@ -13,12 +13,16 @@ class ExistsWithOldRule extends Rule
         private Model $model,
         private QueryBuilder $query,
         private ?string $pk = null,
+        ?string $errorMessage = null,
     ) {
         $this->pk ??= $this->query->getModel()->getKeyName();
+        $this->errorMessage = $errorMessage ?? __('Данная запись не существует или вам не принадлежит');
     }
 
     public function passes($attribute, $value): bool
     {
+        $query = clone ($this->query);
+
         $oldValue = data_get($this->model, $attribute);
         $oldValue = $oldValue instanceof Collection ? $oldValue->pluck($this->pk)->toArray() : (array)$oldValue;
 
@@ -26,10 +30,9 @@ class ExistsWithOldRule extends Rule
 
         if (!$newValue) return true;
 
-        $this->query->whereIn($this->pk, $newValue);
+        $query->whereIn($this->pk, $newValue);
 
-        if ($this->query->count() < count($newValue)) {
-            $this->errorMessage = __('Данная запись не существует или вам не принадлежит');
+        if ($query->count() < count($newValue)) {
             return false;
         }
 
