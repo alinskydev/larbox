@@ -21,7 +21,7 @@ export default new Model({
                 options: {
                     httpSelect: {
                         path: 'feedback/callback/:pk/set-status/:value',
-                        items: App.enums.feedback.statuses,
+                        items: App.enums.Feedback.FeedbackStatus,
                     },
                 },
             },
@@ -49,7 +49,7 @@ export default new Model({
                 type: Enums.inputTypes.select,
                 options: {
                     select: {
-                        items: App.enums.feedback.statuses,
+                        items: App.enums.Feedback.FeedbackStatus,
                         hasPrompt: true,
                     },
                 },
@@ -73,7 +73,7 @@ export default new Model({
                     type: Enums.valueTypes.text,
                 },
                 status: {
-                    value: (record) => App.enums.feedback.statuses[record.status],
+                    value: (record) => App.enums.Feedback.FeedbackStatus[record.status],
                     type: Enums.valueTypes.text,
                 },
                 created_at: {

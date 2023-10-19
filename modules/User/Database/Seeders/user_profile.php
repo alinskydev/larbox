@@ -13,7 +13,7 @@ return new class extends Seeder
                 'user_id' => 1,
                 'full_name' => 'Administrator',
                 'phone' => '+998000000001',
-                'image' => '/test_data/images/3.png',
+                'image' => 'test_data/images/3.png',
             ],
             [
                 'user_id' => 2,

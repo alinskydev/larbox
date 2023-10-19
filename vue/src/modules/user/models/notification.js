@@ -9,7 +9,7 @@ export default new Model({
                 type: Enums.valueTypes.text,
             },
             type: {
-                value: (record) => App.enums.user_notification.types[record.type],
+                value: (record) => App.enums.User.NotificationType[record.type],
                 type: Enums.valueTypes.text,
             },
             is_seen: {
@@ -31,7 +31,7 @@ export default new Model({
                 type: Enums.inputTypes.select,
                 options: {
                     select: {
-                        items: App.enums.user_notification.types,
+                        items: App.enums.User.NotificationType,
                         hasPrompt: true,
                     },
                 },
@@ -58,7 +58,7 @@ export default new Model({
                     type: Enums.valueTypes.text,
                 },
                 type: {
-                    value: (record) => App.enums.user_notification.types[record.type],
+                    value: (record) => App.enums.User.NotificationType[record.type],
                     type: Enums.valueTypes.text,
                 },
                 is_seen: {

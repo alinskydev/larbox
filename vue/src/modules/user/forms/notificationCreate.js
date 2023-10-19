@@ -10,7 +10,7 @@ export default new Model({
                     type: Enums.inputTypes.select,
                     options: {
                         select: {
-                            items: App.helpers.lodash.pick(App.enums.user_notification.types, ['message', 'announcement']),
+                            items: App.helpers.lodash.pick(App.enums.User.NotificationType, ['message', 'announcement']),
                         },
                     },
                     size: Enums.inputSizes.xl,

@@ -42,11 +42,16 @@ class PostmanTestCase extends BaseTestCase
         parent::setUp();
 
         if (isset($this->userId)) {
-            /** @var \Illuminate\Contracts\Auth\Authenticatable */
-            $user = User::query()->findOrFail($this->userId);
-            $this->actingAs($user, 'sanctum');
-            request()->setUserResolver(fn () => $user);
+            $this->authAsUser($this->userId);
         }
+    }
+
+    protected function authAsUser(int $userId): void
+    {
+        /** @var \Illuminate\Contracts\Auth\Authenticatable */
+        $user = User::query()->findOrFail($userId);
+        request()->setUserResolver(fn () => $user);
+        $this->actingAs($user, 'sanctum');
     }
 
     public function sendRequest(

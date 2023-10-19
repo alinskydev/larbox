@@ -8,16 +8,18 @@ export default function () {
         })
         .then((response: any) => {
             if (response.statusType === 'success') {
-                let data = response.data,
-                    urlLocale = location.pathname.split('/')[1];
+                let urlLocale = location.pathname.split('/')[1],
+                    data = response.data,
+                    translations = {};
 
                 App.enums = data.enums;
                 App.languages = data.languages;
                 App.settings = data.settings;
 
                 App.locale = urlLocale in App.languages.active ? urlLocale : App.languages.main.code;
-                App.localization.translations = App.helpers.lodash.merge(App.localization.translations, data.translations);
+                translations[App.locale] = data.translations;
 
+                App.localization.translations = App.helpers.lodash.merge(App.localization.translations, translations);
                 App.config.http.headers['Accept-Language'] = App.locale;
             }
         });

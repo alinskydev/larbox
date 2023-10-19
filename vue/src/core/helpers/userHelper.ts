@@ -18,7 +18,8 @@ export default class {
     checkRoute(routeName: string) {
         routeName = 'admin.' + routeName.replaceAll('/', '.');
 
-        let checkableRoutes = App.enums.user_role.routes.list,
+        // let checkableRoutes = App.enums.user_role.routes.list,
+        let checkableRoutes = [],
             userRoutes = App.user.role.routes;
 
         if (!checkableRoutes.includes(routeName) || userRoutes.includes(routeName)) return true;

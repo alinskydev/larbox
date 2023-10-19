@@ -38,9 +38,9 @@ class ImageHelper
                 $image = ImageManagerStatic::make($sourceFile);
 
                 if ($method !== 'original') $image->{$method}(...$params);
-                if ($asWebp) $image->encode('webp');
+                if ($asWebp) $image->encode('webp', 100);
 
-                $image->save($thumbFile);
+                $image->save($thumbFile, 100);
             }
 
             return $thumbUrl;
@@ -62,17 +62,17 @@ class ImageHelper
             ],
         ];
 
-        $types = ['raw' => false, 'webp' => true];
+        $types = ['raw', 'webp'];
 
         foreach ($sizes as $size) {
-            foreach ($types as $type => $asWebp) {
+            foreach ($types as $type) {
                 $sizeParams = explode('_', $size);
 
                 $thumb = self::thumbnail(
                     sourceUrl: $url,
                     method: array_shift($sizeParams),
                     params: $sizeParams,
-                    asWebp: $asWebp,
+                    asWebp: $type === 'webp',
                 );
 
                 $result[$size][$type] = asset($thumb);

@@ -14,8 +14,12 @@ class FileHelper
         $name = uniqid() . '_' . Str::uuid();
         $name .= $extension ? ".$extension" : '';
 
-        if (!is_dir($path)) mkdir($path, 0777, true);
-        file_put_contents(base_path("$path/$name"), $content);
+        $fullPath = public_path($path);
+
+        if (!is_dir($fullPath)) mkdir($fullPath, 0777, true);
+
+        file_put_contents("$fullPath/$name", $content);
+        chown("$fullPath/$name", 'www-data');
 
         return "$path/$name";
     }
@@ -23,12 +27,18 @@ class FileHelper
     public static function upload(UploadedFile $file, string $path): string
     {
         $path = "storage/uploads/$path/" . date('Y-m-d');
-        $name = uniqid() . '_' . Str::uuid();
         $extension = $file->getClientOriginalExtension();
+        $name = uniqid() . '_' . Str::uuid();
+        $name .= $extension ? ".$extension" : '';
 
-        $file->move($path, "$name.$extension");
+        $fullPath = public_path($path);
 
-        return "$path/$name.$extension";
+        if (!is_dir($fullPath)) mkdir($fullPath, 0777, true);
+
+        $file->move($fullPath, $name);
+        chown("$fullPath/$name", 'www-data');
+
+        return "$path/$name";
     }
 
     public static function delete(string $file): void

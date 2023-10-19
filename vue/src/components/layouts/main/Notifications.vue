@@ -72,7 +72,7 @@ export default {
                             </div>
 
                             <div class="align-self-center ms-3">
-                                {{ App.enums.user_notification.types[notification.type] + ' №' + notification.id }}
+                                {{ App.enums.User.NotificationType[notification.type] + ' №' + notification.id }}
                             </div>
                         </div>
                     </RouterLink>

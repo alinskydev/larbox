@@ -19,11 +19,11 @@ return new class extends Seeder
             ],
             [
                 'name' => 'favicon',
-                'value' => '/test_data/logo.png',
+                'value' => 'test_data/logo.png',
             ],
             [
                 'name' => 'logo',
-                'value' => '/test_data/logo.png',
+                'value' => 'test_data/logo.png',
             ],
             [
                 'name' => 'project_name',

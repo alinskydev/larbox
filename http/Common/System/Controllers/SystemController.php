@@ -3,14 +3,12 @@
 namespace Http\Common\System\Controllers;
 
 use App\Base\Controller;
+use App\Helpers\ClassHelper;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Arr;
-use Modules\Feedback\Enums\FeedbackStatusEnum;
 use Modules\Section\Enums\SectionEnum;
 use Modules\Section\Models\Section;
 use Modules\System\Resources\SettingsResource;
-use Modules\User\Enums\NotificationTypeEnum;
-use Modules\User\Helpers\RoleHelper;
 
 class SystemController extends Controller
 {
@@ -37,25 +35,28 @@ class SystemController extends Controller
 
     private function enums(): array
     {
-        $result = [
-            'user_notification' => [
-                'types' => NotificationTypeEnum::labels(),
-            ],
-        ];
+        $result = [];
 
-        if (request()->get('show-all')) {
-            $result = array_replace_recursive($result, [
-                'feedback' => [
-                    'statuses' => FeedbackStatusEnum::labels(),
-                ],
-                'user_role' => [
-                    'routes' => [
-                        'list' => RoleHelper::routesList(),
-                        'tree' => RoleHelper::routesTree(),
-                    ],
-                ],
-            ]);
+        $types = ['Enum', 'JsonTemplate'];
+
+        foreach ($types as $type) {
+            $files = glob(base_path("modules/*/{$type}s/*.php"));
+
+            $pattern = "/^\\\Modules\\\|\\\\{$type}s\\\|$type$/";
+
+            foreach ($files as $file) {
+                $class = ClassHelper::classByFile($file);
+                $name = preg_replace_array($pattern, ['', '.', ''], $class);
+
+                $result[$name] = method_exists($class, 'labels') ? $class::labels() : $class::cases();
+            }
         }
+
+        Arr::forget($result, [
+            'Section.Section',
+        ]);
+
+        $result = Arr::undot($result);
 
         ksort($result);
 
@@ -81,12 +82,10 @@ class SystemController extends Controller
 
     private function translations(): array
     {
-        return array_map(function ($value) {
-            $path = lang_path($value['code']);
+        $path = lang_path(app('language')->all[app()->getLocale()]['code']);
 
-            return [
-                'fields' => require("$path/fields.php"),
-            ];
-        }, app('language')->all);
+        return [
+            'fields' => require("$path/fields.php"),
+        ];
     }
 }

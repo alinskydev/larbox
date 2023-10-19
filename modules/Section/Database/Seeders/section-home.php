@@ -20,13 +20,13 @@ return new class extends Seeder
                     'first_text_3' => 'Text 3',
                     'first_text_3_localized' => json_decode(SeederHelper::localized('Text 3')),
 
-                    'second_image_desktop' => '/test_data/images/1.png',
-                    'second_image_tablet' => '/test_data/images/2.png',
-                    'second_image_mobile' => '/test_data/images/3.png',
+                    'second_image_desktop' => 'test_data/images/1.png',
+                    'second_image_tablet' => 'test_data/images/2.png',
+                    'second_image_mobile' => 'test_data/images/3.png',
                     'second_images_list' => [
-                        '/test_data/images/1.png',
-                        '/test_data/images/2.png',
-                        '/test_data/images/3.png',
+                        'test_data/images/1.png',
+                        'test_data/images/2.png',
+                        'test_data/images/3.png',
                     ],
 
                     'relations_1' => array_map(
@@ -41,9 +41,9 @@ return new class extends Seeder
                         fn ($index) => [
                             'text_localized' => json_decode(SeederHelper::localized("Text $index")),
                             'images_list' => [
-                                '/test_data/images/1.png',
-                                '/test_data/images/2.png',
-                                '/test_data/images/3.png',
+                                'test_data/images/1.png',
+                                'test_data/images/2.png',
+                                'test_data/images/3.png',
                             ],
                         ],
                         range(1, 2),
