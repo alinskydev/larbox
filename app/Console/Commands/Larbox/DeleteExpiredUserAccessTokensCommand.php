@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Larbox;
 
 use Illuminate\Console\Command;
 use Modules\User\Models\AccessToken;

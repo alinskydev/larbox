@@ -12,19 +12,23 @@ Route::prefix('system')
     ->group(function () {
         Route::prefix('language')
             ->group(function () {
-                Route::model('language', Language::class);
+                Route::patch('{pk}/set-active/{value}', SetValueAction::class)
+                    ->whereIn('value', [0, 1])
+                    ->setBindingFields([
+                        'model' => fn ($pk) => Language::query()->findOrFail($pk),
+                        'field' => 'is_active',
+                    ])
+                    ->name('set-active');
+
+                Route::patch('{pk}/set-main/{value}', SetValueAction::class)
+                    ->whereIn('value', [1])
+                    ->setBindingFields([
+                        'model' => fn ($pk) => Language::query()->findOrFail($pk),
+                        'field' => 'is_main',
+                    ])
+                    ->name('set-main');
 
                 Route::apiResource('', LanguageController::class)->only(['index', 'show', 'update']);
-
-                Route::patch('{language}/set-active/{value}', SetValueAction::class)
-                    ->whereIn('value', [0, 1])
-                    ->setBindingFields(['field' => 'is_active'])
-                    ->name('setActive');
-
-                Route::patch('{language}/set-main/{value}', SetValueAction::class)
-                    ->whereIn('value', [1])
-                    ->setBindingFields(['field' => 'is_main'])
-                    ->name('setMain');
             });
 
         Route::prefix('settings')

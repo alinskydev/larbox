@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Larbox;
 
 use Illuminate\Console\Command;
 use App\Helpers\ClassHelper;
@@ -61,7 +61,8 @@ class ParseFieldsCommand extends Command
         );
 
         $fields = array_map(function ($file) use ($emptyModel) {
-            request()->setUserResolver(fn () => User::query()->find(1));
+            $user = User::query()->find(1);
+            request()->setUserResolver(fn () => $user);
 
             try {
                 $file = ClassHelper::classByFile($file);

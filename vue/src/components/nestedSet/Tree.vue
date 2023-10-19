@@ -21,12 +21,13 @@ export default {
         };
     },
     mounted() {
+        console.log(this.httpPath);
         this.treeView = $('#tree-' + this.parentId);
 
         App.helpers.http
             .send({
                 method: 'GET',
-                path: this.httpPath + '-tree',
+                path: this.httpPath + '/tree',
             })
             .then((response) => {
                 if (response.statusType === 'success') {
@@ -161,7 +162,7 @@ export default {
                             App.helpers.http
                                 .send({
                                     method: 'POST',
-                                    path: this.httpPath + '-move?_method=PATCH',
+                                    path: this.httpPath + '/move?_method=PATCH',
                                     body: formData,
                                 })
                                 .then((response) => {

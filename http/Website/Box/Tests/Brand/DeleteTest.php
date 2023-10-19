@@ -4,9 +4,6 @@ namespace Http\Website\Box\Tests\Brand;
 
 class DeleteTest extends _TestCase
 {
-    /**
-     * @depends Http\Website\Box\Tests\Brand\UpdateTest::test_success
-     */
     public function test_delete(): void
     {
         $this->sendRequest(

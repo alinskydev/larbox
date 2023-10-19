@@ -3,7 +3,7 @@
 namespace Http\Admin\User\Controllers;
 
 use App\Http\Controllers\ResourceController;
-use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 use Modules\User\Models\User;
 use Modules\User\Search\UserSearch;
@@ -24,7 +24,7 @@ class UserController extends ResourceController
         );
     }
 
-    public function update(ValidatesWhenResolved $request): JsonResponse
+    public function update(ValidatesWhenResolved $request): Response
     {
         parent::update($request);
         return $this->successResponseWithAccessToken($request->model);

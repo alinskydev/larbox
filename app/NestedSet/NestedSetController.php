@@ -3,12 +3,12 @@
 namespace App\NestedSet;
 
 use App\Http\Controllers\ResourceController;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpFoundation\Response;
 
 class NestedSetController extends ResourceController
 {
-    public function tree(): JsonResponse
+    public function tree(): Response
     {
         $model = $this->model->query()->with(['children'])->findOrFail(1);
         $tree = NestedSetHelper::tree($model);
@@ -16,7 +16,7 @@ class NestedSetController extends ResourceController
         return response()->json($tree, 200);
     }
 
-    public function move(NestedSetMoveRequest $request): JsonResponse
+    public function move(NestedSetMoveRequest $request): Response
     {
         $queryCases = array_map(fn ($value) => "WHEN id = ? THEN ?", $request->nodes);
 

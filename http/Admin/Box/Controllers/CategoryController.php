@@ -3,7 +3,7 @@
 namespace Http\Admin\Box\Controllers;
 
 use App\NestedSet\NestedSetController;
-use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 use Modules\Box\Models\Category;
 use Modules\Box\Search\CategorySearch;

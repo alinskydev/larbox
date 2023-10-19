@@ -3,25 +3,35 @@
 namespace App\Http\Controllers;
 
 use App\Base\Controller;
+use App\Base\Filter;
 use App\Base\Model;
 use App\Base\Search;
 
-use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Contracts\Validation\ValidatesWhenResolved;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Modules\Seo\Traits\SeoMetaModelTrait;
+use Symfony\Component\HttpFoundation\Response;
 
 class ResourceController extends Controller
 {
     public function __construct(
         public Model $model,
         protected ?Search $search = null,
+        protected ?Filter $filter = null,
         protected ?string $resourceClass = JsonResource::class,
         protected ?string $formRequestClass = null,
     ) {
-        Route::model('model', $this->model::class);
+        if ($this->filter) {
+            Route::bind('model', function ($value) {
+                return $this->filter
+                    ->process($this->model->query(), $value)
+                    ->firstOrFail();
+            });
+        } else {
+            Route::model('model', $this->model::class);
+        }
 
         $this->middleware(function ($request, $next) {
             if ($this->search !== null) {
@@ -32,6 +42,10 @@ class ResourceController extends Controller
                     ->show((array)$request->get('show'))
                     ->setPageSize((int)$request->get('page-size'))
                     ->extraQuery();
+
+                if ($this->filter) {
+                    $this->filter->process($this->search->query);
+                }
             }
 
             if ($this->formRequestClass !== null) {
@@ -42,13 +56,13 @@ class ResourceController extends Controller
         });
     }
 
-    public function index(): JsonResponse
+    public function index(): Response
     {
         $paginator = $this->search->query->paginate($this->search->pageSize);
-        return $this->resourceClass::collection($paginator)->response()->setStatusCode(200);
+        return $this->resourceClass::collection($paginator)->response();
     }
 
-    public function show(Model $model): JsonResponse
+    public function show(Model $model): Response
     {
         $model = $this->search->query->findOrFail($model->getKey());
 
@@ -61,25 +75,33 @@ class ResourceController extends Controller
         return response()->json($data, 200);
     }
 
-    public function create(ValidatesWhenResolved $request): JsonResponse
+    public function create(ValidatesWhenResolved $request): Response
     {
         $request->model->safelySave($request->validatedData);
-        return $this->successResponse(201);
+        $request->model->unsetRelations();
+
+        $data = $this->resourceClass::make($request->model);
+
+        return response()->json($data, 200);
     }
 
-    public function update(ValidatesWhenResolved $request): JsonResponse
+    public function update(ValidatesWhenResolved $request): Response
     {
         $request->model->safelySave($request->validatedData);
-        return $this->successResponse();
+        $request->model->unsetRelations();
+
+        $data = $this->resourceClass::make($request->model);
+
+        return response()->json($data, 200);
     }
 
-    public function delete(Model $model): JsonResponse
+    public function delete(Model $model): Response
     {
         $model->safelyDelete();
         return $this->successResponse();
     }
 
-    public function restore(string $value): JsonResponse
+    public function restore(string $value): Response
     {
         if (!in_array(SoftDeletes::class, class_uses_recursive($this->model))) {
             abort(400, 'Model doesn\'t use soft delete trait');
@@ -89,7 +111,7 @@ class ResourceController extends Controller
         return $this->successResponse();
     }
 
-    public function deleteMultiple(): JsonResponse
+    public function deleteMultiple(): Response
     {
         $selection = (array)request()->get('selection', []);
 
@@ -107,7 +129,7 @@ class ResourceController extends Controller
         return $this->successResponse();
     }
 
-    public function restoreMultiple(): JsonResponse
+    public function restoreMultiple(): Response
     {
         if (!in_array(SoftDeletes::class, class_uses_recursive($this->model))) {
             abort(400, 'Model doesn\'t use soft delete trait');

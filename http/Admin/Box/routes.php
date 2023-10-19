@@ -16,19 +16,25 @@ Route::prefix('box')
 
         Route::prefix('brand')
             ->group(function () {
-                Route::model('brand', Brand::class);
+                Route::patch('{pk}/set-active/{value}', SetValueAction::class)
+                    ->whereIn('value', [0, 1])
+                    ->setBindingFields([
+                        'model' => fn ($pk) => Brand::query()->findOrFail($pk),
+                        'field' => 'is_active',
+                    ])
+                    ->name('set-active');
 
                 Route::apiResource('', BrandController::class);
-
-                Route::patch('{brand}/set-active/{value}', SetValueAction::class)
-                    ->whereIn('value', [0, 1])
-                    ->setBindingFields(['field' => 'is_active'])
-                    ->name('setActive');
             });
 
-        Route::apiResource('category', CategoryController::class)->except(['deleteMultiple', 'restoreMultiple']);
-        Route::get('category-tree', [CategoryController::class, 'tree'])->name('category.tree');
-        Route::patch('category-move', [CategoryController::class, 'move'])->name('category.move');
+        Route::prefix('category')
+            ->group(function () {
+                Route::get('tree', [CategoryController::class, 'tree'])->name('tree');
+                Route::patch('move', [CategoryController::class, 'move'])->name('move');
+
+                Route::apiResource('', CategoryController::class)->except(['deleteMultiple', 'restoreMultiple']);
+            });
+
 
         Route::apiResource('tag', TagController::class);
     });

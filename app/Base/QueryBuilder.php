@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Builder;
  * @method $this whereBetween($params)
  * @method $this whereIn($params)
  * @method $this whereNull($params)
+ * @method $this whereNotNull($params)
  * 
  * @method $this limit($params)
  * @method $this offset($params)

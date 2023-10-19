@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\App;
 
 use Illuminate\Console\Command;
 
 class RunCommand extends Command
 {
-    protected $signature = 'larbox:run';
+    protected $signature = 'app:run';
 
     protected $description = 'Run any script';
 

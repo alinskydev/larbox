@@ -99,11 +99,13 @@ class Handler extends ExceptionHandler
                 );
 
             default:
+                $defaultStatus = app()->environment('testing') ? 400 : 500;
+
                 return response()->json(
                     [
                         'message' => $e->getMessage() ?: 'An error occurred',
                     ],
-                    method_exists($e, 'getStatusCode') ? $e->getStatusCode() : 500,
+                    method_exists($e, 'getStatusCode') ? $e->getStatusCode() : $defaultStatus,
                 );
         }
     }

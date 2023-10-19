@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Larbox;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Arr;
@@ -80,22 +80,18 @@ class ExportTestsForPostmanCommand extends Command
 
                 $formdata = [];
 
-                $formdata[] = array_map(function ($value, $key) {
-                    return [
-                        'key' => $key,
-                        'type' => 'text',
-                        'value' => $value,
-                    ];
-                }, $request['body'], array_keys($request['body']));
+                $formdata[] = Arr::map($request['body'], fn ($value, $key) => [
+                    'key' => $key,
+                    'type' => 'text',
+                    'value' => $value,
+                ]);
 
                 if ($request['files']) {
-                    $formdata[] = array_map(function ($value, $key) {
-                        return [
-                            'key' => $key,
-                            'type' => 'file',
-                            'src' => $value,
-                        ];
-                    }, $request['files'], array_keys($request['files']));
+                    $formdata[] = Arr::map($request['files'], fn ($value, $key) => [
+                        'key' => $key,
+                        'type' => 'file',
+                        'src' => $value,
+                    ]);
                 }
 
                 $formdata = array_merge(...$formdata);
@@ -112,32 +108,26 @@ class ExportTestsForPostmanCommand extends Command
                     'name' => ucfirst(str_replace('_', ' ', $name)),
                     'status' => $response['status']['text'],
                     'code' => $response['status']['code'],
-                    'header' => array_map(function ($value, $key) {
-                        return [
-                            'key' => $key,
-                            'value' => $value,
-                        ];
-                    }, $response['headers'], array_keys($response['headers'])),
+                    'header' => Arr::map($response['headers'], fn ($value, $key) => [
+                        'key' => $key,
+                        'value' => $value,
+                    ]),
                     'body' => $response['body'] ? json_encode($response['body'], $jsonOptions) : null,
                     'originalRequest' => [
                         'method' => $request['method'],
-                        'header' => array_map(function ($value, $key) {
-                            return [
-                                'key' => $key,
-                                'value' => $value,
-                            ];
-                        }, $request['headers'], array_keys($request['headers'])),
+                        'header' => Arr::map($request['headers'], fn ($value, $key) => [
+                            'key' => $key,
+                            'value' => $value,
+                        ]),
                         'body' => $requestBody,
                         'url' => [
                             'host' => ['{{host}}'],
                             'raw' => '{{host}}/' . $request['url']['raw'],
                             'path' => explode('/', $request['url']['path']),
-                            'query' => array_map(function ($value, $key) {
-                                return [
-                                    'key' => $key,
-                                    'value' => $value,
-                                ];
-                            }, $request['url']['query'], array_keys($request['url']['query'])),
+                            'query' => Arr::map($request['url']['query'], fn ($value, $key) => [
+                                'key' => $key,
+                                'value' => $value,
+                            ]),
                         ],
                     ],
                 ];

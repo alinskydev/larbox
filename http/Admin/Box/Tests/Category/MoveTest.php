@@ -7,7 +7,7 @@ use App\NestedSet\NestedSetHelper;
 
 class MoveTest extends _TestCase
 {
-    public string $requestUrl = 'admin/box/category-move';
+    public string $requestUrl = 'admin/box/category/move';
 
     public function test_success(): void
     {

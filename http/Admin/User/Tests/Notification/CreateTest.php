@@ -16,7 +16,6 @@ class CreateTest extends _TestCase
                 'type' => NotificationTypeEnum::MESSAGE->value,
                 'text' => 'Text 3',
             ],
-            assertStatus: 201,
         );
     }
 }

@@ -5,10 +5,18 @@
             <!-- <directory suffix="Test.php">./app/Testing/Unit/Tests</directory> -->
         </testsuite>
         <testsuite name="Feature">
-            <!-- <directory suffix="Test.php">./http</directory> -->
-            <!-- <directory suffix="Test.php">./http/Admin/Box/Tests/Box</directory> -->
-            <!-- <directory suffix="Test.php">./http/Common</directory> -->
-            <directory suffix="Test.php">./http/Website/Box/Tests/</directory>
+            <!-- FOR DEV -->
+
+            <!-- <directory suffix="Test.php">./http/Admin/User/Tests/User</directory> -->
+            <directory suffix="ShowTest.php">./http/Website/Box/Tests</directory>
+
+            <!-- <directory suffix="Test.php">./http/Common/Auth</directory> -->
+
+            <!-- FOR FRONTEND DEVELOPER -->
+
+            <!-- <directory suffix="Test.php">./http/Admin</directory>
+            <directory suffix="Test.php">./http/Common</directory>
+            <directory suffix="Test.php">./http/Website</directory> -->
         </testsuite>
     </testsuites>
     <coverage>
@@ -27,6 +35,6 @@
         <env name="MAIL_MAILER" value="array" />
         <env name="QUEUE_CONNECTION" value="sync" />
         <env name="SESSION_DRIVER" value="array" />
-        <env name="TELESCOPE_ENABLED" value="false" />
+        <env name="TELESCOPE_ENABLED" value="true" />
     </php>
 </phpunit>

@@ -21,6 +21,11 @@ trait EnumTrait
         return Arr::pluck(self::cases(), 'value', 'name');
     }
 
+    public static function labelByValue(mixed $value): string
+    {
+        return self::labels()[$value];
+    }
+
     public static function caseByValue(mixed $value): self
     {
         $cases = self::cases();

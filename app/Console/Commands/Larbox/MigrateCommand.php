@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Larbox;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
@@ -9,7 +9,7 @@ use Symfony\Component\Console\Output\StreamOutput;
 
 class MigrateCommand extends Command
 {
-    protected $signature = 'larbox:migrate {--hide-info}';
+    protected $signature = 'larbox:migrate';
 
     protected $description = 'Migrate base';
 
@@ -20,12 +20,7 @@ class MigrateCommand extends Command
         // Migrating structure
 
         app()->register(DBStructureServiceProvider::class);
-
-        if ($this->option('hide-info')) {
-            Artisan::call('migrate:fresh');
-        } else {
-            Artisan::call('migrate:fresh', [], new StreamOutput($stream));
-        }
+        Artisan::call('migrate:fresh', [], new StreamOutput($stream));
 
         // Seeding
 
@@ -35,12 +30,13 @@ class MigrateCommand extends Command
         // Setting foreign keys
 
         app()->register(DBRelationsServiceProvider::class);
+        Artisan::call('migrate', [], new StreamOutput($stream));
 
-        if ($this->option('hide-info')) {
-            Artisan::call('migrate');
-        } else {
-            Artisan::call('migrate', [], new StreamOutput($stream));
-        }
+        $this->extraSeeders();
+    }
+
+    private function extraSeeders()
+    {
     }
 }
 

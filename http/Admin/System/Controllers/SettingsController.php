@@ -3,7 +3,7 @@
 namespace Http\Admin\System\Controllers;
 
 use App\Base\Controller;
-use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 use Modules\System\Models\Settings;
 use Modules\System\Resources\SettingsResource;
@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Cache;
 
 class SettingsController extends Controller
 {
-    public function index(): JsonResponse
+    public function index(): Response
     {
         $response = Settings::query()->orderBy('name')->get()->keyBy('name');
         $response = SettingsResource::collection($response);
@@ -20,7 +20,7 @@ class SettingsController extends Controller
         return response()->json($response, 200);
     }
 
-    public function update(SettingsRequest $request): JsonResponse
+    public function update(SettingsRequest $request): Response
     {
         $data = $request->validatedData;
 

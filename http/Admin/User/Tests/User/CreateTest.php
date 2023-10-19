@@ -27,7 +27,6 @@ class CreateTest extends _TestCase
                     ),
                 ],
             ],
-            assertStatus: 201,
         );
     }
 }

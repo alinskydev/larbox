@@ -16,7 +16,6 @@ class CreateTest extends _TestCase
                     'admin.section.show',
                 ],
             ],
-            assertStatus: 201,
         );
     }
 }

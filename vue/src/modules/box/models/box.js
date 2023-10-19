@@ -329,7 +329,7 @@ export default new Model({
                                     params: [
                                         {
                                             value: record.categories ? record.categories.map((value) => value.id) : [],
-                                            httpPath: 'box/category-tree',
+                                            httpPath: 'box/category/tree',
                                         },
                                     ],
                                 };

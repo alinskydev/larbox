@@ -3,7 +3,7 @@
 namespace Http\Admin\Section\Controllers;
 
 use App\Base\Controller;
-use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Contracts\Validation\ValidatesWhenResolved;
 
 use Modules\Section\Models\Section;
@@ -28,7 +28,7 @@ class SectionController extends Controller
         app()->bind(ValidatesWhenResolved::class, $this->requestClass);
     }
 
-    public function show(): JsonResponse
+    public function show(): Response
     {
         $response = array_merge(
             $this->resourceClass::make($this->model->blocks)->resolve(),
@@ -42,7 +42,7 @@ class SectionController extends Controller
         return response()->json($response, 200);
     }
 
-    public function update(ValidatesWhenResolved $request): JsonResponse
+    public function update(ValidatesWhenResolved $request): Response
     {
         $request->model->safelySave(['blocks' => $request->validatedData]);
         return $this->successResponse();

@@ -3,7 +3,7 @@
 namespace Http\Admin\User\Controllers;
 
 use App\Http\Controllers\ResourceController;
-use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 use Modules\User\Models\Role;
 use Modules\User\Search\RoleSearch;

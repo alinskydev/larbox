@@ -120,26 +120,26 @@ export default {
                             v-if="
                                 action === 'deleteMultiple' &&
                                 !$route.query['show[deleted]'] &&
-                                App.helpers.user.checkRoute(config.http.path + '/deleteMultiple')
+                                App.helpers.user.checkRoute(config.http.path + '/delete-multiple')
                             "
                             class="btn btn-danger text-start"
                             @click="deleteMultipleAction"
                         >
                             <i class="fas fa-trash-alt me-1"></i>
-                            {{ App.t('routeActions->deleteMultiple') }}
+                            {{ App.t('routeActions->delete-multiple') }}
                         </button>
 
                         <button
                             v-if="
                                 action === 'deleteMultiple' &&
                                 $route.query['show[deleted]'] === 'only-deleted' &&
-                                App.helpers.user.checkRoute(config.http.path + '/restoreMultiple')
+                                App.helpers.user.checkRoute(config.http.path + '/restore-multiple')
                             "
                             class="btn btn-success text-start"
                             @click="restoreMultipleAction"
                         >
                             <i class="fas fa-trash-restore me-1"></i>
-                            {{ App.t('routeActions->restoreMultiple') }}
+                            {{ App.t('routeActions->restore-multiple') }}
                         </button>
                     </template>
                 </div>

@@ -9,6 +9,9 @@ class Router extends BaseRouter
 {
     public function apiResource($name, $controller, array $options = []): PendingResourceRegistration
     {
+        $options['names']['deleteMultiple'] = $name ? "$name.delete-multiple" : 'delete-multiple';
+        $options['names']['restoreMultiple'] = $name ? "$name.restore-multiple" : 'restore-multiple';
+
         $only = [
             'index', 'show',
             'create', 'update',

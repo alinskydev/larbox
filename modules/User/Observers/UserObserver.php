@@ -8,8 +8,6 @@ class UserObserver
 {
     public function created(User $model): void
     {
-        $model->profile()->create();
-
         $model->getService()->createNewAccessToken();
     }
 

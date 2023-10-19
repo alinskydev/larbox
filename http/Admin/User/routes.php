@@ -11,8 +11,8 @@ Route::prefix('user')
     ->group(function () {
         Route::prefix('notification')
             ->group(function () {
+                Route::patch('see-all', [NotificationController::class, 'seeAll'])->name('see-all');
                 Route::apiResource('', NotificationController::class)->only(['index', 'show', 'create']);
-                Route::patch('see-all', [NotificationController::class, 'seeAll'])->name('seeAll');
             });
 
         Route::prefix('profile')
@@ -21,6 +21,6 @@ Route::prefix('user')
                 Route::put('', [ProfileController::class, 'update'])->name('update');
             });
 
-        Route::apiResource('role', RoleController::class)->except(['deleteMultiple', 'restore', 'restoreMultiple']);
+        Route::apiResource('role', RoleController::class)->except(['restore', 'deleteMultiple', 'restoreMultiple']);
         Route::apiResource('user', UserController::class)->except(['deleteMultiple', 'restoreMultiple']);
     });

@@ -16,7 +16,6 @@ class CreateTest extends _TestCase
                 'file' => FormHelper::files(),
                 'files_list' => FormHelper::files(quantity: 2),
             ],
-            assertStatus: 201,
         );
     }
 }

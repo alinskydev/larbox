@@ -15,7 +15,6 @@ class CreateTest extends _TestCase
 
                 ...FormHelper::seoMeta(),
             ],
-            assertStatus: 201,
         );
     }
 }

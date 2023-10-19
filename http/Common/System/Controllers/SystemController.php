@@ -3,7 +3,7 @@
 namespace Http\Common\System\Controllers;
 
 use App\Base\Controller;
-use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Arr;
 use Modules\Feedback\Enums\FeedbackStatusEnum;
 use Modules\Section\Enums\SectionEnum;
@@ -14,7 +14,7 @@ use Modules\User\Helpers\RoleHelper;
 
 class SystemController extends Controller
 {
-    public function index(): JsonResponse
+    public function index(): Response
     {
         $response = [
             'settings' => $this->settings(),

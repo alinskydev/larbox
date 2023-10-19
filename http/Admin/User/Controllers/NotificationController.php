@@ -3,7 +3,7 @@
 namespace Http\Admin\User\Controllers;
 
 use App\Http\Controllers\ResourceController;
-use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use App\Base\Model;
 use Illuminate\Contracts\Validation\ValidatesWhenResolved;
 
@@ -25,23 +25,23 @@ class NotificationController extends ResourceController
         );
     }
 
-    public function show(Model $model): JsonResponse
+    public function show(Model $model): Response
     {
         $model->update(['is_seen' => 1]);
         return parent::show($model);
     }
 
-    public function create(ValidatesWhenResolved $request): JsonResponse
+    public function create(ValidatesWhenResolved $request): Response
     {
         NotificationPrepareCreateJob::dispatch(
             data: $request->validatedData,
             creatorId: request()->user()->id,
         );
 
-        return $this->successResponse(201);
+        return $this->successResponse();
     }
 
-    public function seeAll(): JsonResponse
+    public function seeAll(): Response
     {
         Notification::query()->update(['is_seen' => 1]);
         return $this->successResponse();

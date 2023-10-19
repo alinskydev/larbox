@@ -13,7 +13,6 @@ class CreateTest extends _TestCase
             body: [
                 'name' => 'Tag 3',
             ],
-            assertStatus: 201,
         );
     }
 }

@@ -2,22 +2,20 @@
 
 namespace App\Testing\Feature;
 
-use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use App\Testing\CreatesApplicationTrait;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Testing\TestResponse;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Http\Testing\File;
-use Illuminate\Support\Facades\Artisan;
-use Symfony\Component\HttpFoundation\StreamedResponse;
-
 use Modules\User\Models\User;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class PostmanTestCase extends BaseTestCase
 {
     use CreatesApplicationTrait;
-
-    private static bool $isFirstClassTest = true;
+    use DatabaseTransactions;
 
     public int $userId;
 
@@ -38,6 +36,18 @@ class PostmanTestCase extends BaseTestCase
     private array $requestFiles = [];
 
     public TestResponse $response;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        if (isset($this->userId)) {
+            /** @var \Illuminate\Contracts\Auth\Authenticatable */
+            $user = User::query()->findOrFail($this->userId);
+            $this->actingAs($user, 'sanctum');
+            request()->setUserResolver(fn () => $user);
+        }
+    }
 
     public function sendRequest(
         string $method = 'GET',
@@ -79,9 +89,6 @@ class PostmanTestCase extends BaseTestCase
         $this->allRequestHeaders = array_merge($this->defaultHeaders, $this->requestHeaders);
 
         if (isset($this->userId)) {
-            /** @var \Illuminate\Contracts\Auth\Authenticatable */
-            $user = User::query()->findOrFail($this->userId);
-            $this->actingAs($user, 'sanctum');
             $this->allRequestHeaders['Authorization'] = '<TOKEN>';
         }
 
@@ -91,21 +98,6 @@ class PostmanTestCase extends BaseTestCase
             parameters: $this->requestBody,
             server: $this->transformHeadersToServerVars($this->allRequestHeaders),
         );
-    }
-
-    public static function setUpBeforeClass(): void
-    {
-        self::$isFirstClassTest = true;
-    }
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        if (self::$isFirstClassTest) {
-            Artisan::call('larbox:migrate --hide-info');
-            self::$isFirstClassTest = false;
-        }
     }
 
     public function callBeforeApplicationDestroyedCallbacks(): void

@@ -22,7 +22,6 @@ class IndexTest extends _TestCase
             query: [
                 'show' => ['boxes_count'],
             ],
-            assertStatus: 206,
         );
     }
 

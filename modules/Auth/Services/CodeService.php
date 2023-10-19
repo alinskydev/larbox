@@ -21,8 +21,7 @@ class CodeService
 
     public function sendCode(): void
     {
-        // $code = Str::random(32);
-        $code = '1234';
+        $code = app()->environment('production') ? Str::random(32) : '1234';
 
         $this->model->code = $code;
         $this->model->attempts_left = 3;
