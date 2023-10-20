@@ -6,10 +6,6 @@ import * as Enums from '@/core/enums';
 <script>
 export default {
     props: {
-        routeAll: {
-            type: String,
-            required: true,
-        },
         label: {
             type: String,
             required: true,
@@ -22,9 +18,19 @@ export default {
             type: Array,
             default: [],
         },
+        routeAsterisk: {
+            type: String,
+        },
     },
     data() {
         return {};
+    },
+    mounted() {
+        let $row = $(this.$el).closest('tr'),
+            totalCount = $row.find('input[type="checkbox"][data-level="3"]').length,
+            checkedCount = $row.find('input[type="checkbox"][data-level="3"]:checked').length;
+
+        $row.find('input[type="checkbox"][data-level="2"]').prop('checked', checkedCount === totalCount);
     },
     methods: {
         toggle(event) {
@@ -54,8 +60,8 @@ export default {
             <input
                 type="checkbox"
                 name="routes[]"
-                :value="routeAll"
-                :checked="value.includes(routeAll)"
+                :value="routeAsterisk"
+                :checked="value.includes(routeAsterisk)"
                 class="form-check-input"
                 data-level="2"
                 @change="toggle"
@@ -76,7 +82,7 @@ export default {
                         name="routes[]"
                         :value="route"
                         class="form-check-input"
-                        :checked="value.includes(route) || value.includes(routeAll)"
+                        :checked="value.includes(route) || value.includes(routeAsterisk)"
                         data-level="3"
                         @change="toggle"
                     />

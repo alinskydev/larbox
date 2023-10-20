@@ -21,7 +21,6 @@ export default {
         };
     },
     mounted() {
-        console.log(this.httpPath);
         this.treeView = $('#tree-' + this.parentId);
 
         App.helpers.http

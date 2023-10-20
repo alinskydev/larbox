@@ -21,6 +21,11 @@ Route::prefix('user')
                 Route::put('', [ProfileController::class, 'update'])->name('update');
             });
 
-        Route::apiResource('role', RoleController::class)->except(['restore', 'deleteMultiple', 'restoreMultiple']);
+        Route::prefix('role')
+            ->group(function () {
+                Route::get('available-routes', [RoleController::class, 'availableRoutes'])->name('available-routes');
+                Route::apiResource('', RoleController::class)->except(['restore', 'deleteMultiple', 'restoreMultiple']);
+            });
+
         Route::apiResource('user', UserController::class)->except(['deleteMultiple', 'restoreMultiple']);
     });

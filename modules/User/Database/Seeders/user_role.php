@@ -26,6 +26,7 @@ return new class extends Seeder
                     'admin.box.tag.create',
                     'admin.box.tag.update',
                     'admin.section.show',
+                    'admin.user.role.*',
                 ]),
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),

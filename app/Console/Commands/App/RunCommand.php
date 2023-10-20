@@ -3,6 +3,7 @@
 namespace App\Console\Commands\App;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Str;
 
 class RunCommand extends Command
 {
@@ -12,5 +13,6 @@ class RunCommand extends Command
 
     public function handle(): void
     {
+        dd(Str::is('qwe.qwe', 'qwe.*'));
     }
 }

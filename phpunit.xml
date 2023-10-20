@@ -7,8 +7,8 @@
         <testsuite name="Feature">
             <!-- FOR DEV -->
 
-            <!-- <directory suffix="Test.php">./http/Admin/User/Tests/User</directory> -->
-            <directory suffix="ShowTest.php">./http/Website/Box/Tests</directory>
+            <directory suffix="Test.php">./http/Admin/User/Tests/Role</directory>
+            <!-- <directory suffix="ShowTest.php">./http/Website/Box/Tests</directory> -->
 
             <!-- <directory suffix="Test.php">./http/Common/Auth</directory> -->
 

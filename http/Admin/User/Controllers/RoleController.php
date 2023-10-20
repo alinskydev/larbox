@@ -9,6 +9,7 @@ use Modules\User\Models\Role;
 use Modules\User\Search\RoleSearch;
 use Modules\User\Resources\RoleResource;
 use Http\Admin\User\Requests\RoleRequest;
+use Modules\User\Helpers\RoleHelper;
 
 class RoleController extends ResourceController
 {
@@ -20,5 +21,11 @@ class RoleController extends ResourceController
             resourceClass: RoleResource::class,
             formRequestClass: RoleRequest::class,
         );
+    }
+
+    public function availableRoutes(): Response
+    {
+        $routes = RoleHelper::routesTree(true);
+        return response()->json($routes);
     }
 }

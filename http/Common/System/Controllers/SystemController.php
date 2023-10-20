@@ -9,6 +9,7 @@ use Illuminate\Support\Arr;
 use Modules\Section\Enums\SectionEnum;
 use Modules\Section\Models\Section;
 use Modules\System\Resources\SettingsResource;
+use Modules\User\Helpers\RoleHelper;
 
 class SystemController extends Controller
 {
@@ -35,7 +36,10 @@ class SystemController extends Controller
 
     private function enums(): array
     {
-        $result = [];
+        $result = [
+            'User.Role.RoutesList' => RoleHelper::routesList(false),
+            'User.Role.RoutesTree' => RoleHelper::routesTree(false),
+        ];
 
         $types = ['Enum', 'JsonTemplate'];
 

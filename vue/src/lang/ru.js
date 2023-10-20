@@ -71,6 +71,7 @@ export default {
     },
 
     'routeActions': {
+        'available-routes': 'Доступные права',
         'create': 'Создание',
         'delete': 'Удаление',
         'delete-multiple': 'Множественное удаление',

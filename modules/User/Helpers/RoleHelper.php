@@ -5,6 +5,7 @@ namespace Modules\User\Helpers;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use Modules\User\Models\Role;
 
 class RoleHelper
 {
@@ -23,8 +24,12 @@ class RoleHelper
         'website.*',
     ];
 
-    public static function routesList(): array
+    public static function routesList(bool $isFilteredByUser, ?Role $role = null): array
     {
+        $role ??= request()->user()->role ?? null;
+
+        if ($isFilteredByUser && !$role) return [];
+
         $routes = Route::getRoutes()->getRoutes();
 
         $result = array_map(function ($route) {
@@ -36,17 +41,44 @@ class RoleHelper
             return $routeName;
         }, $routes);
 
-        $result = array_filter($result, fn ($value) => !Str::is(self::$excludedRoutes, $value));
+        $result = array_filter($result, function ($value) use ($isFilteredByUser, $role) {
+            if (Str::is(self::$excludedRoutes, $value)) return false;
+            return !$isFilteredByUser || Str::is($role->routes, $value);
+        });
+
         $result = array_values($result);
 
         return $result;
     }
 
-    public static function routesTree(): array
+    public static function routesTree(bool $isFilteredByUser): array
     {
-        $result = self::routesList();
+        $result = self::routesList($isFilteredByUser);
         $result = array_combine($result, $result);
         $result = Arr::undot($result);
+
+        return $result;
+    }
+
+    public static function groupRoutesByCount(array $routes): array
+    {
+        $result = [];
+
+        foreach ($routes as $route) {
+            $matches = explode('.', $route);
+
+            $fullMatch = [];
+
+            foreach ($matches as $match) {
+                $fullMatch[] = $match;
+                $key = implode('.', $fullMatch);
+
+                $result[$key] ??= 0;
+                $result[$key]++;
+            }
+        }
+
+        $result = array_filter($result, fn ($value) => $value > 1);
 
         return $result;
     }

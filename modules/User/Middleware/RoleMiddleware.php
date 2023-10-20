@@ -20,7 +20,7 @@ class RoleMiddleware
         $routeName = "$routePrefix.$routeName";
         $routeName = trim($routeName, '.');
 
-        $routes = RoleHelper::routesList();
+        $routes = RoleHelper::routesList(false);
 
         if (in_array($routeName, $routes) && !Str::is($role->routes, $routeName)) {
             abort(403, __('У вас нет доступа для совершения данного действия'));

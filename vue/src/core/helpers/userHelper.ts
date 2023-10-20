@@ -16,26 +16,11 @@ export default class {
     }
 
     checkRoute(routeName: string) {
-        routeName = 'admin.' + routeName.replaceAll('/', '.');
-
-        // let checkableRoutes = App.enums.user_role.routes.list,
-        let checkableRoutes = [],
+        let checkableRoutes = App.enums.User.Role.RoutesList,
             userRoutes = App.user.role.routes;
 
-        if (!checkableRoutes.includes(routeName) || userRoutes.includes(routeName)) return true;
+        routeName = 'admin.' + routeName.replaceAll('/', '.');
 
-        // Checking route availability by asterisks
-
-        let routeNameArr = routeName.split('.'),
-            routeNameWithAsterisk;
-
-        for (let i = 0; i < routeNameArr.length; i++) {
-            routeNameWithAsterisk = routeNameArr.slice(0, i);
-            routeNameWithAsterisk = routeNameWithAsterisk.length > 0 ? routeNameWithAsterisk.join('.') + '.*' : '*';
-
-            if (userRoutes.includes(routeNameWithAsterisk)) return true;
-        }
-
-        return false;
+        return !checkableRoutes.includes(routeName) || userRoutes.includes(routeName);
     }
 }

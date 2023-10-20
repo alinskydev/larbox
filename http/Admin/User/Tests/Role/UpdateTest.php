@@ -14,7 +14,7 @@ class UpdateTest extends _TestCase
             body: [
                 'name' => FormHelper::localized('Moderator'),
                 'routes' => [
-                    'admin.box.box.*',
+                    'admin.box.box.index',
                     'admin.box.tag.index',
                     'admin.box.tag.show',
                     'admin.box.tag.create',

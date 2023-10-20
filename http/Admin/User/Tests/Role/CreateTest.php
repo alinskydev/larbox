@@ -13,6 +13,9 @@ class CreateTest extends _TestCase
             body: [
                 'name' => FormHelper::localized('Role 3'),
                 'routes' => [
+                    'admin.box.box.index',
+                    'admin.box.box.create',
+                    'admin.box.box.update',
                     'admin.section.show',
                 ],
             ],

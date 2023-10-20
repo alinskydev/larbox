@@ -3,7 +3,7 @@
 namespace Modules\User\Observers;
 
 use Modules\User\Models\Role;
-use Illuminate\Support\Str;
+use Modules\User\Helpers\RoleHelper;
 use Modules\User\Models\User;
 
 class RoleObserver
@@ -11,14 +11,24 @@ class RoleObserver
     public function saving(Role $model): void
     {
         $routes = $model->routes ?? [];
+        $availableRoutes = RoleHelper::routesList(false);
 
-        $asteriskRoutes = array_filter($routes, fn ($value) => str_ends_with($value, '.*'));
+        $routeGroups = RoleHelper::groupRoutesByCount($routes);
+        $availableRouteGroups = RoleHelper::groupRoutesByCount($availableRoutes);
 
-        $routes = array_filter($routes, function ($value) use ($asteriskRoutes) {
-            return in_array($value, $asteriskRoutes) || !Str::is($asteriskRoutes, $value);
-        });
+        krsort($routeGroups);
 
-        $model->routes = array_values($routes);
+        foreach ($routeGroups as $group => $quantity) {
+            if ($quantity === $availableRouteGroups[$group]) {
+                $routes = array_filter($routes, fn ($value) => !str_starts_with($value, $group));
+                $routes[] = "$group.*";
+            }
+        }
+
+        $routes = array_values($routes);
+        sort($routes);
+
+        $model->routes = $routes;
     }
 
     public function deleting(Role $model): void

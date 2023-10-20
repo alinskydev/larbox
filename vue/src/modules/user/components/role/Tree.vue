@@ -17,8 +17,20 @@ export default {
     },
     data() {
         return {
-            routes: App.enums.user_role.routes.tree.admin,
+            routes: [],
         };
+    },
+    mounted() {
+        App.helpers.http
+            .send({
+                method: 'GET',
+                path: 'user/role/available-routes',
+            })
+            .then((response) => {
+                if (response.statusType === 'success') {
+                    this.routes = response.data.admin;
+                }
+            });
     },
 };
 </script>
@@ -27,7 +39,7 @@ export default {
     <div class="col-12">
         <table class="table table-bordered">
             <template v-for="(routes1, routes1Key) in routes">
-                <thead>
+                <tbody>
                     <tr class="bg-primary text-white">
                         <th colspan="3">
                             <div class="text-center font-size-16 font-weight-bold m-0">
@@ -35,37 +47,31 @@ export default {
                             </div>
                         </th>
                     </tr>
-                </thead>
 
-                <tbody>
-                    <template v-if="typeof Object.values(routes1)[0] === 'object'">
-                        <tr v-for="(routes2, routes2Key) in routes1">
+                    <tr v-for="(routes2, routes2Key) in routes1">
+                        <template v-if="typeof routes2 === 'object'">
                             <Routes
-                                :routeAll="prefix + '.' + routes1Key + '.' + routes2Key + '.*'"
                                 :label="App.t('routes->' + routes1Key + '.' + routes2Key)"
                                 :routes="routes2"
                                 :value="value"
+                                :routeAsterisk="prefix + '.' + routes1Key + '.' + routes2Key + '.*'"
                             />
-                        </tr>
-                    </template>
+                        </template>
 
-                    <template v-else>
-                        <tr>
+                        <template v-else>
                             <Routes
-                                :routeAll="prefix + '.' + routes1Key + '.*'"
-                                :label="App.t('routes->' + routes1Key)"
-                                :routes="routes1"
+                                :label="App.t('routeActions->' + routes2Key)"
+                                :routes="{}"
                                 :value="value"
+                                :routeAsterisk="prefix + '.' + routes1Key + '.' + routes2Key"
                             />
-                        </tr>
-                    </template>
-                </tbody>
-
-                <tfoot>
-                    <tr>
-                        <td colspan="3" class="bg-white"></td>
+                        </template>
                     </tr>
-                </tfoot>
+
+                    <tr>
+                        <td colspan="3" style="border-color: transparent"></td>
+                    </tr>
+                </tbody>
             </template>
         </table>
     </div>

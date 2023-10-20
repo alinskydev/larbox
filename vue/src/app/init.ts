@@ -4,7 +4,7 @@ export default function () {
     return App.helpers.http
         .send({
             method: 'GET',
-            path: '../common/system?show-all=1',
+            path: '../common/system',
         })
         .then((response: any) => {
             if (response.statusType === 'success') {
