@@ -33,7 +33,7 @@ class Controller extends BaseController
             callback: function () use ($data) {
                 echo $data;
             },
-            name: hexdec(uniqid()) . ".$extension",
+            name: hexdec(uniqid()) . ($extension ? ".$extension" : ''),
         );
     }
 }
