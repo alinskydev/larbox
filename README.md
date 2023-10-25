@@ -41,14 +41,6 @@ npm install
 npm run dev
 ```
 
-### Runtime possible error fix
-1. If you'll get error in console, remove **type="module"** from **<script ...** tags in {your_project_folder}/vue/index_prod.html.
-2. Rerun
-```
-npm run dev
-```
-3. Revert all changes in {your_project_folder}/vue/index_prod.html
-
 ## Folders structure
 
 Main folders you need:
