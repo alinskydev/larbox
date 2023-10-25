@@ -159,12 +159,9 @@ export default {
                             let node = previous ? previous : next ? next : parent,
                                 type = previous ? 'after' : next ? 'before' : 'into';
 
-                            // formData.append('id', data.node.id);
-                            // formData.append('node_id', node.id);
-                            // formData.append('type', type);
-                            formData.append('id', 2);
-                            formData.append('node_id', 8);
-                            formData.append('type', 'into');
+                            formData.append('id', data.node.id);
+                            formData.append('node_id', node.id);
+                            formData.append('type', type);
 
                             App.helpers.http
                                 .send({
