@@ -9,28 +9,28 @@ class NestedSetResource extends JsonResource
     public function toArray($request): array
     {
         return array_replace_recursive(parent::toArray($request), [
-            'children' => $this->when(false, false),
+            'descendants' => $this->when(false, false),
         ]);
     }
 
     protected function fullField(string $field, string $separator): string
     {
         $result = [
-            ...$this->parents->pluck($field)->toArray(),
+            ...$this->ancestors->pluck($field)->toArray(),
             $this->{$field},
         ];
 
         return implode($separator, $result);
     }
 
-    protected function appendFullFieldToParents(string $field, string $separator): void
+    protected function appendFullFieldToAncestors(string $field, string $separator): void
     {
         $fullField = "full_$field";
         $fields = [];
 
-        foreach ($this->parents as &$parent) {
-            $fields[] = $parent->{$field};
-            $parent->{$fullField} = implode($separator, $fields);
+        foreach ($this->ancestors as &$ancestor) {
+            $fields[] = $ancestor->{$field};
+            $ancestor->{$fullField} = implode($separator, $fields);
         }
     }
 }

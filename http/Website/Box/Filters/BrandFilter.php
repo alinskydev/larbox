@@ -3,11 +3,11 @@
 namespace Http\Website\Box\Filters;
 
 use App\Base\Filter;
-use App\Base\QueryBuilder;
+use Illuminate\Database\Eloquent\Builder;
 
 class BrandFilter extends Filter
 {
-    public function process(QueryBuilder $query, ?string $pk = null): QueryBuilder
+    public function process(Builder $query, ?string $pk = null): Builder
     {
         return $query
             ->filterByUser('creator_id')

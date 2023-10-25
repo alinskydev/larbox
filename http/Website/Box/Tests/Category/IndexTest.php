@@ -29,7 +29,7 @@ class IndexTest extends _TestCase
     {
         $this->sendRequestWithFilters([
             'id' => 3,
-            'depth' => 2,
+            'parent_id' => 1,
             'name' => 'category',
         ]);
     }

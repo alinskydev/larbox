@@ -36,6 +36,11 @@ export default {
                 $(this).val(pickerValue);
                 $(this).next().val(hiddenValue);
             });
+
+        $('#' + this.item.elementId).on('focusout', (event) => {
+            let $el = $(event.currentTarget);
+            if ($el.val() === '') $el.next().val('');
+        });
     },
     beforeUnmount() {
         $('#' + this.item.elementId)

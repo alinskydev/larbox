@@ -2,13 +2,25 @@
 
 namespace App\NestedSet;
 
-use App\NestedSet\Relations\Parents\NestedSetSingleParentRelation;
-use App\NestedSet\Relations\Parents\NestedSetAllParentsRelation;
-use App\NestedSet\Relations\Children\NestedSetAllChildrenRelation;
-use App\NestedSet\Relations\Siblings\NestedSetAllSiblingsRelation;
+use Kalnoy\Nestedset\AncestorsRelation;
+use Kalnoy\Nestedset\NodeTrait;
 
 trait NestedSetModelTrait
 {
+    use NodeTrait {
+        ancestors as ancestorsWithRoot;
+    }
+
+    public function getLftName()
+    {
+        return 'lft';
+    }
+
+    public function getRgtName()
+    {
+        return 'rgt';
+    }
+
     public function getStateAttribute(): array
     {
         return [
@@ -18,66 +30,28 @@ trait NestedSetModelTrait
         ];
     }
 
-    /**
-     * Only for getting relations
-     */
-    public function parent(): NestedSetSingleParentRelation
+    public function ancestors(): AncestorsRelation
     {
-        return (new NestedSetSingleParentRelation(static::query(), $this, 'tree', 'tree'))->withTrashed();
+        return $this->ancestorsWithRoot()->whereNotNull('parent_id');
     }
 
-    /**
-     * Only for getting relations
-     */
-    public function parents(): NestedSetAllParentsRelation
+    protected static function bootNestedSetModelTrait(): void
     {
-        return (new NestedSetAllParentsRelation(static::query(), $this, 'tree', 'tree'))->withTrashed();
-    }
+        static::addGlobalScope('order', function ($query) {
+            $query->orderBy('lft');
+        });
 
-    /**
-     * Only for getting relations
-     */
-    public function children(): NestedSetAllChildrenRelation
-    {
-        return (new NestedSetAllChildrenRelation(static::query(), $this, 'tree', 'tree'))->withTrashed();
-    }
-
-    /**
-     * Only for getting relations
-     */
-    public function siblings(): NestedSetAllSiblingsRelation
-    {
-        return (new NestedSetAllSiblingsRelation(static::query(), $this, 'tree', 'tree'))->withTrashed();
-    }
-
-    protected static function bootNestedSetModelTrait()
-    {
         static::retrieved(function (self $model) {
             $model->append(['text', 'state']);
         });
 
-        static::creating(function (self $model) {
-            $root = $model->newQuery()->findOrFail(1);
-
-            $model->lft = $root->rgt;
-            $model->rgt = $root->rgt + 1;
-            $model->depth = 1;
-
-            $root->rgt += 2;
-            $root->saveQuietly();
-        });
-
-        static::deleted(function (self $model) {
-            $model->children()->delete();
+        static::created(function (self $model) {
+            $model->newQuery()->findOrFail(1)->appendNode($model);
         });
 
         static::restoring(function (self $model) {
-            $parent = $model->parents()->onlyTrashed()->first();
+            $parent = $model->ancestors()->onlyTrashed()->first();
             if ($parent) throw new \Exception(__('Восстановление записи без родителя невозможно'));
-        });
-
-        static::restored(function (self $model) {
-            $model->children()->restore();
         });
     }
 }

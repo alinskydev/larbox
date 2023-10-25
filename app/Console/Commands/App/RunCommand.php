@@ -3,7 +3,7 @@
 namespace App\Console\Commands\App;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Str;
+use Modules\Box\Models\Category;
 
 class RunCommand extends Command
 {
@@ -13,6 +13,10 @@ class RunCommand extends Command
 
     public function handle(): void
     {
-        dd(Str::is('qwe.qwe', 'qwe.*'));
+        $result = Category::query()->get()->toTree(1)->toArray();
+
+        echo '<pre>';
+        print_r($result);
+        echo '</pre>';
     }
 }

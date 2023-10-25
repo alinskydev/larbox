@@ -16,17 +16,16 @@ return new class extends Migration
     {
         Schema::create('box_category', function (Blueprint $table) {
             $table->id();
-            $table->tinyInteger('tree')->default(1);
-            $table->integer('lft')->index();
+            $table->integer('lft');
             $table->integer('rgt');
-            $table->integer('depth');
+            $table->integer('parent_id')->nullable();
             $table->jsonb('name');
             $table->string('slug')->index();
             $table->timestamp('created_at')->index();
             $table->timestamp('updated_at');
             $table->softDeletes();
 
-            $table->index(['lft', 'rgt']);
+            $table->index(['lft', 'rgt', 'parent_id']);
         });
     }
 

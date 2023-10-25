@@ -2,12 +2,12 @@
 
 namespace App\Search;
 
-use App\Base\QueryBuilder;
+use Illuminate\Database\Eloquent\Builder;
 
 class SearchSort
 {
     public function __construct(
-        private QueryBuilder $query,
+        private Builder $query,
         private array $sortings,
         private array $params,
     ) {

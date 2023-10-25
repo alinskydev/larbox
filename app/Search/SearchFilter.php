@@ -2,14 +2,14 @@
 
 namespace App\Search;
 
-use App\Base\QueryBuilder;
 use App\Search\Enums\SearchFilterConditionEnum;
 use App\Search\Enums\SearchFilterTypeEnum;
+use Illuminate\Database\Eloquent\Builder;
 
 class SearchFilter
 {
     public function __construct(
-        private QueryBuilder $query,
+        private Builder $query,
         private array $filters,
         private array $params,
     ) {
@@ -95,7 +95,7 @@ class SearchFilter
     }
 
     private function applyRelation(
-        QueryBuilder $query,
+        Builder $query,
         SearchFilterTypeEnum $filterType,
         SearchFilterConditionEnum $condition,
         string $relation,

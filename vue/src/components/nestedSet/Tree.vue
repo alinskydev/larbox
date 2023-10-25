@@ -152,11 +152,19 @@ export default {
                         })
                         .on('move_node.jstree', (event, data) => {
                             let formData = new FormData(),
-                                nodes = this.treeView
-                                    .jstree(true)
-                                    .get_json('#', { no_data: true, no_state: true, no_li_attr: true, no_a_attr: true });
+                                parent = data.instance.get_node(data.parent),
+                                previous = data.instance.get_node(parent.children[data.position - 1]),
+                                next = data.instance.get_node(parent.children[data.position + 1]);
 
-                            formData.append('tree', JSON.stringify(nodes));
+                            let node = previous ? previous : next ? next : parent,
+                                type = previous ? 'after' : next ? 'before' : 'into';
+
+                            // formData.append('id', data.node.id);
+                            // formData.append('node_id', node.id);
+                            // formData.append('type', type);
+                            formData.append('id', 2);
+                            formData.append('node_id', 8);
+                            formData.append('type', 'into');
 
                             App.helpers.http
                                 .send({

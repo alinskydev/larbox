@@ -14,7 +14,7 @@ class LocalizedLike extends SearchFilterType
         $this->query->{$this->condition}(
             DB::raw("LOWER($this->field->>'$locale')"),
             'LIKE',
-            mb_strtolower((string)$this->value) . '%'
+            '%' . mb_strtolower((string)$this->value) . '%',
         );
     }
 }

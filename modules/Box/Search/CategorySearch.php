@@ -12,7 +12,7 @@ class CategorySearch extends Search
 
     public array $filters = [
         'id' => SearchFilterTypeEnum::EQUAL_RAW,
-        'depth' => SearchFilterTypeEnum::EQUAL_RAW,
+        'parent_id' => SearchFilterTypeEnum::EQUAL_RAW,
         'name' => SearchFilterTypeEnum::LOCALIZED_LIKE,
 
         'full_text' => [
@@ -27,7 +27,7 @@ class CategorySearch extends Search
     {
         parent::with($params);
 
-        $this->query->with(['parents']);
+        $this->query->with(['ancestors']);
 
         return $this;
     }
@@ -36,7 +36,7 @@ class CategorySearch extends Search
     {
         parent::filter($params);
 
-        $this->query->where('depth', '>', 0);
+        $this->query->whereNotNull('parent_id');
 
         return $this;
     }
@@ -48,7 +48,7 @@ class CategorySearch extends Search
         if (in_array('boxes_count', $params)) {
             $this->query
                 ->with([
-                    'children' => function ($query) {
+                    'descendants' => function ($query) {
                         $query->withCount('boxes');
                     },
                 ])

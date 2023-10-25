@@ -2,15 +2,15 @@
 
 namespace App\Search\Filter;
 
-use App\Base\QueryBuilder;
 use App\Search\Enums\SearchFilterConditionEnum;
+use Illuminate\Database\Eloquent\Builder;
 
 abstract class SearchFilterType
 {
     protected string $condition;
 
     public function __construct(
-        protected QueryBuilder $query,
+        protected Builder $query,
         protected string $field,
         protected mixed $value,
         SearchFilterConditionEnum $condition,

@@ -24,13 +24,18 @@ export default {
                     format: 'HH:mm',
                 },
             })
-            .on('show.daterangepicker', function (ev, picker) {
+            .on('show.daterangepicker', function (event, picker) {
                 picker.container.find('.calendar-table').hide();
             })
-            .on('apply.daterangepicker', function (ev, picker) {
+            .on('apply.daterangepicker', function (event, picker) {
                 let value = picker.startDate.format(picker.locale.format);
                 $(this).val(value);
             });
+
+        $('#' + this.item.elementId).on('focusout', (event) => {
+            let $el = $(event.currentTarget);
+            if ($el.val() === '') $el.next().val('');
+        });
     },
     beforeUnmount() {
         $('#' + this.item.elementId)

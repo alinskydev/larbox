@@ -12,7 +12,7 @@ return new class extends Seeder
             [
                 'lft' => 1,
                 'rgt' => 16,
-                'depth' => 0,
+                'parent_id' => null,
                 'name' => SeederHelper::localized('Root', false),
                 'slug' => '',
                 'created_at' => date('Y-m-d H:i:s'),
@@ -21,7 +21,7 @@ return new class extends Seeder
             [
                 'lft' => 2,
                 'rgt' => 13,
-                'depth' => 1,
+                'parent_id' => 1,
                 'name' => SeederHelper::localized('Category 1'),
                 'slug' => SeederHelper::slug('Category 1'),
                 'created_at' => date('Y-m-d H:i:s'),
@@ -30,7 +30,7 @@ return new class extends Seeder
             [
                 'lft' => 3,
                 'rgt' => 8,
-                'depth' => 2,
+                'parent_id' => 2,
                 'name' => SeederHelper::localized('Category 1-1'),
                 'slug' => SeederHelper::slug('Category 1-1'),
                 'created_at' => date('Y-m-d H:i:s'),
@@ -39,7 +39,7 @@ return new class extends Seeder
             [
                 'lft' => 4,
                 'rgt' => 5,
-                'depth' => 3,
+                'parent_id' => 3,
                 'name' => SeederHelper::localized('Leaf 1'),
                 'slug' => SeederHelper::slug('Leaf 1'),
                 'created_at' => date('Y-m-d H:i:s'),
@@ -48,7 +48,7 @@ return new class extends Seeder
             [
                 'lft' => 6,
                 'rgt' => 7,
-                'depth' => 3,
+                'parent_id' => 3,
                 'name' => SeederHelper::localized('Leaf 2'),
                 'slug' => SeederHelper::slug('Leaf 2'),
                 'created_at' => date('Y-m-d H:i:s'),
@@ -57,7 +57,7 @@ return new class extends Seeder
             [
                 'lft' => 9,
                 'rgt' => 12,
-                'depth' => 2,
+                'parent_id' => 2,
                 'name' => SeederHelper::localized('Category 1-2'),
                 'slug' => SeederHelper::slug('Category 1-2'),
                 'created_at' => date('Y-m-d H:i:s'),
@@ -66,7 +66,7 @@ return new class extends Seeder
             [
                 'lft' => 10,
                 'rgt' => 11,
-                'depth' => 3,
+                'parent_id' => 6,
                 'name' => SeederHelper::localized('Leaf 1'),
                 'slug' => SeederHelper::slug('Leaf 1'),
                 'created_at' => date('Y-m-d H:i:s'),
@@ -75,7 +75,7 @@ return new class extends Seeder
             [
                 'lft' => 14,
                 'rgt' => 15,
-                'depth' => 1,
+                'parent_id' => 1,
                 'name' => SeederHelper::localized('Category 2'),
                 'slug' => SeederHelper::slug('Category 2'),
                 'created_at' => date('Y-m-d H:i:s'),

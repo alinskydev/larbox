@@ -5,7 +5,6 @@ namespace Http\Website\Box\Controllers;
 use App\NestedSet\NestedSetController;
 use App\NestedSet\NestedSetHelper;
 use Http\Website\Box\Filters\CategoryFilter;
-use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Arr;
 
@@ -27,13 +26,14 @@ class CategoryController extends NestedSetController
 
     public function tree(): Response
     {
-        /** @var JsonResponse */
-        $response = parent::tree();
+        $tree = $this->model->query()
+            ->get()
+            ->toTree(1)
+            ->toArray();
 
-        $data = $response->getData(true);
-        NestedSetHelper::appendFullFieldToTree($data, 'slug', '/');
+        NestedSetHelper::appendFullFieldToTree($tree, 'slug', '/');
 
-        return $response->setData($data);
+        return response()->json($tree);
     }
 
     public function showByFullSlug(string $fullSlug): Response

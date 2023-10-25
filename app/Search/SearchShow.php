@@ -2,13 +2,13 @@
 
 namespace App\Search;
 
-use App\Base\QueryBuilder;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class SearchShow
 {
     public function __construct(
-        private QueryBuilder $query,
+        private Builder $query,
         private array $params,
     ) {
     }

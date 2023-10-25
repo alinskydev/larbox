@@ -2,30 +2,43 @@
 
 namespace Http\Admin\Box\Tests\Category;
 
-use Modules\Box\Models\Category;
-use App\NestedSet\NestedSetHelper;
-
 class MoveTest extends _TestCase
 {
-    public string $requestUrl = 'admin/box/category/move';
-
-    public function test_success(): void
+    public function test_before(): void
     {
-        $model = Category::query()
-            ->with(['children' => function ($query) {
-                $query->select(['id', 'lft', 'rgt', 'depth']);
-            }])
-            ->select(['id', 'lft', 'rgt', 'depth'])
-            ->findOrFail(1);
-
-        $tree = NestedSetHelper::tree($model);
-        $tree = json_encode($tree);
-        $tree = htmlspecialchars($tree);
-
         $this->sendRequest(
             method: 'PATCH',
+            path: 'move',
             body: [
-                'tree' => $tree,
+                'id' => 8,
+                'node_id' => 2,
+                'type' => 'before',
+            ],
+        );
+    }
+
+    public function test_after(): void
+    {
+        $this->sendRequest(
+            method: 'PATCH',
+            path: 'move',
+            body: [
+                'id' => 2,
+                'node_id' => 8,
+                'type' => 'after',
+            ],
+        );
+    }
+
+    public function test_into(): void
+    {
+        $this->sendRequest(
+            method: 'PATCH',
+            path: 'move',
+            body: [
+                'id' => 2,
+                'node_id' => 8,
+                'type' => 'into',
             ],
         );
     }

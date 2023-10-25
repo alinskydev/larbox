@@ -5,12 +5,12 @@ namespace App\Base;
 use App\Search\SearchFilter;
 use App\Search\SearchSort;
 use App\Search\SearchShow;
-
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 
 class Search
 {
-    public QueryBuilder $query;
+    public Builder $query;
 
     public array $relations = [];
     public array $filters = [];
@@ -19,7 +19,7 @@ class Search
     public array $defaultSort = ['-id'];
     public int $pageSize = 50;
 
-    public function setQuery(QueryBuilder $query): static
+    public function setQuery(Builder $query): static
     {
         $this->query = $query;
         return $this;

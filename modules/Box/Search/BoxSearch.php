@@ -11,7 +11,7 @@ class BoxSearch extends Search
 {
     public array $relations = [
         'brand', 'variations', 'tags',
-        'categories', 'categories.parents',
+        'categories', 'categories.ancestors',
     ];
 
     public array $filters = [
@@ -28,7 +28,7 @@ class BoxSearch extends Search
             'condition' => SearchFilterConditionEnum::OR_WHERE,
             'filters' => [
                 'categories.id' => SearchFilterTypeEnum::EQUAL_RAW,
-                'categories.parents.id' => SearchFilterTypeEnum::EQUAL_RAW,
+                'categories.ancestors.id' => SearchFilterTypeEnum::EQUAL_RAW,
             ],
         ],
     ];

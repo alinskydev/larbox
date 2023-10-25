@@ -7,16 +7,16 @@
         <testsuite name="Feature">
             <!-- FOR DEV -->
 
-            <directory suffix="Test.php">./http/Admin/User/Tests/Role</directory>
+            <!-- <directory suffix="Test.php">./http/Admin/Box/Tests/Category</directory> -->
             <!-- <directory suffix="ShowTest.php">./http/Website/Box/Tests</directory> -->
 
             <!-- <directory suffix="Test.php">./http/Common/Auth</directory> -->
 
             <!-- FOR FRONTEND DEVELOPER -->
 
-            <!-- <directory suffix="Test.php">./http/Admin</directory>
+            <directory suffix="Test.php">./http/Admin</directory>
             <directory suffix="Test.php">./http/Common</directory>
-            <directory suffix="Test.php">./http/Website</directory> -->
+            <directory suffix="Test.php">./http/Website</directory>
         </testsuite>
     </testsuites>
     <coverage>

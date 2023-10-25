@@ -12,7 +12,7 @@ class Like extends SearchFilterType
         $this->query->{$this->condition}(
             DB::raw("LOWER($this->field::TEXT)"),
             'LIKE',
-            mb_strtolower((string)$this->value) . '%'
+            '%' . mb_strtolower((string)$this->value) . '%',
         );
     }
 }
