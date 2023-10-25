@@ -8,7 +8,6 @@ import AppVue from './App.vue';
 init().then(() => {
     const app = createApp(AppVue);
 
-    app.use(router);
 
     app.mixin({
         data() {
@@ -18,5 +17,6 @@ init().then(() => {
         },
     });
 
+    app.use(router);
     app.mount('#app');
 });
