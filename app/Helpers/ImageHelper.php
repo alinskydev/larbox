@@ -27,7 +27,7 @@ class ImageHelper
 
             $thumbPath = "storage/thumbs/$method";
             $thumbPath .= $params ? '/' . implode('x', $params) : '';
-            $thumbName = md5(File::basename($sourceFile) . filemtime($sourceFile)) . ".$extension";
+            $thumbName = md5($sourceFile) . filemtime($sourceFile) . ".$extension";
 
             $thumbFile = public_path("$thumbPath/$thumbName");
             $thumbUrl = "/$thumbPath/$thumbName";
