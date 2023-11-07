@@ -33,7 +33,23 @@ export default class {
                 };
             }
 
-            return response.json().then((body) => {
+            let contentType = response.headers.get('Content-Type'),
+                responseData;
+
+            switch (contentType) {
+                case 'application/json':
+                    responseData = response.json();
+                    break;
+                case 'text/html':
+                case 'text/html; charset=UTF-8':
+                    responseData = response.blob();
+                    break;
+                default:
+                    responseData = response.text();
+                    break;
+            }
+
+            return responseData.then((body) => {
                 // @ts-ignore
                 let toastrPlugin = toastr,
                     statusType;
