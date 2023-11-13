@@ -30,7 +30,11 @@ class ExistsWithOldRule extends Rule
 
         if (!$newValue) return true;
 
-        $query->whereIn($this->pk, $newValue);
+        if (count($newValue) === 1) {
+            $query->where($this->pk, $newValue);
+        } else {
+            $query->whereIn($this->pk, $newValue);
+        }
 
         if ($query->count() < count($newValue)) {
             return false;

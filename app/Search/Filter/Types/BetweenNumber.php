@@ -13,17 +13,17 @@ class BetweenNumber extends SearchFilterType
 
         if (isset($this->value[0])) {
             $this->query->{$this->condition}(
-                DB::raw("$this->field::INTEGER"),
+                DB::raw("$this->field::FLOAT"),
                 '>=',
-                (int)$this->value[0]
+                (float)$this->value[0]
             );
         }
 
         if (isset($this->value[1])) {
             $this->query->{$this->condition}(
-                DB::raw("$this->field::INTEGER"),
+                DB::raw("$this->field::FLOAT"),
                 '<=',
-                (int)$this->value[1]
+                (float)$this->value[1]
             );
         }
     }
