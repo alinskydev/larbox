@@ -125,9 +125,18 @@ class PostmanTestCase extends BaseTestCase
         // Getting target
 
         $target = $this->provides()[0]->getTarget();
-        $target = preg_replace('/^Http\\\|Tests\\\|Test|test_/', '', $target);
-        $target = str_replace(['\\', '::'], '.', $target);
-        $target = str_replace('___', ' | ', $target);
+
+        $targetPath = preg_replace('/^Http\\\|Tests\\\|Test|test_/', '', $target);
+        $targetPath = str_replace(['\\', '::'], '.', $targetPath);
+        $targetPath = str_replace('___', ' | ', $targetPath);
+
+        $targetArr = explode('::', $target);
+        $targetClass = new \ReflectionClass($targetArr[0]);
+
+        $comment = explode("\n", $targetClass->getDocComment());
+        $comment = array_map(fn ($value) => ltrim($value, '/* '), $comment);
+        $comment = implode("\n", $comment);
+        $comment = trim($comment);
 
         // Preparing data
 
@@ -157,7 +166,7 @@ class PostmanTestCase extends BaseTestCase
             ];
         }
 
-        $items[$target] = [
+        $items[$targetPath] = [
             'is_request' => true,
             'request' => [
                 'headers' => $this->allRequestHeaders,
@@ -171,6 +180,7 @@ class PostmanTestCase extends BaseTestCase
                 ],
             ],
             'response' => $responseData,
+            'comment' => $comment,
         ];
 
         // Saving to file

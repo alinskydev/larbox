@@ -133,12 +133,14 @@ class ExportTestsForPostmanCommand extends Command
                 ];
             } elseif (isset(current($item)['is_request'])) {
                 $request = current($item)['request'];
+                $comment = current($item)['comment'];
 
                 $data[] = [
                     'name' => implode(' ', Str::ucsplit($name)),
                     'request' => [
                         'method' => $request['method'],
                         'body' => ['mode' => 'none'],
+                        'description' => $comment,
                     ],
                     'response' => $this->addItems($item),
                 ];
