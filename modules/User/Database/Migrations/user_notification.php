@@ -20,7 +20,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('creator_id')->nullable()->index();
             $table->bigInteger('owner_id')->index();
-            $table->enum('type', NotificationTypeEnum::values());
+            $table->string('type');
             $table->jsonb('params');
             $table->boolean('is_seen')->default(0);
             $table->timestamp('created_at')->index();
