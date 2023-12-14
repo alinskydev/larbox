@@ -17,7 +17,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('telescope:prune --hours=48')->daily()->runInBackground();
 
-        $schedule->command('larbox:run')->cron('* * * * *')->runInBackground();
+        $schedule->command('app:remove_old_logs')->cron('0 1 * * *')->runInBackground();
     }
 
     /**

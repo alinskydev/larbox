@@ -12,6 +12,7 @@ use Illuminate\Http\Exceptions\ThrottleRequestsException;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Log;
 use TypeError;
 use Throwable;
 
@@ -56,6 +57,12 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+
+    public function report(Throwable $e)
+    {
+        Log::error($e->getMessage(), ['exception' => $e]);
+        parent::report($e);
     }
 
     /**

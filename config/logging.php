@@ -1,5 +1,6 @@
 <?php
 
+use App\Loggers\DatabaseLogger;
 use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogUdpHandler;
@@ -48,6 +49,11 @@ return [
     */
 
     'channels' => [
+        'database' => [
+            'driver' => 'custom',
+            'via' => DatabaseLogger::class,
+        ],
+
         'stack' => [
             'driver' => 'stack',
             'channels' => ['single'],
