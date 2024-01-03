@@ -35,6 +35,7 @@ class DatabaseLoggerHandler extends AbstractProcessingHandler
                 'class_name' => $exception::class,
                 'message' => $exception->getMessage(),
                 'trace' => json_encode($exception->getTrace()),
+                'user_id' => request()->user()?->id,
                 'created_at' => date('Y-m-d H:i:s'),
             ]);
         } catch (\Throwable $e) {

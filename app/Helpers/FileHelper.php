@@ -16,7 +16,10 @@ class FileHelper
 
         $fullPath = public_path($path);
 
-        if (!is_dir($fullPath)) mkdir($fullPath, 0777, true);
+        if (!is_dir($fullPath)) {
+            mkdir($fullPath, 0777, true);
+            chown($fullPath, 'www-data');
+        }
 
         file_put_contents("$fullPath/$name", $content);
         chown("$fullPath/$name", 'www-data');
@@ -33,7 +36,10 @@ class FileHelper
 
         $fullPath = public_path($path);
 
-        if (!is_dir($fullPath)) mkdir($fullPath, 0777, true);
+        if (!is_dir($fullPath)) {
+            mkdir($fullPath, 0777, true);
+            chown($fullPath, 'www-data');
+        }
 
         $file->move($fullPath, $name);
         chown("$fullPath/$name", 'www-data');

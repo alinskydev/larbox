@@ -13,7 +13,6 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
-use TypeError;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -88,7 +87,6 @@ class Handler extends ExceptionHandler
             case ModelNotFoundException::class:
                 return response()->json(['message' => 'Not found'], 404);
 
-            case TypeError::class:
             case QueryException::class:
                 return response()->json(['message' => 'Invalid input data type'], 400);
 

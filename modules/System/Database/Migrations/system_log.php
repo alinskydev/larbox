@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('class_name', 1000)->index();
             $table->text('message');
             $table->jsonb('trace');
+            $table->bigInteger('user_id')->nullable();
             $table->timestamp('created_at')->index();
         });
     }
