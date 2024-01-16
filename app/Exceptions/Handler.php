@@ -88,7 +88,11 @@ class Handler extends ExceptionHandler
                 return response()->json(['message' => 'Not found'], 404);
 
             case QueryException::class:
-                return response()->json(['message' => 'Invalid input data type'], 400);
+                if (app()->environment('production')) {
+                    return response()->json(['message' => 'Invalid input data type'], 400);
+                }
+
+                break;
 
             case ValidationException::class:
                 return $this->invalidJson($request, $e);
@@ -102,17 +106,16 @@ class Handler extends ExceptionHandler
                     ],
                     $e->getStatusCode(),
                 );
-
-            default:
-                $defaultStatus = app()->environment('testing') ? 400 : 500;
-
-                return response()->json(
-                    [
-                        'message' => $e->getMessage() ?: 'An error occurred',
-                    ],
-                    method_exists($e, 'getStatusCode') ? $e->getStatusCode() : $defaultStatus,
-                );
         }
+
+        $defaultStatus = app()->environment('testing') ? 400 : 500;
+
+        return response()->json(
+            [
+                'message' => $e->getMessage() ?: 'An error occurred',
+            ],
+            method_exists($e, 'getStatusCode') ? $e->getStatusCode() : $defaultStatus,
+        );
     }
 
     /**

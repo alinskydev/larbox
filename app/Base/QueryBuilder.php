@@ -17,13 +17,13 @@ use Illuminate\Database\Eloquent\Builder;
  * @method $this limit($params)
  * @method $this offset($params)
  * 
+ * @method $this join($params)
+ * @method $this leftJoin($params)
+ * @method $this rightJoin($params)
+ * 
  * @method $this withoutTrashed()
  * @method $this withTrashed()
  * @method $this onlyTrashed()
- * 
- * @method $this joinRelationship($params)
- * @method $this leftJoinRelationship($params)
- * @method $this rightJoinRelationship($params)
  */
 class QueryBuilder extends Builder
 {
