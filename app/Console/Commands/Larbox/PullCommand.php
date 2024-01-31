@@ -13,7 +13,6 @@ class PullCommand extends Command
 
     public function handle(): void
     {
-        Artisan::call('migrate');
         Artisan::call('queue:restart');
     }
 }
