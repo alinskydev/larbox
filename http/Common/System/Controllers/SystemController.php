@@ -52,7 +52,8 @@ class SystemController extends Controller
                 $class = ClassHelper::classByFile($file);
                 $name = preg_replace_array($pattern, ['', '.', ''], $class);
 
-                $result[$name] = method_exists($class, 'labels') ? $class::labels() : $class::cases();
+                $values = array_combine($class::values(), $class::values());
+                $result[$name] = method_exists($class, 'labels') ? $class::labels() : $values;
             }
         }
 
