@@ -5,6 +5,7 @@ namespace App\Base;
 use Illuminate\Foundation\Http\FormRequest as BaseFormRequest;
 use App\Helpers\HtmlPurifierHelper;
 use App\Helpers\FileHelper;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
@@ -105,9 +106,14 @@ class FormRequest extends BaseFormRequest
                 }
             }
 
-            $value = FileHelper::upload($value, $savePath);
+            $value = $savePath ? FileHelper::upload($value, $savePath) : null;
         }
 
         $this->validatedData = Arr::undot($this->validatedData);
+    }
+
+    public function getValidator(): Validator
+    {
+        return $this->getValidatorInstance();
     }
 }

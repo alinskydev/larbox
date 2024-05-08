@@ -2,6 +2,7 @@
 
 namespace Modules\Section\Enums;
 
+use App\Base\EnumTrait;
 use Illuminate\Support\Arr;
 use Modules\Section\Base\JsonResource;
 use Modules\Section\Base\EmptyFormRequest;
@@ -11,6 +12,8 @@ use Http\Admin\Section\Requests as Requests;
 
 enum SectionEnum: string
 {
+    use EnumTrait;
+
     case BOXES = 'boxes';
     case CONTACT = 'contact';
     case HOME = 'home';
