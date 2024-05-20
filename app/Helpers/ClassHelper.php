@@ -15,6 +15,6 @@ class ClassHelper
         $file = str_replace('/', '\\', $file);
         $file = ucfirst($file);
 
-        return "\\$file";
+        return $file;
     }
 }
