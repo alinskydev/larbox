@@ -65,7 +65,7 @@ class UserRequest extends ActiveFormRequest
         parent::passedValidation();
 
         if ($this->model->id === 1) {
-            Arr::forget($this->validatedData, 'mko_id');
+            Arr::forget($this->validatedData, 'role_id');
         }
 
         if ($this->new_password) {
