@@ -54,7 +54,7 @@ class ImageHelper
         $result = [
             'original' => [
                 'raw' => asset($url),
-                'webp' => asset(self::thumbnail(
+                'webp' => asset(static::thumbnail(
                     sourceUrl: $url,
                     method: 'original',
                     asWebp: true,
@@ -68,7 +68,7 @@ class ImageHelper
             foreach ($types as $type) {
                 $sizeParams = explode('_', $size);
 
-                $thumb = self::thumbnail(
+                $thumb = static::thumbnail(
                     sourceUrl: $url,
                     method: array_shift($sizeParams),
                     params: $sizeParams,
