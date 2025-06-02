@@ -14,16 +14,16 @@ class AsImages implements CastsAttributes
     public function __construct(string $sizes)
     {
         $this->sizes = explode('|', $sizes);
-        $this->sizes = array_filter($this->sizes, fn ($f_v) => $f_v !== null);
+        $this->sizes = array_filter($this->sizes, fn($f_v) => $f_v !== null);
     }
 
     public function get($model, $key, $value, $attributes): mixed
     {
-        if (!$value) return [];
-
         $value = json_decode($value, true);
 
-        return array_map(fn ($v) => ImageHelper::populateSizes($v, $this->sizes), $value);
+        if (!$value) return [];
+
+        return array_map(fn($v) => ImageHelper::populateSizes($v, $this->sizes), $value);
     }
 
     public function set($model, $key, $value, $attributes): mixed

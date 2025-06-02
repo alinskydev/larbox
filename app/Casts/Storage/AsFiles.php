@@ -10,11 +10,11 @@ class AsFiles implements CastsAttributes
 {
     public function get($model, $key, $value, $attributes): mixed
     {
-        if (!$value) return [];
-
         $value = json_decode($value, true);
 
-        return array_map(fn ($v) => asset($v), $value);
+        if (!$value) return [];
+
+        return array_map(fn($v) => asset($v), $value);
     }
 
     public function set($model, $key, $value, $attributes): mixed
