@@ -1,4 +1,6 @@
-## About Larbox
+# This project was updated. Use [Larbox 2]{https://github.com/alinskydev/larbox-2} instead
+
+## About Larbox1
 
 Larbox is a starter kit based on [Laravel framework](https://laravel.com). It is being developed according to the principles of DRY and KISS.
 
