@@ -1,4 +1,4 @@
-# This project was updated. Use [Larbox 2]{https://github.com/alinskydev/larbox-2} instead
+# This project won't be updated anymore. Use [Larbox 2]{https://github.com/alinskydev/larbox-2} instead
 
 ## About Larbox1
 
